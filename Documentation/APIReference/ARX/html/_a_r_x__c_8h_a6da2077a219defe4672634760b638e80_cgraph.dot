@@ -1,0 +1,58 @@
+digraph "arwStopRunning"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="arwStopRunning",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ARController::stopRunning",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_controller.html#a889dbbe581e771d1f4f2e28fad3f686b",tooltip="Video capture and tracking stops, but trackables are still valid and can be configured. "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ARVideoSource::isOpen",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_source.html#a8706190039e04f36a81ec6f97fdfe0be",tooltip="Returns true if the video source is open. "];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ARVideoSource::close",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_source.html#ae67083e64b2b3c6d7aa6d8cbe33ef95f",tooltip="Closes the video source. "];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ar2VideoCapStop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_8h.html#a1be4d84d7f0145a0abe41d9a351c867c"];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ar2VideoCapStopDummy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_dummy_8h.html#a78fa5654276bc8d340ffe8182d0bcd6c"];
+  Node5 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="ar2VideoCapStopV4L2",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_v4_l2_8h.html#a530b43b034daf2f89586fb69e9de74aa"];
+  Node5 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="ar2VideoCapStop1394",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video1394_8h.html#a23f653b38bb02af6d9050d02b0702f94"];
+  Node5 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="ar2VideoCapStopGStreamer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_g_streamer_8h.html#a7742f3dc5f58756420a4f50e9f588432"];
+  Node5 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="ar2VideoCapStopAVFoundation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_a_v_foundation_8h.html#a80dffabb6c571245b002d91e9031ca64"];
+  Node5 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="ar2VideoCapStopImage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_image_8h.html#af8b971aac579641ba46492cbd6394293"];
+  Node5 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="ar2VideoCapStopAndroid",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_android_8h.html#a0d13c2368b42b9e85c60830fb13fd04e"];
+  Node5 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="ar2VideoCapStopWinMF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_windows_media_foundation_8h.html#a76577330dd560a4785693d80f71d3919"];
+  Node5 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="ar2VideoCapStopWinMC",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_windows_media_capture_8h.html#a7fb2e79c53df9853a1a61b16be3b8e80"];
+  Node4 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="arParamLTFree",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$param_8h.html#ae8028c38d85676df772e04a2b32b0e33",tooltip="Dispose of a memory allocated to a lookup-table camera parameter. "];
+  Node4 -> Node16 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="ar2VideoClose",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_8h.html#a9e63fc8d035c52c91c2bfb1ee3d332ed"];
+  Node16 -> Node17 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="arVideoLumaFinal",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_luma_8h.html#aca65952813bda3666e8d3f70eef8448b"];
+  Node16 -> Node18 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="ar2VideoCloseDummy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_dummy_8h.html#ae518c53d87b1320ba8cd80ed8a23bf0a"];
+  Node16 -> Node19 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node19 [label="ar2VideoCloseV4L2",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_v4_l2_8h.html#a160602fb4d1827e9053166f051f4613d"];
+  Node16 -> Node20 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node20 [label="ar2VideoClose1394",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video1394_8h.html#aaea7efdd8dad25a42fe9b8f3bc3edf0b"];
+  Node16 -> Node21 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 [label="ar2VideoCloseGStreamer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_g_streamer_8h.html#a2b535cabcc05dd8fd6927690db49a902"];
+  Node16 -> Node22 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node22 [label="ar2VideoCloseAVFoundation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_a_v_foundation_8h.html#a2883b331cca58ccd1c036f2318041f03"];
+  Node16 -> Node23 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node23 [label="ar2VideoCloseImage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_image_8h.html#a3ffc443b510b55d94d0aed46e4277388"];
+  Node16 -> Node24 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node24 [label="ar2VideoCloseAndroid",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_android_8h.html#afb5748a9176a3e1a8aee435726c18be2"];
+  Node16 -> Node25 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node25 [label="ar2VideoCloseWinMF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_windows_media_foundation_8h.html#a88f48eef52a6f3c3c94bc8cdd48a7e9a"];
+  Node16 -> Node26 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node26 [label="ar2VideoCloseWinMC",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_windows_media_capture_8h.html#ab22b3535389f49f07154d5b1dd5d302e"];
+}

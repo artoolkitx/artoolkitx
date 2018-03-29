@@ -1,0 +1,30 @@
+digraph "arwDrawVideoSettings"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="arwDrawVideoSettings",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ARController::drawVideoSettings",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_controller.html#a4a0ab4d03572ba210c79a6f1043dfcbc"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ARVideoView::setRotate90",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_view.html#a25ffd610597c483020fd7e88e653fb78"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ARVideoView::rotate90",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_view.html#a1abba9038d499f12182bb4557cefd02e",tooltip="Defaults to true. "];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ARVideoView::setFlipH",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_view.html#a128378e1e100251aa48159f50484dc79"];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ARVideoView::flipH",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_view.html#a91229c8681405d3d0297ac2fd56d6335",tooltip="Defaults to false. "];
+  Node2 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="ARVideoView::setFlipV",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_view.html#a4af1fe48c71a10461d23d71ced32ee12"];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="ARVideoView::flipV",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_view.html#a02c591ea29bce47a7dd2f6ce3b1d62d8",tooltip="Defaults to false. "];
+  Node2 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="ARVideoView::setHorizontal\lAlignment",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_view.html#a4ff9d2658138c241024c96e47e91ef99"];
+  Node2 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="ARVideoView::setVertical\lAlignment",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_view.html#a7f3b8d64e4ae7fe284a6b8894deb859e"];
+  Node2 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="ARVideoView::setScalingMode",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_view.html#ab405e4937e0a64be4845fa7ba3e68e05"];
+  Node2 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="ARVideoView::getViewport",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_video_view.html#afca15ff991669238e1d666e5d963d28a"];
+}

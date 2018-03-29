@@ -1,0 +1,16 @@
+digraph "arVideoSetBufferSize"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="arVideoSetBufferSize",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ar2VideoSetBufferSize",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_8h.html#a6f861e57f4ad0c87273d54b75530125d"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ar2VideoSetBufferSizeDummy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_dummy_8h.html#a66a963881236aceb48c465bcc8d6db29"];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ar2VideoSetBufferSizeAVFoundation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_a_v_foundation_8h.html#a0f8863cc17bf63401e511e86dd40e2e1"];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ar2VideoSetBufferSizeImage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_image_8h.html#a0002a65050de3abc821343f6b23762cf"];
+}

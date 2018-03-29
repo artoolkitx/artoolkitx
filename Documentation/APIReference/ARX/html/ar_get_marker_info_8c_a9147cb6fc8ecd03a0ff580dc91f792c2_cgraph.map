@@ -1,0 +1,13 @@
+<map id="arGetMarkerInfo" name="arGetMarkerInfo">
+<area shape="rect" id="node2" href="$param_8h.html#a7145069f057810d3b0a5a944060bdace" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="350,5,520,31"/>
+<area shape="rect" id="node3" href="$ar_get_line_8c.html#a4edefe6026de468f8892a6359db67fbc" title="arGetLine" alt="" coords="197,131,277,156"/>
+<area shape="rect" id="node11" href="$ar_patt_get_i_d_8c.html#acce963b8d7e85cedfcb4d33ece5f20db" title="Match the interior of a detected square against known patterns with variable border width..." alt="" coords="172,231,302,256"/>
+<area shape="rect" id="node4" href="$matrix_8h.html#ac94c691cd85259643eaef4162768e18a" title="arVecAlloc" alt="" coords="393,55,477,80"/>
+<area shape="rect" id="node5" href="$matrix_8h.html#a4ab6ed1bcea1368a2040e9779ab28b9b" title="arMatrixAlloc" alt="" coords="739,107,837,132"/>
+<area shape="rect" id="node6" href="$matrix_8h.html#a4551918179e71b9e67d8f44322e09dba" title="arMatrixPCA" alt="" coords="387,156,483,181"/>
+<area shape="rect" id="node9" href="$matrix_8h.html#a7b6cca2930147818bd060cddd5c5a28a" title="arMatrixFree" alt="" coords="740,205,837,231"/>
+<area shape="rect" id="node10" href="$matrix_8h.html#a08c0d02dd8ddfb8a05d07f3fb80db2c4" title="arVecFree" alt="" coords="394,257,476,283"/>
+<area shape="rect" id="node7" href="$matrix_8h.html#a312a4e43097686beff3b8b13f248da13" title="arMatrixAllocDup" alt="" coords="568,156,691,181"/>
+<area shape="rect" id="node8" href="$matrix_8h.html#ab4713153a247e78332e6ce6dde31d2f4" title="arMatrixDup" alt="" coords="741,156,835,181"/>
+<area shape="rect" id="node12" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square..." alt="" coords="374,307,496,332"/>
+</map>

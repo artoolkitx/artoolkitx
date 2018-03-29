@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                // See https://developer.android.com/ndk/guides/cmake.html
+                arguments "-DANDROID_STL=c++_shared", "-DANDROID_CPP_FEATURES=rtti exceptions"
+                //cFlags "-DFOO=BAR"
+                //cppFlags "-DFOO=BAR"
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "../../../CMakeLists.txt"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+}
+
+task jarReleaseUnity(type: Jar) {
+    dependsOn build
+    from fileTree(dir: 'build/intermediates/classes/release', excludes: ['**/rendering/*', '**/R$*', '**/assets/*', '**/ARActivity*', '**/R.class', '**/support/*'])
+    group 'build'
+    archiveName 'arxjUnity.jar'
+}
+
+task jarDebugUnity(type: Jar) {
+    dependsOn build
+    from fileTree(dir: 'build/intermediates/classes/debug', excludes: ['**/rendering/*', '**/R$*', '**/assets/*', '**/ARActivity*', '**/R.class', '**/support/*'])
+    group 'build'
+    archiveName 'arxjUnityDebug.jar'
+}

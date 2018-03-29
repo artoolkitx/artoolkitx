@@ -1,0 +1,26 @@
+digraph "icpGetInitXw2Xc_from_PlanarData"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="icpGetInitXw2Xc_from\l_PlanarData",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="arMatrixAlloc",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html#a4ab6ed1bcea1368a2040e9779ab28b9b"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="arMatrixFree",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html#a7b6cca2930147818bd060cddd5c5a28a"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="arMatrixAllocTrans",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html#a9219f180afc943a324497025655bc9ba"];
+  Node4 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="arMatrixTrans",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html#adc9ca82a56c93dba3b6a4bc335f54ca8"];
+  Node4 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="arMatrixAllocMul",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html#aa0d22d0a5dde942ef5a7042da7079a6e"];
+  Node6 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="arMatrixMul",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html#a300a2264cc3ee92f56829c9e28dd6579"];
+  Node6 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="arMatrixSelfInv",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html#a979db815d3f7ed81b0375ee39da3057a"];
+}

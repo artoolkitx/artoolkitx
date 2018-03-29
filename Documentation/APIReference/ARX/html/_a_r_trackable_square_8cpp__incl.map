@@ -1,0 +1,28 @@
+<map id="/Users/phil/r/artoolkitx/Source/ARX/ARTrackableSquare.cpp" name="/Users/phil/r/artoolkitx/Source/ARX/ARTrackableSquare.cpp">
+<area shape="rect" id="node2" href="$_a_r_trackable_square_8h.html" title="ARX/ARTrackableSquare.h" alt="" coords="247,239,430,264"/>
+<area shape="rect" id="node25" href="$_a_r_controller_8h.html" title="ARX/ARController.h" alt="" coords="814,92,953,117"/>
+<area shape="rect" id="node3" href="$_a_r_trackable_8h.html" title="ARX/ARTrackable.h" alt="" coords="578,385,718,411"/>
+<area shape="rect" id="node4" href="$ar_8h.html" title="artoolkitX core routines. " alt="" coords="761,532,857,557"/>
+<area shape="rect" id="node21" href="$ar_filter_trans_mat_8h.html" title="Provides filtering of transformation matrices (pose estimates). " alt="" coords="596,459,779,484"/>
+<area shape="rect" id="node22" href="$_a_r_pattern_8h.html" title="ARX/ARPattern.h" alt="" coords="246,459,372,484"/>
+<area shape="rect" id="node10" href="$ar_config_8h.html" title="ARX/AR/arConfig.h" alt="" coords="370,605,506,631"/>
+<area shape="rect" id="node11" href="$log_8h.html" title="Logging utilities. " alt="" coords="581,605,704,631"/>
+<area shape="rect" id="node15" href="$matrix_8h.html" title="ARX/AR/matrix.h" alt="" coords="1315,605,1437,631"/>
+<area shape="rect" id="node17" href="$icp_8h.html" title="ARX/AR/icp.h" alt="" coords="132,605,235,631"/>
+<area shape="rect" id="node19" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters. " alt="" coords="965,605,1088,631"/>
+<area shape="rect" id="node20" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing. " alt="" coords="728,605,890,631"/>
+<area shape="rect" id="node14" href="$types_8h.html" title="ARX/ARUtil/types.h" alt="" coords="479,679,616,704"/>
+<area shape="rect" id="node18" href="$icp_core_8h.html" title="ARX/AR/icpCore.h" alt="" coords="118,679,250,704"/>
+<area shape="rect" id="node26" href="$_platform_8h.html" title="ARX/Platform.h" alt="" coords="920,385,1034,411"/>
+<area shape="rect" id="node27" href="$_a_r_video_source_8h.html" title="ARX/ARVideoSource.h" alt="" coords="1213,312,1371,337"/>
+<area shape="rect" id="node34" href="$_a_r_video_view_8h.html" title="ARX/ARVideoView.h" alt="" coords="972,239,1115,264"/>
+<area shape="rect" id="node36" href="$_a_r_tracker_square_8h.html" title="ARX/ARTrackerSquare.h" alt="" coords="434,165,603,191"/>
+<area shape="rect" id="node28" href="$video_8h.html" title="ARX/ARVideo/video.h" alt="" coords="1260,459,1411,484"/>
+<area shape="rect" id="node29" href="$video_config_8h.html" title="ARX/ARVideo/videoConfig.h" alt="" coords="1282,532,1472,557"/>
+<area shape="rect" id="node31" href="$video_luma_8h.html" title="ARX/ARVideo/videoLuma.h" alt="" coords="986,532,1171,557"/>
+<area shape="rect" id="node35" href="$arg_8h.html" title="A collection of useful graphics routines for artoolkitX. " alt="" coords="1073,312,1188,337"/>
+<area shape="rect" id="node37" href="$_a_r_trackable_multi_square_8h.html" title="ARX/ARTrackableMultiSquare.h" alt="" coords="385,312,596,337"/>
+<area shape="rect" id="node39" href="$_a_r_tracker_video_8h.html" title="ARX/ARTrackerVideo.h" alt="" coords="555,239,716,264"/>
+<area shape="rect" id="node38" href="$ar_multi_8h.html" title="ARX/AR/arMulti.h" alt="" coords="446,459,572,484"/>
+<area shape="rect" id="node40" href="$_a_r_tracker_8h.html" title="ARX/ARTracker.h" alt="" coords="721,312,847,337"/>
+</map>

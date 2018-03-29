@@ -1,0 +1,6 @@
+<map id="kpmSetRefDataSetFile" name="kpmSetRefDataSetFile">
+<area shape="rect" id="node2" href="$kpm_8h.html#af0803cb45995eba633236f38952107ad" title="Load a reference data set from the filesystem into memory. " alt="" coords="215,5,360,31"/>
+<area shape="rect" id="node4" href="$kpm_matching_8cpp.html#a3f1f8e46753ddee2fa11ea757dcd01ca" title="Load a reference data set into the key point matcher for tracking. " alt="" coords="220,55,355,80"/>
+<area shape="rect" id="node5" href="$kpm_8h.html#af86312003fc636783728f4e6b1c3014f" title="Dispose of a reference data set and its allocated memory. " alt="" coords="210,104,364,129"/>
+<area shape="rect" id="node3" href="$kpm_fopen_8c.html#a1f4f22f6719de1db342b90fbfe189596" title="kpmFopen" alt="" coords="412,5,497,31"/>
+</map>

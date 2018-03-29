@@ -1,0 +1,7 @@
+<map id="ARController::updateTextureRGBA32" name="ARController::updateTextureRGBA32">
+<area shape="rect" id="node2" href="$class_a_r_video_source.html#a65ebb92f31e3124222c04848ab118995" title="Populates the provided color buffer with the current video frame. " alt="" coords="243,61,467,100"/>
+<area shape="rect" id="node3" href="$class_a_r_video_source.html#a0870e3e3099fe2bede89980bc89c5e70" title="Checkout a locked video frame if the frame&#39;s timestamp is newer than &#39;time&#39;. " alt="" coords="515,5,730,44"/>
+<area shape="rect" id="node4" href="$video_r_g_b_a_8h.html#ad259f1dba2865874bdd38d1fcbb42d1b" title="videoRGBA" alt="" coords="577,68,668,93"/>
+<area shape="rect" id="node6" href="$class_a_r_video_source.html#a3d4b14784d083ae76f43c8942cb9076b" title="Checkin a locked video frame. " alt="" coords="519,117,726,143"/>
+<area shape="rect" id="node5" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format. " alt="" coords="778,68,907,93"/>
+</map>

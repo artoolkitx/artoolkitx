@@ -1,0 +1,9 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: artoolkitx
+Source: https://github.com/artoolkitx/artoolkitx
+
+Files: *
+Copyright: Copyright 2018 Realmax, Inc.
+           Copyright 2015 Daqri, LLC.
+           Copyright 2002-2015 ARToolworks, Inc.
+License: LGPL-3.0+

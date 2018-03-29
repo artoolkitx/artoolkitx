@@ -1,0 +1,12 @@
+<map id="ARTrackableMultiSquare::updateWithDetectedMarkers" name="ARTrackableMultiSquare::updateWithDetectedMarkers">
+<area shape="rect" id="node2" href="$ar_multi_get_trans_mat_8c.html#aa06dfa991e38d7352193ad8791c21e82" title="arGetTransMatMultiSquare\lRobust" alt="" coords="251,17,433,56"/>
+<area shape="rect" id="node3" href="$ar_multi_get_trans_mat_8c.html#ab1dec17a3d938eb9c85be5c4b094db24" title="arGetTransMatMultiSquare" alt="" coords="251,80,433,105"/>
+<area shape="rect" id="node4" href="$class_a_r_trackable.html#a445a8894d99c98bc966ebff530d58278" title="Completes an update begun in the parent class, performing filtering, generating OpenGL view matrix an..." alt="" coords="269,129,415,155"/>
+<area shape="rect" id="node5" href="$ar_filter_trans_mat_8c.html#a575d29079692c1af23b19f0477ee2123" title="Filters the supplied pose estimate transformation matrix in&#45;place. " alt="" coords="493,55,611,80"/>
+<area shape="rect" id="node9" href="$param_g_l_8h.html#a417be19c9a53d64da33898a938d80944" title="arglCameraViewRHf" alt="" coords="481,104,623,129"/>
+<area shape="rect" id="node10" href="$param_g_l_8h.html#abb0e707a0812fc2c5bdbbaee6694a16f" title="Create an OpenGL viewing transformation matrix. " alt="" coords="483,153,621,179"/>
+<area shape="rect" id="node11" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title="arUtilMatMul" alt="" coords="504,203,600,228"/>
+<area shape="rect" id="node6" href="$ar_util_8c.html#adb4a9f8d233d3b954fd85bbb3deda173" title="arUtilMat2QuatPos" alt="" coords="671,5,805,31"/>
+<area shape="rect" id="node7" href="$ar_util_8c.html#aa543b10d8b401ccf5626aba7dfa12e09" title="arUtilQuatNorm" alt="" coords="681,55,795,80"/>
+<area shape="rect" id="node8" href="$ar_util_8c.html#a016bf9cc45eee7cd9eae471cecc68e9a" title="arUtilQuatPos2Mat" alt="" coords="671,104,805,129"/>
+</map>

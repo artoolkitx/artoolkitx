@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ARSquareTracking</string>
+    <string name="activity_name">ARSquareTrackingActivity</string>
+</resources>

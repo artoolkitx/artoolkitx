@@ -1,0 +1,7 @@
+<map id="ARController::projectionMatrix" name="ARController::projectionMatrix">
+<area shape="rect" id="node2" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open. " alt="" coords="228,5,393,31"/>
+<area shape="rect" id="node3" href="$class_a_r_video_source.html#adcdfb6d6fcf844c7578bec2b3f978108" title="Returns true if the video source is open and ready to be queried. " alt="" coords="220,55,402,80"/>
+<area shape="rect" id="node4" href="$class_a_r_video_source.html#a5feeb630d5706513ba1d48ba7dcd2c31" title="Returns the camera parameters for the video source. " alt="" coords="216,104,405,143"/>
+<area shape="rect" id="node5" href="$param_g_l_8h.html#ad352c5e76ab185107eb96b8a3857b671" title="Create an OpenGL perspective projection matrix. " alt="" coords="231,167,390,192"/>
+<area shape="rect" id="node6" href="$param_8h.html#a1df626102f3cf5ea3e4f13199bdbecf9" title="arParamDecompMat" alt="" coords="453,167,598,192"/>
+</map>

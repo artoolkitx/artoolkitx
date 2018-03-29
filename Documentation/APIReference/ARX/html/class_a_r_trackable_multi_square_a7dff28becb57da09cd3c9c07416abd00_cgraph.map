@@ -1,0 +1,9 @@
+<map id="ARTrackableMultiSquare::load" name="ARTrackableMultiSquare::load">
+<area shape="rect" id="node2" href="$class_a_r_trackable_multi_square.html#a57881bb2ce7acf1852db2ee6665cd0f4" title="ARTrackableMultiSquare\l::unload" alt="" coords="238,5,407,44"/>
+<area shape="rect" id="node5" href="$ar_multi_read_config_file_8c.html#ad54b103e4097609ddc76b1e721eb20eb" title="arMultiReadConfigFile" alt="" coords="246,68,399,93"/>
+<area shape="rect" id="node6" href="$class_a_r_trackable.html#a913458e15352cfd5488f893c95f9c4f5" title="Allocates space for patterns within this trackable. " alt="" coords="222,117,423,143"/>
+<area shape="rect" id="node7" href="$class_a_r_pattern.html#a6b3fa362244a54588d361af8c09690f6" title="ARPattern::loadTemplate" alt="" coords="238,167,407,192"/>
+<area shape="rect" id="node8" href="$class_a_r_pattern.html#a214920151785182893dafc208fcb4628" title="ARPattern::loadMatrix" alt="" coords="247,216,398,241"/>
+<area shape="rect" id="node3" href="$class_a_r_trackable.html#aa425f1e3e1ba8d8b39ec6a34f8e2f403" title="Frees allocated patterns and resets the pattern count to zero. " alt="" coords="471,89,649,115"/>
+<area shape="rect" id="node4" href="$ar_multi_free_config_8c.html#a0f33d2031514e1b5af6ba4dfa152633f" title="arMultiFreeConfig" alt="" coords="496,12,623,37"/>
+</map>

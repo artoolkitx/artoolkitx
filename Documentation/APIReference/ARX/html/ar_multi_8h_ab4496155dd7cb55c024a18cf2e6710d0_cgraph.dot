@@ -1,0 +1,26 @@
+digraph "arMultiReadConfigFile"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="arMultiReadConfigFile",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="arUtilGetDirectoryNameFromPath",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ar_util_8c.html#ae4f3e60c7edce9acfdddb9b454d13c1d"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="arPattLoad",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf",tooltip="Load a pattern file into a pattern handle. "];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="cat",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$file__utils_8c.html#a5160d4dbf6ed208004ff4477724b311a"];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="arPattLoadFromBuffer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ioapi_8h.html#ae6fba972269dd045c8bb54bb5f6ead83"];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="arUtilMatInv",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1"];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="arMatrixAlloc",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html#a4ab6ed1bcea1368a2040e9779ab28b9b"];
+  Node7 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="arMatrixSelfInv",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html#a979db815d3f7ed81b0375ee39da3057a"];
+  Node7 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="arMatrixFree",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$matrix_8h.html#a7b6cca2930147818bd060cddd5c5a28a"];
+}

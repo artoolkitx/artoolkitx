@@ -1,0 +1,20 @@
+<map id="_AR2HandleT" name="_AR2HandleT">
+<area shape="rect" id="node2" href="$struct___a_r2_tracking2_d_param_t.html" title="_AR2Tracking2DParamT" alt="" coords="426,465,595,491"/>
+<area shape="rect" id="node3" href="$struct_a_r2_surface_set_t.html" title="AR2SurfaceSetT" alt="" coords="211,379,332,404"/>
+<area shape="rect" id="node4" href="$struct_a_r2_surface_t.html" title="AR2SurfaceT" alt="" coords="156,265,257,291"/>
+<area shape="rect" id="node5" href="$struct_a_r2_marker_set_t.html" title="AR2MarkerSetT" alt="" coords="5,179,122,204"/>
+<area shape="rect" id="node6" href="$struct_a_r2_marker_t.html" title="AR2MarkerT" alt="" coords="15,92,112,117"/>
+<area shape="rect" id="node7" href="$struct_a_r2_feature_set_t.html" title="AR2FeatureSetT" alt="" coords="146,179,267,204"/>
+<area shape="rect" id="node8" href="$struct_a_r2_feature_points_t.html" title="AR2FeaturePointsT" alt="" coords="137,92,276,117"/>
+<area shape="rect" id="node9" href="$struct_a_r2_feature_coord_t.html" title="AR2FeatureCoordT" alt="" coords="138,5,275,31"/>
+<area shape="rect" id="node10" href="$struct_a_r2_image_set_t.html" title="AR2ImageSetT" alt="" coords="292,179,404,204"/>
+<area shape="rect" id="node11" href="$struct_a_r2_image_t.html" title="AR2ImageT" alt="" coords="302,92,394,117"/>
+<area shape="rect" id="node12" href="$struct_a_r2_template_candidate_t.html" title="AR2TemplateCandidateT" alt="" coords="285,265,456,291"/>
+<area shape="rect" id="node13" href="$struct_a_r2_template_t.html" title="AR2TemplateT" alt="" coords="596,379,705,404"/>
+<area shape="rect" id="node14" href="$struct_a_r2_tracking2_d_result_t.html" title="AR2Tracking2DResultT" alt="" coords="729,379,890,404"/>
+<area shape="rect" id="node15" href="$struct_a_r_param_l_t.html" title="Structure holding camera parameters, in lookup table form. " alt="" coords="480,265,573,291"/>
+<area shape="rect" id="node16" href="$struct_a_r_param_l_tf.html" title="Structure holding camera parameters, in lookup table form; floating point version. " alt="" coords="455,179,552,204"/>
+<area shape="rect" id="node17" href="$struct_a_r_param.html" title="Structure holding camera parameters, including image size, projection matrix and lens distortion para..." alt="" coords="576,179,655,204"/>
+<area shape="rect" id="node18" href="$struct___t_h_r_e_a_d___h_a_n_d_l_e___t.html" title="_THREAD_HANDLE_T" alt="" coords="597,265,757,291"/>
+<area shape="rect" id="node19" href="$struct_i_c_p_handle_t.html" title="ICPHandleT" alt="" coords="781,265,875,291"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="ar2GetSearchPoint" name="ar2GetSearchPoint">
+<area shape="rect" id="node2" href="$coord_8c.html#a63f7458dc5beff31362a6c1520e65b60" title="ar2MarkerCoord2ScreenCoord" alt="" coords="188,31,392,56"/>
+<area shape="rect" id="node3" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title="arUtilMatMuldff" alt="" coords="470,5,581,31"/>
+<area shape="rect" id="node4" href="$param_8h.html#ad0cfff6a5b72b8a6cf4dd06c72d69448" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="440,55,610,80"/>
+</map>

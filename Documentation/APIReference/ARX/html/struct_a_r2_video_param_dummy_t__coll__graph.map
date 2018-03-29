@@ -1,0 +1,4 @@
+<map id="AR2VideoParamDummyT" name="AR2VideoParamDummyT">
+<area shape="rect" id="node2" href="$struct_a_r2_video_buffer_t.html" title="A structure which carries information about a video frame retrieved by the video library. " alt="" coords="30,92,155,117"/>
+<area shape="rect" id="node3" href="$struct_a_r2_video_timestamp_t.html" title="A structure to hold a timestamp in seconds and microseconds, with arbitrary epoch. " alt="" coords="15,5,170,31"/>
+</map>

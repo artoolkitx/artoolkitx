@@ -1,0 +1,20 @@
+<map id="/Users/phil/r/artoolkitx/Source/ARX/include/ARX/ARTrackerSquare.h" name="/Users/phil/r/artoolkitx/Source/ARX/include/ARX/ARTrackerSquare.h">
+<area shape="rect" id="node2" href="$_a_r_trackable_square_8h.html" title="ARX/ARTrackableSquare.h" alt="" coords="668,105,851,131"/>
+<area shape="rect" id="node4" href="$ar_8h.html" title="artoolkitX core routines. " alt="" coords="615,399,712,424"/>
+<area shape="rect" id="node25" href="$_a_r_trackable_multi_square_8h.html" title="ARX/ARTrackableMultiSquare.h" alt="" coords="525,179,736,204"/>
+<area shape="rect" id="node27" href="$_a_r_tracker_video_8h.html" title="ARX/ARTrackerVideo.h" alt="" coords="876,105,1036,131"/>
+<area shape="rect" id="node3" href="$_a_r_trackable_8h.html" title="ARX/ARTrackable.h" alt="" coords="723,252,863,277"/>
+<area shape="rect" id="node21" href="$ar_filter_trans_mat_8h.html" title="Provides filtering of transformation matrices (pose estimates). " alt="" coords="572,325,755,351"/>
+<area shape="rect" id="node22" href="$_a_r_pattern_8h.html" title="ARX/ARPattern.h" alt="" coords="831,325,956,351"/>
+<area shape="rect" id="node10" href="$ar_config_8h.html" title="ARX/AR/arConfig.h" alt="" coords="452,472,588,497"/>
+<area shape="rect" id="node11" href="$log_8h.html" title="Logging utilities. " alt="" coords="254,472,377,497"/>
+<area shape="rect" id="node15" href="$matrix_8h.html" title="ARX/AR/matrix.h" alt="" coords="739,472,861,497"/>
+<area shape="rect" id="node17" href="$icp_8h.html" title="ARX/AR/icp.h" alt="" coords="612,472,715,497"/>
+<area shape="rect" id="node19" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters. " alt="" coords="1071,472,1195,497"/>
+<area shape="rect" id="node20" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing. " alt="" coords="885,472,1048,497"/>
+<area shape="rect" id="node14" href="$types_8h.html" title="ARX/ARUtil/types.h" alt="" coords="386,545,523,571"/>
+<area shape="rect" id="node18" href="$icp_core_8h.html" title="ARX/AR/icpCore.h" alt="" coords="631,545,763,571"/>
+<area shape="rect" id="node26" href="$ar_multi_8h.html" title="ARX/AR/arMulti.h" alt="" coords="422,325,548,351"/>
+<area shape="rect" id="node28" href="$_a_r_tracker_8h.html" title="ARX/ARTracker.h" alt="" coords="893,179,1019,204"/>
+<area shape="rect" id="node29" href="$_platform_8h.html" title="ARX/Platform.h" alt="" coords="955,252,1068,277"/>
+</map>

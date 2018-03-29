@@ -1,0 +1,4 @@
+<map id="AR2VideoBuffer1394T" name="AR2VideoBuffer1394T">
+<area shape="rect" id="node2" href="$struct_a_r2_video_buffer_t.html" title="A structure which carries information about a video frame retrieved by the video library. " alt="" coords="20,92,145,117"/>
+<area shape="rect" id="node3" href="$struct_a_r2_video_timestamp_t.html" title="A structure to hold a timestamp in seconds and microseconds, with arbitrary epoch. " alt="" coords="5,5,160,31"/>
+</map>

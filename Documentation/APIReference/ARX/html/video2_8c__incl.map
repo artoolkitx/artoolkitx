@@ -1,0 +1,15 @@
+<map id="/Users/phil/r/artoolkitx/Source/ARX/ARVideo/video2.c" name="/Users/phil/r/artoolkitx/Source/ARX/ARVideo/video2.c">
+<area shape="rect" id="node5" href="$video_8h.html" title="ARX/ARVideo/video.h" alt="" coords="802,92,954,117"/>
+<area shape="rect" id="node23" href="$time_8h.html" title="ARX/ARUtil/time.h" alt="" coords="28,165,158,191"/>
+<area shape="rect" id="node6" href="$ar_8h.html" title="artoolkitX core routines. " alt="" coords="652,165,749,191"/>
+<area shape="rect" id="node20" href="$video_config_8h.html" title="ARX/ARVideo/videoConfig.h" alt="" coords="1158,165,1348,191"/>
+<area shape="rect" id="node22" href="$video_luma_8h.html" title="ARX/ARVideo/videoLuma.h" alt="" coords="860,165,1045,191"/>
+<area shape="rect" id="node9" href="$ar_config_8h.html" title="ARX/AR/arConfig.h" alt="" coords="1011,239,1147,264"/>
+<area shape="rect" id="node10" href="$log_8h.html" title="Logging utilities. " alt="" coords="343,239,466,264"/>
+<area shape="rect" id="node14" href="$matrix_8h.html" title="ARX/AR/matrix.h" alt="" coords="865,239,987,264"/>
+<area shape="rect" id="node16" href="$icp_8h.html" title="ARX/AR/icp.h" alt="" coords="739,239,841,264"/>
+<area shape="rect" id="node18" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters. " alt="" coords="540,239,664,264"/>
+<area shape="rect" id="node19" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing. " alt="" coords="1172,239,1334,264"/>
+<area shape="rect" id="node13" href="$types_8h.html" title="ARX/ARUtil/types.h" alt="" coords="114,312,250,337"/>
+<area shape="rect" id="node17" href="$icp_core_8h.html" title="ARX/AR/icpCore.h" alt="" coords="724,312,856,337"/>
+</map>

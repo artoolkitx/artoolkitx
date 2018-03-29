@@ -1,0 +1,31 @@
+digraph "ar2SetTemplateSub"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="ar2SetTemplateSub",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="arUtilMatMul",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="arUtilMatMuldff",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ar2MarkerCoord2ScreenCoord",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$coord_8c.html#a63f7458dc5beff31362a6c1520e65b60"];
+  Node4 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="arParamIdeal2ObservLTf",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$param_8h.html#ad0cfff6a5b72b8a6cf4dd06c72d69448",tooltip="Use a lookup-table camera parameter to convert idealised (zero-distortion) window coordinates to obse..."];
+  Node5 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ioapi_8h.html#ae6fba972269dd045c8bb54bb5f6ead83"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="arParamObserv2IdealLTf",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$param_8h.html#a7145069f057810d3b0a5a944060bdace",tooltip="Use a lookup-table camera parameter to convert observed (distorted) window coordinates to idealised (..."];
+  Node7 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="ar2GetImageValue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$coord_8c.html#ab8cc03a3eebeaf4bfc49b1ee3c146b4f"];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="ar2ScreenCoord2MarkerCoord",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$coord_8c.html#a5baabf3b8320ed39189b4e1143395d56"];
+  Node9 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

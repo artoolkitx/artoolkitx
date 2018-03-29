@@ -1,0 +1,25 @@
+find_package(PkgConfig REQUIRED)
+pkg_search_module(LIBUDEV REQUIRED libudev)
+set(INCLUDE_DIRS
+    ${INCLUDE_DIRS}
+    ${LIBUDEV_INCLUDE_DIRS}
+	PARENT_SCOPE
+)
+set(LIBS
+    ${LIBS}
+    ${LIBUDEV_LDFLAGS}
+	PARENT_SCOPE
+)
+
+set(SOURCE
+    ${SOURCE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/videoV4L2.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/videoV4L2.c
+    PARENT_SCOPE
+)
+
+set(DEFINES
+    ${DEFINES}
+    ARVIDEO_INPUT_V4L2
+    PARENT_SCOPE
+)

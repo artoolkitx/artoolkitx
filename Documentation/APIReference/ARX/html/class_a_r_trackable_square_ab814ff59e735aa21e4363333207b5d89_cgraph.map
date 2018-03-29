@@ -1,0 +1,25 @@
+<map id="ARTrackableSquare::updateWithDetectedMarkersStereo" name="ARTrackableSquare::updateWithDetectedMarkersStereo">
+<area shape="rect" id="node2" href="$ar3_d_util_8c.html#a65bd9329ac9a1e8d3ca04c938dfc7fd2" title="arGetStereoMatchingError\lSquare" alt="" coords="290,125,468,164"/>
+<area shape="rect" id="node12" href="$ar_get_trans_mat_stereo_8c.html#a8062d2388e1450a896468287f6ba793c" title="arGetTransMatSquareStereo" alt="" coords="283,216,476,241"/>
+<area shape="rect" id="node18" href="$class_a_r_trackable.html#a445a8894d99c98bc966ebff530d58278" title="Completes an update begun in the parent class, performing filtering, generating OpenGL view matrix an..." alt="" coords="306,367,452,392"/>
+<area shape="rect" id="node3" href="$ar3_d_util_8c.html#a1397dc905f26dd196deb79b07e983484" title="arGetStereoMatchingError" alt="" coords="524,104,701,129"/>
+<area shape="rect" id="node4" href="$matrix_8h.html#a4ab6ed1bcea1368a2040e9779ab28b9b" title="arMatrixAlloc" alt="" coords="994,5,1093,31"/>
+<area shape="rect" id="node5" href="$matrix_8h.html#a072edc4bea83a3c567f2995c4693e23a" title="arMatrixAllocInv" alt="" coords="790,55,906,80"/>
+<area shape="rect" id="node9" href="$matrix_8h.html#a7b6cca2930147818bd060cddd5c5a28a" title="arMatrixFree" alt="" coords="995,104,1092,129"/>
+<area shape="rect" id="node10" href="$matrix_8h.html#aa0d22d0a5dde942ef5a7042da7079a6e" title="arMatrixAllocMul" alt="" coords="788,104,908,129"/>
+<area shape="rect" id="node11" href="$matrix_8h.html#a300a2264cc3ee92f56829c9e28dd6579" title="arMatrixMul" alt="" coords="998,179,1089,204"/>
+<area shape="rect" id="node6" href="$matrix_8h.html#a3988965b6cc67432b99cbdde3056f26b" title="arMatrixInv" alt="" coords="1000,55,1087,80"/>
+<area shape="rect" id="node7" href="$matrix_8h.html#ab4713153a247e78332e6ce6dde31d2f4" title="arMatrixDup" alt="" coords="1149,31,1243,56"/>
+<area shape="rect" id="node8" href="$matrix_8h.html#a979db815d3f7ed81b0375ee39da3057a" title="arMatrixSelfInv" alt="" coords="1141,80,1251,105"/>
+<area shape="rect" id="node13" href="$icp_util_8c.html#a9a0da1f41013b11363f39d99a5c937e9" title="icpGetInitXw2Xc_from\l_PlanarData" alt="" coords="536,153,689,192"/>
+<area shape="rect" id="node14" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title="arUtilMatInv" alt="" coords="566,216,659,241"/>
+<area shape="rect" id="node15" href="$icp_stereo_point_8c.html#afa05ec4cb1c2537d535521e4ee42c5ac" title="icpStereoPoint" alt="" coords="559,265,667,291"/>
+<area shape="rect" id="node16" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title="arUtilMatMul" alt="" coords="800,311,896,336"/>
+<area shape="rect" id="node17" href="$icp_core_8c.html#aceeb3fd72a762c2078d8fb88ec03ccfb" title="icpGetU_from_X_by_MatX2U" alt="" coords="749,261,946,287"/>
+<area shape="rect" id="node19" href="$ar_filter_trans_mat_8c.html#a575d29079692c1af23b19f0477ee2123" title="Filters the supplied pose estimate transformation matrix in&#45;place. " alt="" coords="553,367,672,392"/>
+<area shape="rect" id="node23" href="$param_g_l_8h.html#a417be19c9a53d64da33898a938d80944" title="arglCameraViewRHf" alt="" coords="541,416,684,441"/>
+<area shape="rect" id="node24" href="$param_g_l_8h.html#abb0e707a0812fc2c5bdbbaee6694a16f" title="Create an OpenGL viewing transformation matrix. " alt="" coords="543,465,682,491"/>
+<area shape="rect" id="node20" href="$ar_util_8c.html#adb4a9f8d233d3b954fd85bbb3deda173" title="arUtilMat2QuatPos" alt="" coords="781,360,915,385"/>
+<area shape="rect" id="node21" href="$ar_util_8c.html#aa543b10d8b401ccf5626aba7dfa12e09" title="arUtilQuatNorm" alt="" coords="791,409,905,435"/>
+<area shape="rect" id="node22" href="$ar_util_8c.html#a016bf9cc45eee7cd9eae471cecc68e9a" title="arUtilQuatPos2Mat" alt="" coords="781,459,915,484"/>
+</map>

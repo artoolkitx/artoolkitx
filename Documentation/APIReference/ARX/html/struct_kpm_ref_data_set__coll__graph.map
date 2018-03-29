@@ -1,0 +1,6 @@
+<map id="KpmRefDataSet" name="KpmRefDataSet">
+<area shape="rect" id="node2" href="$struct___kpm_ref_data.html" title="_KpmRefData" alt="" coords="5,105,110,131"/>
+<area shape="rect" id="node3" href="$struct_kpm_coord2_d.html" title="KpmCoord2D" alt="" coords="5,5,108,31"/>
+<area shape="rect" id="node4" href="$struct_kpm_page_info.html" title="KpmPageInfo" alt="" coords="135,105,237,131"/>
+<area shape="rect" id="node5" href="$struct_kpm_image_info.html" title="KpmImageInfo" alt="" coords="132,5,240,31"/>
+</map>

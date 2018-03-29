@@ -1,0 +1,17 @@
+digraph "arwSetTrackableOptionFloat"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="arwSetTrackableOptionFloat",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ARController::findTrackable",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_controller.html#a4eafe05e50bdb9e788ad836f4c2104f1",tooltip="Searches the collection of trackables for the given ID. "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ARTrackable::setFilterSampleRate",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_trackable.html#a003593728264b87959a7494f3415e585"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="arFilterTransMatSetParams",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c",tooltip="Set the filter parameters. "];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ARTrackable::setFilterCutoff\lFrequency",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_a_r_trackable.html#ad395b7942a14c6862bcbe80891dfcd39"];
+  Node5 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

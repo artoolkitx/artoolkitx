@@ -1,0 +1,4 @@
+<map id="ARTrackableMultiSquare::unload" name="ARTrackableMultiSquare::unload">
+<area shape="rect" id="node2" href="$class_a_r_trackable.html#aa425f1e3e1ba8d8b39ec6a34f8e2f403" title="Frees allocated patterns and resets the pattern count to zero. " alt="" coords="222,5,400,31"/>
+<area shape="rect" id="node3" href="$ar_multi_free_config_8c.html#a0f33d2031514e1b5af6ba4dfa152633f" title="arMultiFreeConfig" alt="" coords="247,55,375,80"/>
+</map>

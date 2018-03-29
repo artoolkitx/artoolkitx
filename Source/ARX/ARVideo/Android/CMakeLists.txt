@@ -1,0 +1,14 @@
+set(SOURCE
+   ${SOURCE}
+   ${CMAKE_CURRENT_SOURCE_DIR}/videoAndroid.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/videoAndroid.c
+   ${CMAKE_CURRENT_SOURCE_DIR}/sqlite3.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/sqlite3.c
+   PARENT_SCOPE
+)
+
+set(DEFINES
+    ${DEFINES}
+    ARVIDEO_INPUT_ANDROID
+    PARENT_SCOPE
+)

@@ -1,0 +1,7 @@
+<map id="ARController::startRunning" name="ARController::startRunning">
+<area shape="rect" id="node2" href="$class_a_r_video_source.html#aa385c7136b3d45c6efaa6604bf0a6d9a" title="Sets initial parameters which will be used when the video source is opened. " alt="" coords="234,5,412,31"/>
+<area shape="rect" id="node3" href="$class_a_r_video_source.html#ad6e81f0a07ddf8e844dfb867bc94de4b" title="Opens the video source. " alt="" coords="247,55,399,80"/>
+<area shape="rect" id="node6" href="$class_a_r_video_source.html#a1d4e4cebdf413918427c39aa99a197cc" title="ARVideoSource::getError" alt="" coords="237,104,409,129"/>
+<area shape="rect" id="node4" href="$video_8h.html#a6a911689abfaf33e8b1bea7c34f7c39a" title="ar2VideoOpenAsync" alt="" coords="460,31,603,56"/>
+<area shape="rect" id="node5" href="$video_8h.html#a266a574c77510cdde38998c94118611a" title="ar2VideoOpen" alt="" coords="478,80,585,105"/>
+</map>

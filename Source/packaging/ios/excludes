@@ -1,0 +1,83 @@
+# Exclusion list for artoolkitX packaging.
+# One pattern match per line.
+
+Source/build-*
+
+#### OS-generated caches and resources
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+### git merge conflict files
+*.orig
+
+#### Intermediate build products
+*.o
+
+#### Intermediate Language products
+*.dex
+*.class
+
+#### Caches
+# Visual C++
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+
+#### IDE user-config.
+# Android Studio
+local.properties
+*.iml
+**/.gradle/
+**/.idea/workspace.xml
+**/.idea/libraries
+**/captures/
+**/.externalNativeBuild/
+
+# MonoDevelop/Xamarin Studio
+*.userprefs
+
+# Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Xcode
+xcuserdata/
+*.mode1*
+*.pbxuser
+*.xccheckout
+*.xcscmblueprint
+
+#### Other VCS
+.svn/
+
+SDK/lib/ARXJ/
+SDK/lib/ARX/
+SDK/Plugins/
+Examples/Square tracking example/Android/
+Examples/Square tracking example/Linux/
+Examples/Square tracking example/macOS/
+Examples/Square tracking example/Windows/
+
+Examples/Square tracking example with OSG/Android/
+Examples/Square tracking example with OSG/Linux/
+Examples/Square tracking example with OSG/macOS/
+Examples/Square tracking example with OSG/Windows/
+
+Examples/2d tracking example/Android/
+Examples/2d tracking example/Linux/
+Examples/2d tracking example/macOS/
+Examples/2d tracking example/Windows/
+
+*.apk
+
+.gitignore

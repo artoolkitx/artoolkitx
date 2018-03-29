@@ -1,0 +1,4 @@
+<map id="ARTracker" name="ARTracker">
+<area shape="rect" id="node2" href="$class_a_r_tracker_video.html" title="ARTrackerVideo" alt="" coords="10,79,128,104"/>
+<area shape="rect" id="node3" href="$class_a_r_tracker_square.html" title="ARTrackerSquare" alt="" coords="5,152,133,177"/>
+</map>

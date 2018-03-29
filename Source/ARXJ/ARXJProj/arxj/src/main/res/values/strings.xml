@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">ARXJ</string>
+    
+    <string name="menuItem_settings">Settings</string>
+
+    <string name="prefCategory_title_camera">Camera settings</string>
+    <string name="pref_title_cameraResolution">Camera resolution</string>
+    <string-array name="pref_entries_cameraResolution">
+        <item>640x480   (4:3)</item>
+    </string-array>
+    <string-array name="pref_entryValues_cameraResolution">
+        <item>640x480</item>
+    </string-array>
+    <string name="pref_defaultValue_cameraResolution">640x480</string>
+
+    <string name="pref_title_cameraIndex">Change camera</string>
+    <string name="pref_defaultValue_cameraIndex">0</string>
+
+    <string-array name="pref_entries_cameraIndex">
+        <item>Rear camera</item>
+    </string-array>
+    <string-array name="pref_entryValues_cameraIndex">
+        <item>0</item>
+    </string-array>
+
+    <string name="configText">Open settings</string>
+</resources>

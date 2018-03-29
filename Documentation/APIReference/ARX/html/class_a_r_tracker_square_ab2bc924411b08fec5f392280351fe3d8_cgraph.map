@@ -1,0 +1,4 @@
+<map id="ARTrackerSquare::setMatrixCodeType" name="ARTrackerSquare::setMatrixCodeType">
+<area shape="rect" id="node2" href="$class_a_r_tracker_square.html#ad3c606a03347b7d2ce52f961284b43e6" title="ARTrackerSquare::type" alt="" coords="242,5,402,31"/>
+<area shape="rect" id="node3" href="$ar_create_handle_8c.html#a76631fc86b9d0fa0b10b7de01533ae32" title="Set the size and ECC algorithm to be used for matrix code (2D barcode) marker detection. " alt="" coords="247,55,397,80"/>
+</map>

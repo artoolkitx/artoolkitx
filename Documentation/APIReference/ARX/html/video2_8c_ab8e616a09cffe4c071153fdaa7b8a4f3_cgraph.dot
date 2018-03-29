@@ -1,0 +1,26 @@
+digraph "ar2VideoGetParams"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="ar2VideoGetParams",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ar2VideoGetParamsDummy",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_dummy_8h.html#af243a7b03152d3bebfe37d034be82c00"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ar2VideoGetParamsV4L2",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_v4_l2_8h.html#a8f713a8ac5a396be2b5eb434c73281d7"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ar2VideoGetParams1394",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video1394_8h.html#a241c2df2b52134961c16abf929f81a80"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ar2VideoGetParamsGStreamer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_g_streamer_8h.html#a439c87347465964e37a63ae632ae268d"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ar2VideoGetParamsAVFoundation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_a_v_foundation_8h.html#a85f64ee5cbd1fc33e269eca57e77a4ec"];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="ar2VideoGetParamsImage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_image_8h.html#aa405bbd4730bde58766b5dc3c1608ba9"];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="ar2VideoGetParamsAndroid",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_android_8h.html#a888e17328a94cfac651e1333fd50fd24"];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="ar2VideoGetParamsWinMF",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_windows_media_foundation_8h.html#a84f9ddb4e007f614fb5824c1d7076459"];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="ar2VideoGetParamsWinMC",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$video_windows_media_capture_8h.html#a974458a1e8622fc7758e4b42c182a5b5"];
+}

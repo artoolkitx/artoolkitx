@@ -1,0 +1,5 @@
+<map id="ar2GetImageValue" name="ar2GetImageValue">
+<area shape="rect" id="node2" href="$coord_8c.html#a5baabf3b8320ed39189b4e1143395d56" title="ar2ScreenCoord2MarkerCoord" alt="" coords="186,31,390,56"/>
+<area shape="rect" id="node3" href="$param_8h.html#a7145069f057810d3b0a5a944060bdace" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="438,5,608,31"/>
+<area shape="rect" id="node4" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title="arUtilMatMuldff" alt="" coords="468,55,578,80"/>
+</map>

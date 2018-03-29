@@ -1,0 +1,7 @@
+<map id="ARVideoView::drawDebugImage" name="ARVideoView::drawDebugImage">
+<area shape="rect" id="node2" href="$arg_8c.html#aab881f83622055d786e2f42086220b94" title="Set the format of pixel data which will be passed to arglDispImage*() " alt="" coords="290,5,425,31"/>
+<area shape="rect" id="node3" href="$arg_8c.html#a6b7919e1a7ade7c23394eeb964be17f6" title="Specify a desired pixel buffer size larger than the camera image size. " alt="" coords="280,55,434,80"/>
+<area shape="rect" id="node4" href="$arg_8c.html#a60f8657d50e21a7d8213a628bda888a9" title="Set the current video image drawing scalefactor. " alt="" coords="294,104,421,129"/>
+<area shape="rect" id="node5" href="$arg_8c.html#a25cc1097132fc11d1acb6b37694b5d2a" title="Upload a buffer of pixel data to an OpenGL texture for later use by arglDispImage(). " alt="" coords="268,153,446,192"/>
+<area shape="rect" id="node6" href="$arg_8c.html#afdd586c0ba2cc7df1347cc0522c6777b" title="Display an ARVideo image, by drawing it using OpenGL. " alt="" coords="304,216,411,241"/>
+</map>

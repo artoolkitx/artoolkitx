@@ -1,0 +1,4 @@
+<map id="ar3DCreateHandle" name="ar3DCreateHandle">
+<area shape="rect" id="node2" href="$ar3_d_create_handle_8c.html#aa8c448b9f37c06050d53edeeb32114b1" title="Create handle used for 3D calculation from an intrinsic parameters matrix. " alt="" coords="186,5,326,31"/>
+<area shape="rect" id="node3" href="$icp_handle_8c.html#ae5a7f3015c4daa239f9bb569967d3d8e" title="icpCreateHandle" alt="" coords="374,5,494,31"/>
+</map>

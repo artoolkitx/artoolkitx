@@ -1,0 +1,14 @@
+digraph "WindowsMediaCapture::StartCapture"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="WindowsMediaCapture\l::StartCapture",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="GetTimeStamp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_windows_media_capture_8cpp.html#aa3484c490a8d1a726053981eeb35bf9d"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="WindowsMediaCapture\l::width",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_windows_media_capture.html#a1d5a3e651b980fff21c87a2f11bdf976"];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="WindowsMediaCapture\l::height",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_windows_media_capture.html#aed2c1acae40b2521a206b178c379d64b"];
+}

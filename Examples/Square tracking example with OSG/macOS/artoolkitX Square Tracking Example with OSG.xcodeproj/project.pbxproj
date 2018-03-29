@@ -1,0 +1,483 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 47;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4A1EB558203B953E00BDEC89 /* model0.dat in Resources */ = {isa = PBXBuildFile; fileRef = 4A1EB555203B953E00BDEC89 /* model0.dat */; };
+		4A1EB559203B953E00BDEC89 /* model1.dat in Resources */ = {isa = PBXBuildFile; fileRef = 4A1EB556203B953E00BDEC89 /* model1.dat */; };
+		4A1EB55B203B954C00BDEC89 /* OSG in Resources */ = {isa = PBXBuildFile; fileRef = 4A1EB55A203B954C00BDEC89 /* OSG */; };
+		4A1EB56E203BA10100BDEC89 /* osgFX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB55C203BA10000BDEC89 /* osgFX.framework */; };
+		4A1EB56F203BA10100BDEC89 /* osgSim.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB55D203BA10000BDEC89 /* osgSim.framework */; };
+		4A1EB570203BA10100BDEC89 /* osgManipulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB55E203BA10000BDEC89 /* osgManipulator.framework */; };
+		4A1EB571203BA10100BDEC89 /* osgWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB55F203BA10000BDEC89 /* osgWidget.framework */; };
+		4A1EB572203BA10100BDEC89 /* osgGA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB560203BA10000BDEC89 /* osgGA.framework */; };
+		4A1EB573203BA10100BDEC89 /* osgPresentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB561203BA10000BDEC89 /* osgPresentation.framework */; };
+		4A1EB574203BA10100BDEC89 /* osgTerrain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB562203BA10000BDEC89 /* osgTerrain.framework */; };
+		4A1EB575203BA10100BDEC89 /* osgUtil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB563203BA10000BDEC89 /* osgUtil.framework */; };
+		4A1EB576203BA10100BDEC89 /* osgAnimation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB564203BA10100BDEC89 /* osgAnimation.framework */; };
+		4A1EB577203BA10100BDEC89 /* osgText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB565203BA10100BDEC89 /* osgText.framework */; };
+		4A1EB578203BA10100BDEC89 /* osgVolume.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB566203BA10100BDEC89 /* osgVolume.framework */; };
+		4A1EB579203BA10100BDEC89 /* osgUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB567203BA10100BDEC89 /* osgUI.framework */; };
+		4A1EB57A203BA10100BDEC89 /* osgDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB568203BA10100BDEC89 /* osgDB.framework */; };
+		4A1EB57B203BA10100BDEC89 /* osgShadow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB569203BA10100BDEC89 /* osgShadow.framework */; };
+		4A1EB57C203BA10100BDEC89 /* OpenThreads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB56A203BA10100BDEC89 /* OpenThreads.framework */; };
+		4A1EB57D203BA10100BDEC89 /* osg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB56B203BA10100BDEC89 /* osg.framework */; };
+		4A1EB57E203BA10100BDEC89 /* osgParticle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB56C203BA10100BDEC89 /* osgParticle.framework */; };
+		4A1EB57F203BA10100BDEC89 /* osgViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1EB56D203BA10100BDEC89 /* osgViewer.framework */; };
+		4A5047021DB4457D002C7904 /* ARX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5046FE1DB441C6002C7904 /* ARX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4A5047041DB4457D002C7904 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADF1CDD1DAEFD0200BF20FF /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4A5047051DB44596002C7904 /* ARX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5046FE1DB441C6002C7904 /* ARX.framework */; };
+		4A5047061DB44598002C7904 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADF1CDD1DAEFD0200BF20FF /* SDL2.framework */; };
+		4A5047081DB4476D002C7904 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5047071DB4476D002C7904 /* OpenGL.framework */; };
+		4AC06DF01F7372BD00CCBEF6 /* hiro.patt in Resources */ = {isa = PBXBuildFile; fileRef = 4AC06DEE1F7372BD00CCBEF6 /* hiro.patt */; };
+		4AC06DF11F7372BD00CCBEF6 /* kanji.patt in Resources */ = {isa = PBXBuildFile; fileRef = 4AC06DEF1F7372BD00CCBEF6 /* kanji.patt */; };
+		4ADF1CC61DAEFA6B00BF20FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ADF1CC51DAEFA6B00BF20FF /* Assets.xcassets */; };
+		4ADF1CD61DAEFC8A00BF20FF /* drawOSG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ADF1CD11DAEFC8A00BF20FF /* drawOSG.cpp */; };
+		4ADF1CD71DAEFC8A00BF20FF /* arosg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ADF1CD21DAEFC8A00BF20FF /* arosg.cpp */; };
+		4ADF1CDA1DAEFC8A00BF20FF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ADF1CD51DAEFC8A00BF20FF /* main.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4ADF1CE31DAEFD7200BF20FF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4A5047021DB4457D002C7904 /* ARX.framework in Embed Frameworks */,
+				4A5047041DB4457D002C7904 /* SDL2.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4A1EB555203B953E00BDEC89 /* model0.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = model0.dat; path = ../model0.dat; sourceTree = "<group>"; };
+		4A1EB556203B953E00BDEC89 /* model1.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = model1.dat; path = ../model1.dat; sourceTree = "<group>"; };
+		4A1EB557203B953E00BDEC89 /* shaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shaders.h; path = ../shaders.h; sourceTree = "<group>"; };
+		4A1EB55A203B954C00BDEC89 /* OSG */ = {isa = PBXFileReference; lastKnownFileType = folder; name = OSG; path = ../OSG; sourceTree = "<group>"; };
+		4A1EB55C203BA10000BDEC89 /* osgFX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgFX.framework; path = ../../../../../../../Library/Frameworks/osgFX.framework; sourceTree = "<group>"; };
+		4A1EB55D203BA10000BDEC89 /* osgSim.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgSim.framework; path = ../../../../../../../Library/Frameworks/osgSim.framework; sourceTree = "<group>"; };
+		4A1EB55E203BA10000BDEC89 /* osgManipulator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgManipulator.framework; path = ../../../../../../../Library/Frameworks/osgManipulator.framework; sourceTree = "<group>"; };
+		4A1EB55F203BA10000BDEC89 /* osgWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgWidget.framework; path = ../../../../../../../Library/Frameworks/osgWidget.framework; sourceTree = "<group>"; };
+		4A1EB560203BA10000BDEC89 /* osgGA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgGA.framework; path = ../../../../../../../Library/Frameworks/osgGA.framework; sourceTree = "<group>"; };
+		4A1EB561203BA10000BDEC89 /* osgPresentation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgPresentation.framework; path = ../../../../../../../Library/Frameworks/osgPresentation.framework; sourceTree = "<group>"; };
+		4A1EB562203BA10000BDEC89 /* osgTerrain.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgTerrain.framework; path = ../../../../../../../Library/Frameworks/osgTerrain.framework; sourceTree = "<group>"; };
+		4A1EB563203BA10000BDEC89 /* osgUtil.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgUtil.framework; path = ../../../../../../../Library/Frameworks/osgUtil.framework; sourceTree = "<group>"; };
+		4A1EB564203BA10100BDEC89 /* osgAnimation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgAnimation.framework; path = ../../../../../../../Library/Frameworks/osgAnimation.framework; sourceTree = "<group>"; };
+		4A1EB565203BA10100BDEC89 /* osgText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgText.framework; path = ../../../../../../../Library/Frameworks/osgText.framework; sourceTree = "<group>"; };
+		4A1EB566203BA10100BDEC89 /* osgVolume.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgVolume.framework; path = ../../../../../../../Library/Frameworks/osgVolume.framework; sourceTree = "<group>"; };
+		4A1EB567203BA10100BDEC89 /* osgUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgUI.framework; path = ../../../../../../../Library/Frameworks/osgUI.framework; sourceTree = "<group>"; };
+		4A1EB568203BA10100BDEC89 /* osgDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgDB.framework; path = ../../../../../../../Library/Frameworks/osgDB.framework; sourceTree = "<group>"; };
+		4A1EB569203BA10100BDEC89 /* osgShadow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgShadow.framework; path = ../../../../../../../Library/Frameworks/osgShadow.framework; sourceTree = "<group>"; };
+		4A1EB56A203BA10100BDEC89 /* OpenThreads.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenThreads.framework; path = ../../../../../../../Library/Frameworks/OpenThreads.framework; sourceTree = "<group>"; };
+		4A1EB56B203BA10100BDEC89 /* osg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osg.framework; path = ../../../../../../../Library/Frameworks/osg.framework; sourceTree = "<group>"; };
+		4A1EB56C203BA10100BDEC89 /* osgParticle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgParticle.framework; path = ../../../../../../../Library/Frameworks/osgParticle.framework; sourceTree = "<group>"; };
+		4A1EB56D203BA10100BDEC89 /* osgViewer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = osgViewer.framework; path = ../../../../../../../Library/Frameworks/osgViewer.framework; sourceTree = "<group>"; };
+		4A1EB580203BA32800BDEC89 /* arosg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arosg.h; path = ../arosg.h; sourceTree = "<group>"; };
+		4A5046FE1DB441C6002C7904 /* ARX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARX.framework; path = ../../../SDK/Frameworks/ARX.framework; sourceTree = "<group>"; };
+		4A5047071DB4476D002C7904 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		4AC06DEE1F7372BD00CCBEF6 /* hiro.patt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hiro.patt; path = ../hiro.patt; sourceTree = "<group>"; };
+		4AC06DEF1F7372BD00CCBEF6 /* kanji.patt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = kanji.patt; path = ../kanji.patt; sourceTree = "<group>"; };
+		4ADF1CBC1DAEFA6B00BF20FF /* artoolkitX Square Tracking Example with OSG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "artoolkitX Square Tracking Example with OSG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4ADF1CC51DAEFA6B00BF20FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4ADF1CCA1DAEFA6B00BF20FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4ADF1CD01DAEFC8A00BF20FF /* draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw.h; path = ../draw.h; sourceTree = "<group>"; };
+		4ADF1CD11DAEFC8A00BF20FF /* drawOSG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawOSG.cpp; path = ../drawOSG.cpp; sourceTree = "<group>"; };
+		4ADF1CD21DAEFC8A00BF20FF /* arosg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = arosg.cpp; path = ../arosg.cpp; sourceTree = "<group>"; };
+		4ADF1CD51DAEFC8A00BF20FF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../main.cpp; sourceTree = "<group>"; };
+		4ADF1CDD1DAEFD0200BF20FF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../Source/depends/macos/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4ADF1CB91DAEFA6B00BF20FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A1EB574203BA10100BDEC89 /* osgTerrain.framework in Frameworks */,
+				4A5047081DB4476D002C7904 /* OpenGL.framework in Frameworks */,
+				4A1EB577203BA10100BDEC89 /* osgText.framework in Frameworks */,
+				4A5047051DB44596002C7904 /* ARX.framework in Frameworks */,
+				4A1EB571203BA10100BDEC89 /* osgWidget.framework in Frameworks */,
+				4A1EB56F203BA10100BDEC89 /* osgSim.framework in Frameworks */,
+				4A1EB57E203BA10100BDEC89 /* osgParticle.framework in Frameworks */,
+				4A1EB57B203BA10100BDEC89 /* osgShadow.framework in Frameworks */,
+				4A1EB578203BA10100BDEC89 /* osgVolume.framework in Frameworks */,
+				4A1EB572203BA10100BDEC89 /* osgGA.framework in Frameworks */,
+				4A1EB573203BA10100BDEC89 /* osgPresentation.framework in Frameworks */,
+				4A1EB576203BA10100BDEC89 /* osgAnimation.framework in Frameworks */,
+				4A1EB57A203BA10100BDEC89 /* osgDB.framework in Frameworks */,
+				4A1EB57C203BA10100BDEC89 /* OpenThreads.framework in Frameworks */,
+				4A1EB57D203BA10100BDEC89 /* osg.framework in Frameworks */,
+				4A1EB579203BA10100BDEC89 /* osgUI.framework in Frameworks */,
+				4A1EB56E203BA10100BDEC89 /* osgFX.framework in Frameworks */,
+				4A5047061DB44598002C7904 /* SDL2.framework in Frameworks */,
+				4A1EB575203BA10100BDEC89 /* osgUtil.framework in Frameworks */,
+				4A1EB570203BA10100BDEC89 /* osgManipulator.framework in Frameworks */,
+				4A1EB57F203BA10100BDEC89 /* osgViewer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4ADF1CB31DAEFA6B00BF20FF = {
+			isa = PBXGroup;
+			children = (
+				4ADF1CDB1DAEFCAB00BF20FF /* Source */,
+				4ADF1CDC1DAEFCB900BF20FF /* Resources */,
+				4ADF1CE01DAEFD4700BF20FF /* Frameworks */,
+				4ADF1CDF1DAEFD1E00BF20FF /* Supporting files */,
+				4ADF1CBD1DAEFA6B00BF20FF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4ADF1CBD1DAEFA6B00BF20FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4ADF1CBC1DAEFA6B00BF20FF /* artoolkitX Square Tracking Example with OSG.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4ADF1CDB1DAEFCAB00BF20FF /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				4ADF1CD51DAEFC8A00BF20FF /* main.cpp */,
+				4ADF1CD01DAEFC8A00BF20FF /* draw.h */,
+				4ADF1CD11DAEFC8A00BF20FF /* drawOSG.cpp */,
+				4A1EB580203BA32800BDEC89 /* arosg.h */,
+				4ADF1CD21DAEFC8A00BF20FF /* arosg.cpp */,
+				4A1EB557203B953E00BDEC89 /* shaders.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		4ADF1CDC1DAEFCB900BF20FF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4AC06DEE1F7372BD00CCBEF6 /* hiro.patt */,
+				4AC06DEF1F7372BD00CCBEF6 /* kanji.patt */,
+				4A1EB555203B953E00BDEC89 /* model0.dat */,
+				4A1EB556203B953E00BDEC89 /* model1.dat */,
+				4A1EB55A203B954C00BDEC89 /* OSG */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		4ADF1CDF1DAEFD1E00BF20FF /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				4ADF1CC51DAEFA6B00BF20FF /* Assets.xcassets */,
+				4ADF1CCA1DAEFA6B00BF20FF /* Info.plist */,
+			);
+			name = "Supporting files";
+			sourceTree = "<group>";
+		};
+		4ADF1CE01DAEFD4700BF20FF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A5046FE1DB441C6002C7904 /* ARX.framework */,
+				4A5047071DB4476D002C7904 /* OpenGL.framework */,
+				4ADF1CDD1DAEFD0200BF20FF /* SDL2.framework */,
+				4A1EB56A203BA10100BDEC89 /* OpenThreads.framework */,
+				4A1EB56B203BA10100BDEC89 /* osg.framework */,
+				4A1EB564203BA10100BDEC89 /* osgAnimation.framework */,
+				4A1EB568203BA10100BDEC89 /* osgDB.framework */,
+				4A1EB55C203BA10000BDEC89 /* osgFX.framework */,
+				4A1EB560203BA10000BDEC89 /* osgGA.framework */,
+				4A1EB55E203BA10000BDEC89 /* osgManipulator.framework */,
+				4A1EB56C203BA10100BDEC89 /* osgParticle.framework */,
+				4A1EB561203BA10000BDEC89 /* osgPresentation.framework */,
+				4A1EB569203BA10100BDEC89 /* osgShadow.framework */,
+				4A1EB55D203BA10000BDEC89 /* osgSim.framework */,
+				4A1EB562203BA10000BDEC89 /* osgTerrain.framework */,
+				4A1EB565203BA10100BDEC89 /* osgText.framework */,
+				4A1EB567203BA10100BDEC89 /* osgUI.framework */,
+				4A1EB563203BA10000BDEC89 /* osgUtil.framework */,
+				4A1EB56D203BA10100BDEC89 /* osgViewer.framework */,
+				4A1EB566203BA10100BDEC89 /* osgVolume.framework */,
+				4A1EB55F203BA10000BDEC89 /* osgWidget.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4ADF1CBB1DAEFA6B00BF20FF /* artoolkitX Square Tracking Example with OSG */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4ADF1CCD1DAEFA6B00BF20FF /* Build configuration list for PBXNativeTarget "artoolkitX Square Tracking Example with OSG" */;
+			buildPhases = (
+				4ADF1CB81DAEFA6B00BF20FF /* Sources */,
+				4ADF1CB91DAEFA6B00BF20FF /* Frameworks */,
+				4ADF1CBA1DAEFA6B00BF20FF /* Resources */,
+				4ADF1CE31DAEFD7200BF20FF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "artoolkitX Square Tracking Example with OSG";
+			productName = "artoolkitX Tracking Example";
+			productReference = 4ADF1CBC1DAEFA6B00BF20FF /* artoolkitX Square Tracking Example with OSG.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4ADF1CB41DAEFA6B00BF20FF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = artoolkit.org;
+				TargetAttributes = {
+					4ADF1CBB1DAEFA6B00BF20FF = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 7ER2WP8VB3;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 4ADF1CB71DAEFA6B00BF20FF /* Build configuration list for PBXProject "artoolkitX Square Tracking Example with OSG" */;
+			compatibilityVersion = "Xcode 6.3";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4ADF1CB31DAEFA6B00BF20FF;
+			productRefGroup = 4ADF1CBD1DAEFA6B00BF20FF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4ADF1CBB1DAEFA6B00BF20FF /* artoolkitX Square Tracking Example with OSG */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4ADF1CBA1DAEFA6B00BF20FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A1EB55B203B954C00BDEC89 /* OSG in Resources */,
+				4AC06DF01F7372BD00CCBEF6 /* hiro.patt in Resources */,
+				4ADF1CC61DAEFA6B00BF20FF /* Assets.xcassets in Resources */,
+				4A1EB559203B953E00BDEC89 /* model1.dat in Resources */,
+				4A1EB558203B953E00BDEC89 /* model0.dat in Resources */,
+				4AC06DF11F7372BD00CCBEF6 /* kanji.patt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4ADF1CB81DAEFA6B00BF20FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4ADF1CD71DAEFC8A00BF20FF /* arosg.cpp in Sources */,
+				4ADF1CDA1DAEFC8A00BF20FF /* main.cpp in Sources */,
+				4ADF1CD61DAEFC8A00BF20FF /* drawOSG.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4ADF1CCB1DAEFA6B00BF20FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					../../../SDK/Frameworks/,
+					../../../Source/depends/macos/Frameworks/,
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ARX_TARGET_PLATFORM_MACOS,
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4ADF1CCC1DAEFA6B00BF20FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					../../../SDK/Frameworks/,
+					../../../Source/depends/macos/Frameworks/,
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					ARX_TARGET_PLATFORM_MACOS,
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4ADF1CCE1DAEFA6B00BF20FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = 7ER2WP8VB3;
+				DSTROOT = ../..;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.artoolkitx.arx.example.square-tracking-example-with-osg-macos";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Debug;
+		};
+		4ADF1CCF1DAEFA6B00BF20FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DEVELOPMENT_TEAM = 7ER2WP8VB3;
+				DSTROOT = ../..;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = /;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.artoolkitx.arx.example.square-tracking-example-with-osg-macos";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4ADF1CB71DAEFA6B00BF20FF /* Build configuration list for PBXProject "artoolkitX Square Tracking Example with OSG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4ADF1CCB1DAEFA6B00BF20FF /* Debug */,
+				4ADF1CCC1DAEFA6B00BF20FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4ADF1CCD1DAEFA6B00BF20FF /* Build configuration list for PBXNativeTarget "artoolkitX Square Tracking Example with OSG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4ADF1CCE1DAEFA6B00BF20FF /* Debug */,
+				4ADF1CCF1DAEFA6B00BF20FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4ADF1CB41DAEFA6B00BF20FF /* Project object */;
+}

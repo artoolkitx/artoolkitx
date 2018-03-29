@@ -1,0 +1,5 @@
+artoolkitx-bin (1.0.0) any; urgency=medium
+
+  * Initial artoolkitx-lib package
+
+ -- artoolkitx.org <info@artoolkitx.org>  Tue, 13 Mar 2018 15:19:15 +1300

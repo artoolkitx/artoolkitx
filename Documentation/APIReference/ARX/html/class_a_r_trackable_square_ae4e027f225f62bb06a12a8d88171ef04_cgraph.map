@@ -1,0 +1,15 @@
+<map id="ARTrackableSquare::updateWithDetectedMarkers" name="ARTrackableSquare::updateWithDetectedMarkers">
+<area shape="rect" id="node2" href="$ar_get_trans_mat_8c.html#a340510d7028a7bc041ed68824f92652e" title="(description) " alt="" coords="244,8,425,33"/>
+<area shape="rect" id="node6" href="$ar_get_trans_mat_8c.html#a4e7134891f6bb5fdae0594f8df049d19" title="(description) " alt="" coords="258,60,411,85"/>
+<area shape="rect" id="node8" href="$class_a_r_trackable.html#a445a8894d99c98bc966ebff530d58278" title="Completes an update begun in the parent class, performing filtering, generating OpenGL view matrix an..." alt="" coords="262,169,407,195"/>
+<area shape="rect" id="node3" href="$icp_point_8c.html#a466204966df0b17ea76bd05a3d396307" title="icpPoint" alt="" coords="516,5,584,31"/>
+<area shape="rect" id="node4" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title="arUtilMatMul" alt="" coords="725,63,821,88"/>
+<area shape="rect" id="node5" href="$icp_core_8c.html#aceeb3fd72a762c2078d8fb88ec03ccfb" title="icpGetU_from_X_by_MatX2U" alt="" coords="675,5,871,31"/>
+<area shape="rect" id="node7" href="$icp_util_8c.html#a9a0da1f41013b11363f39d99a5c937e9" title="icpGetInitXw2Xc_from\l_PlanarData" alt="" coords="473,55,627,93"/>
+<area shape="rect" id="node9" href="$ar_filter_trans_mat_8c.html#a575d29079692c1af23b19f0477ee2123" title="Filters the supplied pose estimate transformation matrix in&#45;place. " alt="" coords="491,169,609,195"/>
+<area shape="rect" id="node13" href="$param_g_l_8h.html#a417be19c9a53d64da33898a938d80944" title="arglCameraViewRHf" alt="" coords="479,219,621,244"/>
+<area shape="rect" id="node14" href="$param_g_l_8h.html#abb0e707a0812fc2c5bdbbaee6694a16f" title="Create an OpenGL viewing transformation matrix. " alt="" coords="480,268,619,293"/>
+<area shape="rect" id="node10" href="$ar_util_8c.html#adb4a9f8d233d3b954fd85bbb3deda173" title="arUtilMat2QuatPos" alt="" coords="706,120,840,145"/>
+<area shape="rect" id="node11" href="$ar_util_8c.html#aa543b10d8b401ccf5626aba7dfa12e09" title="arUtilQuatNorm" alt="" coords="716,169,830,195"/>
+<area shape="rect" id="node12" href="$ar_util_8c.html#a016bf9cc45eee7cd9eae471cecc68e9a" title="arUtilQuatPos2Mat" alt="" coords="706,219,840,244"/>
+</map>

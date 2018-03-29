@@ -1,0 +1,12 @@
+<map id="_ARGL_CONTEXT_SETTINGS" name="_ARGL_CONTEXT_SETTINGS">
+<area shape="rect" id="node2" href="$struct_a_r_handle.html" title="Structure holding state of an instance of the square marker tracker. " alt="" coords="767,180,849,205"/>
+<area shape="rect" id="node3" href="$struct___a_r_image_proc_info.html" title="Structure holding settings for an instance of the image&#45;processing pipeline. " alt="" coords="483,55,617,80"/>
+<area shape="rect" id="node4" href="$struct_a_r_patt_handle.html" title="A structure which holds descriptions of trained patterns for template matching. " alt="" coords="497,104,603,129"/>
+<area shape="rect" id="node5" href="$struct_a_r_marker_info.html" title="Describes a detected trapezoidal area (a candidate for a marker match). " alt="" coords="256,205,360,231"/>
+<area shape="rect" id="node10" href="$struct_a_r_tracking_history.html" title="(description) " alt="" coords="484,267,615,292"/>
+<area shape="rect" id="node6" href="$struct_a_r_marker_info2.html" title="Captures detail of a trapezoidal region which is a candidate for marker detection. " alt="" coords="5,180,116,205"/>
+<area shape="rect" id="node7" href="$struct_a_r_param_l_t.html" title="Structure holding camera parameters, in lookup table form. " alt="" coords="503,316,596,341"/>
+<area shape="rect" id="node8" href="$struct_a_r_param_l_tf.html" title="Structure holding camera parameters, in lookup table form; floating point version. " alt="" coords="259,283,357,308"/>
+<area shape="rect" id="node9" href="$struct_a_r_param.html" title="Structure holding camera parameters, including image size, projection matrix and lens distortion para..." alt="" coords="268,351,348,376"/>
+<area shape="rect" id="node11" href="$struct_a_r_label_info.html" title="(description) " alt="" coords="502,5,597,31"/>
+</map>

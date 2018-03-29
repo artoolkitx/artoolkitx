@@ -1,0 +1,7 @@
+<map id="ARController::stopRunning" name="ARController::stopRunning">
+<area shape="rect" id="node2" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open. " alt="" coords="233,5,399,31"/>
+<area shape="rect" id="node3" href="$class_a_r_video_source.html#ae67083e64b2b3c6d7aa6d8cbe33ef95f" title="Closes the video source. " alt="" coords="239,55,393,80"/>
+<area shape="rect" id="node4" href="$video_8h.html#a1be4d84d7f0145a0abe41d9a351c867c" title="ar2VideoCapStop" alt="" coords="447,5,573,31"/>
+<area shape="rect" id="node5" href="$param_8h.html#ae8028c38d85676df772e04a2b32b0e33" title="Dispose of a memory allocated to a lookup&#45;table camera parameter. " alt="" coords="453,55,567,80"/>
+<area shape="rect" id="node6" href="$video_8h.html#a9e63fc8d035c52c91c2bfb1ee3d332ed" title="ar2VideoClose" alt="" coords="456,104,564,129"/>
+</map>

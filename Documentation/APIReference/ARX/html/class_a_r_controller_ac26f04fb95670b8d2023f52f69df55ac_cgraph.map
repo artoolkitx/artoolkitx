@@ -1,0 +1,5 @@
+<map id="ARController::capture" name="ARController::capture">
+<area shape="rect" id="node2" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open. " alt="" coords="223,5,389,31"/>
+<area shape="rect" id="node3" href="$class_a_r_video_source.html#a9079adb38c430b6f3dfcafef8221e5e9" title="Asks the video source to capture a frame. " alt="" coords="203,55,409,80"/>
+<area shape="rect" id="node4" href="$video_8h.html#a6a88e760ef4a072d86dabd11d6d66da8" title="ar2VideoGetImage" alt="" coords="457,55,590,80"/>
+</map>

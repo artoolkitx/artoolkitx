@@ -1,0 +1,6 @@
+<map id="arwChangeToResourcesDir" name="arwChangeToResourcesDir">
+<area shape="rect" id="node2" href="$ar_util_8c.html#acd9f679696c2c26b378e434f6d78ae7d" title="Change to the resources directory using the specified behavior. " alt="" coords="238,31,468,56"/>
+<area shape="rect" id="node3" href="$ar_util_8c.html#ad5271b5188c065012893079f667e2eac" title="Get the path to the resources directory using the specified behavior. " alt="" coords="516,31,734,56"/>
+<area shape="rect" id="node4" href="$ar_util_8c.html#ae4f3e60c7edce9acfdddb9b454d13c1d" title="arUtilGetDirectoryNameFromPath" alt="" coords="782,5,1004,31"/>
+<area shape="rect" id="node5" href="$ar_util_8c.html#ac0d48e09db3feb8db34b2911ca70f8d0" title="arUtilGetFileNameFromPath" alt="" coords="798,55,988,80"/>
+</map>

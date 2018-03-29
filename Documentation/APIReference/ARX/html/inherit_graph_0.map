@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$interface_camera_video.html" title="CameraVideo" alt="" coords="494,13,597,39"/>
+<area shape="rect" id="node4" href="$interface_movie_video.html" title="MovieVideo" alt="" coords="500,65,591,91"/>
+<area shape="rect" id="node5" href="$interfacevideo_a_v_foundation_camera_video_took_picture_delegate.html" title="videoAVFoundationCameraVideo\lTookPictureDelegate" alt="" coords="437,115,655,153"/>
+<area shape="rect" id="node7" href="$protocol_camera_video_took_picture_delegate-p.html" title="\&lt;CameraVideoTookPictureDelegate\&gt;" alt="" coords="147,121,389,147"/>
+</map>

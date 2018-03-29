@@ -1,0 +1,6 @@
+<map id="ar2DeleteHandle" name="ar2DeleteHandle">
+<area shape="rect" id="node2" href="$thread__sub_8h.html#a006573b21f1e807bd812b16217a630f0" title="threadWaitQuit" alt="" coords="181,5,291,31"/>
+<area shape="rect" id="node3" href="$thread__sub_8h.html#a7dc2b12fca98966bdcbcf8f5bb9b1a83" title="threadFree" alt="" coords="193,55,279,80"/>
+<area shape="rect" id="node4" href="$template_8h.html#a92b414adeeb88d4cc5d4dd1aadcb41d0" title="ar2FreeTemplate" alt="" coords="175,104,297,129"/>
+<area shape="rect" id="node5" href="$icp_handle_8c.html#a510dee7e69010b7aa075d90f27a8e9da" title="icpDeleteHandle" alt="" coords="176,153,295,179"/>
+</map>

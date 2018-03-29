@@ -1,0 +1,16 @@
+<map id="zip_od" name="zip_od">
+<area shape="rect" id="node2" href="$zip_8c.html#a0370a21cb99a27cf66468e32fb22620f" title="zipOpen" alt="" coords="153,68,224,93"/>
+<area shape="rect" id="node7" href="$zip_8c.html#a5c9334b17b8edf2f11e4c2e11135f7ea" title="zipOpenNewFileInZip" alt="" coords="114,119,263,144"/>
+<area shape="rect" id="node9" href="$zip_8c.html#ae470f753aef4cffe4f77a5ec2bcfbde1" title="zipCloseFileInZip" alt="" coords="761,169,885,195"/>
+<area shape="rect" id="node12" href="$zip_8c.html#a1a39e7f39496c5f7a6ae1acde29571ce" title="zipWriteInFileInZip" alt="" coords="123,220,254,245"/>
+<area shape="rect" id="node13" href="$zip_8c.html#a4fda7a41fa2f57d105ffc7d1cbcf53cc" title="zipClose" alt="" coords="152,269,225,295"/>
+<area shape="rect" id="node3" href="$zip_8c.html#aa1b472c66e7ac205fbb86ac0950cebe1" title="zipOpen3" alt="" coords="361,68,439,93"/>
+<area shape="rect" id="node4" href="$ioapi_8c.html#a0c90747a8b732158bc3666411776affe" title="fill_zlib_filefunc64\l_32_def_from_filefunc32" alt="" coords="537,5,705,44"/>
+<area shape="rect" id="node5" href="$zip_8c.html#addcccf3eebcef825f7f46a5a5cdda18a" title="zipOpen4" alt="" coords="582,68,660,93"/>
+<area shape="rect" id="node6" href="$ioapi_8c.html#aa67e4de04de04bf2d1694febd74bd16f" title="fill_fopen64_filefunc" alt="" coords="753,68,893,93"/>
+<area shape="rect" id="node8" href="$zip_8c.html#a7917960fac517a601d5b9705cd5bab96" title="zipOpenNewFileInZip4_64" alt="" coords="311,119,489,144"/>
+<area shape="rect" id="node10" href="$zip_8c.html#ac90ee507f85e5f6586a2bfe90aad5ddc" title="zipCloseFileInZipRaw" alt="" coords="941,169,1091,195"/>
+<area shape="rect" id="node11" href="$zip_8c.html#abed3466e1d5d1e4af5c0fdb68fec9fd2" title="zipCloseFileInZipRaw64" alt="" coords="1139,169,1304,195"/>
+<area shape="rect" id="node14" href="$zip_8c.html#a18716652c41032ddf0dc2d0042edfcf9" title="zipClose_64" alt="" coords="353,244,447,269"/>
+<area shape="rect" id="node15" href="$zip_8c.html#a196f81458eca5e5951085bdf1399a4c9" title="zipClose2_64" alt="" coords="570,220,672,245"/>
+</map>

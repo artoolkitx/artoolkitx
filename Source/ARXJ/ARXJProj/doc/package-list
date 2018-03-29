@@ -1,0 +1,5 @@
+org.artoolkitx.arx.arxj
+org.artoolkitx.arx.arxj.assets
+org.artoolkitx.arx.arxj.camera
+org.artoolkitx.arx.arxj.rendering
+org.artoolkitx.arx.arxj.rendering.shader_impl

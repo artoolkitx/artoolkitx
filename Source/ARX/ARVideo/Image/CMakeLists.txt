@@ -1,0 +1,12 @@
+set(SOURCE
+    ${SOURCE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/videoImage.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/videoImage.c
+    PARENT_SCOPE
+)
+
+set(DEFINES
+    ${DEFINES}
+    ARVIDEO_INPUT_IMAGE
+    PARENT_SCOPE
+)

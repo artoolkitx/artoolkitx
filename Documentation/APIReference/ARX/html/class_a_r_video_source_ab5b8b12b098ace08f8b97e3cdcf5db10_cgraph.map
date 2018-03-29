@@ -1,0 +1,6 @@
+<map id="ARVideoSource::~ARVideoSource" name="ARVideoSource::~ARVideoSource">
+<area shape="rect" id="node2" href="$class_a_r_video_source.html#ae67083e64b2b3c6d7aa6d8cbe33ef95f" title="Closes the video source. " alt="" coords="279,55,433,80"/>
+<area shape="rect" id="node3" href="$video_8h.html#a1be4d84d7f0145a0abe41d9a351c867c" title="ar2VideoCapStop" alt="" coords="481,5,607,31"/>
+<area shape="rect" id="node4" href="$param_8h.html#ae8028c38d85676df772e04a2b32b0e33" title="Dispose of a memory allocated to a lookup&#45;table camera parameter. " alt="" coords="487,55,601,80"/>
+<area shape="rect" id="node5" href="$video_8h.html#a9e63fc8d035c52c91c2bfb1ee3d332ed" title="ar2VideoClose" alt="" coords="490,104,598,129"/>
+</map>

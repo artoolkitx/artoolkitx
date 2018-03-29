@@ -1,0 +1,13 @@
+How to use these markers:
+-------------------------
+
+These matrix-code markers are a 3x3 format without error detection or correction, allowing up to 64 different markers to be identified.
+
+To enable the use of these markers in your ARToolKit program, add these lines to your setup code:
+
+arSetPatternDetectionMode(arHandle, AR_MATRIX_CODE_DETECTION);
+arSetMatrixCodeType(arHandle, AR_MATRIX_CODE_3x3);
+
+More information on use of matrix code-mode can be found here:
+https://github.com/artoolkitx/artoolkitx/wiki
+--

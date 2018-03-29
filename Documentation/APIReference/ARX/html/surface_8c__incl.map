@@ -1,0 +1,20 @@
+<map id="/Users/phil/r/artoolkitx/Source/ARX/AR2/surface.c" name="/Users/phil/r/artoolkitx/Source/ARX/AR2/surface.c">
+<area shape="rect" id="node2" href="$ar_8h.html" title="artoolkitX core routines. " alt="" coords="644,385,740,411"/>
+<area shape="rect" id="node19" href="$coord_8h.html" title="ARX/AR2/coord.h" alt="" coords="178,165,305,191"/>
+<area shape="rect" id="node22" href="$feature_set_8h.html" title="ARX/AR2/featureSet.h" alt="" coords="280,239,435,264"/>
+<area shape="rect" id="node23" href="$template_8h.html" title="ARX/AR2/template.h" alt="" coords="429,165,574,191"/>
+<area shape="rect" id="node24" href="$tracking_8h.html" title="ARX/AR2/tracking.h" alt="" coords="570,92,710,117"/>
+<area shape="rect" id="node27" href="$util_8h.html" title="ARX/AR2/util.h" alt="" coords="117,92,227,117"/>
+<area shape="rect" id="node8" href="$ar_config_8h.html" title="ARX/AR/arConfig.h" alt="" coords="144,459,280,484"/>
+<area shape="rect" id="node9" href="$log_8h.html" title="Logging utilities. " alt="" coords="501,459,624,484"/>
+<area shape="rect" id="node13" href="$matrix_8h.html" title="ARX/AR/matrix.h" alt="" coords="736,459,858,484"/>
+<area shape="rect" id="node15" href="$icp_8h.html" title="ARX/AR/icp.h" alt="" coords="1222,459,1325,484"/>
+<area shape="rect" id="node17" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters. " alt="" coords="304,459,427,484"/>
+<area shape="rect" id="node18" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing. " alt="" coords="883,459,1045,484"/>
+<area shape="rect" id="node12" href="$types_8h.html" title="ARX/ARUtil/types.h" alt="" coords="850,532,987,557"/>
+<area shape="rect" id="node16" href="$icp_core_8h.html" title="ARX/AR/icpCore.h" alt="" coords="1241,532,1373,557"/>
+<area shape="rect" id="node20" href="$config_8h.html" title="ARX/AR2/config.h" alt="" coords="346,385,475,411"/>
+<area shape="rect" id="node21" href="$image_set_8h.html" title="ARX/AR2/imageSet.h" alt="" coords="336,312,485,337"/>
+<area shape="rect" id="node25" href="$thread__sub_8h.html" title="ARX/ARUtil/thread_sub.h" alt="" coords="991,239,1163,264"/>
+<area shape="rect" id="node26" href="$marker_8h.html" title="ARX/AR2/marker.h" alt="" coords="610,312,744,337"/>
+</map>

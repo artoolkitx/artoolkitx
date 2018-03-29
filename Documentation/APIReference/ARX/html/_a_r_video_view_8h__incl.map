@@ -1,0 +1,17 @@
+<map id="/Users/phil/r/artoolkitx/Source/ARX/include/ARX/ARVideoView.h" name="/Users/phil/r/artoolkitx/Source/ARX/include/ARX/ARVideoView.h">
+<area shape="rect" id="node2" href="$_platform_8h.html" title="ARX/Platform.h" alt="" coords="24,179,137,204"/>
+<area shape="rect" id="node3" href="$_a_r_video_source_8h.html" title="ARX/ARVideoSource.h" alt="" coords="342,105,500,131"/>
+<area shape="rect" id="node4" href="$ar_8h.html" title="artoolkitX core routines. " alt="" coords="552,252,649,277"/>
+<area shape="rect" id="node27" href="$arg_8h.html" title="A collection of useful graphics routines for artoolkitX. " alt="" coords="622,105,737,131"/>
+<area shape="rect" id="node21" href="$video_8h.html" title="ARX/ARVideo/video.h" alt="" coords="161,179,312,204"/>
+<area shape="rect" id="node10" href="$ar_config_8h.html" title="ARX/AR/arConfig.h" alt="" coords="378,325,514,351"/>
+<area shape="rect" id="node11" href="$log_8h.html" title="Logging utilities. " alt="" coords="589,325,711,351"/>
+<area shape="rect" id="node15" href="$matrix_8h.html" title="ARX/AR/matrix.h" alt="" coords="1118,325,1240,351"/>
+<area shape="rect" id="node17" href="$icp_8h.html" title="ARX/AR/icp.h" alt="" coords="984,325,1087,351"/>
+<area shape="rect" id="node19" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters. " alt="" coords="786,325,909,351"/>
+<area shape="rect" id="node20" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing. " alt="" coords="192,325,354,351"/>
+<area shape="rect" id="node14" href="$types_8h.html" title="ARX/ARUtil/types.h" alt="" coords="663,399,800,424"/>
+<area shape="rect" id="node18" href="$icp_core_8h.html" title="ARX/AR/icpCore.h" alt="" coords="996,399,1128,424"/>
+<area shape="rect" id="node22" href="$video_config_8h.html" title="ARX/ARVideo/videoConfig.h" alt="" coords="338,252,528,277"/>
+<area shape="rect" id="node24" href="$video_luma_8h.html" title="ARX/ARVideo/videoLuma.h" alt="" coords="130,252,314,277"/>
+</map>

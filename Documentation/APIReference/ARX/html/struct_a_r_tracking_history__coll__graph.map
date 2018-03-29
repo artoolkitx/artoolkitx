@@ -1,0 +1,4 @@
+<map id="ARTrackingHistory" name="ARTrackingHistory">
+<area shape="rect" id="node2" href="$struct_a_r_marker_info.html" title="Describes a detected trapezoidal area (a candidate for a marker match). " alt="" coords="19,92,123,117"/>
+<area shape="rect" id="node3" href="$struct_a_r_marker_info2.html" title="Captures detail of a trapezoidal region which is a candidate for marker detection. " alt="" coords="16,5,127,31"/>
+</map>

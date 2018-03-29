@@ -1,0 +1,6 @@
+<map id="ARTrackerSquare::setPatternSize" name="ARTrackerSquare::setPatternSize">
+<area shape="rect" id="node2" href="$class_a_r_tracker_square.html#aad66ce9d506de5b28e55ed76004b4041" title="ARTrackerSquare::patternSize" alt="" coords="275,5,477,31"/>
+<area shape="rect" id="node3" href="$ar_patt_create_handle_8c.html#a4cc694c73a326767ba1614e97fcd00cb" title="Free all loaded patterns and pattern handle. " alt="" coords="307,55,445,80"/>
+<area shape="rect" id="node5" href="$ar_patt_create_handle_8c.html#a0883d286b98414588a36dad6d2e67d9a" title="Allocate a pattern handle and set pattern template size and maximum number of patterns loadable..." alt="" coords="303,104,449,129"/>
+<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory. " alt="" coords="525,55,609,80"/>
+</map>

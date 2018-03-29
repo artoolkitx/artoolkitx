@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="prefCategory_camera"
+        android:title="@string/prefCategory_title_camera">
+        <ListPreference
+            android:defaultValue="@string/pref_defaultValue_cameraResolution"
+            android:dialogTitle="@string/pref_title_cameraResolution"
+            android:entries="@array/pref_entries_cameraResolution"
+            android:entryValues="@array/pref_entryValues_cameraResolution"
+            android:key="pref_cameraResolution"
+            android:title="@string/pref_title_cameraResolution" />
+        <ListPreference
+            android:defaultValue="@string/pref_defaultValue_cameraIndex"
+            android:dialogTitle="@string/pref_title_cameraIndex"
+            android:enabled="false"
+            android:entries="@array/pref_entries_cameraIndex"
+            android:entryValues="@array/pref_entryValues_cameraIndex"
+            android:key="pref_cameraIndex"
+            android:shouldDisableView="true"
+            android:title="@string/pref_title_cameraIndex" />
+    </PreferenceCategory>
+</PreferenceScreen>

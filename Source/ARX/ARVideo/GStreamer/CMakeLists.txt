@@ -1,0 +1,26 @@
+find_package(PkgConfig REQUIRED)
+pkg_search_module(GSTREAMER REQUIRED gstreamer-1.0)
+pkg_search_module(GLIB REQUIRED glib-2.0)
+set(INCLUDE_DIRS
+    ${INCLUDE_DIRS}
+    ${GSTREAMER_INCLUDE_DIRS} ${GLIB_INCLUDE_DIRS}
+	PARENT_SCOPE
+)
+set(LIBS
+    ${LIBS}
+    ${GSTREAMER_LDFLAGS} ${GLIB_LDFLAGS}
+	PARENT_SCOPE
+)
+
+set(SOURCE
+    ${SOURCE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/videoGStreamer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/videoGStreamer.c
+    PARENT_SCOPE
+)
+
+set(DEFINES
+    ${DEFINES}
+    ARVIDEO_INPUT_GSTREAMER
+    PARENT_SCOPE
+)

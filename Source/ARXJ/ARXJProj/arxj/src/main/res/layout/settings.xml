@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:id="@+id/buttonFrameLayout"
+    android:layout_gravity="start|top"
+    android:layout_weight="1">
+
+    <ImageButton
+        android:contentDescription="@string/configText"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_action_settings"
+        android:id="@+id/button_config"
+        android:layout_gravity="start|top"
+        android:background="@android:color/transparent" />
+
+</FrameLayout>

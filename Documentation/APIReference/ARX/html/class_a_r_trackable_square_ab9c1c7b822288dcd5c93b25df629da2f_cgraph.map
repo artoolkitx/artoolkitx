@@ -1,0 +1,7 @@
+<map id="ARTrackableSquare::initWithBarcode" name="ARTrackableSquare::initWithBarcode">
+<area shape="rect" id="node2" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title="ARTrackableSquare::\lunload" alt="" coords="228,55,376,93"/>
+<area shape="rect" id="node5" href="$class_a_r_trackable.html#a913458e15352cfd5488f893c95f9c4f5" title="Allocates space for patterns within this trackable. " alt="" coords="201,5,402,31"/>
+<area shape="rect" id="node6" href="$class_a_r_pattern.html#a214920151785182893dafc208fcb4628" title="ARPattern::loadMatrix" alt="" coords="226,117,378,143"/>
+<area shape="rect" id="node3" href="$class_a_r_trackable.html#aa425f1e3e1ba8d8b39ec6a34f8e2f403" title="Frees allocated patterns and resets the pattern count to zero. " alt="" coords="450,9,628,35"/>
+<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory. " alt="" coords="497,61,581,87"/>
+</map>

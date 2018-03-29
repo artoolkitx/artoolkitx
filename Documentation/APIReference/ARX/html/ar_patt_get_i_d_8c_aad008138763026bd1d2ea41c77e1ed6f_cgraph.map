@@ -1,0 +1,4 @@
+<map id="arPattGetID2" name="arPattGetID2">
+<area shape="rect" id="node2" href="$ar_patt_get_i_d_8c.html#acce963b8d7e85cedfcb4d33ece5f20db" title="Match the interior of a detected square against known patterns with variable border width..." alt="" coords="152,5,283,31"/>
+<area shape="rect" id="node3" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square..." alt="" coords="331,5,454,31"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="arGetLine" name="arGetLine">
+<area shape="rect" id="node2" href="$matrix_8h.html#ac94c691cd85259643eaef4162768e18a" title="arVecAlloc" alt="" coords="176,5,260,31"/>
+<area shape="rect" id="node3" href="$matrix_8h.html#a4ab6ed1bcea1368a2040e9779ab28b9b" title="arMatrixAlloc" alt="" coords="522,81,620,107"/>
+<area shape="rect" id="node4" href="$param_8h.html#a7145069f057810d3b0a5a944060bdace" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="133,107,303,132"/>
+<area shape="rect" id="node5" href="$matrix_8h.html#a4551918179e71b9e67d8f44322e09dba" title="arMatrixPCA" alt="" coords="170,156,267,181"/>
+<area shape="rect" id="node8" href="$matrix_8h.html#a7b6cca2930147818bd060cddd5c5a28a" title="arMatrixFree" alt="" coords="523,205,620,231"/>
+<area shape="rect" id="node9" href="$matrix_8h.html#a08c0d02dd8ddfb8a05d07f3fb80db2c4" title="arVecFree" alt="" coords="177,257,260,283"/>
+<area shape="rect" id="node6" href="$matrix_8h.html#a312a4e43097686beff3b8b13f248da13" title="arMatrixAllocDup" alt="" coords="351,156,474,181"/>
+<area shape="rect" id="node7" href="$matrix_8h.html#ab4713153a247e78332e6ce6dde31d2f4" title="arMatrixDup" alt="" coords="524,156,618,181"/>
+</map>

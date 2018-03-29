@@ -1,0 +1,18 @@
+# Bill of materials for artoolkitX packaging.
+# One file or folder per line.
+# Folders ending in / will have their contents copied.
+
+README.md
+LICENSE.txt
+Quick start.md
+Release Notes.md
+
+Documentation
+
+SDK/include
+SDK/lib
+
+Examples
+
+#Source/depends/common
+Source/depends/ios

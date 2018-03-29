@@ -1,0 +1,10 @@
+digraph "arwRegisterLogCallback"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="arwRegisterLogCallback",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="arLogSetLogger",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$log_8h.html#a97fccd533473b1bb602fc50a720618f5",tooltip="Divert logging to a callback, or revert to default logging. "];
+}

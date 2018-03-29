@@ -1,0 +1,11 @@
+<map id="PlanarTracker::PlanarTrackerImpl::RunTemplateMatching" name="PlanarTracker::PlanarTrackerImpl::RunTemplateMatching">
+<area shape="rect" id="node2" href="$class_planar_tracker_1_1_planar_tracker_impl.html#aace5e63679577c60230fd0829ac39720" title="PlanarTracker::PlanarTracker\lImpl::GetTemplateRoi" alt="" coords="267,5,462,44"/>
+<area shape="rect" id="node3" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a3fda737b66dff42b043010a8183fc792" title="PlanarTracker::PlanarTracker\lImpl::IsRoiValidForFrame" alt="" coords="267,68,462,107"/>
+<area shape="rect" id="node4" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a94f3ee0c3400c374dda006d6ae1406f9" title="PlanarTracker::PlanarTracker\lImpl::GetVerticesFromPoint" alt="" coords="267,131,462,169"/>
+<area shape="rect" id="node5" href="$class_planar_tracker_1_1_planar_tracker_impl.html#ada999156a2aff9866d9b81df2b8590c7" title="PlanarTracker::PlanarTracker\lImpl::GetVerticesFromTopCorner" alt="" coords="256,193,472,232"/>
+<area shape="rect" id="node6" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a344c4de330b09e69311b978fd716e504" title="PlanarTracker::PlanarTracker\lImpl::FloorVertexPoints" alt="" coords="267,256,462,295"/>
+<area shape="rect" id="node7" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a08ef0ac5b1da5887bc48f06eeb67ca16" title="PlanarTracker::PlanarTracker\lImpl::InflateRoi" alt="" coords="267,319,462,357"/>
+<area shape="rect" id="node8" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a78f2548808b2dbc02523d5b8bf20dc76" title="PlanarTracker::PlanarTracker\lImpl::MatchTemplateToImage" alt="" coords="266,381,462,420"/>
+<area shape="rect" id="node9" href="$class_planar_tracker_1_1_planar_tracker_impl.html#ab33c6c9dfe6b1c7d06478328d20c6905" title="PlanarTracker::PlanarTracker\lImpl::UpdateTrackableHomography" alt="" coords="249,444,480,483"/>
+<area shape="rect" id="node10" href="$_o_c_v_utils_8h.html#a7fe5bf75dbdbdb3b864fd17f80e8129f" title="GetHomographyInliers" alt="" coords="528,451,683,476"/>
+</map>

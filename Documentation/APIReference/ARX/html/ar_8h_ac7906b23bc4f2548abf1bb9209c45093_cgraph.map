@@ -1,0 +1,35 @@
+<map id="arDetectMarker" name="arDetectMarker">
+<area shape="rect" id="node2" href="$ar_labeling_8c.html#afff1a4731c179bd43f92e4c3d3b5e1fe" title="arLabeling" alt="" coords="239,301,322,327"/>
+<area shape="rect" id="node15" href="$ar_detect_marker2_8c.html#a8885f3a9c2ae28575db17bc235752ea4" title="arDetectMarker2" alt="" coords="220,632,341,657"/>
+<area shape="rect" id="node17" href="$ar_get_marker_info_8c.html#a9147cb6fc8ecd03a0ff580dc91f792c2" title="Examine a set of detected squares for match with known markers. " alt="" coords="221,716,340,741"/>
+<area shape="rect" id="node29" href="$ar_image_proc_8c.html#ad9cec305d9c18fa63cd9db8ff50dc0a8" title="Calculate image histogram, and box filter image. " alt="" coords="180,789,381,828"/>
+<area shape="rect" id="node31" href="$ar_image_proc_8c.html#a6e24e17a37a606c5eac24258b961c1e3" title="Calculate image histogram, cumulative density function, and median luminance value. " alt="" coords="167,887,395,925"/>
+<area shape="rect" id="node34" href="$ar_image_proc_8c.html#a943eb762bf7444095b99a1c8d9320dcf" title="Calculate image histogram, and binarize image using Otsu&#39;s method for foreground/background separatio..." alt="" coords="178,949,384,975"/>
+<area shape="rect" id="node3" href="$ar_labeling_private_8h.html#adfbd9da264905210ca8baa760ba4a215" title="arLabelingSubDBZ" alt="" coords="490,5,624,31"/>
+<area shape="rect" id="node4" href="$ar_labeling_private_8h.html#a9c53562c077c1c65ddd84bb0e228c23f" title="arLabelingSubDBRC" alt="" coords="484,55,629,80"/>
+<area shape="rect" id="node5" href="$ar_labeling_private_8h.html#a01ab2f426dfa5d7495b51718cd2a437b" title="arLabelingSubDBIC" alt="" coords="487,104,626,129"/>
+<area shape="rect" id="node6" href="$ar_labeling_private_8h.html#a70cda24a726bd6376e860587b5d02c80" title="arLabelingSubDWZ" alt="" coords="488,153,626,179"/>
+<area shape="rect" id="node7" href="$ar_labeling_private_8h.html#ae8605e2e0a0f4ca9234abd9705bcc12d" title="arLabelingSubDWRC" alt="" coords="482,203,631,228"/>
+<area shape="rect" id="node8" href="$ar_labeling_private_8h.html#a0d5560b509fa46e721d16608e6e81a80" title="arLabelingSubDWIC" alt="" coords="485,252,628,277"/>
+<area shape="rect" id="node9" href="$ar_labeling_private_8h.html#a77d10e682cefa55c9bb7101ce0c87252" title="arLabelingSubEBZ" alt="" coords="490,301,623,327"/>
+<area shape="rect" id="node10" href="$ar_labeling_private_8h.html#a4eb04acfccf00cff5f83d11caec59b57" title="arLabelingSubEBRC" alt="" coords="485,351,629,376"/>
+<area shape="rect" id="node11" href="$ar_labeling_private_8h.html#a30603a3b7b928fb832e93d0524cd88e4" title="arLabelingSubEBIC" alt="" coords="487,400,626,425"/>
+<area shape="rect" id="node12" href="$ar_labeling_private_8h.html#a55acba595c2539135641d14631167a55" title="arLabelingSubEWZ" alt="" coords="488,449,625,475"/>
+<area shape="rect" id="node13" href="$ar_labeling_private_8h.html#ad90a588db535feaba241624116cb1fdb" title="arLabelingSubEWRC" alt="" coords="483,499,631,524"/>
+<area shape="rect" id="node14" href="$ar_labeling_private_8h.html#afd2ba7ccd8dd8e4d17a184c9a37215c8" title="arLabelingSubEWIC" alt="" coords="486,548,628,573"/>
+<area shape="rect" id="node16" href="$ar_detect_marker2_8c.html#a274e403d1435733b05081af10ad416d3" title="arGetContour" alt="" coords="506,597,608,623"/>
+<area shape="rect" id="node18" href="$param_8h.html#a7145069f057810d3b0a5a944060bdace" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="736,497,906,523"/>
+<area shape="rect" id="node19" href="$ar_get_line_8c.html#a4edefe6026de468f8892a6359db67fbc" title="arGetLine" alt="" coords="517,699,597,724"/>
+<area shape="rect" id="node27" href="$ar_patt_get_i_d_8c.html#acce963b8d7e85cedfcb4d33ece5f20db" title="Match the interior of a detected square against known patterns with variable border width..." alt="" coords="492,771,622,796"/>
+<area shape="rect" id="node20" href="$matrix_8h.html#ac94c691cd85259643eaef4162768e18a" title="arVecAlloc" alt="" coords="779,547,863,572"/>
+<area shape="rect" id="node21" href="$matrix_8h.html#a4ab6ed1bcea1368a2040e9779ab28b9b" title="arMatrixAlloc" alt="" coords="1174,599,1272,624"/>
+<area shape="rect" id="node22" href="$matrix_8h.html#a4551918179e71b9e67d8f44322e09dba" title="arMatrixPCA" alt="" coords="773,648,870,673"/>
+<area shape="rect" id="node25" href="$matrix_8h.html#a7b6cca2930147818bd060cddd5c5a28a" title="arMatrixFree" alt="" coords="1175,697,1271,723"/>
+<area shape="rect" id="node26" href="$matrix_8h.html#a08c0d02dd8ddfb8a05d07f3fb80db2c4" title="arVecFree" alt="" coords="780,749,863,775"/>
+<area shape="rect" id="node23" href="$matrix_8h.html#a312a4e43097686beff3b8b13f248da13" title="arMatrixAllocDup" alt="" coords="987,648,1110,673"/>
+<area shape="rect" id="node24" href="$matrix_8h.html#ab4713153a247e78332e6ce6dde31d2f4" title="arMatrixDup" alt="" coords="1176,648,1270,673"/>
+<area shape="rect" id="node28" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square..." alt="" coords="760,799,883,824"/>
+<area shape="rect" id="node30" href="$ar_image_proc_8c.html#a9bddf2e229ba8ea9a61ea1f2d5a61b2a" title="Calculate luminance histogram. " alt="" coords="972,903,1126,928"/>
+<area shape="rect" id="node32" href="$ar_image_proc_8c.html#a4de5049bd51eed6d973d8242cba2ee00" title="Calculate image histogram, cumulative density function, and luminance value at a given histogram perc..." alt="" coords="443,896,671,935"/>
+<area shape="rect" id="node33" href="$ar_image_proc_8c.html#afb1e9977532aec222fb1895c3d66b5f3" title="Calculate image histogram and cumulative density function. " alt="" coords="719,903,924,928"/>
+</map>

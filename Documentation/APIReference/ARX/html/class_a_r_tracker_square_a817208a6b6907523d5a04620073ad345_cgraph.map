@@ -1,0 +1,15 @@
+<map id="ARTrackerSquare::newTrackable" name="ARTrackerSquare::newTrackable">
+<area shape="rect" id="node2" href="$class_a_r_trackable_square.html#a4560a444d86ca5c8bba655a6e3762239" title="ARTrackableSquare::\linitWithPatternFromBuffer" alt="" coords="271,63,445,101"/>
+<area shape="rect" id="node9" href="$class_a_r_trackable_square.html#ab9c1c7b822288dcd5c93b25df629da2f" title="ARTrackableSquare::\linitWithBarcode" alt="" coords="284,125,432,164"/>
+<area shape="rect" id="node11" href="$class_a_r_trackable_multi_square.html#a7dff28becb57da09cd3c9c07416abd00" title="ARTrackableMultiSquare\l::load" alt="" coords="273,195,442,233"/>
+<area shape="rect" id="node3" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title="ARTrackableSquare::\lunload" alt="" coords="519,55,667,93"/>
+<area shape="rect" id="node6" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title="arPattLoadFromBuffer" alt="" coords="517,5,670,31"/>
+<area shape="rect" id="node7" href="$class_a_r_trackable.html#a913458e15352cfd5488f893c95f9c4f5" title="Allocates space for patterns within this trackable. " alt="" coords="493,117,694,143"/>
+<area shape="rect" id="node8" href="$class_a_r_pattern.html#a6b3fa362244a54588d361af8c09690f6" title="ARPattern::loadTemplate" alt="" coords="509,167,678,192"/>
+<area shape="rect" id="node4" href="$class_a_r_trackable.html#aa425f1e3e1ba8d8b39ec6a34f8e2f403" title="Frees allocated patterns and resets the pattern count to zero. " alt="" coords="742,117,919,143"/>
+<area shape="rect" id="node5" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory. " alt="" coords="788,61,873,87"/>
+<area shape="rect" id="node10" href="$class_a_r_pattern.html#a214920151785182893dafc208fcb4628" title="ARPattern::loadMatrix" alt="" coords="518,216,669,241"/>
+<area shape="rect" id="node12" href="$class_a_r_trackable_multi_square.html#a57881bb2ce7acf1852db2ee6665cd0f4" title="ARTrackableMultiSquare\l::unload" alt="" coords="509,315,678,353"/>
+<area shape="rect" id="node14" href="$ar_multi_read_config_file_8c.html#ad54b103e4097609ddc76b1e721eb20eb" title="arMultiReadConfigFile" alt="" coords="517,265,670,291"/>
+<area shape="rect" id="node13" href="$ar_multi_free_config_8c.html#a0f33d2031514e1b5af6ba4dfa152633f" title="arMultiFreeConfig" alt="" coords="767,321,894,347"/>
+</map>

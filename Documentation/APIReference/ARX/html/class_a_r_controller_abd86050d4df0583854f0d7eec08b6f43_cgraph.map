@@ -1,0 +1,12 @@
+<map id="ARController::initialiseBase" name="ARController::initialiseBase">
+<area shape="rect" id="node2" href="$class_a_r_controller.html#ac3aad1d57eb54ef10ecdd57562fad461" title="Stop, if running. " alt="" coords="236,80,398,105"/>
+<area shape="rect" id="node11" href="$ar_util_8c.html#a5f6a6f78cfce8c8dfc80479b47232eb4" title="Get the artoolkitX version information in numberic and string format. " alt="" coords="268,129,367,155"/>
+<area shape="rect" id="node3" href="$class_a_r_controller.html#a889dbbe581e771d1f4f2e28fad3f686b" title="Video capture and tracking stops, but trackables are still valid and can be configured. " alt="" coords="471,29,651,55"/>
+<area shape="rect" id="node9" href="$class_a_r_controller.html#ac2961fa58ba3a2e10dbde637571efb91" title="Returns the number of currently loaded trackables. " alt="" coords="723,105,926,131"/>
+<area shape="rect" id="node10" href="$class_a_r_controller.html#a4be78b9f44e98f73f850b12700607da1" title="Clears the collection of trackables. " alt="" coords="446,131,675,156"/>
+<area shape="rect" id="node4" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open. " alt="" coords="742,5,907,31"/>
+<area shape="rect" id="node5" href="$class_a_r_video_source.html#ae67083e64b2b3c6d7aa6d8cbe33ef95f" title="Closes the video source. " alt="" coords="747,55,902,80"/>
+<area shape="rect" id="node6" href="$video_8h.html#a1be4d84d7f0145a0abe41d9a351c867c" title="ar2VideoCapStop" alt="" coords="974,5,1100,31"/>
+<area shape="rect" id="node7" href="$param_8h.html#ae8028c38d85676df772e04a2b32b0e33" title="Dispose of a memory allocated to a lookup&#45;table camera parameter. " alt="" coords="980,55,1094,80"/>
+<area shape="rect" id="node8" href="$video_8h.html#a9e63fc8d035c52c91c2bfb1ee3d332ed" title="ar2VideoClose" alt="" coords="983,104,1091,129"/>
+</map>

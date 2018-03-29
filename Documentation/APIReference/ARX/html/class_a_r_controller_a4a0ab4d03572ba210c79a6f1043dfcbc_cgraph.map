@@ -1,0 +1,12 @@
+<map id="ARController::drawVideoSettings" name="ARController::drawVideoSettings">
+<area shape="rect" id="node2" href="$class_a_r_video_view.html#a25ffd610597c483020fd7e88e653fb78" title="ARVideoView::setRotate90" alt="" coords="281,5,462,31"/>
+<area shape="rect" id="node4" href="$class_a_r_video_view.html#a128378e1e100251aa48159f50484dc79" title="ARVideoView::setFlipH" alt="" coords="292,55,451,80"/>
+<area shape="rect" id="node6" href="$class_a_r_video_view.html#a4af1fe48c71a10461d23d71ced32ee12" title="ARVideoView::setFlipV" alt="" coords="293,104,450,129"/>
+<area shape="rect" id="node8" href="$class_a_r_video_view.html#a4ff9d2658138c241024c96e47e91ef99" title="ARVideoView::setHorizontal\lAlignment" alt="" coords="278,153,465,192"/>
+<area shape="rect" id="node9" href="$class_a_r_video_view.html#a7f3b8d64e4ae7fe284a6b8894deb859e" title="ARVideoView::setVertical\lAlignment" alt="" coords="286,216,457,255"/>
+<area shape="rect" id="node10" href="$class_a_r_video_view.html#ab405e4937e0a64be4845fa7ba3e68e05" title="ARVideoView::setScalingMode" alt="" coords="269,279,474,304"/>
+<area shape="rect" id="node11" href="$class_a_r_video_view.html#adca8d189a9a553d88632db91b9469bfa" title="ARVideoView::getViewport" alt="" coords="282,328,461,353"/>
+<area shape="rect" id="node3" href="$class_a_r_video_view.html#a1fd2ef182b3414370cafb069885c92c7" title="Defaults to true. " alt="" coords="522,5,680,31"/>
+<area shape="rect" id="node5" href="$class_a_r_video_view.html#a34d5b337ce0eec2744d73169b2e26211" title="Defaults to false. " alt="" coords="533,55,669,80"/>
+<area shape="rect" id="node7" href="$class_a_r_video_view.html#a92fd6ecb873b76246736c8dbc42c18d1" title="Defaults to false. " alt="" coords="533,104,669,129"/>
+</map>

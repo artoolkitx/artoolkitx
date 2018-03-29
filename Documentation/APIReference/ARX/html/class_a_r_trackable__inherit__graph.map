@@ -1,0 +1,4 @@
+<map id="ARTrackable" name="ARTrackable">
+<area shape="rect" id="node2" href="$class_a_r_trackable_multi_square.html" title="Multiple marker type of ARTrackable. " alt="" coords="5,79,174,104"/>
+<area shape="rect" id="node3" href="$class_a_r_trackable_square.html" title="Single marker type of ARTrackable. " alt="" coords="198,79,339,104"/>
+</map>

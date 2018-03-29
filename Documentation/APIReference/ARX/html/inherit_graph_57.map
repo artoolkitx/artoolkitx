@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_a_r_trackable.html" title="Base class for supported trackable types. " alt="" coords="5,31,103,56"/>
+<area shape="rect" id="node2" href="$class_a_r_trackable_multi_square.html" title="Multiple marker type of ARTrackable. " alt="" coords="151,5,320,31"/>
+<area shape="rect" id="node3" href="$class_a_r_trackable_square.html" title="Single marker type of ARTrackable. " alt="" coords="165,55,306,80"/>
+</map>

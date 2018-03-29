@@ -1,0 +1,7 @@
+<map id="arCreateHandle" name="arCreateHandle">
+<area shape="rect" id="node2" href="$ar_create_handle_8c.html#a01258051f513f5c2760136479c9a2052" title="Enable or disable artoolkitX&#39;s debug mode. " alt="" coords="209,5,335,31"/>
+<area shape="rect" id="node3" href="$ar_create_handle_8c.html#aec6c548f3619e700e40764cd1c685fc6" title="Set the labeling threshold mode (auto/manual). " alt="" coords="183,55,361,80"/>
+<area shape="rect" id="node6" href="$ar_create_handle_8c.html#a86e2d00dfb41243650b1e18c55dcf031" title="Set the number of frames between auto&#45;threshold calculations. " alt="" coords="169,104,375,143"/>
+<area shape="rect" id="node4" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory. " alt="" coords="423,31,549,56"/>
+<area shape="rect" id="node5" href="$ar_image_proc_8c.html#a40df944801ad1069f667b366eba16855" title="Initialise image processing. " alt="" coords="428,80,544,105"/>
+</map>

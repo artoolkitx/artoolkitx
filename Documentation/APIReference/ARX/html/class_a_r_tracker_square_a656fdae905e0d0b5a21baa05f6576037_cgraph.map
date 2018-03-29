@@ -1,0 +1,4 @@
+<map id="ARTrackerSquare::terminate" name="ARTrackerSquare::terminate">
+<area shape="rect" id="node2" href="$ar_patt_create_handle_8c.html#a4cc694c73a326767ba1614e97fcd00cb" title="Free all loaded patterns and pattern handle. " alt="" coords="244,5,381,31"/>
+<area shape="rect" id="node3" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory. " alt="" coords="429,5,514,31"/>
+</map>

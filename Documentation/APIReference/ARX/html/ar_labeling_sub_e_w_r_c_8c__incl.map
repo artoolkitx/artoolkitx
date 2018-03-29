@@ -1,0 +1,13 @@
+<map id="/Users/phil/r/artoolkitx/Source/ARX/AR/arLabelingSub/arLabelingSubEWRC.c" name="/Users/phil/r/artoolkitx/Source/ARX/AR/arLabelingSub/arLabelingSubEWRC.c">
+<area shape="rect" id="node3" href="$ar_labeling_sub_8h.html" title="arLabelingSub.h" alt="" coords="1118,105,1236,131"/>
+<area shape="rect" id="node7" href="$ar_8h.html" title="artoolkitX core routines. " alt="" coords="865,179,962,204"/>
+<area shape="rect" id="node20" href="$ar_labeling_private_8h.html" title="arLabelingPrivate.h" alt="" coords="1428,179,1564,204"/>
+<area shape="rect" id="node9" href="$ar_config_8h.html" title="ARX/AR/arConfig.h" alt="" coords="690,252,827,277"/>
+<area shape="rect" id="node10" href="$log_8h.html" title="Logging utilities. " alt="" coords="226,252,349,277"/>
+<area shape="rect" id="node14" href="$matrix_8h.html" title="ARX/AR/matrix.h" alt="" coords="1048,252,1170,277"/>
+<area shape="rect" id="node16" href="$icp_8h.html" title="ARX/AR/icp.h" alt="" coords="475,252,578,277"/>
+<area shape="rect" id="node18" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters. " alt="" coords="901,252,1024,277"/>
+<area shape="rect" id="node19" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing. " alt="" coords="1245,252,1408,277"/>
+<area shape="rect" id="node13" href="$types_8h.html" title="ARX/ARUtil/types.h" alt="" coords="93,325,230,351"/>
+<area shape="rect" id="node17" href="$icp_core_8h.html" title="ARX/AR/icpCore.h" alt="" coords="542,325,674,351"/>
+</map>
