@@ -1,7 +1,7 @@
-<map id="/Users/phil/r/artoolkitx/Source/ARX/ARVideo/WindowsMediaCapture/CaptureFrameGrabber/MFIncludes.h" name="/Users/phil/r/artoolkitx/Source/ARX/ARVideo/WindowsMediaCapture/CaptureFrameGrabber/MFIncludes.h">
-<area shape="rect" id="node2" href="$_media_stream_sink_8h.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARVideo/WindowsMedia\lCapture/CaptureFrameGrabber\l/MediaStreamSink.h" alt="" coords="167,119,415,184"/>
-<area shape="rect" id="node4" href="$_media_stream_sink_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARVideo/WindowsMedia\lCapture/CaptureFrameGrabber\l/MediaStreamSink.cpp" alt="" coords="5,232,254,297"/>
-<area shape="rect" id="node5" href="$_capture_frame_grabber_8h.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARVideo/WindowsMedia\lCapture/CaptureFrameGrabber\l/CaptureFrameGrabber.h" alt="" coords="439,119,687,184"/>
-<area shape="rect" id="node3" href="$_capture_frame_grabber_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARVideo/WindowsMedia\lCapture/CaptureFrameGrabber\l/CaptureFrameGrabber.cpp" alt="" coords="277,232,526,297"/>
-<area shape="rect" id="node6" href="$_windows_media_capture_8h.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARVideo/WindowsMedia\lCapture/WindowsMediaCapture.h" alt="" coords="549,239,798,291"/>
+<map id="Source/ARX/ARVideo/WindowsMediaCapture/CaptureFrameGrabber/MFIncludes.h" name="Source/ARX/ARVideo/WindowsMediaCapture/CaptureFrameGrabber/MFIncludes.h">
+<area shape="rect" id="node2" href="$_media_stream_sink_8h.html" title="Source/ARX/ARVideo\l/WindowsMediaCapture\l/CaptureFrameGrabber\l/MediaStreamSink.h" alt="" coords="124,119,287,184"/>
+<area shape="rect" id="node4" href="$_media_stream_sink_8cpp.html" title="Source/ARX/ARVideo\l/WindowsMediaCapture\l/CaptureFrameGrabber\l/MediaStreamSink.cpp" alt="" coords="5,232,168,297"/>
+<area shape="rect" id="node5" href="$_capture_frame_grabber_8h.html" title="Source/ARX/ARVideo\l/WindowsMediaCapture\l/CaptureFrameGrabber\l/CaptureFrameGrabber.h" alt="" coords="311,119,481,184"/>
+<area shape="rect" id="node3" href="$_capture_frame_grabber_8cpp.html" title="Source/ARX/ARVideo\l/WindowsMediaCapture\l/CaptureFrameGrabber\l/CaptureFrameGrabber.cpp" alt="" coords="192,232,376,297"/>
+<area shape="rect" id="node6" href="$_windows_media_capture_8h.html" title="Source/ARX/ARVideo\l/WindowsMediaCapture\l/WindowsMediaCapture.h" alt="" coords="400,239,574,291"/>
 </map>

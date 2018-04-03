@@ -1,7 +1,7 @@
-<map id="/Users/phil/r/artoolkitx/Source/ARX/AR2/include/ARX/AR2/coord.h" name="/Users/phil/r/artoolkitx/Source/ARX/AR2/include/ARX/AR2/coord.h">
-<area shape="rect" id="node2" href="$coord_8c.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/AR2/coord.c" alt="" coords="5,105,181,144"/>
-<area shape="rect" id="node3" href="$search_point_8c.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/AR2/searchPoint.c" alt="" coords="205,105,418,144"/>
-<area shape="rect" id="node4" href="$surface_8c.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/AR2/surface.c" alt="" coords="441,105,627,144"/>
-<area shape="rect" id="node5" href="$template_8c.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/AR2/template.c" alt="" coords="651,105,844,144"/>
-<area shape="rect" id="node6" href="$tracking_8c.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/AR2/tracking.c" alt="" coords="868,105,1057,144"/>
+<map id="Source/ARX/AR2/include/ARX/AR2/coord.h" name="Source/ARX/AR2/include/ARX/AR2/coord.h">
+<area shape="rect" id="node2" href="$coord_8c.html" title="Source/ARX/AR2/coord.c" alt="" coords="5,92,177,117"/>
+<area shape="rect" id="node3" href="$search_point_8c.html" title="Source/ARX/AR2/searchPoint.c" alt="" coords="201,92,410,117"/>
+<area shape="rect" id="node4" href="$surface_8c.html" title="Source/ARX/AR2/surface.c" alt="" coords="435,92,617,117"/>
+<area shape="rect" id="node5" href="$template_8c.html" title="Source/ARX/AR2/template.c" alt="" coords="640,92,830,117"/>
+<area shape="rect" id="node6" href="$tracking_8c.html" title="Source/ARX/AR2/tracking.c" alt="" coords="853,92,1038,117"/>
 </map>

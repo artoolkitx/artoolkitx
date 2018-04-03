@@ -1,5 +1,5 @@
-<map id="/Users/phil/r/artoolkitx/Source/ARX/AR/include/ARX/AR/paramGL.h" name="/Users/phil/r/artoolkitx/Source/ARX/AR/include/ARX/AR/paramGL.h">
-<area shape="rect" id="node2" href="$param_g_l_8c.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/AR/paramGL.c" alt="" coords="5,105,196,144"/>
-<area shape="rect" id="node3" href="$_a_r_controller_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARController.cpp" alt="" coords="219,105,422,144"/>
-<area shape="rect" id="node4" href="$_a_r_trackable_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARTrackable.cpp" alt="" coords="445,105,649,144"/>
+<map id="Source/ARX/AR/include/ARX/AR/paramGL.h" name="Source/ARX/AR/include/ARX/AR/paramGL.h">
+<area shape="rect" id="node2" href="$param_g_l_8c.html" title="Source/ARX/AR/paramGL.c" alt="" coords="5,92,192,117"/>
+<area shape="rect" id="node3" href="$_a_r_controller_8cpp.html" title="Source/ARX/ARController.cpp" alt="" coords="216,92,416,117"/>
+<area shape="rect" id="node4" href="$_a_r_trackable_8cpp.html" title="Source/ARX/ARTrackable.cpp" alt="" coords="440,92,640,117"/>
 </map>

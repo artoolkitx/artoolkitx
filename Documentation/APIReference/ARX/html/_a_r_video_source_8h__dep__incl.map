@@ -1,12 +1,12 @@
-<map id="/Users/phil/r/artoolkitx/Source/ARX/include/ARX/ARVideoSource.h" name="/Users/phil/r/artoolkitx/Source/ARX/include/ARX/ARVideoSource.h">
-<area shape="rect" id="node2" href="$_a_r_video_source_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARVideoSource.cpp" alt="" coords="5,305,227,344"/>
-<area shape="rect" id="node3" href="$_a_r_controller_8h.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/include/ARX\l/ARController.h" alt="" coords="594,205,769,257"/>
-<area shape="rect" id="node10" href="$_a_r_video_view_8h.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/include/ARX\l/ARVideoView.h" alt="" coords="638,105,813,157"/>
-<area shape="rect" id="node4" href="$_a_r_controller_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARController.cpp" alt="" coords="251,305,454,344"/>
-<area shape="rect" id="node5" href="$_a_r_pattern_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARPattern.cpp" alt="" coords="478,305,667,344"/>
-<area shape="rect" id="node6" href="$_a_r_trackable_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARTrackable.cpp" alt="" coords="690,305,894,344"/>
-<area shape="rect" id="node7" href="$_a_r_trackable_multi_square_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARTrackableMultiSquare.cpp" alt="" coords="917,305,1192,344"/>
-<area shape="rect" id="node8" href="$_a_r_trackable_square_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARTrackableSquare.cpp" alt="" coords="1217,305,1464,344"/>
-<area shape="rect" id="node9" href="$_a_r_x__c_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARX_c.cpp" alt="" coords="1488,305,1657,344"/>
-<area shape="rect" id="node11" href="$_a_r_video_view_8cpp.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARVideoView.cpp" alt="" coords="794,212,1001,251"/>
+<map id="Source/ARX/include/ARX/ARVideoSource.h" name="Source/ARX/include/ARX/ARVideoSource.h">
+<area shape="rect" id="node2" href="$_a_r_video_source_8cpp.html" title="Source/ARX/ARVideoSource.cpp" alt="" coords="5,272,223,297"/>
+<area shape="rect" id="node3" href="$_a_r_controller_8h.html" title="Source/ARX/include\l/ARX/ARController.h" alt="" coords="599,179,742,217"/>
+<area shape="rect" id="node10" href="$_a_r_video_view_8h.html" title="Source/ARX/include\l/ARX/ARVideoView.h" alt="" coords="638,92,785,131"/>
+<area shape="rect" id="node4" href="$_a_r_controller_8cpp.html" title="Source/ARX/ARController.cpp" alt="" coords="247,272,446,297"/>
+<area shape="rect" id="node5" href="$_a_r_pattern_8cpp.html" title="Source/ARX/ARPattern.cpp" alt="" coords="470,272,655,297"/>
+<area shape="rect" id="node6" href="$_a_r_trackable_8cpp.html" title="Source/ARX/ARTrackable.cpp" alt="" coords="678,272,878,297"/>
+<area shape="rect" id="node7" href="$_a_r_trackable_multi_square_8cpp.html" title="Source/ARX/ARTrackableMulti\lSquare.cpp" alt="" coords="902,265,1105,304"/>
+<area shape="rect" id="node8" href="$_a_r_trackable_square_8cpp.html" title="Source/ARX/ARTrackableSquare.cpp" alt="" coords="1129,272,1372,297"/>
+<area shape="rect" id="node9" href="$_a_r_x__c_8cpp.html" title="Source/ARX/ARX_c.cpp" alt="" coords="1396,272,1561,297"/>
+<area shape="rect" id="node11" href="$_a_r_video_view_8cpp.html" title="Source/ARX/ARVideoView.cpp" alt="" coords="766,185,970,211"/>
 </map>

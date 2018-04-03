@@ -1,9 +1,0 @@
-digraph "/Users/phil/r/artoolkitx/Source/ARX/ARUtil/include/ARX/ARUtil" {
-  compound=true
-  node [ fontsize="10", fontname="Helvetica"];
-  edge [ labelfontsize="10", labelfontname="Helvetica"];
-  subgraph clusterdir_f68897883a0cda3ce6f8d0f29ea30fbe {
-    graph [ bgcolor="#ddddee", pencolor="black", label="ARX" fontname="Helvetica", fontsize="10", URL="dir_f68897883a0cda3ce6f8d0f29ea30fbe.html"]
-  dir_3efe9dd341f68de69aee94154e60f0b7 [shape=box, label="ARUtil", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_3efe9dd341f68de69aee94154e60f0b7.html"];
-  }
-}
