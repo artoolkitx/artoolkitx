@@ -1,12 +1,12 @@
-<map id="/Users/phil/r/artoolkitx/Source/ARX/trackingSub.h" name="/Users/phil/r/artoolkitx/Source/ARX/trackingSub.h">
-<area shape="rect" id="node2" href="$_platform_8h.html" title="ARX/Platform.h" alt="" coords="478,92,591,117"/>
-<area shape="rect" id="node3" href="$ar_8h.html" title="artoolkitX core routines. " alt="" coords="615,92,712,117"/>
-<area shape="rect" id="node9" href="$ar_config_8h.html" title="ARX/AR/arConfig.h" alt="" coords="452,165,588,191"/>
-<area shape="rect" id="node10" href="$log_8h.html" title="Logging utilities. " alt="" coords="254,165,377,191"/>
-<area shape="rect" id="node14" href="$matrix_8h.html" title="ARX/AR/matrix.h" alt="" coords="739,165,861,191"/>
-<area shape="rect" id="node16" href="$icp_8h.html" title="ARX/AR/icp.h" alt="" coords="612,165,715,191"/>
-<area shape="rect" id="node18" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters. " alt="" coords="1071,165,1195,191"/>
-<area shape="rect" id="node19" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing. " alt="" coords="885,165,1048,191"/>
-<area shape="rect" id="node13" href="$types_8h.html" title="ARX/ARUtil/types.h" alt="" coords="386,239,523,264"/>
-<area shape="rect" id="node17" href="$icp_core_8h.html" title="ARX/AR/icpCore.h" alt="" coords="631,239,763,264"/>
+<map id="Source/ARX/trackingSub.h" name="Source/ARX/trackingSub.h">
+<area shape="rect" id="node2" href="$_platform_8h.html" title="ARX/Platform.h" alt="" coords="478,79,591,104"/>
+<area shape="rect" id="node3" href="$ar_8h.html" title="artoolkitX core routines. " alt="" coords="615,79,712,104"/>
+<area shape="rect" id="node9" href="$ar_config_8h.html" title="ARX/AR/arConfig.h" alt="" coords="452,152,588,177"/>
+<area shape="rect" id="node10" href="$log_8h.html" title="Logging utilities. " alt="" coords="254,152,377,177"/>
+<area shape="rect" id="node14" href="$matrix_8h.html" title="ARX/AR/matrix.h" alt="" coords="739,152,861,177"/>
+<area shape="rect" id="node16" href="$icp_8h.html" title="ARX/AR/icp.h" alt="" coords="612,152,715,177"/>
+<area shape="rect" id="node18" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters. " alt="" coords="1071,152,1195,177"/>
+<area shape="rect" id="node19" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing. " alt="" coords="885,152,1048,177"/>
+<area shape="rect" id="node13" href="$types_8h.html" title="ARX/ARUtil/types.h" alt="" coords="386,225,523,251"/>
+<area shape="rect" id="node17" href="$icp_core_8h.html" title="ARX/AR/icpCore.h" alt="" coords="631,225,763,251"/>
 </map>

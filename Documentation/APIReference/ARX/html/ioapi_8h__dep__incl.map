@@ -1,8 +1,8 @@
-<map id="/Users/phil/r/artoolkitx/Source/ARX/ARUtil/ioapi.h" name="/Users/phil/r/artoolkitx/Source/ARX/ARUtil/ioapi.h">
-<area shape="rect" id="node2" href="$unzip_8h.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARUtil/unzip.h" alt="" coords="97,92,284,131"/>
-<area shape="rect" id="node5" href="$zip_8h.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARUtil/zip.h" alt="" coords="307,92,479,131"/>
-<area shape="rect" id="node7" href="$ioapi_8c.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARUtil/ioapi.c" alt="" coords="503,92,685,131"/>
-<area shape="rect" id="node3" href="$file__utils_8c.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARUtil/file\l_utils.c" alt="" coords="215,179,376,231"/>
-<area shape="rect" id="node4" href="$unzip_8c.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARUtil/unzip.c" alt="" coords="5,185,191,224"/>
-<area shape="rect" id="node6" href="$zip_8c.html" title="/Users/phil/r/artoolkitx\l/Source/ARX/ARUtil/zip.c" alt="" coords="399,185,570,224"/>
+<map id="Source/ARX/ARUtil/ioapi.h" name="Source/ARX/ARUtil/ioapi.h">
+<area shape="rect" id="node2" href="$unzip_8h.html" title="Source/ARX/ARUtil/unzip.h" alt="" coords="94,79,277,104"/>
+<area shape="rect" id="node5" href="$zip_8h.html" title="Source/ARX/ARUtil/zip.h" alt="" coords="302,79,470,104"/>
+<area shape="rect" id="node7" href="$ioapi_8c.html" title="Source/ARX/ARUtil/ioapi.c" alt="" coords="494,79,672,104"/>
+<area shape="rect" id="node3" href="$file__utils_8c.html" title="Source/ARX/ARUtil/file\l_utils.c" alt="" coords="211,152,368,191"/>
+<area shape="rect" id="node4" href="$unzip_8c.html" title="Source/ARX/ARUtil/unzip.c" alt="" coords="5,159,187,184"/>
+<area shape="rect" id="node6" href="$zip_8c.html" title="Source/ARX/ARUtil/zip.c" alt="" coords="393,159,560,184"/>
 </map>
