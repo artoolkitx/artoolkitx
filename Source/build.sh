@@ -353,6 +353,12 @@ if [ $BUILD_LINUX_RASPBIAN ] ; then
             check_package libcurl-devel
         fi
 
+        if [ ! -d "depends/linux-raspbian/include/opencv2" ] ; then
+            curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-linux-raspbian-armhf.tgz" -o opencv2.tgz
+            tar xzf opencv2.tgz --strip-components=1 -C depends/linux-raspbian
+            rm opencv2.tgz
+        fi
+
         if [ ! -d "build-linux-raspbian" ] ; then
             mkdir build-linux-raspbian
         fi
@@ -364,13 +370,20 @@ if [ $BUILD_LINUX_RASPBIAN ] ; then
         cd ..
 
         if [ $BUILD_EXAMPLES ] ; then
-            (cd "../Examples/Source/Example1/Linux"
+            (cd "../Examples/Square tracking example/Linux"
             mkdir -p build-raspbian
             cd build-raspbian
             cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
             make
             make install
             )
+#    	    (cd "../Examples/Square tracking example with OSG/Linux"
+#           mkdir -p build-raspbian
+#           cd build-raspbian
+#           cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+#           make
+#           make install
+#    	    )
         fi
     else
         # Cross-compiling.

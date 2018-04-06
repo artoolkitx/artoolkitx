@@ -81,13 +81,21 @@ endif()
 
 include(${ARTOOLKITX_HOME}/SDK/lib/ARX/ARX.cmake)
 
-if (TARGET_DEVICE_RASPBERRY_PI_ZERO)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mfloat-abi=hard -mfpu=vfp -march=armv6z -mtune=arm1176jzf-s -fPIC")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mfloat-abi=hard -mfpu=vfp -march=armv6z -mtune=arm1176jzf-s -fPIC")
+if ("${ARX_TARGET_PLATFORM_VARIANT}" STREQUAL "raspbian")
+    if(ARX_TARGET_DEVICE_RASPBERRY_PI_2_MODEL_B)
+        set(DEVICE_FLAGS "-march=armv7-a+neon-vfpv4 -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard -ftree-vectorize")
+        set(HAVE_ARM_NEON 1)
+    elseif(ARX_TARGET_DEVICE_RASPBERRY_PI_3)
+        set(DEVICE_FLAGS "-march=armv8-a+crc -mtune=cortex-a53 -mfpu=crypto-neon-fp-armv8 -mfloat-abi=hard -ftree-vectorize")
+        set(HAVE_ARM64_NEON 1)
+    else()
+        set(DEVICE_FLAGS "-march=armv6z -mtune=arm1176jzf-s -mfpu=vfp -mfloat-abi=hard")
+    endif()
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=core2 -fPIC")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=core2 -fPIC")
+    set(DEVICE_FLAGS "-march=core2")
 endif()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${DEVICE_FLAGS} -DGL_GLEXT_PROTOTYPES=1 -fPIC")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${DEVICE_FLAGS} -DGL_GLEXT_PROTOTYPES=1 -fPIC")
 
 set(RESOURCES
     ../hiro.patt
