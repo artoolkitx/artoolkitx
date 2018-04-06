@@ -296,6 +296,15 @@ static char arglSetupProgramGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings)
             "texCoordVarying = texCoord;\n"
         "}\n";
     const char *fragShaderString;
+    const char fragShaderStringMono[] =
+        "#version 140\n"
+        "in vec2 texCoordVarying;\n"
+        "uniform sampler2D texture0;\n"
+        "out vec4 FragColor;\n"
+        "void main()\n"
+        "{\n"
+        "FragColor = texture(texture0, texCoordVarying).rrra;\n"
+        "}\n";
     const char fragShaderStringRGB[] =
         "#version 140\n"
         "in vec2 texCoordVarying;\n"
@@ -386,6 +395,7 @@ static char arglSetupProgramGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings)
     if (acs->format == AR_PIXEL_FORMAT_420f) fragShaderString = fragShaderStringYCbCrITURec601FullRangeBiPlanar;
     else if (acs->format == AR_PIXEL_FORMAT_420v) fragShaderString = fragShaderStringYCbCrITURec601VideoRangeBiPlanar;
     else if (acs->format == AR_PIXEL_FORMAT_NV21) fragShaderString = fragShaderStringYCrCbITURec601FullRangeBiPlanar;
+    else if (acs->format == AR_PIXEL_FORMAT_MONO) fragShaderString = fragShaderStringMono;
     else fragShaderString = fragShaderStringRGB;
     if (!arglGLCompileShaderFromString(&fragShader, GL_FRAGMENT_SHADER, fragShaderString)) {
         ARLOGe("ARG: Error compiling fragment shader.\n");
@@ -673,7 +683,6 @@ int arglPixelFormatSetGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FO
             acs->pixType = GL_UNSIGNED_BYTE;
             acs->pixSize = 1;
             acs->useTextureYCbCrBiPlanar = TRUE;
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
             break;
         case AR_PIXEL_FORMAT_RGBA:
             acs->pixIntFormat = GL_RGBA;
@@ -681,7 +690,6 @@ int arglPixelFormatSetGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FO
             acs->pixType = GL_UNSIGNED_BYTE;
             acs->pixSize = 4;
             acs->useTextureYCbCrBiPlanar = FALSE;
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
             break;
         case AR_PIXEL_FORMAT_RGB:
             acs->pixIntFormat = GL_RGB;
@@ -689,7 +697,6 @@ int arglPixelFormatSetGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FO
             acs->pixType = GL_UNSIGNED_BYTE;
             acs->pixSize = 3;
             acs->useTextureYCbCrBiPlanar = FALSE;
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
             break;
         case AR_PIXEL_FORMAT_BGRA:
             acs->pixIntFormat = GL_RGBA;
@@ -697,7 +704,6 @@ int arglPixelFormatSetGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FO
             acs->pixType = GL_UNSIGNED_BYTE;
             acs->pixSize = 4;
             acs->useTextureYCbCrBiPlanar = FALSE;
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
             break;
         case AR_PIXEL_FORMAT_MONO:
             acs->pixIntFormat = GL_R8;
@@ -705,7 +711,6 @@ int arglPixelFormatSetGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FO
             acs->pixType = GL_UNSIGNED_BYTE;
             acs->pixSize = 1;
             acs->useTextureYCbCrBiPlanar = FALSE;
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
             break;
         case AR_PIXEL_FORMAT_2vuy:
             if (arglGLCapabilityCheck(contextSettings, 0, (unsigned char *)"GL_APPLE_rgb_422")) {
@@ -714,7 +719,6 @@ int arglPixelFormatSetGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FO
                 acs->pixType = GL_UNSIGNED_SHORT_8_8_APPLE;
                 acs->pixSize = 1;
                 acs->useTextureYCbCrBiPlanar = FALSE;
-                glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
             } else {
                 ARLOGe("ARG: set pixel format called with AR_PIXEL_FORMAT_2vuy, but GL_APPLE_rgb_422 is not available.\n");
                 return (FALSE);
@@ -727,7 +731,6 @@ int arglPixelFormatSetGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FO
                 acs->pixType = GL_UNSIGNED_SHORT_8_8_APPLE;
                 acs->pixSize = 1;
                 acs->useTextureYCbCrBiPlanar = FALSE;
-                glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
             } else {
                 ARLOGe("ARG: set pixel format called with AR_PIXEL_FORMAT_yuvs, but GL_APPLE_rgb_422 is not available.\n");
                 return (FALSE);
@@ -739,7 +742,6 @@ int arglPixelFormatSetGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FO
             acs->pixType = GL_UNSIGNED_SHORT_5_6_5;
             acs->pixSize = 2;
             acs->useTextureYCbCrBiPlanar = FALSE;
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
             break;
         case AR_PIXEL_FORMAT_RGBA_5551:
             acs->pixIntFormat = GL_RGBA;
@@ -747,7 +749,6 @@ int arglPixelFormatSetGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FO
             acs->pixType = GL_UNSIGNED_SHORT_5_5_5_1;
             acs->pixSize = 2;
             acs->useTextureYCbCrBiPlanar = FALSE;
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
             break;
         case AR_PIXEL_FORMAT_RGBA_4444:
             acs->pixIntFormat = GL_RGBA;
@@ -755,7 +756,6 @@ int arglPixelFormatSetGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_PIXEL_FO
             acs->pixType = GL_UNSIGNED_SHORT_4_4_4_4;
             acs->pixSize = 2;
             acs->useTextureYCbCrBiPlanar = FALSE;
-            glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
             break;
         default:
             ARLOGe("ARG: set pixel format called with unsupported pixel format.\n");
