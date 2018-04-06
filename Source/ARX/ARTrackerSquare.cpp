@@ -674,3 +674,15 @@ bool ARTrackerSquare::updateDebugTextureRGBA32(const int videoSourceIndex, uint3
 #endif
 }
 
+uint8_t* ARTrackerSquare::getDebugImagePtr(const int videoSourceIndex)
+{
+#ifdef AR_DISABLE_LABELING_DEBUG_MODE
+    ARLOGe("Debug texture not supported.");
+    return NULL;
+#else
+    // Check everything is valid.
+    ARHandle *arHandle = (videoSourceIndex == 1 ? m_arHandle1 : m_arHandle0);
+    if (!arHandle) return NULL;
+    return (arHandle->labelInfo.bwImage);
+#endif
+}

@@ -161,6 +161,7 @@ public:
     void deleteTrackable(ARTrackable **trackable_p) override;
     
     bool updateDebugTextureRGBA32(const int videoSourceIndex, uint32_t* buffer);
+    uint8_t* getDebugImagePtr(const int videoSourceIndex);
     
 private:
     int m_threshold;

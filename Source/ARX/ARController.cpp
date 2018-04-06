@@ -540,8 +540,12 @@ bool ARController::drawVideo(const int videoSourceIndex)
         return false;
     }
     
-    ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
-    m_arVideoViews[videoSourceIndex]->draw(vs);
+    if (doSquareMarkerDetection && m_squareTracker->isRunning() && m_squareTracker->debugMode()) {
+        m_arVideoViews[videoSourceIndex]->drawDebugImage(m_squareTracker->getDebugImagePtr(videoSourceIndex), (m_squareTracker->imageProcMode() == AR_IMAGE_PROC_FIELD_IMAGE ? 1 : 0));
+    } else {
+        ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
+        m_arVideoViews[videoSourceIndex]->draw(vs);
+    }
     
     return true;
 }
