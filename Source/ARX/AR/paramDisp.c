@@ -59,10 +59,17 @@ int arParamDisp( const ARParam *param )
 
     ARPRINT("--------------------------------------\n");
     ARPRINT("SIZE = %d, %d\n", param->xsize, param->ysize);
-	if (param->dist_function_version == 4) {
+    if (param->dist_function_version == 5) {
+        ARPRINT("Distortion factor: k1=%1.10f, k2=%1.10f, p1=%1.10f, p2=%1.10f, k3=%1.10f, k4=%1.10f, k5=%1.10f, k6=%1.10f, s1=%1.10f, s2=%1.10f, s3=%1.10f, s4=%1.10f\n", param->dist_factor[0],
+                param->dist_factor[1], param->dist_factor[2], param->dist_factor[3], param->dist_factor[4],
+                param->dist_factor[5], param->dist_factor[6], param->dist_factor[7], param->dist_factor[8],
+                param->dist_factor[9], param->dist_factor[10], param->dist_factor[11]);
+        ARPRINT("                  fx=%f, fy=%f, cx=%f, cy=%f, s=%f\n", param->dist_factor[12],
+                param->dist_factor[13], param->dist_factor[14], param->dist_factor[15], param->dist_factor[16]);
+    } else if (param->dist_function_version == 4) {
 		ARPRINT("Distortion factor: k1=%1.10f, k2=%1.10f, p1=%1.10f, p2=%1.10f\n", param->dist_factor[0],
 				param->dist_factor[1], param->dist_factor[2], param->dist_factor[3]);
-		ARPRINT("                  fx=%f, fy=%f, x0=%f, y0=%f, s=%f\n", param->dist_factor[4],
+		ARPRINT("                  fx=%f, fy=%f, cx=%f, cy=%f, s=%f\n", param->dist_factor[4],
             param->dist_factor[5], param->dist_factor[6], param->dist_factor[7], param->dist_factor[8]);
 	} else if (param->dist_function_version == 3) {
 		ARPRINT("Distortion factor = %f %f %f %f %f %f\n", param->dist_factor[0],

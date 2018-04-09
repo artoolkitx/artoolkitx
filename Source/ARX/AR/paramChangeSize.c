@@ -69,15 +69,33 @@ int arParamChangeSize( ARParam *source, int xsize, int ysize, ARParam *newparam 
         newparam->mat[2][i] = source->mat[2][i];
     }
 
-	if (source->dist_function_version == 4) {
+    if (source->dist_function_version == 5) {
+        newparam->dist_factor[0] = source->dist_factor[0];             /*  k1  */
+        newparam->dist_factor[1] = source->dist_factor[1];             /*  k2  */
+        newparam->dist_factor[2] = source->dist_factor[2];             /*  p1  */
+        newparam->dist_factor[3] = source->dist_factor[3];             /*  p2  */
+        newparam->dist_factor[4] = source->dist_factor[4];             /*  k3  */
+        newparam->dist_factor[5] = source->dist_factor[5];             /*  k4  */
+        newparam->dist_factor[6] = source->dist_factor[6];             /*  k5  */
+        newparam->dist_factor[7] = source->dist_factor[7];             /*  k6  */
+        newparam->dist_factor[8] = source->dist_factor[8];             /*  s1  */
+        newparam->dist_factor[9] = source->dist_factor[9];             /*  s2  */
+        newparam->dist_factor[10] = source->dist_factor[10];           /*  s3  */
+        newparam->dist_factor[11] = source->dist_factor[11];           /*  s4  */
+        newparam->dist_factor[12] = source->dist_factor[12] * x_scale; /*  fx  */
+        newparam->dist_factor[13] = source->dist_factor[13] * y_scale; /*  fy  */
+        newparam->dist_factor[14] = source->dist_factor[14] * x_scale; /*  cx  */
+        newparam->dist_factor[15] = source->dist_factor[15] * y_scale; /*  cy  */
+        newparam->dist_factor[16] = source->dist_factor[16];           /*  Size adjust */
+    } else if (source->dist_function_version == 4) {
 		newparam->dist_factor[0] = source->dist_factor[0];             /*  k1  */
 		newparam->dist_factor[1] = source->dist_factor[1];             /*  k2  */
 		newparam->dist_factor[2] = source->dist_factor[2];             /*  p1  */
 		newparam->dist_factor[3] = source->dist_factor[3];             /*  p2  */
 		newparam->dist_factor[4] = source->dist_factor[4] * x_scale;   /*  fx  */
 		newparam->dist_factor[5] = source->dist_factor[5] * y_scale;   /*  fy  */
-		newparam->dist_factor[6] = source->dist_factor[6] * x_scale;   /*  x0  */
-		newparam->dist_factor[7] = source->dist_factor[7] * y_scale;   /*  y0  */
+		newparam->dist_factor[6] = source->dist_factor[6] * x_scale;   /*  cx  */
+		newparam->dist_factor[7] = source->dist_factor[7] * y_scale;   /*  cy  */
 		newparam->dist_factor[8] = source->dist_factor[8];             /*  Size adjust */
 	} else if (source->dist_function_version == 3) {
 		newparam->dist_factor[0] = source->dist_factor[0] * x_scale;
