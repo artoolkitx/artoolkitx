@@ -789,6 +789,9 @@ AR2VideoParamV4L2T *ar2VideoOpenV4L2(const char *config)
             ARLOGe("Out of memory!\n");
             goto bail1;
         }
+    } else {
+        vid->buffer.bufPlaneCount = 0;
+        vid->buffer.bufPlanes = NULL;
     }
 
     memset(&ipt, 0, sizeof(ipt));    
@@ -1065,6 +1068,8 @@ AR2VideoBufferT *ar2VideoGetImageV4L2(AR2VideoParamV4L2T *vid)
             vid->buffer.buffLuma = vid->buffer.buff;
         } else if (vid->format == AR_PIXEL_FORMAT_MONO) {
             vid->buffer.buffLuma = vid->buffer.buff;
+        } else {
+            vid->buffer.buffLuma = NULL;
         }
         vid->buffer.time.sec = (uint64_t)(buf.timestamp.tv_sec);
         vid->buffer.time.usec = (uint32_t)(buf.timestamp.tv_usec);
@@ -1080,6 +1085,7 @@ AR2VideoBufferT *ar2VideoGetImageV4L2(AR2VideoParamV4L2T *vid)
             vid->bufferConverted.time.sec = vid->buffer.time.sec;
             vid->bufferConverted.time.usec = vid->buffer.time.usec;
             vid->bufferConverted.fillFlag = 1;
+            vid->bufferConverted.buffLuma = NULL;
             ret = &vid->bufferConverted;
         } else {
             ret = &vid->buffer;
