@@ -99,11 +99,15 @@
 #  define LOGI(...)  __android_log_print(ANDROID_LOG_INFO,"libARX",__VA_ARGS__)
 #  define LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,"libARX",__VA_ARGS__)
 
-// Utility preprocessor directive so only one change needed if Java class name changes
-#  define JNIFUNCTION(sig) Java_org_artoolkitx_arx_arxj_ARX_1jni_##sig
+#else
 
+#  error Must define one of: ARX_TARGET_PLATFORM_MACOS ARX_TARGET_PLATFORM_IOS, ARX_TARGET_PLATFORM_LINUX ARX_TARGET_PLATFORM_ANDROID ARX_TARGET_PLATFORM_WINDOWS ARX_TARGET_PLATFORM_WINRT.
 
 #endif
+
+// Utility preprocessor directive so only one change needed if Java class name changes
+#define JNIFUNCTION(sig) Java_org_artoolkitx_arx_arxj_ARX_1jni_##sig
+
 
 typedef void (CALL_CONV *PFN_LOGCALLBACK)(const char* msg);
 
