@@ -27,6 +27,10 @@ set(SOURCE
     shader_gl.c
 )
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set_source_files_properties(arg_gl3.c PROPERTIES COMPILE_FLAGS "-std=c99")
+endif()
+
 add_library(ARG STATIC
     ${PUBLIC_HEADERS} ${SOURCE}
 )

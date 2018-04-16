@@ -45,6 +45,11 @@ set(PUBLIC_HEADERS
     include/ARX/ARVideo/videoRGBA.h
 )
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set_source_files_properties(cparamSearch.c PROPERTIES COMPILE_FLAGS "-std=c99")
+    set_source_files_properties(videoRGBA.c PROPERTIES COMPILE_FLAGS "-std=c99")
+endif()
+
 set(INCLUDE_DIRS
     ${JPEG_INCLUDE_DIR}
 )
