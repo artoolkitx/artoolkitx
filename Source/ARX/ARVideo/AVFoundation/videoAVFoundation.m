@@ -74,6 +74,7 @@ struct _AR2VideoParamAVFoundationT  {
     void             (*cparamSearchCallback)(const ARParam *, void *);
     void              *cparamSearchUserdata;
     char              *device_id;
+    char              *name;
 };
 
 int getFrameParameters(AR2VideoParamAVFoundationT *vid);
@@ -538,8 +539,8 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
     }
     
     // Set the device_id.
-#if TARGET_OS_IOS || TARGET_OS_MAC
-#  if TARGET_OS_IOS
+    vid->name = strdup([vid->cameraVideo.captureDeviceIDName UTF8String]);
+#if TARGET_OS_IOS
     NSString *deviceType = [UIDevice currentDevice].model;
     char *machine = NULL;
     size_t size;
@@ -548,9 +549,8 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
     sysctlbyname("hw.machine", machine, &size, NULL, 0);
     asprintf(&vid->device_id, "apple/%s/%s", [deviceType UTF8String], machine);
     free(machine);
-#  else
+#else
     asprintf(&vid->device_id, "%s/%s/", [vid->cameraVideo.captureDeviceIDManufacturer UTF8String], [vid->cameraVideo.captureDeviceIDModel UTF8String]);
-#  endif
 #endif
 
     // If doing synchronous opening, check parameters right now.
@@ -613,8 +613,9 @@ int ar2VideoCloseAVFoundation( AR2VideoParamAVFoundationT *vid )
             [vid->cameraVideo release];
         }
         if (vid->cameraVideoTookPictureDelegate) [vid->cameraVideoTookPictureDelegate release];
+        free(vid->name);
         free(vid->device_id);
-        free( vid );
+        free(vid);
         return 0;
     }
     return (-1);    
@@ -968,6 +969,9 @@ int ar2VideoGetParamsAVFoundation( AR2VideoParamAVFoundationT *vid, const int pa
     switch (paramName) {
         case AR_VIDEO_PARAM_DEVICEID:
             *value = (vid->device_id ? strdup(vid->device_id) : NULL);
+            break;
+        case AR_VIDEO_PARAM_NAME:
+            *value = (vid->name ? strdup(vid->name) : NULL);
             break;
         default:
             return (-1);

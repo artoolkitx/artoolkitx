@@ -113,6 +113,7 @@ struct _AR2VideoParamV4L2T {
     void                 (*cparamSearchCallback)(const ARParam *, void *);
     void                  *cparamSearchUserdata;
     char                  *device_id;
+    char                  *name;
 };
 
 static int xioctl(int fd, int request, void *arg)
@@ -691,7 +692,8 @@ AR2VideoParamV4L2T *ar2VideoOpenV4L2(const char *config)
                 ARLOGe("Unable to locate udev video4linux device '%s'.\n", sysname);
             } else {
                 ARLOGd("Device Path: %s\n", udev_device_get_devpath(dev)); // e.g. '/devices/pci0000:00/0000:00:1d.7/usb1/1-1/1-1:1.0/video4linux/video0'
-                ARLOGd("Device Name: %s\n", udev_device_get_sysattr_value(dev, "name")); // e.g. 'Logitech Camera'
+                vid->name = strdup(udev_device_get_sysattr_value(dev, "name")); // e.g. 'Logitech Camera'
+                ARLOGd("Device Name: %s\n", vid->name);
                 struct udev_device *dev_parent = udev_device_get_parent_with_subsystem_devtype(dev, "usb", "usb_device");
                 if (dev_parent) {
                     //char *UID = strdup(udev_device_get_sysattr_value(dev_parent, "serial"));
@@ -712,7 +714,7 @@ AR2VideoParamV4L2T *ar2VideoOpenV4L2(const char *config)
         }
         free(dev_real);
     }
-    if (!vid->device_id) ARLOGe("Unable to obtain device_id.\n");
+    if (!vid->device_id) ARLOGw("Unable to obtain device_id. cparamSearch will be unavailable.\n");
     else ARLOGi("device_id: '%s'.\n", vid->device_id);
     
     memset(&fmt, 0, sizeof(fmt));
@@ -920,6 +922,8 @@ bail2:
 bail1:
     close(vid->fd);
 bail:
+    free(vid->name);
+    free(vid->device_id);
     free(vid->buffer.bufPlanes);
     free(vid);
     return (NULL);
@@ -946,6 +950,8 @@ int ar2VideoCloseV4L2(AR2VideoParamV4L2T *vid)
     }
 #endif
 
+    free(vid->name);
+    free(vid->device_id);
     free(vid->buffer.bufPlanes);
     free(vid);
     
@@ -1133,6 +1139,9 @@ int ar2VideoGetParamsV4L2( AR2VideoParamV4L2T *vid, const int paramName, char **
         case AR_VIDEO_PARAM_DEVICEID:
             *value = (vid->device_id ? strdup(vid->device_id) : NULL);
             break;
+        case AR_VIDEO_PARAM_NAME:
+            *value = (vid->name ? strdup(vid->name) : NULL);
+            break;
         default:
             return (-1);
     }
@@ -1191,7 +1200,7 @@ int ar2VideoGetCParamAsyncV4L2(AR2VideoParamV4L2T *vid, void (*callback)(const A
     }
     
     if (!vid->device_id) {
-        ARLOGe("Error: device identification not available.\n");
+        ARLOGe("Error: cparamSearch cannot proceed without device identification.\n");
         return (-1);
     }
     

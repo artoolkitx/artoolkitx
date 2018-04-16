@@ -124,7 +124,8 @@ typedef enum {
 #define  AR_VIDEO_1394_GAMMA_MIN_VAL                  101
 
 #define  AR_VIDEO_PARAM_GET_IMAGE_ASYNC               200 ///< int
-#define  AR_VIDEO_PARAM_DEVICEID                      201 ///< string, readonly.
+#define  AR_VIDEO_PARAM_DEVICEID                      201 ///< string, readonly. Optional. Unique name for this exact model of video device, consisting of vendor, model and board identifiers separated by '/' characters.
+#define  AR_VIDEO_PARAM_NAME                          202 ///< string, readonly. Optional. Human-readable name for this model of video device.
 
 #define  AR_VIDEO_FOCUS_MODE                          301 ///< int
 #define  AR_VIDEO_FOCUS_MANUAL_DISTANCE               302 ///< double
