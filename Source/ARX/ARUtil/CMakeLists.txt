@@ -63,6 +63,10 @@ set(SOURCE
     zip.c
 )
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set_source_files_properties(file_utils.c PROPERTIES COMPILE_FLAGS "-std=c99")
+endif()
+
 if (ARX_TARGET_PLATFORM_ANDROID)
     set(SOURCE ${SOURCE}
         ftw.h
