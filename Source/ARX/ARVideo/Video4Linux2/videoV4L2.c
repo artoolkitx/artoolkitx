@@ -98,6 +98,8 @@ struct _AR2VideoParamV4L2T {
     int                    hue;
     double                 whiteness;
     double                 color;
+    int                    frameDurationNumer;
+    int                    frameDurationDenom;
 
     int                    fd;
     int                    status;
@@ -269,6 +271,8 @@ int ar2VideoDispOptionV4L2(void)
     ARPRINT(" -format=[0|BGRA|RGBA].\n");
     ARPRINT("    Specifies the pixel format to convert output images to.\n");
     ARPRINT("    0=Don't convert.\n");
+    ARPRINT(" -frameduration=N/D.\n");
+    ARPRINT("    request frames of duration N/D (numerator / denominator) seconds.\n");
     ARPRINT("IMAGE CONTROLS (WARNING: not all options are not supported by every camera):\n");
     ARPRINT(" -brightness=N\n");
     ARPRINT("    specifies brightness. (0.0 <-> 1.0)\n");
@@ -386,6 +390,7 @@ AR2VideoParamV4L2T *ar2VideoOpenV4L2(const char *config)
     struct v4l2_format fmt;
     struct v4l2_input  ipt;
     struct v4l2_requestbuffers req;
+    struct v4l2_streamparm parm;
     
     const char *a;
     char line[1024];
@@ -411,6 +416,7 @@ AR2VideoParamV4L2T *ar2VideoOpenV4L2(const char *config)
     //vid->debug      = 0;
     vid->debug      = 1;
     vid->formatConverted = AR_VIDEO_V4L2_DEFAULT_FORMAT_CONVERSION;
+    vid->frameDurationNumer = vid->frameDurationDenom = 0;
     
     a = config;
     if (a != NULL) {
@@ -477,6 +483,10 @@ AR2VideoParamV4L2T *ar2VideoOpenV4L2(const char *config)
                     ARLOGi("Requesting images in BGRA format.\n");
                 } else {
                     ARLOGe("Ignoring unsupported request for conversion to video format '%s'.\n", line+8);
+                }
+            } else if (strncmp(a, "-frameduration=", 15) == 0) {
+                if (sscanf(&line[15], "%d/%d", &vid->frameDurationNumer,  &vid->frameDurationDenom) != 2) {
+                    err_i = 1;
                 }
             } else if (strncmp(a, "-contrast=", 10) == 0) {
                 if (sscanf(&line[10], "%d", &vid->contrast) == 0) {
@@ -725,10 +735,22 @@ AR2VideoParamV4L2T *ar2VideoOpenV4L2(const char *config)
     fmt.fmt.pix.pixelformat = vid->palette;
     fmt.fmt.pix.field       = vid->field;
     
-    if (xioctl (vid->fd, VIDIOC_S_FMT, &fmt) < 0) {
+    if (xioctl(vid->fd, VIDIOC_S_FMT, &fmt) < 0) {
         ARLOGe("ar2VideoOpen: Error setting video format.\n");
         ARLOGperror(NULL); // EINVAL -> Requested buffer type is not supported drivers. EBUSY -> I/O is already in progress or the resource is not available for other reasons.
         goto bail1;
+    }
+    
+    if (vid->frameDurationNumer && vid->frameDurationDenom) {
+        parm.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+        parm.parm.capture.timeperframe.numerator = vid->frameDurationNumer;
+        parm.parm.capture.timeperframe.denominator = vid->frameDurationDenom;
+        if (xioctl(vid->fd, VIDIOC_S_PARM, &parm) < 0) {
+            ARLOGe("ar2VideoOpen: Error setting video frame duration to %d/%d.\n",vid->frameDurationNumer, vid->frameDurationDenom);
+            ARLOGperror(NULL);
+        } else {
+            ARLOGi("Set video frame duration to %d/%d.\n",vid->frameDurationNumer, vid->frameDurationDenom);
+        }
     }
     
     if (vid->debug) {

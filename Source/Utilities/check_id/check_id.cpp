@@ -52,6 +52,7 @@
 #  define snprintf _snprintf
 #endif
 #include <stdlib.h>					// malloc(), free()
+#include <inttypes.h>
 #include <ARX/AR/ar.h>
 #include <ARX/AR/paramGL.h>
 #include <ARX/AR/arMulti.h>
@@ -879,7 +880,7 @@ static void drawView(void)
         // For markers that have been identified, draw the ID number.
         if (gARHandle->markerInfo[j].id >= 0) {
             glColor3ub(255, 0, 0);
-            if (matrixCodeType == AR_MATRIX_CODE_GLOBAL_ID && (pattDetectMode == AR_MATRIX_CODE_DETECTION || pattDetectMode == AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX || pattDetectMode == AR_TEMPLATE_MATCHING_MONO_AND_MATRIX)) snprintf(text, sizeof(text), "%llu (err=%d)", gARHandle->markerInfo[j].globalID, gARHandle->markerInfo[j].errorCorrected);
+            if (matrixCodeType == AR_MATRIX_CODE_GLOBAL_ID && (pattDetectMode == AR_MATRIX_CODE_DETECTION || pattDetectMode == AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX || pattDetectMode == AR_TEMPLATE_MATCHING_MONO_AND_MATRIX)) snprintf(text, sizeof(text), "%" PRIu64 " (err=%d)", gARHandle->markerInfo[j].globalID, gARHandle->markerInfo[j].errorCorrected);
             else snprintf(text, sizeof(text), "%d", gARHandle->markerInfo[j].id);
             EdenGLFontDrawLine(0, NULL, (unsigned char *)text, (float)gARHandle->markerInfo[j].pos[0], ((float)gARHandle->ysize - (float)gARHandle->markerInfo[j].pos[1]), H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE);
         }

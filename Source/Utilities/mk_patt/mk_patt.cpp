@@ -48,6 +48,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <inttypes.h>
 #include <ARX/AR/ar.h>
 #include <ARX/ARVideoSource.h>
 #include <ARX/ARVideoView.h>
@@ -206,7 +207,7 @@ int main(int argc, char *argv[])
         if (vs->isOpen() && vs->captureFrame()) {
             AR2VideoBufferT *image = vs->checkoutFrameIfNewerThan(gUpdateFrameStamp);
             if (image) {
-                ARLOGd("Got frame with framestamp {%llu,%lu} (gUpdateFrameStamp was {%llu,%lu}.\n", image->time.sec, image->time.usec, gUpdateFrameStamp.sec, gUpdateFrameStamp.usec);
+                ARLOGd("Got frame with framestamp {%" PRIu64 ",%" PRIu32 "} (gUpdateFrameStamp was {%" PRIu64 ",%" PRIu32 "}.\n", image->time.sec, image->time.usec, gUpdateFrameStamp.sec, gUpdateFrameStamp.usec);
                 gUpdateFrameStamp = image->time;
             
                 // Copy the frame for later pattern saving.

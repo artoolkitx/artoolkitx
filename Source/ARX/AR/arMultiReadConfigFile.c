@@ -50,6 +50,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <inttypes.h>
 #include <ARX/AR/ar.h>
 #include <ARX/AR/arMulti.h>
 
@@ -84,13 +85,7 @@ ARMultiMarkerInfoT *arMultiReadConfigFile( const char *filename, ARPattHandle *p
 
     for( i = 0; i < num; i++ ) {
         get_buff(buf, 256, fp);
-        if (sscanf(buf, 
-#if defined(__LP64__) && !defined(__APPLE__)
-                        "%lu%c",
-#else
-                        "%llu%c",
-#endif
-                         &(marker[i].globalID), &dummy) != 1) { // Try first as matrix code.
+        if (sscanf(buf, "%" SCNu64 "%c", &(marker[i].globalID), &dummy) != 1) { // Try first as matrix code.
             
             if (!pattHandle) {
                 ARLOGe("Error processing multimarker config file '%s': pattern '%s' specified in multimarker configuration while in barcode-only mode.\n", filename, buf);
@@ -111,7 +106,7 @@ ARMultiMarkerInfoT *arMultiReadConfigFile( const char *filename, ARPattHandle *p
             
             if ((marker[i].globalID & 0xffff8000ULL) == 0ULL) marker[i].patt_id = (int)(marker[i].globalID & 0x00007fffULL); // If upper 33 bits are zero, use lower 31 bits as regular matrix code.
             else marker[i].patt_id = 0;
-            ARLOGd("Marker %3d is matrix code %llu.\n", i + 1, marker[i].globalID);
+            ARLOGd("Marker %3d is matrix code %" PRIu64 ".\n", i + 1, marker[i].globalID);
             marker[i].patt_type = AR_MULTI_PATTERN_TYPE_MATRIX;
             patt_type |= 0x02;
         }
