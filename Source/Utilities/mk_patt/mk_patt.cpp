@@ -181,7 +181,6 @@ int main(int argc, char *argv[])
     startVideo();
     
     // Main loop.
-    arUtilTimerReset();
     bool done = false;
     while (!done) {
         
@@ -207,7 +206,6 @@ int main(int argc, char *argv[])
         if (vs->isOpen() && vs->captureFrame()) {
             AR2VideoBufferT *image = vs->checkoutFrameIfNewerThan(gUpdateFrameStamp);
             if (image) {
-                ARLOGd("Got frame with framestamp {%" PRIu64 ",%" PRIu32 "} (gUpdateFrameStamp was {%" PRIu64 ",%" PRIu32 "}.\n", image->time.sec, image->time.usec, gUpdateFrameStamp.sec, gUpdateFrameStamp.usec);
                 gUpdateFrameStamp = image->time;
             
                 // Copy the frame for later pattern saving.

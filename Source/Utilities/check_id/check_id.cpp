@@ -124,7 +124,9 @@ static ARVideoSource *vs = nullptr;
 static ARVideoView *vv = nullptr;
 static bool gPostVideoSetupDone = false;
 static AR2VideoTimestampT gUpdateFrameStamp = {0, 0};
-static int          gARTImageSavePlease = FALSE;
+static int gARTImageSavePlease = FALSE;
+static AR2VideoTimestampT gFPSCalcFrameStamp = {0, 0};
+static double gFPS = 0.0;
 
 // Marker detection.
 #define CHECK_ID_MULTIMARKERS_MAX 16
@@ -252,15 +254,15 @@ int main(int argc, char *argv[])
         if (vs->isOpen() && vs->captureFrame()) {
             AR2VideoBufferT *image = vs->checkoutFrameIfNewerThan(gUpdateFrameStamp);
             if (image) {
-                gFrameCount++;
                 gUpdateFrameStamp = image->time;
-#ifdef DEBUG
-                if (gFrameCount % 150 == 0) {
-                    ARLOGi("*** Camera - %f (frame/sec)\n", (double)gFrameCount/arUtilTimer());
-                    gFrameCount = 0;
-                    arUtilTimerReset();
+                
+                // FPS calculations.
+                gFrameCount++;
+                if (gFrameCount % 10 == 0) {
+                    double d = (double)(gUpdateFrameStamp.sec - gFPSCalcFrameStamp.sec) + (double)((int32_t)gUpdateFrameStamp.usec - (int32_t)gFPSCalcFrameStamp.usec)*0.000001;
+                    if (d) gFPS = 1.0/d*10;
+                    gFPSCalcFrameStamp = gUpdateFrameStamp;
                 }
-#endif
 
                 if (!gPostVideoSetupDone) {
                     initAR();
@@ -1008,10 +1010,10 @@ static void printMode()
     glColor3ub(255, 255, 255);
     line = 1;
     
-    // Image size and processing mode.
+    // Image size, frame rate, and processing mode.
 	if (arGetImageProcMode(gARHandle) == AR_IMAGE_PROC_FRAME_IMAGE) text_p = "full frame";
 	else text_p = "even field only";
-    snprintf(text, sizeof(text), "Processing %dx%d video frames %s", vs->getVideoWidth(), vs->getVideoHeight(), text_p);
+    snprintf(text, sizeof(text), "Processing %dx%d@%.1f fps video frames %s", vs->getVideoWidth(), vs->getVideoHeight(), gFPS, text_p);
     EdenGLFontDrawLine(0, NULL, (unsigned char *)text, 2.0f,  (line - 1)*FONT_SIZE + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_TEXT_TOP_TO_VIEW_TOP);
     line++;
     
