@@ -1,7 +1,12 @@
 # artoolkitX Release Notes
 --------------------------
 
-## Version 1.0.0
+## Version 1.0.1
+### 2018-05-04
+
+This is a minor release which focuses on addressing minor issues. Support for the Linux Raspbian platform has been improved. Also included is preliminary support for a new 12-factor OpenCV 3.x-based lens distortion model.
+
+## Version 1.0
 ### 2018-03-26
 
 This is the first release of the new artoolkitX SDK.

@@ -16,3 +16,9 @@ Complete source is provided, and we encourage users to favourite the project on 
 artoolkitX's development is sponsored by [Realmax, Inc.](http://www.realmax.com), a leader in augmented reality hardware and software. The open source project is administered by long-term developers of ARToolKit and from and the open-source community.
 
 For experienced developers wanting to quickly make use of the SDK, please read the file [Quick start](Quick%20start.md). To read about the changes in this release, please read the file [Release notes](Release%20Notes.md).
+
+## Join the artoolkitX community:
+
+* Join our forum and chat with other developers: https://forums.artoolkitx.org
+* Report and help with issues: https://github.com/artoolkitx/artoolkitx/issues
+* Follow us on social media: https://twitter.com/artoolkitx and https://www.facebook.com/artoolkitX/

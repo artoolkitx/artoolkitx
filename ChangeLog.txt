@@ -1,2 +1,4 @@
 artoolkitX ChangeLog.
 =====================
+
+Please see https://github.com/artoolkitx/artoolkitx/commits/ for a complete list of changes.
