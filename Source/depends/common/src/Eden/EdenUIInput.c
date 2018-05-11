@@ -45,10 +45,11 @@
 #include <stdlib.h>				// malloc(), calloc(), free(), exit()
 #include <stdbool.h>
 #ifdef _WIN32
-#  include <sys/timeb.h>    // struct _timeb
+#  include <sys/timeb.h>        // struct _timeb, _ftime
+#else
+#  include <sys/time.h>         // gettimeofday(), struct timeval
 #endif
 #include <pthread.h>
-#include <Eden/EdenTime.h>	// struct timeval
 
 // ============================================================================
 //  Types and constants

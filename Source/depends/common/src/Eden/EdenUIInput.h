@@ -52,7 +52,6 @@
 #ifndef __Eden_h__
 #  include <Eden/Eden.h>
 #endif
-#include <Eden/EdenError.h>        // EDEN_E_t
 #include <stdbool.h>
 
 #ifdef __cplusplus
@@ -60,8 +59,6 @@ extern "C" {
 #endif
 
 typedef struct _EdenUIInput *EdenUIInput_t;
-
-typedef bool (*EdenUIInputKeystrokeProcessor_t)(const unsigned char keyAsciiCode, EdenUIInput_t input);
 
 /*!
     @brief Create a new instance of input.

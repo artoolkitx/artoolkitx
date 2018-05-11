@@ -45,7 +45,7 @@
 #include <time.h>						// ctime(), time_t
 #include <string.h>						// strncpy()
 #if defined(EDEN_UNIX)
-#  include <sys/time.h>					// gettimeofday(), struct timeval
+//#  include <sys/time.h>				// gettimeofday(), struct timeval
 #  include <unistd.h>					// sleep(), usleep()
 #elif defined(_WIN32)
 #  include <windows.h>					// FILETIME, GetSystemTimeAsFileTime(), <winbase.h> Sleep()
