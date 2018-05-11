@@ -32,6 +32,8 @@ set(SOURCE
     EdenSurfaces.h
     EdenTime.c
     EdenTime.h
+    EdenUIInput.c
+    EdenUIInput.h
     EdenUtil.c
     EdenUtil.h
     glStateCache.c

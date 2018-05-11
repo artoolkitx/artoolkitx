@@ -2,14 +2,9 @@
 //  EdenMessage.h
 //  The Eden Library
 //
-//  Copyright (c) 2001-2012 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
+//  Copyright (c) 2001-2018 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
 //	Font loading code based on code by Jeff Molofee, 1999, http://nehe.gamedev.net/
 //	
-//	Rev		Date		Who		Changes
-//	1.0.0	2001-12-04	PRL		Initial version for The SRMS simulator.
-//	1.0.1	2005-09-28	PRL		Added headerDoc.
-//  1.1.0   2013-02-19  PRL     Quick update for OpenGL ES.
-//
 
 // @@BEGIN_EDEN_LICENSE_HEADER@@
 //
@@ -41,50 +36,31 @@
 //
 // @@END_EDEN_LICENSE_HEADER@@
 
-// HeaderDoc documentation included. See http://developer.apple.com/darwin/projects/headerdoc/
-
 /*!
 	@header EdenMessage
 	@brief Send messages and show text-input dialog boxes on the screen.
 	@version 1.0.0
-	@updated 2013-11-12
+	@updated 2018-05-11
 	@details
-	@copyright 2001-2013 Philip Lamb
+	@copyright 2001-2018 Philip Lamb
  */
 
 #ifndef __EdenMessage_h__
 #define __EdenMessage_h__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-	
-// ============================================================================
-//	Includes.
-// ============================================================================
 #ifndef __Eden_h__
 #  include <Eden/Eden.h>
 #endif
 
-#include <Eden/EdenError.h>		// EDEN_E_t
+#include <Eden/EdenError.h>        // EDEN_E_t
+#include <stdbool.h>
 
-// ============================================================================
-//  Defines and types.
-// ============================================================================
-
-// ============================================================================
-//	Global variables.
-// ============================================================================
-
-// When set to TRUE, signals that EdenMessageDraw() should be called each drawing frame.
-extern EDEN_BOOL gEdenMessageDrawRequired;
-
-// When set to TRUE, signals that keycodes should be sent to EdenMessageInputKeyboard()
-extern EDEN_BOOL gEdenMessageKeyboardRequired;
+#ifdef __cplusplus
+extern "C" {
+#endif
 	
-// ============================================================================
-//  Public functions
-// ============================================================================
+// When set to true, signals that EdenMessageDraw() should be called each drawing frame.
+extern bool gEdenMessageDrawRequired;
 
 /*!
     @function 
@@ -92,18 +68,18 @@ extern EDEN_BOOL gEdenMessageKeyboardRequired;
     @details
 		Must be called before any access to EdenMessage*() functions.
     @param      contextsActiveCount Maximum number of OpenGL contexts.
-    @result     TRUE if succcessful, FALSE in case of error.
+    @result     true if succcessful, false in case of error.
 */
-EDEN_BOOL EdenMessageInit(const int contextsActiveCount);
+bool EdenMessageInit(const int contextsActiveCount);
 
 /*!
     @function 
     @brief   Finalise the message library.
     @details (description)
 		Should be called after no more EdenMessage*() functions need be called.
-	@result     TRUE if succcessful, FALSE in case of error.
+	@result     true if succcessful, false in case of error.
 */
-EDEN_BOOL EdenMessageFinal(void);
+bool EdenMessageFinal(void);
 
 /*!
     @function 
@@ -127,21 +103,7 @@ EDEN_BOOL EdenMessageFinal(void);
 EDEN_E_t EdenMessageShow(const unsigned char *msg);
 
 /*!
-    @function 
-	@brief   Remove a message from drawing on the screen.
-	@details
-		Removes a message previously shown with EdenMessageShow() from the screen.
-		This function should only be used in single-threaded applications. In
-		multi-threaded applications (in which a separate, blockable thread is
-		available to handle this kind of messaging), the function EdenMessage() should
-		be used instead, and it will automatically control showing and hiding of
-		the text.
-	@result     EDEN_E_NONE in case of no error, or an error code.
-*/
-EDEN_E_t EdenMessageHide(void);
-
-/*!
-    @function 
+    @function
 	@brief   Prepare a text-input dialog for user interaction.
 	@details
 		Prepares a prompt message for drawing on the screen, and then place
@@ -154,23 +116,24 @@ EDEN_E_t EdenMessageHide(void);
 	@param      maxLength Maximum number of characters the user may enter.
 	@result     EDEN_E_NONE in case of no error, or an error code.
 */
-EDEN_E_t EdenMessageInputShow(const unsigned char *prompt, const unsigned int minLength, const unsigned int maxLength, int intOnly, int fpOnly, int alphaOnly);
+EDEN_E_t EdenMessageInputShow(const unsigned char *prompt, const unsigned int minLength, const unsigned int maxLength, bool intOnly, bool fpOnly, bool alphaOnly);
 
 /*!
     @function 
-    @brief   Remove a text-input dialog for user interaction.
-    @details
-		Removes a message dialog previously shown with EdenMessageInputShow() from the screen.
+	@brief   Remove a message from drawing on the screen.
+	@details
+		Removes a message previously shown with EdenMessageShow() or
+        EdenMessageInputShow() from the screen.
 		This function should only be used in single-threaded applications. In
 		multi-threaded applications (in which a separate, blockable thread is
-		available to handle this kind of messaging), the function EdenMessageInput() should
-		be used instead, and it will automatically control showing and hiding of
-		the text.
+		available to handle this kind of messaging), the function EdenMessage() or
+        EdenMessageInput() should be used instead, and it will automatically control
+        showing and hiding of the text.
 	@result     EDEN_E_NONE in case of no error, or an error code.
 */
-EDEN_E_t EdenMessageInputHide(void);
+EDEN_E_t EdenMessageHide(void);
 
-EDEN_BOOL EdenMessageInputIsComplete(void);
+bool EdenMessageInputIsComplete(void);
 
 /*!
     @function 
@@ -212,7 +175,7 @@ EDEN_E_t EdenMessage(unsigned char *msg, const unsigned int secs);
 	@param      maxLength Maximum number of characters the user may enter.
     @result     EDEN_E_NONE in case of no error, or an error code.
 */
-EDEN_E_t EdenMessageInput(const unsigned char *prompt, const unsigned int minLength, const unsigned int maxLength, int intOnly, int fpOnly, int alphaOnly);
+EDEN_E_t EdenMessageInput(const unsigned char *prompt, const unsigned int minLength, const unsigned int maxLength, bool intOnly, bool fpOnly, bool alphaOnly);
 
 /*!
     @brief Get the result of an input operation
@@ -260,6 +223,11 @@ void EdenMessageSetBoxParams(const float width, const float padding);
 void EdenMessageDraw(const int contextIndex, const float viewProjection[16]);
 
 /*!
+     @brief   EdenMessageInputKeyboard should be called with keystrokes if this is set to true
+ */
+bool EdenMessageKeyboardRequired(void);
+
+/*!
     @function 
     @brief Pass user keystrokes to message library for use in dialogs.
     @details
@@ -270,12 +238,11 @@ void EdenMessageDraw(const int contextIndex, const float viewProjection[16]);
 		This processing call is required in order to capture the user's input for the
 		message routines, in both single- and multi-threaded applications.
 	@param      keyAsciiCode The ASCII-encoded keystroke.
-    @result     Returns TRUE if the keystroke was processed successfully, FALSE in case of error.
+    @result     Returns true if the keystroke was processed successfully, false in case of error.
 */
-EDEN_BOOL EdenMessageInputKeyboard(const unsigned char keyAsciiCode);
+bool EdenMessageInputKeyboard(const unsigned char keyAsciiCode);
 
 #ifdef __cplusplus
 }
 #endif
-
-#endif                  /* !__EdenMessage_h__ */
+#endif // !__EdenMessage_h__

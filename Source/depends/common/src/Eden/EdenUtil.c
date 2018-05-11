@@ -50,7 +50,7 @@
 #if defined(EDEN_UNIX)
 #  include <termios.h>				// struct termios, tcgetattr(), tcsetattr()
 #  include <strings.h>				// bzero(), required for FD_ZERO().
-#  define SELECT_IS_IN_SELECT_H 1
+#  define SELECT_IS_IN_SELECT_H 0
 #  if SELECT_IS_IN_SELECT_H
 #    include <sys/select.h>			// fd_set, FD_ZERO(), FD_SET(), select()
 #  else
@@ -162,14 +162,10 @@ char *EdenGetFileNameFromPath(const char *path)
 
     if (!path || !*path) return (NULL);
     
-#if defined(EDEN_MACOS)
-	sep = strrchr(path, ':');
-#else
 	sep = strrchr(path, '/');
-#  ifdef _WIN32
+#ifdef _WIN32
     sep1 = strrchr(path, '\\');
     if (sep1 > sep) sep = sep1;
-#  endif
 #endif
 
 	if (!sep) return ((char *)path);
@@ -231,14 +227,10 @@ char *EdenGetDirectoryNameFromPath(const char *path)
 #endif
 	
 	dir = strdup(path);
-#if defined(EDEN_MACOS)
-	sep = strrchr(dir, ':');
-#else
 	sep = strrchr(dir, '/');
-#  ifdef _WIN32
+#ifdef _WIN32
     sep1 = strrchr(path, '\\');
     if (sep1 > sep) sep = sep1;
-#  endif
 #endif
 			
 	if (!sep) *dir = '\0';
