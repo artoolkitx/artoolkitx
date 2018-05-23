@@ -155,7 +155,7 @@ extern "C" {
 	/**
 	 * Shuts down the artoolkitX and frees all resources.
      * N.B.: If this is being called from the destructor of the same module which
-     * supplied the log callback, be sure to set the logCallback = NULL
+     * supplied the log callback, be sure to call arwRegisterLogCallback(NULL)
      * prior to calling this function.
 	 * @return			true if successful, false if an error occurred
 	 * @see				arwInitialiseAR()
