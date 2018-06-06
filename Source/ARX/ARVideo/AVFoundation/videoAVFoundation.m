@@ -103,7 +103,7 @@ int ar2VideoDispOptionAVFoundation( void )
     ARPRINT(" -[no]flipv\n");
     ARPRINT("    Flip camera image vertically.\n");
     ARPRINT(" -[no]mt\n");
-    ARPRINT("    \"Multithreaded\", i.e. allow new frame callbacks on non-main thread. N.B. IGNORED IN THIS RELEASE.\n");
+    ARPRINT("    \"Multithreaded\", i.e. allow new frame callbacks on non-main thread.\n");
     //ARPRINT(" -[no]fliph\n");
     //ARPRINT("    Flip camera image horizontally.\n");
     ARPRINT("\n");
@@ -179,6 +179,7 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
     AVCaptureDevicePosition position = AVCaptureDevicePositionUnspecified;
     int                 camera_index = 0;
     NSString            *preset = nil, *uid = nil;
+    BOOL                multithreaded = FALSE;
 
     if (config) {
         a = config;
@@ -336,9 +337,11 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
                 } else if (strcmp(b, "-nofliph") == 0) {
                     flipH = 0;
                 } else if (strcmp(b, "-mt") == 0) {
-                    ARLOGw("\"-mt\" argument, \"Multithreaded,\" is currently ignored.\n");
+                    ARLOGi("Setting video capture callbacks to non-main thread.\n");
+                    multithreaded = TRUE;
                 } else if (strcmp(b, "-nomt") == 0) {
-                    ARLOGw("\"-nomt\" argument, \"Not Multithreaded,\" is currently ignored.\n");
+                    ARLOGi("Setting video capture callbacks to main thread.\n");
+                    multithreaded = FALSE;
                 } else if (strcmp(b, "-bufferpow2") == 0) {
                     ARLOGw("\"-bufferpow2\" argument, \"Images are returned in power-of-2 sized buffer\" is currently ignored.\n");
                 } else if (strncmp(a, "-cachedir=", 10) == 0) {
@@ -511,6 +514,7 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
     if (uid) vid->cameraVideo.captureDeviceIDUID = uid;
     [vid->cameraVideo setCaptureSessionPreset:preset];
     if (format) [vid->cameraVideo setPixelFormat:format];
+    vid->cameraVideo.multithreaded = multithreaded;
     
     if (!callback) {
         
