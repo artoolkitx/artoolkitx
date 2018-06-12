@@ -440,24 +440,27 @@ bool arwGetTrackables(int *count_p, ARWTrackableStatus **statuses_p)
     unsigned int trackableCount = gARTK->countTrackables();
     *count_p = (int)trackableCount;
     if (statuses_p) {
-        ARWTrackableStatus *st = (ARWTrackableStatus *)calloc(trackableCount, sizeof(ARWTrackableStatus));
-        for (unsigned int i = 0; i < trackableCount; i++) {
-            ARTrackable *t = gARTK->getTrackableAtIndex(i);
-            if (!t) {
-                st[i].uid = -1;
-            } else {
-                st[i].uid = t->UID;
-                st[i].visible = t->visible;
+        if (trackableCount == 0) *statuses_p = NULL;
+        else {
+            ARWTrackableStatus *st = (ARWTrackableStatus *)calloc(trackableCount, sizeof(ARWTrackableStatus));
+            for (unsigned int i = 0; i < trackableCount; i++) {
+                ARTrackable *t = gARTK->getTrackableAtIndex(i);
+                if (!t) {
+                    st[i].uid = -1;
+                } else {
+                    st[i].uid = t->UID;
+                    st[i].visible = t->visible;
 #ifdef ARDOUBLE_IS_FLOAT
-                memcpy(st[i].matrix, t->transformationMatrix, 16*sizeof(float));
-                memcpy(st[i].matrixR, t->transformationMatrixR, 16*sizeof(float));
+                    memcpy(st[i].matrix, t->transformationMatrix, 16*sizeof(float));
+                    memcpy(st[i].matrixR, t->transformationMatrixR, 16*sizeof(float));
 #else
-                for (int j = 0; j < 16; j++) st[i].matrix[j] = (float)t->transformationMatrix[j];
-                for (int j = 0; j < 16; j++) st[i].matrixR[j] = (float)t->transformationMatrixR[j];
+                    for (int j = 0; j < 16; j++) st[i].matrix[j] = (float)t->transformationMatrix[j];
+                    for (int j = 0; j < 16; j++) st[i].matrixR[j] = (float)t->transformationMatrixR[j];
 #endif
+                }
             }
+            *statuses_p = st;
         }
-        *statuses_p = st;
     }
     
     return true;
