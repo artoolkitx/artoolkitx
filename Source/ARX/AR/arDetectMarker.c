@@ -39,7 +39,7 @@
 #include <stdio.h>
 #include <ARX/AR/ar.h>
 #include <ARX/AR/arImageProc.h>
-
+#include <ARX/AR/arRefineCorners.h>"
 #if DEBUG_PATT_GETID
 extern int cnt;
 #endif
@@ -186,6 +186,9 @@ cnt = 0;
                             arHandle->matrixCodeType ) < 0 ) {
             return -1;
         }
+        
+        //Refine marker co-ordinates
+        arRefineCorners(arHandle->markerInfo->vertex, frame->buff);
     } // !detectionIsDone
     
     // If history mode is not enabled, just perform a basic confidence cutoff.

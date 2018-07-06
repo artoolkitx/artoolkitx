@@ -7,8 +7,8 @@
 
 #include <stdio.h>
 #include "arRefineCorners.h"
-#include "opencv2/core/core.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
+#include <opencv2/opencv.hpp>
+#include <opencv2/imgproc.hpp>
 void arRefineCorners(double (*vertex)[4][2], unsigned char *buff, int width, int height)
 {
     cv::Mat src = cv::Mat(height, width, cv::CV_8UC1, buff);
