@@ -50,6 +50,8 @@ set(SOURCE
     arPattGetID.c
     arPattLoad.c
     arPattSave.c
+    arRefineCorners.cpp
+    arRefineCorners.h
     arUtil.c
     icpCalibStereo.c
     icpCore.c
@@ -125,6 +127,27 @@ target_include_directories(AR
 target_link_libraries(AR
     INTERFACE ${LIBS}
 )
+
+if(HAVE_OPENCV)
+    target_include_directories(AR
+        PRIVATE ${OpenCV_INCLUDE_DIR}
+    )
+
+    if(NOT ARX_TARGET_PLATFORM_WINDOWS)
+        target_link_libraries(AR
+            PRIVATE ${OpenCV_LIBS}
+        )
+    else()
+        set (LINK_LIST "")
+        foreach(x ${OpenCV_LIBS})
+            string(REPLACE ".lib" "341d.lib" x_debug ${x})
+            list (APPEND LINK_LIST debug ${x_debug} optimized ${x})
+        endforeach()
+        target_link_libraries(AR
+            ${LINK_LIST}
+        )
+    endif()
+endif()
 
 # Pass on headers to parent.
 string(REGEX REPLACE "([^;]+)" "AR/\\1" hprefixed "${PUBLIC_HEADERS}")

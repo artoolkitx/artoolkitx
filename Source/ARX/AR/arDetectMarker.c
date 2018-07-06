@@ -39,7 +39,7 @@
 #include <stdio.h>
 #include <ARX/AR/ar.h>
 #include <ARX/AR/arImageProc.h>
-#include <ARX/AR/arRefineCorners.h>"
+#include "arRefineCorners.h"
 #if DEBUG_PATT_GETID
 extern int cnt;
 #endif
@@ -188,7 +188,10 @@ cnt = 0;
         }
         //Refine marker co-ordinates
     } // !detectionIsDone
-    arRefineCorners(arHandle->markerInfo->vertex, frame->buff);
+    
+    if (arHandle->arCornerRefinementMode == AR_CORNER_REFINEMENT_ENABLE) {
+        arRefineCorners((ARdouble (*)[2])arHandle->markerInfo->vertex, frame->buffLuma, arHandle->xsize, arHandle->ysize);
+    }
     
     // If history mode is not enabled, just perform a basic confidence cutoff.
     if (arHandle->arMarkerExtractionMode == AR_NOUSE_TRACKING_HISTORY) {

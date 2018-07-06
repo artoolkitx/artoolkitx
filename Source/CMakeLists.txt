@@ -130,7 +130,8 @@ endif()
 
 # Configuration defaults.
 set(HAVE_NFT 1)
-set(HAVE_2D 1)
+set(HAVE_2D 0)
+set(HAVE_OPENCV 0)
 set(USE_CPARAM_SEARCH 0)
 set(ARX_INSTALL_LIBRARY_DIR "lib")
 
@@ -146,9 +147,11 @@ if(ARX_TARGET_PLATFORM_ANDROID)
     set(OpenCV_PATH "${CMAKE_SOURCE_DIR}/depends/${ARX_PLATFORM_NAME_LC}/lib/${ANDROID_ABI}")
 endif()
 find_package(OpenCV)
-if(NOT OpenCV_FOUND)
+if(OpenCV_FOUND)
+    set(HAVE_OPENCV 1)
+    set(HAVE_2D 1)
+else()
     message(WARNING "OpenCV not found, will build without 2D tracker" )
-    set(HAVE_2D 0)
 endif()
 
 # Cached and project-specific platform variables.

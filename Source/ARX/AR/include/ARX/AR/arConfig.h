@@ -72,6 +72,11 @@
 #define  AR_USE_TRACKING_HISTORY_V2           2
 #define  AR_DEFAULT_MARKER_EXTRACTION_MODE    AR_USE_TRACKING_HISTORY_V2
 
+/* for arCornerRefinementMode */
+#define  AR_CORNER_REFINEMENT_DISABLE         0
+#define  AR_CORNER_REFINEMENT_ENABLE          1
+#define  AR_DEFAULT_CORNER_REFINEMENT_MODE    AR_CORNER_REFINEMENT_DISABLE
+
 /* for arGetTransMat */
 #define  AR_MAX_LOOP_COUNT                    5
 #define  AR_LOOP_BREAK_THRESH                 0.5
