@@ -186,10 +186,9 @@ cnt = 0;
                             arHandle->matrixCodeType ) < 0 ) {
             return -1;
         }
-        
         //Refine marker co-ordinates
-        arRefineCorners(arHandle->markerInfo->vertex, frame->buff);
     } // !detectionIsDone
+    arRefineCorners(arHandle->markerInfo->vertex, frame->buff);
     
     // If history mode is not enabled, just perform a basic confidence cutoff.
     if (arHandle->arMarkerExtractionMode == AR_NOUSE_TRACKING_HISTORY) {
