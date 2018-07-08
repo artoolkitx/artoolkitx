@@ -45,7 +45,7 @@
 extern "C" {
 #endif
 
-void arRefineCorners(ARdouble vertex[4][2], const unsigned char *buff, int width, int height);
+void arRefineCorners(ARfloat vertex[4][2], const unsigned char *buff, int width, int height);
 
 #endif // HAVE_OPENCV
 

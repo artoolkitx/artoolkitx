@@ -38,7 +38,7 @@
 
 #if !HAVE_OPENCV
 
-void arRefineCorners(ARdouble vertex[4][2], const unsigned char *buff, int width, int height)
+void arRefineCorners(ARfloat vertex[4][2], const unsigned char *buff, int width, int height)
 {
     // Do nothing.
 }
@@ -46,15 +46,18 @@ void arRefineCorners(ARdouble vertex[4][2], const unsigned char *buff, int width
 #else
 
 #include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <vector>
 
-void arRefineCorners(ARdouble vertex[4][2], const unsigned char *buff, int width, int height)
+void arRefineCorners(ARfloat vertex[4][2], const unsigned char *buff, int width, int height)
 {
     cv::Mat src = cv::Mat(height, width, CV_8UC1, (void *)buff, width);
+    cv::Mat outPut = src.clone();
     std::vector<cv::Point2f> corners;
     for (int i = 0; i < 4; i++) {
-        corners.push_back(cv::Point2f((float)vertex[i][0], (float)vertex[i][1]));
+        corners.push_back(cv::Point2f(vertex[i][0], vertex[i][1]));
+        circle(outPut, cv::Point(vertex[i][0],vertex[i][1]), 5, cv::Scalar(255), -1, 8, 0);
     }
     
     cv::Size winSize = cv::Size(5, 5);
@@ -65,15 +68,20 @@ void arRefineCorners(ARdouble vertex[4][2], const unsigned char *buff, int width
     cv::cornerSubPix(src, corners, winSize, zeroZone, criteria);
     for (int i = 0; i < 4; i++) {
 #ifdef DEBUG
-        if ((fabsf((float)vertex[i][0] - corners[i].x) > 0.1f) || (fabsf((float)vertex[i][1] - corners[i].y) > 0.1f)) {
+        if ((fabsf(vertex[i][0] - corners[i].x) > 0.1f) || (fabsf(vertex[i][1] - corners[i].y) > 0.1f)) {
             ARLOGd("arRefineCorners adjusted vertex %d from (%.1f, %.1f) to (%.1f, %.1f).\n", i, vertex[i][0], vertex[i][1], corners[i].x, corners[i].y);
         }
 #endif
         vertex[i][0] = (ARdouble)corners[i].x;
         vertex[i][1] = (ARdouble)corners[i].y;
+        circle(outPut, cv::Point(corners[i].x,corners[i].y), 2, cv::Scalar(125), -1, 8, 0);
     }
     src.release();
     corners.clear();
+    cv::imshow("Refined", outPut);
+    cv::waitKey(2);
+    ARLOGe("DONE CORNER REFINED.\n");
+
 }
 
 #endif // HAVE_OPENCV
