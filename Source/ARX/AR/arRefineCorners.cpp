@@ -36,6 +36,8 @@
 
 #include "arRefineCorners.h"
 
+//#define DEBUG_REFINECORNERS
+
 #if !HAVE_OPENCV
 
 void arRefineCorners(ARfloat vertex[4][2], const unsigned char *buff, int width, int height)
@@ -50,18 +52,18 @@ void arRefineCorners(ARfloat vertex[4][2], const unsigned char *buff, int width,
 #include <opencv2/imgproc.hpp>
 #include <vector>
 
-void arRefineCorners(ARfloat vertex[4][2], const unsigned char *buff, int width, int height)
+void arRefineCorners(float vertex[4][2], const unsigned char *buff, int width, int height)
 {
     bool validCorners = true;
-    cv::Rect rect = cv::Rect(1,1,width-1,height-1);
+    cv::Rect rect = cv::Rect(1, 1, width - 1, height - 1);
     std::vector<cv::Point2f> corners;
     for (int i = 0; i < 4; i++) {
         corners.push_back(cv::Point2f(vertex[i][0], vertex[i][1]));
-        if(rect.contains(cv::Point2f(vertex[i][0], vertex[i][1]))) {
-            validCorners=false;
+        if (rect.contains(cv::Point2f(vertex[i][0], vertex[i][1]))) {
+            validCorners = false;
         }
     }
-    if(validCorners) {
+    if (validCorners) {
         cv::Mat src = cv::Mat(height, width, CV_8UC1, (void *)buff, width);
         cv::Size winSize = cv::Size(5, 5);
         cv::Size zeroZone = cv::Size(-1, -1);
@@ -70,18 +72,17 @@ void arRefineCorners(ARfloat vertex[4][2], const unsigned char *buff, int width,
         // Calculate the refined corner locations.
         cv::cornerSubPix(src, corners, winSize, zeroZone, criteria);
         for (int i = 0; i < 4; i++) {
-    #ifdef DEBUG
+#ifdef DEBUG_REFINECORNERS
             if ((fabsf(vertex[i][0] - corners[i].x) > 0.1f) || (fabsf(vertex[i][1] - corners[i].y) > 0.1f)) {
                 ARLOGd("arRefineCorners adjusted vertex %d from (%.1f, %.1f) to (%.1f, %.1f).\n", i, vertex[i][0], vertex[i][1], corners[i].x, corners[i].y);
             }
-    #endif
+#endif
             vertex[i][0] = (ARdouble)corners[i].x;
             vertex[i][1] = (ARdouble)corners[i].y;
         }
         src.release();
     }
     corners.clear();
-    ARLOGe("DONE CORNER REFINED.\n");
 }
 
 #endif // HAVE_OPENCV
