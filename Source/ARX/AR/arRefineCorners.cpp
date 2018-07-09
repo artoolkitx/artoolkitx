@@ -52,36 +52,36 @@ void arRefineCorners(ARfloat vertex[4][2], const unsigned char *buff, int width,
 
 void arRefineCorners(ARfloat vertex[4][2], const unsigned char *buff, int width, int height)
 {
-    cv::Mat src = cv::Mat(height, width, CV_8UC1, (void *)buff, width);
-    cv::Mat outPut = src.clone();
+    bool validCorners = true;
+    cv::Rect rect = cv::Rect(1,1,width-1,height-1);
     std::vector<cv::Point2f> corners;
     for (int i = 0; i < 4; i++) {
         corners.push_back(cv::Point2f(vertex[i][0], vertex[i][1]));
-        circle(outPut, cv::Point(vertex[i][0],vertex[i][1]), 5, cv::Scalar(255), -1, 8, 0);
-    }
-    
-    cv::Size winSize = cv::Size(5, 5);
-    cv::Size zeroZone = cv::Size(-1, -1);
-    cv::TermCriteria criteria = cv::TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 40, 0.001);
-    
-    // Calculate the refined corner locations.
-    cv::cornerSubPix(src, corners, winSize, zeroZone, criteria);
-    for (int i = 0; i < 4; i++) {
-#ifdef DEBUG
-        if ((fabsf(vertex[i][0] - corners[i].x) > 0.1f) || (fabsf(vertex[i][1] - corners[i].y) > 0.1f)) {
-            ARLOGd("arRefineCorners adjusted vertex %d from (%.1f, %.1f) to (%.1f, %.1f).\n", i, vertex[i][0], vertex[i][1], corners[i].x, corners[i].y);
+        if(rect.contains(cv::Point2f(vertex[i][0], vertex[i][1]))) {
+            validCorners=false;
         }
-#endif
-        vertex[i][0] = (ARdouble)corners[i].x;
-        vertex[i][1] = (ARdouble)corners[i].y;
-        circle(outPut, cv::Point(corners[i].x,corners[i].y), 2, cv::Scalar(125), -1, 8, 0);
     }
-    src.release();
+    if(validCorners) {
+        cv::Mat src = cv::Mat(height, width, CV_8UC1, (void *)buff, width);
+        cv::Size winSize = cv::Size(5, 5);
+        cv::Size zeroZone = cv::Size(-1, -1);
+        cv::TermCriteria criteria = cv::TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 40, 0.001);
+        
+        // Calculate the refined corner locations.
+        cv::cornerSubPix(src, corners, winSize, zeroZone, criteria);
+        for (int i = 0; i < 4; i++) {
+    #ifdef DEBUG
+            if ((fabsf(vertex[i][0] - corners[i].x) > 0.1f) || (fabsf(vertex[i][1] - corners[i].y) > 0.1f)) {
+                ARLOGd("arRefineCorners adjusted vertex %d from (%.1f, %.1f) to (%.1f, %.1f).\n", i, vertex[i][0], vertex[i][1], corners[i].x, corners[i].y);
+            }
+    #endif
+            vertex[i][0] = (ARdouble)corners[i].x;
+            vertex[i][1] = (ARdouble)corners[i].y;
+        }
+        src.release();
+    }
     corners.clear();
-    cv::imshow("Refined", outPut);
-    cv::waitKey(2);
     ARLOGe("DONE CORNER REFINED.\n");
-
 }
 
 #endif // HAVE_OPENCV

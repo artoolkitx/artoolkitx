@@ -191,15 +191,13 @@ cnt = 0;
     
     if (arHandle->arCornerRefinementMode == AR_CORNER_REFINEMENT_ENABLE) {
         ARfloat obVertex[4][2];
-        for(int i=0;i<4;i++)
-        {
+        for(int i=0;i<4;i++) {
             ARfloat arXIn = (float)arHandle->markerInfo->vertex[i][0];
             ARfloat arYIn = (float)arHandle->markerInfo->vertex[i][1];
             arParamIdeal2ObservLTf( &arHandle->arParamLT->paramLTf, arXIn, arYIn, &obVertex[i][0], &obVertex[i][1] );
         }
         arRefineCorners((ARfloat (*)[2])obVertex, frame->buffLuma, arHandle->xsize, arHandle->ysize);
-        for(int i=0;i<4;i++)
-        {
+        for(int i=0;i<4;i++) {
             float newX, newY;
             arParamObserv2IdealLTf( &arHandle->arParamLT->paramLTf, obVertex[i][0], obVertex[i][1], &newX, &newY);
             arHandle->markerInfo->vertex[i][0] = (ARdouble)newX;
