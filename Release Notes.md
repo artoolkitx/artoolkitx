@@ -1,6 +1,11 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.0.2
+### 2018-07-11
+
+This is a minor release which focuses on addressing minor issues. Two cases where multimarker or single marker tracking might have returned an invalid pose as correct when the ICP pose estimation failed have been corrected. The embedded sqlite for Android has been updated.
+
 ## Version 1.0.1
 ### 2018-05-04
 

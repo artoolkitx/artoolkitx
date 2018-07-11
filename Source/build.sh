@@ -275,6 +275,7 @@ if [ $BUILD_LINUX ] ; then
 		check_package libgstreamer1.0-dev
 		check_package libsqlite3-dev
 		check_package libcurl4-openssl-dev
+		check_package libssl-dev
 	elif (type rpm >/dev/null 2>&1) ; then
 		check_package gcc
 		check_package gcc-c++
@@ -289,6 +290,7 @@ if [ $BUILD_LINUX ] ; then
 		check_package gstreamer1-devel
 		check_package libsqlite3x-devel
 		check_package libcurl-devel
+		check_package libopenssl-devel
 	fi
 
     if [ ! -d "depends/linux/include/opencv2" ] ; then
