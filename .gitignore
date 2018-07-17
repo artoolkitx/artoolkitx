@@ -41,6 +41,7 @@ ipch/
 local.properties
 *.iml
 **/.gradle/
+**/.idea/caches/
 **/.idea/workspace.xml
 **/.idea/libraries
 **/captures/
