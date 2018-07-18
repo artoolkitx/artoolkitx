@@ -159,7 +159,7 @@ public:
 	 * Destructor.
 	 */
 	~ARController();
-	
+
 	/**
 	 * Returns a string containing the artoolkitX version, such as "10.0.0".
 	 * @return		The artoolkitX version
@@ -358,10 +358,16 @@ public:
 	 * iterated over, and detected trackables are matched up with those in the trackable collection. Each matched
 	 * trackable is updated with visibility and transformation information. Any trackables not detected are considered 
 	 * not currently visible.
+	 *
+	 * leftBuffer and rightBuffer only needs to be passed in by reference if the video type is buffer, otherwise these
+	 * parameters don't need to be set at all or can be NULL, buffer size and type needs to correspond to the resolution
+	 * and pixelformat specified during initialization
+	 *
+	 * rightbuffer only needs to be set if stereo view is selected
      *
 	 * @return				true if update completed successfully, false if an error occurred
 	 */
-	bool update();
+	bool update(AR2VideoBufferT* leftBuffer = NULL, AR2VideoBufferT* rightBuffer = NULL);
 
     /**
      * Populates the provided buffer with the current contents of the debug image.

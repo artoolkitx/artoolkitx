@@ -90,6 +90,7 @@ endif()
 # Video modules for all platforms.
 add_subdirectory("Dummy")
 add_subdirectory("Image")
+add_subdirectory("Buffer")
 
 # Video modules for Android.
 if(ARX_TARGET_PLATFORM_ANDROID)
