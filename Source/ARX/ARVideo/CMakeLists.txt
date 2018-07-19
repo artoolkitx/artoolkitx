@@ -97,6 +97,11 @@ if(ARX_TARGET_PLATFORM_ANDROID)
     set(DEFINES ${DEFINES} "ARVIDEO_INPUT_DEFAULT_ANDROID")
 endif()
 
+# Video modules for Web
+if(ARX_TARGET_PLATFORM_EMSCRIPTEN)
+    add_subdirectory("Web")
+endif()
+
 # Video modules for iOS.
 if(ARX_TARGET_PLATFORM_IOS)
     add_subdirectory("AVFoundation")

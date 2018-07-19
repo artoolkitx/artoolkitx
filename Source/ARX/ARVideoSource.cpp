@@ -432,6 +432,30 @@ bool ARVideoSource::getFrameTextureRGBA32(uint32_t *buffer) {
     return true;
 }
 
+#if ARX_TARGET_PLATFORM_EMSCRIPTEN
+int ARVideoSource::webVideoPushInit(int width, int height, const char *pixelFormat, int camera_index, int camera_face)
+{
+    ARLOGi("ARVideoSource::webVideoPushInit ... \n");
+
+    if (deviceState == DEVICE_GETTING_READY) return 0; // This path will be exercised if another frame arrives while we're waiting for the callback.
+    else if (deviceState != DEVICE_OPEN) {
+        ARLOGe("ARVideoSource::webVideoPushInit: Error: device not open.\n");
+        return -1;
+    }
+    deviceState = DEVICE_GETTING_READY;
+
+    int ret = (ar2VideoPushInit(m_vid, width, height, pixelFormat, camera_index, camera_face));
+    deviceState = DEVICE_RUNNING; // after ar2VideoPushInit everything is ready to copy the video frames from JS into the HEAP to make it available for updateAR
+    this->pixelFormat = ar2VideoGetPixelFormat(m_vid);
+    if (this->pixelFormat < 0 ) {
+        ARLOGe("Error: unable to get pixel format.\n");
+        this->close();
+        return false;
+    }
+    return ret;
+}
+#endif
+
 #if ARX_TARGET_PLATFORM_ANDROID
 jint ARVideoSource::androidVideoPushInit(JNIEnv *env, jobject obj, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face)
 {

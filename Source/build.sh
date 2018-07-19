@@ -44,6 +44,8 @@ do
             ;;
         windows) BUILD_WINDOWS=1
             ;;
+        emscripten) BUILD_EM=1
+            ;;
 		examples) BUILD_EXAMPLES=1
 		    ;;
         docs) BUILD_DOCS=1
@@ -252,6 +254,20 @@ if [ $BUILD_DOCS ] ; then
     )
 fi
 # /BUILD_DOCS
+
+# Build emscripten
+if [ $BUILD_EM ]; then
+    echo "Building emscripten"
+    if [ ! -d "build-em" ] ; then
+        mkdir build-em
+    fi
+    cd build-em
+    rm -f CMakeCache.txt
+    emconfigure cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+    emmake make VERBOSE=1
+    cd artoolkitx.js; make install
+    #FIXME: the final artoolkitx.js creation complains about unresolved symbols from libJPEG that might become an issue further down the line
+fi
 
 fi
 # /Darwin||Linux||Windows

@@ -424,6 +424,12 @@ public:
     bool save2DTrackerImageDatabase(const char* databaseFileName);
 #endif // HAVE_2D
 
+#if ARX_TARGET_PLATFORM_EMSCRIPTEN
+
+    int webVideoPushInitC(int videoSourceIndex, int width, int height, const char *pixelFormat, int camera_index, int camera_face);
+
+#endif
+
 };
 
 

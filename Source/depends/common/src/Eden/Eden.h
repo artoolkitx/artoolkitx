@@ -142,7 +142,7 @@ extern "C" {
 #  define EDEN_USE_GL3 0
 
 // GCC on Linux.
-#elif defined(__linux__)	
+#elif defined(__linux__) || defined(__EMSCRIPTEN__)
 #  define EDEN_UNIX		// Its a Unix-like system.
 //#  define EDEN_HAVE_ARTOOLKIT
 #  ifdef __arm__

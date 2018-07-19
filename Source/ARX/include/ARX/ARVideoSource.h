@@ -206,6 +206,10 @@ public:
      */
     bool getFrameTextureRGBA32(uint32_t *buffer);
     
+#if ARX_TARGET_PLATFORM_EMSCRIPTEN
+    int webVideoPushInit(int width, int height, const char *pixelFormat, int camera_index, int camera_face);
+#endif
+    
 #if ARX_TARGET_PLATFORM_ANDROID
     jint androidVideoPushInit(JNIEnv *env, jobject obj, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face);
     jint androidVideoPush1(JNIEnv *env, jobject obj, jbyteArray buf, jint bufSize);

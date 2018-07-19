@@ -1,0 +1,12 @@
+set(SOURCE
+   ${SOURCE}
+   ${CMAKE_CURRENT_SOURCE_DIR}/videoWeb.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/videoWeb.c
+   PARENT_SCOPE
+)
+
+set(DEFINES
+    ${DEFINES}
+    ARVIDEO_INPUT_WEB
+    PARENT_SCOPE
+)

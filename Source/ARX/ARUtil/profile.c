@@ -81,7 +81,7 @@ void profileSet(int n)
 #else
     struct timeval     time;
 
-#  if defined(__linux) || defined(__APPLE__)
+#  if defined(__linux) || defined(__APPLE__) || defined(__EMSCRIPTEN__)
     gettimeofday( &time, NULL );
 #  else
     gettimeofday( &time );

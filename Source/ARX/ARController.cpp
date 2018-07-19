@@ -178,7 +178,7 @@ bool ARController::startRunning(const char* vconf, const char* cparaName, const 
 		return false;
 	}
 
-	m_videoSource0->configure(vconf, false, cparaName, cparaBuff, cparaBuffLen);
+    m_videoSource0->configure(vconf, false, cparaName, cparaBuff, cparaBuffLen);
 
     if (!m_videoSource0->open()) {
         if (m_videoSource0->getError() == ARX_ERROR_DEVICE_UNAVAILABLE) {
@@ -891,6 +891,31 @@ bool ARController::loadOpticalParams(const char *optical_param_name, const char 
 
     return true;
 }
+
+#pragma mark Web API
+
+#if ARX_TARGET_PLATFORM_EMSCRIPTEN
+
+int ARController::webVideoPushInitC(int videoSourceIndex, int width, int height, const char *pixelFormat, int camera_index, int camera_face)
+{
+    if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
+    int ret = -1;
+    
+    ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);;
+    if (!vs) {
+        ARLOGe("ARController::webVideoPushInitC: no ARVideoSource.\n");
+    } else {
+        if (!vs->isOpen() || !vs->isRunning()) {
+            ret = vs->webVideoPushInit(width, height, pixelFormat, camera_index, camera_face);
+        } else {
+            ARLOGe("ARController::webVideoPushInitC: ARVideoSource is either closed or already running.\n");
+        }
+    }
+    return ret;
+}
+
+#endif
+
 
 // ----------------------------------------------------------------------------------------------------
 #pragma mark  Android-only API
