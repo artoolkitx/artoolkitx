@@ -5,6 +5,14 @@ using namespace emscripten;
 
 EMSCRIPTEN_BINDINGS(constant_bindings) {
 
+    enum_<ARLogLevel>("ARLogLevel")
+        .value("AR_LOG_LEVEL_DEBUG", ARLogLevel::AR_LOG_LEVEL_DEBUG)
+        .value("AR_LOG_LEVEL_INFO", ARLogLevel::AR_LOG_LEVEL_INFO)
+        .value("AR_LOG_LEVEL_WARN", ARLogLevel::AR_LOG_LEVEL_INFO)
+        .value("AR_LOG_LEVEL_ERROR", ARLogLeve::AR_LOG_LEVEL_ERROR)
+        .value("AR_LOG_LEVEL_REL_INFO", ARLogLevel::AR_LOG_LEVEL_REL_INFO)
+    ;
+
     function("setLogLevel", &arwSetLogLevel);
 
     /*** artoolkitX lifecycle functions ***/
@@ -60,6 +68,29 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
     function("getTrackerOptionBool", &arwGetTrackerOptionBool);
     function("arwGetTrackerOptionInt", &arwGetTrackerOptionInt);
     function("arwGetTrackerOptionFloat", &arwGetTrackerOptionFloat);
+
+    enum_<LabelingThesholdMode>("LabelingThresholdMode")
+        .value("AR_LABELING_THRESH_MODE_MANUAL",AR_LABELING_THRESH_MODE_MANUAL)
+        .value("AR_LABELING_THRESH_MODE_AUTO_MEDIAN", AR_LABELING_THRESH_MODE_AUTO_MEDIAN)
+        .value("AR_LABELING_THRESH_MODE_AUTO_OTSU", AR_LABELING_THRESH_MODE_AUTO_OTSU)
+        .value("AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE", AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE)
+        .value("AR_LABELING_THRESH_MODE_AUTO_BRACKETING", AR_LABELING_THRESH_MODE_AUTO_BRACKETING)
+    ;
+
+    enum_<ARMatrixCodeType>("ARMatrixCodeType")
+        .value("AR_MATRIX_CODE_3x3",AR_MATRIX_CODE_3x3)
+        .value("AR_MATRIX_CODE_3x3_PARITY65", AR_MATRIX_CODE_3x3_PARITY65)
+        .value("AR_MATRIX_CODE_3x3_HAMMING63", AR_MATRIX_CODE_3x3_HAMMING63)
+        .value("AR_MATRIX_CODE_4x4", AR_MATRIX_CODE_4x4)
+        .value("AR_MATRIX_CODE_4x4_BCH_13_9_3", AR_MATRIX_CODE_4x4_BCH_13_9_3)
+        .value("AR_MATRIX_CODE_4x4_BCH_13_5_5",AR_MATRIX_CODE_4x4_BCH_13_5_5)
+        .value("AR_MATRIX_CODE_5x5_BCH_22_12_5", AR_MATRIX_CODE_5x5_BCH_22_12_5)
+        .value("AR_MATRIX_CODE_5x5_BCH_22_7_7", AR_MATRIX_CODE_5x5_BCH_22_7_7)
+        .value("AR_MATRIX_CODE_5x5", AR_MATRIX_CODE_5x5)
+        .value("AR_MATRIX_CODE_6x6", AR_MATRIX_CODE_6x6)
+        .value("AR_MATRIX_CODE_GLOBAL_ID", AR_MATRIX_CODE_GLOBAL_ID)
+    ;
+
 
     /*** Trackable management ***/
 
@@ -119,10 +150,21 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
     /*** Constants ***/
 
     /* for arPatternDetectionMode */
-	constant("AR_TEMPLATE_MATCHING_COLOR", AR_TEMPLATE_MATCHING_COLOR);
-	constant("AR_TEMPLATE_MATCHING_MONO", AR_TEMPLATE_MATCHING_MONO);
-	constant("AR_MATRIX_CODE_DETECTION", AR_MATRIX_CODE_DETECTION);
-	constant("AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX", AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX);
-	constant("AR_TEMPLATE_MATCHING_MONO_AND_MATRIX", AR_TEMPLATE_MATCHING_MONO_AND_MATRIX);
-	constant("AR_DEFAULT_PATTERN_DETECTION_MODE", AR_DEFAULT_PATTERN_DETECTION_MODE);
+    constant("AR_TEMPLATE_MATCHING_COLOR", AR_TEMPLATE_MATCHING_COLOR);
+    constant("AR_TEMPLATE_MATCHING_MONO", AR_TEMPLATE_MATCHING_MONO);
+    constant("AR_MATRIX_CODE_DETECTION", AR_MATRIX_CODE_DETECTION);
+    constant("AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX", AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX);
+    constant("AR_TEMPLATE_MATCHING_MONO_AND_MATRIX", AR_TEMPLATE_MATCHING_MONO_AND_MATRIX);
+    constant("AR_DEFAULT_PATTERN_DETECTION_MODE", AR_DEFAULT_PATTERN_DETECTION_MODE);
+
+    /* for labelingMode */
+    constant("AR_LABELING_WHITE_REGION", AR_LABELING_WHITE_REGION);
+    constant("AR_LABELING_BLACK_REGION", AR_LABELING_BLACK_REGION);
+
+    /* Pattern ratio */
+    constant("AR_PATT_RATIO", AR_PATT_RATIO);
+
+    /* image processing mode */
+    constant("AR_IMAGE_PROC_FRAME_IMAGE", AR_IMAGE_PROC_FRAME_IMAGE);
+    constant("AR_IMAGE_PROC_FIELD_IMAGE", AR_IMAGE_PROC_FRAME_IMAGE);
 }
