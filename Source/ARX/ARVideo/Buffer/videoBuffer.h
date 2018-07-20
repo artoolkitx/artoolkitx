@@ -63,7 +63,7 @@ typedef struct {
     AR_PIXEL_FORMAT    format;
     int                bufWidth;
     int                bufHeight;
-	BYTE*              userBufferPointer;
+	unsigned char*     userBufferPointer;
 }AR2VideoParamBufferT;
 
 int                    ar2VideoDispOptionBuffer     ( void );
