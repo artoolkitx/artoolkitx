@@ -254,7 +254,9 @@ int ar2VideoPushInitWeb(AR2VideoParamWebT *vid, int width, int height, const cha
         goto done;
     }
     
-    int videoSize = width * height * 4 * sizeof(ARUint8*);
+    int videoSize = width * height * 4 * sizeof(ARUint8);
+    ARLOGd("videoSize = width %d * height %d * 4 * sizeof(ARUint8) %d= '%d'.\n", width, height, sizeof(ARUint8), videoSize);
+
     // Prepare the vid->buffer structure.
     if (vid->pixelFormat == AR_PIXEL_FORMAT_RGBA) {
         vid->buffer.buff = (ARUint8*) malloc(videoSize);

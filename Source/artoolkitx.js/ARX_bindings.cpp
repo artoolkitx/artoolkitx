@@ -9,7 +9,7 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
         .value("AR_LOG_LEVEL_DEBUG", ARLogLevel::AR_LOG_LEVEL_DEBUG)
         .value("AR_LOG_LEVEL_INFO", ARLogLevel::AR_LOG_LEVEL_INFO)
         .value("AR_LOG_LEVEL_WARN", ARLogLevel::AR_LOG_LEVEL_INFO)
-        .value("AR_LOG_LEVEL_ERROR", ARLogLeve::AR_LOG_LEVEL_ERROR)
+        .value("AR_LOG_LEVEL_ERROR", ARLogLevel::AR_LOG_LEVEL_ERROR)
         .value("AR_LOG_LEVEL_REL_INFO", ARLogLevel::AR_LOG_LEVEL_REL_INFO)
     ;
 
@@ -69,7 +69,7 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
     function("arwGetTrackerOptionInt", &arwGetTrackerOptionInt);
     function("arwGetTrackerOptionFloat", &arwGetTrackerOptionFloat);
 
-    enum_<LabelingThesholdMode>("LabelingThresholdMode")
+    enum_<LabelingThresholdMode>("LabelingThresholdMode")
         .value("AR_LABELING_THRESH_MODE_MANUAL",AR_LABELING_THRESH_MODE_MANUAL)
         .value("AR_LABELING_THRESH_MODE_AUTO_MEDIAN", AR_LABELING_THRESH_MODE_AUTO_MEDIAN)
         .value("AR_LABELING_THRESH_MODE_AUTO_OTSU", AR_LABELING_THRESH_MODE_AUTO_OTSU)
