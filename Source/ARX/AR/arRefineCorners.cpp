@@ -58,9 +58,11 @@ void arRefineCorners(float vertex[4][2], const unsigned char *buff, int width, i
     cv::Rect rect = cv::Rect(1, 1, width - 1, height - 1);
     std::vector<cv::Point2f> corners;
     for (int i = 0; i < 4; i++) {
-        corners.push_back(cv::Point2f(vertex[i][0], vertex[i][1]));
-        if (rect.contains(cv::Point2f(vertex[i][0], vertex[i][1]))) {
+        if (!rect.contains(cv::Point2f(vertex[i][0], vertex[i][1]))) {
             validCorners = false;
+            break;
+        } else {
+            corners.push_back(cv::Point2f(vertex[i][0], vertex[i][1]));
         }
     }
     if (validCorners) {
