@@ -128,6 +128,11 @@ if (ARX_TARGET_PLATFORM_IOS OR ARX_TARGET_PLATFORM_MACOS)
     endif()
 endif()
 
+# For gcc < 5, ensure C99 compliance. (As of gcc v5, gnu11 is the default.)
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
+endif()
+
 # Configuration defaults.
 set(HAVE_NFT 1)
 set(HAVE_2D 1)
