@@ -82,6 +82,11 @@ then
     # bash on Cygwin.
     CPUS=`/usr/bin/nproc`
     OS='Windows'
+elif [ "$OS" = "MINGW64_NT-6.1" ]
+then
+    # git-bash on Windows 7
+    CPUS=`/usr/bin/nproc`
+    OS='Windows'
 elif [ "$OS" = "MINGW64_NT-10.0" ]
 then
     # git-bash on Windows.
