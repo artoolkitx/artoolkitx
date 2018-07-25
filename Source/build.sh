@@ -87,6 +87,7 @@ then
     # git-bash on Windows 7
     CPUS=`/usr/bin/nproc`
     OS='Windows'
+    SELECT_CMAKE_GENERATOR=1
 elif [ "$OS" = "MINGW64_NT-10.0" ]
 then
     # git-bash on Windows.
@@ -110,6 +111,28 @@ function check_package {
 		fi
 	fi
 }
+
+# Set default CMake generator for Windows.
+CMAKE_GENERATOR="Visual Studio 15 2017 Win64"
+# Give the user the possibility to choose another CMake generator.
+if [ $SELECT_CMAKE_GENERATOR == "1" ] ; then
+    echo -e "Select a CMake generator for creating project files:\n"
+    echo    "  1) \"Visual Studio 15 2017 Win64\"        (default)"
+    echo -e "  2) \"CodeBlocks - NMake Makefiles JOM\"   (try this generator if you have linking problems)\n"
+    read -p "select generator 1, 2 or specify your preferred CMake generator: " SELECTION
+
+    case "$SELECTION" in
+        ""|1)
+            ;;
+        2)
+        CMAKE_GENERATOR="CodeBlocks - NMake Makefiles JOM"
+            ;;
+        *)
+        CMAKE_GENERATOR="$SELECTION"
+            ;;
+    esac
+    echo -e "use generator: \"$CMAKE_GENERATOR\"\n"
+fi
 
 if [ "$OS" = "Darwin" ] ; then
 # ======================================================================
@@ -449,7 +472,7 @@ if [ $BUILD_WINDOWS ] ; then
 
     cd build-windows
     rm -f CMakeCache.txt
-    cmake.exe .. -G "Visual Studio 15 2017 Win64" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
+    cmake.exe .. -G "$CMAKE_GENERATOR" -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
     cmake.exe --build . --config ${DEBUG+Debug}${DEBUG-Release} --target install
     cp $OURDIR/depends/windows/lib/x64/opencv* $OURDIR/../SDK/bin
     cp $OURDIR/depends/windows/lib/x64/SDL2.dll $OURDIR/../SDK/bin
@@ -460,7 +483,7 @@ if [ $BUILD_WINDOWS ] ; then
     (cd "../Examples/Square tracking example/Windows"
         mkdir -p build-windows
         cd build-windows
-        cmake.exe .. -DCMAKE_CONFIGURATION_TYPES=${DEBUG+Debug}${DEBUG-Release} "-GVisual Studio 15 2017 Win64"
+        cmake.exe .. -DCMAKE_CONFIGURATION_TYPES=${DEBUG+Debug}${DEBUG-Release} "-G$CMAKE_GENERATOR"
         cmake.exe --build . --config ${DEBUG+Debug}${DEBUG-Release}  --target install
         #Copy needed dlls into the corresponding Visual Studio directory to allow running examples from inside the Visual Studio GUI
         mkdir -p ${DEBUG+Debug}${DEBUG-Release}
@@ -472,7 +495,7 @@ if [ $BUILD_WINDOWS ] ; then
     (cd "../Examples/2d tracking example/Windows"
         mkdir -p build-windows
         cd build-windows
-        cmake.exe .. -DCMAKE_CONFIGURATION_TYPES=${DEBUG+Debug}${DEBUG-Release} "-GVisual Studio 15 2017 Win64"
+        cmake.exe .. -DCMAKE_CONFIGURATION_TYPES=${DEBUG+Debug}${DEBUG-Release} "-G$CMAKE_GENERATOR"
         cmake.exe --build . --config ${DEBUG+Debug}${DEBUG-Release}  --target install
         #Copy needed dlls into the corresponding Visual Studio directory to allow running examples from inside the Visual Studio GUI
         mkdir -p ${DEBUG+Debug}${DEBUG-Release}
