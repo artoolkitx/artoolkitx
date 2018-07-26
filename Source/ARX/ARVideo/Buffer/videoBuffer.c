@@ -47,6 +47,7 @@
 #ifdef ARVIDEO_INPUT_BUFFER
 
 #include <string.h> // memset()
+#include <ARX/ARUtil/time.h> // arUtilTimeSinceEpoch()
 
 #define AR_VIDEO_BUFFER_XSIZE   640
 #define AR_VIDEO_BUFFER_YSIZE   480
