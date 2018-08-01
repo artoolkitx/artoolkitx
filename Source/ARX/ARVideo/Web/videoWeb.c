@@ -283,12 +283,16 @@ int ar2VideoPushInitWeb(AR2VideoParamWebT *vid, int width, int height, const cha
         videoMalloc["lumaFramePointer"] = $2;
         videoMalloc["newFrameBoolPtr"] = $3;
         videoMalloc["fillFlagIntPtr"] = $4;
+        videoMalloc["timeSecPtr"] = $5;
+        videoMalloc["timeMilliSecPtr"] = $6;
     }, 
         vid->buffer.buff,
         videoSize,
         vid->buffer.buffLuma,
         &vid->newFrame,
-        &vid->buffer.fillFlag
+        &vid->buffer.fillFlag,
+        &vid->buffer.time.sec,
+        &vid->buffer.time.usec
     );
 
     ret = 0;
