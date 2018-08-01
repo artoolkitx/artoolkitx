@@ -20,8 +20,6 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
     function("getARToolKitVersion", &getARToolKitVersion);
     function("arwStartRunningJS", &arwStartRunningJS);
     function("pushVideoInit", &pushVideoInit);
-    function("_capture", &arwCapture);
-    function("updateAR", &arwUpdateAR);
     function("getError", &arwGetError);
     
     function("isRunning", &arwIsRunning);
@@ -39,7 +37,6 @@ EMSCRIPTEN_BINDINGS(constant_bindings) {
         .field("pixelFormat", &VideoParams::pixelFormat);
     function("getVideoParams", &getVideoParams);
 
-    function("capture", &arwCapture);
     function("updateAR", &arwUpdateAR);
 
     /*** Video stream retrieval and/or drawing ***/
