@@ -58,7 +58,7 @@ void arUtilTimeSinceEpoch(uint64_t *sec, uint32_t *usec)
 #else
     struct timeval     time;
 
-#  if defined(__linux) || defined(__APPLE__) || defined(EMSCRIPTEN)
+#  if defined(__linux) || defined(__APPLE__) || defined(__EMSCRIPTEN__)
     gettimeofday(&time, NULL);
 #  else
     gettimeofday(&time);
