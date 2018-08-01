@@ -65,7 +65,7 @@ void TrackingPointSelector::DistributeBins(int width, int height, int markerTemp
     for(int i=0, id=0; i<_pts.size(); i++) {
         int bx = (int)_pts[i].x/totalXBins;
         int by = (int)_pts[i].y/totalYBins;
-        int index = bx + (by * totalXBins);
+        int index = bx + (by * numberOfBins);
         
         cv::Rect templateRoi = cv::Rect(_pts[i].x-markerTemplateWidth, _pts[i].y-markerTemplateWidth, markerTemplateWidth*2, markerTemplateWidth*2);
         bool is_inside = (templateRoi & cv::Rect(0, 0, width, height)) == templateRoi;

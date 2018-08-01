@@ -52,7 +52,7 @@
  * context must be initialised and active at the time of the call. For most OpenGL
  * implementations, such a call can only be made from a rendering thread.
  */
-class ARVideoView {
+class ARX_EXTERN ARVideoView {
 
 public:
 

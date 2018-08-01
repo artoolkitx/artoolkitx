@@ -50,7 +50,7 @@
  * contain information about the video, such as size and pixel format, camera parameters
  * for distortion compensation, as well as the raw video data itself.
  */
-class ARVideoSource {
+class ARX_EXTERN ARVideoSource {
 
 private:
 
