@@ -269,7 +269,11 @@ if [ $BUILD_EM ]; then
     cd build-em
     rm -f CMakeCache.txt
     emconfigure cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
-    emmake make VERBOSE=1
+    if [ $DEBUG ]; then
+        emmake make VERBOSE=1
+    else
+        emmake make
+    fi
     cd artoolkitx.js; make install
     #FIXME: the final artoolkitx.js creation complains about unresolved symbols from libJPEG that might become an issue further down the line
 fi

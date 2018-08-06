@@ -274,10 +274,10 @@ int ar2VideoPushInitWeb(AR2VideoParamWebT *vid, int width, int height, const cha
     vid->pushInited = true;
 
     EM_ASM_({
-        if (!arxjs["videoMalloc"]) {
-            arxjs["videoMalloc"] = ({});
+        if (!artoolkitXjs["videoMalloc"]) {
+            artoolkitXjs["videoMalloc"] = ({});
         }
-        var videoMalloc = arxjs["videoMalloc"];
+        var videoMalloc = artoolkitXjs["videoMalloc"];
         videoMalloc["framepointer"] = $0;
         videoMalloc["framesize"] = $1;
         videoMalloc["lumaFramePointer"] = $2;
