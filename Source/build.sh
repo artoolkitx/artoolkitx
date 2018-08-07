@@ -269,7 +269,7 @@ if [ $BUILD_EM ]; then
     cd build-em
     rm -f CMakeCache.txt
     emconfigure cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
-    if [ $DEBUG ]; then
+    if [ "${DEBUG+Debug}${DEBUG-Release}" = "Debug" ]; then
         emmake make VERBOSE=1
     else
         emmake make

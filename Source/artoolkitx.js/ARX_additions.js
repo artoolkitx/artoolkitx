@@ -1,3 +1,5 @@
+//NOTE: As to my knowlege every JS code that is processed by Emscripten needs to be ES5 compatible. Meaning no const/let or arrow (=>) functions
+
 // Many thanks to https://github.com/Planeshifter for his project: https://github.com/Planeshifter/emscripten-examples/tree/master/01_PassingArrays
 function _arrayToHeap(typedArray) {
     var numBytes = typedArray.length * typedArray.BYTES_PER_ELEMENT;
@@ -91,3 +93,8 @@ Module["loadOpticalParams"] = function(opticalParamName, opticalParamBuffer, pro
     Module._free(perspectiveMatrixHeap.byteOffset);
     return returnObject;
 };
+
+Module["onRuntimeInitialized"] = function() {
+    var event = new Event('artoolkitX-loaded');
+    window.dispatchEvent(event);
+}
