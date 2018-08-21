@@ -156,7 +156,8 @@ int ar2VideoCloseWeb(AR2VideoParamWebT *vid)
     
 	pthread_mutex_destroy(&(vid->frameLock));
 	pthread_cond_destroy(&(vid->frameInCond));     
-    
+    free(vid->buffer.buff);
+    free(vid->buffer.buffLuma);
     free(vid);
     
     return 0;
@@ -214,13 +215,15 @@ done:
 int ar2VideoCapStopWeb(AR2VideoParamWebT *vid)
 {
     int ret = -1;
-    
+    ARLOGd("Stopping video.\n");
+
     if (!vid) return -1; // Sanity check.
 
     pthread_mutex_lock(&(vid->frameLock));
     if (!vid->capturing) goto done; // Not capturing.
     vid->capturing = false;
     vid->newFrame = false;
+    vid->pushInited = false;    
     ret = 0;
 done:
     pthread_mutex_unlock(&(vid->frameLock));

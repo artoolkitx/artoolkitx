@@ -357,7 +357,7 @@ int ar2VideoClose(AR2VideoParamT *vid)
     int ret;
 
     if (!vid) return -1;
-    if (vid->lumaInfo) {
+    if (vid->lumaInfo) { // This is only the case if the video stream didn't provide a luma channel. Because if there is no luma channel ARTK will create one.
         if (arVideoLumaFinal(&(vid->lumaInfo)) < 0) {
             ARLOGe("ar2VideoClose: Error disposing of luma info.\n");
         }
@@ -396,6 +396,11 @@ int ar2VideoClose(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_ANDROID
     if (vid->module == AR_VIDEO_MODULE_ANDROID) {
         ret = ar2VideoCloseAndroid((AR2VideoParamAndroidT *)vid->moduleParam);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_WEB
+    if (vid->module == AR_VIDEO_MODULE_WEB) {
+        ret = ar2VideoCloseWeb((AR2VideoParamWebT *)vid->moduleParam);
     }
 #endif
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_FOUNDATION
@@ -825,6 +830,11 @@ int ar2VideoCapStop(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_IMAGE
     if (vid->module == AR_VIDEO_MODULE_IMAGE) {
         return ar2VideoCapStopImage((AR2VideoParamImageT *)vid->moduleParam);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_WEB
+    if (vid->module == AR_VIDEO_MODULE_WEB) {
+		return ar2VideoCapStopWeb((AR2VideoParamWebT *)vid->moduleParam);
     }
 #endif
 #ifdef ARVIDEO_INPUT_ANDROID

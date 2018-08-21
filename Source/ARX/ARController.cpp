@@ -405,10 +405,15 @@ done:
 bool ARController::stopRunning()
 {
 	ARLOGd("ARX::ARController::stopRunning()\n");
-	if (state != DETECTION_RUNNING && state != WAITING_FOR_VIDEO) {
-        ARLOGe("Stop running called but not running.\n");
-		return false;
-	}
+    //m_videoSource0->getAR2VideoParam();
+    //In case of Emscripten try to stop without checking if running, 
+    //because in case of single image tracking the state won't be running but the memory is still allocated.
+    #ifndef ARX_TARGET_PLATFORM_EMSCRIPTEN
+        if (state != DETECTION_RUNNING && state != WAITING_FOR_VIDEO) {
+            ARLOGe("Stop running called but not running.\n");
+            return false;
+        }
+    #endif
     
     m_squareTracker->stop();
 #if HAVE_NFT
