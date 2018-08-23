@@ -155,7 +155,7 @@ extern "C" {
 	/**
 	 * Shuts down the artoolkitX and frees all resources.
      * N.B.: If this is being called from the destructor of the same module which
-     * supplied the log callback, be sure to set the logCallback = NULL
+     * supplied the log callback, be sure to call arwRegisterLogCallback(NULL)
      * prior to calling this function.
 	 * @return			true if successful, false if an error occurred
 	 * @see				arwInitialiseAR()
@@ -227,23 +227,31 @@ extern "C" {
 	 */
     ARX_EXTERN bool arwUpdateAR();
     
-	/**
-	 * Populates the provided floating-point color buffer with the current video frame.
-	 * @param buffer	The color buffer to fill with video.
-	 * @return			true if successful, false if an error occurred
-	 */
-    ARX_EXTERN bool arwUpdateTexture32(uint32_t *buffer);
-    
     // ----------------------------------------------------------------------------------------------------
-#pragma mark  Video stream drawing.
+#pragma mark  Video stream retrieval and/or drawing.
     // ----------------------------------------------------------------------------------------------------
 
     /**
-	 * Populates the provided stereo floating-point color buffers with the current video frames.
-	 * @param bufferL	The color buffer to fill with video from the left camera.
-	 * @param bufferR	The color buffer to fill with video from the right camera.
-	 * @return			true if successful, false if an error occurred
-	 */
+     * Asks the video source to push the most recent frame into the passed-in buffer.
+     * @param buffer Pointer to a buffer of pixels (of type 'uint32_t') to be filled with video.
+     *      It is the caller's responsibility to ensure that the buffer is of sufficient size.
+     *      The pixels are RGBA in little-endian systems, or ABGR in big-endian systems.
+     * @return            true if successful, false if an error occurred
+     */
+    ARX_EXTERN bool arwUpdateTexture32(uint32_t *buffer);
+    
+    /**
+     * Asks the video source to push the most recent stereo frame into the passed-in buffer.
+     * @param bufferL Pointer to a buffer of pixels (of type 'uint32_t') to be filled with video
+     *      from the left camera. It is the caller's responsibility to ensure that the buffer is
+     *      of sufficient size. The pixels are RGBA in little-endian systems, or ABGR in big-endian
+     *      systems.
+     * @param bufferR Pointer to a buffer of pixels (of type 'uint32_t') to be filled with video
+     *      from the right camera. It is the caller's responsibility to ensure that the buffer is
+     *      of sufficient size. The pixels are RGBA in little-endian systems, or ABGR in big-endian
+     *      systems.
+     * @return            true if successful, false if an error occurred
+     */
     ARX_EXTERN bool arwUpdateTexture32Stereo(uint32_t *bufferL, uint32_t *bufferR);
     
     /**

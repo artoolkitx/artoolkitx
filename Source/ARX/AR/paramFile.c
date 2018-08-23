@@ -66,6 +66,7 @@ const arParamVersionInfo_t arParamVersionInfo[AR_DIST_FUNCTION_VERSION_MAX] = {
 	{5, 144}, 
 	{6, 152}, 
 	{9, 176}, 
+    {17, 240},
 };
 
 #ifdef AR_LITTLE_ENDIAN

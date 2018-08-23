@@ -27,6 +27,7 @@
 		4A70A1301DC806A7005A4F69 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A70A12F1DC806A7005A4F69 /* CoreMedia.framework */; };
 		4A70A1321DC806A9005A4F69 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A70A1311DC806A9005A4F69 /* Accelerate.framework */; };
 		4A70A1341DC806B9005A4F69 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A70A1331DC806B9005A4F69 /* AudioToolbox.framework */; };
+		4A95A875209930FF00BD771F /* pinball.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4A95A874209930FF00BD771F /* pinball.jpg */; };
 		4A9707911DD152D200FF507D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9707901DD152D200FF507D /* CoreMotion.framework */; };
 		4AD419A01E70F1D100DC036C /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD4199F1E70F1D100DC036C /* libstdc++.tbd */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		4A70A12F1DC806A7005A4F69 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		4A70A1311DC806A9005A4F69 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		4A70A1331DC806B9005A4F69 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		4A95A874209930FF00BD771F /* pinball.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pinball.jpg; path = ../pinball.jpg; sourceTree = "<group>"; };
 		4A9707901DD152D200FF507D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		4AD4199F1E70F1D100DC036C /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -123,6 +125,7 @@
 		4A70A1061DC7F5D6005A4F69 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4A95A874209930FF00BD771F /* pinball.jpg */,
 				4A70A0F41DC7F425005A4F69 /* Assets.xcassets */,
 				4A70A10A1DC7F773005A4F69 /* LaunchScreen.storyboard */,
 				4A70A10C1DC7F773005A4F69 /* Main.storyboard */,
@@ -210,7 +213,7 @@
 		4A70A0D91DC7F425005A4F69 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = artoolkit.org;
 				TargetAttributes = {
 					4A70A0E01DC7F425005A4F69 = {
@@ -247,6 +250,7 @@
 				4A70A10F1DC7F773005A4F69 /* Main.storyboard in Resources */,
 				4A70A10E1DC7F773005A4F69 /* LaunchScreen.storyboard in Resources */,
 				4A70A0F51DC7F425005A4F69 /* Assets.xcassets in Resources */,
+				4A95A875209930FF00BD771F /* pinball.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +303,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -306,6 +311,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -362,6 +368,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -369,6 +376,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

@@ -184,6 +184,8 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
 	if (patt_id < 0) return false;	// Can't update if no pattern loaded
 
     visiblePrev = visible;
+    visible = false;
+    m_cf = 0.0f;
 
 	if (markerInfo) {
 
@@ -220,24 +222,20 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
         
 		// Consider marker visible if a match was found.
         if (k != -1) {
-            visible = true;
-            m_cf = markerInfo[k].cf;
+            ARdouble err;
             // If the model is visible, update its transformation matrix
 			if (visiblePrev && useContPoseEstimation) {
 				// If the marker was visible last time, use "cont" version of arGetTransMatSquare
-				arGetTransMatSquareCont(ar3DHandle, &(markerInfo[k]), trans, m_width, trans);
+				err = arGetTransMatSquareCont(ar3DHandle, &(markerInfo[k]), trans, m_width, trans);
 			} else {
 				// If the marker wasn't visible last time, use normal version of arGetTransMatSquare
-				arGetTransMatSquare(ar3DHandle, &(markerInfo[k]), m_width, trans);
+				err = arGetTransMatSquare(ar3DHandle, &(markerInfo[k]), m_width, trans);
 			}
-        } else {
-            visible = false;
-            m_cf = 0.0f;
+            if (err < 10.0f) {
+                visible = true;
+                m_cf = markerInfo[k].cf;
+            }
         }
-
-	} else {
-        visible = false;
-        m_cf = 0.0f;
     }
 
 	return (ARTrackable::update()); // Parent class will finish update.

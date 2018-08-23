@@ -60,8 +60,6 @@
 #pragma mark  Singleton, constructor, destructor
 // ----------------------------------------------------------------------------------------------------
 
-PFN_LOGCALLBACK ARController::logCallback = NULL;
-
 ARController::ARController() :
     state(NOTHING_INITIALISED),
     versionString(NULL),

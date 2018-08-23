@@ -23,7 +23,7 @@ option(BUILD_UTILITIES "Build the utilities" ON)
 
 set(ARX_VERSION_MAJOR 1)
 set(ARX_VERSION_MINOR 0)
-set(ARX_VERSION_TINY  0)
+set(ARX_VERSION_TINY  2)
 set(ARX_VERSION_DEV   0)
 set(ARX_VERSION_STRING "${ARX_VERSION_MAJOR}.${ARX_VERSION_MINOR}.${ARX_VERSION_TINY}")
 math(EXPR ARX_VERSION_NUMBER "${ARX_VERSION_MAJOR}*1000000+${ARX_VERSION_MINOR}*10000+${ARX_VERSION_TINY}*100+${ARX_VERSION_DEV}")
@@ -126,6 +126,11 @@ if (ARX_TARGET_PLATFORM_IOS OR ARX_TARGET_PLATFORM_MACOS)
         # use, i.e. don't skip the full RPATH for the build tree
         SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
     endif()
+endif()
+
+# For gcc < 5, ensure C99 compliance. (As of gcc v5, gnu11 is the default.)
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
 endif()
 
 # Configuration defaults.

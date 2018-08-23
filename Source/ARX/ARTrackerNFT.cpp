@@ -224,7 +224,7 @@ bool ARTrackerNFT::update(AR2VideoBufferT *buff, std::vector<ARTrackable *>& tra
         }
     }
     
-    if (!trackingThreadHandle) {
+    if (trackingThreadHandle) {
         
         // Do KPM tracking.
         float err;

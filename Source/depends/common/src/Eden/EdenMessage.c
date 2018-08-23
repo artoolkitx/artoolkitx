@@ -1,13 +1,8 @@
 //
-//  EdenMessage.h
+//  EdenMessage.c
 //
-//  Copyright (c) 2001-2013 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
+//  Copyright (c) 2001-2018 Philip Lamb (PRL) phil@eden.net.nz. All rights reserved.
 //	Font loading code based on code by Jeff Molofee, 1999, http://nehe.gamedev.net/
-//	
-//	Rev		Date		Who		Changes
-//	1.0.0	2001-12-04	PRL		Initial version for The SRMS simulator.
-//	1.0.1	2005-09-28	PRL		Added headerDoc.
-//  1.1.0   2013-02-19  PRL     Quick update for OpenGL ES.
 //
 
 // @@BEGIN_EDEN_LICENSE_HEADER@@
@@ -50,17 +45,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>				// malloc(), calloc(), free(), exit()
-#ifndef _MSC_VER
-#  include <stdbool.h>
-#else
-typedef unsigned char bool;
-#  define false 0
-#  define true 1
-#  include <sys/timeb.h>    // struct _timeb
-#endif
+#include <stdbool.h>
 #include <pthread.h>
-#include <errno.h>			// ETIMEDOUT
-#include <Eden/EdenTime.h>	// EdenTimeAbsolutePlusOffset(), struct timespec, EdenTime_sleep()
+#include <Eden/EdenUIInput.h>
+#include <Eden/EdenTime.h>	// EdenTime_sleep()
 #include <Eden/EdenSurfaces.h>	// TEXTURE_INFO_t, TEXTURE_INDEX_t, SurfacesTextureLoad(), SurfacesTextureSet(), SurfacesTextureUnload()
 #include <Eden/EdenGLFont.h>
 #if EDEN_USE_GL
@@ -101,7 +89,7 @@ typedef struct _boxSettings {
 // ============================================================================
 
 // Sanity checks.
-static EDEN_BOOL gMessageInited = FALSE; // Set to TRUE once EdenMessageInit() has succesfully completed.
+static bool gMessageInited = false; // Set to true once EdenMessageInit() has succesfully completed.
 
 static boxSettings_t *gBoxSettings = NULL;
 
@@ -129,25 +117,11 @@ static GLuint program = 0;
 // Use of gDrawLock allows EdenMessageDraw() to be called in a separate thread
 // by protecting the global static data (below) that it uses.
 //static pthread_mutex_t gDrawLock;
-EDEN_BOOL gEdenMessageDrawRequired = FALSE;						// EdenMessageDraw() should be called if this is set to TRUE;
+bool gEdenMessageDrawRequired = false;						// EdenMessageDraw() should be called if this is set to true;
 
-static pthread_mutex_t gInputLock;      // Protects gInput.
-static unsigned char *gInput; 			// Pointer to buffer for input string, including prompt.
-static unsigned char *gInputPtr;        // Pointer into buffer to start of input string.
-static unsigned int gInputLength;		// Holds length of input string including prompt.
-static unsigned int gInputPromptLength; //
-static int gInputCursorState;
-static pthread_cond_t gInputCompleteCond;
-static EDEN_BOOL gInputComplete;        // Set to TRUE once EdenMessageInputKeyboard() has captured a response.
+static EdenUIInput_t gInput = NULL;
 
-// Input constraints.
-static unsigned int gInputLengthMin;	// Minimum length of user input string.
-static unsigned int gInputLengthMax;	// Maximum length of user input string.
-static int gInputIntOnly;
-static int gInputFPOnly;
-static int gInputAlphaOnly;
-
-EDEN_BOOL gEdenMessageKeyboardRequired = FALSE;		// EdenMessageInputKeyboard should be called with keystrokes if this is set to TRUE;
+bool gEdenMessageKeyboardRequired = false;		// EdenMessageInputKeyboard should be called with keystrokes if this is set to true;
 
 //
 // Private functions.
@@ -299,9 +273,9 @@ static void boxDestroy(boxSettings_t **settings_p)
 //  Public functions
 // ============================================================================
 
-EDEN_BOOL EdenMessageInit(const int contextsActiveCount)
+bool EdenMessageInit(const int contextsActiveCount)
 {
-	if (gMessageInited) return (FALSE);
+	if (gMessageInited) return (false);
 
     // OpenGL setup.
 #if EDEN_USE_GLES2
@@ -333,20 +307,20 @@ EDEN_BOOL EdenMessageInit(const int contextsActiveCount)
         program = glCreateProgram();
         if (!program) {
             EDEN_LOGe("draw: Error creating shader program.\n");
-            return (FALSE);
+            return (false);
         }
         
         if (!arglGLCompileShaderFromString(&vertShader, GL_VERTEX_SHADER, vertShaderString)) {
             EDEN_LOGe("draw: Error compiling vertex shader.\n");
             arglGLDestroyShaders(vertShader, fragShader, program);
             program = 0;
-            return (FALSE);
+            return (false);
         }
         if (!arglGLCompileShaderFromString(&fragShader, GL_FRAGMENT_SHADER, fragShaderString)) {
             EDEN_LOGe("draw: Error compiling fragment shader.\n");
             arglGLDestroyShaders(vertShader, fragShader, program);
             program = 0;
-            return (FALSE);
+            return (false);
         }
         glAttachShader(program, vertShader);
         glAttachShader(program, fragShader);
@@ -356,7 +330,7 @@ EDEN_BOOL EdenMessageInit(const int contextsActiveCount)
             EDEN_LOGe("draw: Error linking shader program.\n");
             arglGLDestroyShaders(vertShader, fragShader, program);
             program = 0;
-            return (FALSE);
+            return (false);
         }
         arglGLDestroyShaders(vertShader, fragShader, 0); // After linking, shader objects can be deleted.
         
@@ -367,31 +341,18 @@ EDEN_BOOL EdenMessageInit(const int contextsActiveCount)
 #endif
     
     gBoxSettings = boxCreate(-1.0f, -1.0f, -1.0f, -1.0f, -1.0f); // Use defaults.
-
-    pthread_mutex_init(&gInputLock, NULL);
-    gInput = gInputPtr = NULL;
-    gInputLength = 0;
-    gInputPromptLength = 0;
-    pthread_cond_init(&gInputCompleteCond, NULL);
-    gInputComplete = FALSE;
     
-	gMessageInited = TRUE;
-	return (TRUE);
+	gMessageInited = true;
+	return (true);
 }
 
-EDEN_BOOL EdenMessageFinal(void)
+bool EdenMessageFinal(void)
 {
-	EDEN_BOOL ok = TRUE;
+	bool ok = true;
 
-	if (!gMessageInited) return (FALSE);
+	if (!gMessageInited) return (false);
     
-	pthread_mutex_destroy(&gInputLock);
-    free(gInput);
-    gInput = gInputPtr = NULL;
-    gInputLength = 0;
-    gInputPromptLength = 0;
-	pthread_cond_destroy(&gInputCompleteCond);
-    gInputComplete = FALSE;
+    if (gInput) EdenUIInputDelete(&gInput);
 
     boxDestroy(&gBoxSettings);
     
@@ -399,22 +360,14 @@ EDEN_BOOL EdenMessageFinal(void)
     arglGLDestroyShaders(0, 0, program);
 #endif
 
-	gMessageInited = FALSE;
+	gMessageInited = false;
 	return (ok);
 }
 
 unsigned char *EdenMessageInputGetInput(void)
 {
-    unsigned char *ret;
-    
-    pthread_mutex_lock(&gInputLock);
-    if (gInputPtr && gInputComplete) {
-        gInputPtr[gInputLength] = '\0'; // Overwrite any cursor character.
-        ret = (unsigned char *)strdup((char *)gInputPtr);
-    } else ret = NULL;
-    pthread_mutex_unlock(&gInputLock);
-    
-    return (ret);
+    if (!gInput) return NULL;
+    return (EdenUIInputGetInput(gInput));
 }
 
 
@@ -432,89 +385,42 @@ EDEN_E_t EdenMessageShow(const unsigned char *msg)
         boxSetText(gBoxSettings, msg);
     }
     
-	gEdenMessageDrawRequired = TRUE;
+	gEdenMessageDrawRequired = true;
 
 	return (EDEN_E_NONE);
+}
+
+EDEN_E_t EdenMessageInputShow(const unsigned char *prompt, const unsigned int minLength, const unsigned int maxLength, bool intOnly, bool fpOnly, bool alphaOnly)
+{
+    EDEN_E_t messageErr = EDEN_E_NONE;
+    
+    if (!gMessageInited) return (EDEN_E_INVALID_COMMAND);
+    
+    if (gInput) EdenUIInputDelete(&gInput);
+    gInput = EdenUIInputNew(prompt, minLength, maxLength, intOnly, fpOnly, alphaOnly);
+    
+    if ((messageErr = EdenMessageShow(EdenUIInputGetInputForDrawing(gInput))) != EDEN_E_NONE) {
+        goto done;
+    }
+    
+done:
+    return (messageErr);
+}
+
+bool EdenMessageInputIsComplete(void)
+{
+    if (!gMessageInited) return (true);
+    
+    return (EdenUIInputIsComplete(gInput));
 }
 
 EDEN_E_t EdenMessageHide(void)
 {
 	if (!gMessageInited) return (EDEN_E_INVALID_COMMAND);
 
-	gEdenMessageDrawRequired = FALSE;
+	gEdenMessageDrawRequired = false;
     
 	return (EDEN_E_NONE);
-}
-
-EDEN_E_t EdenMessageInputShow(const unsigned char *prompt, const unsigned int minLength, const unsigned int maxLength, int intOnly, int fpOnly, int alphaOnly)
-{
-	EDEN_E_t messageErr = EDEN_E_NONE;
-    
-	if (!gMessageInited) return (EDEN_E_INVALID_COMMAND);
-
-    pthread_mutex_lock(&gInputLock);
-    
-    if (minLength > maxLength) {
-        messageErr = EDEN_E_OVERFLOW;
-        goto done;
-    }
-    gInputLengthMin = minLength;
-    gInputLengthMax = maxLength;
-    if (prompt) {
-        gInputPromptLength = (unsigned int)strlen((const char *)prompt);
-    }
-    
-    if (gInput) free(gInput);
-    gInput = (unsigned char *)malloc(gInputPromptLength + gInputLengthMax + 2); // +1 for cursor and +1 for nul-terminator.
-    if (!gInput) {
-        messageErr = EDEN_E_OUT_OF_MEMORY;
-        goto done;
-    }
-    if (prompt) {
-        strncpy((char *)gInput, (const char *)prompt, gInputPromptLength);
-    }
-    
-    gInputPtr = gInput + gInputPromptLength;
-    gInputPtr[0] = '\0';
-    gInputLength = 0;
-    gInputCursorState = -1;
-    gInputComplete = FALSE;
-    
-    gInputIntOnly = intOnly;
-    gInputFPOnly = fpOnly;
-    gInputAlphaOnly = alphaOnly;
-
-    if ((messageErr = EdenMessageShow(gInput)) != EDEN_E_NONE) {
-        goto done;
-    }
-
-	// This signals that keys should start being sent to EdenMessageInputKeyboard()
-	gEdenMessageKeyboardRequired = TRUE;
-    
-done:
-    pthread_mutex_unlock(&gInputLock);
-    return (messageErr);
-}
-
-EDEN_E_t EdenMessageInputHide(void)
-{
-	if (!gMessageInited) return (EDEN_E_INVALID_COMMAND);
-
-	gEdenMessageKeyboardRequired = FALSE;
-    
-	return (EdenMessageHide());
-}
-
-EDEN_BOOL EdenMessageInputIsComplete(void)
-{
-    int ret;
-    
-	if (!gMessageInited) return (FALSE);
-
-    pthread_mutex_lock(&gInputLock);
-    ret = gInputComplete;
-    pthread_mutex_unlock(&gInputLock);
-    return (ret);
 }
 
 #pragma mark -
@@ -537,22 +443,17 @@ EDEN_E_t EdenMessage(unsigned char *msg, const unsigned int secs)
 	return (EDEN_E_NONE);
 }
 
-EDEN_E_t EdenMessageInput(const unsigned char *prompt, const unsigned int minLength, const unsigned int maxLength, int intOnly, int fpOnly, int alphaOnly)
+EDEN_E_t EdenMessageInput(const unsigned char *prompt, const unsigned int minLength, const unsigned int maxLength, bool intOnly, bool fpOnly, bool alphaOnly)
 {
 	EDEN_E_t messageErr = EDEN_E_NONE;
 
 	if ((messageErr = EdenMessageInputShow(prompt, minLength, maxLength, intOnly, fpOnly, alphaOnly)) != EDEN_E_NONE) {
         goto done;
     }
-	
-	// Wait for signal from EdenMessageInputKeyboard that input is complete.
-    pthread_mutex_lock(&gInputLock);
-    if (!gInputComplete) {
-        pthread_cond_wait(&gInputCompleteCond, &gInputLock);
-    }
-    pthread_mutex_unlock(&gInputLock);
-	
-	messageErr = EdenMessageInputHide();
+    
+    EdenUIInputWaitComplete(gInput);
+    
+	messageErr = EdenMessageHide();
 
 done:
 	return (messageErr);
@@ -565,29 +466,29 @@ done:
 
 void EdenMessageSetViewSize(const float width, const float height)
 {
-    EDEN_BOOL changed = FALSE;
+    bool changed = false;
     if (gScreenWidth != width) {
         gScreenWidth = width;
-        changed = TRUE;
+        changed = true;
     }
     if (gScreenHeight != height) {
         gScreenHeight = height;
-        changed = TRUE;
+        changed = true;
     }
     if (changed) boxSetText(gBoxSettings, NULL);
 }
 
 void EdenMessageSetBoxParams(const float width, const float padding)
 {
-    EDEN_BOOL changed = FALSE;
+    bool changed = false;
     if (gBoxSettings->boxWidth != width) {
         gBoxSettings->boxWidth = width;
-        changed = TRUE;
+        changed = true;
     }
     if (gBoxSettings->boxPaddingH != padding || gBoxSettings->boxPaddingV != padding) {
         gBoxSettings->boxPaddingH = padding;
         gBoxSettings->boxPaddingV = padding;
-        changed = TRUE;
+        changed = true;
     }
     if (changed) boxSetText(gBoxSettings, NULL);
 }
@@ -596,44 +497,13 @@ void EdenMessageDraw(const int contextIndex, const float viewProjection[16])
 {
     GLfloat boxcentrex, boxcentrey, boxwd2, boxhd2;
     GLfloat boxVertices[4][2];
-#ifdef _WIN32
-    struct _timeb sys_time;
-#else
-    struct timeval time;
-#endif
-    int cursorState;
 
     if (!gBoxSettings) return;
 
     // Check if we need to show a blinking cursor, and if so, what state it is in.
-    pthread_mutex_lock(&gInputLock);
-    if (gInputPtr && !gInputComplete) {
-#ifdef _WIN32
-        _ftime(&sys_time);
-        if (sys_time.millitm < 500ul) cursorState = 1;
-        else cursorState = 0;
-#else
-#  if defined(__linux) || defined(__APPLE__)
-        gettimeofday( &time, NULL );
-#  else
-        gettimeofday( &time );
-#  endif
-        if (time.tv_usec < 500000) cursorState = 1;
-        else cursorState = 0;
-#endif
-        if (cursorState != gInputCursorState) {
-            gInputCursorState = cursorState;
-            if (cursorState == 1) {
-                gInputPtr[gInputLength] = '|';
-                gInputPtr[gInputLength + 1] = '\0';
-            } else {
-                gInputPtr[gInputLength] = ' ';
-                gInputPtr[gInputLength + 1] = '\0';
-            }
-            EdenMessageShow(gInput);
-        }
+    if (gInput) {
+        EdenMessageShow(EdenUIInputGetInputForDrawing(gInput));
     }
-    pthread_mutex_unlock(&gInputLock);
     
     boxcentrex = gScreenWidth / 2.0f;
     boxwd2 = gBoxSettings->boxWidth / 2;
@@ -685,56 +555,19 @@ void EdenMessageDraw(const int contextIndex, const float viewProjection[16])
 	return;
 }
 
-EDEN_BOOL EdenMessageInputKeyboard(const unsigned char keyAsciiCode)
+bool EdenMessageKeyboardRequired(void)
 {
-    EDEN_BOOL ret = TRUE;
-    
-	pthread_mutex_lock(&gInputLock);
-    if (gInputPtr && !gInputComplete) {
-        switch (keyAsciiCode) {
-            case EDEN_ASCII_ESC:
-                free(gInput);
-                gInput = gInputPtr = NULL;
-                gInputLength = 0;
-                gInputComplete = TRUE;
-                pthread_cond_signal(&gInputCompleteCond);
-                break;
-            case EDEN_ASCII_CR:
-                if (gInputLength >= gInputLengthMin) {
-                    gInputComplete = TRUE;
-                    pthread_cond_signal(&gInputCompleteCond);
-                }
-                break;
-            case EDEN_ASCII_BS:
-            case EDEN_ASCII_DEL:
-                if (gInputLength > 0) {
-                    gInputLength--;
-                    gInputPtr[gInputLength] = '\0';
-                    if (EdenMessageShow(gInput) != EDEN_E_NONE) {
-                        ret = FALSE;
-                        goto done;
-                    }
-                }
-                break;
-            default:
-                if (keyAsciiCode < ' ') break;	// Throw away all other control characters.
-                if (gInputIntOnly && (keyAsciiCode < '0' || keyAsciiCode > '9')) break;
-                if (gInputFPOnly && (keyAsciiCode < '0' || keyAsciiCode > '9') && keyAsciiCode != '.') break;
-                if (gInputAlphaOnly && (keyAsciiCode < 'A' || keyAsciiCode > 'Z') && (keyAsciiCode < 'a' || keyAsciiCode > 'z')) break;
-                if (gInputLength < gInputLengthMax) {
-                    gInputPtr[gInputLength] = keyAsciiCode;
-                    gInputLength++;
-                    gInputPtr[gInputLength] = '\0';
-                    if (EdenMessageShow(gInput) != EDEN_E_NONE) {
-                        ret = FALSE;
-                        goto done;
-                    }
-                }
-                break;
+    if (!gInput) return (false);
+    return (!EdenUIInputIsComplete(gInput));
+}
+
+bool EdenMessageInputKeyboard(const unsigned char keyAsciiCode)
+{
+    if (!gInput) return (false);
+    if (EdenUIInputProcessKeystrokes(gInput, keyAsciiCode)) {
+        if (EdenMessageShow(EdenUIInputGetInputForDrawing(gInput)) != EDEN_E_NONE) {
+            return (false);
         }
     }
-done:
-    pthread_mutex_unlock(&gInputLock);
-
-	return (ret);
+    return (true);
 }

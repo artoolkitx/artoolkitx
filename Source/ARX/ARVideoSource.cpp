@@ -48,6 +48,7 @@
 #  endif
 #endif
 #include <stdlib.h>
+#include <inttypes.h>
 #ifdef _WIN32
 #  define _USE_MATH_DEFINES
 #endif
@@ -394,7 +395,7 @@ AR2VideoBufferT* ARVideoSource::checkoutFrameIfNewerThan(const AR2VideoTimestamp
 {
     pthread_rwlock_rdlock(&m_frameBufferLock);
     if (m_frameBuffer) {
-        //ARLOGd("ARVideoSource::checkoutFrameIfNewerThan(%llu, %u) frame is available with time (%llu, %u).\n", time.sec, time.usec, m_frameBuffer->time.sec, m_frameBuffer->time.usec);
+        //ARLOGd("ARVideoSource::checkoutFrameIfNewerThan(%" PRIu64 ", %" PRIu32 ") frame is available with time (%" PRIu64 ", %" PRIu32 ").\n", time.sec, time.usec, m_frameBuffer->time.sec, m_frameBuffer->time.usec);
         if  (m_frameBuffer->time.sec > time.sec || (m_frameBuffer->time.sec == time.sec && m_frameBuffer->time.usec > time.usec)) {
             return m_frameBuffer;
         }

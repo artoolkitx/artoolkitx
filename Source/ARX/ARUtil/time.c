@@ -38,6 +38,8 @@
  *
  */
 
+#define _POSIX_C_SOURCE 199309L // nanosleep is posix, not C99.
+
 #include <ARX/ARUtil/time.h>
 #ifdef _WIN32
 #  include <windows.h>

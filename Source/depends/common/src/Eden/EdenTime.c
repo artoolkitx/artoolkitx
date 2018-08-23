@@ -45,13 +45,10 @@
 #include <time.h>						// ctime(), time_t
 #include <string.h>						// strncpy()
 #if defined(EDEN_UNIX)
-#  include <sys/time.h>					// gettimeofday(), struct timeval
+//#  include <sys/time.h>				// gettimeofday(), struct timeval
 #  include <unistd.h>					// sleep(), usleep()
 #elif defined(_WIN32)
 #  include <windows.h>					// FILETIME, GetSystemTimeAsFileTime(), <winbase.h> Sleep()
-#elif defined(EDEN_MACOS)
-#  include <Timer.h>					// <CoreServices/CarbonCore/Timer.h> Microseconds()
-#  include <OSUtils.h>					// <CoreServices/CarbonCore/OSUtils.h> Delay()
 #else
 #  include <GL/glut.h>
 #endif
@@ -87,8 +84,6 @@ double EdenTimeInSeconds(void)
 	struct timeval tv;  // Seconds and microseconds since Jan 1, 1970.
 #elif defined(_WIN32)
 	FILETIME ft;	// Hundreds of nanoseconds since Jan 1, 1601.
-#elif defined(EDEN_MACOS)
-	UnsignedWide _time;
 #else
 	int ms;
 #endif
@@ -100,9 +95,6 @@ double EdenTimeInSeconds(void)
 #elif defined(_WIN32)
 	GetSystemTimeAsFileTime(&ft);
 	return ((double)(*((LONGLONG *)&ft) - FILETIME_TO_EPOCH_OFFSET) * 0.0000001);
-#elif defined(EDEN_MACOS)
-	Microseconds(&_time);
-	return (4294.967296 * (double)_time.hi + 0.000001 * (double)_time.lo); // 2^32 = 4294967296.
 #else
 	ms = glutGet(GLUT_ELAPSED_TIME);
 	return ((double)ms / 1000.0);
@@ -159,11 +151,11 @@ char *EdenTimeInSecondsToText(const double seconds, char s[25])
 #if defined(EDEN_UNIX) || defined(_WIN32)
 	// Get 24-char-wide time & date string, plus \n and \0 for total of 26 bytes.
 	time = (time_t)seconds; // Truncate to integer.
-#ifdef EDEN_HAVE_CTIME_R_IN_TIME_H
+#  ifdef EDEN_HAVE_CTIME_R_IN_TIME_H
 	ctime_r(&time, buf);   // Use reentrant ctime if it's available.
-#else
+#  else
 	strcpy(buf, ctime(&time));
-#endif // EDEN_HAVE_CTIME_R_IN_TIME_H
+#  endif // EDEN_HAVE_CTIME_R_IN_TIME_H
 	buf[24] = '\0'; // Nuke the newline.
 #else
 	// No way of knowing what seconds is measured relative to.
@@ -182,9 +174,6 @@ void EdenTime_usleep(const unsigned int microseconds)
 	usleep(microseconds);
 #elif defined(_WIN32)
 	Sleep((DWORD)(microseconds/1000u));
-#elif defined(EDEN_MACOS)
-	UInt32 finalCount;
-	Delay((unsigned long)((float)microseconds*(60.0f/1000000.0f)), &finalCount);
 #else
 #  error sleep not defined on this platform.
 #endif
@@ -197,9 +186,6 @@ void EdenTime_sleep(const unsigned int seconds)
 	sleep(seconds);
 #elif defined(_WIN32)
 	Sleep((DWORD)(seconds*1000u));
-#elif defined(EDEN_MACOS)
-	UInt32 finalCount;
-	Delay((unsigned long)(seconds*60u), &finalCount);
 #else
 #  error sleep not defined on this platform.
 #endif

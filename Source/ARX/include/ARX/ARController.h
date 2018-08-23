@@ -160,8 +160,6 @@ public:
 	 */
 	~ARController();
 	
-	static PFN_LOGCALLBACK logCallback;		///< Callback where log messages are passed to
-
 	/**
 	 * Returns a string containing the artoolkitX version, such as "10.0.0".
 	 * @return		The artoolkitX version

@@ -50,11 +50,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdint.h>
-#ifndef _MSC_VER
-#  include <stdbool.h>
-#else
-typedef unsigned char bool;
-#endif
+#include <stdbool.h>
 #if DEBUG_PATT_GETID
 #  ifndef __APPLE__
 #    include <GL/gl.h>

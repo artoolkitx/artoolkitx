@@ -40,6 +40,7 @@ set(SOURCE
     arLabelingSub/arLabelingSubEWIC.c
     arLabelingSub/arLabelingSubEWRC.c
     arLabelingSub/arLabelingSubEWZ.c
+    arMultiEditConfig.c
     arMultiFreeConfig.c
     arMultiGetTransMat.c
     arMultiGetTransMatStereo.c

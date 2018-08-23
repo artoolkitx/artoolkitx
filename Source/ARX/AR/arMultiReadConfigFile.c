@@ -50,6 +50,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <stdbool.h>
+#include <inttypes.h>
 #include <ARX/AR/ar.h>
 #include <ARX/AR/arMulti.h>
 
@@ -60,10 +62,11 @@ ARMultiMarkerInfoT *arMultiReadConfigFile( const char *filename, ARPattHandle *p
     FILE                   *fp;
     ARMultiEachMarkerInfoT *marker;
     ARMultiMarkerInfoT     *marker_info;
-    ARdouble               wpos3d[4][2];
+    ARdouble               trans[3][4];
     char                   buf[256], pattPath[2048], dummy;
     int                    num;
-    int                    patt_type = 0;
+    bool                   have_template_submarker = false;
+    bool                   have_matrix_submarker = false;
     int                    i, j;
 
     if ((fp = fopen(filename, "r")) == NULL) {
@@ -84,36 +87,30 @@ ARMultiMarkerInfoT *arMultiReadConfigFile( const char *filename, ARPattHandle *p
 
     for( i = 0; i < num; i++ ) {
         get_buff(buf, 256, fp);
-        if (sscanf(buf, 
-#if defined(__LP64__) && !defined(__APPLE__)
-                        "%lu%c",
-#else
-                        "%llu%c",
-#endif
-                         &(marker[i].globalID), &dummy) != 1) { // Try first as matrix code.
+        if (sscanf(buf, "%" SCNu64 " %c", &(marker[i].globalID), &dummy) != 1) { // Try first as matrix code.
             
             if (!pattHandle) {
                 ARLOGe("Error processing multimarker config file '%s': pattern '%s' specified in multimarker configuration while in barcode-only mode.\n", filename, buf);
-                goto bail;
+                goto bail1;
             }
             if (!arUtilGetDirectoryNameFromPath(pattPath, filename, sizeof(pattPath), 1)) { // Get directory prefix.
                 ARLOGe("Error processing multimarker config file '%s': Unable to determine directory name.\n", filename);
-                goto bail;
+                goto bail1;
             }
             strncat(pattPath, buf, sizeof(pattPath) - strlen(pattPath) - 1); // Add name of file to open.
             if ((marker[i].patt_id = arPattLoad(pattHandle, pattPath)) < 0) {
                 ARLOGe("Error processing multimarker config file '%s': Unable to load pattern '%s'.\n", filename, pattPath);
-                goto bail;
+                goto bail1;
             }
             marker[i].patt_type = AR_MULTI_PATTERN_TYPE_TEMPLATE;
-            patt_type |= 0x01;
+            have_template_submarker = true;
         } else {
             
             if ((marker[i].globalID & 0xffff8000ULL) == 0ULL) marker[i].patt_id = (int)(marker[i].globalID & 0x00007fffULL); // If upper 33 bits are zero, use lower 31 bits as regular matrix code.
             else marker[i].patt_id = 0;
-            ARLOGd("Marker %3d is matrix code %llu.\n", i + 1, marker[i].globalID);
+            ARLOGd("Marker %3d is matrix code %" PRIu64 ".\n", i + 1, marker[i].globalID);
             marker[i].patt_type = AR_MULTI_PATTERN_TYPE_MATRIX;
-            patt_type |= 0x02;
+            have_matrix_submarker = true;
         }
 
         get_buff(buf, 256, fp);
@@ -125,7 +122,7 @@ ARMultiMarkerInfoT *arMultiReadConfigFile( const char *filename, ARPattHandle *p
 #endif
                    &marker[i].width) != 1 ) {
             ARLOGe("Error processing multimarker config file '%s', marker definition %3d: First line must be pattern width.\n", filename, i + 1);
-            goto bail;
+            goto bail1;
         }
         
         j = 0;
@@ -136,10 +133,10 @@ ARMultiMarkerInfoT *arMultiReadConfigFile( const char *filename, ARPattHandle *p
 #else
                    "%lf %lf %lf %lf",
 #endif
-                   &marker[i].trans[j][0],
-                   &marker[i].trans[j][1],
-                   &marker[i].trans[j][2],
-                   &marker[i].trans[j][3]) != 4 ) {
+                   &trans[j][0],
+                   &trans[j][1],
+                   &trans[j][2],
+                   &trans[j][3]) != 4 ) {
             // Perhaps this is an old ARToolKit v2.x multimarker file?
             // If so, then the next line is two values (center) and should be skipped.
             float t1, t2;
@@ -147,7 +144,7 @@ ARMultiMarkerInfoT *arMultiReadConfigFile( const char *filename, ARPattHandle *p
                        "%f %f",
                        &t1, &t2) != 2 ) {
                 ARLOGe("Error processing multimarker config file '%s', marker definition %3d: Lines 2 - 4 must be marker transform.\n", filename, i + 1);
-                goto bail;
+                goto bail1;
             }
         } else j++;
         do {
@@ -158,55 +155,34 @@ ARMultiMarkerInfoT *arMultiReadConfigFile( const char *filename, ARPattHandle *p
 #else
                        "%lf %lf %lf %lf",
 #endif
-                       &marker[i].trans[j][0],
-                       &marker[i].trans[j][1],
-                       &marker[i].trans[j][2],
-                       &marker[i].trans[j][3]) != 4 ) {
+                       &trans[j][0],
+                       &trans[j][1],
+                       &trans[j][2],
+                       &trans[j][3]) != 4 ) {
                 ARLOGe("Error processing multimarker config file '%s', marker definition %3d: Lines 2 - 4 must be marker transform.\n", filename, i + 1);
-                goto bail;
+                goto bail1;
             }
             j++;
         } while (j < 3);
-        arUtilMatInv( (const ARdouble (*)[4])marker[i].trans, marker[i].itrans );
-
-        wpos3d[0][0] =  -marker[i].width/2.0;
-        wpos3d[0][1] =   marker[i].width/2.0;
-        wpos3d[1][0] =   marker[i].width/2.0;
-        wpos3d[1][1] =   marker[i].width/2.0;
-        wpos3d[2][0] =   marker[i].width/2.0;
-        wpos3d[2][1] =  -marker[i].width/2.0;
-        wpos3d[3][0] =  -marker[i].width/2.0;
-        wpos3d[3][1] =  -marker[i].width/2.0;
-        for( j = 0; j < 4; j++ ) {
-            marker[i].pos3d[j][0] = marker[i].trans[0][0] * wpos3d[j][0]
-                                  + marker[i].trans[0][1] * wpos3d[j][1]
-                                  + marker[i].trans[0][3];
-            marker[i].pos3d[j][1] = marker[i].trans[1][0] * wpos3d[j][0]
-                                  + marker[i].trans[1][1] * wpos3d[j][1]
-                                  + marker[i].trans[1][3];
-            marker[i].pos3d[j][2] = marker[i].trans[2][0] * wpos3d[j][0]
-                                  + marker[i].trans[2][1] * wpos3d[j][1]
-                                  + marker[i].trans[2][3];
-        }
+        
+        arMultiUpdateSubmarkerPose(&marker[i], trans);
     }
 
     fclose(fp);
 
-    arMalloc(marker_info, ARMultiMarkerInfoT, 1);
+    marker_info = arMultiAllocConfig();
+    if (!marker_info) goto bail;
     marker_info->marker     = marker;
     marker_info->marker_num = num;
-    marker_info->min_submarker = 0;
-    marker_info->prevF      = 0;
-    if( (patt_type & 0x03) == 0x03 ) marker_info->patt_type = AR_MULTI_PATTERN_DETECTION_MODE_TEMPLATE_AND_MATRIX;
-    else if( patt_type & 0x01 )    marker_info->patt_type = AR_MULTI_PATTERN_DETECTION_MODE_TEMPLATE;
-    else                           marker_info->patt_type = AR_MULTI_PATTERN_DETECTION_MODE_MATRIX;
-    marker_info->cfPattCutoff = AR_MULTI_CONFIDENCE_PATTERN_CUTOFF_DEFAULT;
-    marker_info->cfMatrixCutoff = AR_MULTI_CONFIDENCE_MATRIX_CUTOFF_DEFAULT;
+    if (have_template_submarker && have_matrix_submarker) marker_info->patt_type = AR_MULTI_PATTERN_DETECTION_MODE_TEMPLATE_AND_MATRIX;
+    else if (have_template_submarker) marker_info->patt_type = AR_MULTI_PATTERN_DETECTION_MODE_TEMPLATE;
+    else if (have_matrix_submarker) marker_info->patt_type = AR_MULTI_PATTERN_DETECTION_MODE_MATRIX;
 
     return marker_info;
     
-bail:
+bail1:
     fclose(fp);
+bail:
     free(marker);
     return NULL;
 }

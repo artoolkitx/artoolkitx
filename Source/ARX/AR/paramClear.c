@@ -78,15 +78,34 @@ int arParamDistFactorClear( ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], int xs
 {
     if (!dist_factor) return (-1);
 
-	if (dist_function_version == 4) {
+    if (dist_function_version == 5) {
+        dist_factor[0] = 0.0;           /*  k1  */
+        dist_factor[1] = 0.0;           /*  k2  */
+        dist_factor[2] = 0.0;           /*  p1  */
+        dist_factor[3] = 0.0;           /*  p2  */
+        dist_factor[4] = 0.0;           /*  k3  */
+        dist_factor[5] = 0.0;           /*  k4  */
+        dist_factor[6] = 0.0;           /*  k5  */
+        dist_factor[7] = 0.0;           /*  k6  */
+        dist_factor[8] = 0.0;           /*  s1  */
+        dist_factor[9] = 0.0;           /*  s2  */
+        dist_factor[10] = 0.0;          /*  s3  */
+        dist_factor[11] = 0.0;          /*  s4  */
+        dist_factor[12] = 1.0;          /*  fx  */
+        dist_factor[13] = 1.0;          /*  fy  */
+        dist_factor[14] = xsize / 2.0;  /*  cx  */
+        dist_factor[15] = ysize / 2.0;  /*  cy  */
+        dist_factor[16] = 1.0;          /*  Size adjust */
+        return 0;
+    } else if (dist_function_version == 4) {
 		dist_factor[0] = 0.0;           /*  k1  */
 		dist_factor[1] = 0.0;           /*  k2  */
 		dist_factor[2] = 0.0;           /*  p1  */
 		dist_factor[3] = 0.0;           /*  p2  */
 		dist_factor[4] = 1.0;           /*  fx  */
 		dist_factor[5] = 1.0;           /*  fy  */
-		dist_factor[6] = xsize / 2.0;   /*  x0  */
-		dist_factor[7] = ysize / 2.0;   /*  y0  */
+		dist_factor[6] = xsize / 2.0;   /*  cx  */
+		dist_factor[7] = ysize / 2.0;   /*  cy  */
 		dist_factor[8] = 1.0;           /*  Size adjust */
 		return 0;
 	} else if (dist_function_version == 3) {
@@ -121,7 +140,7 @@ int arParamClearWithFOVy(ARParam *param, int xsize, int ysize, ARdouble FOVy)
     
     param->xsize = xsize;
     param->ysize = ysize;
-    param->dist_function_version = 4;
+    param->dist_function_version = 5;
     
 #ifdef ARDOUBLE_IS_FLOAT
     ARdouble f = ysize/2.0f / tanf(FOVy / 2.0f);
@@ -146,11 +165,19 @@ int arParamClearWithFOVy(ARParam *param, int xsize, int ysize, ARdouble FOVy)
     param->dist_factor[1] = 0.0;           /*  k2  */
     param->dist_factor[2] = 0.0;           /*  p1  */
     param->dist_factor[3] = 0.0;           /*  p2  */
-    param->dist_factor[4] = f;             /*  fx  */
-    param->dist_factor[5] = f;             /*  fy  */
-    param->dist_factor[6] = xsize / 2.0;   /*  x0  */
-    param->dist_factor[7] = ysize / 2.0;   /*  y0  */
-    param->dist_factor[8] = 1.0;           /*  Size adjust */
+    param->dist_factor[4] = 0.0;           /*  k3  */
+    param->dist_factor[5] = 0.0;           /*  k4  */
+    param->dist_factor[6] = 0.0;           /*  k5  */
+    param->dist_factor[7] = 0.0;           /*  k6  */
+    param->dist_factor[8] = 0.0;           /*  s1  */
+    param->dist_factor[9] = 0.0;           /*  s2  */
+    param->dist_factor[10] = 0.0;          /*  s3  */
+    param->dist_factor[11] = 0.0;          /*  s4  */
+    param->dist_factor[12] = f;            /*  fx  */
+    param->dist_factor[13] = f;            /*  fy  */
+    param->dist_factor[14] = xsize / 2.0;  /*  cx  */
+    param->dist_factor[15] = ysize / 2.0;  /*  cy  */
+    param->dist_factor[16] = 1.0;          /*  Size adjust */
     
     return 0;
 }

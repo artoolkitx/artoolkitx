@@ -133,7 +133,7 @@ bool ARTrackableMultiSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo,
 		}
 		
 		// Marker is visible if a match was found.
-        if (err >= 0) {
+        if (config->prevF != 0) {
             visible = true;
             for (int j = 0; j < 3; j++) for (int k = 0; k < 4; k++) trans[j][k] = config->trans[j][k];
         } else visible = false;
@@ -160,7 +160,7 @@ bool ARTrackableMultiSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* marke
 		}
 		
 		// Marker is visible if a match was found.
-        if (err >= 0) {
+        if (config->prevF != 0) {
             visible = true;
             for (int j = 0; j < 3; j++) for (int k = 0; k < 4; k++) trans[j][k] = config->trans[j][k];
         } else visible = false;

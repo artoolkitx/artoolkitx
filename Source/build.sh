@@ -82,6 +82,11 @@ then
     # bash on Cygwin.
     CPUS=`/usr/bin/nproc`
     OS='Windows'
+elif [ "$OS" = "MINGW64_NT-6.1" ]
+then
+    # git-bash on Windows 7
+    CPUS=`/usr/bin/nproc`
+    OS='Windows'
 elif [ "$OS" = "MINGW64_NT-10.0" ]
 then
     # git-bash on Windows.
@@ -275,6 +280,7 @@ if [ $BUILD_LINUX ] ; then
 		check_package libgstreamer1.0-dev
 		check_package libsqlite3-dev
 		check_package libcurl4-openssl-dev
+		check_package libssl-dev
 	elif (type rpm >/dev/null 2>&1) ; then
 		check_package gcc
 		check_package gcc-c++
@@ -289,13 +295,29 @@ if [ $BUILD_LINUX ] ; then
 		check_package gstreamer1-devel
 		check_package libsqlite3x-devel
 		check_package libcurl-devel
+		check_package libopenssl-devel
 	fi
 
-    if [ ! -d "depends/linux/include/opencv2" ] ; then
-        curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-linux-x86_64.tgz" -o opencv2.tgz
-        tar xzf opencv2.tgz --strip-components=1 -C depends/linux
-        rm opencv2.tgz
-    fi
+    # Check if a suitable version of OpenCV is installed. If not, but its available, install it.
+    # If neither, try our precompiled version.
+    if (type dpkg-query >/dev/null 2>&1) ; then
+        if (apt-cache --quiet=1 policy libopencv-dev | grep -E 'Installed: 3\.') ; then
+            echo "Using installed OpenCV"
+        else
+            if (apt-cache --quiet=1 policy libopencv-dev | grep -E 'Candidate: 3\.') ; then
+                echo "Installing OpenCV"
+                sudo apt-get install libopencv-dev
+            else
+                echo "Downloading prebuilt OpenCV"
+                if [ ! -d "depends/linux/include/opencv2" ] ; then
+                    curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-linux-x86_64.tgz" -o opencv2.tgz
+                    tar xzf opencv2.tgz --strip-components=1 -C depends/linux
+                    rm opencv2.tgz
+                fi
+            fi
+        fi
+    fi    
+    
 
 	if [ ! -d "build-linux-x86_64" ] ; then
 		mkdir build-linux-x86_64
@@ -353,6 +375,12 @@ if [ $BUILD_LINUX_RASPBIAN ] ; then
             check_package libcurl-devel
         fi
 
+        if [ ! -d "depends/linux-raspbian/include/opencv2" ] ; then
+            curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-linux-raspbian-armhf.tgz" -o opencv2.tgz
+            tar xzf opencv2.tgz --strip-components=1 -C depends/linux-raspbian
+            rm opencv2.tgz
+        fi
+
         if [ ! -d "build-linux-raspbian" ] ; then
             mkdir build-linux-raspbian
         fi
@@ -364,13 +392,20 @@ if [ $BUILD_LINUX_RASPBIAN ] ; then
         cd ..
 
         if [ $BUILD_EXAMPLES ] ; then
-            (cd "../Examples/Source/Example1/Linux"
+            (cd "../Examples/Square tracking example/Linux"
             mkdir -p build-raspbian
             cd build-raspbian
             cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
             make
             make install
             )
+#    	    (cd "../Examples/Square tracking example with OSG/Linux"
+#           mkdir -p build-raspbian
+#           cd build-raspbian
+#           cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+#           make
+#           make install
+#    	    )
         fi
     else
         # Cross-compiling.

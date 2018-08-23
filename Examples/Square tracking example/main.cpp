@@ -70,7 +70,12 @@
 
 #include "draw.h"
 
+#if ARX_TARGET_PLATFORM_WINDOWS
+const char *vconf = "-module=WinMF -format=BGRA";
+#else
 const char *vconf = NULL;
+#endif
+const char *cpara = NULL;
 
 // Window and GL context.
 static SDL_GLContext gSDLContext = NULL;
@@ -100,36 +105,15 @@ static const int markerCount = (sizeof(markers)/sizeof(markers[0]));
 //
 //
 
-static void quit(int rc)
-{
-    drawCleanup();
-    if (arController) {
-        arController->drawVideoFinal(0);
-        arController->shutdown();
-        delete arController;
-    }
-    if (gSDLContext) {
-        SDL_GL_MakeCurrent(0, NULL);
-        SDL_GL_DeleteContext(gSDLContext);
-    }
-    if (gSDLWindow) {
-        SDL_DestroyWindow(gSDLWindow);
-    }
-    SDL_Quit();
-    exit(rc);
-}
-
-void reshape(int w, int h)
-{
-    contextWidth = w;
-    contextHeight = h;
-    ARLOGd("Resized to %dx%d.\n", w, h);
-    contextWasUpdated = true;
-}
+static void processCommandLineOptions(int argc, char *argv[]);
+static void usage(char *com);
+static void quit(int rc);
+static void reshape(int w, int h);
 
 int main(int argc, char *argv[])
 {
-
+    processCommandLineOptions(argc, argv);
+    
     // Initialize SDL.
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         ARLOGe("Error: SDL initialisation failed. SDL error: '%s'.\n", SDL_GetError());
@@ -242,17 +226,13 @@ int main(int argc, char *argv[])
     arController->getSquareTracker()->setPatternDetectionMode(AR_TEMPLATE_MATCHING_MONO);
     arController->getSquareTracker()->setThresholdMode(AR_LABELING_THRESH_MODE_AUTO_BRACKETING);
 
-#  if ARX_TARGET_PLATFORM_WINDOWS
-	vconf = "-module=WinMF -format=BGRA";
-#  endif
-
 #ifdef DEBUG
     ARLOGd("vconf is '%s'.\n", vconf);
 #endif
     // Start tracking.
-    arController->startRunning(vconf, NULL, NULL, 0);
-    // Main loop.
+    arController->startRunning(vconf, cpara, NULL, 0);
 
+    // Main loop.
     bool done = false;
     while (!done) {
 
@@ -329,7 +309,7 @@ int main(int argc, char *argv[])
                 ARTrackable *marker = arController->findTrackable(markerIDs[i]);
                 float view[16];
                 if (marker->visible) {
-                    //arUtilPrintMtx16(trackable->transformationMatrix);
+                    //arUtilPrintMtx16(marker->transformationMatrix);
                     for (int i = 0; i < 16; i++) view[i] = (float)marker->transformationMatrix[i];
                 }
                 drawSetModel(markerModelIDs[i], marker->visible, view);
@@ -346,3 +326,88 @@ int main(int argc, char *argv[])
     quit(0);
     return 0;
 }
+
+static void processCommandLineOptions(int argc, char *argv[])
+{
+    int i, gotTwoPartOption;
+    
+    //
+    // Command-line options.
+    //
+    
+    i = 1; // argv[0] is name of app, so start at 1.
+    while (i < argc) {
+        gotTwoPartOption = FALSE;
+        // Look for two-part options first.
+        if ((i + 1) < argc) {
+            if (strcmp(argv[i], "--vconf") == 0) {
+                i++;
+                vconf = argv[i];
+                gotTwoPartOption = TRUE;
+            } else if (strcmp(argv[i], "--cpara") == 0) {
+                i++;
+                cpara = argv[i];
+                gotTwoPartOption = TRUE;
+            }
+        }
+        if (!gotTwoPartOption) {
+            // Look for single-part options.
+            if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-help") == 0 || strcmp(argv[i], "-h") == 0) {
+                usage(argv[0]);
+            } else if (strcmp(argv[i], "--version") == 0 || strcmp(argv[i], "-version") == 0 || strcmp(argv[i], "-v") == 0) {
+                ARPRINT("%s version %s\n", argv[0], AR_HEADER_VERSION_STRING);
+                exit(0);
+            } else if( strncmp(argv[i], "-loglevel=", 10) == 0 ) {
+                if (strcmp(&(argv[i][10]), "DEBUG") == 0) arLogLevel = AR_LOG_LEVEL_DEBUG;
+                else if (strcmp(&(argv[i][10]), "INFO") == 0) arLogLevel = AR_LOG_LEVEL_INFO;
+                else if (strcmp(&(argv[i][10]), "WARN") == 0) arLogLevel = AR_LOG_LEVEL_WARN;
+                else if (strcmp(&(argv[i][10]), "ERROR") == 0) arLogLevel = AR_LOG_LEVEL_ERROR;
+                else usage(argv[0]);
+            } else {
+                ARLOGe("Error: invalid command line argument '%s'.\n", argv[i]);
+                usage(argv[0]);
+            }
+        }
+        i++;
+    }
+}
+
+static void usage(char *com)
+{
+    ARPRINT("Usage: %s [options]\n", com);
+    ARPRINT("Options:\n");
+    ARPRINT("  --vconf <video parameter for the camera>\n");
+    ARPRINT("  --cpara <camera parameter file for the camera>\n");
+    ARPRINT("  --version: Print artoolkitX version and exit.\n");
+    ARPRINT("  -loglevel=l: Set the log level to l, where l is one of DEBUG INFO WARN ERROR.\n");
+    ARPRINT("  -h -help --help: show this message\n");
+    exit(0);
+}
+
+static void quit(int rc)
+{
+    drawCleanup();
+    if (arController) {
+        arController->drawVideoFinal(0);
+        arController->shutdown();
+        delete arController;
+    }
+    if (gSDLContext) {
+        SDL_GL_MakeCurrent(0, NULL);
+        SDL_GL_DeleteContext(gSDLContext);
+    }
+    if (gSDLWindow) {
+        SDL_DestroyWindow(gSDLWindow);
+    }
+    SDL_Quit();
+    exit(rc);
+}
+
+static void reshape(int w, int h)
+{
+    contextWidth = w;
+    contextHeight = h;
+    ARLOGd("Resized to %dx%d.\n", w, h);
+    contextWasUpdated = true;
+}
+

@@ -49,8 +49,7 @@ struct marker {
     float height;
 };
 static const struct marker markers[] = {
-    {"hiro.patt", 80.0},
-    {"kanji.patt", 80.0}
+    {"pinball.jpg", 1.0}
 };
 static const int markerCount = (sizeof(markers)/sizeof(markers[0]));
 
@@ -182,8 +181,6 @@ static const int markerCount = (sizeof(markers)/sizeof(markers[0]));
     ARLOGe("CWD is '%s'.\n", getcwd(buf, sizeof(buf)));
 #endif
     char *resourcesDir = arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_BEST);
-    
-    char *markerConfig;
     for (int i = 0; i < markerCount; i++) {
         std::string markerConfig = "2d;" + std::string(resourcesDir) + '/' + markers[i].name + ';' + std::to_string(markers[i].height);
         markerIDs[i] = arController->addTrackable(markerConfig);
@@ -192,8 +189,7 @@ static const int markerCount = (sizeof(markers)/sizeof(markers[0]));
             return;
         }
     }
-    //arController->getSquareTracker()->setPatternDetectionMode(AR_TEMPLATE_MATCHING_MONO);
-    //arController->getSquareTracker()->setThresholdMode(AR_LABELING_THRESH_MODE_AUTO_BRACKETING);
+    //arController->get2dTracker()->setTwoDMultiMode(true);
 
     // Start tracking.
     arController->startRunning(vconf, NULL, NULL, 0);

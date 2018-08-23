@@ -67,61 +67,13 @@ static union { unsigned char __c[4]; float __d; } __nan_union = { __nan_bytes };
 
 // ----------------------------------------------------------------------------------------------------
 
-static PFN_LOGCALLBACK logCallback = NULL;
-#if !ARX_TARGET_PLATFORM_WINDOWS && !ARX_TARGET_PLATFORM_WINRT
-static pthread_t logThread;
-#else
-static DWORD logThreadID = 0;
-#endif
-static int logDumpedWrongThreadCount = 0;
-
 static ARController *gARTK = NULL;
 
 // ----------------------------------------------------------------------------------------------------
 
-// When handed a logging callback, install it for use by our own log function,
-// and pass our own log function as the callback instead.
-// This allows us to use buffering to ensure that logging occurs only on the
-// same thread that registered the log callback, as required e.g. by C# interop.
-
-void CALL_CONV log(const char *msg);
-void CALL_CONV log(const char *msg)
-{
-	if (logCallback) {
-#if !ARX_TARGET_PLATFORM_WINDOWS && !ARX_TARGET_PLATFORM_WINRT
-		if (!pthread_equal(logThread, pthread_self()))
-#else
-		if (GetCurrentThreadId() != logThreadID)
-#endif
-		{
-			logDumpedWrongThreadCount++;
-			return;
-		}
-		if (logDumpedWrongThreadCount) {
-			char s[80];
-			sprintf(s, "%d log messages on non-main thread were dumped.\n", logDumpedWrongThreadCount);
-			logDumpedWrongThreadCount = 0;
-			logCallback(s);
-		}
-		logCallback(msg);
-	} else {
-		LOGE("%s\n", msg);
-	}
-}
-
 void arwRegisterLogCallback(PFN_LOGCALLBACK callback)
 {
-	logCallback = callback;
-    arLogSetLogger(callback, 1); // 1 -> only callback on same thread.
-#if !ARX_TARGET_PLATFORM_WINDOWS && !ARX_TARGET_PLATFORM_WINRT
-	logThread = pthread_self();
-#else
-	logThreadID = GetCurrentThreadId();
-    logDumpedWrongThreadCount = 0;
-	//char buf[256];
-	//_snprintf(buf, 256, "Registering log callback on thread %d.\n", logThreadID);
-	//log(buf);
-#endif
+    arLogSetLogger(callback, 1); // 1 -> only callback on same thread, as required e.g. by C# interop.
 }
 
 void arwSetLogLevel(const int logLevel)
@@ -138,7 +90,6 @@ void arwSetLogLevel(const int logLevel)
 bool arwInitialiseAR()
 {
     if (!gARTK) gARTK = new ARController;
-    gARTK->logCallback = log;
 	return gARTK->initialiseBase();
 }
 
@@ -489,24 +440,27 @@ bool arwGetTrackables(int *count_p, ARWTrackableStatus **statuses_p)
     unsigned int trackableCount = gARTK->countTrackables();
     *count_p = (int)trackableCount;
     if (statuses_p) {
-        ARWTrackableStatus *st = (ARWTrackableStatus *)calloc(trackableCount, sizeof(ARWTrackableStatus));
-        for (unsigned int i = 0; i < trackableCount; i++) {
-            ARTrackable *t = gARTK->getTrackableAtIndex(i);
-            if (!t) {
-                st[i].uid = -1;
-            } else {
-                st[i].uid = t->UID;
-                st[i].visible = t->visible;
+        if (trackableCount == 0) *statuses_p = NULL;
+        else {
+            ARWTrackableStatus *st = (ARWTrackableStatus *)calloc(trackableCount, sizeof(ARWTrackableStatus));
+            for (unsigned int i = 0; i < trackableCount; i++) {
+                ARTrackable *t = gARTK->getTrackableAtIndex(i);
+                if (!t) {
+                    st[i].uid = -1;
+                } else {
+                    st[i].uid = t->UID;
+                    st[i].visible = t->visible;
 #ifdef ARDOUBLE_IS_FLOAT
-                memcpy(st[i].matrix, t->transformationMatrix, 16*sizeof(float));
-                memcpy(st[i].matrixR, t->transformationMatrixR, 16*sizeof(float));
+                    memcpy(st[i].matrix, t->transformationMatrix, 16*sizeof(float));
+                    memcpy(st[i].matrixR, t->transformationMatrixR, 16*sizeof(float));
 #else
-                for (int j = 0; j < 16; j++) st[i].matrix[j] = (float)t->transformationMatrix[j];
-                for (int j = 0; j < 16; j++) st[i].matrixR[j] = (float)t->transformationMatrixR[j];
+                    for (int j = 0; j < 16; j++) st[i].matrix[j] = (float)t->transformationMatrix[j];
+                    for (int j = 0; j < 16; j++) st[i].matrixR[j] = (float)t->transformationMatrixR[j];
 #endif
+                }
             }
+            *statuses_p = st;
         }
-        *statuses_p = st;
     }
     
     return true;

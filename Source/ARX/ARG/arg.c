@@ -263,6 +263,7 @@ int arglDistortionCompensationGet(ARGL_CONTEXT_SETTINGS_REF contextSettings, int
 int arglSetPixelZoom(ARGL_CONTEXT_SETTINGS_REF contextSettings, float zoom)
 {
     if (!contextSettings) return (FALSE);
+    if (contextSettings->zoom == zoom) return (TRUE);
     contextSettings->zoom = zoom;
     
 #if HAVE_GL

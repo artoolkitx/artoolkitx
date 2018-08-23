@@ -645,8 +645,8 @@ bail0:
             
             if (captureStartAsyncCompletion) {
                 // Since we're almost certainly not on the main thread, dispatch block on main
-                // queue rather than invoking directly.
-                dispatch_async(dispatch_get_main_queue(), captureStartAsyncCompletion);
+                // queue rather than invoking directly, unless the user requested otherwise.
+                dispatch_async(captureQueue ? captureQueue : dispatch_get_main_queue(), captureStartAsyncCompletion);
                 Block_release(captureStartAsyncCompletion);
                 captureStartAsyncCompletion = NULL;
             }
