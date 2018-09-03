@@ -91,7 +91,7 @@ set(PUBLIC_HEADERS
     include/ARX/ARController.h
     include/ARX/ARTrackable.h
     include/ARX/ARPattern.h
-    include/ARX/ARTrackableMap.h
+    include/ARX/ARTrackableMultiSquareAuto.h
     include/ARX/ARTrackableMultiSquare.h
     include/ARX/ARTrackableNFT.h
     include/ARX/ARTrackable2d.h
@@ -112,7 +112,7 @@ set(SOURCE
     ARController.cpp
     ARTrackable.cpp
     ARPattern.cpp
-    ARTrackableMap.cpp
+    ARTrackableMultiSquareAuto.cpp
     ARTrackableMultiSquare.cpp
     ARTrackableNFT.cpp
     ARTrackable2d.cpp

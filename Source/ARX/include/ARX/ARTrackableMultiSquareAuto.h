@@ -1,5 +1,5 @@
 /*
- *  ARTrackableMap.h
+ *  ARTrackableMultiSquareAuto.h
  *  artoolkitX
  *
  *  This file is part of artoolkitX.
@@ -43,7 +43,7 @@
 /**
  * An ARTrackable that auto-builds a map of matrix (2D barcode) markers.
  */
-class ARTrackableMap : public ARTrackable {
+class ARTrackableMultiSquareAuto : public ARTrackable {
 
 private:
     int m_OriginMarkerUid; // The UID of the barcode marker which defines the origin of the world coordinate system.
@@ -58,8 +58,8 @@ protected:
     
 public:
 	
-	ARTrackableMap();
-	~ARTrackableMap();
+	ARTrackableMultiSquareAuto();
+	~ARTrackableMultiSquareAuto();
     
     bool initWithOriginMarkerUID(int originMarkerUID, ARdouble markerWidth);
     

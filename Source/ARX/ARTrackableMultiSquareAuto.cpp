@@ -1,5 +1,5 @@
 /*
- *  ARTrackableMap.cpp
+ *  ARTrackableMultiSquareAuto.cpp
  *  artoolkitX
  *
  *  This file is part of artoolkitX.
@@ -34,7 +34,7 @@
  *
  */
 
-#include <ARX/ARTrackableMap.h>
+#include <ARX/ARTrackableMultiSquareAuto.h>
 
 #if HAVE_GTSAM
 #  include "mapper.hpp"
@@ -53,7 +53,7 @@ struct ARTrackableMapPrivateMembers {
 #endif
 };
 
-ARTrackableMap::ARTrackableMap() : ARTrackable(Map),
+ARTrackableMultiSquareAuto::ARTrackableMultiSquareAuto() : ARTrackable(MULTI_AUTO),
     m_OriginMarkerUid(0),
     m_markerWidth(80.0f),
     m_MultiConfig(NULL),
@@ -62,7 +62,7 @@ ARTrackableMap::ARTrackableMap() : ARTrackable(Map),
     m_MultiConfig = arMultiAllocConfig();
 }
 
-ARTrackableMap::~ARTrackableMap()
+ARTrackableMultiSquareAuto::~ARTrackableMultiSquareAuto()
 {
     if (m_MultiConfig) {
         arMultiFreeConfig(m_MultiConfig);
@@ -70,16 +70,16 @@ ARTrackableMap::~ARTrackableMap()
     }
 }
 
-bool ARTrackableMap::initWithOriginMarkerUID(int originMarkerUID, ARdouble markerWidth)
+bool ARTrackableMultiSquareAuto::initWithOriginMarkerUID(int originMarkerUID, ARdouble markerWidth)
 {
     m_OriginMarkerUid = originMarkerUID;
     m_markerWidth = markerWidth;
     return true;
 }
 
-bool ARTrackableMap::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int markerNum, int videoWidth, int videoHeight, AR3DHandle *ar3DHandle) {
+bool ARTrackableMultiSquareAuto::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int markerNum, int videoWidth, int videoHeight, AR3DHandle *ar3DHandle) {
     
-    ARLOGd("ARTrackableMap::updateWithDetectedMarkers(...)\n");
+    ARLOGd("ARTrackableMultiSquareAuto::updateWithDetectedMarkers(...)\n");
     
     visiblePrev = visible;
     visible = false;
@@ -218,9 +218,9 @@ bool ARTrackableMap::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int mar
     return (ARTrackable::update()); // Parent class will finish update.
 }
 
-bool ARTrackableMap::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfoL, int markerNumL, int videoWidthL, int videoHeightL, ARMarkerInfo* markerInfoR, int markerNumR, int videoWidthR, int videoHeightR, AR3DStereoHandle *handle, ARdouble transL2R[3][4]) {
+bool ARTrackableMultiSquareAuto::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfoL, int markerNumL, int videoWidthL, int videoHeightL, ARMarkerInfo* markerInfoR, int markerNumR, int videoWidthR, int videoHeightR, AR3DStereoHandle *handle, ARdouble transL2R[3][4]) {
     
-    ARLOGd("ARTrackableMap::updateWithDetectedMarkersStereo(...)\n");
+    ARLOGd("ARTrackableMultiSquareAuto::updateWithDetectedMarkersStereo(...)\n");
     
     visiblePrev = visible;
     visible = false;

@@ -41,7 +41,7 @@
 #include <ARX/ARTrackerSquare.h>
 #include <ARX/ARTrackableSquare.h>
 #include <ARX/ARTrackableMultiSquare.h>
-#include <ARX/ARTrackableMap.h>
+#include <ARX/ARTrackableMultiSquareAuto.h>
 #include <ARX/AR/ar.h>
 
 ARTrackerSquare::ARTrackerSquare() :
@@ -399,8 +399,8 @@ bool ARTrackerSquare::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1, std
                 success &= ((ARTrackableSquare *)(*it))->updateWithDetectedMarkers(markerInfo0, markerNum0, m_ar3DHandle);
             } else if ((*it)->type == ARTrackable::MULTI) {
                 success &= ((ARTrackableMultiSquare *)(*it))->updateWithDetectedMarkers(markerInfo0, markerNum0, m_ar3DHandle);
-            } else if ((*it)->type == ARTrackable::Map) {
-                success &= ((ARTrackableMap *)(*it))->updateWithDetectedMarkers(markerInfo0, markerNum0, m_arHandle0->xsize, m_arHandle0->ysize, m_ar3DHandle);
+            } else if ((*it)->type == ARTrackable::MULTI_AUTO) {
+                success &= ((ARTrackableMultiSquareAuto *)(*it))->updateWithDetectedMarkers(markerInfo0, markerNum0, m_arHandle0->xsize, m_arHandle0->ysize, m_ar3DHandle);
             }
         }
     } else {
@@ -409,8 +409,8 @@ bool ARTrackerSquare::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1, std
                 success &= ((ARTrackableSquare *)(*it))->updateWithDetectedMarkersStereo(markerInfo0, markerNum0, markerInfo1, markerNum1, m_ar3DStereoHandle, m_transL2R);
             } else if ((*it)->type == ARTrackable::MULTI) {
                 success &= ((ARTrackableMultiSquare *)(*it))->updateWithDetectedMarkersStereo(markerInfo0, markerNum0, markerInfo1, markerNum1, m_ar3DStereoHandle, m_transL2R);
-            } else if ((*it)->type == ARTrackable::Map) {
-                success &= ((ARTrackableMap *)(*it))->updateWithDetectedMarkersStereo(markerInfo0, markerNum0, m_arHandle0->xsize, m_arHandle0->ysize, markerInfo1, markerNum1, m_arHandle1->xsize, m_arHandle1->ysize, m_ar3DStereoHandle, m_transL2R);
+            } else if ((*it)->type == ARTrackable::MULTI_AUTO) {
+                success &= ((ARTrackableMultiSquareAuto *)(*it))->updateWithDetectedMarkersStereo(markerInfo0, markerNum0, m_arHandle0->xsize, m_arHandle0->ysize, markerInfo1, markerNum1, m_arHandle1->xsize, m_arHandle1->ysize, m_ar3DStereoHandle, m_transL2R);
             }
         }
     }
@@ -605,7 +605,7 @@ ARTrackable *ARTrackerSquare::newTrackable(std::vector<std::string> config)
             return nullptr;
         }
         
-        ARTrackableMap *ret = new ARTrackableMap();
+        ARTrackableMultiSquareAuto *ret = new ARTrackableMultiSquareAuto();
         if (!ret->initWithOriginMarkerUID(originMarkerUID, width)) {
             // Marker failed to load, or was not added
             delete ret;
@@ -621,7 +621,7 @@ ARTrackable *ARTrackerSquare::newTrackable(std::vector<std::string> config)
 void ARTrackerSquare::deleteTrackable(ARTrackable **trackable_p)
 {
     if (!trackable_p || !(*trackable_p)) return;
-    if ((*trackable_p)->type != ARTrackable::SINGLE && (*trackable_p)->type != ARTrackable::MULTI && (*trackable_p)->type != ARTrackable::Map) return;
+    if ((*trackable_p)->type != ARTrackable::SINGLE && (*trackable_p)->type != ARTrackable::MULTI && (*trackable_p)->type != ARTrackable::MULTI_AUTO) return;
     
     delete (*trackable_p);
     (*trackable_p) = NULL;
