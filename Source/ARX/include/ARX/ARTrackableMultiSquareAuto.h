@@ -79,6 +79,12 @@ public:
 	bool updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int markerNum, int videoWidth, int videoHeight, AR3DHandle *ar3DHandle);
 
     bool updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfoL, int markerNumL, int videoWidthL, int videoHeightL, ARMarkerInfo* markerInfoR, int markerNumR, int videoWidthR, int videoHeightR, AR3DStereoHandle *handle, ARdouble transL2R[3][4]);
+    
+    /**
+     * Make a copy of the multi config.
+     * Caller must call arMultiFreeConfig() on the returned value when done.
+     */
+    ARMultiMarkerInfoT *copyMultiConfig();
 };
 
 

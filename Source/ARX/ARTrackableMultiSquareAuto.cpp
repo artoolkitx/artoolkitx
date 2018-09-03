@@ -232,4 +232,8 @@ bool ARTrackableMultiSquareAuto::updateWithDetectedMarkersStereo(ARMarkerInfo* m
     return (ARTrackable::update(transL2R)); // Parent class will finish update.
 }
 
+ARMultiMarkerInfoT *ARTrackableMultiSquareAuto::copyMultiConfig()
+{
+    return arMultiCopyConfig(m_MultiConfig);
+}
 
