@@ -49,9 +49,10 @@ extern "C" {
 // buff is a luma-only buffer of dimensions width x height.
 void arRefineCorners(float vertex[4][2], const unsigned char *buff, int width, int height);
 
-#endif // HAVE_OPENCV
-
 #ifdef __cplusplus
 }
 #endif
+
+#endif // HAVE_OPENCV
+
 #endif // AR_REFINE_CORNERS_H
