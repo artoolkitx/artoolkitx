@@ -288,6 +288,7 @@ public:
      * - Square marker from pattern passed in config: "single_buffer;pattern_width;buffer=[]", e.g. "single_buffer;80;buffer=234 221 237..."
      * - Square barcode marker: "single_barcode;barcode_id;pattern_width", e.g. "single_barcode;0;80"
      * - Multi-square marker: "multi;config_file", e.g. "multi;data/multi/marker.dat"
+     * - Multi-square auto marker: "multi;origin_barcode_id;pattern_width", e.g. "multi;0;80.0"
      * - NFT marker: "nft;nft_dataset_pathname", e.g. "nft;gibraltar"
      *
 	 * @param cfgs		The configuration string

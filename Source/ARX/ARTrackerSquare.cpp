@@ -576,22 +576,22 @@ ARTrackable *ARTrackerSquare::newTrackable(std::vector<std::string> config)
         }
         return ret;
         
-    } else if (config.at(0).compare("map") == 0) {
+    } else if (config.at(0).compare("multi_auto") == 0) {
         
-        // Token 2 is barcode ID.
+        // Token 2 is origin marker barcode ID.
         if (config.size() < 2) {
-            ARLOGe("Map marker config. requires base marker ID.\n");
+            ARLOGe("Multimarker auto config. requires base marker ID.\n");
             return nullptr;
         }
         long originMarkerUID = strtol(config.at(1).c_str(), NULL, 0);
         if (originMarkerUID < 0 || (originMarkerUID == 0 && (errno == EINVAL || errno == ERANGE))) {
-            ARLOGe("Map marker config. specified with invalid origin marker UID parameter ('%s').\n", config.at(1).c_str());
+            ARLOGe("Multimarker auto config. specified with invalid origin marker UID parameter ('%s').\n", config.at(1).c_str());
             return nullptr;
         }
 
         // Token 3 is marker width.
         if (config.size() < 3) {
-            ARLOGe("Map marker config. requires marker width.\n");
+            ARLOGe("Multimarker auto config. requires marker width.\n");
             return nullptr;
         }
         ARdouble width;
@@ -601,7 +601,7 @@ ARTrackable *ARTrackerSquare::newTrackable(std::vector<std::string> config)
         width = strtod(config.at(2).c_str(), NULL);
 #endif
         if (width == 0.0f) {
-            ARLOGe("Map marker config. specified with invalid width parameter ('%s').\n", config.at(2).c_str());
+            ARLOGe("Multimarker auto config. specified with invalid width parameter ('%s').\n", config.at(2).c_str());
             return nullptr;
         }
         
