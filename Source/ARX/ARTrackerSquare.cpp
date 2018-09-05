@@ -145,9 +145,9 @@ int ARTrackerSquare::threshold() const
     return m_threshold;
 }
 
-void ARTrackerSquare::setThresholdMode(int mode)
+void ARTrackerSquare::setThresholdMode(AR_LABELING_THRESH_MODE mode)
 {
-    m_thresholdMode = (AR_LABELING_THRESH_MODE)mode;
+    m_thresholdMode = mode;
     if (m_arHandle0) {
         arSetLabelingThreshMode(m_arHandle0, m_thresholdMode);
         ARLOGi("Threshold mode set to %d\n", (int)m_thresholdMode);
@@ -158,9 +158,9 @@ void ARTrackerSquare::setThresholdMode(int mode)
     }
 }
 
-int ARTrackerSquare::thresholdMode() const
+AR_LABELING_THRESH_MODE ARTrackerSquare::thresholdMode() const
 {
-    return (int)m_thresholdMode;
+    return m_thresholdMode;
 }
 
 void ARTrackerSquare::setLabelingMode(int mode)
@@ -218,22 +218,22 @@ float ARTrackerSquare::pattRatio() const
     return (float)m_pattRatio;
 }
 
-void ARTrackerSquare::setMatrixCodeType(int type)
+void ARTrackerSquare::setMatrixCodeType(AR_MATRIX_CODE_TYPE type)
 {
-    m_matrixCodeType = (AR_MATRIX_CODE_TYPE)type;
+    m_matrixCodeType = type;
     if (m_arHandle0) {
         arSetMatrixCodeType(m_arHandle0, m_matrixCodeType);
-        ARLOGi("Matrix code type set to %d.\n", m_matrixCodeType);
+        ARLOGi("Matrix code type set to %d.\n", (int)m_matrixCodeType);
     }
     if (m_arHandle1) {
         arSetMatrixCodeType(m_arHandle1, m_matrixCodeType);
-        ARLOGi("Matrix code type set to %d.\n", m_matrixCodeType);
+        ARLOGi("Matrix code type set to %d.\n", (int)m_matrixCodeType);
     }
 }
 
-int ARTrackerSquare::matrixCodeType() const
+AR_MATRIX_CODE_TYPE ARTrackerSquare::matrixCodeType() const
 {
-    return (int)m_matrixCodeType;
+    return m_matrixCodeType;
 }
 
 void ARTrackerSquare::setPatternSize(int patternSize)

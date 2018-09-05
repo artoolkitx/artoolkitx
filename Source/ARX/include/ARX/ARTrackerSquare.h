@@ -106,14 +106,14 @@ public:
      * @param mode            The new thresholding mode to use.
      * @see                    getThresholdMode()
      */
-    void setThresholdMode(int mode);
+    void setThresholdMode(AR_LABELING_THRESH_MODE mode);
     
     /**
      * Returns the current thresholding mode.
      * @return                The current thresholding mode.
      * @see                    setThresholdMode()
      */
-    int thresholdMode() const;
+    AR_LABELING_THRESH_MODE thresholdMode() const;
     
     /**
      * Sets the labeling mode to use.
@@ -137,9 +137,9 @@ public:
     
     float pattRatio() const;
     
-    void setMatrixCodeType(int type);
+    void setMatrixCodeType(AR_MATRIX_CODE_TYPE type);
     
-    int matrixCodeType() const;
+    AR_MATRIX_CODE_TYPE matrixCodeType() const;
     
     void setPatternSize(int patternSize);
     

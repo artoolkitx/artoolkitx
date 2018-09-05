@@ -59,6 +59,36 @@ ARMultiMarkerInfoT *arMultiAllocConfig(void)
     return (marker_info);
 }
 
+ARMultiMarkerInfoT *arMultiCopyConfig(const ARMultiMarkerInfoT *marker_info)
+{
+    if (!marker_info) return NULL;
+    
+    ARMultiMarkerInfoT *mi = (ARMultiMarkerInfoT *)malloc(sizeof(ARMultiMarkerInfoT));
+    if (!mi) {
+        ARLOGe("arMultiCopyConfig out of memory!!\n");
+        return NULL;
+    }
+    
+    size_t emi_size = marker_info->marker_num * sizeof(ARMultiEachMarkerInfoT);
+    mi->marker = (ARMultiEachMarkerInfoT *)malloc(emi_size);
+    if (!mi->marker) {
+        ARLOGe("arMultiCopyConfig out of memory!!\n");
+        free(mi);
+        return NULL;
+    }
+    memcpy(mi->marker, marker_info->marker, emi_size);
+    mi->marker_num = marker_info->marker_num;
+    
+    memcpy(mi->trans, marker_info->trans, 12*sizeof(ARdouble));
+    mi->prevF = marker_info->prevF;
+    mi->patt_type = marker_info->patt_type;
+    mi->cfPattCutoff = marker_info->cfPattCutoff;
+    mi->cfMatrixCutoff = marker_info->cfMatrixCutoff;
+    mi->min_submarker = marker_info->min_submarker;
+    
+    return (mi);
+}
+
 // patt_type: Either AR_MULTI_PATTERN_TYPE_TEMPLATE or AR_MULTI_PATTERN_TYPE_MATRIX.
 int arMultiAddOrUpdateSubmarker(ARMultiMarkerInfoT *marker_info, int patt_id, int patt_type, ARdouble width, const ARdouble trans[3][4], uint64_t globalID)
 {
