@@ -79,7 +79,8 @@ public:
 		SINGLE,								///< A standard single square marker.
 		MULTI,								///< A composite marker made up of multiple square markers.
         NFT,                                ///< A rectangular textured marker backed by an NFT data set.
-        TwoD                                ///< A 2D textured marker backed by an image.
+        TwoD,                               ///< A 2D textured marker backed by an image.
+        MULTI_AUTO                          ///< An automatically mapped composite marker made up of multiple square matrix (2D barcode) markers.
 	};
 
 	int UID;								///< Internal unique ID (note: not the same as artoolkitX pattern ID)

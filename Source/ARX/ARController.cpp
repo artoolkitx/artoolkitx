@@ -691,7 +691,7 @@ bool ARController::addTrackable(ARTrackable* trackable)
         doTwoDMarkerDetection = true;
     } else
 #endif
-    if (trackable->type == ARTrackable::SINGLE || trackable->type == ARTrackable::MULTI) {
+    if (trackable->type == ARTrackable::SINGLE || trackable->type == ARTrackable::MULTI || trackable->type == ARTrackable::MULTI_AUTO) {
         if (!doSquareMarkerDetection)
             ARLOGi("First square marker trackable added; enabling square marker tracker.\n");
         doSquareMarkerDetection = true;
@@ -741,7 +741,7 @@ bool ARController::removeTrackable(ARTrackable* trackable)
     m_trackables.erase(position);
 
     // Count each type of trackable so we know whether we can disable a given type of tracker.
-    if (countTrackables(ARTrackable::SINGLE) + countTrackables(ARTrackable::MULTI) == 0) {
+    if (countTrackables(ARTrackable::SINGLE) + countTrackables(ARTrackable::MULTI) + countTrackables(ARTrackable::MULTI_AUTO) == 0) {
         if (doSquareMarkerDetection)
             ARLOGi("Last square marker removed; disabling square marker tracking.\n");
         doSquareMarkerDetection = false;
