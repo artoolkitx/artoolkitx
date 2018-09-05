@@ -79,6 +79,7 @@ ARMultiMarkerInfoT *arMultiCopyConfig(const ARMultiMarkerInfoT *marker_info)
     memcpy(mi->marker, marker_info->marker, emi_size);
     mi->marker_num = marker_info->marker_num;
     
+    memcpy(mi->trans, marker_info->trans, 12*sizeof(ARdouble));
     mi->prevF = marker_info->prevF;
     mi->patt_type = marker_info->patt_type;
     mi->cfPattCutoff = marker_info->cfPattCutoff;
