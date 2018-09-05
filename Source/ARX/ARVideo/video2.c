@@ -74,6 +74,9 @@
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
 #include "WindowsMediaCapture/videoWindowsMediaCapture.h"
 #endif
+#ifdef __EMSCRIPTEN__
+#include "Web/videoWeb.h"
+#endif
     
 
 static const char *ar2VideoGetConfig(const char *config_in)
@@ -141,6 +144,8 @@ static int ar2VideoGetModuleWithConfig(const char *config, const char **configSt
                 module = AR_VIDEO_MODULE_WINDOWS_MEDIA_FOUNDATION;
             } else if (strcmp(b, "-module=WinMC") == 0)    {
                 module = AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE;
+            } else if (strcmp(b, "-module=Web") == 0)    {
+                module = AR_VIDEO_MODULE_WEB;
             }
 
             while (*a != ' ' && *a != '\t' && *a != '\0') a++;
@@ -336,7 +341,13 @@ AR2VideoParamT *ar2VideoOpenAsync(const char *config_in, void (*callback)(void *
         ARLOGe("ar2VideoOpenAsync: Error: module \"Android\" not supported on this build/architecture/system.\n");
 #endif
     }
-
+    if (vid->module == AR_VIDEO_MODULE_WEB) {
+#ifdef __EMSCRIPTEN__
+        if ((vid->moduleParam = (void *)ar2VideoOpenAsyncWeb(config, callback, userdata)) != NULL) return vid;
+#else
+        ARLOGe("ar2VideoOpenAsync: Error: module \"Web\" not supported on this build/architecture/system.\n");
+#endif
+    }
     free(vid);
     return NULL;
 }
@@ -542,6 +553,11 @@ int ar2VideoGetSize(AR2VideoParamT *vid, int *x,int *y)
         return ar2VideoGetSizeImage((AR2VideoParamImageT *)vid->moduleParam, x, y);
     }
 #endif
+#ifdef ARVIDEO_INPUT_WEB
+    if (vid->module == AR_VIDEO_MODULE_WEB) {
+        return ar2VideoGetSizeWeb((AR2VideoParamWebT *)vid->moduleParam, x, y);
+    }
+#endif
 #ifdef ARVIDEO_INPUT_ANDROID
     if (vid->module == AR_VIDEO_MODULE_ANDROID) {
         return ar2VideoGetSizeAndroid((AR2VideoParamAndroidT *)vid->moduleParam, x, y);
@@ -601,6 +617,11 @@ AR_PIXEL_FORMAT ar2VideoGetPixelFormat(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_ANDROID
     if (vid->module == AR_VIDEO_MODULE_ANDROID) {
         return ar2VideoGetPixelFormatAndroid((AR2VideoParamAndroidT *)vid->moduleParam);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_WEB
+    if (vid->module == AR_VIDEO_MODULE_WEB) {
+        return ar2VideoGetPixelFormatWeb((AR2VideoParamWebT *)vid->moduleParam);
     }
 #endif
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_FOUNDATION
@@ -664,6 +685,11 @@ AR2VideoBufferT *ar2VideoGetImage(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
     if (vid->module == AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE) {
         ret = ar2VideoGetImageWinMC((AR2VideoParamWinMCT *)vid->moduleParam);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_WEB
+    if (vid->module == AR_VIDEO_MODULE_WEB) {
+        ret = ar2VideoGetImageWeb((AR2VideoParamWebT *)vid->moduleParam);
     }
 #endif
     if (ret) {
@@ -732,6 +758,11 @@ int ar2VideoCapStart(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_IMAGE
     if (vid->module == AR_VIDEO_MODULE_IMAGE) {
         return ar2VideoCapStartImage((AR2VideoParamImageT *)vid->moduleParam);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_WEB
+    if (vid->module == AR_VIDEO_MODULE_WEB) {
+        return ar2VideoCapStartWeb((AR2VideoParamWebT *)vid->moduleParam);
     }
 #endif
 #ifdef ARVIDEO_INPUT_ANDROID
@@ -1233,6 +1264,15 @@ int ar2VideoGetCParamAsync(AR2VideoParamT *vid, void (*callback)(const ARParam *
 #endif // USE_CPARAM_SEARCH
     return (-1);
 }
+
+#if ARX_TARGET_PLATFORM_EMSCRIPTEN
+    int ar2VideoPushInit  (AR2VideoParamT *vid, int width, int height, const char *pixelFormat, int camera_index, int camera_face){
+        if (vid->module == AR_VIDEO_MODULE_WEB) {
+            return ar2VideoPushInitWeb((AR2VideoParamWebT *)vid->moduleParam, width, height, pixelFormat, camera_index, camera_face);
+        }
+        return (-1);
+    }
+#endif
 
 #ifdef ANDROID
 // JNI interface.

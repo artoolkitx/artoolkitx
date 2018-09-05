@@ -1,10 +1,20 @@
 if(NOT ARX_TARGET_PLATFORM_WINDOWS)
-    find_package(ZLIB REQUIRED)
-	find_path(
-		STB_INCLUDE_DIR
-		stb_image 
-		NO_SYSTEM_ENVIRONMENT_PATH
-	)
+    if(NOT ARX_TARGET_PLATFORM_EMSCRIPTEN)
+        find_package(ZLIB REQUIRED)
+        find_path(
+            STB_INCLUDE_DIR
+            stb_image 
+            NO_SYSTEM_ENVIRONMENT_PATH
+        )
+    else()
+        find_path(
+            STB_INCLUDE_DIR
+            stb_image 
+            NO_SYSTEM_ENVIRONMENT_PATH
+            PATHS ${CMAKE_FIND_ROOT_PATH}/include
+        )
+        add_definitions("-s USE_ZLIB=1")
+    endif()
 else()
     FIND_PATH( ZLIB_INCLUDE_DIRS
             NAMES zlib.h zconf.h

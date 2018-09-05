@@ -157,7 +157,7 @@ typedef struct {
 /*!
     @brief Values controlling the labeling thresholding mode.
  */
-typedef enum {
+typedef enum LabelingThresholdMode{
     AR_LABELING_THRESH_MODE_MANUAL = 0,     ///< Manual threshold selection via arSetLabelingThresh.
     AR_LABELING_THRESH_MODE_AUTO_MEDIAN,    ///< Automatic threshold selection via full-image histogram median.
     AR_LABELING_THRESH_MODE_AUTO_OTSU,      ///< Automatic threshold selection via Otsu's method for foreground/background selection.
@@ -316,7 +316,7 @@ extern "C" {
 /*!
     @brief Values specifying the type of matrix code in use.
  */
-typedef enum {
+typedef enum ARMatrixCodeType{
     AR_MATRIX_CODE_3x3 = 0x03,                                                  ///< Matrix code in range 0-63.
     AR_MATRIX_CODE_3x3_PARITY65 = 0x03 | AR_MATRIX_CODE_TYPE_ECC_PARITY,        ///< Matrix code in range 0-31.
     AR_MATRIX_CODE_3x3_HAMMING63 = 0x03 | AR_MATRIX_CODE_TYPE_ECC_HAMMING,      ///< Matrix code in range 0-7.

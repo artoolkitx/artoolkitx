@@ -51,7 +51,12 @@
 #ifdef _WIN32
 #  include <windows.h>
 #endif
-#ifndef __APPLE__
+#ifdef __EMSCRIPTEN__
+#   define GL_GLEXT_PROTOTYPES
+#   define EGL_EGLEXT_PROTOTYPES
+#   include <GL/gl.h>
+#   include <GL/glext.h>
+#elif !defined(__APPLE__)
 #  include <GL/gl.h>
 #  ifdef _WIN32
 #    include "GL/glext.h"
@@ -144,6 +149,7 @@
 #  define GL_UNSIGNED_SHORT_8_8_REV_MESA	0x85BB
 #endif
 
+#ifndef __EMSCRIPTEN__
 // On Windows, all OpenGL v1.3 and later API must be dynamically resolved against the actual driver. For Linux, the same applies to OpenGL v1.4 and later.
 #if defined(_WIN32) || defined(__linux)
 #  ifdef _WIN32
@@ -160,7 +166,7 @@ static PFNGLACTIVETEXTUREPROC glActiveTexture = NULL;
 static PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture = NULL;
 #  endif
 #endif
-
+#endif
 //#define ARGL_DEBUG
 
 struct _ARGL_CONTEXT_SETTINGS_GL {
@@ -335,6 +341,7 @@ int arglSetupForCurrentContextGL(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_P
 		ARLOGe("Error: OpenGL v1.5 or later is required, but not found. Renderer reported '%s'.\n", glGetString(GL_VERSION));
 		return (FALSE);
 	}
+#if !defined(__EMSCRIPTEN__)
 #if defined(_WIN32) || defined(__linux)
 	if (!glGenBuffers) glGenBuffers = (PFNGLGENBUFFERSPROC)ARGL_GET_PROC_ADDRESS("glGenBuffers");
 	if (!glDeleteBuffers) glDeleteBuffers = (PFNGLDELETEBUFFERSPROC)ARGL_GET_PROC_ADDRESS("glDeleteBuffers");
@@ -352,6 +359,7 @@ int arglSetupForCurrentContextGL(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_P
 		ARLOGe("Error: a required OpenGL function counld not be bound.\n");
 		return (FALSE);
 	}
+#endif
 #endif
 
     contextSettings->apiContextSettings = calloc(1, sizeof(ARGL_CONTEXT_SETTINGS_GL));

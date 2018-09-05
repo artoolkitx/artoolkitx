@@ -785,6 +785,21 @@ bool arwLoadOpticalParams(const char *optical_param_name, const char *optical_pa
 #endif
 }
 
+#pragma mark Web API
+
+#if ARX_TARGET_PLATFORM_EMSCRIPTEN
+
+int arwVideoPushInitWeb(int videoSourceIndex, int width, int height, const char *pixelFormat, int camera_index, int camera_face) {
+    if (!gARTK) {
+        return -1;
+    }
+
+    return gARTK->webVideoPushInitC(videoSourceIndex, width, height, pixelFormat, camera_index, camera_face);
+}
+
+#endif
+
+
 // ----------------------------------------------------------------------------------------------------
 #pragma mark  Java API
 // ----------------------------------------------------------------------------------------------------

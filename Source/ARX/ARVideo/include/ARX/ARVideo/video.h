@@ -78,7 +78,8 @@ typedef enum {
     AR_VIDEO_MODULE_WINDOWS_MEDIA_FOUNDATION = 16,
     AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE = 17,
     AR_VIDEO_MODULE_V4L2               = 18,
-    AR_VIDEO_MODULE_MAX                = 18,
+    AR_VIDEO_MODULE_WEB                = 19,
+    AR_VIDEO_MODULE_MAX                = 19,
 } AR_VIDEO_MODULE;
 
 //
@@ -518,6 +519,9 @@ ARVIDEO_EXTERN int               ar2VideoGetBufferSize   (AR2VideoParamT *vid, i
 ARVIDEO_EXTERN int               ar2VideoGetCParam       (AR2VideoParamT *vid, ARParam *cparam);
 ARVIDEO_EXTERN int               ar2VideoGetCParamAsync  (AR2VideoParamT *vid, void (*callback)(const ARParam *, void *), void *userdata);
 
+#if ARX_TARGET_PLATFORM_EMSCRIPTEN
+ARVIDEO_EXTERN int               ar2VideoPushInit  (AR2VideoParamT *vid, int width, int height, const char *pixelFormat, int camera_index, int camera_face);
+#endif
 
 #if ARX_TARGET_PLATFORM_ANDROID
 // JNI interface.
