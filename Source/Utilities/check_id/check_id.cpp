@@ -707,6 +707,11 @@ static void keyboard(SDL_Keycode key)
         case 'R':
             gRobustFlag = !gRobustFlag;
             break;
+        case 't':
+        case 'T':
+            mode = arGetCornerRefinementMode(gARHandle);
+            arSetCornerRefinementMode(gARHandle, !mode);
+            break;
         case 'm':
         case 'M':
             gShowMode = !gShowMode;
@@ -991,6 +996,7 @@ static void printHelpKeys()
         " x             Change image processing mode.",
         " c             Calulcate frame rate.",
         " r             Toggle robust multi-marker mode on/off.",
+        " t             Toggle corner refinement  mode on/off.",
     };
 #define helpTextLineCount (sizeof(helpText)/sizeof(char *))
     
@@ -1065,7 +1071,13 @@ static void printMode()
         EdenGLFontDrawLine(0, NULL, (unsigned char *)text, 2.0f,  (line - 1)*FONT_SIZE + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_TEXT_TOP_TO_VIEW_TOP);
         line++;
     }
-    
+
+    // Corner refinement mode.
+    if (arGetCornerRefinementMode(gARHandle) == AR_CORNER_REFINEMENT_ENABLE) {
+        EdenGLFontDrawLine(0, NULL, (unsigned char *)"Subpixel corner refinement enabled", 2.0f,  (line - 1)*FONT_SIZE + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_TEXT_TOP_TO_VIEW_TOP);
+        line++;
+    }
+
     // Window size.
     snprintf(text, sizeof(text), "Drawing into %dx%d window", contextWidth, contextHeight);
     EdenGLFontDrawLine(0, NULL, (unsigned char *)text, 2.0f,  (line - 1)*FONT_SIZE + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_TEXT_TOP_TO_VIEW_TOP);

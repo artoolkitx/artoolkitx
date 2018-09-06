@@ -366,6 +366,7 @@ typedef struct {
     ARImageProcInfo   *arImageProcInfo;
     ARdouble           pattRatio;                           ///< A value between 0.0 and 1.0, representing the proportion of the marker width which constitutes the pattern. In earlier versions, this value was fixed at 0.5.
     AR_MATRIX_CODE_TYPE matrixCodeType;                     ///< When matrix code pattern detection mode is active, indicates the type of matrix code to detect.
+    int                arCornerRefinementMode;
 } ARHandle;
 
 
@@ -449,7 +450,7 @@ AR_EXTERN int arDeleteHandle( ARHandle *handle );
         image of the thresholded video input, and makes this available
         through the field ARHandle->labelInfo.bwImage.
     @param      handle An ARHandle referring to the current AR tracker
-		to be queried for its debug mode.
+		in which debug mode is to be set.
 	@param      mode
 		Options for this field are:
 		AR_DEBUG_DISABLE
@@ -813,6 +814,30 @@ AR_EXTERN void arSetPixelFormat(ARHandle *handle, AR_PIXEL_FORMAT pixFormat);
     @see arDetectMarker
  */
 AR_EXTERN AR_PIXEL_FORMAT arGetPixelFormat(ARHandle *handle);
+
+/*!
+    @brief   Enable or disable square tracking subpixel corner refinement.
+    @details If compiled with OpenCV available, the square tracker allows
+        marker corner locations to be subpixel-refined.
+    @param      handle Handle to settings structure in which to enable or disable subpixel corner refinement.
+	@param      mode
+		Options for this field are:
+		AR_CORNER_REFINEMENT_DISABLE
+		AR_CORNER_REFINEMENT_ENSABLE
+		The default mode is AR_CORNER_REFINEMENT_DISABLE.
+    @see arGetCornerRefinementMode
+*/
+AR_EXTERN void arSetCornerRefinementMode(ARHandle *handle, int mode);
+
+/*!
+    @brief   Find out whether square tracking subpixel corner refinement is enabled.
+    @details See arSetCornerRefinementMode() for more info.
+    @param      handle An ARHandle referring to the current AR tracker
+		to be queried for its mode.
+    @result Value representing the mode.
+    @see arSetCornerRefinementMode
+*/
+AR_EXTERN int arGetCornerRefinementMode(ARHandle *handle);
 
 
 /*!

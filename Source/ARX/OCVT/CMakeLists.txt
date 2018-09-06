@@ -53,23 +53,22 @@ target_include_directories(OCVT
     PRIVATE ${OpenCV_INCLUDE_DIR}
 )
 
+target_link_libraries(OCVT
+    INTERFACE ${LIBS}
+    PRIVATE ${JPEG_LIBRARIES}
+)
 
 if(NOT ARX_TARGET_PLATFORM_WINDOWS)
 	target_link_libraries(OCVT
-		INTERFACE ${LIBS}
-		PRIVATE ${JPEG_LIBRARIES}
 		PRIVATE ${OpenCV_LIBS}
 	)
 else()
 	set (LINK_LIST "")
-	
 	foreach(x ${OpenCV_LIBS})
 		string(REPLACE ".lib" "341d.lib" x_debug ${x})
 		list (APPEND LINK_LIST debug ${x_debug} optimized ${x})
 	endforeach()
-	
 	target_link_libraries(OCVT
-		INTERFACE ${LIBS}
 	    ${LINK_LIST}
 	)
 endif()

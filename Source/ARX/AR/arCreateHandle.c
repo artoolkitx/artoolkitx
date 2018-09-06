@@ -70,6 +70,7 @@ ARHandle *arCreateHandle(ARParamLT *paramLT)
     handle->arMarkerExtractionMode  = AR_DEFAULT_MARKER_EXTRACTION_MODE;
     handle->pattRatio               = AR_PATT_RATIO;
     handle->matrixCodeType          = AR_MATRIX_CODE_TYPE_DEFAULT;
+    handle->arCornerRefinementMode  = AR_DEFAULT_CORNER_REFINEMENT_MODE;
 
     handle->arParamLT           = paramLT;
     handle->xsize               = paramLT->param.xsize;
@@ -408,6 +409,27 @@ int arGetPixelFormat(ARHandle *handle)
     return (handle->arPixelFormat);
 }
 
+void arSetCornerRefinementMode(ARHandle *handle, int mode)
+{
+    if (!handle) return;
+    
+    switch (mode) {
+        case AR_CORNER_REFINEMENT_DISABLE:
+        case AR_CORNER_REFINEMENT_ENABLE:
+            break;
+        default:
+            return;
+    }
+    
+    handle->arCornerRefinementMode = mode;
+}
+
+int arGetCornerRefinementMode(ARHandle *handle)
+{
+    if (!handle) return (AR_DEFAULT_CORNER_REFINEMENT_MODE);
+    
+    return (handle->arCornerRefinementMode);
+}
 
 int arGetMarkerNum(ARHandle *handle)
 {

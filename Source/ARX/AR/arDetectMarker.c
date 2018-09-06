@@ -39,7 +39,7 @@
 #include <stdio.h>
 #include <ARX/AR/ar.h>
 #include <ARX/AR/arImageProc.h>
-
+#include "arRefineCorners.h"
 #if DEBUG_PATT_GETID
 extern int cnt;
 #endif
@@ -187,6 +187,24 @@ cnt = 0;
             return -1;
         }
     } // !detectionIsDone
+    
+    if (arHandle->arCornerRefinementMode == AR_CORNER_REFINEMENT_ENABLE) {
+        // Refine marker co-ordinates.
+        ARfloat obVertex[4][2];
+        for (int i = 0; i < 4; i++) {
+            float arXIn = (float)arHandle->markerInfo->vertex[i][0];
+            float arYIn = (float)arHandle->markerInfo->vertex[i][1];
+            arParamIdeal2ObservLTf(&arHandle->arParamLT->paramLTf, arXIn, arYIn, &obVertex[i][0], &obVertex[i][1]);
+        }
+        arRefineCorners((float (*)[2])obVertex, frame->buffLuma, arHandle->xsize, arHandle->ysize);
+        for (int i = 0; i < 4; i++) {
+            float newX, newY;
+            arParamObserv2IdealLTf(&arHandle->arParamLT->paramLTf, obVertex[i][0], obVertex[i][1], &newX, &newY);
+            arHandle->markerInfo->vertex[i][0] = (ARdouble)newX;
+            arHandle->markerInfo->vertex[i][1] = (ARdouble)newY;
+        }
+        //free(obVertex);
+    }
     
     // If history mode is not enabled, just perform a basic confidence cutoff.
     if (arHandle->arMarkerExtractionMode == AR_NOUSE_TRACKING_HISTORY) {
