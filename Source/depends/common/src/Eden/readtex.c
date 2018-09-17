@@ -295,6 +295,7 @@ unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
     int                              bytes_per_line;
     int                              row;
     int                              i;
+    int                              ret;
     
     /* Initialize the JPEG decompression object with default error handling. */
     memset(&cinfo, 0, sizeof(cinfo));
@@ -309,7 +310,12 @@ unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
     jpeg_stdio_src(&cinfo, fp);
     
     /* Read file header, set default decompression parameters */
-    (void) jpeg_read_header(&cinfo, TRUE);
+    ret = jpeg_read_header(&cinfo, TRUE);
+    if( ret != 1 ) {
+        EDEN_LOGe("Error reading JPEG file header.\n");
+        jpeg_destroy_decompress(&cinfo);
+        return NULL;
+    }
     
     /* Start decompressor */
     (void) jpeg_start_decompress(&cinfo);
@@ -317,7 +323,11 @@ unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
     /* Allocate image buffer */
     bytes_per_line = cinfo.num_components * cinfo.image_width;
     pixels = (unsigned char *)malloc(bytes_per_line  * cinfo.image_height);
-    if (!pixels) return 0;
+    if (!pixels) {
+        EDEN_LOGe("Out of memory!!\n");
+        jpeg_destroy_decompress(&cinfo);
+        return NULL;
+    }
     
     row = 0;
     
@@ -341,9 +351,11 @@ unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
     if (nc) *nc = cinfo.num_components;
     if (dpi) {
         if( cinfo.density_unit == 1 && cinfo.X_density == cinfo.Y_density ) {
-            *dpi = cinfo.X_density;
+            *dpi = (float)cinfo.X_density;
         } else if( cinfo.density_unit == 2 && cinfo.X_density == cinfo.Y_density ) {
-            *dpi = cinfo.X_density * 2.54f;
+            *dpi = (float)cinfo.X_density * 2.54f;
+        } else if (cinfo.density_unit > 2 && cinfo.X_density == 0 && cinfo.Y_density == 0) { // Handle the case with some libjpeg versions where density in DPI is returned in the density_unit field.
+            *dpi = (float)(cinfo.density_unit);
         } else {
             *dpi = 0.0f;
         }
