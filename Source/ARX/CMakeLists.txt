@@ -26,6 +26,31 @@ set(HAVE_GLES2 0)
 set(USE_GL_STATE_CACHE 0)
 set(HAVE_GTSAM 0)
 
+# FindJPEG.cmake is so broken.
+if(ARX_TARGET_PLATFORM_LINUX)
+	find_package(JPEG REQUIRED)
+else()
+	find_path(JPEG_INCLUDE_DIR
+		NAMES jconfig.h jmorecfg.h jpeglib.h jversion.h
+		PATHS ${PROJECT_SOURCE_DIR}/depends/${ARX_PLATFORM_NAME_LC}/include
+		DOC "The directory where jpeg headers resides"
+		NO_CMAKE_SYSTEM_PATH
+	)
+    if(ARX_TARGET_PLATFORM_WINDOWS)
+        find_library(JPEG_LIBRARIES
+            NAMES libjpeg
+            PATHS ${PROJECT_SOURCE_DIR}/depends/${ARX_PLATFORM_NAME_LC}/lib/x64
+            DOC "The directory where jpeg static library resides"
+        )
+    else()
+        find_library(JPEG_LIBRARIES
+            NAMES jpeg
+            PATHS ${PROJECT_SOURCE_DIR}/depends/${ARX_PLATFORM_NAME_LC}/lib
+            DOC "The directory where jpeg static library resides"
+        )
+    endif()
+endif()
+
 find_package(OpenGL)
 if (OPENGL_FOUND)
     set(HAVE_GL 1)

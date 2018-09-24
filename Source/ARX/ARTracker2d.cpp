@@ -124,7 +124,8 @@ bool ARTracker2d::loadTwoDData(std::vector<ARTrackable *>& trackables)
     for (std::vector<ARTrackable *>::iterator it = trackables.begin(); it != trackables.end(); ++it) {
         if ((*it)->type == ARTrackable::TwoD) {
             ((ARTrackable2d *)(*it))->pageNo = pageCount;
-            m_2DTracker->AddMarker(*((ARTrackable2d *)(*it))->m_refImage.get(),((ARTrackable2d *)(*it))->datasetPathname,((ARTrackable2d *)(*it))->m_refImageX,((ARTrackable2d *)(*it))->m_refImageY,((ARTrackable2d *)(*it))->UID, ((ARTrackable2d *)(*it))->TwoDScale());
+            // N.B.: AddMarker takes a copy of the image data.
+            m_2DTracker->AddMarker(((ARTrackable2d *)(*it))->m_refImage.get(),((ARTrackable2d *)(*it))->datasetPathname,((ARTrackable2d *)(*it))->m_refImageX,((ARTrackable2d *)(*it))->m_refImageY,((ARTrackable2d *)(*it))->UID, ((ARTrackable2d *)(*it))->TwoDScale());
             ARLOGi("'%s' assigned page no. %d.\n", ((ARTrackable2d *)(*it))->datasetPathname, pageCount);
             pageCount++;
         }

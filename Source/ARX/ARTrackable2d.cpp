@@ -46,7 +46,8 @@ ARTrackable2d::ARTrackable2d() : ARTrackable(TwoD),
 m_loaded(false),
 m_twoDScale(1.0f),
 pageNo(-1),
-datasetPathname(NULL)
+datasetPathname(NULL),
+m_height(1.0f)
 {
     ARTrackable::setFiltered(true);
 }
@@ -58,48 +59,36 @@ ARTrackable2d::~ARTrackable2d()
 
 bool ARTrackable2d::load(const char* dataSetPathname_in)
 {
-    if (m_loaded) unload();
-    
-    visible = visiblePrev = false;
-    
-    // Load AR2 data.
+    // Load data.
     ARLOGi("Loading image data %s.\n", dataSetPathname_in);
+    std::shared_ptr<unsigned char> refImage;
+    int refImageX, refImageY;
     try {
-        if(!ReadImageFromFile(dataSetPathname_in, m_refImage, &m_refImageX, &m_refImageY, false)) {
+        int nc;
+        if (!ReadImageFromFile(dataSetPathname_in, refImage, &refImageX, &refImageY, &nc, true)) {
             ARLOGi("Unable to load image '%s'.\n", dataSetPathname_in);
             return(false);
         }
     } catch (std::runtime_error) { // File not found.
         return (false);
     }
-    if (m_refImageX == 0 || m_refImageY == 0) { // FIXME: Is this the best way to determine whether loading was OK?
-        ARLOGe("Error reading image data from '%s'.\n", dataSetPathname_in);
-        m_refImage.reset();
-        return (false);
-    }
-    datasetPathname = strdup(dataSetPathname_in);
-    
-    allocatePatterns(1);
-    patterns[0]->load2DTrackerImage(m_refImage, m_refImageX, m_refImageY, m_height*((float)m_refImageX)/((float)m_refImageY), m_height);
-    
-    allocatePatterns(1);
-    m_loaded = true;
-    
-    return true;
+    return load2DData(dataSetPathname_in, refImage, refImageX, refImageY);
 }
 
-bool ARTrackable2d::load2DData(const char* dataSetPathname_in, std::shared_ptr<unsigned char*> refImage, int m_refImageX, int m_refImageY)
+bool ARTrackable2d::load2DData(const char* dataSetPathname_in, std::shared_ptr<unsigned char> refImage, int refImageX, int refImageY)
 {
     if (m_loaded) unload();
     
     visible = visiblePrev = false;
     
-    // Load AR2 data.
-    ARLOGi("Loading data %s.\n", dataSetPathname_in);
+    m_refImage = refImage;
+    m_refImageX = refImageX;
+    m_refImageY = refImageY;
+
     datasetPathname = strdup(dataSetPathname_in);
     
     allocatePatterns(1);
-    patterns[0]->load2DTrackerImage(refImage, m_refImageX, m_refImageY, m_height*((float)m_refImageX)/((float)m_refImageY), m_height);
+    patterns[0]->load2DTrackerImage(m_refImage, m_refImageX, m_refImageY, m_height*((float)m_refImageX)/((float)m_refImageY), m_height);
     
     allocatePatterns(1);
     m_loaded = true;

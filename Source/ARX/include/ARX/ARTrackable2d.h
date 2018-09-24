@@ -59,7 +59,7 @@ private:
     unsigned char* surfaceImage;
     int m_refImageX, m_refImageY;
     float m_height;
-    std::shared_ptr<unsigned char*> m_refImage;
+    std::shared_ptr<unsigned char> m_refImage;
 
     bool unload();
 public:
@@ -68,7 +68,7 @@ public:
     ~ARTrackable2d();
     
     bool load(const char* dataSetPathname_in);
-    bool load2DData(const char* dataSetPathname_in, std::shared_ptr<unsigned char*> refImage, int m_refImageX, int m_refImageY);
+    bool load2DData(const char* dataSetPathname_in, std::shared_ptr<unsigned char> refImage, int m_refImageX, int m_refImageY);
 
     bool updateWithTwoDResults(int detectedPage, float trackingTrans[3][4], ARdouble transL2R[3][4] = NULL);
     

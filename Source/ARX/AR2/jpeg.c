@@ -218,7 +218,6 @@ static unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
     }
 
     (void) jpeg_finish_decompress(&cinfo);
-    jpeg_destroy_decompress(&cinfo);
 
     if (w) *w = cinfo.image_width;
     if (h) *h = cinfo.image_height;
@@ -235,6 +234,8 @@ static unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
         }
     }
     
+    jpeg_destroy_decompress(&cinfo);
+
     return pixels;
 }
 

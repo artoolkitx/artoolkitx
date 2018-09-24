@@ -49,7 +49,7 @@
 class TrackedImageInfo
 {
 public:
-    std::shared_ptr<unsigned char*> imageData;
+    std::shared_ptr<unsigned char> imageData;
     int uid;
     float scale;
     int width;
