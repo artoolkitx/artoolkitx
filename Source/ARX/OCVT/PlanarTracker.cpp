@@ -673,15 +673,18 @@ public:
         }
         return imageIds;
     }
-    TrackedImageInfo GetTrackableImageInfo(int trackabaleId)
+    TrackedImageInfo GetTrackableImageInfo(int trackableId)
     {
         TrackedImageInfo info;
         for(int i=0;i<_trackables.size(); i++) {
-            if(_trackables[i]._id==trackabaleId) {
+            if(_trackables[i]._id==trackableId) {
                 info.uid = _trackables[i]._id;
                 info.scale = _trackables[i]._scale;
                 info.fileName = _trackables[i]._fileName;
-                info.imageData = std::make_shared<uchar *>(_trackables[i]._image.ptr());
+                // Copy the image data and use a shared_ptr to refer to it.
+                unsigned char *data = (unsigned char *)malloc(_trackables[i]._width * _trackables[i]._height);
+                memcpy(data, _trackables[i]._image.ptr(), _trackables[i]._width * _trackables[i]._height);
+                info.imageData.reset(data, free);
                 info.width = _trackables[i]._width;
                 info.height = _trackables[i]._height;
                 info.fileName = _trackables[i]._fileName;

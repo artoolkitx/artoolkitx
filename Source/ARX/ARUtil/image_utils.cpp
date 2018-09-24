@@ -54,16 +54,14 @@ std::string getFileExtension(const std::string& filename) {
     return filename.find_last_of(".") != std::string::npos ? filename.substr(filename.find_last_of(".")) : "";
 }
 
-bool ReadImageFromFile(const char* fileName, std::shared_ptr<unsigned char*> &refImage, int *cols, int *rows, bool colourImage)
+bool ReadImageFromFile(const char* fileName, std::shared_ptr<unsigned char> &refImage, int *cols, int *rows, int *nc, bool forceMono)
 {
     if (!fileName || !cols || !rows) return false;
     std::string ext = getFileExtension(fileName);
-    int unused = 0;
     try {
-        int pixelSize = colourImage ? 3 : 1;
-        unsigned char* data = stbi_load(fileName, cols, rows, &unused, pixelSize);
-        if ((*cols > 0) && (*rows > 0)) {
-            refImage = std::make_shared<unsigned char*>(data);
+        unsigned char* data = stbi_load(fileName, cols, rows, nc, forceMono ? 1 : 0);
+        if (data) {
+            refImage.reset(data, free);
             return true;
         } else {
             return false;

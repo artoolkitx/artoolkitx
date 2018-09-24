@@ -133,7 +133,7 @@ bool ARPattern::loadISet(const AR2ImageSetT *imageSet, float nftScale)
 
 #if HAVE_2D
 
-bool ARPattern::load2DTrackerImage(std::shared_ptr<unsigned char*> arImage, float imageX, float imageY, float width, float height)
+bool ARPattern::load2DTrackerImage(std::shared_ptr<unsigned char> arImage, float imageX, float imageY, float width, float height)
 {
     if (!arImage) return false;
     
@@ -142,12 +142,14 @@ bool ARPattern::load2DTrackerImage(std::shared_ptr<unsigned char*> arImage, floa
     
     // Create the image.
     // Assuming greyscale only.
+    // ifdef'ed out because it's not used at the moment, and it uses heaps of memory. TODO: just copy the shared_ptr, and generate the pattern on demand.
+#if 0
     freeImage();
     m_imageSizeX = (int)imageX;
     m_imageSizeY = (int)imageY;
     m_image = new uint32_t[m_imageSizeX * m_imageSizeY];
     
-    unsigned char* inData = *arImage.get();
+    unsigned char* inData = arImage.get();
     for (int y = 0; y < m_imageSizeY; y++) {
         for (int x = 0; x < m_imageSizeX; x++) {
             int buffIdx = y*m_imageSizeX + x;
@@ -160,6 +162,7 @@ bool ARPattern::load2DTrackerImage(std::shared_ptr<unsigned char*> arImage, floa
             
         }
     }
+#endif
     return true;
 }
 #endif
@@ -169,5 +172,6 @@ void ARPattern::freeImage()
 	if (m_image) {
 		delete[] m_image;
 		m_image = NULL;
+        m_imageSizeX = m_imageSizeY = 0;
 	}
 }

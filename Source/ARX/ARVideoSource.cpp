@@ -209,7 +209,7 @@ bool ARVideoSource::open2()
             ARLOGi("Camera parameters loaded from buffer.\n");
             return (open3(&cparam));
         }
-    } else if (cameraParam) {
+    } else if (cameraParam && *cameraParam) {
         if (arParamLoad(cameraParam, 1, &cparam) < 0) {
             ARLOGe("Error: failed to load camera parameters from file '%s'.\n", cameraParam);
             this->close();
