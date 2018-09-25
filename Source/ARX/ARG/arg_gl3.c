@@ -82,6 +82,17 @@
 // On Windows, all OpenGL v3 and later API must be dynamically resolved against the actual driver
 #if defined(_WIN32)
     # define ARGL_GET_PROC_ADDRESS wglGetProcAddress
+    static PFNGLBINDTEXTUREPROC glBindTexture = NULL;
+    static PFNGLDELETETEXTURESPROC glDeleteTextures = NULL;
+    static PFNGLGENTEXTURESPROC glGenTextures = NULL;
+    static PFNGLTEXPARAMETERIPROC glTexParameteri = NULL;
+    static PFNGLGETSTRINGPROC glGetString = NULL;
+    static PFNGLVIEWPORTPROC glViewport = NULL;
+    static PFNGLDISABLEPROC glDisable = NULL;
+    static PFNGLDRAWARRAYSPROC glDrawArrays = NULL;
+    static PFNGLGETINTEGERVPROC glGetIntegerv = NULL;
+    static PFNGLPIXELSTOREIPROC glPixelStorei = NULL;
+    static PFNGLTEXIMAGE2DPROC glTexImage2D = NULL;
     static PFNGLATTACHSHADERPROC glAttachShader = NULL; // (PFNGLGENBUFFERSPROC)ARGL_GET_PROC_ADDRESS("glGenBuffersARB");
     static PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays = NULL;
     static PFNGLGENVERTEXARRAYSPROC glGenVertexArrays = NULL;
@@ -488,6 +499,17 @@ int arglSetupForCurrentContextGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_
     }
 
 #if defined(_WIN32)
+    if (!glBindTexture) glBindTexture = (PFNGLBINDTEXTUREPROC) ARGL_GET_PROC_ADDRESS("glBindTexture");
+    if (!glDeleteTextures) glDeleteTextures = (PFNGLDELETETEXTURESPROC) ARGL_GET_PROC_ADDRESS("glDeleteTextures");
+    if (!glGenTextures) glGenTextures = (PFNGLGENTEXTURESPROC) ARGL_GET_PROC_ADDRESS("glGenTextures");
+    if (!glTexParameteri) glTexParameteri = (PFNGLTEXPARAMETERIPROC) ARGL_GET_PROC_ADDRESS("glTexParameteri");
+    if (!glGetString) glGetString = (PFNGLGETSTRINGPROC) ARGL_GET_PROC_ADDRESS("glGetString");
+    if (!glViewport) glViewport = (PFNGLVIEWPORTPROC) ARGL_GET_PROC_ADDRESS("glViewport");
+    if (!glDisable) glDisable = (PFNGLDISABLEPROC) ARGL_GET_PROC_ADDRESS("glDisable");
+    if (!glDrawArrays) glDrawArrays = (PFNGLDRAWARRAYSPROC) ARGL_GET_PROC_ADDRESS("glDrawArrays");
+    if (!glGetIntegerv) glGetIntegerv = (PFNGLGETINTEGERVPROC) ARGL_GET_PROC_ADDRESS("glGetIntegerv");
+    if (!glPixelStorei) glPixelStorei = (PFNGLPIXELSTOREIPROC) ARGL_GET_PROC_ADDRESS("glPixelStorei");
+    if (!glTexImage2D) glTexImage2D = (PFNGLTEXIMAGE2DPROC) ARGL_GET_PROC_ADDRESS("glTexImage2D");
 	if (!glAttachShader) glAttachShader = (PFNGLATTACHSHADERPROC) ARGL_GET_PROC_ADDRESS("glAttachShader");
     if (!glDeleteVertexArrays) glDeleteVertexArrays = (PFNGLDELETEVERTEXARRAYSPROC) ARGL_GET_PROC_ADDRESS("glDeleteVertexArrays");
     if (!glGenVertexArrays) glGenVertexArrays = (PFNGLGENVERTEXARRAYSPROC) ARGL_GET_PROC_ADDRESS("glGenVertexArrays");
@@ -507,7 +529,9 @@ int arglSetupForCurrentContextGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_
 	if (!glBindBuffer) glBindBuffer = (PFNGLBINDBUFFERPROC)ARGL_GET_PROC_ADDRESS("glBindBuffer");
 	if (!glBufferData) glBufferData = (PFNGLBUFFERDATAPROC)ARGL_GET_PROC_ADDRESS("glBufferData");
 
-	if (!glAttachShader || !glDeleteVertexArrays || !glBindAttribLocation || !glCreateProgram || 
+	if (!glDeleteTextures || !glGenTextures || !glTexParameteri || !glGetString || !glViewport ||
+        !glDisable || !glDrawArrays || !glGetIntegerv || !glPixelStorei || !glTexImage2D ||
+        !glAttachShader || !glDeleteVertexArrays || !glBindAttribLocation || !glCreateProgram ||
         !glEnableVertexAttribArray || !glVertexAttribPointer || !glBindVertexArray || !glGenVertexArrays || 
         !glGetUniformLocation || !glUseProgram || !glUniformMatrix4fv || !glUniform1i || !glGetStringi || 
         !glActiveTexture || !glGenBuffers ) {
