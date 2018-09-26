@@ -91,6 +91,7 @@ typedef struct {
     ARdouble                cfPattCutoff;   // Minimum matching confidence required for any pattern markers in order to consider them when calculating the multimarker pose. Default value is AR_MULTI_CONFIDENCE_PATTERN_CUTOFF_DEFAULT.
     ARdouble                cfMatrixCutoff; // Minimum matching confidence required for any matrix markers in order to consider them when calculating the multimarker pose. Default value is AR_MULTI_CONFIDENCE_MATRIX_CUTOFF_DEFAULT.
     int                     min_submarker;  // Minimum number of markers in this set that must be detected in order to consider it a valid multimarker detection.
+    ARdouble                minInlierProb;  // Minimum allowable inlier probability when performing robust multimarker pose estimation.
 } ARMultiMarkerInfoT;
 
 /**

@@ -174,84 +174,40 @@ static ARdouble  arGetTransMatMultiSquare2(AR3DHandle *handle, ARMarkerInfo *mar
         pos3d[j*12+11] = config->marker[i].pos3d[3][2];
         j++;
     }
-    
 
-    if( config->prevF == 0 ) {
-        if( robustFlag ) {
-            err = arGetTransMat( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-            if( err >= AR_MULTI_POSE_ERROR_CUTOFF_COMBINED_DEFAULT ) {
-                icpSetInlierProbability( handle->icpHandle, 0.8 );
-                err = arGetTransMatRobust( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-                if( err >= AR_MULTI_POSE_ERROR_CUTOFF_COMBINED_DEFAULT ) {
-                    icpSetInlierProbability( handle->icpHandle, 0.6 );
-                    err = arGetTransMatRobust( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-                    if( err >= AR_MULTI_POSE_ERROR_CUTOFF_COMBINED_DEFAULT ) {
-                        icpSetInlierProbability( handle->icpHandle, 0.4 );
-                        err = arGetTransMatRobust( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-                        if( err >= AR_MULTI_POSE_ERROR_CUTOFF_COMBINED_DEFAULT ) {
-                            icpSetInlierProbability( handle->icpHandle, 0.0 );
-                            err = arGetTransMatRobust( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-                        }
-                    }
-                }
-            }
-        }
-        else {
-            err = arGetTransMat( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
+    if (config->prevF == 0) {
+        if (robustFlag) {
+            ARdouble inlierProb = 1.0;
+            do {
+                icpSetInlierProbability(handle->icpHandle, inlierProb);
+                err = arGetTransMat(handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans);
+                if (err < AR_MULTI_POSE_ERROR_CUTOFF_COMBINED_DEFAULT) break;
+                inlierProb -= 0.2;
+            } while (inlierProb >= config->minInlierProb && inlierProb >= 0.0);
+        } else {
+            err = arGetTransMat(handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans);
         }
         free(pos3d);
         free(pos2d);
-    }
-    else {
-        if( robustFlag ) {
-            err2 = arGetTransMat( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, trans1 );
-            err = arGetTransMat( handle, config->trans, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-            if( err2 < err ) {
-                for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
-                err = err2;
-            }
-            if( err >= AR_MULTI_POSE_ERROR_CUTOFF_COMBINED_DEFAULT ) {
-                icpSetInlierProbability( handle->icpHandle, 0.8 );
-                err2 = arGetTransMatRobust( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, trans1 );
-                err = arGetTransMatRobust( handle, config->trans, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-                if( err2 < err ) {
-                    for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
+    } else {
+        if (robustFlag) {
+            ARdouble inlierProb = 1.0;
+            do {
+                icpSetInlierProbability(handle->icpHandle, inlierProb);
+                err2 = arGetTransMat(handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, trans1);
+                err = arGetTransMat(handle, config->trans, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans);
+                if (err2 < err) {
+                    for (j = 0; j < 3; j++) for (i = 0; i < 4; i++) config->trans[j][i] = trans1[j][i];
                     err = err2;
                 }
-                if( err >= AR_MULTI_POSE_ERROR_CUTOFF_COMBINED_DEFAULT ) {
-                    icpSetInlierProbability( handle->icpHandle, 0.6 );
-                    err2 = arGetTransMatRobust( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, trans1 );
-                    err = arGetTransMatRobust( handle, config->trans, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-                    if( err2 < err ) {
-                        for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
-                        err = err2;
-                    }
-                    if( err >= AR_MULTI_POSE_ERROR_CUTOFF_COMBINED_DEFAULT ) {
-                        icpSetInlierProbability( handle->icpHandle, 0.4 );
-                        err2 = arGetTransMatRobust( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, trans1 );
-                        err = arGetTransMatRobust( handle, config->trans, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-                        if( err2 < err ) {
-                            for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
-                            err = err2;
-                        }
-                        if( err >= AR_MULTI_POSE_ERROR_CUTOFF_COMBINED_DEFAULT ) {
-                            icpSetInlierProbability( handle->icpHandle, 0.0 );
-                            err2 = arGetTransMatRobust( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, trans1 );
-                            err = arGetTransMatRobust( handle, config->trans, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-                            if( err2 < err ) {
-                                for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
-                                err = err2;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else {
-            err2 = arGetTransMat( handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, trans1 );
-            err = arGetTransMat( handle, config->trans, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans );
-            if( err2 < err ) {
-                for( j = 0; j < 3; j++ ) for( i = 0; i < 4; i++ ) config->trans[j][i] = trans1[j][i];
+                if (err < AR_MULTI_POSE_ERROR_CUTOFF_COMBINED_DEFAULT) break;
+                inlierProb -= 0.2;
+            } while (inlierProb >= config->minInlierProb && inlierProb >= 0.0);
+        } else {
+            err2 = arGetTransMat(handle, trans2, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, trans1);
+            err = arGetTransMat(handle, config->trans, (ARdouble (*)[2])pos2d, (ARdouble (*)[3])pos3d, vnum*4, config->trans);
+            if (err2 < err) {
+                for (j = 0; j < 3; j++) for (i = 0; i < 4; i++) config->trans[j][i] = trans1[j][i];
                 err = err2;
             }
         }

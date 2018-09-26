@@ -719,6 +719,10 @@ float arwGetTrackableOptionFloat(int trackableUID, int option)
             if (trackable->type == ARTrackable::MULTI) return (float)((ARTrackableMultiSquare *)trackable)->config->cfPattCutoff;
             else return (NAN);
             break;
+        case ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB:
+            if (trackable->type == ARTrackable::MULTI) return (float)((ARTrackableMultiSquare *)trackable)->config->minInlierProb;
+            else return (NAN);
+            break;
         default:
             ARLOGe("arwGetTrackableOptionFloat(): Unrecognised option %d.\n", option);
             break;
@@ -756,6 +760,9 @@ void arwSetTrackableOptionFloat(int trackableUID, int option, float value)
             break;
         case ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_PATTERN:
             if (trackable->type == ARTrackable::MULTI) ((ARTrackableMultiSquare *)trackable)->config->cfPattCutoff = value;
+            break;
+        case ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB:
+            if (trackable->type == ARTrackable::MULTI) ((ARTrackableMultiSquare *)trackable)->config->minInlierProb = value;
             break;
         default:
             ARLOGe("arwSetTrackableOptionFloat(): Unrecognised option %d.\n", option);
