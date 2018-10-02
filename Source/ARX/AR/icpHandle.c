@@ -169,7 +169,10 @@ int icpSetInlierProbability( ICPHandleT *handle, ARdouble inlierProb )
 {
     if( handle == NULL ) return -1;
 
-    handle->inlierProb = inlierProb;
+    if (handle->inlierProb != inlierProb) {
+        handle->inlierProb = inlierProb;
+        ARLOGd("inlierProb=%f\n", inlierProb);
+    };
     return 0;
 }
 
