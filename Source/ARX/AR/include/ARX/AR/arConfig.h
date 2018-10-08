@@ -100,7 +100,7 @@
 
 #define   AR_AREA_MAX                   1000000		// Maximum area (in pixels) of connected regions considered valid candidate for marker detection.
 #define   AR_AREA_MIN                        70		// Minimum area (in pixels) of connected regions considered valid candidate for marker detection.
-#define   AR_SQUARE_FIT_THRESH                1.0
+#define   AR_SQUARE_FIT_THRESH                1.0   // Tolerance value for accepting connected region as square. Greater value = more tolerant.
 
 #define   AR_LABELING_32_BIT                  0     // 0 = 16 bits per label, 1 = 32 bits per label.
 #if AR_LABELING_32_BIT
@@ -121,7 +121,7 @@
 #define   AR_LABELING_THRESH_AUTO_INTERVAL_DEFAULT 7 // Number of frames between auto-threshold calculations.
 #define   AR_LABELING_THRESH_MODE_DEFAULT     AR_LABELING_THRESH_MODE_MANUAL
 #define   AR_LABELING_THRESH_ADAPTIVE_KERNEL_SIZE_DEFAULT 9
-#define   AR_LABELING_THRESH_ADAPTIVE_BIAS_DEFAULT (-7)
+#define   AR_LABELING_THRESH_ADAPTIVE_BIAS_DEFAULT (-5)
 
 #define   AR_CONFIDENCE_CUTOFF_DEFAULT        0.5
 #define   AR_MATRIX_CODE_TYPE_DEFAULT         AR_MATRIX_CODE_3x3

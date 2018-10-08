@@ -325,7 +325,7 @@ int main(int argc, char *argv[])
                         area = markerInfo[j].area;
                         biggestMarker = j;
                     }
-                    if (area >= AR_AREA_MIN) {
+                    if (area >= arGetAreaMin(gARHandle)) {
                         
                         // Reorder vertices based on dir.
                         ARdouble vertexUpright[4][2];

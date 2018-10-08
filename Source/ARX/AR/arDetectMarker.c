@@ -91,9 +91,10 @@ cnt = 0;
             
             for (i = 0; i < 3; i++) {
                 if (arLabeling(frame->buffLuma, arHandle->xsize, arHandle->ysize, arHandle->arDebug, arHandle->arLabelingMode, thresholds[i], arHandle->arImageProcMode, &(arHandle->labelInfo), NULL) < 0) return -1;
-                if (arDetectMarker2(arHandle->xsize, arHandle->ysize, &(arHandle->labelInfo), arHandle->arImageProcMode, AR_AREA_MAX, AR_AREA_MIN, AR_SQUARE_FIT_THRESH, arHandle->markerInfo2, &(arHandle->marker2_num)) < 0) return -1;
+                if (arDetectMarker2(arHandle->xsize, arHandle->ysize, &(arHandle->labelInfo), arHandle->arImageProcMode, arHandle->areaMax, arHandle->areaMin, arHandle->squareFitThresh, arHandle->markerInfo2, &(arHandle->marker2_num)) < 0) return -1;
                 if (arGetMarkerInfo(frame->buff, arHandle->xsize, arHandle->ysize, arHandle->arPixelFormat, arHandle->markerInfo2, arHandle->marker2_num, arHandle->pattHandle, arHandle->arImageProcMode, arHandle->arPatternDetectionMode, &(arHandle->arParamLT->paramLTf), arHandle->pattRatio, arHandle->markerInfo, &(arHandle->marker_num), arHandle->matrixCodeType) < 0) return -1;
-                marker_nums[i] = arHandle->marker_num;
+                marker_nums[i] = 0;
+                for (j = 0; j < arHandle->marker_num; j++) if (arHandle->markerInfo[j].idPatt != -1 || arHandle->markerInfo[j].idMatrix != -1) marker_nums[i]++;
             }
 
             if (arHandle->arDebug == AR_DEBUG_ENABLE) ARLOGe("Auto threshold (bracket) marker counts -[%3d: %3d] [%3d: %3d] [%3d: %3d]+.\n", thresholds[1], marker_nums[1], thresholds[2], marker_nums[2], thresholds[0], marker_nums[0]);
@@ -173,7 +174,7 @@ cnt = 0;
         
         if( arDetectMarker2( arHandle->xsize, arHandle->ysize,
                             &(arHandle->labelInfo), arHandle->arImageProcMode,
-                            AR_AREA_MAX, AR_AREA_MIN, AR_SQUARE_FIT_THRESH,
+                            arHandle->areaMax, arHandle->areaMin, arHandle->squareFitThresh,
                             arHandle->markerInfo2, &(arHandle->marker2_num) ) < 0 ) {
             return -1;
         }

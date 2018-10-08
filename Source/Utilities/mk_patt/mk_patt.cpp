@@ -244,7 +244,7 @@ int main(int argc, char *argv[])
                 int markerNum = arGetMarkerNum(gARHandle);
                 ARMarkerInfo *markerInfo = arGetMarker(gARHandle);
                 
-                int area = AR_AREA_MIN - 1;
+                int area = arGetAreaMin(gARHandle) - 1;
                 target = NULL;
                 for (int i = 0; i < markerNum; i++) {
                     if (markerInfo[i].area > area) {
