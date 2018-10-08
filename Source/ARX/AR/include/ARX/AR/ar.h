@@ -363,6 +363,8 @@ typedef struct {
     int                arLabelingThreshAutoIntervalTTL;
     int                arLabelingThreshAutoBracketOver;
     int                arLabelingThreshAutoBracketUnder;
+    int                arLabelingThreshAutoAdaptiveKernelSize;
+    int                arLabelingThreshAutoAdaptiveBias;
     ARImageProcInfo   *arImageProcInfo;
     ARdouble           pattRatio;                           ///< A value between 0.0 and 1.0, representing the proportion of the marker width which constitutes the pattern. In earlier versions, this value was fixed at 0.5.
     AR_MATRIX_CODE_TYPE matrixCodeType;                     ///< When matrix code pattern detection mode is active, indicates the type of matrix code to detect.
@@ -611,6 +613,14 @@ AR_EXTERN void arSetLabelingThreshModeAutoInterval(ARHandle *handle, const int i
  */
 AR_EXTERN int arGetLabelingThreshModeAutoInterval(const ARHandle *handle);
 
+AR_EXTERN void arSetLabelingThreshAutoAdaptiveKernelSize(ARHandle *handle, const int labelingThreshAutoAdaptiveKernelSize);
+
+AR_EXTERN int arGetLabelingThreshAutoAdaptiveKernelSize(ARHandle *handle);
+
+AR_EXTERN void arSetLabelingThreshAutoAdaptiveBias(ARHandle *handle, const int labelingThreshAutoAdaptiveBias);
+
+AR_EXTERN int arGetLabelingThreshAutoAdaptiveBias(ARHandle *handle);
+    
 /*!
     @brief   Set the image processing mode.
     @details

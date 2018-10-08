@@ -116,11 +116,11 @@ cnt = 0;
                 arHandle->arLabelingThresh = (marker_nums[0] >= marker_nums[1] ? thresholds[0] : thresholds[1]);
                 threshDiff = arHandle->arLabelingThresh - thresholds[2];
                 if (threshDiff > 0) {
-                    arHandle->arLabelingThreshAutoBracketOver = threshDiff;
+                    arHandle->arLabelingThreshAutoBracketOver = (threshDiff + 1) / 2;
                     arHandle->arLabelingThreshAutoBracketUnder = 1;
                 } else {
                     arHandle->arLabelingThreshAutoBracketOver = 1;
-                    arHandle->arLabelingThreshAutoBracketUnder = -threshDiff;
+                    arHandle->arLabelingThreshAutoBracketUnder = (-threshDiff + 1) / 2;
                 }
                 if (arHandle->arDebug == AR_DEBUG_ENABLE) ARLOGe("Auto threshold (bracket) adjusted threshold to %d.\n", arHandle->arLabelingThresh);
             }
@@ -129,11 +129,10 @@ cnt = 0;
     }
     
     if (!detectionIsDone) {
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
         if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE) {
             
             int ret;
-            ret = arImageProcLumaHistAndBoxFilterWithBias(arHandle->arImageProcInfo, frame->buffLuma,  AR_LABELING_THRESH_ADAPTIVE_KERNEL_SIZE_DEFAULT, AR_LABELING_THRESH_ADAPTIVE_BIAS_DEFAULT);
+            ret = arImageProcLumaHistAndBoxFilterWithBias(arHandle->arImageProcInfo, frame->buffLuma, arHandle->arLabelingThreshAutoAdaptiveKernelSize, arHandle->arLabelingThreshAutoAdaptiveBias);
             if (ret < 0) return (ret);
             
             ret = arLabeling(frame->buffLuma, arHandle->arImageProcInfo->imageX, arHandle->arImageProcInfo->imageY,
@@ -143,7 +142,6 @@ cnt = 0;
             if (ret < 0) return (ret);
             
         } else { // !adaptive
-#endif
             
             if (arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_MEDIAN || arHandle->arLabelingThreshMode == AR_LABELING_THRESH_MODE_AUTO_OTSU) {
                 // Do an auto-threshold operation.
@@ -168,9 +166,7 @@ cnt = 0;
                 return -1;
             }
             
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
         }
-#endif
         
         if( arDetectMarker2( arHandle->xsize, arHandle->ysize,
                             &(arHandle->labelInfo), arHandle->arImageProcMode,

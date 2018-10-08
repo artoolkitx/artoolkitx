@@ -37,7 +37,6 @@
  */
 
 #include <ARX/AR/config.h>
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
 #if !AR_DISABLE_LABELING_DEBUG_MODE
 
 #undef AR_PIXEL_FORMAT_CCC
@@ -57,5 +56,4 @@
 
 #include "arLabelingSub.h"
 
-#endif
 #endif
