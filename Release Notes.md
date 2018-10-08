@@ -1,6 +1,11 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.0.5
+### 2018-10-08
+
+This release corrects a build problem with iOS and macOS caused by conflicting libjpeg versions between artoolkitX and OpenCV. As of this release, artoolkitX for macOS and iOS uses libjpeg-turbo and a prerelease version of OpenCV 4.0.0. There are some other minor changes allowing setting of some square tracking and thresholding options.
+
 ## Version 1.0.4
 ### 2018-10-05
 
