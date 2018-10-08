@@ -50,6 +50,7 @@ void arRefineCorners(ARfloat vertex[4][2], const unsigned char *buff, int width,
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/imgproc/imgproc_c.h>
 #include <vector>
 
 void arRefineCorners(float vertex[4][2], const unsigned char *buff, int width, int height)
