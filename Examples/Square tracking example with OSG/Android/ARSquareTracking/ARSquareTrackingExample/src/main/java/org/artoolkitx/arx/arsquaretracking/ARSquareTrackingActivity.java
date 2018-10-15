@@ -48,7 +48,7 @@ import org.artoolkitx.arx.arxj.rendering.ARRenderer;
 public class ARSquareTrackingActivity extends ARActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
     }

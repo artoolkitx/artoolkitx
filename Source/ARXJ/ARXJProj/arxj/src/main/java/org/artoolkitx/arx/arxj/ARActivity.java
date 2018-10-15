@@ -118,7 +118,7 @@ public abstract class ARActivity extends /*AppCompat*/Activity implements View.O
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     //@Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mContext = getApplicationContext();
