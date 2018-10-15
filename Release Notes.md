@@ -1,6 +1,11 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.0.5.1
+### 2018-10-15
+
+This release changes only the Android SDK. The Android build now builds against SDK 28 (with build tools v28.0.3).
+
 ## Version 1.0.5
 ### 2018-10-08
 
