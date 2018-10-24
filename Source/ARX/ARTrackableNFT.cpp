@@ -95,6 +95,11 @@ bool ARTrackableNFT::unload()
 	return true;
 }
 
+char* ARTrackableNFT::getDatasetPathname() 
+{
+    return datasetPathname;
+}
+
 bool ARTrackableNFT::updateWithNFTResults(int detectedPage, float trackingTrans[3][4], ARdouble transL2R[3][4])
 {
     if (!m_loaded) return false;

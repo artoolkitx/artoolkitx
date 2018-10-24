@@ -272,6 +272,48 @@ public class ARController {
     }
 
     /**
+     * Loads a 2D Trackable Database.
+     *
+     * @param databaseFileName The database path & filename.
+    */
+	public boolean load2DTrackableDatabase(String databaseFileName) {
+		if (!initedNative) return false;
+		return ARX_jni.arwLoad2dTrackableDatabase(databaseFileName);
+	}
+
+    /**
+     * Counts the number of loaded trackables.
+     *
+     * @return   The count of trackables, -1 if it failed.
+    */
+	public int countTrackables() {
+		if (!initedNative) return -1;
+		return ARX_jni.arwCountTrackables();
+	}
+
+    /**
+     * Gets the UID of a trackable based on its index
+     *
+     * @param i      Index of the trackable object
+     * @return       UID of the trackable object
+    */
+	public int getTrackableUIDAtIndex(int i) {
+		if (!initedNative) return -1;
+		return ARX_jni.arwGetTrackableUIDAtIndex(i);
+	}
+
+    /*
+     * Gets the filename of a trackable based on its index
+     *
+     * @param i      Index of the trackable object
+     * @return       Filename of the trackable object
+    */
+    public String getTrackableNameAtIndex(int i) {
+        if (!initedNative) return null;
+        return ARX_jni.arwGetTrackableNameAtIndex(i);
+    }
+
+    /**
      * Returns whether the marker with the specified ID is currently visible, and if visible the trackable transformation.
      *
      * @param trackableUID The unique identifier (UID) of the trackable to query.

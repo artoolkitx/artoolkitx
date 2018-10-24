@@ -467,6 +467,34 @@ extern "C" {
 	 * @return			The unique identifier (UID) of the trackable instantiated based on the configuration string, or -1 if an error occurred
 	 */
 	ARX_EXTERN int arwAddTrackable(const char *cfg);
+
+    /**
+     * Loads a 2D Trackable Database.
+     * This takes the database path as argument.
+     * @param databaseFileName   The database path
+     * @return                   Whether the operation succeeded or not.
+    */
+	ARX_EXTERN bool arwLoad2dTrackableDatabase(const char *databaseFileName);
+
+    /**
+     * Counts the number of loaded trackables.
+     * @return   The count of trackables, -1 if it failed.
+    */
+	ARX_EXTERN int arwCountTrackables();
+
+    /**
+     * Gets the UID of a trackable based on its index
+     * @param i      Index of the trackable object
+     * @return       UID of the trackable object
+    */
+	ARX_EXTERN int arwGetTrackableUIDAtIndex(int i);
+
+    /*
+     * Gets the filename of a trackable based on its index
+     * @param i      Index of the trackable object
+     * @return       Filename of the trackable object
+    */
+    ARX_EXTERN char* arwGetTrackableNameAtIndex(int i);
     
     typedef struct {
         int uid;

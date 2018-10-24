@@ -66,6 +66,8 @@ public:
 
 	bool load(const char* dataSetPathname_in);
 
+    	char* getDatasetPathname();
+
 	bool updateWithNFTResults(int detectedPage, float trackingTrans[3][4], ARdouble transL2R[3][4] = NULL);
 
     void setNFTScale(const float scale);

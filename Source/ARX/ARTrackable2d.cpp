@@ -113,6 +113,11 @@ bool ARTrackable2d::unload()
     return true;
 }
 
+char* ARTrackable2d::getDatasetPathname() 
+{
+    return datasetPathname;
+}
+
 bool ARTrackable2d::updateWithTwoDResults(int detectedPage, float trackingTrans[3][4], ARdouble transL2R[3][4])
 {
     if (!m_loaded) return false;

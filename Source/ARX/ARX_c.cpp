@@ -432,6 +432,31 @@ int arwAddTrackable(const char *cfg)
 	return gARTK->addTrackable(cfg);
 }
 
+int arwCountTrackables()
+{
+	if(!gARTK) return -1;
+	return gARTK->countTrackables();
+}
+
+int arwGetTrackableUIDAtIndex(int i)
+{
+	if(!gARTK) return -1;
+	return gARTK->getTrackableAtIndex(i)->UID;
+}
+
+char* arwGetTrackableNameAtIndex(int i)
+{
+    if(!gARTK) return NULL;
+
+    if(dynamic_cast<ARTrackable2d*>(gARTK->getTrackableAtIndex(i))) {
+        return ((ARTrackable2d*)gARTK->getTrackableAtIndex(i))->getDatasetPathname();
+    } else if(dynamic_cast<ARTrackableNFT*>(gARTK->getTrackableAtIndex(i))) {
+        return ((ARTrackableNFT*)gARTK->getTrackableAtIndex(i))->getDatasetPathname();
+    } else {
+        return NULL;
+    }
+}
+
 bool arwGetTrackables(int *count_p, ARWTrackableStatus **statuses_p)
 {
     if (!gARTK) return false;
@@ -835,6 +860,10 @@ extern "C" {
     JNIEXPORT jboolean JNICALL JNIFUNCTION(arwDrawVideo(JNIEnv *env, jobject obj, jint videoSourceIndex));
     JNIEXPORT jboolean JNICALL JNIFUNCTION(arwDrawVideoFinal(JNIEnv *env, jobject obj, jint videoSourceIndex));
 	JNIEXPORT jint JNICALL JNIFUNCTION(arwAddTrackable(JNIEnv *env, jobject obj, jstring cfg));
+	JNIEXPORT jboolean JNICALL JNIFUNCTION(arwLoad2dTrackableDatabase(JNIEnv *env, jobject obj, jstring databaseFileName));
+	JNIEXPORT jint JNICALL JNIFUNCTION(arwCountTrackables(JNIEnv *env, jobject obj));
+	JNIEXPORT jint JNICALL JNIFUNCTION(arwGetTrackableUIDAtIndex(JNIEnv *env, jobject obj, jint i));
+    JNIEXPORT jstring JNICALL JNIFUNCTION(arwGetTrackableNameAtIndex(JNIEnv *env, jobject obj, jint i));
 	JNIEXPORT jboolean JNICALL JNIFUNCTION(arwRemoveTrackable(JNIEnv *env, jobject obj, jint trackableUID));
 	JNIEXPORT jint JNICALL JNIFUNCTION(arwRemoveAllTrackables(JNIEnv *env, jobject obj));
     JNIEXPORT jboolean JNICALL JNIFUNCTION(arwQueryTrackableVisibilityAndTransformation(JNIEnv *env, jobject obj, jint trackableUID, jfloatArray matrix));
@@ -1086,6 +1115,31 @@ JNIEXPORT jint JNICALL JNIFUNCTION(arwAddTrackable(JNIEnv *env, jobject obj, jst
 	int trackableUID = arwAddTrackable(cfgC);
 	env->ReleaseStringUTFChars(cfg, cfgC);
 	return trackableUID;
+}
+
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwLoad2dTrackableDatabase(JNIEnv *env, jobject obj, jstring databaseFileName))
+{
+	jboolean isCopy;
+
+	const char *databaseFileNameC = env->GetStringUTFChars(databaseFileName, &isCopy);
+	bool answer = arwLoad2dTrackableDatabase(databaseFileNameC);
+	env->ReleaseStringUTFChars(databaseFileName, databaseFileNameC);
+	return answer;
+}
+
+JNIEXPORT jint JNICALL JNIFUNCTION(arwCountTrackables(JNIEnv *env, jobject obj))
+{
+	return arwCountTrackables();
+}
+
+JNIEXPORT jint JNICALL JNIFUNCTION(arwGetTrackableUIDAtIndex(JNIEnv *env, jobject obj, jint i))
+{
+	return arwGetTrackableUIDAtIndex(i);
+}
+
+JNIEXPORT jstring JNICALL JNIFUNCTION(arwGetTrackableNameAtIndex(JNIEnv *env, jobject obj, jint i))
+{
+    return env->NewStringUTF(arwGetTrackableNameAtIndex(i));
 }
 
 JNIEXPORT jboolean JNICALL JNIFUNCTION(arwRemoveTrackable(JNIEnv *env, jobject obj, jint trackableUID)) 

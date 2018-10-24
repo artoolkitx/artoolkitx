@@ -409,6 +409,37 @@ public class ARX_jni {
     public static native int arwAddTrackable(String cfg);
 
     /**
+     * Loads a 2D Trackable Database.
+     *
+     * @param databaseFileName The database path & filename.
+     * @return Whether the operation succeeded or not.
+    */
+	public static native boolean arwLoad2dTrackableDatabase(String databaseFileName);
+
+    /**
+     * Counts the number of loaded trackables.
+     *
+     * @return   The count of trackables, -1 if it failed.
+    */
+	public static native int arwCountTrackables();
+
+    /**
+     * Gets the UID of a trackable based on its index
+     *
+     * @param i      Index of the trackable object
+     * @return       UID of the trackable object
+    */
+	public static native int arwGetTrackableUIDAtIndex(int i);
+
+    /*
+     * Gets the filename of a trackable based on its index
+     *
+     * @param i      Index of the trackable object
+     * @return       Filename of the trackable object
+    */
+	public static native String arwGetTrackableNameAtIndex(int i);
+
+    /**
      * Removes the specified marker.
      *
      * @param trackableUID The unique identifier (UID) of the trackable to remove
