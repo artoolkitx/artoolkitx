@@ -45,6 +45,7 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
+#include <future>
 #include <ARX/AR/ar.h> // ARdouble
 class TrackedImageInfo
 {

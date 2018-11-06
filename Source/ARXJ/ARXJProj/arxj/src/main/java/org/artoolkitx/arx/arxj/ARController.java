@@ -313,6 +313,28 @@ public class ARController {
         return ARX_jni.arwGetTrackableNameAtIndex(i);
     }
 
+    /*
+     * Remove all trackables
+     *
+     * @return       Number of trackables removed
+    */
+    public int removeAllTrackables() {
+        if (!initedNative) return -1;
+        return ARX_jni.arwRemoveAllTrackables();
+    }
+
+    /*
+     * Remove specified trackable
+     *
+     * @param trackableUID The unique identifier (UID) of the trackable to remove
+     * @return true if the marker was removed, otherwise false
+    */
+    public boolean removeTrackable(int trackableUID) {
+        if (!initedNative) return false;
+        return ARX_jni.arwRemoveTrackable(trackableUID);
+    }
+
+
     /**
      * Returns whether the marker with the specified ID is currently visible, and if visible the trackable transformation.
      *

@@ -65,6 +65,8 @@ private:
     int _frameSizeX;
     int _frameSizeY;
     cv::Mat _K;
+
+    std::future<void> featureDetectorWorker;
     
     int _selectedFeatureDetectorType;
 public:
@@ -413,23 +415,26 @@ public:
         newFrame.release();
     }
     
+    void detectNewFeatures(cv::Mat frame) {
+        cv::Mat detectionFrame;
+        cv::pyrDown(frame, detectionFrame, cv::Size(frame.cols/featureDetectPyramidLevel, frame.rows/featureDetectPyramidLevel));
+        cv::Mat featureMask = CreateFeatureMask(detectionFrame);
+        std::vector<cv::KeyPoint> newFrameFeatures = _featureDetector.DetectFeatures(detectionFrame, featureMask);
+            
+        if(CanMatchNewFeatures(static_cast<int>(newFrameFeatures.size()))) {
+            //std::cout << "Matching new features" << std::endl;
+            cv::Mat newFrameDescriptors = _featureDetector.CalcDescriptors(detectionFrame, newFrameFeatures);
+            MatchFeatures(newFrameFeatures, newFrameDescriptors);
+        }
+    }
+
     void ProcessFrame(cv::Mat frame)
     {
         //std::cout << "Building pyramid" << std::endl;
         BuildImagePyramid(frame);
         //std::cout << "Drawing detected markers to mask" << std::endl;
-        if(CanDetectNewFeatures()) {
-            //std::cout << "Detecting new features" << std::endl;
-            cv::Mat detectionFrame;
-            cv::pyrDown(frame, detectionFrame, cv::Size(frame.cols/featureDetectPyramidLevel, frame.rows/featureDetectPyramidLevel));
-            cv::Mat featureMask = CreateFeatureMask(detectionFrame);
-            std::vector<cv::KeyPoint> newFrameFeatures = _featureDetector.DetectFeatures(detectionFrame, featureMask);
-            
-            if(CanMatchNewFeatures(static_cast<int>(newFrameFeatures.size()))) {
-                //std::cout << "Matching new features" << std::endl;
-                cv::Mat newFrameDescriptors = _featureDetector.CalcDescriptors(detectionFrame, newFrameFeatures);
-                MatchFeatures(newFrameFeatures, newFrameDescriptors);
-            }
+        if(_frameCount == 0 || (featureDetectorWorker.wait_for(std::chrono::seconds(0)) == std::future_status::ready && CanDetectNewFeatures())) {
+            featureDetectorWorker = std::async(std::launch::async, &PlanarTracker::PlanarTrackerImpl::detectNewFeatures, this, frame);
         }
         if(_frameCount>0)
         {
