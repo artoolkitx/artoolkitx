@@ -183,7 +183,10 @@ public abstract class ARActivity extends /*AppCompat*/Activity implements View.O
         super.onResume();
 
         // Create the GL view
-        mGlView = new GLSurfaceView(this);
+        if(mGlView == null) {
+            Log.i(TAG, "onResume(): As there's no custom GLSurfaceView defined, a plain GLSurfaceView will be initialized.");
+            mGlView = new GLSurfaceView(this);
+        }
 
         FrameListener frameListener = new FrameListenerImpl(renderer, this, mGlView);
         CameraEventListener cameraEventListener = new CameraEventListenerImpl(this, frameListener);
@@ -321,6 +324,11 @@ public abstract class ARActivity extends /*AppCompat*/Activity implements View.O
     @SuppressWarnings("unused")
     public GLSurfaceView getGLView() {
         return mGlView;
+    }
+
+    @SuppressWarnings("unused")
+    public void setGLView(GLSurfaceView mGlView) {
+        this.mGlView = mGlView;
     }
 
     @SuppressWarnings("unused")
