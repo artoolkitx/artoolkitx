@@ -35,6 +35,7 @@
  */
 
 #include "arRefineCorners.h"
+extern "C" {
 
 //#define DEBUG_REFINECORNERS
 
@@ -89,3 +90,4 @@ void arRefineCorners(float vertex[4][2], const unsigned char *buff, int width, i
 }
 
 #endif // HAVE_OPENCV
+}
