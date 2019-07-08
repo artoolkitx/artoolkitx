@@ -1,0 +1,2 @@
+# We want Unix line-endings even on Windows, so that bash works on all platforms.
+* text eol=lf
