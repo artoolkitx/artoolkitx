@@ -349,7 +349,7 @@ int arglSetupForCurrentContextGL(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_P
         || !glActiveTexture || !glClientActiveTexture
 #  endif
         ) {
-		ARLOGe("Error: a required OpenGL function counld not be bound.\n");
+		ARLOGe("arglSetupForCurrentContextGL error: a required OpenGL function counld not be bound.\n");
 		return (FALSE);
 	}
 #endif

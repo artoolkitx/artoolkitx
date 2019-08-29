@@ -57,6 +57,10 @@
 #include <string.h>        // strchr(), strstr(), strlen()
 #include <ARX/ARG/mtx.h>
 #include <ARX/ARG/shader_gl.h>
+#ifdef _WIN32
+#  define WIN32_LEAN_AND_MEAN 1
+#  include <windows.h> // HMODULE, LoadLibraryA(), FreeLibrary(), GetProcAddress()
+#endif
 
 // ============================================================================
 //    Private types and defines.
@@ -80,8 +84,8 @@
 #endif
 
 // On Windows, all OpenGL v3 and later API must be dynamically resolved against the actual driver
-#if defined(_WIN32)
-    # define ARGL_GET_PROC_ADDRESS wglGetProcAddress
+#ifdef _WIN32
+    # define ARGL_GET_PROC_ADDRESS get_proc
     static PFNGLBINDTEXTUREPROC glBindTexture = NULL;
     static PFNGLDELETETEXTURESPROC glDeleteTextures = NULL;
     static PFNGLGENTEXTURESPROC glGenTextures = NULL;
@@ -164,11 +168,25 @@ typedef struct _ARGL_CONTEXT_SETTINGS_GL3 *ARGL_CONTEXT_SETTINGS_GL3_REF;
 //    Private globals.
 // ============================================================================
 
+#ifdef _WIN32
+static HMODULE libgl;
+#endif
 
 #pragma mark -
 // ============================================================================
 //    Private functions.
 // ============================================================================
+
+#ifdef _WIN32
+static void *get_proc(const char *proc)
+{
+	void *res;
+	res = wglGetProcAddress(proc);
+	if (!res)
+		res = GetProcAddress(libgl, proc);
+	return res;
+}
+#endif
 
 #ifdef ARGL_DEBUG
 static void arglGetErrorGL3(const char *tag)
@@ -498,7 +516,8 @@ int arglSetupForCurrentContextGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_
         return (FALSE);
     }
 
-#if defined(_WIN32)
+#ifdef _WIN32
+    libgl = LoadLibraryA("opengl32.dll");
     if (!glBindTexture) glBindTexture = (PFNGLBINDTEXTUREPROC) ARGL_GET_PROC_ADDRESS("glBindTexture");
     if (!glDeleteTextures) glDeleteTextures = (PFNGLDELETETEXTURESPROC) ARGL_GET_PROC_ADDRESS("glDeleteTextures");
     if (!glGenTextures) glGenTextures = (PFNGLGENTEXTURESPROC) ARGL_GET_PROC_ADDRESS("glGenTextures");
@@ -528,6 +547,7 @@ int arglSetupForCurrentContextGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_
     if (!glDeleteBuffers) glDeleteBuffers = (PFNGLDELETEBUFFERSPROC)ARGL_GET_PROC_ADDRESS("glDeleteBuffers");
 	if (!glBindBuffer) glBindBuffer = (PFNGLBINDBUFFERPROC)ARGL_GET_PROC_ADDRESS("glBindBuffer");
 	if (!glBufferData) glBufferData = (PFNGLBUFFERDATAPROC)ARGL_GET_PROC_ADDRESS("glBufferData");
+	FreeLibrary(libgl);
 
 	if (!glDeleteTextures || !glGenTextures || !glTexParameteri || !glGetString || !glViewport ||
         !glDisable || !glDrawArrays || !glGetIntegerv || !glPixelStorei || !glTexImage2D ||
@@ -535,7 +555,7 @@ int arglSetupForCurrentContextGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_
         !glEnableVertexAttribArray || !glVertexAttribPointer || !glBindVertexArray || !glGenVertexArrays || 
         !glGetUniformLocation || !glUseProgram || !glUniformMatrix4fv || !glUniform1i || !glGetStringi || 
         !glActiveTexture || !glGenBuffers ) {
-            ARLOGe("Error: a required OpenGL function counld not be bound.\n");
+            ARLOGe("arglSetupForCurrentContextGL3 error: a required OpenGL function counld not be bound.\n");
 		    return (FALSE);
     }
 #endif
