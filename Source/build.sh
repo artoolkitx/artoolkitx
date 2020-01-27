@@ -48,6 +48,9 @@ do
 		    ;;
         docs) BUILD_DOCS=1
             ;;
+        wavevr) BUILD_ANDROID=1
+            BUILD_WAVEVR=1
+            ;;
         --debug) DEBUG=
             ;;
         cmake) CMAKE_GENERATOR="$2"
@@ -209,6 +212,7 @@ fi
 if [ ! -d "depends/android/include/opencv2" ] ; then
     curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-android.tgz" -o opencv2.tgz
     tar xzf opencv2.tgz --strip-components=1 -C depends/android
+    tar xzf opencv2.tgz --strip-components=1 -C depends/android-wavevr
     rm opencv2.tgz
 fi
 
@@ -217,37 +221,50 @@ if [ ! -d "build-android" ] ; then
 fi
 cd build-android
 
-if [ -z "$ANDROID_HOME" ] ; then
-    echo "    *****
-    You need to set ANDROID_HOME to the root of your Android SDK installation to build the artoolkitX Android Java Library (ARXJ).
-    (On macOS the default is ~/Library/Android/sdk/).
-    Skipping ARXJ build.
-    *****"
-else
-    echo "Building ARXJ library as AAR"
-    cd $OURDIR
-    cd ARXJ/ARXJProj; ./gradlew -q assembleRelease;
-    cd $OURDIR
-    mkdir -p ../SDK/lib/ARXJ/
-    cp ARXJ/ARXJProj/arxj/build/outputs/aar/arxj-release.aar ../SDK/lib/ARXJ/
+if [ ! $BUILD_WAVEVR ] ; then
+    if [ -z "$ANDROID_HOME" ] ; then
+        echo "    *****
+        You need to set ANDROID_HOME to the root of your Android SDK installation to build the artoolkitX Android Java Library (ARXJ).
+        (On macOS the default is ~/Library/Android/sdk/).
+        Skipping ARXJ build.
+        *****"
+    else
+        echo "Building ARXJ library as AAR"
+        cd $OURDIR
+        cd ARXJ/ARXJProj; ./gradlew -q assembleRelease;
+        cd $OURDIR
+        mkdir -p ../SDK/lib/ARXJ/
+        cp ARXJ/ARXJProj/arxj/build/outputs/aar/arxj-release.aar ../SDK/lib/ARXJ/
 
-    if [ $BUILD_EXAMPLES ] ; then
-        echo "Building example ARSquareTracking as APK"
-        cd $OURDIR
-        cd "../Examples/Square tracking example/Android/ARSquareTracking"; ./gradlew -q assembleRelease;
-        cd $OURDIR
-        cd "../Examples/Square tracking example with OSG/Android/ARSquareTracking"; ./gradlew -q assembleRelease;
-        cd $OURDIR
-        cp -v "../Examples/Square tracking example/Android/ARSquareTracking/ARSquareTrackingExample/build/outputs/apk/release/"ARSquareTrackingExample-release-unsigned.apk ../Examples/
-        cp -v "../Examples/Square tracking example with OSG/Android/ARSquareTracking/ARSquareTrackingExample/build/outputs/apk/release/"ARSquareTrackingExample-release-unsigned.apk ../Examples/ARSquareTrackingExampleOSG-release-unsigned.apk
+        if [ $BUILD_EXAMPLES ] ; then
+            echo "Building example ARSquareTracking as APK"
+            cd $OURDIR
+            cd "../Examples/Square tracking example/Android/ARSquareTracking"; ./gradlew -q assembleRelease;
+            cd $OURDIR
+            cd "../Examples/Square tracking example with OSG/Android/ARSquareTracking"; ./gradlew -q assembleRelease;
+            cd $OURDIR
+            cp -v "../Examples/Square tracking example/Android/ARSquareTracking/ARSquareTrackingExample/build/outputs/apk/release/"ARSquareTrackingExample-release-unsigned.apk ../Examples/
+            cp -v "../Examples/Square tracking example with OSG/Android/ARSquareTracking/ARSquareTrackingExample/build/outputs/apk/release/"ARSquareTrackingExample-release-unsigned.apk ../Examples/ARSquareTrackingExampleOSG-release-unsigned.apk
         
-        echo "Building example AR2dTracking as APK"
-        cd $OURDIR
-        cd "../Examples/2d tracking example/Android/AR2DTracking_Proj"; ./gradlew -q assembleRelease;
-        cd $OURDIR
-        cp -v "../Examples/2d tracking example/Android/AR2DTracking_Proj/AR2DTrackingExample/build/outputs/apk/release/"AR2DTrackingExample-release-unsigned.apk ../Examples/
+            echo "Building example AR2dTracking as APK"
+            cd $OURDIR
+            cd "../Examples/2d tracking example/Android/AR2DTracking_Proj"; ./gradlew -q assembleRelease;
+            cd $OURDIR
+            cp -v "../Examples/2d tracking example/Android/AR2DTracking_Proj/AR2DTrackingExample/build/outputs/apk/release/"AR2DTrackingExample-release-unsigned.apk ../Examples/
 
+        fi
     fi
+else
+    cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release} \
+        -DCMAKE_TOOLCHAIN_FILE:FILEPATH=${NDK}/build/cmake/android.toolchain.cmake \
+        -DANDROID_ABI=arm64-v8a \
+        -DANDROID_NATIVE_API_LEVEL=25 \
+        -DANDROID_STL=c++_shared \
+        -DARX_TARGET_PLATFORM_VARIANT=wavevr
+    make -j $CPUS
+    make install${DEBUG-/strip}
+
+    
 fi
     
 fi

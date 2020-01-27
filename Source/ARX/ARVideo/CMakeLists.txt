@@ -78,8 +78,13 @@ add_subdirectory("Image")
 
 # Video modules for Android.
 if(ARX_TARGET_PLATFORM_ANDROID)
-    add_subdirectory("Android")
-    set(DEFINES ${DEFINES} "ARVIDEO_INPUT_DEFAULT_ANDROID")
+    if ("${ARX_TARGET_PLATFORM_VARIANT}" STREQUAL "wavevr")
+        add_subdirectory("WaveVR")
+        set(DEFINES ${DEFINES} "ARVIDEO_INPUT_DEFAULT_WAVEVR")
+    else()
+        add_subdirectory("Android")
+        set(DEFINES ${DEFINES} "ARVIDEO_INPUT_DEFAULT_ANDROID")
+    endif()
 endif()
 
 # Video modules for iOS.
