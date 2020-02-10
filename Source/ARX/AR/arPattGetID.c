@@ -107,7 +107,7 @@ static int    get_global_id_code( ARUint8 *data, uint64_t *code_out_p, int *dir,
 
 #if !AR_DISABLE_NON_CORE_FNS
 int arPattGetID( ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode,
-                 ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat,
+                 ARUint8 *image, int xsize, int ysize, int xsizePadded, AR_PIXEL_FORMAT pixelFormat,
                  int *x_coord, int *y_coord, int *vertex, ARdouble pattRatio,
                  int *code, int *dir, ARdouble *cf, const AR_MATRIX_CODE_TYPE matrixCodeType )
 {
@@ -120,7 +120,7 @@ int arPattGetID( ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode
      || pattDetectMode == AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX
      || pattDetectMode == AR_TEMPLATE_MATCHING_MONO_AND_MATRIX ) {
         arPattGetImage(imageProcMode, AR_MATRIX_CODE_DETECTION, matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK, (matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK)*AR_PATT_SAMPLE_FACTOR2,
-                       image, xsize, ysize, pixelFormat, x_coord, y_coord, vertex, pattRatio, ext_patt2);
+                       image, xsize, ysize, xsizePadded, pixelFormat, x_coord, y_coord, vertex, pattRatio, ext_patt2);
 #if DEBUG_PATT_GETID
         glPixelZoom( 4.0f, -4.0f);
         glRasterPos3f( 0.0f, (matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK)*4.0f*cnt, 1.0f );
@@ -144,11 +144,11 @@ int arPattGetID( ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode
         } else {
             if (pattDetectMode == AR_TEMPLATE_MATCHING_COLOR || pattDetectMode == AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX) {
                 arPattGetImage(imageProcMode, AR_TEMPLATE_MATCHING_COLOR, pattHandle->pattSize, pattHandle->pattSize*AR_PATT_SAMPLE_FACTOR1,
-                               image, xsize, ysize, pixelFormat, x_coord, y_coord, vertex, pattRatio, ext_patt1);
+                               image, xsize, ysize, xsizePadded, pixelFormat, x_coord, y_coord, vertex, pattRatio, ext_patt1);
                 errorCodePatt = pattern_match(pattHandle, AR_TEMPLATE_MATCHING_COLOR, ext_patt1, pattHandle->pattSize, code, dir, cf);
             } else {
                 arPattGetImage(imageProcMode, AR_TEMPLATE_MATCHING_MONO, pattHandle->pattSize, pattHandle->pattSize*AR_PATT_SAMPLE_FACTOR1,
-                               image, xsize, ysize, pixelFormat, x_coord, y_coord, vertex, pattRatio, ext_patt1);
+                               image, xsize, ysize, xsizePadded, pixelFormat, x_coord, y_coord, vertex, pattRatio, ext_patt1);
                 errorCodePatt = pattern_match(pattHandle, AR_TEMPLATE_MATCHING_MONO, ext_patt1, pattHandle->pattSize, code, dir, cf);
             }
 #if DEBUG_PATT_GETID
@@ -171,18 +171,18 @@ int arPattGetID( ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode
 }
 
 int arPattGetID2( ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode,
-                 ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *paramLTf, ARdouble vertex[4][2], ARdouble pattRatio,
+                 ARUint8 *image, int xsize, int ysize, int xsizePadded, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *paramLTf, ARdouble vertex[4][2], ARdouble pattRatio,
                  int *codePatt, int *dirPatt, ARdouble *cfPatt, int *codeMatrix, int *dirMatrix, ARdouble *cfMatrix,
                  const AR_MATRIX_CODE_TYPE matrixCodeType )
 {
-    return (arPattGetIDGlobal(pattHandle, imageProcMode, pattDetectMode, image, xsize, ysize, pixelFormat, paramLTf, vertex, pattRatio,
+    return (arPattGetIDGlobal(pattHandle, imageProcMode, pattDetectMode, image, xsize, ysize, xsizePadded, pixelFormat, paramLTf, vertex, pattRatio,
                               codePatt, dirPatt, cfPatt, codeMatrix, dirMatrix, cfMatrix,
                               matrixCodeType, NULL, NULL));
 }
 #endif // !AR_DISABLE_NON_CORE_FNS
 
 int arPattGetIDGlobal( ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode,
-                      ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *paramLTf, ARdouble vertex[4][2], ARdouble pattRatio,
+                      ARUint8 *image, int xsize, int ysize, int xsizePadded, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *paramLTf, ARdouble vertex[4][2], ARdouble pattRatio,
                       int *codePatt, int *dirPatt, ARdouble *cfPatt, int *codeMatrix, int *dirMatrix, ARdouble *cfMatrix,
                       const AR_MATRIX_CODE_TYPE matrixCodeType, int *errorCorrected, uint64_t *codeGlobalID_p )
 {
@@ -196,7 +196,7 @@ int arPattGetIDGlobal( ARPattHandle *pattHandle, int imageProcMode, int pattDete
        || pattDetectMode == AR_TEMPLATE_MATCHING_MONO_AND_MATRIX ) {
         if (matrixCodeType == AR_MATRIX_CODE_GLOBAL_ID) {
             if (arPattGetImage2(imageProcMode, AR_MATRIX_CODE_DETECTION, AR_GLOBAL_ID_OUTER_SIZE, AR_GLOBAL_ID_OUTER_SIZE * AR_PATT_SAMPLE_FACTOR2,
-                                image, xsize, ysize, pixelFormat, paramLTf, vertex, (((ARdouble)AR_GLOBAL_ID_OUTER_SIZE)/((ARdouble)(AR_GLOBAL_ID_OUTER_SIZE + 2))), ext_patt) < 0) {
+                                image, xsize, ysize, xsizePadded, pixelFormat, paramLTf, vertex, (((ARdouble)AR_GLOBAL_ID_OUTER_SIZE)/((ARdouble)(AR_GLOBAL_ID_OUTER_SIZE + 2))), ext_patt) < 0) {
                 errorCodeMtx = -6;
                 *codeMatrix = -1;
             } else {
@@ -215,7 +215,7 @@ int arPattGetIDGlobal( ARPattHandle *pattHandle, int imageProcMode, int pattDete
             }
         } else {
             if (arPattGetImage2(imageProcMode, AR_MATRIX_CODE_DETECTION, matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK, (matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK) * AR_PATT_SAMPLE_FACTOR2,
-                                image, xsize, ysize, pixelFormat, paramLTf, vertex, pattRatio, ext_patt) < 0) {
+                                image, xsize, ysize, xsizePadded, pixelFormat, paramLTf, vertex, pattRatio, ext_patt) < 0) {
                 errorCodeMtx = -6;
                 *codeMatrix = -1;
             } else {
@@ -243,7 +243,7 @@ int arPattGetIDGlobal( ARPattHandle *pattHandle, int imageProcMode, int pattDete
         } else {
             if (pattDetectMode == AR_TEMPLATE_MATCHING_COLOR || pattDetectMode == AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX) {
                 if (arPattGetImage2(imageProcMode, AR_TEMPLATE_MATCHING_COLOR, pattHandle->pattSize, pattHandle->pattSize*AR_PATT_SAMPLE_FACTOR1,
-                                    image, xsize, ysize, pixelFormat, paramLTf, vertex, pattRatio, ext_patt) < 0) {
+                                    image, xsize, ysize, xsizePadded, pixelFormat, paramLTf, vertex, pattRatio, ext_patt) < 0) {
                     errorCodePatt = -6;
                     *codePatt = -1;
                 } else {
@@ -258,7 +258,7 @@ int arPattGetIDGlobal( ARPattHandle *pattHandle, int imageProcMode, int pattDete
                 }
             } else {
                 if (arPattGetImage2(imageProcMode, AR_TEMPLATE_MATCHING_MONO, pattHandle->pattSize, pattHandle->pattSize*AR_PATT_SAMPLE_FACTOR1,
-                                    image, xsize, ysize, pixelFormat, paramLTf, vertex, pattRatio, ext_patt) < 0) {
+                                    image, xsize, ysize, xsizePadded, pixelFormat, paramLTf, vertex, pattRatio, ext_patt) < 0) {
                     errorCodePatt = -6;
                     *codePatt = -1;
                 } else {
@@ -284,7 +284,7 @@ int arPattGetIDGlobal( ARPattHandle *pattHandle, int imageProcMode, int pattDete
 
 #if !AR_DISABLE_NON_CORE_FNS
 int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sample_size,
-                    ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, int *x_coord, int *y_coord, int *vertex,
+                    ARUint8 *image, int xsize, int ysize, int xsizePadded, AR_PIXEL_FORMAT pixelFormat, int *x_coord, int *y_coord, int *vertex,
                     ARdouble pattRatio, ARUint8 *ext_patt )
 {
     ARUint32 *ext_patt2;
@@ -361,9 +361,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*3+2];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*3+1];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*3+0];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*3+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*3+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*3+0];
                     }
                 }
             }
@@ -382,9 +382,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*3+0];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*3+1];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*3+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*3+0];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*3+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*3+2];
                     }
                 }
             }
@@ -403,9 +403,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*4+2];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*4+1];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*4+0];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*4+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*4+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*4+0];
                     }
                 }
             }
@@ -424,9 +424,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*4+0];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*4+1];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*4+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*4+0];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*4+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*4+2];
                     }
                 }
             }
@@ -445,9 +445,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*4+1];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*4+2];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*4+3];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*4+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*4+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*4+3];
                     }
                 }
             }
@@ -467,9 +467,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[yc*xsize+xc];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[yc*xsize+xc];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[yc*xsize+xc];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[yc*xsizePadded+xc];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[yc*xsizePadded+xc];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[yc*xsizePadded+xc];
                     }
                 }
             }
@@ -488,9 +488,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*4+3];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*4+2];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*4+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*4+3];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*4+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*4+1];
                     }
                 }
             }
@@ -509,9 +509,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        float Cb =     (float)(image[(yc*xsize + (xc & 0xFFFE))*2 + 0] - 128); // Byte 0 of each 4-byte block for both even- and odd-numbered columns.
-                        float Yprime = (float)(image[(yc*xsize +            xc)*2 + 1] - 16);  // Byte 1 of each 4-byte block for even-numbered columns, byte 3 for odd-numbered columns.
-                        float Cr =     (float)(image[(yc*xsize + (xc & 0xFFFE))*2 + 2] - 128); // Byte 2 of each 4-byte block for both even- and odd-numbered columns.
+                        float Cb =     (float)(image[(yc*xsizePadded + (xc & 0xFFFE))*2 + 0] - 128); // Byte 0 of each 4-byte block for both even- and odd-numbered columns.
+                        float Yprime = (float)(image[(yc*xsizePadded +            xc)*2 + 1] - 16);  // Byte 1 of each 4-byte block for even-numbered columns, byte 3 for odd-numbered columns.
+                        float Cr =     (float)(image[(yc*xsizePadded + (xc & 0xFFFE))*2 + 2] - 128); // Byte 2 of each 4-byte block for both even- and odd-numbered columns.
 						// Conversion from Poynton's color FAQ http://www.poynton.com.
                         int B0 = (int)(298.082f*Yprime + 516.411f*Cb              ) >> 8;
                         int G0 = (int)(298.082f*Yprime - 100.291f*Cb - 208.120f*Cr) >> 8;
@@ -537,9 +537,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        float Yprime = (float)(image[(yc*xsize +            xc)*2 + 0] - 16);  // Byte 0 of each 4-byte block for even-numbered columns, byte 2 for odd-numbered columns.
-                        float Cb =     (float)(image[(yc*xsize + (xc & 0xFFFE))*2 + 1] - 128); // Byte 1 of each 4-byte block for both even- and odd-numbered columns.
-                        float Cr =     (float)(image[(yc*xsize + (xc & 0xFFFE))*2 + 3] - 128); // Byte 3 of each 4-byte block for both even- and odd-numbered columns.
+                        float Yprime = (float)(image[(yc*xsizePadded +            xc)*2 + 0] - 16);  // Byte 0 of each 4-byte block for even-numbered columns, byte 2 for odd-numbered columns.
+                        float Cb =     (float)(image[(yc*xsizePadded + (xc & 0xFFFE))*2 + 1] - 128); // Byte 1 of each 4-byte block for both even- and odd-numbered columns.
+                        float Cr =     (float)(image[(yc*xsizePadded + (xc & 0xFFFE))*2 + 3] - 128); // Byte 3 of each 4-byte block for both even- and odd-numbered columns.
 						// Conversion from Poynton's color FAQ http://www.poynton.com.
                         int B0 = (int)(298.082f*Yprime + 516.411f*Cb              ) >> 8;
                         int G0 = (int)(298.082f*Yprime - 100.291f*Cb - 208.120f*Cr) >> 8;
@@ -565,9 +565,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=                                            (((image[(yc*xsize+xc)*2+1] & 0x1f) << 3) + 0x04);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsize+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsize+xc)*2+1] & 0xe0) >> 3) + 0x02);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsize+xc)*2+0] & 0xf8) + 0x04);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=                                            (((image[(yc*xsizePadded+xc)*2+1] & 0x1f) << 3) + 0x04);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsizePadded+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsizePadded+xc)*2+1] & 0xe0) >> 3) + 0x02);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsizePadded+xc)*2+0] & 0xf8) + 0x04);
                     }
                 }
             }
@@ -586,9 +586,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=                                            (((image[(yc*xsize+xc)*2+1] & 0x3e) << 2) + 0x04);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsize+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsize+xc)*2+1] & 0xc0) >> 3) + 0x04);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsize+xc)*2+0] & 0xf8) + 0x04);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=                                            (((image[(yc*xsizePadded+xc)*2+1] & 0x3e) << 2) + 0x04);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsizePadded+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsizePadded+xc)*2+1] & 0xc0) >> 3) + 0x04);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsizePadded+xc)*2+0] & 0xf8) + 0x04);
                     }
                 }
             }
@@ -607,9 +607,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=  ((image[(yc*xsize+xc)*2+1] & 0xf0) + 0x08);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsize+xc)*2+0] & 0x0f) << 4) + 0x08);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsize+xc)*2+0] & 0xf0) + 0x08);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=  ((image[(yc*xsizePadded+xc)*2+1] & 0xf0) + 0x08);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsizePadded+xc)*2+0] & 0x0f) << 4) + 0x08);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsizePadded+xc)*2+0] & 0xf0) + 0x08);
                     }
                 }
             }
@@ -643,9 +643,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                             += (   image[(yc*xsize+xc)*3+0]
-                                  + image[(yc*xsize+xc)*3+1]
-                                  + image[(yc*xsize+xc)*3+2] )/3;
+                             += (   image[(yc*xsizePadded+xc)*3+0]
+                                  + image[(yc*xsizePadded+xc)*3+1]
+                                  + image[(yc*xsizePadded+xc)*3+2] )/3;
                     }
                 }
             }
@@ -665,9 +665,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                             += (   image[(yc*xsize+xc)*4+0]
-                                  + image[(yc*xsize+xc)*4+1]
-                                  + image[(yc*xsize+xc)*4+2] )/3;
+                             += (   image[(yc*xsizePadded+xc)*4+0]
+                                  + image[(yc*xsizePadded+xc)*4+1]
+                                  + image[(yc*xsizePadded+xc)*4+2] )/3;
                     }
                 }
             }
@@ -687,9 +687,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                             += (   image[(yc*xsize+xc)*4+1]
-                                  + image[(yc*xsize+xc)*4+2]
-                                  + image[(yc*xsize+xc)*4+3] )/3;
+                             += (   image[(yc*xsizePadded+xc)*4+1]
+                                  + image[(yc*xsizePadded+xc)*4+2]
+                                  + image[(yc*xsizePadded+xc)*4+3] )/3;
                     }
                 }
             }
@@ -708,7 +708,7 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[yc*xsize+xc];
+                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[yc*xsizePadded+xc];
                     }
                 }
             }
@@ -727,7 +727,7 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[(yc*xsize+xc)*2+1];
+                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[(yc*xsizePadded+xc)*2+1];
                     }
                 }
             }
@@ -746,7 +746,7 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                         yc = ((yc+1)/2)*2;
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[(yc*xsize+xc)*2];
+                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[(yc*xsizePadded+xc)*2];
                     }
                 }
             }
@@ -766,9 +766,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                        += (   ((image[(yc*xsize+xc)*2+0] & 0xf8) + 0x04)
-                            + (((image[(yc*xsize+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsize+xc)*2+1] & 0xe0) >> 3) + 0x02)
-                            + (((image[(yc*xsize+xc)*2+1] & 0x1f) << 3) + 0x04) )/3;
+                        += (   ((image[(yc*xsizePadded+xc)*2+0] & 0xf8) + 0x04)
+                            + (((image[(yc*xsizePadded+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsizePadded+xc)*2+1] & 0xe0) >> 3) + 0x02)
+                            + (((image[(yc*xsizePadded+xc)*2+1] & 0x1f) << 3) + 0x04) )/3;
                     }
                 }
             }
@@ -788,9 +788,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                        += (    ((image[(yc*xsize+xc)*2+0] & 0xf8) + 0x04)
-                             + (((image[(yc*xsize+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsize+xc)*2+1] & 0xc0) >> 3) + 0x04)
-                             + (((image[(yc*xsize+xc)*2+1] & 0x3e) << 2) + 0x04) )/3;
+                        += (    ((image[(yc*xsizePadded+xc)*2+0] & 0xf8) + 0x04)
+                             + (((image[(yc*xsizePadded+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsizePadded+xc)*2+1] & 0xc0) >> 3) + 0x04)
+                             + (((image[(yc*xsizePadded+xc)*2+1] & 0x3e) << 2) + 0x04) )/3;
                     }
                 }
             }
@@ -810,9 +810,9 @@ int arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sa
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                        += (    ((image[(yc*xsize+xc)*2+0] & 0xf0) + 0x08)
-                             + (((image[(yc*xsize+xc)*2+0] & 0x0f) << 4) + 0x08)
-                             +  ((image[(yc*xsize+xc)*2+1] & 0xf0) + 0x08) )/3;
+                        += (    ((image[(yc*xsizePadded+xc)*2+0] & 0xf0) + 0x08)
+                             + (((image[(yc*xsizePadded+xc)*2+0] & 0x0f) << 4) + 0x08)
+                             +  ((image[(yc*xsizePadded+xc)*2+1] & 0xf0) + 0x08) )/3;
                     }
                 }
             }
@@ -839,7 +839,7 @@ bail:
 #endif // !AR_DISABLE_NON_CORE_FNS
 
 int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int sample_size,
-                     ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *paramLTf,
+                     ARUint8 *image, int xsize, int ysize, int xsizePadded, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *paramLTf,
                      ARdouble vertex[4][2], ARdouble pattRatio, ARUint8 *ext_patt)
 {
     ARUint32 *ext_patt2;
@@ -929,9 +929,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*3+2];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*3+1];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*3+0];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*3+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*3+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*3+0];
                     }
                 }
             }
@@ -956,9 +956,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*3+0];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*3+1];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*3+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*3+0];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*3+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*3+2];
                     }
                 }
             }
@@ -983,9 +983,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*4+2];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*4+1];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*4+0];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*4+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*4+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*4+0];
                     }
                 }
             }
@@ -1010,9 +1010,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*4+0];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*4+1];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*4+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*4+0];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*4+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*4+2];
                     }
                 }
             }
@@ -1037,9 +1037,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*4+1];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*4+2];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*4+3];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*4+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*4+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*4+3];
                     }
                 }
             }
@@ -1065,9 +1065,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[yc*xsize+xc];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[yc*xsize+xc];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[yc*xsize+xc];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[yc*xsizePadded+xc];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[yc*xsizePadded+xc];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[yc*xsizePadded+xc];
                     }
                 }
             }
@@ -1092,9 +1092,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsize+xc)*4+3];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsize+xc)*4+2];
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsize+xc)*4+1];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] += image[(yc*xsizePadded+xc)*4+3];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += image[(yc*xsizePadded+xc)*4+2];
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] += image[(yc*xsizePadded+xc)*4+1];
                     }
                 }
             }
@@ -1119,9 +1119,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        float Cb =     (float)(image[(yc*xsize + (xc & 0xFFFE))*2 + 0] - 128); // Byte 0 of each 4-byte block for both even- and odd-numbered columns.
-                        float Yprime = (float)(image[(yc*xsize +            xc)*2 + 1] - 16);  // Byte 1 of each 4-byte block for even-numbered columns, byte 3 for odd-numbered columns.
-                        float Cr =     (float)(image[(yc*xsize + (xc & 0xFFFE))*2 + 2] - 128); // Byte 2 of each 4-byte block for both even- and odd-numbered columns.
+                        float Cb =     (float)(image[(yc*xsizePadded + (xc & 0xFFFE))*2 + 0] - 128); // Byte 0 of each 4-byte block for both even- and odd-numbered columns.
+                        float Yprime = (float)(image[(yc*xsizePadded +            xc)*2 + 1] - 16);  // Byte 1 of each 4-byte block for even-numbered columns, byte 3 for odd-numbered columns.
+                        float Cr =     (float)(image[(yc*xsizePadded + (xc & 0xFFFE))*2 + 2] - 128); // Byte 2 of each 4-byte block for both even- and odd-numbered columns.
 						// Conversion from Poynton's color FAQ http://www.poynton.com.
                         int B0 = (int)(298.082f*Yprime + 516.411f*Cb              ) >> 8;
                         int G0 = (int)(298.082f*Yprime - 100.291f*Cb - 208.120f*Cr) >> 8;
@@ -1153,9 +1153,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        float Yprime = (float)(image[(yc*xsize +            xc)*2 + 0] - 16);  // Byte 0 of each 4-byte block for even-numbered columns, byte 2 for odd-numbered columns.
-                        float Cb =     (float)(image[(yc*xsize + (xc & 0xFFFE))*2 + 1] - 128); // Byte 1 of each 4-byte block for both even- and odd-numbered columns.
-                        float Cr =     (float)(image[(yc*xsize + (xc & 0xFFFE))*2 + 3] - 128); // Byte 3 of each 4-byte block for both even- and odd-numbered columns.
+                        float Yprime = (float)(image[(yc*xsizePadded +            xc)*2 + 0] - 16);  // Byte 0 of each 4-byte block for even-numbered columns, byte 2 for odd-numbered columns.
+                        float Cb =     (float)(image[(yc*xsizePadded + (xc & 0xFFFE))*2 + 1] - 128); // Byte 1 of each 4-byte block for both even- and odd-numbered columns.
+                        float Cr =     (float)(image[(yc*xsizePadded + (xc & 0xFFFE))*2 + 3] - 128); // Byte 3 of each 4-byte block for both even- and odd-numbered columns.
 						// Conversion from Poynton's color FAQ http://www.poynton.com.
                         int B0 = (int)(298.082f*Yprime + 516.411f*Cb              ) >> 8;
                         int G0 = (int)(298.082f*Yprime - 100.291f*Cb - 208.120f*Cr) >> 8;
@@ -1187,9 +1187,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=                                            (((image[(yc*xsize+xc)*2+1] & 0x1f) << 3) + 0x04);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsize+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsize+xc)*2+1] & 0xe0) >> 3) + 0x02);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsize+xc)*2+0] & 0xf8) + 0x04);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=                                            (((image[(yc*xsizePadded+xc)*2+1] & 0x1f) << 3) + 0x04);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsizePadded+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsizePadded+xc)*2+1] & 0xe0) >> 3) + 0x02);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsizePadded+xc)*2+0] & 0xf8) + 0x04);
                     }
                 }
             }
@@ -1214,9 +1214,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=                                            (((image[(yc*xsize+xc)*2+1] & 0x3e) << 2) + 0x04);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsize+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsize+xc)*2+1] & 0xc0) >> 3) + 0x04);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsize+xc)*2+0] & 0xf8) + 0x04);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=                                            (((image[(yc*xsizePadded+xc)*2+1] & 0x3e) << 2) + 0x04);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsizePadded+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsizePadded+xc)*2+1] & 0xc0) >> 3) + 0x04);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsizePadded+xc)*2+0] & 0xf8) + 0x04);
                     }
                 }
             }
@@ -1241,9 +1241,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=  ((image[(yc*xsize+xc)*2+1] & 0xf0) + 0x08);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsize+xc)*2+0] & 0x0f) << 4) + 0x08);
-                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsize+xc)*2+0] & 0xf0) + 0x08);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+0] +=  ((image[(yc*xsizePadded+xc)*2+1] & 0xf0) + 0x08);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+1] += (((image[(yc*xsizePadded+xc)*2+0] & 0x0f) << 4) + 0x08);
+                        ext_patt2[((j/ydiv)*patt_size+(i/xdiv))*3+2] +=  ((image[(yc*xsizePadded+xc)*2+0] & 0xf0) + 0x08);
                     }
                 }
             }
@@ -1283,9 +1283,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                             += (   image[(yc*xsize+xc)*3+0]
-                                  + image[(yc*xsize+xc)*3+1]
-                                  + image[(yc*xsize+xc)*3+2] )/3;
+                             += (   image[(yc*xsizePadded+xc)*3+0]
+                                  + image[(yc*xsizePadded+xc)*3+1]
+                                  + image[(yc*xsizePadded+xc)*3+2] )/3;
                     }
                 }
             }
@@ -1311,9 +1311,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                             += (   image[(yc*xsize+xc)*4+0]
-                                  + image[(yc*xsize+xc)*4+1]
-                                  + image[(yc*xsize+xc)*4+2] )/3;
+                             += (   image[(yc*xsizePadded+xc)*4+0]
+                                  + image[(yc*xsizePadded+xc)*4+1]
+                                  + image[(yc*xsizePadded+xc)*4+2] )/3;
                     }
                 }
             }
@@ -1339,9 +1339,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                             += (   image[(yc*xsize+xc)*4+1]
-                                  + image[(yc*xsize+xc)*4+2]
-                                  + image[(yc*xsize+xc)*4+3] )/3;
+                             += (   image[(yc*xsizePadded+xc)*4+1]
+                                  + image[(yc*xsizePadded+xc)*4+2]
+                                  + image[(yc*xsizePadded+xc)*4+3] )/3;
                     }
                 }
             }
@@ -1366,7 +1366,7 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[yc*xsize+xc];
+                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[yc*xsizePadded+xc];
                     }
                 }
             }
@@ -1391,7 +1391,7 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[(yc*xsize+xc)*2+1];
+                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[(yc*xsizePadded+xc)*2+1];
                     }
                 }
             }
@@ -1416,7 +1416,7 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                         yc = (int)(yc2+0.5f);
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
-                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[(yc*xsize+xc)*2];
+                        ext_patt2[(j/ydiv)*patt_size+(i/xdiv)] += image[(yc*xsizePadded+xc)*2];
                     }
                 }
             }
@@ -1442,9 +1442,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                        += (   ((image[(yc*xsize+xc)*2+0] & 0xf8) + 0x04)
-                            + (((image[(yc*xsize+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsize+xc)*2+1] & 0xe0) >> 3) + 0x02)
-                            + (((image[(yc*xsize+xc)*2+1] & 0x1f) << 3) + 0x04) )/3;
+                        += (   ((image[(yc*xsizePadded+xc)*2+0] & 0xf8) + 0x04)
+                            + (((image[(yc*xsizePadded+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsizePadded+xc)*2+1] & 0xe0) >> 3) + 0x02)
+                            + (((image[(yc*xsizePadded+xc)*2+1] & 0x1f) << 3) + 0x04) )/3;
                     }
                 }
             }
@@ -1470,9 +1470,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                        += (    ((image[(yc*xsize+xc)*2+0] & 0xf8) + 0x04)
-                            + (((image[(yc*xsize+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsize+xc)*2+1] & 0xc0) >> 3) + 0x04)
-                            + (((image[(yc*xsize+xc)*2+1] & 0x3e) << 2) + 0x04) )/3;
+                        += (    ((image[(yc*xsizePadded+xc)*2+0] & 0xf8) + 0x04)
+                            + (((image[(yc*xsizePadded+xc)*2+0] & 0x07) << 5) + ((image[(yc*xsizePadded+xc)*2+1] & 0xc0) >> 3) + 0x04)
+                            + (((image[(yc*xsizePadded+xc)*2+1] & 0x3e) << 2) + 0x04) )/3;
                     }
                 }
             }
@@ -1498,9 +1498,9 @@ int arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int s
                     }
                     if( xc >= 0 && xc < xsize && yc >= 0 && yc < ysize ) {
                         ext_patt2[(j/ydiv)*patt_size+(i/xdiv)]
-                        += (    ((image[(yc*xsize+xc)*2+0] & 0xf0) + 0x08)
-                            + (((image[(yc*xsize+xc)*2+0] & 0x0f) << 4) + 0x08)
-                            +  ((image[(yc*xsize+xc)*2+1] & 0xf0) + 0x08) )/3;
+                        += (    ((image[(yc*xsizePadded+xc)*2+0] & 0xf0) + 0x08)
+                            + (((image[(yc*xsizePadded+xc)*2+0] & 0x0f) << 4) + 0x08)
+                            +  ((image[(yc*xsizePadded+xc)*2+1] & 0xf0) + 0x08) )/3;
                     }
                 }
             }
@@ -1536,11 +1536,12 @@ int arPattGetImage3( ARHandle *arHandle, int markerNo, ARUint8 *image, ARPattRec
     ARdouble  d, xw, yw;
     float     xc2, yc2;
     int       xc, yc;
-    int       xsize2, ysize2;
+    int       xsize2, ysize2, xsizePadded2;
     int       i, j;
 
     xsize2 = arHandle->xsize;
     ysize2 = arHandle->ysize;
+    xsizePadded2 = arHandle->xsizePadded;
     world[0][0] = _100_0;
     world[0][1] = _100_0;
     world[1][0] = _100_0 + _10_0;
@@ -1576,9 +1577,9 @@ int arPattGetImage3( ARHandle *arHandle, int markerNo, ARUint8 *image, ARPattRec
                 xc = (int)(xc2+0.5f);
                 yc = (int)(yc2+0.5f);
                 if( xc < 0 || xc >= xsize2 || yc < 0 || yc >= ysize2 ) { free(tempImage); return -1; }
-                tempImage[((j/ydiv)*xsize+(i/xdiv))*3+0] += image[(yc*xsize2+xc)*3+0];
-                tempImage[((j/ydiv)*xsize+(i/xdiv))*3+1] += image[(yc*xsize2+xc)*3+1];
-                tempImage[((j/ydiv)*xsize+(i/xdiv))*3+2] += image[(yc*xsize2+xc)*3+2];
+                tempImage[((j/ydiv)*xsize+(i/xdiv))*3+0] += image[(yc*xsizePadded2+xc)*3+0];
+                tempImage[((j/ydiv)*xsize+(i/xdiv))*3+1] += image[(yc*xsizePadded2+xc)*3+1];
+                tempImage[((j/ydiv)*xsize+(i/xdiv))*3+2] += image[(yc*xsizePadded2+xc)*3+2];
             }
         }
         for( i = 0; i < xsize*ysize*3; i++ ) {
@@ -1603,10 +1604,10 @@ int arPattGetImage3( ARHandle *arHandle, int markerNo, ARUint8 *image, ARPattRec
                 xc = (int)(xc2+0.5f);
                 yc = (int)(yc2+0.5f);
                 if( xc < 0 || xc >= xsize2 || yc < 0 || yc >= ysize2 ) { free(tempImage); return -1; }
-                tempImage[((j/ydiv)*xsize+(i/xdiv))*4+0] += image[(yc*xsize2+xc)*4+0];
-                tempImage[((j/ydiv)*xsize+(i/xdiv))*4+1] += image[(yc*xsize2+xc)*4+1];
-                tempImage[((j/ydiv)*xsize+(i/xdiv))*4+2] += image[(yc*xsize2+xc)*4+2];
-                tempImage[((j/ydiv)*xsize+(i/xdiv))*4+3] += image[(yc*xsize2+xc)*4+3];
+                tempImage[((j/ydiv)*xsize+(i/xdiv))*4+0] += image[(yc*xsizePadded2+xc)*4+0];
+                tempImage[((j/ydiv)*xsize+(i/xdiv))*4+1] += image[(yc*xsizePadded2+xc)*4+1];
+                tempImage[((j/ydiv)*xsize+(i/xdiv))*4+2] += image[(yc*xsizePadded2+xc)*4+2];
+                tempImage[((j/ydiv)*xsize+(i/xdiv))*4+3] += image[(yc*xsizePadded2+xc)*4+3];
             }
         }
         for( i = 0; i < xsize*ysize*4; i++ ) {
@@ -1631,7 +1632,7 @@ int arPattGetImage3( ARHandle *arHandle, int markerNo, ARUint8 *image, ARPattRec
                 xc = (int)(xc2+0.5f);
                 yc = (int)(yc2+0.5f);
                 if( xc < 0 || xc >= xsize2 || yc < 0 || yc >= ysize2 ) { free(tempImage); return -1; }
-                tempImage[(j/ydiv)*xsize+(i/xdiv)] += image[yc*xsize2+xc];
+                tempImage[(j/ydiv)*xsize+(i/xdiv)] += image[yc*xsizePadded2+xc];
             }
         }
         for( i = 0; i < xsize*ysize; i++ ) {

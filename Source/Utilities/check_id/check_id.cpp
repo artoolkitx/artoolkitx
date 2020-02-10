@@ -340,11 +340,11 @@ int main(int argc, char *argv[])
                         if (matrixCodeType == AR_MATRIX_CODE_GLOBAL_ID) {
                             gDrawPatternSize = 14;
                             arPattGetImage2(imageProcMode, AR_MATRIX_CODE_DETECTION, gDrawPatternSize, gDrawPatternSize * AR_PATT_SAMPLE_FACTOR2,
-                                            image->buff, gARHandle->xsize, gARHandle->ysize, gARHandle->arPixelFormat, &gARHandle->arParamLT->paramLTf, vertexUpright, (ARdouble)14/(ARdouble)(14 + 2), ext_patt);
+                                            image->buff, gARHandle->xsize, gARHandle->ysize, gARHandle->xsizePadded, gARHandle->arPixelFormat, &gARHandle->arParamLT->paramLTf, vertexUpright, (ARdouble)14/(ARdouble)(14 + 2), ext_patt);
                         } else {
                             gDrawPatternSize = matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK;
                             arPattGetImage2(imageProcMode, AR_MATRIX_CODE_DETECTION, gDrawPatternSize, gDrawPatternSize * AR_PATT_SAMPLE_FACTOR2,
-                                            image->buff, gARHandle->xsize, gARHandle->ysize, gARHandle->arPixelFormat, &gARHandle->arParamLT->paramLTf, vertexUpright, pattRatio, ext_patt);
+                                            image->buff, gARHandle->xsize, gARHandle->ysize, gARHandle->xsizePadded, gARHandle->arPixelFormat, &gARHandle->arParamLT->paramLTf, vertexUpright, pattRatio, ext_patt);
                         }
                     } else {
                         gDrawPatternSize = 0;

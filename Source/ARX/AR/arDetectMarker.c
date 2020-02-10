@@ -90,9 +90,9 @@ cnt = 0;
             thresholds[2] = arHandle->arLabelingThresh;
             
             for (i = 0; i < 3; i++) {
-                if (arLabeling(frame->buffLuma, arHandle->xsize, arHandle->ysize, arHandle->arDebug, arHandle->arLabelingMode, thresholds[i], arHandle->arImageProcMode, &(arHandle->labelInfo), NULL) < 0) return -1;
+                if (arLabeling(frame->buffLuma, arHandle->xsize, arHandle->ysize, arHandle->xsizePadded, arHandle->arDebug, arHandle->arLabelingMode, thresholds[i], arHandle->arImageProcMode, &(arHandle->labelInfo), NULL) < 0) return -1;
                 if (arDetectMarker2(arHandle->xsize, arHandle->ysize, &(arHandle->labelInfo), arHandle->arImageProcMode, arHandle->areaMax, arHandle->areaMin, arHandle->squareFitThresh, arHandle->markerInfo2, &(arHandle->marker2_num)) < 0) return -1;
-                if (arGetMarkerInfo(frame->buff, arHandle->xsize, arHandle->ysize, arHandle->arPixelFormat, arHandle->markerInfo2, arHandle->marker2_num, arHandle->pattHandle, arHandle->arImageProcMode, arHandle->arPatternDetectionMode, &(arHandle->arParamLT->paramLTf), arHandle->pattRatio, arHandle->markerInfo, &(arHandle->marker_num), arHandle->matrixCodeType) < 0) return -1;
+                if (arGetMarkerInfo(frame->buff, arHandle->xsize, arHandle->ysize, arHandle->xsizePadded, arHandle->arPixelFormat, arHandle->markerInfo2, arHandle->marker2_num, arHandle->pattHandle, arHandle->arImageProcMode, arHandle->arPatternDetectionMode, &(arHandle->arParamLT->paramLTf), arHandle->pattRatio, arHandle->markerInfo, &(arHandle->marker_num), arHandle->matrixCodeType) < 0) return -1;
                 marker_nums[i] = 0;
                 for (j = 0; j < arHandle->marker_num; j++) if (arHandle->markerInfo[j].idPatt != -1 || arHandle->markerInfo[j].idMatrix != -1) marker_nums[i]++;
             }
@@ -135,7 +135,7 @@ cnt = 0;
             ret = arImageProcLumaHistAndBoxFilterWithBias(arHandle->arImageProcInfo, frame->buffLuma, arHandle->arLabelingThreshAutoAdaptiveKernelSize, arHandle->arLabelingThreshAutoAdaptiveBias);
             if (ret < 0) return (ret);
             
-            ret = arLabeling(frame->buffLuma, arHandle->arImageProcInfo->imageX, arHandle->arImageProcInfo->imageY,
+            ret = arLabeling(frame->buffLuma, arHandle->xsize, arHandle->ysize, arHandle->xsizePadded,
                              arHandle->arDebug, arHandle->arLabelingMode,
                              0, AR_IMAGE_PROC_FRAME_IMAGE,
                              &(arHandle->labelInfo), arHandle->arImageProcInfo->image2);
@@ -159,7 +159,7 @@ cnt = 0;
                 }
             }
             
-            if( arLabeling(frame->buffLuma, arHandle->xsize, arHandle->ysize,
+            if( arLabeling(frame->buffLuma, arHandle->xsize, arHandle->ysize, arHandle->xsizePadded,
                            arHandle->arDebug, arHandle->arLabelingMode,
                            arHandle->arLabelingThresh, arHandle->arImageProcMode,
                            &(arHandle->labelInfo), NULL) < 0 ) {
@@ -175,7 +175,7 @@ cnt = 0;
             return -1;
         }
         
-        if( arGetMarkerInfo(frame->buff, arHandle->xsize, arHandle->ysize, arHandle->arPixelFormat,
+        if( arGetMarkerInfo(frame->buff, arHandle->xsize, arHandle->ysize, arHandle->xsizePadded, arHandle->arPixelFormat,
                             arHandle->markerInfo2, arHandle->marker2_num,
                             arHandle->pattHandle, arHandle->arImageProcMode,
                             arHandle->arPatternDetectionMode, &(arHandle->arParamLT->paramLTf), arHandle->pattRatio,

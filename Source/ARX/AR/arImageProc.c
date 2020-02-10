@@ -42,13 +42,14 @@
 #  include <Accelerate/Accelerate.h>
 #endif
 
-ARImageProcInfo *arImageProcInit(const int xsize, const int ysize)
+ARImageProcInfo *arImageProcInit(const int xsize, const int ysize, const int xsizePadded)
 {
     ARImageProcInfo *ipi = (ARImageProcInfo *)malloc(sizeof(ARImageProcInfo));
     if (ipi) {
         ipi->image2 = NULL;
         ipi->imageX = xsize;
         ipi->imageY = ysize;
+        ipi->imageXPadded = xsizePadded;
 #if AR_IMAGEPROC_USE_VIMAGE
         ipi->tempBuffer = NULL;
 #endif
@@ -72,15 +73,19 @@ int arImageProcLumaHist(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr)
 
 #ifdef AR_IMAGEPROC_USE_VIMAGE
     vImage_Error err;
-    vImage_Buffer buf = {(void *)dataPtr, ipi->imageY, ipi->imageX, ipi->imageX};
+    vImage_Buffer buf = {(void *)dataPtr, ipi->imageY, ipi->imageX, ipi->imageXPadded};
     if ((err = vImageHistogramCalculation_Planar8(&buf, ipi->histBins, 0)) != kvImageNoError) {
         ARLOGe("arImageProcLumaHist(): vImageHistogramCalculation_Planar8 error %ld.\n", err);
         return (-1);
     }
 #else
-    unsigned char *__restrict p;
+    int j;
     memset(ipi->histBins, 0, sizeof(ipi->histBins));
-    for (p = (unsigned char *__restrict)dataPtr; p < dataPtr + ipi->imageX*ipi->imageY; p++) ipi->histBins[*p]++;
+    for (j = 0; j < ipi->imageY; j++) {
+        unsigned char *__restrict p0 = (unsigned char *__restrict)dataPtr + j*ipi->imageXPadded;
+        unsigned char *__restrict p;
+        for (p = p0; p < p0 + ipi->imageX; p++) ipi->histBins[*p]++;
+    }
 #endif // AR_IMAGEPROC_USE_VIMAGE
     
     return (0);
@@ -201,7 +206,7 @@ int arImageProcLumaHistAndOtsu(ARImageProcInfo *ipi, const ARUint8 *__restrict d
 
 int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr, const int boxSize, const int bias)
 {
-    int ret, i;
+    int ret, i, j;
 #if !AR_IMAGEPROC_USE_VIMAGE
     int j, kernelSizeHalf;
 #endif
@@ -210,13 +215,13 @@ int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8 
     if (ret < 0) return (ret);
     
     if (!ipi->image2) {
-        ipi->image2 = (unsigned char *)malloc(ipi->imageX * ipi->imageY * sizeof(unsigned char));
+        ipi->image2 = (unsigned char *)malloc(ipi->imageY * ipi->imageXPadded);
         if (!ipi->image2) return (-1);
     }
 #if AR_IMAGEPROC_USE_VIMAGE
     vImage_Error err;
-    vImage_Buffer src = {(void *)dataPtr, ipi->imageY, ipi->imageX, ipi->imageX};
-    vImage_Buffer dest = {ipi->image2, ipi->imageY, ipi->imageX, ipi->imageX};
+    vImage_Buffer src = {(void *)dataPtr, ipi->imageY, ipi->imageX, ipi->imageXPadded};
+    vImage_Buffer dest = {ipi->image2, ipi->imageY, ipi->imageX, ipi->imageXPadded};
     if (!ipi->tempBuffer) {
         // Request size of buffer, and allocate.
         if ((err = vImageBoxConvolve_Planar8(&src, &dest, NULL, 0, 0, boxSize, boxSize, '\0', kvImageTruncateKernel | kvImageGetTempBufferSize)) < 0) return (-1);
@@ -239,15 +244,21 @@ int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8 
                 for (kernel_i = -kernelSizeHalf; kernel_i <= kernelSizeHalf; kernel_i++) {
                     ii = i + kernel_i;
                     if (ii < 0 || ii >= ipi->imageX) continue;
-                    val += dataPtr[ii + jj*(ipi->imageX)];
+                    val += dataPtr[ii + jj*ipi->imageXPadded];
                     count++;
                 }
             }
-            ipi->image2[i + j*(ipi->imageX)] = val / count;
+            ipi->image2[i + j*ipi->imageXPadded] = val / count;
         }
     }
 #endif
-    if (bias) for (i = 0; i < ipi->imageX*ipi->imageY; i++) ipi->image2[i] += bias;
+    if (bias) {
+        for (j = 0; j < ipi->imageY; j++) {
+             for (i = 0; i < ipi->imageX; i++) {
+                 ipi->image2[i + j*ipi->imageXPadded] += bias;
+             }
+        }
+    }
     return (0);
 }
 

@@ -53,23 +53,23 @@ extern "C" {
     (R|I) - FRAME_IMAGE|!FRAME_IMAGE
  */
 
-int arLabelingSubDBIC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo );
-int arLabelingSubDBRC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo );
-int arLabelingSubDWIC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo );
-int arLabelingSubDWRC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo );
+int arLabelingSubDBIC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo );
+int arLabelingSubDBRC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo );
+int arLabelingSubDWIC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo );
+int arLabelingSubDWRC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo );
 #if !AR_DISABLE_LABELING_DEBUG_MODE
-int arLabelingSubEBIC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo );
-int arLabelingSubEBRC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo );
-int arLabelingSubEWIC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo );
-int arLabelingSubEWRC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo );
+int arLabelingSubEBIC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo );
+int arLabelingSubEBRC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo );
+int arLabelingSubEWIC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo );
+int arLabelingSubEWRC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo );
 #endif
 
 /*  Adaptive */
 
-int arLabelingSubDBZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo );
-int arLabelingSubDWZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo );
-int arLabelingSubEBZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo );
-int arLabelingSubEWZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo );
+int arLabelingSubDBZ( ARUint8 *image, const int xsize, const int ysize, const int xsizePadded, ARUint8* image_thresh, ARLabelInfo *labelInfo );
+int arLabelingSubDWZ( ARUint8 *image, const int xsize, const int ysize, const int xsizePadded, ARUint8* image_thresh, ARLabelInfo *labelInfo );
+int arLabelingSubEBZ( ARUint8 *image, const int xsize, const int ysize, const int xsizePadded, ARUint8* image_thresh, ARLabelInfo *labelInfo );
+int arLabelingSubEWZ( ARUint8 *image, const int xsize, const int ysize, const int xsizePadded, ARUint8* image_thresh, ARLabelInfo *labelInfo );
 
 #ifdef __cplusplus
 }

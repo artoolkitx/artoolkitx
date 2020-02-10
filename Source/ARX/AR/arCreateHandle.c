@@ -78,6 +78,7 @@ ARHandle *arCreateHandle(ARParamLT *paramLT)
     handle->arParamLT           = paramLT;
     handle->xsize               = paramLT->param.xsize;
     handle->ysize               = paramLT->param.ysize;
+    handle->xsizePadded         = paramLT->param.xsize; // Default to tightly-packed rows.
 
     handle->marker_num          = 0;
     handle->marker2_num         = 0;
@@ -196,7 +197,7 @@ void arSetLabelingThreshMode(ARHandle *handle, const AR_LABELING_THRESH_MODE mod
             case AR_LABELING_THRESH_MODE_AUTO_MEDIAN:
             case AR_LABELING_THRESH_MODE_AUTO_OTSU:
             case AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE:
-                handle->arImageProcInfo = arImageProcInit(handle->xsize, handle->ysize);
+                handle->arImageProcInfo = arImageProcInit(handle->xsize, handle->ysize, handle->xsizePadded);
                 break;
             case AR_LABELING_THRESH_MODE_AUTO_BRACKETING:
                 handle->arLabelingThreshAutoBracketOver = handle->arLabelingThreshAutoBracketUnder = 1;
@@ -440,6 +441,33 @@ int arGetPixelFormat(ARHandle *handle)
     if (!handle) return (AR_PIXEL_FORMAT_INVALID);
 
     return (handle->arPixelFormat);
+}
+
+void arSetImageSize(ARHandle *handle, int xsize, int ysize, int xsizePadded)
+{
+    if (!handle) return;
+    int internalSizeChanged = handle->xsize != xsize || handle->ysize != ysize;
+    int externalSizeChanged = handle->xsizePadded != xsizePadded || handle->ysize != ysize;
+    handle->xsize = xsize;
+    handle->ysize = ysize;
+    handle->xsizePadded = xsizePadded;
+    if (internalSizeChanged) {
+        free(handle->labelInfo.labelImage);
+        arMalloc(handle->labelInfo.labelImage, AR_LABELING_LABEL_TYPE, handle->xsize*handle->ysize);
+#if !AR_DISABLE_LABELING_DEBUG_MODE
+        if (arGetDebugMode(handle) == AR_DEBUG_ENABLE) {
+            free(handle->labelInfo.bwImage);
+            arMalloc(handle->labelInfo.bwImage, ARUint8, handle->xsize * handle->ysize);
+        }
+#endif
+    }
+    if (externalSizeChanged) {
+        AR_LABELING_THRESH_MODE mode = arGetLabelingThreshMode(handle);
+        if (mode == AR_LABELING_THRESH_MODE_AUTO_MEDIAN || mode == AR_LABELING_THRESH_MODE_AUTO_OTSU || mode == AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE) {
+            arImageProcFinal(handle->arImageProcInfo);
+            handle->arImageProcInfo = arImageProcInit(handle->xsize, handle->ysize, handle->xsizePadded);
+        }
+    }
 }
 
 void arSetCornerRefinementMode(ARHandle *handle, int mode)

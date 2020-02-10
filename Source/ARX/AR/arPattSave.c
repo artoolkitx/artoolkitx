@@ -39,7 +39,7 @@
 #include <stdio.h>
 #include <ARX/AR/ar.h>
 
-int arPattSave( ARUint8 *image, int xsize, int ysize, int pixelFormat, ARParamLTf *paramLTf,
+int arPattSave( ARUint8 *image, int xsize, int ysize, int xsizePadded, int pixelFormat, ARParamLTf *paramLTf,
                 int imageProcMode, ARMarkerInfo *marker_info, ARdouble pattRatio, int pattSize, const char *filename )
 {
     FILE      *fp;
@@ -57,7 +57,7 @@ int arPattSave( ARUint8 *image, int xsize, int ysize, int pixelFormat, ARParamLT
             vertex[k][1] = marker_info->vertex[(k+j+2)%4][1];
         }
         arPattGetImage2( imageProcMode, AR_TEMPLATE_MATCHING_COLOR, pattSize, pattSize*AR_PATT_SAMPLE_FACTOR1,
-                         image, xsize, ysize, pixelFormat, paramLTf, vertex, pattRatio, ext_pat[j] );
+                         image, xsize, ysize, xsizePadded, pixelFormat, paramLTf, vertex, pattRatio, ext_pat[j] );
     }
 
     fp = fopen( filename, "w" );

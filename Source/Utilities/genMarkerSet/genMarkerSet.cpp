@@ -684,7 +684,7 @@ static void saveFiles(void)
         arUtilGetDirectoryNameFromPath(path, inputFilePath, sizeof(path), 1);
         pathLen = strlen(path);
         snprintf(path + pathLen, sizeof(path) - pathLen, "%s-%02d.%s", basename, co, patternExt);
-        if (arPattSave(image.buff, imageWidth, imageHeight, imagePixelFormat, &(cparamLT->paramLTf), AR_IMAGE_PROC_FRAME_IMAGE, *it, arGetPattRatio(gARHandle), gPattSize, path) < 0) {
+        if (arPattSave(image.buff, imageWidth, imageHeight, imageWidth, imagePixelFormat, &(cparamLT->paramLTf), AR_IMAGE_PROC_FRAME_IMAGE, *it, arGetPattRatio(gARHandle), gPattSize, path) < 0) {
             ARPRINTE("Error saving pattern file '%s'.\n", path);
             ret = -1;
             goto done;

@@ -69,6 +69,7 @@ struct _ARImageProcInfo {
     unsigned char *__restrict image2;   ///< Extra buffer, allocated as required.
     int imageX;                         ///< Width of image buffer.
     int imageY;                         ///< Height of image buffer.
+    int imageXPadded;                   ///< Width of image buffer including any extra padding on the ends of rows.
     unsigned long histBins[256];        ///< Luminance histogram.
     unsigned long cdfBins[256];         ///< Luminance cumulative density function.
     unsigned char min;                  ///< Minimum luminance.
@@ -97,12 +98,13 @@ extern "C" {
         that will be processed is fixed by this call.
     @param xsize Width of the images that will be processed, in pixels.
     @param ysize Height of the images that will be processed, in pixels.
+    @param xsizePadded Width of the images that will be processed, plus any padding, in pixels.
     @result Pointer to the ARImageProcInfo structure. When processing
         is complete, this structure should be disposed of by calling
         arImageProcFinal.
     @see arImageProcFinal
  */
-ARImageProcInfo *arImageProcInit(const int xsize, const int ysize);
+ARImageProcInfo *arImageProcInit(const int xsize, const int ysize, const int xsizePadded);
 
 /*!
     @brief Finish image processing and free memory.

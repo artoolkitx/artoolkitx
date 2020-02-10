@@ -350,6 +350,7 @@ typedef struct {
     ARParamLT         *arParamLT;
     int                xsize;
     int                ysize;
+    int                xsizePadded;
     int                marker_num;
     ARMarkerInfo       markerInfo[AR_SQUARE_MAX];
     int                marker2_num;
@@ -919,7 +920,7 @@ AR_EXTERN ARMarkerInfo  *arGetMarker( ARHandle *arHandle );
 
 /* ------------------------------ */
 
-AR_EXTERN int            arLabeling( ARUint8 *imageLuma, int xsize, int ysize,
+AR_EXTERN int            arLabeling( ARUint8 *imageLuma, int xsize, int ysize, int xsizePadded,
                            int debugMode, int labelingMode, int labelingThresh, int imageProcMode,
                            ARLabelInfo *labelInfo, ARUint8 *image_thresh );
 AR_EXTERN int            arDetectMarker2( int xsize, int ysize, ARLabelInfo *labelInfo, int imageProcMode,
@@ -934,6 +935,7 @@ AR_EXTERN int            arDetectMarker2( int xsize, int ysize, ARLabelInfo *lab
     @param      image Image in which squares were detected.
     @param      xsize Horizontal dimension of image, in pixels.
     @param      ysize Vertical dimension of image, in pixels.
+    @param      xsizePadded Horizontal dimension of image, including any padding, in pixels.
     @param      pixelFormat Format of pixels in image. See &lt;AR/config.h&gt; for values.
     @param      markerInfo2 Pointer to an array of ARMarkerInfo2 structures holding information on detected squares which are candidates for marker matching.
     @param      marker2_num Size of markerInfo2 array.
@@ -948,7 +950,7 @@ AR_EXTERN int            arDetectMarker2( int xsize, int ysize, ARLabelInfo *lab
     @result     0 in case of no error, or -1 otherwise.
     @see    arParamLTCreate
  */
-AR_EXTERN int            arGetMarkerInfo( ARUint8 *image, int xsize, int ysize, int pixelFormat,
+AR_EXTERN int            arGetMarkerInfo( ARUint8 *image, int xsize, int ysize, int xsizePadded, int pixelFormat,
                                 ARMarkerInfo2 *markerInfo2, int marker2_num,
                                 ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode, ARParamLTf *arParamLTf, ARdouble pattRatio,
                                 ARMarkerInfo *markerInfo, int *marker_num,
@@ -1055,6 +1057,7 @@ AR_EXTERN int arPattLoadFromBuffer(ARPattHandle *pattHandle, const char *buffer)
     @param      image (description)
 	@param      xsize (description)
 	@param      ysize (description)
+    @param      xsizePadded (description)
 	@param      pixelFormat (description)
 	@param      paramLTf (description)
 	@param      imageProcMode (description)
@@ -1064,7 +1067,7 @@ AR_EXTERN int arPattLoadFromBuffer(ARPattHandle *pattHandle, const char *buffer)
 	@param      filename (description)
     @result     (description)
  */
-AR_EXTERN int arPattSave( ARUint8 *image, int xsize, int ysize, int pixelFormat, ARParamLTf *paramLTf,
+AR_EXTERN int arPattSave( ARUint8 *image, int xsize, int ysize, int xsizePadded, int pixelFormat, ARParamLTf *paramLTf,
                 int imageProcMode, ARMarkerInfo *marker_info, ARdouble pattRatio, int pattSize, const char *filename );
 
 /*!
@@ -1143,11 +1146,11 @@ AR_EXTERN int arPattDetach(ARHandle *arHandle);
 
 #if !AR_DISABLE_NON_CORE_FNS
 AR_EXTERN int            arPattGetID( ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode,
-                            ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat,
+                            ARUint8 *image, int xsize, int ysize, int xsizePadded, AR_PIXEL_FORMAT pixelFormat,
                             int *x_coord, int *y_coord, int *vertex, ARdouble pattRatio,
                             int *code, int *dir, ARdouble *cf, const AR_MATRIX_CODE_TYPE matrixCodeType );
 AR_EXTERN int            arPattGetImage( int imageProcMode, int pattDetectMode, int patt_size, int sample_size,
-                              ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat,
+                              ARUint8 *image, int xsize, int ysize, int xsizePadded, AR_PIXEL_FORMAT pixelFormat,
                               int *x_coord, int *y_coord, int *vertex, ARdouble pattRatio,
                               ARUint8 *ext_patt );
 
@@ -1159,6 +1162,7 @@ AR_EXTERN int            arPattGetImage( int imageProcMode, int pattDetectMode, 
     @param      image Pointer to packed raw image data.
     @param      xsize Horizontal pixel dimension of raw image data.
     @param      ysize Vertical pixel dimension of raw image data.
+    @param      xsizePadded Horizontal dimension of raw image data, including any padding, in pixels.
     @param      pixelFormat Pixel format of raw image data.
     @param      arParamLTf Lookup table for the camera parameters for the optical source from which the image was acquired. See arParamLTCreate.
     @param      vertex 4x2 array of points which correspond to the x and y locations of the corners of the detected marker square.
@@ -1174,7 +1178,7 @@ AR_EXTERN int            arPattGetImage( int imageProcMode, int pattDetectMode, 
     @see    arParamLTCreate
  */
 AR_EXTERN int            arPattGetID2( ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode,
-                             ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *arParamLTf, ARdouble vertex[4][2], ARdouble pattRatio,
+                             ARUint8 *image, int xsize, int ysize, int xsizePadded, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *arParamLTf, ARdouble vertex[4][2], ARdouble pattRatio,
                              int *codePatt, int *dirPatt, ARdouble *cfPatt, int *codeMatrix, int *dirMatrix, ARdouble *cfMatrix,
                              const AR_MATRIX_CODE_TYPE matrixCodeType );
 #endif // !AR_DISABLE_NON_CORE_FNS
@@ -1187,6 +1191,7 @@ AR_EXTERN int            arPattGetID2( ARPattHandle *pattHandle, int imageProcMo
     @param      image Pointer to packed raw image data.
     @param      xsize Horizontal pixel dimension of raw image data.
     @param      ysize Vertical pixel dimension of raw image data.
+    @param      xsizePadded Horizontal dimension of raw image data, including any padding, in pixels.
     @param      pixelFormat Pixel format of raw image data.
     @param      arParamLTf Lookup table for the camera parameters for the optical source from which the image was acquired. See arParamLTCreate.
     @param      vertex 4x2 array of points which correspond to the x and y locations of the corners of the detected marker square.
@@ -1204,7 +1209,7 @@ AR_EXTERN int            arPattGetID2( ARPattHandle *pattHandle, int imageProcMo
     @see    arParamLTCreate
  */
 AR_EXTERN int arPattGetIDGlobal( ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode,
-              ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *arParamLTf, ARdouble vertex[4][2], ARdouble pattRatio,
+              ARUint8 *image, int xsize, int ysize, int xsizePadded, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *arParamLTf, ARdouble vertex[4][2], ARdouble pattRatio,
               int *codePatt, int *dirPatt, ARdouble *cfPatt, int *codeMatrix, int *dirMatrix, ARdouble *cfMatrix,
               const AR_MATRIX_CODE_TYPE matrixCodeType, int *errorCorrected, uint64_t *codeGlobalID_p );
 
@@ -1217,6 +1222,7 @@ AR_EXTERN int arPattGetIDGlobal( ARPattHandle *pattHandle, int imageProcMode, in
     @param      image Pointer to packed raw image data.
     @param      xsize Horizontal pixel dimension of raw image data.
     @param      ysize Vertical pixel dimension of raw image data.
+    @param      xsizePadded Horizontal dimension of raw image data, including any padding, in pixels.
     @param      pixelFormat Pixel format of raw image data.
     @param      arParamLTf Lookup table for the camera parameters for the optical source from which the image was acquired. See arParamLTCreate.
     @param      vertex 4x2 array of points which correspond to the x and y locations of the corners of the detected marker square.
@@ -1226,7 +1232,7 @@ AR_EXTERN int arPattGetIDGlobal( ARPattHandle *pattHandle, int imageProcMode, in
     @see    arParamLTCreate
  */
 AR_EXTERN int            arPattGetImage2( int imageProcMode, int pattDetectMode, int patt_size, int sample_size,
-                                ARUint8 *image, int xsize, int ysize, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *arParamLTf,
+                                ARUint8 *image, int xsize, int ysize, int xsizePadded, AR_PIXEL_FORMAT pixelFormat, ARParamLTf *arParamLTf,
                                 ARdouble vertex[4][2], ARdouble pattRatio, ARUint8 *ext_patt );
 
 /*!

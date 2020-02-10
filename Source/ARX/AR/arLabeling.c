@@ -52,7 +52,7 @@
 #include <ARX/AR/config.h>
 #include "arLabelingSub/arLabelingPrivate.h"
 
-int arLabeling( ARUint8 *imageLuma, int xsize, int ysize,
+int arLabeling( ARUint8 *imageLuma, int xsize, int ysize, int xsizePadded,
                 int debugMode, int labelingMode, int labelingThresh, int imageProcMode,
                 ARLabelInfo *labelInfo, ARUint8 *image_thresh )
 {
@@ -60,35 +60,35 @@ int arLabeling( ARUint8 *imageLuma, int xsize, int ysize,
     if (debugMode == AR_DEBUG_DISABLE) {
 #endif
         if (labelingMode == AR_LABELING_BLACK_REGION) {
-            if (image_thresh) return arLabelingSubDBZ(imageLuma, xsize, ysize, image_thresh, labelInfo);
+            if (image_thresh) return arLabelingSubDBZ(imageLuma, xsize, ysize, xsizePadded, image_thresh, labelInfo);
             if (imageProcMode == AR_IMAGE_PROC_FRAME_IMAGE) {
-                return arLabelingSubDBRC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
+                return arLabelingSubDBRC(imageLuma, xsize, ysize, xsizePadded, labelingThresh, labelInfo);
             } else /* imageProcMode == AR_IMAGE_PROC_FIELD_IMAGE */ {
-                return arLabelingSubDBIC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
+                return arLabelingSubDBIC(imageLuma, xsize, ysize, xsizePadded, labelingThresh, labelInfo);
             }
         } else /* labelingMode == AR_LABELING_WHITE_REGION */ {
-            if (image_thresh) return arLabelingSubDWZ(imageLuma, xsize, ysize, image_thresh, labelInfo);
+            if (image_thresh) return arLabelingSubDWZ(imageLuma, xsize, ysize, xsizePadded, image_thresh, labelInfo);
             if (imageProcMode == AR_IMAGE_PROC_FRAME_IMAGE) {
-                return arLabelingSubDWRC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
+                return arLabelingSubDWRC(imageLuma, xsize, ysize, xsizePadded, labelingThresh, labelInfo);
             } else /* imageProcMode == AR_IMAGE_PROC_FIELD_IMAGE */ {
-                return arLabelingSubDWIC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
+                return arLabelingSubDWIC(imageLuma, xsize, ysize, xsizePadded, labelingThresh, labelInfo);
             }
         }
 #if !AR_DISABLE_LABELING_DEBUG_MODE
     } else /* debugMode == AR_DEBUG_ENABLE */ {
         if (labelingMode == AR_LABELING_BLACK_REGION) {
-            if (image_thresh) return arLabelingSubEBZ(imageLuma, xsize, ysize, image_thresh, labelInfo);
+            if (image_thresh) return arLabelingSubEBZ(imageLuma, xsize, ysize, xsizePadded, image_thresh, labelInfo);
             if (imageProcMode == AR_IMAGE_PROC_FRAME_IMAGE) {
-                return arLabelingSubEBRC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
+                return arLabelingSubEBRC(imageLuma, xsize, ysize, xsizePadded, labelingThresh, labelInfo);
             } else /* imageProcMode == AR_IMAGE_PROC_FIELD_IMAGE */ {
-                return arLabelingSubEBIC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
+                return arLabelingSubEBIC(imageLuma, xsize, ysize, xsizePadded, labelingThresh, labelInfo);
             }
         } else /* labelingMode == AR_LABELING_WHITE_REGION */ {
-            if (image_thresh) return arLabelingSubEWZ(imageLuma, xsize, ysize, image_thresh, labelInfo);
+            if (image_thresh) return arLabelingSubEWZ(imageLuma, xsize, ysize, xsizePadded, image_thresh, labelInfo);
             if (imageProcMode == AR_IMAGE_PROC_FRAME_IMAGE) {
-                return arLabelingSubEWRC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
+                return arLabelingSubEWRC(imageLuma, xsize, ysize, xsizePadded, labelingThresh, labelInfo);
             } else /* imageProcMode == AR_IMAGE_PROC_FIELD_IMAGE */ {
-                return arLabelingSubEWIC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
+                return arLabelingSubEWIC(imageLuma, xsize, ysize, xsizePadded, labelingThresh, labelInfo);
             }
         }
     }

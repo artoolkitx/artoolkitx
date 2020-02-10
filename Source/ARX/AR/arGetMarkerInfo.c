@@ -48,7 +48,7 @@
 
 #include <ARX/AR/ar.h>
 
-int arGetMarkerInfo( ARUint8 *image, int xsize, int ysize, int pixelFormat, ARMarkerInfo2 *markerInfo2, int marker2_num,
+int arGetMarkerInfo( ARUint8 *image, int xsize, int ysize, int xsizePadded, int pixelFormat, ARMarkerInfo2 *markerInfo2, int marker2_num,
                      ARPattHandle *pattHandle, int imageProcMode, int pattDetectMode, ARParamLTf *arParamLTf, ARdouble pattRatio,
                      ARMarkerInfo *markerInfo, int *marker_num,
                      const AR_MATRIX_CODE_TYPE matrixCodeType )
@@ -75,7 +75,7 @@ int arGetMarkerInfo( ARUint8 *image, int xsize, int ysize, int pixelFormat, ARMa
                       markerInfo2[i].vertex, arParamLTf,
                       markerInfo[j].line, markerInfo[j].vertex) < 0 ) continue;
 
-        result = arPattGetIDGlobal( pattHandle, imageProcMode, pattDetectMode, image, xsize, ysize, pixelFormat, arParamLTf, markerInfo[j].vertex, pattRatio, 
+        result = arPattGetIDGlobal( pattHandle, imageProcMode, pattDetectMode, image, xsize, ysize, xsizePadded, pixelFormat, arParamLTf, markerInfo[j].vertex, pattRatio, 
                      &markerInfo[j].idPatt, &markerInfo[j].dirPatt, &markerInfo[j].cfPatt,
                      &markerInfo[j].idMatrix, &markerInfo[j].dirMatrix, &markerInfo[j].cfMatrix,
                       matrixCodeType, &markerInfo[j].errorCorrected, &markerInfo[j].globalID );

@@ -52,50 +52,48 @@
 #include <ARX/AR/ar.h>
 #include "arLabelingPrivate.h"
 
-#define AR_PIXEL_SIZE     1
-
 #ifndef AR_LABELING_ADAPTIVE
 #  ifndef AR_LABELING_DEBUG_ENABLE_F
 #    ifndef AR_LABELING_WHITE_REGION_F
 #      ifndef AR_LABELING_FRAME_IMAGE_F
-int arLabelingSubDBIC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo )
+int arLabelingSubDBIC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo )
 #      else
-int arLabelingSubDBRC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo )
+int arLabelingSubDBRC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo )
 #      endif // !AR_LABELING_FRAME_IMAGE_F
 #    else
 #      ifndef AR_LABELING_FRAME_IMAGE_F
-int arLabelingSubDWIC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo )
+int arLabelingSubDWIC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo )
 #      else
-int arLabelingSubDWRC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo )
+int arLabelingSubDWRC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo )
 #      endif // !AR_LABELING_FRAME_IMAGE_F
 #    endif // !AR_LABELING_WHITE_REGION_F
 #  else
 #    ifndef AR_LABELING_WHITE_REGION_F
 #      ifndef AR_LABELING_FRAME_IMAGE_F
-int arLabelingSubEBIC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo )
+int arLabelingSubEBIC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo )
 #      else
-int arLabelingSubEBRC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo )
+int arLabelingSubEBRC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo )
 #      endif // !AR_LABELING_FRAME_IMAGE_F
 #    else
 #      ifndef AR_LABELING_FRAME_IMAGE_F
-int arLabelingSubEWIC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo )
+int arLabelingSubEWIC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo )
 #      else
-int arLabelingSubEWRC( ARUint8 *image, int xsize, int ysize, int labelingThresh, ARLabelInfo *labelInfo )
+int arLabelingSubEWRC( ARUint8 *image, int xsize, int ysize, int xsizePadded, int labelingThresh, ARLabelInfo *labelInfo )
 #      endif // !AR_LABELING_FRAME_IMAGE_F
 #    endif // !AR_LABELING_WHITE_REGION_F
 #  endif // !AR_LABELING_DEBUG_ENABLE_F
 #else
 #  ifndef AR_LABELING_DEBUG_ENABLE_F
 #    ifndef AR_LABELING_WHITE_REGION_F
-int arLabelingSubDBZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo )
+int arLabelingSubDBZ( ARUint8 *image, const int xsize, const int ysize, const int xsizePadded, ARUint8* image_thresh, ARLabelInfo *labelInfo )
 #    else
-int arLabelingSubDWZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo )
+int arLabelingSubDWZ( ARUint8 *image, const int xsize, const int ysize, const int xsizePadded, ARUint8* image_thresh, ARLabelInfo *labelInfo )
 #    endif // !AR_LABELING_WHITE_REGION_F
 #  else
 #    ifndef AR_LABELING_WHITE_REGION_F
-int arLabelingSubEBZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo )
+int arLabelingSubEBZ( ARUint8 *image, const int xsize, const int ysize, const int xsizePadded, ARUint8* image_thresh, ARLabelInfo *labelInfo )
 #    else
-int arLabelingSubEWZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo )
+int arLabelingSubEWZ( ARUint8 *image, const int xsize, const int ysize, const int xsizePadded, ARUint8* image_thresh, ARLabelInfo *labelInfo )
 #    endif // !AR_LABELING_WHITE_REGION_F
 #  endif // !AR_LABELING_DEBUG_ENABLE_F
 #endif
@@ -155,35 +153,37 @@ int arLabelingSubEWZ( ARUint8 *image, const int xsize, const int ysize, ARUint8*
 #ifdef AR_LABELING_DEBUG_ENABLE_F
     dpnt = &(labelInfo->bwImage[lxsize + 1]);
 #  ifdef AR_LABELING_FRAME_IMAGE_F
-    pnt = &(image[(xsize + 1)*AR_PIXEL_SIZE]); // Start on 2nd pixel of 2nd row.
 #    ifdef AR_LABELING_ADAPTIVE
-    pnt_thresh = &(image_thresh[(xsize + 1)*AR_PIXEL_SIZE]);
-    for(j = 1; j < lysize - 1; j++, pnt += AR_PIXEL_SIZE*2, pnt_thresh += AR_PIXEL_SIZE*2, pnt2 += 2, dpnt += 2) { // Process rows. At end of each row, skips last pixel of row and first pixel of next row.
-        for(i = 1; i < lxsize - 1; i++, pnt += AR_PIXEL_SIZE, pnt_thresh += AR_PIXEL_SIZE, pnt2++, dpnt++) { // Process columns.
+    for(j = 1; j < lysize - 1; j++, pnt2 += 2, dpnt += 2) { // Process rows. At end of each row, skips last pixel of row and first pixel of next row.
+        pnt = &(image[j*xsizePadded + 1]); // Start on 2nd pixel of row.
+        pnt_thresh = &(image_thresh[j*xsizePadded + 1]);
+        for(i = 1; i < lxsize - 1; i++, pnt++, pnt_thresh++, pnt2++, dpnt++) { // Process columns.
 #    else
-    for(j = 1; j < lysize - 1; j++, pnt += AR_PIXEL_SIZE*2, pnt2 += 2, dpnt += 2) { // Process rows. At end of each row, skips last pixel of row and first pixel of next row.
-        for(i = 1; i < lxsize - 1; i++, pnt += AR_PIXEL_SIZE, pnt2++, dpnt++) { // Process columns.
+    for(j = 1; j < lysize - 1; j++, pnt2 += 2, dpnt += 2) { // Process rows. At end of each row, skips last pixel of row and first pixel of next row.
+        pnt = &(image[j*xsizePadded + 1]); // Start on 2nd pixel of row.
+        for(i = 1; i < lxsize - 1; i++, pnt++, pnt2++, dpnt++) { // Process columns.
 #    endif
 #  else
-    pnt = &(image[(xsize*2 + 2)*AR_PIXEL_SIZE]);
-    for(j = 1; j < lysize - 1; j++, pnt += AR_PIXEL_SIZE*4, pnt2 += 2, dpnt += 2) {
-        for(i = 1; i < lxsize - 1; i++, pnt += AR_PIXEL_SIZE*2, pnt2++, dpnt++) {
+    for(j = 1; j < lysize - 1; j++, pnt2 += 2, dpnt += 2) {
+        pnt = &(image[j*xsizePadded*2 + 2]);
+        for(i = 1; i < lxsize - 1; i++, pnt += 2, pnt2++, dpnt++) {
 #  endif
 #else
 #  ifdef AR_LABELING_FRAME_IMAGE_F
-    pnt = &(image[(xsize + 1)*AR_PIXEL_SIZE]); // Start on 2nd pixel of 2nd row.
 #    ifdef AR_LABELING_ADAPTIVE
-    pnt_thresh = &(image_thresh[(xsize + 1)*AR_PIXEL_SIZE]);
-    for(j = 1; j < lysize - 1; j++, pnt += AR_PIXEL_SIZE*2, pnt_thresh += AR_PIXEL_SIZE*2, pnt2 += 2) { // Process rows. At end of each row, skips last pixel of row and first pixel of next row.
-        for(i = 1; i < lxsize - 1; i++, pnt += AR_PIXEL_SIZE, pnt_thresh += AR_PIXEL_SIZE, pnt2++) { // Process columns.
+    for(j = 1; j < lysize - 1; j++, pnt2 += 2) { // Process rows. At end of each row, skips last pixel of row and first pixel of next row.
+        pnt = &(image[j*xsizePadded + 1]); // Start on 2nd pixel of row.
+        pnt_thresh = &(image_thresh[j*xsizePadded + 1]);
+        for(i = 1; i < lxsize - 1; i++, pnt++, pnt_thresh++, pnt2++) { // Process columns.
 #    else
-    for(j = 1; j < lysize - 1; j++, pnt += AR_PIXEL_SIZE*2, pnt2 += 2) { // Process rows. At end of each row, skips last pixel of row and first pixel of next row.
-        for(i = 1; i < lxsize - 1; i++, pnt += AR_PIXEL_SIZE, pnt2++) { // Process columns.
+    for(j = 1; j < lysize - 1; j++, pnt2 += 2) { // Process rows. At end of each row, skips last pixel of row and first pixel of next row.
+        pnt = &(image[j*xsizePadded + 1]); // Start on 2nd pixel of row.
+        for(i = 1; i < lxsize - 1; i++, pnt++, pnt2++) { // Process columns.
 #    endif
 #  else
-    pnt = &(image[(xsize*2 + 2)*AR_PIXEL_SIZE]);
-    for(j = 1; j < lysize - 1; j++, pnt += AR_PIXEL_SIZE*4, pnt2 += 2) {
-        for(i = 1; i < lxsize - 1; i++, pnt += AR_PIXEL_SIZE*2, pnt2++) {
+    for(j = 1; j < lysize - 1; j++, pnt2 += 2) {
+        pnt = &(image[j*xsizePadded*2 + 2]);
+        for(i = 1; i < lxsize - 1; i++, pnt += 2, pnt2++) {
 #  endif
 #endif // AR_LABELING_DEBUG_ENABLE_F
 
@@ -319,9 +319,6 @@ int arLabelingSubEWZ( ARUint8 *image, const int xsize, const int ysize, ARUint8*
 #endif
             }
         }
-#ifndef AR_LABELING_FRAME_IMAGE_F
-        pnt += xsize*AR_PIXEL_SIZE;
-#endif
     }
 
     label_num = &(labelInfo->label_num);
