@@ -1,2 +1,6 @@
 # We want Unix line-endings even on Windows, so that bash works on all platforms.
 * text eol=lf
+# InnoSetup on Windows requires CRLF line endings.
+*.iss text eol=crlf
+# Archives are binary.
+*.a binary
