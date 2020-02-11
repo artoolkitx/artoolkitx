@@ -689,9 +689,14 @@ AR2VideoBufferT *ar2VideoGetImage(AR2VideoParamT *vid)
                         return (NULL);
                     }
                     if (ar2VideoGetBufferSize(vid, &xsizePadded, NULL) < 0) {
-                        xsizePadded = xsize;
+                        ARLOGe("ar2VideoGetImage unable to get buffer size.\n");
+                        return (NULL);
                     }
-                    vid->lumaInfo = arVideoLumaInit(xsize, ysize, xsizePadded, pixFormat);
+                    if (xsize != xsizePadded) {
+                        ARLOGe("ar2VideoGetImage does not support luma conversion for padded image buffers.\n");
+                        return (NULL);
+                    }
+                    vid->lumaInfo = arVideoLumaInit(xsize, ysize, pixFormat);
                     if (!vid->lumaInfo) {
                         ARLOGe("ar2VideoGetImage unable to initialise luma conversion.\n");
                         return (NULL);
