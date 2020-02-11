@@ -1287,6 +1287,11 @@ int ar2VideoGetBufferSize(AR2VideoParamT *vid, int *width, int *height)
         return ar2VideoGetBufferSizeImage((AR2VideoParamImageT *)vid->moduleParam, width, height);
     }
 #endif
+#ifdef ARVIDEO_INPUT_WAVEVR
+    if (vid->module == AR_VIDEO_MODULE_WAVEVR) {
+        return ar2VideoGetBufferSizeWaveVR((AR2VideoParamWaveVRT *)vid->moduleParam, width, height);
+    }
+#endif
     // Otherwise, fall back to reporting image size as buffer size.
     return ar2VideoGetSize(vid, width, height);
 }

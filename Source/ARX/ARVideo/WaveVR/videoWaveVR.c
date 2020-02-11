@@ -58,7 +58,7 @@ struct _AR2VideoParamWaveVRT {
     ARParam            cparam1;
 };
 
-int ar2VideoDispOptionWaveVR( void )
+int ar2VideoDispOptionWaveVR(void)
 {
     ARPRINT(" -module=WaveVR\n");
     ARPRINT("\n");
@@ -105,7 +105,7 @@ static void getCPara(int xsize, int ysize, WVR_CameraIntrinsic_t *ci, ARParam *p
 }
 
 
-AR2VideoParamWaveVRT *ar2VideoOpenWaveVR( const char *config )
+AR2VideoParamWaveVRT *ar2VideoOpenWaveVR(const char *config)
 {
     AR2VideoParamWaveVRT      *vid;
     const char               *a;
@@ -113,17 +113,17 @@ AR2VideoParamWaveVRT *ar2VideoOpenWaveVR( const char *config )
     char                      line[LINE_SIZE];
     int ok, err_i = 0;
 
-    arMallocClear( vid, AR2VideoParamWaveVRT, 1 );
+    arMallocClear(vid, AR2VideoParamWaveVRT, 1);
     vid->format = AR_PIXEL_FORMAT_INVALID;
 
     a = config;
-    if( a != NULL) {
-        for(;;) {
-            while( *a == ' ' || *a == '\t' ) a++;
-            if( *a == '\0' ) break;
+    if (a != NULL) {
+        for (;;) {
+            while (*a == ' ' || *a == '\t') a++;
+            if (*a == '\0') break;
 
             if (sscanf(a, "%s", line) == 0) break;
-            if( strcmp( line, "-module=WaveVR" ) == 0 )    {
+            if (strcmp(line, "-module=WaveVR") == 0)    {
             } else {
                 err_i = 1;
             }
@@ -134,7 +134,7 @@ AR2VideoParamWaveVRT *ar2VideoOpenWaveVR( const char *config )
                 goto bail;
 			}
 
-            while( *a != ' ' && *a != '\t' && *a != '\0') a++;
+            while (*a != ' ' && *a != '\t' && *a != '\0') a++;
         }
     }
 
@@ -186,7 +186,14 @@ AR2VideoParamWaveVRT *ar2VideoOpenWaveVR( const char *config )
     }
 
     vid->bufSize = cameraInfo.size;
-    vid->buffer0.buff = calloc(1, vid->bufSize);
+    // If stereo, padd the buffer with one full extra row, so that we can treat
+    // the right-hand end of each row as if it was the start of a row, and treat
+    // both left and right buffers as if they have a chunk of padding. With this,
+    // reading from the last row won't read past the end of the buffer and cause
+    // an access violation.
+    int bufSizeIncludingAnyPadding = cameraInfo.size;
+    if (vid->stereo) bufSizeIncludingAnyPadding += cameraInfo.size / cameraInfo.height; 
+    vid->buffer0.buff = calloc(1, bufSizeIncludingAnyPadding);
     vid->buffer0.buffLuma = vid->buffer0.buff;
     vid->buffer0.bufPlanes = NULL;
     vid->buffer0.bufPlaneCount = 0;
@@ -208,28 +215,28 @@ bail:
     return (NULL);
 }
 
-int ar2VideoCloseWaveVR( AR2VideoParamWaveVRT *vid )
+int ar2VideoCloseWaveVR(AR2VideoParamWaveVRT *vid)
 {
     if (!vid) return (-1); // Sanity check.
     
     WVR_StopCamera();
     
-    free( vid );
+    free(vid);
 
     return 0;
 }
 
-int ar2VideoCapStartWaveVR( AR2VideoParamWaveVRT *vid )
+int ar2VideoCapStartWaveVR(AR2VideoParamWaveVRT *vid)
 {
     return 0;
 }
 
-int ar2VideoCapStopWaveVR( AR2VideoParamWaveVRT *vid )
+int ar2VideoCapStopWaveVR(AR2VideoParamWaveVRT *vid)
 {
     return 0;
 }
 
-AR2VideoBufferT *ar2VideoGetImageWaveVR( AR2VideoParamWaveVRT *vid )
+AR2VideoBufferT *ar2VideoGetImageWaveVR(AR2VideoParamWaveVRT *vid)
 {
     if (!vid) return (NULL); // Sanity check.
 
@@ -238,33 +245,46 @@ AR2VideoBufferT *ar2VideoGetImageWaveVR( AR2VideoParamWaveVRT *vid )
         return (NULL);
     }
     if (!vid->stereo || !vid->stereoNextEye) {
+        vid->buffer0.fillFlag = 1;
         return &(vid->buffer0);
     } else {
+        vid->buffer1.fillFlag = 1;
         return &(vid->buffer1);
     }
 }
 
-int ar2VideoGetSizeWaveVR(AR2VideoParamWaveVRT *vid, int *x,int *y)
+int ar2VideoGetSizeWaveVR(AR2VideoParamWaveVRT *vid, int *x, int *y)
 {
     if (!vid) return (-1); // Sanity check.
-    *x = vid->width;
-    *y = vid->height;
+
+    if (x) *x = vid->width;
+    if (y) *y = vid->height;
 
     return 0;
 }
 
-AR_PIXEL_FORMAT ar2VideoGetPixelFormatWaveVR( AR2VideoParamWaveVRT *vid )
+int ar2VideoGetBufferSizeWaveVR(AR2VideoParamWaveVRT *vid, int *x, int *y)
+{
+    if (!vid) return (-1); // Sanity check.
+
+    if (x) *x = (vid->stereo ? vid->width * 2 : vid->width);
+    if (y) *y = vid->height;
+
+    return 0;
+}
+
+AR_PIXEL_FORMAT ar2VideoGetPixelFormatWaveVR(AR2VideoParamWaveVRT *vid)
 {
     if (!vid) return (AR_PIXEL_FORMAT_INVALID);
     return (vid->format);
 }
 
-int ar2VideoGetIdWaveVR( AR2VideoParamWaveVRT *vid, ARUint32 *id0, ARUint32 *id1 )
+int ar2VideoGetIdWaveVR(AR2VideoParamWaveVRT *vid, ARUint32 *id0, ARUint32 *id1)
 {
     return -1;
 }
 
-int ar2VideoGetParamiWaveVR( AR2VideoParamWaveVRT *vid, int paramName, int *value )
+int ar2VideoGetParamiWaveVR(AR2VideoParamWaveVRT *vid, int paramName, int *value)
 {
     if (!value) return -1;
 
@@ -286,7 +306,7 @@ int ar2VideoGetParamiWaveVR( AR2VideoParamWaveVRT *vid, int paramName, int *valu
     return -1;
 }
 
-int ar2VideoSetParamiWaveVR( AR2VideoParamWaveVRT *vid, int paramName, int  value )
+int ar2VideoSetParamiWaveVR(AR2VideoParamWaveVRT *vid, int paramName, int value)
 {
     if (paramName == AR_VIDEO_PARAM_STEREO_NEXTEYE) {
         vid->stereoNextEye = value;
@@ -295,17 +315,17 @@ int ar2VideoSetParamiWaveVR( AR2VideoParamWaveVRT *vid, int paramName, int  valu
     return -1;
 }
 
-int ar2VideoGetParamdWaveVR( AR2VideoParamWaveVRT *vid, int paramName, double *value )
+int ar2VideoGetParamdWaveVR(AR2VideoParamWaveVRT *vid, int paramName, double *value)
 {
     return -1;
 }
 
-int ar2VideoSetParamdWaveVR( AR2VideoParamWaveVRT *vid, int paramName, double  value )
+int ar2VideoSetParamdWaveVR(AR2VideoParamWaveVRT *vid, int paramName, double  value)
 {
     return -1;
 }
 
-int ar2VideoGetParamsWaveVR( AR2VideoParamWaveVRT *vid, const int paramName, char **value )
+int ar2VideoGetParamsWaveVR(AR2VideoParamWaveVRT *vid, const int paramName, char **value)
 {
     if (!vid || !value) return (-1);
 
@@ -316,7 +336,7 @@ int ar2VideoGetParamsWaveVR( AR2VideoParamWaveVRT *vid, const int paramName, cha
     return (0);
 }
 
-int ar2VideoSetParamsWaveVR( AR2VideoParamWaveVRT *vid, const int paramName, const char  *value )
+int ar2VideoSetParamsWaveVR(AR2VideoParamWaveVRT *vid, const int paramName, const char *value)
 {
     if (!vid) return (-1);
 

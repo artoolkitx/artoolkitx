@@ -48,24 +48,25 @@ extern "C" {
 
 typedef struct _AR2VideoParamWaveVRT AR2VideoParamWaveVRT;
 
-int                    ar2VideoDispOptionWaveVR     ( void );
-AR2VideoParamWaveVRT   *ar2VideoOpenWaveVR          ( const char *config );
-int                    ar2VideoCloseWaveVR          ( AR2VideoParamWaveVRT *vid );
-int                    ar2VideoGetIdWaveVR          ( AR2VideoParamWaveVRT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeWaveVR        ( AR2VideoParamWaveVRT *vid, int *x,int *y );
-AR_PIXEL_FORMAT        ar2VideoGetPixelFormatWaveVR ( AR2VideoParamWaveVRT *vid );
-AR2VideoBufferT       *ar2VideoGetImageWaveVR       ( AR2VideoParamWaveVRT *vid );
-int                    ar2VideoCapStartWaveVR       ( AR2VideoParamWaveVRT *vid );
-int                    ar2VideoCapStopWaveVR        ( AR2VideoParamWaveVRT *vid );
+int                    ar2VideoDispOptionWaveVR     (void);
+AR2VideoParamWaveVRT   *ar2VideoOpenWaveVR          (const char *config);
+int                    ar2VideoCloseWaveVR          (AR2VideoParamWaveVRT *vid);
+int                    ar2VideoGetIdWaveVR          (AR2VideoParamWaveVRT *vid, ARUint32 *id0, ARUint32 *id1);
+int                    ar2VideoGetSizeWaveVR        (AR2VideoParamWaveVRT *vid, int *x, int *y);
+AR_PIXEL_FORMAT        ar2VideoGetPixelFormatWaveVR (AR2VideoParamWaveVRT *vid);
+AR2VideoBufferT       *ar2VideoGetImageWaveVR       (AR2VideoParamWaveVRT *vid);
+int                    ar2VideoCapStartWaveVR       (AR2VideoParamWaveVRT *vid);
+int                    ar2VideoCapStopWaveVR        (AR2VideoParamWaveVRT *vid);
 
-int                    ar2VideoGetParamiWaveVR      ( AR2VideoParamWaveVRT *vid, int paramName, int *value );
-int                    ar2VideoSetParamiWaveVR      ( AR2VideoParamWaveVRT *vid, int paramName, int  value );
-int                    ar2VideoGetParamdWaveVR      ( AR2VideoParamWaveVRT *vid, int paramName, double *value );
-int                    ar2VideoSetParamdWaveVR      ( AR2VideoParamWaveVRT *vid, int paramName, double  value );
-int                    ar2VideoGetParamsWaveVR      ( AR2VideoParamWaveVRT *vid, const int paramName, char **value );
-int                    ar2VideoSetParamsWaveVR      ( AR2VideoParamWaveVRT *vid, const int paramName, const char  *value );
+int                    ar2VideoGetParamiWaveVR      (AR2VideoParamWaveVRT *vid, int paramName, int *value);
+int                    ar2VideoSetParamiWaveVR      (AR2VideoParamWaveVRT *vid, int paramName, int  value);
+int                    ar2VideoGetParamdWaveVR      (AR2VideoParamWaveVRT *vid, int paramName, double *value);
+int                    ar2VideoSetParamdWaveVR      (AR2VideoParamWaveVRT *vid, int paramName, double  value);
+int                    ar2VideoGetParamsWaveVR      (AR2VideoParamWaveVRT *vid, const int paramName, char **value);
+int                    ar2VideoSetParamsWaveVR      (AR2VideoParamWaveVRT *vid, const int paramName, const char  *value);
 
 int                    ar2VideoGetCParamWaveVR      (AR2VideoParamWaveVRT *vid, ARParam *cparam);
+int                    ar2VideoGetBufferSizeWaveVR  (AR2VideoParamWaveVRT *vid, int *x, int *y);
 
 #ifdef  __cplusplus
 }
