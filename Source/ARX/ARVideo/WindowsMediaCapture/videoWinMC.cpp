@@ -333,7 +333,7 @@ AR2VideoBufferT *ar2VideoGetImageWinMC(AR2VideoParamWinMCT *vid)
 	}
 }
 
-int ar2VideoGetSizeWinMC(AR2VideoParamWinMCT *vid, int *x,int *y)
+int ar2VideoGetSizeWinMC(AR2VideoParamWinMCT *vid, int *x, int *y)
 {
 	if (!vid) return -1;
 	if (x) *x = vid->wmc->width();

@@ -61,7 +61,7 @@ int                  ar2VideoDispOptionV4L2     ( void );
 AR2VideoParamV4L2T   *ar2VideoOpenV4L2          ( const char *config );
 int                  ar2VideoCloseV4L2          ( AR2VideoParamV4L2T *vid );
 int                  ar2VideoGetIdV4L2          ( AR2VideoParamV4L2T *vid, ARUint32 *id0, ARUint32 *id1 );
-int                  ar2VideoGetSizeV4L2        ( AR2VideoParamV4L2T *vid, int *x,int *y );
+int                  ar2VideoGetSizeV4L2        ( AR2VideoParamV4L2T *vid, int *x, int *y );
 AR_PIXEL_FORMAT      ar2VideoGetPixelFormatV4L2 ( AR2VideoParamV4L2T *vid );
 AR2VideoBufferT     *ar2VideoGetImageV4L2       ( AR2VideoParamV4L2T *vid );
 int                  ar2VideoCapStartV4L2       ( AR2VideoParamV4L2T *vid );

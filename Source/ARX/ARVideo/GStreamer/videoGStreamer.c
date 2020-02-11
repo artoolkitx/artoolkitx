@@ -282,8 +282,9 @@ int ar2VideoGetSizeGStreamer(AR2VideoParamGStreamerT *vid, int *x, int *y)
 {
     if (!vid) return (-1);
     
-    *x = vid->width; // width of your static image
-    *y = vid->height; // height of your static image
+    if (x) *x = vid->width;
+    if (y) *y = vid->height;
+
     return (0);
 }
 

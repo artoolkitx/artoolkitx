@@ -778,7 +778,7 @@ AR2VideoBufferT *ar2VideoGetImageWinMF(AR2VideoParamWinMFT *vid)
     return (&vid->buffer);
 }
 
-int ar2VideoGetSizeWinMF(AR2VideoParamWinMFT *vid, int *x,int *y)
+int ar2VideoGetSizeWinMF(AR2VideoParamWinMFT *vid, int *x, int *y)
 {
 	if (!vid) return -1;
 	if (x) *x = vid->width;

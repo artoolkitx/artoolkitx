@@ -54,7 +54,7 @@ int                    ar2VideoDispOptionGStreamer     ( void );
 AR2VideoParamGStreamerT *ar2VideoOpenGStreamer         ( const char *config_in );
 int                    ar2VideoCloseGStreamer          ( AR2VideoParamGStreamerT *vid );
 int                    ar2VideoGetIdGStreamer          ( AR2VideoParamGStreamerT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeGStreamer        ( AR2VideoParamGStreamerT *vid, int *x,int *y );
+int                    ar2VideoGetSizeGStreamer        ( AR2VideoParamGStreamerT *vid, int *x, int *y );
 AR_PIXEL_FORMAT        ar2VideoGetPixelFormatGStreamer ( AR2VideoParamGStreamerT *vid );
 AR2VideoBufferT       *ar2VideoGetImageGStreamer       ( AR2VideoParamGStreamerT *vid );
 int                    ar2VideoCapStartGStreamer       ( AR2VideoParamGStreamerT *vid );

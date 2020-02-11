@@ -719,24 +719,24 @@ AR2VideoBufferT *ar2VideoGetImageAVFoundation( AR2VideoParamAVFoundationT *vid )
     return &(vid->buffer);
 }
 
-int ar2VideoGetSizeAVFoundation(AR2VideoParamAVFoundationT *vid, int *x,int *y)
+int ar2VideoGetSizeAVFoundation(AR2VideoParamAVFoundationT *vid, int *x, int *y)
 {
-    if (!vid || !x || !y) return (-1);
+    if (!vid) return (-1);
     
     if (vid->itsAMovie) {
-        *x = (int)((vid->movieVideo).contentWidth);
-        *y = (int)((vid->movieVideo).contentHeight);
+        if (x) *x = (int)((vid->movieVideo).contentWidth);
+        if (y) *y = (int)((vid->movieVideo).contentHeight);
     } else {
-        *x = (int)((vid->cameraVideo).width);
-        *y = (int)((vid->cameraVideo).height);
+        if (x) *x = (int)((vid->cameraVideo).width);
+        if (y) *y = (int)((vid->cameraVideo).height);
     }
-    if (!*x) {
+    if (x && !*x) {
 #ifdef DEBUG
         ARLOGe("Unable to determine video image width.\n");
 #endif
         return (-1);
     }
-    if (!*y) {
+    if (y && !*y) {
 #ifdef DEBUG
         ARLOGe("Unable to determine video image height.\n");
 #endif
@@ -744,13 +744,6 @@ int ar2VideoGetSizeAVFoundation(AR2VideoParamAVFoundationT *vid, int *x,int *y)
     }
     
     return 0;
-}
-
-int ar2VideoSetBufferSizeAVFoundation(AR2VideoParamAVFoundationT *vid, const int width, const int height)
-{
-    if (!vid) return (-1);
-    //
-    return (0);
 }
 
 int ar2VideoGetBufferSizeAVFoundation(AR2VideoParamAVFoundationT *vid, int *width, int *height)

@@ -844,12 +844,12 @@ int ar2VideoGetId1394(AR2VideoParam1394T *vid, ARUint32 *id0, ARUint32 *id1)
     return 0;
 }
 
-int ar2VideoGetSize1394(AR2VideoParam1394T *vid, int *x,int *y)
+int ar2VideoGetSize1394(AR2VideoParam1394T *vid, int *x, int *y)
 {
     if (vid == NULL) return -1;
     
-    *x = vid->width;
-    *y = vid->height;
+    if (x) *x = vid->width;
+    if (y) *y = vid->height;
     
     return 0;
 }

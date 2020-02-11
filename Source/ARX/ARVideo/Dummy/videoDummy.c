@@ -587,11 +587,12 @@ AR2VideoBufferT *ar2VideoGetImageDummy( AR2VideoParamDummyT *vid )
     return &(vid->buffer);
 }
 
-int ar2VideoGetSizeDummy(AR2VideoParamDummyT *vid, int *x,int *y)
+int ar2VideoGetSizeDummy(AR2VideoParamDummyT *vid, int *x, int *y)
 {
     if (!vid) return (-1); // Sanity check.
-    *x = vid->width;
-    *y = vid->height;
+
+    if (x) *x = vid->width;
+    if (y) *y = vid->height;
 
     return 0;
 }

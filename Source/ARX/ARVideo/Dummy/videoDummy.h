@@ -69,7 +69,7 @@ int                    ar2VideoDispOptionDummy     ( void );
 AR2VideoParamDummyT   *ar2VideoOpenDummy           ( const char *config );
 int                    ar2VideoCloseDummy          ( AR2VideoParamDummyT *vid );
 int                    ar2VideoGetIdDummy          ( AR2VideoParamDummyT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeDummy        ( AR2VideoParamDummyT *vid, int *x,int *y );
+int                    ar2VideoGetSizeDummy        ( AR2VideoParamDummyT *vid, int *x, int *y );
 AR_PIXEL_FORMAT        ar2VideoGetPixelFormatDummy ( AR2VideoParamDummyT *vid );
 AR2VideoBufferT       *ar2VideoGetImageDummy       ( AR2VideoParamDummyT *vid );
 int                    ar2VideoCapStartDummy       ( AR2VideoParamDummyT *vid );

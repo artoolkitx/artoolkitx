@@ -990,7 +990,7 @@ int ar2VideoGetIdV4L2(AR2VideoParamV4L2T *vid, ARUint32 *id0, ARUint32 *id1)
     return -1;
 }
 
-int ar2VideoGetSizeV4L2(AR2VideoParamV4L2T *vid, int *x,int *y)
+int ar2VideoGetSizeV4L2(AR2VideoParamV4L2T *vid, int *x, int *y)
 {
     if (!vid) return -1;
     

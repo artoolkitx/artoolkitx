@@ -474,11 +474,12 @@ AR2VideoBufferT *ar2VideoGetImageImage( AR2VideoParamImageT *vid )
     }
 }
 
-int ar2VideoGetSizeImage(AR2VideoParamImageT *vid, int *x,int *y)
+int ar2VideoGetSizeImage(AR2VideoParamImageT *vid, int *x, int *y)
 {
     if (!vid) return (-1); // Sanity check.
-    *x = vid->width;
-    *y = vid->height;
+    
+    if (x) *x = vid->width;
+    if (y) *y = vid->height;
 
     return 0;
 }

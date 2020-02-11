@@ -52,7 +52,7 @@ int                    ar2VideoDispOptionWinMC     (void);
 AR2VideoParamWinMCT   *ar2VideoOpenWinMC           (const char *config);
 int                    ar2VideoCloseWinMC          (AR2VideoParamWinMCT *vid);
 int                    ar2VideoGetIdWinMC          (AR2VideoParamWinMCT *vid, ARUint32 *id0, ARUint32 *id1);
-int                    ar2VideoGetSizeWinMC        (AR2VideoParamWinMCT *vid, int *x,int *y);
+int                    ar2VideoGetSizeWinMC        (AR2VideoParamWinMCT *vid, int *x, int *y);
 AR_PIXEL_FORMAT        ar2VideoGetPixelFormatWinMC (AR2VideoParamWinMCT *vid);
 AR2VideoBufferT       *ar2VideoGetImageWinMC       (AR2VideoParamWinMCT *vid);
 int                    ar2VideoCapStartWinMC       (AR2VideoParamWinMCT *vid);

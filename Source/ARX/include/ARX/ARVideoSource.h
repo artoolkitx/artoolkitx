@@ -74,6 +74,7 @@ private:
 
     int videoWidth;                     ///< Width of the video frame in pixels
     int videoHeight;                    ///< Height of the video frame in pixels
+    int videoWidthPadded;               ///< Width of the video frame, including any end-of-row padding, in pixels
 
     AR_PIXEL_FORMAT pixelFormat;        ///< Pixel format from artoolkitX enumeration.
     
@@ -141,6 +142,12 @@ public:
      */
     int getVideoHeight() const;
 
+    /**
+        @brief Returns the width of the video, including any end-of-row padding, in pixels.
+        @return        Width of the video, including any end-of-row padding, in pixels
+     */
+    int getVideoWidthPadded() const;
+    
     /**
         @brief Returns the pixel format of the video.
         @return        Pixel format of the video

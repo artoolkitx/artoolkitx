@@ -70,6 +70,7 @@ ARVideoSource::ARVideoSource() :
     videoConfiguration(NULL),
     videoWidth(0),
     videoHeight(0),
+    videoWidthPadded(0),
     pixelFormat((AR_PIXEL_FORMAT)(-1)),
     m_captureFrameWaitCount(0),
     m_frameBuffer(NULL),
@@ -180,6 +181,12 @@ bool ARVideoSource::open2()
         return false;
     }
 
+    // Find if the video is padded.
+    if (ar2VideoGetBufferSize(m_vid, &videoWidthPadded, NULL) < 0) {
+        ARLOGw("Warning: unable to get video buffer size. Assuming same as frame size.\n");
+        videoWidthPadded = videoWidth;
+    }
+    
     // Get the format in which the camera is returning pixels
     pixelFormat = ar2VideoGetPixelFormat(m_vid);
     if (pixelFormat < 0 ) {
@@ -384,6 +391,11 @@ int ARVideoSource::getVideoWidth() const
 int ARVideoSource::getVideoHeight() const
 {
     return videoHeight;
+}
+
+int ARVideoSource::getVideoWidthPadded() const
+{
+    return videoWidthPadded;
 }
 
 AR_PIXEL_FORMAT ARVideoSource::getPixelFormat() const

@@ -509,7 +509,7 @@ int ar2VideoGetId(AR2VideoParamT *vid, ARUint32 *id0, ARUint32 *id1)
     return (-1);
 }
 
-int ar2VideoGetSize(AR2VideoParamT *vid, int *x,int *y)
+int ar2VideoGetSize(AR2VideoParamT *vid, int *x, int *y)
 {
     if (!vid) return -1;
 #ifdef ARVIDEO_INPUT_DUMMY
@@ -683,12 +683,15 @@ AR2VideoBufferT *ar2VideoGetImage(AR2VideoParamT *vid)
                 ret->buffLuma = ret->buff;
             } else {
                 if (!vid->lumaInfo) {
-                    int xsize, ysize;
+                    int xsize, ysize, xsizePadded;
                     if (ar2VideoGetSize(vid, &xsize, &ysize) < 0) {
                         ARLOGe("ar2VideoGetImage unable to get size.\n");
                         return (NULL);
                     }
-                    vid->lumaInfo = arVideoLumaInit(xsize, ysize, pixFormat);
+                    if (ar2VideoGetBufferSize(vid, &xsizePadded, NULL) < 0) {
+                        xsizePadded = xsize;
+                    }
+                    vid->lumaInfo = arVideoLumaInit(xsize, ysize, xsizePadded, pixFormat);
                     if (!vid->lumaInfo) {
                         ARLOGe("ar2VideoGetImage unable to initialise luma conversion.\n");
                         return (NULL);
@@ -1166,11 +1169,6 @@ int ar2VideoSetBufferSize(AR2VideoParamT *vid, const int width, const int height
         return ar2VideoSetBufferSizeDummy((AR2VideoParamDummyT *)vid->moduleParam, width, height);
     }
 #endif
-#ifdef ARVIDEO_INPUT_AVFOUNDATION
-    if (vid->module == AR_VIDEO_MODULE_AVFOUNDATION) {
-        return ar2VideoSetBufferSizeAVFoundation((AR2VideoParamAVFoundationT *)vid->moduleParam, width, height);
-    }
-#endif
 #ifdef ARVIDEO_INPUT_IMAGE
     if (vid->module == AR_VIDEO_MODULE_IMAGE) {
         return ar2VideoSetBufferSizeImage((AR2VideoParamImageT *)vid->moduleParam, width, height);
@@ -1197,7 +1195,8 @@ int ar2VideoGetBufferSize(AR2VideoParamT *vid, int *width, int *height)
         return ar2VideoGetBufferSizeImage((AR2VideoParamImageT *)vid->moduleParam, width, height);
     }
 #endif
-    return (-1);
+    // Otherwise, fall back to reporting image size as buffer size.
+    return ar2VideoGetSize(vid, width, height);
 }
 
 int ar2VideoGetCParam(AR2VideoParamT *vid, ARParam *cparam)

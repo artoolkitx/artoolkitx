@@ -55,7 +55,7 @@ int                    ar2VideoDispOptionAVFoundation     ( void );
 AR2VideoParamAVFoundationT *ar2VideoOpenAVFoundation      ( const char *config );
 int                    ar2VideoCloseAVFoundation          ( AR2VideoParamAVFoundationT *vid );
 int                    ar2VideoGetIdAVFoundation          ( AR2VideoParamAVFoundationT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeAVFoundation        ( AR2VideoParamAVFoundationT *vid, int *x,int *y );
+int                    ar2VideoGetSizeAVFoundation        ( AR2VideoParamAVFoundationT *vid, int *x, int *y );
 int                    ar2VideoGetPixelFormatAVFoundation ( AR2VideoParamAVFoundationT *vid );
 AR2VideoBufferT       *ar2VideoGetImageAVFoundation       ( AR2VideoParamAVFoundationT *vid );
 int                    ar2VideoCapStartAVFoundation       ( AR2VideoParamAVFoundationT *vid );
@@ -69,7 +69,6 @@ int                    ar2VideoGetParamsAVFoundation      ( AR2VideoParamAVFound
 int                    ar2VideoSetParamsAVFoundation      ( AR2VideoParamAVFoundationT *vid, const int paramName, const char  *value );
 
 int ar2VideoCapStartAsyncAVFoundation(AR2VideoParamAVFoundationT *vid, AR_VIDEO_FRAME_READY_CALLBACK callback, void *userdata);
-int ar2VideoSetBufferSizeAVFoundation(AR2VideoParamAVFoundationT *vid, const int width, const int height);
 int ar2VideoGetBufferSizeAVFoundation(AR2VideoParamAVFoundationT *vid, int *width, int *height);
 
 int                    ar2VideoGetCParamAVFoundation      (AR2VideoParamAVFoundationT *vid, ARParam *cparam);

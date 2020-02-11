@@ -62,7 +62,7 @@ int                    ar2VideoDispOptionAndroid     ( void );
 AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid      ( const char *config, void (*callback)(void *), void *userdata );
 int                    ar2VideoCloseAndroid          ( AR2VideoParamAndroidT *vid );
 int                    ar2VideoGetIdAndroid          ( AR2VideoParamAndroidT *vid, ARUint32 *id0, ARUint32 *id1 );
-int                    ar2VideoGetSizeAndroid        ( AR2VideoParamAndroidT *vid, int *x,int *y );
+int                    ar2VideoGetSizeAndroid        ( AR2VideoParamAndroidT *vid, int *x, int *y );
 AR_PIXEL_FORMAT        ar2VideoGetPixelFormatAndroid ( AR2VideoParamAndroidT *vid );
 AR2VideoBufferT       *ar2VideoGetImageAndroid       ( AR2VideoParamAndroidT *vid );
 int                    ar2VideoCapStartAndroid       ( AR2VideoParamAndroidT *vid );
