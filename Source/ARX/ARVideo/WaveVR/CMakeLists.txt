@@ -1,3 +1,26 @@
+find_path(
+    WVR_INCLUDE_DIRS
+    wvr 
+    NO_SYSTEM_ENVIRONMENT_PATH
+)
+find_library(
+    WVR_LDFLAGS
+    NAMES wvr_api 
+    NO_SYSTEM_ENVIRONMENT_PATH
+)
+message("-- Found wvr: ${WVR_INCLUDE_DIRS} ${WVR_LDFLAGS}")
+
+set(INCLUDE_DIRS
+    ${INCLUDE_DIRS}
+    ${WVR_INCLUDE_DIRS}
+	PARENT_SCOPE
+)
+set(LIBS
+    ${LIBS}
+    ${WVR_LDFLAGS}
+	PARENT_SCOPE
+)
+
 set(SOURCE
     ${SOURCE}
     ${CMAKE_CURRENT_SOURCE_DIR}/videoWaveVR.h

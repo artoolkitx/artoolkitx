@@ -14,7 +14,7 @@
 OURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function usage {
-    echo "Usage: $(basename $0) [--debug] (macos | windows | ios | linux | android | linux-raspbian | docs)... [tests] [examples] [unity] [cmake \"<generator>\"]"
+    echo "Usage: $(basename $0) [--debug] (macos | windows | ios | linux | android | linux-raspbian | android-wavevr | docs)... [tests] [examples] [unity] [cmake \"<generator>\"]"
     exit 1
 }
 
@@ -48,7 +48,7 @@ do
 		    ;;
         docs) BUILD_DOCS=1
             ;;
-        wavevr) BUILD_ANDROID=1
+        android-wavevr) BUILD_ANDROID=1
             BUILD_WAVEVR=1
             ;;
         --debug) DEBUG=
@@ -209,11 +209,18 @@ if [ "$OS" = "Linux" ] ; then
 	check_package cmake
 fi
 
-if [ ! -d "depends/android/include/opencv2" ] ; then
-    curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-android.tgz" -o opencv2.tgz
-    tar xzf opencv2.tgz --strip-components=1 -C depends/android
-    tar xzf opencv2.tgz --strip-components=1 -C depends/android-wavevr
-    rm opencv2.tgz
+if [ ! $BUILD_WAVEVR ] ; then
+    if [ ! -d "depends/android/include/opencv2" ] ; then
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-android.tgz" -o opencv2.tgz
+        tar xzf opencv2.tgz --strip-components=1 -C depends/android
+        rm opencv2.tgz
+    fi
+else
+    if [ ! -d "depends/android-wavevr/include/opencv2" ] ; then
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-android.tgz" -o opencv2.tgz
+        tar xzf opencv2.tgz --strip-components=1 -C depends/android-wavevr
+        rm opencv2.tgz
+    fi
 fi
 
 if [ ! -d "build-android" ] ; then
