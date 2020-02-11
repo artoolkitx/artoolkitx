@@ -208,7 +208,7 @@ int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8 
 {
     int ret, i, j;
 #if !AR_IMAGEPROC_USE_VIMAGE
-    int j, kernelSizeHalf;
+    int kernelSizeHalf;
 #endif
     
     ret = arImageProcLumaHist(ipi, dataPtr);
