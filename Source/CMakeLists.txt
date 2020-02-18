@@ -42,7 +42,9 @@ else()
 endif()
 
 # Identify platform
-if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+if(${CMAKE_SYSTEM_NAME} MATCHES "iOS")
+    set(ARX_PLATFORM_NAME "iOS")
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     if(${CMAKE_TOOLCHAIN_FILE} MATCHES "ios.toolchain.cmake")
         set(ARX_PLATFORM_NAME "iOS")
     else()
