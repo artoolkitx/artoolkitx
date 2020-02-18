@@ -44,10 +44,11 @@
 #ifdef ARVIDEO_INPUT_WAVEVR
 
 #include <wvr/wvr_camera.h>
+// Prototype for WVR private API.
+uint64_t WVR_GetCameraFrameTimestamp(void);
 
 struct _AR2VideoParamWaveVRT {
-    AR2VideoBufferT    buffer0;
-    AR2VideoBufferT    buffer1;
+    AR2VideoBufferT    buffer;
     int                width;
     int                height;
     AR_PIXEL_FORMAT    format;
@@ -163,8 +164,7 @@ AR2VideoParamWaveVRT *ar2VideoOpenWaveVR(const char *config)
     if (cameraInfo.imgFormat == WVR_CameraImageFormat_Grayscale) {
         vid->format = AR_PIXEL_FORMAT_MONO;
     } else if (cameraInfo.imgFormat == WVR_CameraImageFormat_YUV_420) {
-        // For now, just use the luma plane only. Sometime in the future, could support AR_PIXEL_FORMAT_NV21.
-        vid->format = AR_PIXEL_FORMAT_MONO;
+        vid->format = AR_PIXEL_FORMAT_NV21;
     } else {
         ARLOGe("Unsupported WVR_CameraImageFormat.\n");
         goto bail1;
@@ -186,25 +186,25 @@ AR2VideoParamWaveVRT *ar2VideoOpenWaveVR(const char *config)
     }
 
     vid->bufSize = cameraInfo.size;
-    // If stereo, padd the buffer with one full extra row, so that we can treat
-    // the right-hand end of each row as if it was the start of a row, and treat
-    // both left and right buffers as if they have a chunk of padding. With this,
-    // reading from the last row won't read past the end of the buffer and cause
-    // an access violation.
+    // If stereo, as we'll treat rows of each eye as if they have an image-width
+    // of padding added, we pad the buffer with one full extra row, so that for
+    // the rigtht-hand image if the user of the image reads the "padding" part
+    // (which will actually be the first half of the next row) on the last row, 
+    // it won't read past the end of the buffer and cause an access violation.
     int bufSizeIncludingAnyPadding = cameraInfo.size;
     if (vid->stereo) bufSizeIncludingAnyPadding += cameraInfo.size / cameraInfo.height; 
-    vid->buffer0.buff = calloc(1, bufSizeIncludingAnyPadding);
-    vid->buffer0.buffLuma = vid->buffer0.buff;
-    vid->buffer0.bufPlanes = NULL;
-    vid->buffer0.bufPlaneCount = 0;
-    vid->buffer0.fillFlag = 0;
-    if (vid->stereo) {
-        vid->buffer1.buff = vid->buffer0.buff + vid->width;
-        vid->buffer1.buffLuma = vid->buffer1.buff;
-        vid->buffer1.bufPlanes = NULL;
-        vid->buffer1.bufPlaneCount = 0;
-        vid->buffer1.fillFlag = 0;
+    vid->buffer.buff = calloc(1, bufSizeIncludingAnyPadding);
+    vid->buffer.buffLuma = vid->buffer.buff;
+    if (vid->format == AR_PIXEL_FORMAT_MONO) {
+        vid->buffer.bufPlaneCount = 0;
+        vid->buffer.bufPlanes = NULL;
+    } else if (vid->format == AR_PIXEL_FORMAT_NV21) {
+        vid->buffer.bufPlaneCount = 2;
+        arMallocClear(vid->buffer.bufPlanes, ARUint8 *, 2);
+        vid->buffer.bufPlanes[0] = vid->buffer.buff;
+        vid->buffer.bufPlanes[1] = vid->buffer.buff + cameraInfo.width*cameraInfo.height;
     }
+    vid->buffer.fillFlag = 0;
 
     return vid;
 
@@ -220,6 +220,9 @@ int ar2VideoCloseWaveVR(AR2VideoParamWaveVRT *vid)
     if (!vid) return (-1); // Sanity check.
     
     WVR_StopCamera();
+    
+    free(vid->buffer.buff);
+    free(vid->buffer.bufPlanes);
     
     free(vid);
 
@@ -240,17 +243,16 @@ AR2VideoBufferT *ar2VideoGetImageWaveVR(AR2VideoParamWaveVRT *vid)
 {
     if (!vid) return (NULL); // Sanity check.
 
-    if (!WVR_GetCameraFrameBuffer(vid->buffer0.buff, vid->bufSize)) {
+    if (!WVR_GetCameraFrameBuffer(vid->buffer.buff, vid->bufSize)) {
         ARLOGe("Error in WVR_GetCameraFrameBuffer.\n");
         return (NULL);
     }
-    if (!vid->stereo || !vid->stereoNextEye) {
-        vid->buffer0.fillFlag = 1;
-        return &(vid->buffer0);
-    } else {
-        vid->buffer1.fillFlag = 1;
-        return &(vid->buffer1);
-    }
+    uint64_t frametime_nsec = WVR_GetCameraFrameTimestamp();
+    //ARLOGd("WVR_GetCameraFrameTimestamp %" PRIu64 ".\n", frametime_nsec);
+    vid->buffer.time.sec = frametime_nsec / 1000000000;
+    vid->buffer.time.usec = (uint32_t)((frametime_nsec / 1000) - (uint64_t)vid->buffer.time.sec*1000000);
+    vid->buffer.fillFlag = 1;
+    return &(vid->buffer);
 }
 
 int ar2VideoGetSizeWaveVR(AR2VideoParamWaveVRT *vid, int *x, int *y)
