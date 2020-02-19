@@ -1,6 +1,15 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.0.6
+### 2020-20-19
+
+This release improves and updates platform support.
+ * On iOS, builds now work with newer versions of CMake.
+ * On macOS, the command-line utilities now include camera permissions requests.
+ * On Windows, improved support for newer OpenGL runtimes.
+ * Corrects a bug in calculating marker confidence during stereo tracking.
+
 ## Version 1.0.5.1
 ### 2018-10-15
 
