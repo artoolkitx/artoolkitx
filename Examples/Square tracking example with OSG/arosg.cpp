@@ -257,7 +257,7 @@ extern "C" {
         AROSG *arOsg;
         
         arOsg = (AROSG *)calloc(1, sizeof(AROSG));
-        if (!arOsg) return (NULL);
+        if (!arOsg) return (nullptr);
         
         arOsg->sg = new osg::Group;
         arOsg->prevIndex = AR_OSG_MODELS_MAX - 1;
@@ -307,14 +307,14 @@ extern "C" {
         do {
             index++;
             if (index >= AR_OSG_MODELS_MAX) index = 0;
-        } while (index != arOsg->prevIndex && arOsg->models[index] != NULL);
+        } while (index != arOsg->prevIndex && arOsg->models[index] != nullptr);
         if (index == arOsg->prevIndex) {
             ARLOGe("Error: Unable to load model, maximum number of models (%d) already loaded.\n", AR_OSG_MODELS_MAX);
             return (-1);
         };
         
 #ifndef DEBUG_AROSG_MODELLOADING
-        osg::ref_ptr<osg::Node> model = NULL;
+        osg::ref_ptr<osg::Node> model = nullptr;
 
         // Ask OSG to load the model.
         // Check if object file refers to an image.
@@ -323,7 +323,7 @@ extern "C" {
         while (imageExtensions[i] != ext && imageExtensions[i] != "") i++;
         if (imageExtensions[i] != "") {
             // Attempt to load as image.
-            //ARLOGe("Reading image file '%s'.\n", modelFilePath);
+            //ARLOGd("Reading image file '%s'.\n", modelFilePath);
             osg::Image *image = osgDB::readImageFile(modelFilePath);
             if (!image) {
                 ARLOGe("Unable to read model image file '%s'.\n", modelFilePath);
@@ -337,22 +337,21 @@ extern "C" {
             }
         } else {
             // Attempt to load as node.
-            //ARLOGe("Reading node file '%s'.\n", modelFilePath);
+            //ARLOGd("Reading node file '%s'.\n", modelFilePath);
             model = osgDB::readNodeFile(modelFilePath);
             if (!model.valid()) {
                 ARLOGe("Unable to read model node file '%s'.\n", modelFilePath);
                 return (-1);
             }
             // attach shader program if needed
-#if defined(OSG_GLES2_AVAILABLE) || defined(OSG_GLES3_AVAILABLE)
+#  if defined(OSG_GLES2_AVAILABLE) || defined(OSG_GLES3_AVAILABLE)
             if (!textures) {
                 model->getOrCreateStateSet()->setAttributeAndModes(arOsg->_vertColorProgram, osg::StateAttribute::ON);
             } else {
                 model->getOrCreateStateSet()->setAttributeAndModes(arOsg->_textureProgram, osg::StateAttribute::ON);
             }
             optimizeNode(model);
-#endif
-
+#  endif
         }
 #else
         // For debugging purposes: colour cube.
@@ -385,10 +384,10 @@ extern "C" {
             edgesGeom->addPrimitiveSet(new osg::DrawElementsUByte(osg::PrimitiveSet::LINE_LOOP, 4, &(cube_faces[i][0])));
         }
         model->addDrawable(edgesGeom);
-#if defined(OSG_GLES2_AVAILABLE) || defined(OSG_GLES3_AVAILABLE)
-        model->getOrCreateStateSet()->setAttributeAndModes(_vertColorProgram, osg::StateAttribute::ON);
+#  if defined(OSG_GLES2_AVAILABLE) || defined(OSG_GLES3_AVAILABLE)
+        model->getOrCreateStateSet()->setAttributeAndModes(arOsg->_vertColorProgram, osg::StateAttribute::ON);
         optimizeNode(drawable);
-#endif
+#  endif
 
 #endif       
         
@@ -435,7 +434,7 @@ extern "C" {
         ARdouble         translation[3], rotation[4], scale[3];
                 
         // Read in the .dat file and get model filename, pose and scale.
-        if ((fp = fopen(modelDescriptionFilePath, "r")) == NULL) {
+        if ((fp = fopen(modelDescriptionFilePath, "r")) == nullptr) {
             ARLOGe("Error: unable to open model description file '%s'.\n", modelDescriptionFilePath);
             return (-1);
         }
@@ -522,7 +521,7 @@ extern "C" {
         }
         
         arOsg->sg->removeChild(arOsg->models[index].get());
-        arOsg->models[index] = NULL; // This will delete the model, through the ref_ptr template's methods.
+        arOsg->models[index] = nullptr; // This will delete the model, through the ref_ptr template's methods.
         return (0);
     }
 
@@ -872,16 +871,16 @@ extern "C" {
         if (intersector->containsIntersections()) {
             /*
              @param      nodeType If supplied, on return the location pointed to will be filled with a pointer to a C string
-             containing the name of the node type, e.g. "Node" or "Geode", or filled with NULL if this could not be determined.
-             If this information is not required, pass NULL for this parameter.
+             containing the name of the node type, e.g. "Node" or "Geode", or filled with nullptr if this could not be determined.
+             If this information is not required, pass nullptr for this parameter.
              @param      nodeName If supplied, on return the location pointed to will be filled with a pointer to a C string
              containing the user-defined name of the actual node, provided one was defined, e.g. "MyCoolNode",
-             or filled with NULL if no name had been assigned.
-             If this information is not required, pass NULL for this parameter.
+             or filled with nullptr if no name had been assigned.
+             If this information is not required, pass nullptr for this parameter.
              @param      intersectionCoords If supplied, should point to an array of 3 ARdoubles. On return the location pointed
              to will be filled with a the coordinates of the interection in world coordinate space.
-             or filled with NULL if no name had been assigned.
-             If this information is not required, pass NULL for this parameter.             
+             or filled with nullptr if no name had been assigned.
+             If this information is not required, pass nullptr for this parameter.             
              */
             /*char **nodeType, char **nodeName, ARdouble *intersectionCoords
             intersections = intersector->getIntersections();
@@ -889,12 +888,12 @@ extern "C" {
                 if (nodeType) {
                     if (hitr->drawable.valid()) {
                         *nodeType = strdup(hitr->drawable->className());
-                    } else *nodeType = NULL;
+                    } else *nodeType = nullptr;
                 }
                 if (nodeName) {
                     if (!hitr->nodePath.empty() && !(hitr->nodePath.back()->getName().empty())) {
                         *nodeType = strdup(hitr->nodePath.back()->getName().c_str());
-                    } else *nodeName = NULL;
+                    } else *nodeName = nullptr;
                 }
                 if (intersectionCoords) {
                     double *ic = hitr->getWorldIntersectPoint().ptr();

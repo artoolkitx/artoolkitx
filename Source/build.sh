@@ -238,7 +238,7 @@ if [ ! $BUILD_WAVEVR ] ; then
     else
         echo "Building ARXJ library as AAR"
         cd $OURDIR
-        cd ARXJ/ARXJProj; ./gradlew -q assembleRelease;
+        cd ARXJ/ARXJProj; ./gradlew assembleRelease;
         cd $OURDIR
         mkdir -p ../SDK/lib/ARXJ/
         cp ARXJ/ARXJProj/arxj/build/outputs/aar/arxj-release.aar ../SDK/lib/ARXJ/
@@ -246,16 +246,16 @@ if [ ! $BUILD_WAVEVR ] ; then
         if [ $BUILD_EXAMPLES ] ; then
             echo "Building example ARSquareTracking as APK"
             cd $OURDIR
-            cd "../Examples/Square tracking example/Android/ARSquareTracking"; ./gradlew -q assembleRelease;
+            cd "../Examples/Square tracking example/Android/ARSquareTracking"; ./gradlew assembleRelease;
             cd $OURDIR
-            cd "../Examples/Square tracking example with OSG/Android/ARSquareTracking"; ./gradlew -q assembleRelease;
+            cd "../Examples/Square tracking example with OSG/Android/ARSquareTracking"; ./gradlew assembleRelease;
             cd $OURDIR
             cp -v "../Examples/Square tracking example/Android/ARSquareTracking/ARSquareTrackingExample/build/outputs/apk/release/"ARSquareTrackingExample-release-unsigned.apk ../Examples/
             cp -v "../Examples/Square tracking example with OSG/Android/ARSquareTracking/ARSquareTrackingExample/build/outputs/apk/release/"ARSquareTrackingExample-release-unsigned.apk ../Examples/ARSquareTrackingExampleOSG-release-unsigned.apk
         
             echo "Building example AR2dTracking as APK"
             cd $OURDIR
-            cd "../Examples/2d tracking example/Android/AR2DTracking_Proj"; ./gradlew -q assembleRelease;
+            cd "../Examples/2d tracking example/Android/AR2DTracking_Proj"; ./gradlew assembleRelease;
             cd $OURDIR
             cp -v "../Examples/2d tracking example/Android/AR2DTracking_Proj/AR2DTrackingExample/build/outputs/apk/release/"AR2DTrackingExample-release-unsigned.apk ../Examples/
 
