@@ -69,6 +69,7 @@
 #endif
 
 #include "draw.h"
+#include "arosg.h"
 
 #if ARX_TARGET_PLATFORM_WINDOWS
 const char *vconf = "-module=WinMF -format=BGRA";
@@ -146,40 +147,50 @@ int main(int argc, char *argv[])
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); // This is the default.
     SDL_GL_SetSwapInterval(1);
 #if HAVE_GL3
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    gSDLContext = SDL_GL_CreateContext(gSDLWindow);
-    if (gSDLContext) {
-        drawAPI = ARG_API_GL3;
-        ARLOGi("Created OpenGL 3.2+ context.\n");
-    } else {
-        ARLOGi("Unable to create OpenGL 3.2 context: %s. Will try OpenGL 1.5.\n", SDL_GetError());
-#endif // HAVE_GL3
-#if HAVE_GL
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, 0);
+    if (arOSGGetPreferredAPI() == ARG_API_GL3) {
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
         gSDLContext = SDL_GL_CreateContext(gSDLWindow);
         if (gSDLContext) {
-            drawAPI = ARG_API_GL;
-            ARLOGi("Created OpenGL 1.5+ context.\n");
-#  if ARX_TARGET_PLATFORM_MACOS
-        vconf = "-format=BGRA";
-#  endif
+            drawAPI = ARG_API_GL3;
+            ARLOGi("Created OpenGL 3.2+ context.\n");
         } else {
-            ARLOGi("Unable to create OpenGL 1.5 context: %s. Will try OpenGL ES 2.0\n", SDL_GetError());
-#endif // HAVE_GL
-#if HAVE_GLES2
-            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-            SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+            ARLOGi("Unable to create OpenGL 3.2+ context: %s.\n", SDL_GetError());
+        }
+    }
+    if (!gSDLContext) {
+#endif // HAVE_GL3
+#if HAVE_GL
+        if (arOSGGetPreferredAPI() == ARG_API_GL) {
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, 0);
             gSDLContext = SDL_GL_CreateContext(gSDLWindow);
             if (gSDLContext) {
-                drawAPI = ARG_API_GLES2;
-                ARLOGi("Created OpenGL ES 2.0+ context.\n");
+                drawAPI = ARG_API_GL;
+                ARLOGi("Created OpenGL 1.5+ context.\n");
+#  if ARX_TARGET_PLATFORM_MACOS
+                vconf = "-format=BGRA";
+#  endif
             } else {
-                ARLOGi("Unable to create OpenGL ES 2.0 context: %s.\n", SDL_GetError());
+                ARLOGi("Unable to create OpenGL 1.5+ context: %s.\n", SDL_GetError());
+            }
+        }
+        if (!gSDLContext) {
+#endif // HAVE_GL
+#if HAVE_GLES2
+            if (arOSGGetPreferredAPI() == ARG_API_GLES2) {
+                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+                SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+                gSDLContext = SDL_GL_CreateContext(gSDLWindow);
+                if (gSDLContext) {
+                    drawAPI = ARG_API_GLES2;
+                    ARLOGi("Created OpenGL ES 2.0+ context.\n");
+                } else {
+                    ARLOGi("Unable to create OpenGL ES 2.0 context: %s.\n", SDL_GetError());
+                }
             }
 #endif // HAVE_GLES2
 #if HAVE_GL
