@@ -37,10 +37,9 @@
  */
 
 #include <ARX/ARTrackable2d.h>
-#include <ARX/ARUtil/image_utils.h>
-
-
 #if HAVE_2D
+#include <ARX/ARUtil/image_utils.h>
+#include <stdexcept>
 
 ARTrackable2d::ARTrackable2d() : ARTrackable(TwoD),
 m_loaded(false),

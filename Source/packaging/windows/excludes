@@ -1,3 +1,8 @@
+# Exclusion list for artoolkitX packaging.
+# One pattern match per line.
+
+**/build-*
+
 # Visual Studio
 *.suo
 *.user

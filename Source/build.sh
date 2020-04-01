@@ -26,7 +26,7 @@ fi
 set -e
 
 # -x = debug
-#set -x
+set -x
 
 # Parse parameters
 while test $# -gt 0
@@ -80,19 +80,14 @@ then
 elif [ "$OS" = "Darwin" ]
 then
     CPUS=`/usr/sbin/sysctl -n hw.ncpu`
-elif [ "$OS" = "CYGWIN_NT-6.1" ]
+elif [[ "$OS" == "CYGWIN_NT-"* ]]
 then
     # bash on Cygwin.
     CPUS=`/usr/bin/nproc`
     OS='Windows'
-elif [ "$OS" = "MINGW64_NT-6.1" ]
+elif [[ "$OS" == "MINGW64_NT-"* ]]
 then
-    # git-bash on Windows 7
-    CPUS=`/usr/bin/nproc`
-    OS='Windows'
-elif [ "$OS" = "MINGW64_NT-10.0" ]
-then
-    # git-bash on Windows.
+    # git-bash on Windows
     CPUS=`/usr/bin/nproc`
     OS='Windows'
 else

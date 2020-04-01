@@ -4,3 +4,6 @@
 *.iss text eol=crlf
 # Archives are binary.
 *.a binary
+*.lib binary
+*.dll binary
+*.exe binary
