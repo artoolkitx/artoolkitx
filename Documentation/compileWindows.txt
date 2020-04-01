@@ -1,0 +1,9 @@
+checkout master branch
+from git bash, run '/artoolkitx-master/Source/build.sh windows'
+if you also want to use debug mode, then you need to also run 'build.sh windows --debug'
+use CMake GUI to create the VS17 project files, runs without errors, only warning is that it can't find OpenGL ES -> note that this project only works with x64! So make sure you select the correct template in CMake GUI on startup
+open project in VS17 and compile
+copy the DLLs from \artoolkitx-master\SDK\bin to your debug and release folders
+copy hiro.patt and kanji.patt from "artoolkitx-master\Examples\Square tracking example with OSG\Android\ARSquareTracking\ARSquareTrackingExample\src\main\assets\Data" to your debug and release folders
+run the example
+Probably will work with other versions of VS too, but haven't tested it. CMake GUI version I used was 3.11.0.

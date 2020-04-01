@@ -78,7 +78,8 @@ typedef enum {
     AR_VIDEO_MODULE_WINDOWS_MEDIA_FOUNDATION = 16,
     AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE = 17,
     AR_VIDEO_MODULE_V4L2               = 18,
-    AR_VIDEO_MODULE_MAX                = 18,
+	AR_VIDEO_MODULE_BUFFER             = 19,
+    AR_VIDEO_MODULE_MAX                = 19,
 } AR_VIDEO_MODULE;
 
 //

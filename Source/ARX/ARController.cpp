@@ -1,4 +1,5 @@
 /*
+/*
  *  ARController.cpp
  *  artoolkitX
  *
@@ -309,54 +310,93 @@ bool ARController::updateTextureRGBA32(const int videoSourceIndex, uint32_t *buf
     }
 }
 
-bool ARController::update()
+bool ARController::update(AR2VideoBufferT* leftBuffer, AR2VideoBufferT* rightBuffer)
 {
-    ARLOGd("ARX::ARController::update().\n");
-    
+	ARLOGd("ARX::ARController::update().\n");
+
 	if (state != DETECTION_RUNNING) {
-        if (state != WAITING_FOR_VIDEO) {
-            // State is NOTHING_INITIALISED or BASE_INITIALISED.
-            ARLOGe("Update called but not yet started.\n");
-            return false;
+		if (state != WAITING_FOR_VIDEO) {
+			// State is NOTHING_INITIALISED or BASE_INITIALISED.
+			ARLOGe("Update called but not yet started.\n");
+			return false;
 
-        } else {
+		} else {
 
-            // First check there is a video source and it's open.
-            if (!m_videoSource0 || !m_videoSource0->isOpen() || (m_videoSourceIsStereo && (!m_videoSource1 || !m_videoSource1->isOpen()))) {
-                ARLOGe("No video source or video source is closed.\n");
-                return false;
-            }
+			// First check there is a video source and it's open.
+			if (!m_videoSource0 || !m_videoSource0->isOpen() || (m_videoSourceIsStereo && (!m_videoSource1 || !m_videoSource1->isOpen()))) {
+				ARLOGe("No video source or video source is closed.\n");
+				return false;
+			}
 
-            // Video source is open, check whether we're waiting for it to start running.
-            // If it's not running, return to caller now.
-            if (!m_videoSource0->isRunning() || (m_videoSourceIsStereo && !m_videoSource1->isRunning())) {
+			// Video source is open, check whether we're waiting for it to start running.
+			// If it's not running, return to caller now.
+			if (!m_videoSource0->isRunning() || (m_videoSourceIsStereo && !m_videoSource1->isRunning())) {
 
-                if (!stateWaitingMessageLogged) {
-                    ARLOGi("Waiting for video.\n");
-                    stateWaitingMessageLogged = true;
-                }
-                return true;
-            }
+				if (!stateWaitingMessageLogged) {
+					ARLOGi("Waiting for video.\n");
+					stateWaitingMessageLogged = true;
+				}
+				return true;
+			}
 
-            state = DETECTION_RUNNING;
-        }
+			state = DETECTION_RUNNING;
+		}
 	}
 
-    // Checkout frame(s).
-    AR2VideoBufferT *image0, *image1 = NULL;
-    image0 = m_videoSource0->checkoutFrameIfNewerThan(m_updateFrameStamp0);
-    if (!image0) {
-        return true;
-    }
-    m_updateFrameStamp0 = image0->time;
-    if (m_videoSourceIsStereo) {
-        image1 = m_videoSource1->checkoutFrameIfNewerThan(m_updateFrameStamp1);
-        if (!image1) {
-            m_videoSource0->checkinFrame(); // If we didn't checkout this frame, but we already checked out a frame from one or more other video sources, check those back in.
-            return true;
-        }
-        m_updateFrameStamp1 = image1->time;
-    }
+	// Checkout frame(s).
+	AR2VideoBufferT *image0, *image1 = NULL;
+
+	AR2VideoParamT* param = m_videoSource0->getAR2VideoParam();
+	if(param->module == AR_VIDEO_MODULE_BUFFER) {
+		image0 = leftBuffer;
+		image1 = rightBuffer;
+
+		if(!image0)
+			return true;
+		else {
+			AR_PIXEL_FORMAT pixFormat = m_videoSource0->getPixelFormat();
+			if (pixFormat == AR_PIXEL_FORMAT_MONO || pixFormat == AR_PIXEL_FORMAT_420f || pixFormat == AR_PIXEL_FORMAT_420v || pixFormat == AR_PIXEL_FORMAT_NV21) {
+				image0->buffLuma = image0->buff;
+			} else {
+				if (!param->lumaInfo) {
+					int xsize, ysize;
+					if (ar2VideoGetSize(param, &xsize, &ysize) < 0) {
+						ARLOGe("ARController::update unable to get size.\n");
+						return (NULL);
+					}
+					param->lumaInfo = arVideoLumaInit(xsize, ysize, pixFormat);
+					if (!param->lumaInfo) {
+						ARLOGe("ARController::update unable to initialise luma conversion.\n");
+						return (NULL);
+					}
+				}
+				image0->buffLuma = arVideoLuma(param->lumaInfo,  image0->buff);
+			}
+			m_updateFrameStamp0 = image0->time;
+		}
+		
+		if (m_videoSourceIsStereo) {
+			if(!image1)
+				return true;
+			else
+				m_updateFrameStamp1 = image1->time;
+		}
+	} else {
+		image0 = m_videoSource0->checkoutFrameIfNewerThan(m_updateFrameStamp0);
+		m_updateFrameStamp0 = image0->time;
+		if (!image0) {
+			return true;
+		}
+
+		if (m_videoSourceIsStereo) {
+			image1 = m_videoSource1->checkoutFrameIfNewerThan(m_updateFrameStamp1);
+			if (!image1) {
+				m_videoSource0->checkinFrame(); // If we didn't checkout this frame, but we already checked out a frame from one or more other video sources, check those back in.
+				return true;
+			}
+			m_updateFrameStamp1 = image1->time;
+		}
+	}
 
     //
     // Tracker updates.
