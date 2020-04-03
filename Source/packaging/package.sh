@@ -68,17 +68,28 @@ if [ "$OS" = "Linux" ]
 then
     CPUS=`/usr/bin/nproc`
     TAR='/bin/tar'
+    # Identify Linux OS. Sets useful variables: ID, ID_LIKE, VERSION, NAME, PRETTY_NAME.
+    source /etc/os-release
+    # Windows Subsystem for Linux identifies itself as 'Linux'. Additional test required.
+    if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+        OS='Windows'
+    fi
 elif [ "$OS" = "Darwin" ]
 then
     CPUS=`/usr/sbin/sysctl -n hw.ncpu`
-elif [ "$OS" = "CYGWIN_NT-6.1" ]
+elif [[ "$OS" == "CYGWIN_NT-"* ]]
 then
     # bash on Cygwin.
     CPUS=`/usr/bin/nproc`
     OS='Windows'
-elif [ "$OS" = "MINGW64_NT-10.0" ]
+elif [[ "$OS" == "MINGW64_NT-"* ]]
 then
-    # git-bash on Windows.
+    # git-bash on Windows
+    CPUS=`/usr/bin/nproc`
+    OS='Windows'
+elif [[ "$OS" == "MINGW32_NT-"* ]]
+then
+    # git-bash on Windows
     CPUS=`/usr/bin/nproc`
     OS='Windows'
 else
@@ -251,13 +262,12 @@ fi
 fi
 # /"$OS" = "Linux"
 
-# IDEA: windows as platform should be possible for Android too
 if [ "$OS" = "Windows" ] ; then
     # ======================================================================
-    #  Package platforms hosted by macOS/Linux
+    #  Package platforms hosted by Windows
     # ======================================================================
 
-    # Android
+    # Windows
     if [ $PACKAGE_WINDOWS ] ; then
 
         # Get version from header `SDK>include>ARX.AR>ar.h`
@@ -267,29 +277,24 @@ if [ "$OS" = "Windows" ] ; then
         VERSION_DEV=`sed -En -e 's/#define AR_HEADER_VERSION_DEV[[:space:]]+([0-9]+).*/\1/p' ${ARTOOLKITX_HOME}/SDK/include/ARX/AR/config.h`
         if [ "${VERSION_DEV}" = "0" ] ; then unset VERSION_DEV ; fi
 
-        TARGET_DIR="${OURDIR}/windows/package"
+        TARGET_DIR="${OURDIR}/windows/package/artoolkitX"
         if [ -d ${TARGET_DIR} ] ; then
             rm -rf ${TARGET_DIR}
         fi
 
-        PACKAGE_NAME="artoolkitx-${VERSION}${VERSION_DEV+-dev}-Windows.zip"
-
-        tar czvf "$PACKAGE_NAME" \
-            -T "./windows/bom" \
-#            --exclude-ignore "${OURDIR}/windows/excludes" \
-
-#        tar -czv "$PACKAGE_NAME" \
-#            -add-file="${OURDIR}/windows/bom" \
-#            --exclude-ignore-recursive="${OURDIR}/windows/excludes"
-
+        # To workaround Windows rsync weirdness, change to root before packaging.
+        (cd ../..
+        $OURDIR/windows/tools/rsync.exe -ar --files-from=Source/packaging/windows/bom --exclude-from=Source/packaging/windows/excludes . Source/packaging/windows/package/artoolkitX)
+        
         #Package all into a zip file
-        #cd ./windows/package/
-        #zip --filesync -r "artoolkitx-${VERSION}${VERSION_DEV+-dev}-Windows.zip" ./artoolkitX/
+        cd ./windows/package/
+        ../tools/zip.exe --filesync -r "artoolkitx-${VERSION}${VERSION_DEV+-dev}-Windows.zip" ./artoolkitX/
+        PACKAGE_NAME="artoolkitx-${VERSION}${VERSION_DEV+-dev}-Windows.zip"
         #Clean up
         cd $OURDIR
         rm -rf ${TARGET_DIR}
         export PACKAGE_NAME
     fi
-    # /Android
+    # /Windows
 fi
-# /"$OS" = "Darwin" || "$OS" = "Linux"
+# /"$OS" = "Windows"
