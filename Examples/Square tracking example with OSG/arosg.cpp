@@ -76,7 +76,7 @@ struct _AROSG {
     osg::ref_ptr<osg::MatrixTransform> models[AR_OSG_MODELS_MAX];
     int frontFaceWinding;
     double time;
-#if defined(OSG_GLES2_AVAILABLE) || defined(OSG_GLES3_AVAILABLE)
+#if !defined(OSG_GL_FIXED_FUNCTION_AVAILABLE)
     // global programs
     osg::ref_ptr<osg::Program> _vertColorProgram;
     osg::ref_ptr<osg::Program> _textureProgram;
@@ -239,6 +239,7 @@ osg::Geometry* myCreateTexturedQuadGeometry(const osg::Vec3& pos,float width,flo
 
 extern "C" {
     
+    
     unsigned int arOSGGetVersion()
     {
         return (0x10000000u * ((unsigned int)AR_HEADER_VERSION_MAJOR / 10u) +
@@ -250,6 +251,19 @@ extern "C" {
                 0x00000010u * ((unsigned int)AR_HEADER_VERSION_DEV / 10u) +
                 0x00000001u * ((unsigned int)AR_HEADER_VERSION_DEV % 10u)
                 );        
+    }
+
+    ARG_API arOSGGetPreferredAPI()
+    {
+#if defined(OSG_GLES2_AVAILABLE) || defined(OSG_GLES3_AVAILABLE)
+        return (ARG_API_GLES2);
+#elif defined(OSG_GL3_AVAILABLE)
+        return (ARG_API_GL3);
+#elif defined(OSG_GL1_AVAILABLE) || defined(OSG_GL2_AVAILABLE)
+        return (ARG_API_GL);
+#else
+        return (ARG_API_None);
+#endif
     }
     
     AROSG *arOSGInit()
@@ -264,7 +278,7 @@ extern "C" {
         arOsg->time = USE_REFERENCE_TIME;
 
         // create our default programs
-#if defined(OSG_GLES2_AVAILABLE) || defined(OSG_GLES3_AVAILABLE)
+#if !defined(OSG_GL_FIXED_FUNCTION_AVAILABLE)
         arOsg->_vertColorProgram = new osg::Program();
         arOsg->_vertColorProgram->addShader( new osg::Shader(osg::Shader::VERTEX, ColorShaderVert));
         arOsg->_vertColorProgram->addShader( new osg::Shader(osg::Shader::FRAGMENT, ColorShaderFrag));
@@ -344,7 +358,7 @@ extern "C" {
                 return (-1);
             }
             // attach shader program if needed
-#  if defined(OSG_GLES2_AVAILABLE) || defined(OSG_GLES3_AVAILABLE)
+#  if !defined(OSG_GL_FIXED_FUNCTION_AVAILABLE)
             if (!textures) {
                 model->getOrCreateStateSet()->setAttributeAndModes(arOsg->_vertColorProgram, osg::StateAttribute::ON);
             } else {
@@ -384,7 +398,7 @@ extern "C" {
             edgesGeom->addPrimitiveSet(new osg::DrawElementsUByte(osg::PrimitiveSet::LINE_LOOP, 4, &(cube_faces[i][0])));
         }
         model->addDrawable(edgesGeom);
-#  if defined(OSG_GLES2_AVAILABLE) || defined(OSG_GLES3_AVAILABLE)
+#  if !defined(OSG_GL_FIXED_FUNCTION_AVAILABLE)
         model->getOrCreateStateSet()->setAttributeAndModes(arOsg->_vertColorProgram, osg::StateAttribute::ON);
         optimizeNode(drawable);
 #  endif

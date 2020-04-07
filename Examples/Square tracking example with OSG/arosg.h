@@ -53,6 +53,7 @@
 #define AR_OSG_H
 
 #include <ARX/AR/ar.h>
+#include <ARX/ARG/arg.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -109,7 +110,9 @@ typedef struct _AROSG AROSG; // (Forward definition of opaque structure).
     @availability Available in ARToolKit v4.4.2 and later.
  */
 AR_OSG_EXTERN     unsigned int arOSGGetVersion();
-    
+
+AR_OSG_EXTERN     ARG_API arOSGGetPreferredAPI();
+
 /*!
     @function
     @abstract   Create a settings structure for use with all other arOSG functions.
