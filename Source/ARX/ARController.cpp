@@ -986,3 +986,10 @@ done:
 }
 #endif // ARX_TARGET_PLATFORM_ANDROID
 
+// A simple cross-platform way to force the inclusion of symbols from static libraries
+// that otherwise would not be defined as they are not used in any dynamic object.
+// This function is never intended to be called.
+void force_undefined(void)
+{
+    printf("%p", (void *)&arVideoSaveImageJPEG);
+}
