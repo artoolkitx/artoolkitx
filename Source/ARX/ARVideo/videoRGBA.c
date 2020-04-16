@@ -752,6 +752,63 @@ int videoRGBA(uint32_t *destRGBA, AR2VideoBufferT *source, int width, int height
 #endif
         }
             break;
+        case AR_PIXEL_FORMAT_420v:
+        {
+            ARUint8 *pY0 = source->bufPlanes[0], *pY1 = source->bufPlanes[0] + width;
+            ARUint8 *pCbCr = source->bufPlanes[1];
+            uint8_t *outp0 = (uint8_t *)destRGBA;
+            uint8_t *outp1 = ((uint8_t *)destRGBA) + width*4;
+            int wd2 = width >> 1;
+            int hd2 = height >> 1;
+            for (int y = 0; y < hd2; y++) { // Groups of two pixels.
+                for (int x = 0; x < wd2; x++) { // Groups of two pixels.
+                    int16_t Cb, Cr;
+                    int16_t Y0, Y1, R, G, B;
+                    uint8_t R0, R1, G0, G1, B0, B1;
+                    Cb = ((int16_t)(*(pCbCr++))) - 128;
+                    Cr = ((int16_t)(*(pCbCr++))) - 128;
+                    R = (         204*Cr) >> 7;
+                    G = (-50*Cb - 104*Cr) >> 7;
+                    B = (258*Cb         ) >> 7;
+                    Y0 = (149*((int16_t)(*(pY0++))) - 16) >> 7;
+                    Y1 = (149*((int16_t)(*(pY0++))) - 16) >> 7;
+                    R0 = (uint8_t)CLAMP(Y0 + R, 0, 255);
+                    R1 = (uint8_t)CLAMP(Y1 + R, 0, 255);
+                    G0 = (uint8_t)CLAMP(Y0 + G, 0, 255);
+                    G1 = (uint8_t)CLAMP(Y1 + G, 0, 255);
+                    B0 = (uint8_t)CLAMP(Y0 + B, 0, 255);
+                    B1 = (uint8_t)CLAMP(Y1 + B, 0, 255);
+                    *(outp0++) = R0;
+                    *(outp0++) = G0;
+                    *(outp0++) = B0;
+                    *(outp0++) = 255;
+                    *(outp1++) = R1;
+                    *(outp1++) = G1;
+                    *(outp1++) = B1;
+                    *(outp1++) = 255;
+                    Y0 = (149*((int16_t)(*(pY1++))) - 16) >> 7;
+                    Y1 = (149*((int16_t)(*(pY1++))) - 16) >> 7;
+                    R0 = (uint8_t)CLAMP(Y0 + R, 0, 255);
+                    R1 = (uint8_t)CLAMP(Y1 + R, 0, 255);
+                    G0 = (uint8_t)CLAMP(Y0 + G, 0, 255);
+                    G1 = (uint8_t)CLAMP(Y1 + G, 0, 255);
+                    B0 = (uint8_t)CLAMP(Y0 + B, 0, 255);
+                    B1 = (uint8_t)CLAMP(Y1 + B, 0, 255);
+                    *(outp0++) = R0;
+                    *(outp0++) = G0;
+                    *(outp0++) = B0;
+                    *(outp0++) = 255;
+                    *(outp1++) = R1;
+                    *(outp1++) = G1;
+                    *(outp1++) = B1;
+                    *(outp1++) = 255;
+                }
+                pY0 += width;
+                pY1 += width;
+                outp0 += width*4;
+                outp1 += width*4;
+            }
+        }
         case AR_PIXEL_FORMAT_2vuy:
         {
             for (int y = 0; y < height; y++) {
@@ -1526,6 +1583,64 @@ int videoBGRA(uint32_t *destBGRA, AR2VideoBufferT *source, int width, int height
 #if HAVE_ARM_NEON || HAVE_ARM64_NEON
             }
 #endif
+        }
+            break;
+        case AR_PIXEL_FORMAT_420v:
+        {
+            ARUint8 *pY0 = source->bufPlanes[0], *pY1 = source->bufPlanes[0] + width;
+            ARUint8 *pCbCr = source->bufPlanes[1];
+            uint8_t *outp0 = (uint8_t *)destBGRA;
+            uint8_t *outp1 = ((uint8_t *)destBGRA) + width*4;
+            int wd2 = width >> 1;
+            int hd2 = height >> 1;
+            for (int y = 0; y < hd2; y++) { // Groups of two pixels.
+                for (int x = 0; x < wd2; x++) { // Groups of two pixels.
+                    int16_t Cb, Cr;
+                    int16_t Y0, Y1, R, G, B;
+                    uint8_t R0, R1, G0, G1, B0, B1;
+                    Cb = ((int16_t)(*(pCbCr++))) - 128;
+                    Cr = ((int16_t)(*(pCbCr++))) - 128;
+                    R = (         204*Cr) >> 7;
+                    G = (-50*Cb - 104*Cr) >> 7;
+                    B = (258*Cb         ) >> 7;
+                    Y0 = (149*((int16_t)(*(pY0++))) - 16) >> 7;
+                    Y1 = (149*((int16_t)(*(pY0++))) - 16) >> 7;
+                    R0 = (uint8_t)CLAMP(Y0 + R, 0, 255);
+                    R1 = (uint8_t)CLAMP(Y1 + R, 0, 255);
+                    G0 = (uint8_t)CLAMP(Y0 + G, 0, 255);
+                    G1 = (uint8_t)CLAMP(Y1 + G, 0, 255);
+                    B0 = (uint8_t)CLAMP(Y0 + B, 0, 255);
+                    B1 = (uint8_t)CLAMP(Y1 + B, 0, 255);
+                    *(outp0++) = B0;
+                    *(outp0++) = G0;
+                    *(outp0++) = R0;
+                    *(outp0++) = 255;
+                    *(outp1++) = B1;
+                    *(outp1++) = G1;
+                    *(outp1++) = R1;
+                    *(outp1++) = 255;
+                    Y0 = (149*((int16_t)(*(pY1++))) - 16) >> 7;
+                    Y1 = (149*((int16_t)(*(pY1++))) - 16) >> 7;
+                    R0 = (uint8_t)CLAMP(Y0 + R, 0, 255);
+                    R1 = (uint8_t)CLAMP(Y1 + R, 0, 255);
+                    G0 = (uint8_t)CLAMP(Y0 + G, 0, 255);
+                    G1 = (uint8_t)CLAMP(Y1 + G, 0, 255);
+                    B0 = (uint8_t)CLAMP(Y0 + B, 0, 255);
+                    B1 = (uint8_t)CLAMP(Y1 + B, 0, 255);
+                    *(outp0++) = B0;
+                    *(outp0++) = G0;
+                    *(outp0++) = R0;
+                    *(outp0++) = 255;
+                    *(outp1++) = B1;
+                    *(outp1++) = G1;
+                    *(outp1++) = R1;
+                    *(outp1++) = 255;
+                }
+                pY0 += width;
+                pY1 += width;
+                outp0 += width*4;
+                outp1 += width*4;
+            }
         }
             break;
         case AR_PIXEL_FORMAT_2vuy:
