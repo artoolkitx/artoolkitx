@@ -40,6 +40,10 @@
 #include <ARX/ARG/arg.h>
 #include <stdint.h>
 
+// This can be any number, it just affects memory usage, so best to keep it close
+// to the number of models you'll be using.
+#define MAX_MODELS 16
+
 #ifdef __cplusplus
 extern "C" {
 #endif

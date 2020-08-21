@@ -72,9 +72,9 @@
 #include "arosg.h"
 
 #if ARX_TARGET_PLATFORM_WINDOWS
-const char *vconf = "-module=WinMF -format=BGRA";
+std::string vconf = std::string("-module=WinMF -format=BGRA");
 #else
-const char *vconf = NULL;
+std::string vconf = std::string();
 #endif
 const char *cpara = NULL;
 
@@ -171,7 +171,7 @@ int main(int argc, char *argv[])
                 drawAPI = ARG_API_GL;
                 ARLOGi("Created OpenGL 1.5+ context.\n");
 #  if ARX_TARGET_PLATFORM_MACOS
-                vconf = "-format=BGRA";
+                vconf += std::string(" -format=BGRA");
 #  endif
             } else {
                 ARLOGi("Unable to create OpenGL 1.5+ context: %s.\n", SDL_GetError());
@@ -242,7 +242,7 @@ int main(int argc, char *argv[])
     ARLOGd("vconf is '%s'.\n", vconf);
 #endif
     // Start tracking.
-    arController->startRunning(vconf, cpara, NULL, 0);
+    arController->startRunning(vconf.c_str(), cpara, NULL, 0);
 
     // Main loop.
     bool done = false;
@@ -281,6 +281,8 @@ int main(int argc, char *argv[])
                 quit(-1);
             }
 
+            SDL_GL_MakeCurrent(gSDLWindow, gSDLContext);
+
             if (contextWasUpdated) {
                 
                 if (!arController->drawVideoInit(0)) {
@@ -303,12 +305,13 @@ int main(int argc, char *argv[])
                 for (int i = 0; i < markerCount; i++) {
                     if (asprintf(&modelPath, "%s/%s", resourcesDir, markers[i].modelDataFileName) == -1) break;
                     markerModelIDs[i] = drawLoadModel(modelPath);
+                    if (markerModelIDs[i] < 0) {
+                        ARLOGe("Error loading model '%s'.\n", modelPath);
+                    }
                     free(modelPath);
                 }
                 contextWasUpdated = false;
             }
-
-            SDL_GL_MakeCurrent(gSDLWindow, gSDLContext);
 
             // Clear the context.
             glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -357,7 +360,7 @@ static void processCommandLineOptions(int argc, char *argv[])
         if ((i + 1) < argc) {
             if (strcmp(argv[i], "--vconf") == 0) {
                 i++;
-                vconf = argv[i];
+                vconf += std::string(" ") + std::string(argv[i]);
                 gotTwoPartOption = TRUE;
             } else if (strcmp(argv[i], "--cpara") == 0) {
                 i++;
