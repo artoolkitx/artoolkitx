@@ -179,7 +179,7 @@ unsigned char *EdenUIInputGetInputForDrawing(EdenUIInput_t input)
             if (sys_time.millitm < 500ul) cursorState = 1;
             else cursorState = 0;
 #else
-#  if defined(__linux) || defined(__APPLE__)
+#  if defined(__linux) || defined(__APPLE__) || defined(EMSCRIPTEN)
             gettimeofday(&time, NULL);
 #  else
             gettimeofday(&time);

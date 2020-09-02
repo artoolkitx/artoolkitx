@@ -1,10 +1,5 @@
 if(NOT ARX_TARGET_PLATFORM_WINDOWS)
     find_package(ZLIB REQUIRED)
-	find_path(
-		STB_INCLUDE_DIR
-		stb_image 
-		NO_SYSTEM_ENVIRONMENT_PATH
-	)
 else()
     FIND_PATH( ZLIB_INCLUDE_DIRS
             NAMES zlib.h zconf.h
@@ -23,10 +18,19 @@ else()
                 PATHS ${PROJECT_SOURCE_DIR}/depends/windows/lib/x64
                 DOC "The directory where zlibstatic.lib static library resides"
                 )
+endif()
+
+if(NOT ARX_TARGET_PLATFORM_WINDOWS AND NOT ARX_TARGET_PLATFORM_EMSCRIPTEN)
+	find_path(
+		STB_INCLUDE_DIR
+		stb_image 
+		NO_SYSTEM_ENVIRONMENT_PATH
+	)
+else()
 	FIND_PATH(
 		STB_INCLUDE_DIR
-		NAMES stb_image.h stb_image_write.h
-		PATHS ${PROJECT_SOURCE_DIR}/depends/windows/include/stb_image
+		NAMES stb_image/stb_image.h stb_image/stb_image_write.h
+		PATHS ${PROJECT_SOURCE_DIR}/depends/common/include
 	)
 endif()
 
@@ -69,6 +73,9 @@ if (ARX_TARGET_PLATFORM_ANDROID)
         nftw.c
     )
 endif()
+
+# We don't support password-protected archives, so no need to support crypt.
+add_definitions("-DNOCRYPT")
 
 add_library(ARUtil STATIC
     ${PUBLIC_HEADERS} ${SOURCE}

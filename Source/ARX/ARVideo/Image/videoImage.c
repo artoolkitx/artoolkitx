@@ -245,6 +245,14 @@ int ar2VideoDispOptionImage( void )
     ARPRINT("    specifies width of image.\n");
     ARPRINT(" -height=N\n");
     ARPRINT("    specifies height of image.\n");
+    ARPRINT(" -format=X\n");
+    ARPRINT("    specifies format of image pixels.\n");
+    ARPRINT("    Acceptable values for X are:\n");
+    ARPRINT("    RGB (24 bpp)\n");
+    ARPRINT("    RGBA (32 bpp)\n");
+    ARPRINT("    MONO (8 bpp)\n");
+    ARPRINT("    Byte ordering in each case is big-endian, e.g. in RGB format\n");
+    ARPRINT("    R occupies the lowest byte in memory, then G, then B. \n");
     ARPRINT(" -image=pathnameOrURL.\n");
     ARPRINT(" -image=\"pathname Or URL\".\n");
     ARPRINT("    specifies image to be read from file (or network, if supported).\n");

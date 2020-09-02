@@ -109,6 +109,12 @@ if(ARX_TARGET_PLATFORM_WINDOWS)
     set(DEFINES ${DEFINES} "ARVIDEO_INPUT_DEFAULT_WINDOWS_MEDIA_FOUNDATION")
 endif()
 
+# Video modules for Emscripten.
+if(ARX_TARGET_PLATFORM_EMSCRIPTEN)
+    add_subdirectory("Emscripten")
+    set(DEFINES ${DEFINES} "ARVIDEO_INPUT_DEFAULT_EMSCRIPTEN")
+endif()
+
 add_library(ARVideo STATIC
     ${PUBLIC_HEADERS} ${SOURCE}
 )

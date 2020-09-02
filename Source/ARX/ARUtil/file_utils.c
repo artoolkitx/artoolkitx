@@ -86,8 +86,10 @@
 
 #define WRITEBUFFERSIZE (8192)
 
-
-
+// We don't support password-protected archives, so no need to support crypt.
+#ifndef NOCRYPT
+#  define NOCRYPT
+#endif
 #include "unzip.h"
 #include "zip.h"
 
