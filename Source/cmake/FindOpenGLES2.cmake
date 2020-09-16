@@ -13,6 +13,14 @@ if(APPLE)
     if(OPENGLES2_FRAMEWORKS)
         set(OPENGLES2_LIBRARIES "-framework OpenGLES")
     endif()
+elseif(ANDROID)
+    find_path(OPENGLES2_INCLUDE_DIR GLES2/gl2.h
+        "${ANDROID_STANDALONE_TOOLCHAIN}/usr/include"
+    )
+
+    find_library(OPENGLES2_LIBRARIES  NAMES GLESv2
+        PATHS "${ANDROID_STANDALONE_TOOLCHAIN}/usr/lib"
+    )
 else()
     find_package(PkgConfig QUIET)
     pkg_check_modules(PC_OPENGLES2 glesv2)

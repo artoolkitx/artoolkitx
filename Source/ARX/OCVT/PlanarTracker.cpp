@@ -47,7 +47,6 @@
 #include "HomographyInfo.h"
 #include "OCVUtils.h"
 #include <opencv2/video.hpp>
-#include <opencv2/highgui.hpp>
 #include <iostream>
 
 class PlanarTracker::PlanarTrackerImpl
@@ -580,33 +579,7 @@ public:
             std::cout << "Marker Added" << std::endl;
         }
     }
-    
-    void AddMarker(std::string imageName, int uid, float scale)
-    {
-        TrackableInfo newTrackable;
-        newTrackable._image = cv::imread(imageName, 0);
-        if(!newTrackable._image.empty()) {
-            newTrackable._id = uid;
-            newTrackable._fileName = imageName;
-            newTrackable._scale = scale;
-            newTrackable._width = newTrackable._image.cols;
-            newTrackable._height = newTrackable._image.rows;
-            newTrackable._featurePoints = _featureDetector.DetectFeatures(newTrackable._image, cv::Mat());
-            newTrackable._descriptors = _featureDetector.CalcDescriptors(newTrackable._image, newTrackable._featurePoints);
-            newTrackable._cornerPoints = _harrisDetector.FindCorners(newTrackable._image);
-            newTrackable._bBox.push_back(cv::Point2f(0,0));
-            newTrackable._bBox.push_back(cv::Point2f(newTrackable._width, 0));
-            newTrackable._bBox.push_back(cv::Point2f(newTrackable._width, newTrackable._height));
-            newTrackable._bBox.push_back(cv::Point2f(0, newTrackable._height));
-            newTrackable._isTracking = false;
-            newTrackable._isDetected = false;
-            newTrackable._resetTracks = false;
-            newTrackable._trackSelection = TrackingPointSelector(newTrackable._cornerPoints, newTrackable._width, newTrackable._height, markerTemplateWidth);
-            
-            _trackables.push_back(newTrackable);
-        }
-    }
-    
+
     float* GetTrackablePose(int trackableId)
     {
         for(int i=0;i<_trackables.size(); i++) {
@@ -727,11 +700,6 @@ void PlanarTracker::RemoveAllMarkers()
 void PlanarTracker::AddMarker(unsigned char* buff, std::string fileName, int width, int height, int uid, float scale)
 {
     _trackerImpl->AddMarker(buff, fileName, width, height, uid, scale);
-}
-
-void PlanarTracker::AddMarker(std::string imageName, int uid, float scale)
-{
-    _trackerImpl->AddMarker(imageName, uid, scale);
 }
 
 float* PlanarTracker::GetTrackablePose(int trackableId)

@@ -257,6 +257,12 @@ if [ $BUILD_EMSCRIPTEN ] ; then
         exit 1
     fi
 
+    if [ ! -d "depends/emscripten/include/opencv2" ] ; then
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.4.0-dev-artoolkitx/opencv-4.4.0-dev-artoolkitx-wasm.tgz" -o opencv2.tgz
+        tar xzf opencv2.tgz --strip-components=1 -C depends/emscripten
+        rm opencv2.tgz
+    fi
+
     if [ ! -d "build-emscripten" ] ; then
         mkdir build-emscripten
     fi
