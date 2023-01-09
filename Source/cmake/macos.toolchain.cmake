@@ -4,7 +4,7 @@ execute_process(COMMAND /usr/bin/xcrun -sdk macosx --show-sdk-path
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
 
 # Target architectures must be set before Project() command.
-set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "A semicolon-separated list of the architectures for which the product will be built.")
+set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "A semicolon-separated list of the architectures for which the product will be built.")
 set(CMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH "NO")
 
 # Cache set values.

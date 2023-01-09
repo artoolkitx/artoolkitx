@@ -36,6 +36,7 @@
 /* Begin PBXFileReference section */
 		4A5046FE1DB441C6002C7904 /* ARX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARX.framework; path = ../../../SDK/Frameworks/ARX.framework; sourceTree = "<group>"; };
 		4A5047071DB4476D002C7904 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		4ADB4B1A296BCA9B00255CF7 /* artoolkitX 2d Tracking Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "artoolkitX 2d Tracking Example.entitlements"; sourceTree = "<group>"; };
 		4ADF1CBC1DAEFA6B00BF20FF /* artoolkitX 2d Tracking Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "artoolkitX 2d Tracking Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADF1CC51DAEFA6B00BF20FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4ADF1CCA1DAEFA6B00BF20FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 		4ADF1CB31DAEFA6B00BF20FF = {
 			isa = PBXGroup;
 			children = (
+				4ADB4B1A296BCA9B00255CF7 /* artoolkitX 2d Tracking Example.entitlements */,
 				4ADF1CDB1DAEFCAB00BF20FF /* Source */,
 				4ADF1CDC1DAEFCB900BF20FF /* Resources */,
 				4ADF1CE01DAEFD4700BF20FF /* Frameworks */,
@@ -148,7 +150,7 @@
 				TargetAttributes = {
 					4ADF1CBB1DAEFA6B00BF20FF = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 7ER2WP8VB3;
+						DevelopmentTeam = EA4A28G9X5;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -319,16 +321,18 @@
 		4ADF1CCE1DAEFA6B00BF20FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "artoolkitX 2d Tracking Example.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
-				DEVELOPMENT_TEAM = 7ER2WP8VB3;
+				DEVELOPMENT_TEAM = EA4A28G9X5;
 				DSTROOT = ../..;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.artoolkitx.arx.example.2d-tracking-example-macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -339,16 +343,18 @@
 		4ADF1CCF1DAEFA6B00BF20FF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "artoolkitX 2d Tracking Example.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEPLOYMENT_LOCATION = YES;
-				DEVELOPMENT_TEAM = 7ER2WP8VB3;
+				DEVELOPMENT_TEAM = EA4A28G9X5;
 				DSTROOT = ../..;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.artoolkitx.arx.example.2d-tracking-example-macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

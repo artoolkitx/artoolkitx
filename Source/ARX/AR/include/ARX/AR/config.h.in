@@ -252,6 +252,11 @@ typedef enum {
 
 #define USE_CPARAM_SEARCH @USE_CPARAM_SEARCH@
 #define USE_GL_STATE_CACHE @USE_GL_STATE_CACHE@
+#if HAVE_GTSAM
+#  define USE_GTSAM @USE_GTSAM@
+#else
+#  define USE_GTSAM 0
+#endif
 
 //
 //  For Linux
@@ -394,16 +399,20 @@ typedef enum {
 
 #elif TARGET_OS_IPHONE
 
-#define ARDOUBLE_IS_FLOAT
-#ifdef __LP64__
-#  define HAVE_ARM64_NEON 1
-#else
-#  define HAVE_ARM_NEON 1
-#endif
+#  define ARDOUBLE_IS_FLOAT
+#  ifdef __LP64__
+#    define HAVE_ARM64_NEON 1
+#  else
+#    define HAVE_ARM_NEON 1
+#  endif
 
 #elif TARGET_OS_MAC
 
-#define HAVE_INTEL_SIMD 1
+#  ifdef __aarch64__
+#    define HAVE_ARM64_NEON 1
+#  else
+#    define HAVE_INTEL_SIMD 1
+#  endif
 
 #endif
 

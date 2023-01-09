@@ -239,7 +239,7 @@ int main(int argc, char *argv[])
     arController->getSquareTracker()->setThresholdMode(AR_LABELING_THRESH_MODE_AUTO_BRACKETING);
 
 #ifdef DEBUG
-    ARLOGd("vconf is '%s'.\n", vconf);
+    ARLOGd("vconf is '%s'.\n", vconf.c_str());
 #endif
     // Start tracking.
     arController->startRunning(vconf.c_str(), cpara, NULL, 0);

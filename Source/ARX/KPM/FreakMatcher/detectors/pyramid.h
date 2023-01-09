@@ -96,7 +96,7 @@ namespace vision {
     private:
         
         // Temporary memory for downsampling
-        std::auto_ptr<unsigned short> mTmp;
+        std::unique_ptr<unsigned short> mTmp;
         
         // True if the fine image should be copied
         bool mCopyFine;

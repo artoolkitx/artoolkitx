@@ -36,19 +36,19 @@
 
 #include <ARX/ARTrackableMultiSquareAuto.h>
 
-#if HAVE_GTSAM
+#if USE_GTSAM
 #  include "mapper.hpp"
 #endif
 
 // This struct contains member variables we don't want to appear in the header.
 struct ARTrackableMapPrivateMembers {
     ARTrackableMapPrivateMembers()
-#if HAVE_GTSAM
+#if USE_GTSAM
     : m_mapper(0.04, 1)
 #endif
     {
     }
-#if HAVE_GTSAM
+#if USE_GTSAM
     arx_mapper::Mapper m_mapper;
 #endif
 };
@@ -138,7 +138,7 @@ bool ARTrackableMultiSquareAuto::updateWithDetectedMarkers(ARMarkerInfo* markerI
                     //arUtilPrintTransMat(m_MultiConfig->trans);
                     memcpy(trans, m_MultiConfig->trans, sizeof(trans));
                     visible = true;
-#if !HAVE_GTSAM
+#if !USE_GTSAM
                     // Construct map by simple inter-marker pose estimation.
                     // This approach will result in accumulation of pose errors as estimates are chained from
                     // previously estimated markers. Also, absolute pose error increases with distance from the origin.
@@ -205,7 +205,7 @@ bool ARTrackableMultiSquareAuto::updateWithDetectedMarkers(ARMarkerInfo* markerI
                         // Prepare for next iteration.
                         m_pm->m_mapper.Clear();
                     }
-#endif // HAVE_GTSAM
+#endif // USE_GTSAM
                     
                 } // m_MultiConfig->prevF != 0
             } // m_MultiConfig->marker_num > 0

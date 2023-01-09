@@ -1,53 +1,60 @@
-/* jconfig.vc --- jconfig.h for Microsoft Visual C++ on Windows 95 or NT. */
+/* jconfig.h.  Generated from jconfig.cfg by configure.  */
+/* jconfig.cfg --- source file edited by configure script */
 /* see jconfig.txt for explanations */
 
-#define JPEG_LIB_VERSION 62
-#define LIBJPEG_TURBO_VERSION 1.5.3
-#define LIBJPEG_TURBO_VERSION_NUMBER 1005003
-#define C_ARITH_CODING_SUPPORTED
-#define D_ARITH_CODING_SUPPORTED
-/* #undef MEM_SRCDST_SUPPORTED */
+#define HAVE_PROTOTYPES 1
+#define HAVE_UNSIGNED_CHAR 1
+#define HAVE_UNSIGNED_SHORT 1
+/* #undef void */
+/* #undef const */
+/* #undef CHAR_IS_UNSIGNED */
+#define HAVE_STDDEF_H 1
+#define HAVE_STDLIB_H 1
+#define HAVE_LOCALE_H 1
+/* #undef NEED_BSD_STRINGS */
+/* #undef NEED_SYS_TYPES_H */
+/* #undef NEED_FAR_POINTERS */
+/* #undef NEED_SHORT_EXTERNAL_NAMES */
+/* Define this if you get warnings about undefined structures. */
+/* #undef INCOMPLETE_TYPES_BROKEN */
 
-/*
- * Define BITS_IN_JSAMPLE as either
- *   8   for 8-bit sample values (the usual setting)
- *   12  for 12-bit sample values
- * Only 8 and 12 are legal data precisions for lossy JPEG according to the
- * JPEG standard, and the IJG code does not support anything else!
- * We do not support run-time selection of data precision, sorry.
- */
-
-#define BITS_IN_JSAMPLE  8      /* use 8 or 12 */
-
-#define HAVE_UNSIGNED_CHAR
-#define HAVE_UNSIGNED_SHORT
-/* #define void char */
-/* #define const */
-#undef __CHAR_UNSIGNED__
-#define HAVE_STDDEF_H
-#define HAVE_STDLIB_H
-#undef NEED_BSD_STRINGS
-#undef NEED_SYS_TYPES_H
-#undef NEED_FAR_POINTERS	/* we presume a 32-bit flat memory model */
-#undef INCOMPLETE_TYPES_BROKEN
-
-/* Define "boolean" as unsigned char, not int, per Windows custom */
+/* Define "boolean" as unsigned char, not enum, on Windows systems. */
+#ifdef _WIN32
 #ifndef __RPCNDR_H__		/* don't conflict if rpcndr.h already read */
 typedef unsigned char boolean;
 #endif
-#define HAVE_BOOLEAN		/* prevent jmorecfg.h from redefining it */
-
-/* Define "INT32" as int, not long, per Windows custom */
-#if !(defined(_BASETSD_H_) || defined(_BASETSD_H))   /* don't conflict if basetsd.h already read */
-typedef short INT16;
-typedef signed int INT32;
+#ifndef FALSE			/* in case these macros already exist */
+#define FALSE	0		/* values of boolean */
 #endif
-#define XMD_H                   /* prevent jmorecfg.h from redefining it */
+#ifndef TRUE
+#define TRUE	1
+#endif
+#define HAVE_BOOLEAN		/* prevent jmorecfg.h from redefining it */
+#endif
 
 #ifdef JPEG_INTERNALS
 
-#undef RIGHT_SHIFT_IS_UNSIGNED
-
-#define SIZEOF_SIZE_T 8
+/* #undef RIGHT_SHIFT_IS_UNSIGNED */
+#define INLINE __inline__
+/* These are for configuring the JPEG memory manager. */
+/* #undef DEFAULT_MAX_MEM */
+/* #undef NO_MKTEMP */
 
 #endif /* JPEG_INTERNALS */
+
+#ifdef JPEG_CJPEG_DJPEG
+
+#define BMP_SUPPORTED		/* BMP image file format */
+#define GIF_SUPPORTED		/* GIF image file format */
+#define PPM_SUPPORTED		/* PBMPLUS PPM/PGM image file format */
+/* #undef RLE_SUPPORTED */
+#define TARGA_SUPPORTED		/* Targa image file format */
+
+/* #undef TWO_FILE_COMMANDLINE */
+/* #undef NEED_SIGNAL_CATCHER */
+/* #undef DONT_USE_B_MODE */
+
+/* Define this if you want percent-done progress reports from cjpeg/djpeg. */
+/* #undef PROGRESS_REPORT */
+
+#endif /* JPEG_CJPEG_DJPEG */

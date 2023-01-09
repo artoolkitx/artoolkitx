@@ -2,7 +2,7 @@ set(PUBLIC_HEADERS
     include/ARX/OCVT/PlanarTracker.h
 )
 
-set(PRIVATE_HEADERS
+set(SOURCE
     OCVConfig.h
     OCVUtils.h
     OCVFeatureDetector.h
@@ -11,10 +11,7 @@ set(PRIVATE_HEADERS
     TrackableInfo.h
     TrackedPoint.h
     TrackingPointSelector.h
-)
-
-set(SOURCE
-    OCVConfig.cpp 
+    OCVConfig.cpp
     HarrisDetector.cpp
     OCVFeatureDetector.cpp
     PlanarTracker.cpp

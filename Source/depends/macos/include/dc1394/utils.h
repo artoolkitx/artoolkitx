@@ -38,7 +38,7 @@ extern "C" {
 /**
  * Returns the image width and height (in pixels) corresponding to a video mode. Works for scalable and non-scalable video modes.
  */
-dc1394error_t dc1394_get_image_size_from_video_mode(dc1394camera_t *camera, uint32_t video_mode, uint32_t *width, uint32_t *height);
+dc1394error_t dc1394_get_image_size_from_video_mode(dc1394camera_t *camera, dc1394video_mode_t video_mode, uint32_t *width, uint32_t *height);
 
 /**
  * Returns the given framerate as a float.

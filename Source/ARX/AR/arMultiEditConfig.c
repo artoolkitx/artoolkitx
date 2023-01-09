@@ -200,7 +200,7 @@ int arMultiRemoveSubmarker(ARMultiMarkerInfoT *marker_info, int patt_id, int pat
     // Reduce the array size. Because we're shrinking, realloc failure isn't fatal.
     ARMultiEachMarkerInfoT *emi = (ARMultiEachMarkerInfoT *)realloc(marker_info->marker, sizeof(ARMultiEachMarkerInfoT) * (marker_info->marker_num - 1));
     if (!emi) {
-        ARLOGw("arMultiAddOrUpdateEachMarker out of memory!!\n.");
+        ARLOGw("arMultiRemoveSubmarker out of memory!!\n.");
     } else {
         marker_info->marker = emi;
     }

@@ -42,7 +42,7 @@
 
 #define _GNU_SOURCE   // asprintf()/vasprintf() on Linux.
 #include <stdio.h>
-#include <string.h>
+#include <string.h> // strdup/_strdup
 #ifdef __APPLE__
 #  include <TargetConditionals.h>
 #  include <sys/types.h>
@@ -60,6 +60,12 @@
 #  include <ARX/ARUtil/android.h>
 #elif defined(__linux)
 #  include <sys/utsname.h> // uname()
+#endif
+
+#ifdef _WIN32
+#  include <libloaderapi.h>
+#else
+#  include <dlfcn.h> // dladdr
 #endif
 
 char *arUtilGetOSName(void)
@@ -193,4 +199,29 @@ char *arUtilGetCPUName(void)
     ret = strdup("unknown");
 #endif
     return (ret);
+}
+
+char *arUtilGetModulePath(void)
+{
+#ifdef _WIN32
+    char path[MAX_PATH];
+    HMODULE hm = NULL;
+    if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)arUtilGetModulePath, &hm) == 0) {
+        //int ret = GetLastError();
+        //fprintf(stderr, "GetModuleHandle failed, error = %d\n", ret);
+        return NULL;
+    }
+    if (GetModuleFileName(hm, path, sizeof(path)) == 0) {
+        //int ret = GetLastError();
+        //fprintf(stderr, "GetModuleFileName failed, error = %d\n", ret);
+        return NULL;
+    }
+    return (_strdup(path));
+#else
+    Dl_info info;
+    if (dladdr(arUtilGetModulePath, &info) == 0) {
+        return NULL;
+    }
+    return (strdup(info.dli_fname));
+#endif
 }

@@ -123,7 +123,7 @@ if [ "$OS" = "Darwin" ] ; then
 # macOS
 if [ $BUILD_MACOS ] ; then
     if [ ! -d "depends/macos/Frameworks/opencv2.framework" ] ; then
-        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.0.0-pre-artoolkitx/opencv-4.0.0-pre-artoolkitx-macos.zip" -o opencv2.zip
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.5.2-pre-artoolkitx/opencv-4.5.2-pre-artoolkitx-macos.zip" -o opencv2.zip
         unzip opencv2.zip -d depends/macos/Frameworks
         rm opencv2.zip
     fi
@@ -154,7 +154,7 @@ if [ $BUILD_IOS ] ; then
 
     
     if [ ! -d "depends/ios/Frameworks/opencv2.framework" ] ; then
-        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.0.0-pre-artoolkitx/opencv-4.0.0-pre-artoolkitx-ios.zip" -o opencv2.zip
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.5.2-pre-artoolkitx/opencv-4.5.2-pre-artoolkitx-ios.zip" -o opencv2.zip
         unzip opencv2.zip -d depends/ios/Frameworks
         rm opencv2.zip
     fi
