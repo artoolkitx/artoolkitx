@@ -121,7 +121,7 @@ void Image::alloc(ImageType type,
                   size_t width,
                   size_t height,
                   int step,
-                  size_t channels) throw(Exception) {
+                  size_t channels) {
     size_t size;
     
     ASSERT(width > 0, "Width cannot be zero");

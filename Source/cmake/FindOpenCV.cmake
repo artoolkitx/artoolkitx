@@ -1,6 +1,6 @@
 # This module defines
 # OpenCV_LIBS, the library/libraries to link against
-# OpenCV_INCLUDE_DIR, where to find opencv2/cvconfig.h
+# OpenCV_INCLUDE_DIR, where to find opencv2/opencv.hpp
 # OpenCV_FOUND, if false, do not try to link to OpenCV
 #
 # $OPENCVDIR is an environment variable that would
@@ -25,10 +25,10 @@ SET(OpenCV_SEARCH_PATHS
 	${OpenCV_PATH}
 )
 
-FIND_PATH(OpenCV_INCLUDE_DIR opencv2/cvconfig.h
+FIND_PATH(OpenCV_INCLUDE_DIR opencv2/opencv.hpp
 	HINTS
 	$ENV{OPENCV2DIR}
-	PATH_SUFFIXES include
+	PATH_SUFFIXES include/opencv4 include
 	PATHS ${OpenCV_SEARCH_PATHS}
 )
 
