@@ -26,6 +26,7 @@
 #if defined(_WIN32)
 #  define snprintf _snprintf
 #endif
+#define _LARGEFILE_SOURCE
 
 voidpf call_zopen64(const zlib_filefunc64_32_def *pfilefunc, const void *filename, int mode)
 {
@@ -105,7 +106,7 @@ static voidpf file_build_ioposix(FILE *file, const char *filename)
     ioposix->file = file;
     ioposix->filenameLength = (int)strlen(filename) + 1;
     ioposix->filename = (char*)malloc(ioposix->filenameLength * sizeof(char));
-    strncpy((char*)ioposix->filename, filename, ioposix->filenameLength);
+    memcpy(ioposix->filename, (const void *)filename, ioposix->filenameLength);
     return (voidpf)ioposix;
 }
 

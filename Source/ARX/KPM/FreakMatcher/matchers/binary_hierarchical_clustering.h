@@ -37,6 +37,7 @@
 
 #include "kmedoids.h"
 
+#include <limits>
 #include <unordered_map>
 #include <queue>
 

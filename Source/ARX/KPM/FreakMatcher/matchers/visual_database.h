@@ -80,28 +80,28 @@ namespace vision {
         /**
          * Add an image to the database with a specific ID.
          */
-        void addImage(const Image& image, id_t id) throw(Exception);
+        void addImage(const Image& image, id_t id);
         
         /**
          * Add an image to the database with a specific ID.
          */
-        void addImage(const GaussianScaleSpacePyramid* pyramid, id_t id) throw(Exception);
+        void addImage(const GaussianScaleSpacePyramid* pyramid, id_t id);
         
         /**
          * Add a keyframe to the database.
          */
-        void addKeyframe(keyframe_ptr_t keyframe , id_t id) throw(Exception);
+        void addKeyframe(keyframe_ptr_t keyframe , id_t id);
     
         /**
          * Query the visual database.
          */
-        bool query(const Image& image) throw(Exception);
+        bool query(const Image& image);
         
         /**
          * Query the visual database.
          */
-        bool query(const GaussianScaleSpacePyramid* pyramid) throw(Exception);
-        bool query(const keyframe_t* query_keyframe) throw(Exception);
+        bool query(const GaussianScaleSpacePyramid* pyramid);
+        bool query(const keyframe_t* query_keyframe);
         
         /**
          * Erase an ID.

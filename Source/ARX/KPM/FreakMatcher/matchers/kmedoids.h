@@ -35,6 +35,7 @@
 
 #pragma once
 
+#include <limits>
 #include <vector>
 #include <math/rand.h>
 #include <math/indexing.h>

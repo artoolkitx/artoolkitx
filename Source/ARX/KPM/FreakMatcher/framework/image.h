@@ -86,7 +86,7 @@ namespace vision {
                    size_t width,
                    size_t height,
                    int step,
-                   size_t channels) throw(Exception);
+                   size_t channels);
         
         /**
          * Release the memory associated with the image.

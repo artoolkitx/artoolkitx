@@ -94,11 +94,10 @@ char *arUtilGetOSVersion(void)
 #  if TARGET_OS_IPHONE
     ret = strdup([[[UIDevice currentDevice] systemVersion] UTF8String]);
 #  else
-    SInt32 versMaj, versMin, versBugFix;
-    Gestalt(gestaltSystemVersionMajor, &versMaj);
-    Gestalt(gestaltSystemVersionMinor, &versMin);
-    Gestalt(gestaltSystemVersionBugFix, &versBugFix);
-    if (asprintf(&ret, "%d.%d.%d", versMaj, versMin, versBugFix) == -1) return (NULL);
+    size_t size;;
+    sysctlbyname("kern.osproductversion", NULL, &size, NULL, 0);
+    ret = malloc(size);
+    sysctlbyname("kern.osproductversion", ret, &size, NULL, 0);
 #  endif
 #elif defined(ANDROID) // Android
     char os[PROP_VALUE_MAX];
