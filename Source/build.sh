@@ -276,7 +276,7 @@ if [ $BUILD_LINUX ] ; then
 		check_package build-essential
 		check_package cmake
 		check_package libjpeg-dev
-		check_package libgl1-dev
+		check_package libgl-dev
 		check_package libsdl2-dev
 		check_package libudev-dev
 		check_package libv4l-dev
