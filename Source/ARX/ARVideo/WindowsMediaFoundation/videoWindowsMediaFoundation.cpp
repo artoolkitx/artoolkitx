@@ -1002,25 +1002,11 @@ static bool ar2VideoWinMFFinal2(void)
 
 static void ar2VideoWinMFGetTimeStamp(ARUint32 *t_sec, ARUint32 *t_usec)
 {
-#ifdef _WIN32
     struct _timeb sys_time;   
 
     _ftime(&sys_time);   
     *t_sec  = (ARUint32)sys_time.time;
     *t_usec = (ARUint32)sys_time.millitm * 1000;
-#else
-    struct timeval     time;
-    double             tt;
-    int                s1, s2;
-
-#if defined(__linux) || defined(__APPLE__)
-    gettimeofday(&time, NULL);
-#else
-    gettimeofday(&time);
-#endif
-    *t_sec  = time.tv_sec;
-    *t_usec = time.tv_usec;
-#endif
 
     return;
 }

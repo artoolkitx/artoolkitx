@@ -48,7 +48,11 @@
 //
 
 #include <stdio.h>
-#ifndef _WIN32 // errno is defined in stdlib.h on Windows.
+#if defined(_WIN32)
+#  include <stdlib.h> // errno on windows
+#elif defined(__EMSCRIPTEN__)
+#  include <errno.h>
+#else
 #  include <sys/errno.h>
 #endif
 #ifdef __ANDROID__
@@ -184,6 +188,14 @@ extern "C" {
 #  define EDEN_INLINE_C
 #  define EDEN_USE_GL 1
 #  define EDEN_USE_GLES2 0
+#  define EDEN_USE_GL3 0
+
+// Emscripten.
+#elif defined(__EMSCRIPTEN__)
+#  define EDEN_UNIX
+#  define EDEN_HAVE_LIBJPEG
+#  define EDEN_USE_GL 0
+#  define EDEN_USE_GLES2 1
 #  define EDEN_USE_GL3 0
 
 #else

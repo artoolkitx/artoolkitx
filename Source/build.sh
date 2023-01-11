@@ -14,7 +14,7 @@
 OURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function usage {
-    echo "Usage: $(basename $0) [--debug] (macos | windows | ios | linux | android | linux-raspbian | docs)... [tests] [examples] [unity] [cmake \"<generator>\"]"
+    echo "Usage: $(basename $0) [--debug] (macos | windows | ios | linux | android | linux-raspbian | emscripten | docs)... [tests] [examples] [unity] [cmake \"<generator>\"]"
     exit 1
 }
 
@@ -43,6 +43,8 @@ do
         android) BUILD_ANDROID=1
             ;;
         windows) BUILD_WINDOWS=1
+            ;;
+        emscripten) BUILD_EMSCRIPTEN=1
             ;;
 		examples) BUILD_EXAMPLES=1
 		    ;;
@@ -248,6 +250,46 @@ fi
     
 fi
 # /BUILD_ANDROID
+
+if [ $BUILD_EMSCRIPTEN ] ; then
+
+    if [[ -z "${EMSDK}" ]]; then
+        echo "The environment variable EMSDK must be defined and point to the root of the Emscripten SDK"
+        exit 1
+    fi
+
+    if [ ! -d "depends/emscripten/include/opencv2" ] ; then
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.4.0-dev-artoolkitx/opencv-4.4.0-dev-artoolkitx-wasm.tgz" -o opencv2.tgz
+        tar xzf opencv2.tgz --strip-components=1 -C depends/emscripten
+        rm opencv2.tgz
+    fi
+
+    if [ ! -d "build-emscripten" ] ; then
+        mkdir build-emscripten
+    fi
+    cd build-emscripten
+    rm -f CMakeCache.txt
+    
+    SETTINGS="-s USE_ZLIB=1 -s USE_LIBJPEG=1 -s USE_PTHREADS=1"
+    export CFLAGS="${SETTINGS}"
+    export CXXFLAGS="${SETTINGS}"
+    export LDFLAGS="${SETTINGS}"
+
+    # Configure.
+    emmake cmake .. -G "Unix Makefiles" \
+    -DCMAKE_TOOLCHAIN_FILE=${EMSDK}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake \
+    -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release} \
+    -DARX_GL_PREFER_EMBEDDED:BOOL=ON \
+    -DZLIB_INCLUDE_DIR:PATH="~/.emscripten_cache/wasm-obj/include" \
+    -DZLIB_LIBRARY:PATH="~/.emscripten_cache/wasm-obj/libz.a" \
+    -DJPEG_INCLUDE_DIR:PATH="~/.emscripten_cache/wasm-obj/include" \
+    -DJPEG_LIBRARY:PATH="~/.emscripten_cache/wasm-obj/libjpeg.a" \
+
+    # Build.
+    emmake make -j ${CPUS}
+    emmake make install
+fi
+# /BUILD_EMSCRIPTEN
 
 # Documentation
 if [ $BUILD_DOCS ] ; then
