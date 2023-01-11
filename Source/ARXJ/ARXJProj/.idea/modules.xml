@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ARXJProj.iml" filepath="$PROJECT_DIR$/ARXJProj.iml" />
-      <module fileurl="file://$PROJECT_DIR$/arxj/arxj.iml" filepath="$PROJECT_DIR$/arxj/arxj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/arxj/ARXJProj.arxj.iml" filepath="$PROJECT_DIR$/.idea/modules/arxj/ARXJProj.arxj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/arxj/ARXJProj.arxj.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/arxj/ARXJProj.arxj.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/arxj/ARXJProj.arxj.main.iml" filepath="$PROJECT_DIR$/.idea/modules/arxj/ARXJProj.arxj.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/arxj/ARXJProj.arxj.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/arxj/ARXJProj.arxj.unitTest.iml" />
     </modules>
   </component>
 </project>
