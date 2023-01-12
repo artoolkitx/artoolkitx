@@ -9,7 +9,8 @@ Release Notes.md
 
 Documentation
 
-SDK/lib/ARXJ/arxj-release.aar
+SDK/include
+SDK/lib
 
 Examples/Square tracking example/Android
 Examples/Square tracking example with OSG/Android

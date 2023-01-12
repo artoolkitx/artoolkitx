@@ -282,6 +282,7 @@
 #include <iosfwd>
 #include <cstring>
 #include <string>
+#include <sstream>
 #include <limits>
 #include <climits> // for CHAR_BIT
 // for min/max:

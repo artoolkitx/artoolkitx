@@ -1,12 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+    compileSdk 33
     defaultConfig {
         applicationId "org.artoolkitx.arx.arsquaretracking"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdk 33
         versionCode 1
         versionName "1.0"
     }
@@ -71,18 +70,10 @@ afterEvaluate { project ->
     println "** In afterEvaluate **"
 
     if (null != project.tasks.findByName("mergeDebugAssets")) {
-        println "** IN project.tasks.findByName(\"mergeDebugAssets\") setting up doLast action **"
-        project.tasks.mergeDebugAssets.doLast {
-            println "** Executing custom task CopyToDBFolderToAssets for \"debug\" build **"
-            CopyToDBFolderToAssetsDebug.execute()
-        }
+        project.tasks.mergeDebugAssets.dependsOn("CopyToDBFolderToAssetsDebug")
     }
 
     if (null != project.tasks.findByName("mergeReleaseAssets")) {
-        println "** IN project.tasks.findByName(\"mergeReleaseAssets\") setting up doLast action **"
-        project.tasks.mergeReleaseAssets.doLast {
-            println "** Executing custom task CopyToDBFolderToAssets for \"release\" build **"
-            CopyToDBFolderToAssetsRelease.execute()
-        }
+        project.tasks.mergeReleaseAssets.dependsOn("CopyToDBFolderToAssetsRelease")
     }
 }

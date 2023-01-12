@@ -222,29 +222,42 @@ if [ -z "$ANDROID_HOME" ] ; then
     Skipping ARXJ build.
     *****"
 else
+    ABIS="armeabi-v7a arm64-v8a x86 x86_64"
+    for abi in $ABIS; do
+        if [ ! -d "$abi" ] ; then
+	        mkdir "$abi"
+        fi
+        (cd "$abi"
+	    rm -f CMakeCache.txt
+	    cmake ../.. -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROID_HOME/ndk-bundle/build/cmake/android.toolchain.cmake -DANDROID_PLATFORM=android-21 -DANDROID_ABI=$abi -DANDROID_ARM_MODE=arm -DANDROID_ARM_NEON=TRUE -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+	    make -j $CPUS
+        make install${DEBUG-/strip}
+        )
+    done
+
+    (cd "${OURDIR}/ARXJ/ARXJProj"
     echo "Building ARXJ library as AAR"
-    cd $OURDIR
-    cd ARXJ/ARXJProj; ./gradlew assembleRelease;
-    cd $OURDIR
-    mkdir -p ../SDK/lib/ARXJ/
-    cp ARXJ/ARXJProj/arxj/build/outputs/aar/arxj-release.aar ../SDK/lib/ARXJ/
+    ./gradlew assembleRelease
+    mkdir -p ../../../SDK/lib/ARXJ/
+    cp arxj/build/outputs/aar/arxj-release.aar ../../../SDK/lib/ARXJ/
+    )
 
     if [ $BUILD_EXAMPLES ] ; then
+        (cd "${OURDIR}/../Examples/Square tracking example/Android/ARSquareTracking"
         echo "Building example ARSquareTracking as APK"
-        cd $OURDIR
-        cd "../Examples/Square tracking example/Android/ARSquareTracking"; ./gradlew assembleRelease;
-        cd $OURDIR
-        cd "../Examples/Square tracking example with OSG/Android/ARSquareTracking"; ./gradlew assembleRelease;
-        cd $OURDIR
-        cp -v "../Examples/Square tracking example/Android/ARSquareTracking/ARSquareTrackingExample/build/outputs/apk/release/"ARSquareTrackingExample-release-unsigned.apk ../Examples/
-        cp -v "../Examples/Square tracking example with OSG/Android/ARSquareTracking/ARSquareTrackingExample/build/outputs/apk/release/"ARSquareTrackingExample-release-unsigned.apk ../Examples/ARSquareTrackingExampleOSG-release-unsigned.apk
-        
+        ./gradlew assembleRelease
+        cp -v "ARSquareTrackingExample/build/outputs/apk/release/ARSquareTrackingExample-release-unsigned.apk" ../../..
+        )
+        (cd "${OURDIR}/../Examples/Square tracking example with OSG/Android/ARSquareTracking"
+        echo "Building example ARSquareTracking with OSG as APK"
+        ./gradlew assembleRelease
+        cp -v "ARSquareTrackingExample/build/outputs/apk/release/ARSquareTrackingExample-release-unsigned.apk" ../../../ARSquareTrackingExampleOSG-release-unsigned.apk
+        )
+        (cd "${OURDIR}/../Examples/2d tracking example/Android/AR2DTracking_Proj"
         echo "Building example AR2dTracking as APK"
-        cd $OURDIR
-        cd "../Examples/2d tracking example/Android/AR2DTracking_Proj"; ./gradlew assembleRelease;
-        cd $OURDIR
-        cp -v "../Examples/2d tracking example/Android/AR2DTracking_Proj/AR2DTrackingExample/build/outputs/apk/release/"AR2DTrackingExample-release-unsigned.apk ../Examples/
-
+        ./gradlew assembleRelease
+        cp -v "/AR2DTrackingExample/build/outputs/apk/release/AR2DTrackingExample-release-unsigned.apk" ../../..
+        )
     fi
 fi
     
