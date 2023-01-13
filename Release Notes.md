@@ -1,6 +1,22 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.0.7
+### 2023-01-13
+
+This release improves and updates platform support.
+ * On iOS, the minimum supported OS is now iOS v11.0.
+ * On Android, the minimum supported OS is now Android 5.0 (API level 21).
+ * On mac OS, full support for the ARM64 (Apple Silicon) CPU.
+ * On Windows, the default Visual Studio version is now VS 2019.
+ * On Linux, the system OpenCV implementation is preferred.
+Other minor changes:
+ * Added initial Emscripten support.
+ * Added videoRGBA and videoBGRA implementations for AR_PIXEL_FORMAT_420v.
+ * Bugfix: fix arRefineCorners error when building without OpenCV
+ * Update FreakMatcher to Eigen v3.3.7.
+ * Remove dependence on opencv imread(), and therefore highgui, imgcodecs, and various image libs.
+
 ## Version 1.0.6
 ### 2020-20-19
 

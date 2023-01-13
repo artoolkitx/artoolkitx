@@ -4,11 +4,11 @@
 # To invoke CMake on this file, from the chosen build directory, invoke:
 #     cmake <path to directory containing this file>.
 #
-# Copyright 2018, artoolkitX Contributors.
+# Copyright 2018-2023, artoolkitX Contributors.
 # Author(s): Philip Lamb <phil@artoolkitx.org>
 #
 
-cmake_minimum_required( VERSION 3.4 )
+cmake_minimum_required( VERSION 3.21 )
 
 # Any directives that must go before the project command.
 
@@ -23,7 +23,7 @@ option(BUILD_UTILITIES "Build the utilities" ON)
 
 set(ARX_VERSION_MAJOR 1)
 set(ARX_VERSION_MINOR 0)
-set(ARX_VERSION_TINY  6)
+set(ARX_VERSION_TINY  7)
 set(ARX_VERSION_DEV   0)
 set(ARX_VERSION_STRING "${ARX_VERSION_MAJOR}.${ARX_VERSION_MINOR}.${ARX_VERSION_TINY}")
 math(EXPR ARX_VERSION_NUMBER "${ARX_VERSION_MAJOR}*1000000+${ARX_VERSION_MINOR}*10000+${ARX_VERSION_TINY}*100+${ARX_VERSION_DEV}")
@@ -70,10 +70,8 @@ else()
     set(ARX_PLATFORM_NAME_FILESYSTEM "${ARX_PLATFORM_NAME_LC}")
 endif()
 
-# Set supported platform and SDK.
-if (ARX_TARGET_PLATFORM_IOS)
-    set(CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "8.0" CACHE STRING "Code will load on this and later versions of iOS.")
-elseif(ARX_TARGET_PLATFORM_MACOS)
+# Set mac OS supported platform and SDK. For iOS, these are set in the toolchain file.
+if (ARX_TARGET_PLATFORM_MACOS)
     set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Code will load on this and later versions of macOS." FORCE)
     execute_process(COMMAND /usr/bin/xcrun -sdk macosx --show-sdk-path OUTPUT_VARIABLE CMAKE_OSX_SYSROOT OUTPUT_STRIP_TRAILING_WHITESPACE)
     set(CMAKE_OSX_SYSROOT "${CMAKE_OSX_SYSROOT}" CACHE STRING "The product will be built against the headers and libraries located inside the indicated SDK." FORCE)
