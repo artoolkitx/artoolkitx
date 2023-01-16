@@ -105,10 +105,10 @@ if [ "$OS" = "Darwin" ] ; then
     if [ $PACKAGE_MACOS ] ; then
 
         # Get version from header `Source>ARX>AR>include>ARX.AR>ar.h`
-        VERSION=`sed -En -e 's/.*AR_HEADER_VERSION_STRING[[:space:]]+"([0-9]+\.[0-9]+(\.[0-9]+)*)".*/\1/p' ${ARTOOLKITX_HOME}/Source/build-macos/ARX/AR/include/ARX/AR/config.h`
+        VERSION=$(sed -En -e 's/.*AR_HEADER_VERSION_STRING[[:space:]]+"([0-9]+\.[0-9]+(\.[0-9]+)*)".*/\1/p' "${ARTOOLKITX_HOME}/Source/build-macos/ARX/AR/include/ARX/AR/config.h")
         # If the tiny version number is 0, drop it.
-        VERSION=`echo -n "${VERSION}" | sed -E -e 's/([0-9]+\.[0-9]+)\.0/\1/'`
-        VERSION_DEV=`sed -En -e 's/#define AR_HEADER_VERSION_DEV[[:space:]]+([0-9]+).*/\1/p' ${ARTOOLKITX_HOME}/Source/build-macos/ARX/AR/include/ARX/AR/config.h`
+        VERSION=$(echo -n "${VERSION}" | sed -E -e 's/([0-9]+\.[0-9]+)\.0/\1/')
+        VERSION_DEV=$(sed -En -e 's/#define AR_HEADER_VERSION_DEV[[:space:]]+([0-9]+).*/\1/p' "${ARTOOLKITX_HOME}/Source/build-macos/ARX/AR/include/ARX/AR/config.h")
         if [ "${VERSION_DEV}" = "0" ] ; then unset VERSION_DEV ; fi
         
         TARGET_DIR="${OURDIR}/macos/package/artoolkitx"
@@ -127,10 +127,10 @@ if [ "$OS" = "Darwin" ] ; then
     if [ $PACKAGE_IOS ] ; then
 
         # Get version from header `Source>ARX>AR>include>ARX.AR>ar.h`
-        VERSION=`sed -En -e 's/.*AR_HEADER_VERSION_STRING[[:space:]]+"([0-9]+\.[0-9]+(\.[0-9]+)*)".*/\1/p' ${ARTOOLKITX_HOME}/Source/build-ios/ARX/AR/include/ARX/AR/config.h`
+        VERSION=$(sed -En -e 's/.*AR_HEADER_VERSION_STRING[[:space:]]+"([0-9]+\.[0-9]+(\.[0-9]+)*)".*/\1/p' "${ARTOOLKITX_HOME}/Source/build-ios/ARX/AR/include/ARX/AR/config.h")
         # If the tiny version number is 0, drop it.
-        VERSION=`echo -n "${VERSION}" | sed -E -e 's/([0-9]+\.[0-9]+)\.0/\1/'`
-        VERSION_DEV=`sed -En -e 's/#define AR_HEADER_VERSION_DEV[[:space:]]+([0-9]+).*/\1/p' ${ARTOOLKITX_HOME}/Source/build-ios/ARX/AR/include/ARX/AR/config.h`
+        VERSION=$(echo -n "${VERSION}" | sed -E -e 's/([0-9]+\.[0-9]+)\.0/\1/')
+        VERSION_DEV=$(sed -En -e 's/#define AR_HEADER_VERSION_DEV[[:space:]]+([0-9]+).*/\1/p' "${ARTOOLKITX_HOME}/Source/build-ios/ARX/AR/include/ARX/AR/config.h")
         if [ "${VERSION_DEV}" = "0" ] ; then unset VERSION_DEV ; fi
 
         TARGET_DIR="${OURDIR}/ios/package/artoolkitx"
@@ -159,10 +159,10 @@ if [ "$OS" = "Darwin" ] || [ "$OS" = "Linux" ] ; then
     if [ $PACKAGE_ANDROID ] ; then
 
         # Get version from header `SDK/include/ARX/AR/config.h`
-        VERSION=$(sed -En -e 's/.*AR_HEADER_VERSION_STRING[[:space:]]+"([0-9]+\.[0-9]+(\.[0-9]+)*)".*/\1/p' "${ARTOOLKITX_HOME}/SDK/ARX/AR/include/ARX/AR/config.h")
+        VERSION=$(sed -En -e 's/.*AR_HEADER_VERSION_STRING[[:space:]]+"([0-9]+\.[0-9]+(\.[0-9]+)*)".*/\1/p' "${ARTOOLKITX_HOME}/Source/build-android/armeabi-v7a/ARX/AR/include/ARX/AR/config.h")
         # If the tiny version number is 0, drop it.
         VERSION=$(echo -n "${VERSION}" | sed -E -e 's/([0-9]+\.[0-9]+)\.0/\1/')
-        VERSION_DEV=$(sed -En -e 's/#define AR_HEADER_VERSION_DEV[[:space:]]+([0-9]+).*/\1/p' "${ARTOOLKITX_HOME}/SDK/ARX/AR/include/ARX/AR/config.h")
+        VERSION_DEV=$(sed -En -e 's/#define AR_HEADER_VERSION_DEV[[:space:]]+([0-9]+).*/\1/p' "${ARTOOLKITX_HOME}/Source/build-android/armeabi-v7a/ARX/AR/include/ARX/AR/config.h")
         if [ "${VERSION_DEV}" = "0" ] ; then unset VERSION_DEV ; fi
 
         TARGET_DIR="${OURDIR}/android/package/artoolkitX"
@@ -271,10 +271,10 @@ if [ "$OS" = "Windows" ] ; then
     if [ $PACKAGE_WINDOWS ] ; then
 
         # Get version from header `SDK>include>ARX.AR>ar.h`
-        VERSION=`sed -En -e 's/.*AR_HEADER_VERSION_STRING[[:space:]]+"([0-9]+\.[0-9]+(\.[0-9]+)*)".*/\1/p' ${ARTOOLKITX_HOME}/SDK/include/ARX/AR/config.h`
+        VERSION=$(sed -En -e 's/.*AR_HEADER_VERSION_STRING[[:space:]]+"([0-9]+\.[0-9]+(\.[0-9]+)*)".*/\1/p' "${ARTOOLKITX_HOME}/SDK/include/ARX/AR/config.h")
         # If the tiny version number is 0, drop it.
-        VERSION=`echo -n "${VERSION}" | sed -E -e 's/([0-9]+\.[0-9]+)\.0/\1/'`
-        VERSION_DEV=`sed -En -e 's/#define AR_HEADER_VERSION_DEV[[:space:]]+([0-9]+).*/\1/p' ${ARTOOLKITX_HOME}/SDK/include/ARX/AR/config.h`
+        VERSION=$(echo -n "${VERSION}" | sed -E -e 's/([0-9]+\.[0-9]+)\.0/\1/')
+        VERSION_DEV=$(sed -En -e 's/#define AR_HEADER_VERSION_DEV[[:space:]]+([0-9]+).*/\1/p' "${ARTOOLKITX_HOME}/SDK/include/ARX/AR/config.h")
         if [ "${VERSION_DEV}" = "0" ] ; then unset VERSION_DEV ; fi
 
         TARGET_DIR="${OURDIR}/windows/package/artoolkitX"
