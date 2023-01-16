@@ -256,7 +256,7 @@ else
         (cd "${OURDIR}/../Examples/2d tracking example/Android/AR2DTracking_Proj"
         echo "Building example AR2dTracking as APK"
         ./gradlew assembleRelease
-        cp -v "/AR2DTrackingExample/build/outputs/apk/release/AR2DTrackingExample-release-unsigned.apk" ../../..
+        cp -v "AR2DTrackingExample/build/outputs/apk/release/AR2DTrackingExample-release-unsigned.apk" ../../..
         )
     fi
 fi
