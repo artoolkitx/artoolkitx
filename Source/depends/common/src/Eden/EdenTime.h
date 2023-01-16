@@ -70,11 +70,11 @@ extern "C" {
 #  include <sys/time.h>					// struct timespec
 #else
 #  ifndef PTHREAD_H						// pthreads_win32 also defines struct timespec.
-	#define _CRT_NO_TIME_T
-	struct timespec {
-		long tv_sec;
-		long tv_nsec;
-	};
+	//#define _CRT_NO_TIME_T
+	//struct timespec {
+	//	long tv_sec;
+	//	long tv_nsec;
+	//};
 #  endif // !PTHREAD_H
 #endif
 

@@ -49,6 +49,7 @@
 
 #include <stdio.h>
 #if defined(_WIN32)
+#  include <Windows.h>
 #  include <stdlib.h> // errno on windows
 #elif defined(__EMSCRIPTEN__)
 #  include <errno.h>
@@ -168,7 +169,6 @@ extern "C" {
 
 // Microsoft C++ on Windows.
 #elif defined(_MSC_VER)		
-#  include <windows.h>	// Is this correct?
 #  undef EDEN_BIGENDIAN	// Least Significant Byte is highest in memory.
 #  define EDEN_HAVE_LIBJPEG
 #  define EDEN_HAVE_OPENAL

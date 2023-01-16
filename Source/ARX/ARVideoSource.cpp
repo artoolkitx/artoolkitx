@@ -35,8 +35,13 @@
  *  Author(s): Julian Looser, Philip Lamb.
  *
  */
- 
-#include <ARX/Platform.h>
+
+#include <stdlib.h>
+#include <inttypes.h>
+#ifdef _WIN32
+#  define _USE_MATH_DEFINES
+#endif
+#include <math.h>
 #include <ARX/ARVideoSource.h>
 #include <ARX/Error.h>
 #include <ARX/ARController.h>
@@ -47,12 +52,6 @@
 #    include "cpu-features.h"
 #  endif
 #endif
-#include <stdlib.h>
-#include <inttypes.h>
-#ifdef _WIN32
-#  define _USE_MATH_DEFINES
-#endif
-#include <math.h>
 
 
 #define MAX(x,y) (x > y ? x : y)

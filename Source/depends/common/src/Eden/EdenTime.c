@@ -41,17 +41,12 @@
 //	Includes
 // ============================================================================
 #include <Eden/EdenTime.h>
+#if defined(EDEN_UNIX)
+#  include <unistd.h>					// sleep(), usleep()
+#endif
 #include <stdio.h>						// NULL, sprintf()
 #include <time.h>						// ctime(), time_t
-#include <string.h>						// strncpy()
-#if defined(EDEN_UNIX)
-//#  include <sys/time.h>				// gettimeofday(), struct timeval
-#  include <unistd.h>					// sleep(), usleep()
-#elif defined(_WIN32)
-#  include <windows.h>					// FILETIME, GetSystemTimeAsFileTime(), <winbase.h> Sleep()
-#else
-#  include <GL/glut.h>
-#endif
+#include <string.h>						// strcpy(), strncpy()
 
 // ============================================================================
 //	Private defines
@@ -143,7 +138,7 @@ void EdenTimeAbsolutePlusOffset(struct timespec *result, const long microseconds
 //
 char *EdenTimeInSecondsToText(const double seconds, char s[25])
 {
-	static char buf[64];
+	char buf[64];
 #if defined(EDEN_UNIX) || defined(_WIN32)
 	time_t time;
 #endif
@@ -156,7 +151,7 @@ char *EdenTimeInSecondsToText(const double seconds, char s[25])
 #  else
 	strcpy(buf, ctime(&time));
 #  endif // EDEN_HAVE_CTIME_R_IN_TIME_H
-	buf[24] = '\0'; // Nuke the newline.
+	buf[24] = '\0'; // Remove newline.
 #else
 	// No way of knowing what seconds is measured relative to.
 	// so just write seconds as number out to string to 3 decimal places.

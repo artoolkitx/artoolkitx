@@ -43,7 +43,9 @@
 #define _GNU_SOURCE   // asprintf()/vasprintf() on Linux.
 #include <stdio.h>
 #include <string.h> // strdup/_strdup
-#ifdef __APPLE__
+#if defined(_WIN32)
+#  include <Windows.h>
+#elif defined(__APPLE__)
 #  include <TargetConditionals.h>
 #  include <sys/types.h>
 #  include <sys/sysctl.h> // sysctlbyname()
