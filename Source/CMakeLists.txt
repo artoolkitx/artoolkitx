@@ -183,6 +183,9 @@ elseif(ARX_TARGET_PLATFORM_ANDROID)
 
     set(USE_CPARAM_SEARCH 1)
     set(ARX_INSTALL_LIBRARY_DIR "lib/${ANDROID_ABI}")
+    # Take only the first 3 fields from ANDROID_TOOLCHAIN_NAME (i.e. drop the "clang" or gcc version suffix, if present).
+    string(REGEX MATCH "^[^-]+-[^-]+-[^-]+" ARX_ANDROID_SYSTEM_LIBDIR_NAME ${ANDROID_TOOLCHAIN_NAME})
+    set(ARX_ANDROID_SYSTEM_LIBDIR ${CMAKE_SYSROOT}/usr/lib/${ARX_ANDROID_SYSTEM_LIBDIR_NAME})
 
 elseif(ARX_TARGET_PLATFORM_LINUX)
 

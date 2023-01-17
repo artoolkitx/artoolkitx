@@ -13,7 +13,7 @@ set(PUBLIC_HEADERS
 )
 
 set(SOURCE
-    include/ARX/AR/config.h
+    ${CMAKE_CURRENT_BINARY_DIR}/include/ARX/AR/config.h
     ar3DCreateHandle.c
     ar3DUtil.c
     arCreateHandle.c

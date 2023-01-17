@@ -229,9 +229,15 @@ else
         fi
         (cd "$abi"
 	    rm -f CMakeCache.txt
-	    cmake ../.. -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROID_HOME/ndk-bundle/build/cmake/android.toolchain.cmake -DANDROID_PLATFORM=android-21 -DANDROID_ABI=$abi -DANDROID_ARM_MODE=arm -DANDROID_ARM_NEON=TRUE -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
-	    make -j $CPUS
-        make install${DEBUG-/strip}
+	    cmake ../.. \
+            -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROID_HOME/ndk-bundle/build/cmake/android.toolchain.cmake \
+            -DANDROID_PLATFORM=android-21 \
+            -DANDROID_ABI=$abi \
+            -DANDROID_ARM_MODE=arm \
+            -DANDROID_ARM_NEON=TRUE \
+            -DANDROID_STL=c++_shared \
+            -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+	    cmake --build . --target install${DEBUG-/strip}
         )
     done
 
@@ -387,8 +393,7 @@ if [ $BUILD_LINUX ] ; then
 	cd build-linux-x86_64
 	rm -f CMakeCache.txt
 	cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
-	make -j $CPUS
-    make install${DEBUG-/strip}
+	cmake --build . --target install${DEBUG-/strip}
 	cd ..
 
  	if [ $BUILD_EXAMPLES ] ; then
@@ -396,14 +401,13 @@ if [ $BUILD_LINUX ] ; then
         mkdir -p build
         cd build
         cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
-        make install
+        cmake --build . --target install
     	)
 #    	(cd "../Examples/Square tracking example with OSG/Linux"
 #        mkdir -p build
 #        cd build
 #        cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
-#        make
-#        make install
+#        cmake --build . --target install
 #    	)
  	fi
 
@@ -449,8 +453,7 @@ if [ $BUILD_LINUX_RASPBIAN ] ; then
         cd build-linux-raspbian
         rm -f CMakeCache.txt
         cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
-        make -j $CPUS
-        make install
+        cmake --build . --target install${DEBUG-/strip}
         cd ..
 
         if [ $BUILD_EXAMPLES ] ; then
@@ -458,15 +461,13 @@ if [ $BUILD_LINUX_RASPBIAN ] ; then
             mkdir -p build-raspbian
             cd build-raspbian
             cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
-            make
-            make install
+            cmake --build . --target install
             )
 #    	    (cd "../Examples/Square tracking example with OSG/Linux"
 #           mkdir -p build-raspbian
 #           cd build-raspbian
 #           cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
-#           make
-#           make install
+#           cmake --build . --target install
 #    	    )
         fi
     else

@@ -279,6 +279,14 @@ foreach (file ${FRAMEWORK_HEADERS})
     install(FILES ${file} DESTINATION ${ARX_HEADER_DIR}/${rp})
 endforeach()
 
+# If using libc++_shared on Android, also install it (and strip it if in release mode).
+if (ARX_TARGET_PLATFORM_ANDROID AND "${ANDROID_STL}" STREQUAL "c++_shared")
+    install(FILES ${ARX_ANDROID_SYSTEM_LIBDIR}/libc++_shared.so DESTINATION ${ARX_INSTALL_LIBRARY_DIR})
+    if (${CMAKE_BUILD_TYPE} MATCHES "Release")
+        install(CODE "execute_process(COMMAND ${CMAKE_STRIP} \"${CMAKE_INSTALL_PREFIX}/${ARX_INSTALL_LIBRARY_DIR}/libc++_shared.so\")")
+    endif()
+endif()
+
 if (ARX_BUILD_PLUGIN)
 
     add_library(ARX_plugin MODULE
