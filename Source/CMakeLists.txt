@@ -72,7 +72,7 @@ endif()
 
 # Set mac OS supported platform and SDK. For iOS, these are set in the toolchain file.
 if (ARX_TARGET_PLATFORM_MACOS)
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Code will load on this and later versions of macOS." FORCE)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Code will load on this and later versions of macOS." FORCE)
     execute_process(COMMAND /usr/bin/xcrun -sdk macosx --show-sdk-path OUTPUT_VARIABLE CMAKE_OSX_SYSROOT OUTPUT_STRIP_TRAILING_WHITESPACE)
     set(CMAKE_OSX_SYSROOT "${CMAKE_OSX_SYSROOT}" CACHE STRING "The product will be built against the headers and libraries located inside the indicated SDK." FORCE)
 endif()

@@ -289,6 +289,7 @@ bool ARVideoSource::open3(const ARParam *cparam_p)
 
 bool ARVideoSource::captureFrame()
 {
+    bool ret = false;
     if (deviceState == DEVICE_RUNNING) {
         if (m_captureFrameWaitCount) {
             ARLOGi("Video source is running. (Waited %d calls.)\n", m_captureFrameWaitCount);
@@ -296,18 +297,18 @@ bool ARVideoSource::captureFrame()
         }
         pthread_rwlock_wrlock(&m_frameBufferLock);
         AR2VideoBufferT *vbuff = ar2VideoGetImage(m_vid);
-        pthread_rwlock_unlock(&m_frameBufferLock);
         if (vbuff && vbuff->fillFlag) {
             m_frameBuffer = vbuff;
-            return true;
+            ret = true;
         }
+        pthread_rwlock_unlock(&m_frameBufferLock);
     } else {
         if (!m_captureFrameWaitCount) {
             ARLOGi("Waiting for video source.\n");
         }
         m_captureFrameWaitCount++;
     }
-    return false;
+    return ret;
 }
 
 bool ARVideoSource::close()

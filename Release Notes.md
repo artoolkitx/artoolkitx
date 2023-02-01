@@ -2,12 +2,12 @@
 --------------------------
 
 ## Version 1.0.7
-### 2023-01-13
+### 2023-02-01
 
 This release improves and updates platform support.
  * On iOS, the minimum supported OS is now iOS v11.0.
  * On Android, the minimum supported OS is now Android 5.0 (API level 21).
- * On mac OS, full support for the ARM64 (Apple Silicon) CPU.
+ * On mac OS, full support for the ARM64 (Apple Silicon) CPU. The minimum supported OS is now mac OS 10.13.
  * On Windows, the default Visual Studio version is now VS 2019.
  * On Linux, the system OpenCV implementation is preferred.
 Other minor changes:
@@ -16,6 +16,7 @@ Other minor changes:
  * Bugfix: fix arRefineCorners error when building without OpenCV
  * Update FreakMatcher to Eigen v3.3.7.
  * Remove dependence on opencv imread(), and therefore highgui, imgcodecs, and various image libs.
+ * Bugfix: mac OS had conflicting headers for libjpeg static library. Now using libjpeg-turbo 2.1.5.
 
 ## Version 1.0.6
 ### 2020-20-19
