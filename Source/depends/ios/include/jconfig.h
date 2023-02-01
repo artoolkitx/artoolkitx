@@ -1,12 +1,25 @@
-/* jconfig.vc --- jconfig.h for Microsoft Visual C++ on Windows 95 or NT. */
-/* see jconfig.txt for explanations */
+/* Version ID for the JPEG library.
+ * Might be useful for tests like "#if JPEG_LIB_VERSION >= 60".
+ */
+#define JPEG_LIB_VERSION  62
 
-#define JPEG_LIB_VERSION 62
-#define LIBJPEG_TURBO_VERSION 1.5.3
-#define LIBJPEG_TURBO_VERSION_NUMBER 1005003
-#define C_ARITH_CODING_SUPPORTED
-#define D_ARITH_CODING_SUPPORTED
-/* #undef MEM_SRCDST_SUPPORTED */
+/* libjpeg-turbo version */
+#define LIBJPEG_TURBO_VERSION  2.1.5
+
+/* libjpeg-turbo version in integer form */
+#define LIBJPEG_TURBO_VERSION_NUMBER  2001005
+
+/* Support arithmetic encoding */
+#define C_ARITH_CODING_SUPPORTED 1
+
+/* Support arithmetic decoding */
+#define D_ARITH_CODING_SUPPORTED 1
+
+/* Support in-memory source/destination managers */
+#define MEM_SRCDST_SUPPORTED 1
+
+/* Use accelerated SIMD routines. */
+#define WITH_SIMD 1
 
 /*
  * Define BITS_IN_JSAMPLE as either
@@ -19,39 +32,6 @@
 
 #define BITS_IN_JSAMPLE  8      /* use 8 or 12 */
 
-#define HAVE_UNSIGNED_CHAR
-#define HAVE_UNSIGNED_SHORT
-/* #define void char */
-/* #define const */
-#undef __CHAR_UNSIGNED__
-#define HAVE_STDDEF_H
-#define HAVE_STDLIB_H
-#undef NEED_BSD_STRINGS
-#undef NEED_SYS_TYPES_H
-#undef NEED_FAR_POINTERS	/* we presume a 32-bit flat memory model */
-#undef INCOMPLETE_TYPES_BROKEN
-
-/* Define "boolean" as unsigned char, not int, per Windows custom */
-#ifndef __RPCNDR_H__		/* don't conflict if rpcndr.h already read */
-typedef unsigned char boolean;
-#endif
-#define HAVE_BOOLEAN		/* prevent jmorecfg.h from redefining it */
-
-/* Define "INT32" as int, not long, per Windows custom */
-#if !(defined(_BASETSD_H_) || defined(_BASETSD_H))   /* don't conflict if basetsd.h already read */
-typedef short INT16;
-typedef signed int INT32;
-#endif
-#define XMD_H                   /* prevent jmorecfg.h from redefining it */
-
-#ifdef JPEG_INTERNALS
-
-#undef RIGHT_SHIFT_IS_UNSIGNED
-
-#ifdef __LP64__
-#define SIZEOF_SIZE_T 8
-#else
-#define SIZEOF_SIZE_T 4
-#endif
-
-#endif /* JPEG_INTERNALS */
+/* Define if your (broken) compiler shifts signed values as if they were
+   unsigned. */
+/* #undef RIGHT_SHIFT_IS_UNSIGNED */
