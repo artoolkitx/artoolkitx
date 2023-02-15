@@ -151,6 +151,19 @@ typedef enum {
 #define  AR_VIDEO_FOCUS_MODE_POINT_OF_INTEREST        2
 #define  AR_VIDEO_FOCUS_MODE_MANUAL                   3
 
+typedef enum {
+    AR_VIDEO_SIZE_PREFERENCE_ANY = 0,                   ///< Accept any size video frame.
+    AR_VIDEO_SIZE_PREFERENCE_EXACT,                     ///< Accept only the exact size requested.
+    AR_VIDEO_SIZE_PREFERENCE_CLOSEST_SAME_ASPECT,       ///< Accept the closest size to the requested with the same aspect ratio.
+    AR_VIDEO_SIZE_PREFERENCE_CLOSEST_PIXEL_COUNT,       ///< Accept the closest size to the requested pixel count (w x h).
+    AR_VIDEO_SIZE_PREFERENCE_SAME_ASPECT,               ///< Accept any size with the same aspect ratio.
+    AR_VIDEO_SIZE_PREFERENCE_LARGEST_WITH_MAXIMUM,      ///< Accept the largest size, but no larger than requested.
+    AR_VIDEO_SIZE_PREFERENCE_SMALLEST_WITH_MINIMUM,     ///< Accept the smallest size, but no smaller than requested.
+    AR_VIDEO_SIZE_PREFERENCE_LARGEST,                   ///< Accept the largest size.
+    AR_VIDEO_SIZE_PREFERENCE_SMALLEST                   ///< Accept the smallest size.
+} ARVideoSizePreference;
+
+
 ///
 /// @brief Values returned by arVideoParamGeti(AR_VIDEO_PARAM_AVFOUNDATION_IOS_DEVICE, ...)
 ///
@@ -429,7 +442,8 @@ typedef enum {
     AR_VIDEO_ASPECT_RATIO_9_5,       ///< 1.8:   Equivalent to well-known sizes 864x480.
     AR_VIDEO_ASPECT_RATIO_17_9,      ///< 1.889: Equivalent to well-known sizes 2040x1080.
     AR_VIDEO_ASPECT_RATIO_21_9,      ///< 2.333: "Ultrawide". Equivalent to well-known sizes 2560x1080, 1280x512.
-    AR_VIDEO_ASPECT_RATIO_UNIQUE     ///< Value not easily representable as a ratio of integers.
+    AR_VIDEO_ASPECT_RATIO_UNIQUE,    ///< Value not easily representable as a ratio of integers.
+    AR_VIDEO_ASPECT_RATIO_INVALID    ///< Either width or height is zero.
 } AR_VIDEO_ASPECT_RATIO;
 
 /*!
