@@ -112,7 +112,6 @@ public class CameraPreferencesActivity extends PreferenceActivity implements
     private ListPreference cameraIndexPreference;
     private ListPreference cameraResolutionPreference;
 
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,7 +119,7 @@ public class CameraPreferencesActivity extends PreferenceActivity implements
 
         // Ensure we have a camera!
         PackageManager pm = this.getPackageManager();
-        if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+        if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             finish();
             return;
         }
@@ -270,7 +269,7 @@ public class CameraPreferencesActivity extends PreferenceActivity implements
 		}
 	}
 
-    private static final PixelSizeToAspectRatio aspectRatios[] = new PixelSizeToAspectRatio[]{
+    private static final PixelSizeToAspectRatio[] aspectRatios = new PixelSizeToAspectRatio[]{
 		new PixelSizeToAspectRatio(1, 1, ASPECT_RATIO._1_1, "1:1"), // 1.0:
 		new PixelSizeToAspectRatio(11, 9, ASPECT_RATIO._11_9, "11:9"), // 1.222: 176x144, (QCIF), 352x288, (CIF)
 		new PixelSizeToAspectRatio(5, 4, ASPECT_RATIO._5_4, "5:4"), // 1.25: 1280x1024, (SXGA), 2560x2048
@@ -314,7 +313,7 @@ public class CameraPreferencesActivity extends PreferenceActivity implements
     public ASPECT_RATIO findAspectRatio(int w, int h) {
 
         // Reduce.
-        int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
+        int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
                 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
         int w_lcd = w, h_lcd = h;
         for (int i : primes) {
@@ -345,7 +344,7 @@ public class CameraPreferencesActivity extends PreferenceActivity implements
     public String findAspectRatioName(int w, int h) {
 
         // Reduce.
-        int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
+        int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
                 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
         int w_lcd = w, h_lcd = h;
         for (int i : primes) {
