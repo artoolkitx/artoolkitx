@@ -73,6 +73,7 @@ typedef enum {
 
 struct _AR2VideoParamAndroidT {
     char               device_id[PROP_VALUE_MAX*3+2]; // From <sys/system_properties.h>. 3 properties plus separators.
+    int                camera_index; // 0 = first camera, 1 = second etc.
     int                width;
     int                height;
     AR_PIXEL_FORMAT    pixelFormat;
@@ -87,7 +88,6 @@ struct _AR2VideoParamAndroidT {
     void             (*callback)(void *);
     void              *userdata;
     // Pushed-video-only fields.
-    int                camera_index; // 0 = first camera, 1 = second etc.
     int                camera_face; // 0 = camera is rear facing, 1 = camera is front facing.
     bool               pushInited; // videoPushInit called.
     pthread_cond_t     pushInitedCond; // At least one frame received.

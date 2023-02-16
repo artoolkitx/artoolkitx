@@ -68,13 +68,14 @@ int ar2VideoDispOptionAndroid(void)
     ARPRINT(" -uid=X Choose input with UID X.\n");
     ARPRINT(" -source=N\n");
     ARPRINT("    Acquire video from connected source device with index N (default = 0).\n");
+    ARPRINT("    When -position is not default, index is into list of devices at that position.\n");
     ARPRINT(" -width=N\n");
     ARPRINT("    specifies desired width of image.\n");
     ARPRINT(" -height=N\n");
     ARPRINT("    specifies desired height of image.\n");
     ARPRINT(" -position=(rear|back|front|external)\n");
-    ARPRINT("    choose between rear/back, front-mountedm, or external camera (where available).\n");
-    ARPRINT("    default value is 'rear'.\n");
+    ARPRINT("    choose between rear/back, front-mounted, or external camera (where available).\n");
+    ARPRINT("    default value is 'rear', unless -source is specified, .\n");
     ARPRINT(" -cachedir=/path/to/cache\n");
     ARPRINT("    Specifies the path in which to look for/store camera parameter cache files.\n");
     ARPRINT("    Default is working directory.\n");
@@ -262,7 +263,8 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
     int i;
     int width = 0, height = 0;
     int convertToRGBA = 0;
-    int position = AR_VIDEO_POSITION_BACK;
+    int position = -1;
+    int source = -1;
     char *uid = NULL;
     ARVideoSizePreference sizePreference = AR_VIDEO_SIZE_PREFERENCE_ANY;
     
@@ -420,7 +422,7 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
                     csat = strdup(line);
                 }
             } else if (strncmp(line, "-source=", 8) == 0) {
-                if (sscanf(&line[8], "%d", &vid->camera_index) == 0) err_i = 1;
+                if (sscanf(&line[8], "%d", &source) == 0) err_i = 1;
             } else {
                 err_i = 1;
             }
@@ -496,7 +498,7 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
         // Select camera.
         // 1. First get list of cams.
         ARVideoSourceInfoListT *sil = ar2VideoCreateSourceInfoListAndroid2(config, vid->cameraMgr_);
-        if (!sil) {
+        if (!sil || sil->count == 0) {
             ARLOGe("ar2VideoOpenAsyncAndroid(): No camera available.\n");
             ar2VideoDeleteSourceInfoList(&sil);
             goto bail;
@@ -514,22 +516,34 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
                 uid = NULL;
             } else {
                 vid->position = sil->info[i].flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK;
+                vid->camera_index = i;
             }
         }
-        // 3. If no UID, go by position.
-        if (!uid) {
+        // 3. If no UID, go by position, unless position was default and source not default.
+        if (!uid && !(position == -1 && source != -1)) {
+            if (position == -1) position = AR_VIDEO_POSITION_BACK;
+            int matchPositionIndex = source == -1 ? 0 : source;
+            int matchedPositionCount = 0;
             for (i = 0; i < sil->count; i++) {
                 if ((sil->info[i].flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK) == position) {
-                    uid = strdup(sil->info[i].UID);
-                    vid->position = position;
-                    break;
+                    if (matchedPositionCount == matchPositionIndex) {
+                        uid = strdup(sil->info[i].UID);
+                        vid->position = position;
+                        vid->camera_index = i;
+                        break;
+                    } else {
+                        matchedPositionCount++;
+                    }
                 }
             }
         }
-        // 4. If no UID or preferred position, just choose first device.
+        // 4. If no UID or preferred position, just choose device zero-indexed by "-source", 
+        // or if source > 0 and not enough devices, the first device.
         if (!uid) {
-            uid = strdup(sil->info[0].UID);
-            vid->position = sil->info[0].flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK;
+            i = source != -1 && source < sil->count ? source : 0;
+            uid = strdup(sil->info[i].UID);
+            vid->position = sil->info[i].flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK;
+            vid->camera_index = i;
         }
         ar2VideoDeleteSourceInfoList(&sil);
         
@@ -1009,8 +1023,16 @@ int ar2VideoGetParamiAndroid(AR2VideoParamAndroidT *vid, int paramName, int *val
     if (!vid || !value) return (-1); // Sanity check.
     
     switch (paramName) {
-        case AR_VIDEO_PARAM_ANDROID_CAMERA_INDEX:   *value = vid->camera_index; break;
-        case AR_VIDEO_PARAM_ANDROID_CAMERA_FACE:    *value = vid->camera_face; break;
+        case AR_VIDEO_PARAM_ANDROID_CAMERA_INDEX:
+            *value = vid->camera_index;
+            break;
+        case AR_VIDEO_PARAM_ANDROID_CAMERA_FACE:
+            if (vid->native) {
+                *value = (vid->position == AR_VIDEO_POSITION_FRONT ? 1 : 0);
+            } else {
+                *value = vid->camera_face;
+            }
+            break;
         default:
             return (-1);
     }
