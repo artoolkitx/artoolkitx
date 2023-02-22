@@ -1,3 +1,7 @@
 <map id="TrackingPointSelector" name="TrackingPointSelector">
-<area shape="rect" id="node5" href="$class_tracked_point.html" title="TrackedPoint" alt="" coords="5,91,105,116"/>
+<area shape="rect" id="node1" title=" " alt="" coords="827,49,977,74"/>
+<area shape="rect" id="node2" title=" " alt="" coords="209,14,395,39"/>
+<area shape="rect" id="node5" title=" " alt="" coords="500,41,679,81"/>
+<area shape="rect" id="node3" href="$class_tracked_point.html" title=" " alt="" coords="5,14,104,39"/>
+<area shape="rect" id="node4" title=" " alt="" coords="504,106,675,131"/>
 </map>

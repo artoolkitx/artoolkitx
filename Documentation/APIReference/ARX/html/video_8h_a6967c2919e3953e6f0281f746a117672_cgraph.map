@@ -1,0 +1,12 @@
+<map id="ar2VideoOpen" name="ar2VideoOpen">
+<area shape="rect" id="node1" title="Open a video input module and return control object." alt="" coords="5,203,109,228"/>
+<area shape="rect" id="node2" href="$video1394_8h.html#a5e135a088763d0bbeb2d95f8c92704b1" title=" " alt="" coords="183,5,315,31"/>
+<area shape="rect" id="node3" href="$video_a_v_foundation_8h.html#aefeea555e04e4d04eb17b4adea17013d" title=" " alt="" coords="157,55,341,80"/>
+<area shape="rect" id="node4" href="$video_dummy_8h.html#a72835c795b3b4f9ec13d7c3bfe482476" title=" " alt="" coords="174,104,325,129"/>
+<area shape="rect" id="node5" href="$video_emscripten_8h.html#a29074bdca28d3b80a8e89895087646b5" title=" " alt="" coords="164,153,335,179"/>
+<area shape="rect" id="node6" href="$video_g_streamer_8h.html#a39ad73e9efc5e41fb011b58ec8262958" title=" " alt="" coords="166,203,333,228"/>
+<area shape="rect" id="node7" href="$video_image_8h.html#a73390fddad6f8e51c827515ba754986b" title=" " alt="" coords="179,252,319,277"/>
+<area shape="rect" id="node8" href="$video_v4_l2_8h.html#abfb2b883b0d8a1b97aece447925d9fbb" title=" " alt="" coords="182,301,317,327"/>
+<area shape="rect" id="node9" href="$video_windows_media_capture_8h.html#a61863b436e12e617a68415854ef8873a" title=" " alt="" coords="175,351,323,376"/>
+<area shape="rect" id="node10" href="$video_windows_media_foundation_8h.html#a0fd1e3b5895e22598a81e24f86820168" title=" " alt="" coords="176,400,323,425"/>
+</map>

@@ -1,51 +1,52 @@
 <map id="Source/ARX/AR/include/ARX/AR/arImageProc.h" name="Source/ARX/AR/include/ARX/AR/arImageProc.h">
-<area shape="rect" id="node2" href="$ar_detect_marker_8c.html" title="Source/ARX/AR/arDetectMarker.c" alt="" coords="5,185,227,211"/>
-<area shape="rect" id="node3" href="$ar_image_proc_8c.html" title="Source/ARX/AR/arImageProc.c" alt="" coords="4553,99,4760,124"/>
-<area shape="rect" id="node4" href="$ar_8h.html" title="artoolkitX core routines. " alt="" coords="4366,92,4529,131"/>
-<area shape="rect" id="node5" href="$ar3_d_create_handle_8c.html" title="Source/ARX/AR/ar3DCreate\lHandle.c" alt="" coords="8566,179,8755,217"/>
-<area shape="rect" id="node6" href="$ar3_d_util_8c.html" title="Source/ARX/AR/ar3DUtil.c" alt="" coords="8779,185,8958,211"/>
-<area shape="rect" id="node7" href="$ar_create_handle_8c.html" title="Source/ARX/AR/arCreateHandle.c" alt="" coords="8983,185,9208,211"/>
-<area shape="rect" id="node8" href="$ar_detect_marker2_8c.html" title="Source/ARX/AR/arDetectMarker2.c" alt="" coords="252,185,482,211"/>
-<area shape="rect" id="node9" href="$ar_get_line_8c.html" title="Source/ARX/AR/arGetLine.c" alt="" coords="506,185,695,211"/>
-<area shape="rect" id="node10" href="$ar_get_marker_info_8c.html" title="Source/ARX/AR/arGetMarker\lInfo.c" alt="" coords="719,179,914,217"/>
-<area shape="rect" id="node11" href="$ar_get_trans_mat_8c.html" title="Source/ARX/AR/arGetTrans\lMat.c" alt="" coords="939,179,1126,217"/>
-<area shape="rect" id="node12" href="$ar_get_trans_mat_stereo_8c.html" title="Source/ARX/AR/arGetTrans\lMatStereo.c" alt="" coords="1151,179,1338,217"/>
-<area shape="rect" id="node13" href="$ar_labeling_8c.html" title="Source/ARX/AR/arLabeling.c" alt="" coords="1362,185,1556,211"/>
-<area shape="rect" id="node14" href="$ar_labeling_sub_8h.html" title="Source/ARX/AR/arLabeling\lSub/arLabelingSub.h" alt="" coords="1580,179,1763,217"/>
-<area shape="rect" id="node15" href="$ar_multi_free_config_8c.html" title="Source/ARX/AR/arMultiFree\lConfig.c" alt="" coords="1564,265,1752,304"/>
-<area shape="rect" id="node16" href="$ar_multi_get_trans_mat_8c.html" title="Source/ARX/AR/arMultiGet\lTransMat.c" alt="" coords="1776,265,1958,304"/>
-<area shape="rect" id="node17" href="$ar_multi_get_trans_mat_stereo_8c.html" title="Source/ARX/AR/arMultiGet\lTransMatStereo.c" alt="" coords="1983,265,2165,304"/>
-<area shape="rect" id="node18" href="$ar_multi_read_config_file_8c.html" title="Source/ARX/AR/arMultiRead\lConfigFile.c" alt="" coords="2188,265,2381,304"/>
-<area shape="rect" id="node19" href="$ar_patt_attach_8c.html" title="Source/ARX/AR/arPattAttach.c" alt="" coords="2177,185,2381,211"/>
-<area shape="rect" id="node20" href="$ar_patt_create_handle_8c.html" title="Source/ARX/AR/arPattCreate\lHandle.c" alt="" coords="2405,179,2601,217"/>
-<area shape="rect" id="node21" href="$ar_patt_get_i_d_8c.html" title="Source/ARX/AR/arPattGetID.c" alt="" coords="2625,185,2826,211"/>
-<area shape="rect" id="node22" href="$ar_patt_load_8c.html" title="Source/ARX/AR/arPattLoad.c" alt="" coords="2850,185,3047,211"/>
-<area shape="rect" id="node23" href="$ar_patt_save_8c.html" title="Source/ARX/AR/arPattSave.c" alt="" coords="3070,185,3267,211"/>
-<area shape="rect" id="node24" href="$ar_util_8c.html" title="Source/ARX/AR/arUtil.c" alt="" coords="3291,185,3453,211"/>
-<area shape="rect" id="node25" href="$icp_calib_stereo_8c.html" title="Source/ARX/AR/icpCalibStereo.c" alt="" coords="3477,185,3695,211"/>
-<area shape="rect" id="node26" href="$icp_core_8c.html" title="Source/ARX/AR/icpCore.c" alt="" coords="3719,185,3896,211"/>
-<area shape="rect" id="node27" href="$icp_handle_8c.html" title="Source/ARX/AR/icpHandle.c" alt="" coords="3920,185,4110,211"/>
-<area shape="rect" id="node28" href="$icp_point_8c.html" title="Source/ARX/AR/icpPoint.c" alt="" coords="4134,185,4312,211"/>
-<area shape="rect" id="node29" href="$icp_point_robust_8c.html" title="Source/ARX/AR/icpPointRobust.c" alt="" coords="4337,185,4557,211"/>
-<area shape="rect" id="node30" href="$icp_stereo_handle_8c.html" title="Source/ARX/AR/icpStereoHandle.c" alt="" coords="4582,185,4811,211"/>
-<area shape="rect" id="node31" href="$icp_stereo_point_8c.html" title="Source/ARX/AR/icpStereoPoint.c" alt="" coords="4836,185,5053,211"/>
-<area shape="rect" id="node32" href="$icp_stereo_point_robust_8c.html" title="Source/ARX/AR/icpStereoPoint\lRobust.c" alt="" coords="5077,179,5284,217"/>
-<area shape="rect" id="node33" href="$icp_util_8c.html" title="Source/ARX/AR/icpUtil.c" alt="" coords="5307,185,5475,211"/>
-<area shape="rect" id="node34" href="$ar_filter_trans_mat_8h.html" title="Provides filtering of transformation matrices (pose estimates). " alt="" coords="5499,179,5686,217"/>
-<area shape="rect" id="node35" href="$ar_multi_8h.html" title="Source/ARX/AR/include\l/ARX/AR/arMulti.h" alt="" coords="1888,179,2051,217"/>
-<area shape="rect" id="node36" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters. " alt="" coords="5710,179,5873,217"/>
-<area shape="rect" id="node37" href="$param_g_l_8h.html" title="Routines for converting ARParam and matrix types to OpenGL. " alt="" coords="5768,265,5931,304"/>
-<area shape="rect" id="node38" href="$m_alloc_8c.html" title="Source/ARX/AR/mAlloc.c" alt="" coords="5947,185,6118,211"/>
-<area shape="rect" id="node39" href="$m_alloc_dup_8c.html" title="Source/ARX/AR/mAllocDup.c" alt="" coords="6141,185,6337,211"/>
-<area shape="rect" id="node40" href="$m_alloc_inv_8c.html" title="Source/ARX/AR/mAllocInv.c" alt="" coords="6361,185,6549,211"/>
-<area shape="rect" id="node41" href="$m_alloc_mul_8c.html" title="Source/ARX/AR/mAllocMul.c" alt="" coords="6573,185,6766,211"/>
-<area shape="rect" id="node42" href="$m_alloc_trans_8c.html" title="Source/ARX/AR/mAllocTrans.c" alt="" coords="6790,185,6995,211"/>
-<area shape="rect" id="node43" href="$m_alloc_unit_8c.html" title="Source/ARX/AR/mAllocUnit.c" alt="" coords="7019,185,7214,211"/>
-<area shape="rect" id="node44" href="$m_det_8c.html" title="Source/ARX/AR/mDet.c" alt="" coords="7238,185,7401,211"/>
-<area shape="rect" id="node45" href="$m_disp_8c.html" title="Source/ARX/AR/mDisp.c" alt="" coords="7424,185,7593,211"/>
-<area shape="rect" id="node46" href="$m_dup_8c.html" title="Source/ARX/AR/mDup.c" alt="" coords="7617,185,7784,211"/>
-<area shape="rect" id="node47" href="$m_free_8c.html" title="Source/ARX/AR/mFree.c" alt="" coords="7808,185,7977,211"/>
-<area shape="rect" id="node48" href="$m_inv_8c.html" title="Source/ARX/AR/mInv.c" alt="" coords="8001,185,8160,211"/>
-<area shape="rect" id="node49" href="$m_mul_8c.html" title="Source/ARX/AR/mMul.c" alt="" coords="8184,185,8348,211"/>
-<area shape="rect" id="node50" href="$m_p_c_a_8c.html" title="Source/ARX/AR/mPCA.c" alt="" coords="8372,185,8541,211"/>
+<area shape="rect" id="node1" title="artoolkitX functions for 2D luminance image processing." alt="" coords="4661,5,4828,45"/>
+<area shape="rect" id="node2" href="$ar_detect_marker_8c.html" title=" " alt="" coords="5,277,228,302"/>
+<area shape="rect" id="node3" href="$ar_image_proc_8c.html" title=" " alt="" coords="4851,101,5057,126"/>
+<area shape="rect" id="node4" href="$ar_8h.html" title="artoolkitX core routines." alt="" coords="4663,93,4826,133"/>
+<area shape="rect" id="node5" href="$ar3_d_create_handle_8c.html" title=" " alt="" coords="154,181,343,221"/>
+<area shape="rect" id="node6" href="$ar3_d_util_8c.html" title=" " alt="" coords="367,189,549,214"/>
+<area shape="rect" id="node7" href="$ar_create_handle_8c.html" title=" " alt="" coords="573,189,797,214"/>
+<area shape="rect" id="node8" href="$ar_detect_marker2_8c.html" title=" " alt="" coords="821,189,1052,214"/>
+<area shape="rect" id="node9" href="$ar_get_line_8c.html" title=" " alt="" coords="1077,189,1266,214"/>
+<area shape="rect" id="node10" href="$ar_get_marker_info_8c.html" title=" " alt="" coords="1290,181,1485,221"/>
+<area shape="rect" id="node11" href="$ar_get_trans_mat_8c.html" title=" " alt="" coords="1509,181,1695,221"/>
+<area shape="rect" id="node12" href="$ar_get_trans_mat_stereo_8c.html" title=" " alt="" coords="1719,181,1906,221"/>
+<area shape="rect" id="node13" href="$ar_labeling_8c.html" title=" " alt="" coords="1930,189,2122,214"/>
+<area shape="rect" id="node14" href="$ar_labeling_sub_8h.html" title=" " alt="" coords="2146,181,2327,221"/>
+<area shape="rect" id="node15" href="$ar_multi_edit_config_8c.html" title=" " alt="" coords="2506,269,2690,309"/>
+<area shape="rect" id="node16" href="$ar_multi_free_config_8c.html" title=" " alt="" coords="2714,269,2901,309"/>
+<area shape="rect" id="node17" href="$ar_multi_get_trans_mat_8c.html" title=" " alt="" coords="3733,269,3916,309"/>
+<area shape="rect" id="node18" href="$ar_multi_get_trans_mat_stereo_8c.html" title=" " alt="" coords="4767,269,4949,309"/>
+<area shape="rect" id="node19" href="$ar_multi_read_config_file_8c.html" title=" " alt="" coords="6834,269,7026,309"/>
+<area shape="rect" id="node20" href="$ar_patt_attach_8c.html" title=" " alt="" coords="2893,189,3100,214"/>
+<area shape="rect" id="node21" href="$ar_patt_create_handle_8c.html" title=" " alt="" coords="3124,181,3320,221"/>
+<area shape="rect" id="node22" href="$ar_patt_get_i_d_8c.html" title=" " alt="" coords="3345,189,3547,214"/>
+<area shape="rect" id="node23" href="$ar_patt_load_8c.html" title=" " alt="" coords="3572,189,3768,214"/>
+<area shape="rect" id="node24" href="$ar_patt_save_8c.html" title=" " alt="" coords="3792,189,3991,214"/>
+<area shape="rect" id="node25" href="$ar_refine_corners_8h.html" title=" " alt="" coords="2352,189,2580,214"/>
+<area shape="rect" id="node26" href="$ar_util_8c.html" title=" " alt="" coords="4015,189,4179,214"/>
+<area shape="rect" id="node27" href="$icp_calib_stereo_8c.html" title=" " alt="" coords="4203,189,4422,214"/>
+<area shape="rect" id="node28" href="$icp_core_8c.html" title=" " alt="" coords="4446,189,4625,214"/>
+<area shape="rect" id="node29" href="$icp_handle_8c.html" title=" " alt="" coords="4649,189,4840,214"/>
+<area shape="rect" id="node30" href="$icp_point_8c.html" title=" " alt="" coords="4864,189,5044,214"/>
+<area shape="rect" id="node31" href="$icp_point_robust_8c.html" title=" " alt="" coords="5068,189,5291,214"/>
+<area shape="rect" id="node32" href="$icp_stereo_handle_8c.html" title=" " alt="" coords="5315,189,5545,214"/>
+<area shape="rect" id="node33" href="$icp_stereo_point_8c.html" title=" " alt="" coords="5569,189,5787,214"/>
+<area shape="rect" id="node34" href="$icp_stereo_point_robust_8c.html" title=" " alt="" coords="5812,181,6019,221"/>
+<area shape="rect" id="node35" href="$icp_util_8c.html" title=" " alt="" coords="6043,189,6214,214"/>
+<area shape="rect" id="node36" href="$ar_filter_trans_mat_8h.html" title="Provides filtering of transformation matrices (pose estimates)." alt="" coords="6238,181,6425,221"/>
+<area shape="rect" id="node37" href="$ar_multi_8h.html" title=" " alt="" coords="2706,181,2869,221"/>
+<area shape="rect" id="node38" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters." alt="" coords="8910,181,9073,221"/>
+<area shape="rect" id="node39" href="$param_g_l_8h.html" title="Routines for converting ARParam and matrix types to OpenGL." alt="" coords="8850,269,9013,309"/>
+<area shape="rect" id="node40" href="$m_alloc_8c.html" title=" " alt="" coords="6550,189,6723,214"/>
+<area shape="rect" id="node41" href="$m_alloc_dup_8c.html" title=" " alt="" coords="6747,189,6945,214"/>
+<area shape="rect" id="node42" href="$m_alloc_inv_8c.html" title=" " alt="" coords="6969,189,7158,214"/>
+<area shape="rect" id="node43" href="$m_alloc_mul_8c.html" title=" " alt="" coords="7182,189,7377,214"/>
+<area shape="rect" id="node44" href="$m_alloc_trans_8c.html" title=" " alt="" coords="7401,189,7608,214"/>
+<area shape="rect" id="node45" href="$m_alloc_unit_8c.html" title=" " alt="" coords="7633,189,7830,214"/>
+<area shape="rect" id="node46" href="$m_det_8c.html" title=" " alt="" coords="7854,189,8019,214"/>
+<area shape="rect" id="node47" href="$m_disp_8c.html" title=" " alt="" coords="8043,189,8214,214"/>
+<area shape="rect" id="node48" href="$m_dup_8c.html" title=" " alt="" coords="8238,189,8406,214"/>
+<area shape="rect" id="node49" href="$m_free_8c.html" title=" " alt="" coords="8430,189,8601,214"/>
+<area shape="rect" id="node50" href="$m_inv_8c.html" title=" " alt="" coords="8625,189,8785,214"/>
 </map>

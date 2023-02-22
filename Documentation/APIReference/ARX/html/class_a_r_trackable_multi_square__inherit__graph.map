@@ -1,3 +1,4 @@
 <map id="ARTrackableMultiSquare" name="ARTrackableMultiSquare">
-<area shape="rect" id="node2" href="$class_a_r_trackable.html" title="Base class for supported trackable types. " alt="" coords="41,5,139,31"/>
+<area shape="rect" id="node1" title="Multiple marker type of ARTrackable." alt="" coords="5,79,172,104"/>
+<area shape="rect" id="node2" href="$class_a_r_trackable.html" title="Base class for supported trackable types." alt="" coords="39,5,138,31"/>
 </map>

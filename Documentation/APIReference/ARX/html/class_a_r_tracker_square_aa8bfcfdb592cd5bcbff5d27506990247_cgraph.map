@@ -1,3 +1,4 @@
 <map id="ARTrackerSquare::initialize" name="ARTrackerSquare::initialize">
-<area shape="rect" id="node2" href="$ar_patt_create_handle_8c.html#a0883d286b98414588a36dad6d2e67d9a" title="Allocate a pattern handle and set pattern template size and maximum number of patterns loadable..." alt="" coords="235,5,382,31"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,187,31"/>
+<area shape="rect" id="node2" href="$ar_patt_create_handle_8c.html#a49c652399d917276b7a560df39f03138" title="Allocate a pattern handle and set pattern template size and maximum number of patterns loadable." alt="" coords="235,5,379,31"/>
 </map>

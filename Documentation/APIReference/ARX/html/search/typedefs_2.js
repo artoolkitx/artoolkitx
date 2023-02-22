@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['error_5ffile_5ffunc',['error_file_func',['../ioapi_8h.html#ae13c244bb36f118cda0e4c0da2ba47d3',1,'ioapi.h']]]
+  ['dev_5ferror_5fpair_0',['DEV_ERROR_PAIR',['../camera__utils_8cpp.html#a153a0555b4612819cb7396261cccae60',1,'camera_utils.cpp']]]
 ];

@@ -1,7 +1,8 @@
 <map id="Source/ARX/ARUtil/include/ARX/ARUtil/time.h" name="Source/ARX/ARUtil/include/ARX/ARUtil/time.h">
-<area shape="rect" id="node2" href="$select_template_8c.html" title="Source/ARX/AR2/selectTemplate.c" alt="" coords="5,99,233,124"/>
-<area shape="rect" id="node3" href="$crypt_8c.html" title="Source/ARX/ARUtil/crypt.c" alt="" coords="256,99,435,124"/>
-<area shape="rect" id="node4" href="$file__utils_8c.html" title="Source/ARX/ARUtil/file\l_utils.c" alt="" coords="459,92,616,131"/>
-<area shape="rect" id="node5" href="$time_8c.html" title="Source/ARX/ARUtil/time.c" alt="" coords="641,99,816,124"/>
-<area shape="rect" id="node6" href="$video2_8c.html" title="Source/ARX/ARVideo\l/video2.c" alt="" coords="840,92,990,131"/>
+<area shape="rect" id="node1" title=" " alt="" coords="452,5,635,45"/>
+<area shape="rect" id="node2" href="$select_template_8c.html" title=" " alt="" coords="5,101,233,126"/>
+<area shape="rect" id="node3" href="$crypt_8c.html" title=" " alt="" coords="257,101,440,126"/>
+<area shape="rect" id="node4" href="$file__utils_8c.html" title=" " alt="" coords="464,93,623,133"/>
+<area shape="rect" id="node5" href="$time_8c.html" title=" " alt="" coords="647,101,826,126"/>
+<area shape="rect" id="node6" href="$video2_8c.html" title=" " alt="" coords="851,93,1001,133"/>
 </map>

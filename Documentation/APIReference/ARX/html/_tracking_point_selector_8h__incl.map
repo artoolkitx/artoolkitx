@@ -1,4 +1,10 @@
 <map id="Source/ARX/OCVT/TrackingPointSelector.h" name="Source/ARX/OCVT/TrackingPointSelector.h">
-<area shape="rect" id="node4" href="$_o_c_v_config_8h.html" title="OCVConfig.h" alt="" coords="307,92,407,117"/>
-<area shape="rect" id="node9" href="$_tracked_point_8h.html" title="TrackedPoint.h" alt="" coords="158,92,268,117"/>
+<area shape="rect" id="node1" title=" " alt="" coords="67,5,258,45"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,93,64,119"/>
+<area shape="rect" id="node3" title=" " alt="" coords="89,93,135,119"/>
+<area shape="rect" id="node4" href="$_o_c_v_config_8h.html" title=" " alt="" coords="309,93,409,119"/>
+<area shape="rect" id="node8" href="$_tracked_point_8h.html" title=" " alt="" coords="159,93,270,119"/>
+<area shape="rect" id="node5" title=" " alt="" coords="144,167,269,192"/>
+<area shape="rect" id="node6" title=" " alt="" coords="293,167,440,192"/>
+<area shape="rect" id="node7" title=" " alt="" coords="464,167,605,192"/>
 </map>
