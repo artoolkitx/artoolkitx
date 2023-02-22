@@ -44,6 +44,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
@@ -54,6 +55,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.Choreographer;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -65,11 +67,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import org.artoolkitx.arx.arxj.camera.CameraAccessHandler;
-import org.artoolkitx.arx.arxj.camera.CameraEventListener;
-import org.artoolkitx.arx.arxj.camera.CameraEventListenerImpl;
+import org.artoolkitx.arx.arxj.camera.CameraAccessHandlerImpl;
 import org.artoolkitx.arx.arxj.camera.CameraPreferencesActivity;
-import org.artoolkitx.arx.arxj.camera.FrameListener;
-import org.artoolkitx.arx.arxj.camera.FrameListenerImpl;
 import org.artoolkitx.arx.arxj.rendering.ARRenderer;
 
 /**
@@ -110,6 +109,7 @@ public abstract class ARActivity extends /*AppCompat*/Activity implements View.O
     private CameraAccessHandler mCameraAccessHandler;
     private ImageButton mConfigButton;
     private GLSurfaceView mGlView;
+    private Choreographer.FrameCallback frameCallback = null;
 
     @SuppressWarnings("unused")
     public Context getAppContext() {
@@ -182,21 +182,16 @@ public abstract class ARActivity extends /*AppCompat*/Activity implements View.O
         Log.i(TAG, "onResume(): called");
         super.onResume();
 
-        // Create the GL view
+        // Create the GL view, request an OpenGL ES 2.0 compatible context, and set renderer.
+        // In case of using this method from Unity we do not provide a renderer.
         mGlView = new GLSurfaceView(this);
-
-        FrameListener frameListener = new FrameListenerImpl(renderer, this, mGlView);
-        CameraEventListener cameraEventListener = new CameraEventListenerImpl(this, frameListener);
-        mCameraAccessHandler = AndroidUtils.createCameraAccessHandler(this, cameraEventListener);
-
-        // Request an OpenGL ES 2.0 compatible context.
         mGlView.setEGLContextClientVersion(2);
-
-        if (renderer != null) { //In case of using this method from UNITY we do not provide a renderer
+        if (renderer != null) {
             mGlView.setRenderer(renderer);
         }
-
         mGlView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY); // Only render when we have a frame (must call requestRender()).
+
+        mCameraAccessHandler = new CameraAccessHandlerImpl(this);
         mGlView.addOnLayoutChangeListener(new LayoutChangeListenerImpl(this, mCameraAccessHandler));
 
         Log.i(TAG, "onResume(): GLSurfaceView created");
@@ -211,18 +206,88 @@ public abstract class ARActivity extends /*AppCompat*/Activity implements View.O
             return;
         }
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        int defaultCameraIndexId = mContext.getResources().getIdentifier("pref_defaultValue_cameraIndex","string", mContext.getPackageName());
+        int cameraIndex = Integer.parseInt(prefs.getString("pref_cameraIndex", mContext.getResources().getString(defaultCameraIndexId)));
+        Log.i(TAG, "Will attempt to open camera \"" + cameraIndex + "\".");
+
+        /*
+        Set the resolution from the settings as size for the glView. Because the video stream capture
+        is requested based on this size.
+
+        WARNING: While coding the preferences are taken from the res/xml/preferences.xml!!!
+        When building for Unity the actual used preferences are taken from the UnityARPlayer project!!!
+        */
+        int defaultCameraResolutionId = mContext.getResources().getIdentifier("pref_defaultValue_cameraResolution","string", mContext.getPackageName());
+        String camResolution = prefs.getString("pref_cameraResolution", mContext.getResources(). getString(defaultCameraResolutionId));
+        String[] dims = camResolution.split("x", 2);
+        int width = Integer.parseInt(dims[0]);
+        int height = Integer.parseInt(dims[1]);
+        
+        if (ARController.getInstance().start(width, height, "YUV_420_888", null, cameraIndex, false)) {
+            // Expects Data to be already in the cache dir. This can be done with the AssetUnpacker.
+            Log.i(TAG, "Initialised AR.");
+        } else {
+            // Error
+            Log.e(TAG, "Error initialising AR. Cannot continue.");
+            this.finish();
+        }
+
+        Toast.makeText(this, "Camera settings: " + width + "x" + height, Toast.LENGTH_SHORT).show();
+
+        if (renderer != null) {
+            renderer.setCameraIndex(cameraIndex);
+            if (renderer.configureARScene()) {
+                Log.i(TAG, "Scene configured successfully");
+            } else {
+                // Error
+                Log.e(TAG, "Error configuring scene. Cannot continue.");
+                this.finish();
+            }
+        }
+
         //Load settings button
         View settingsButtonLayout = this.getLayoutInflater().inflate(R.layout.settings, mainLayout, false);
         mConfigButton = settingsButtonLayout.findViewById(R.id.button_config);
         mainLayout.addView(settingsButtonLayout);
         mConfigButton.setOnClickListener(this);
+
+        // Set up our frame update loop.
+        if (frameCallback == null) {
+            frameCallback = new Choreographer.FrameCallback() {
+                @Override
+                public void doFrame(long l) {
+                    if (ARController.getInstance().capture()) {
+                        if (!ARController.getInstance().update()) {
+                            Log.e(TAG, "Error updating AR trackers.");
+                        } else {
+                            // Update the renderer as the frame has changed
+                            if (mGlView != null) {
+                                mGlView.requestRender();
+                            }
+                        }
+                    }
+                    if (frameCallback != null) {
+                        Choreographer.getInstance().postFrameCallback(frameCallback);
+                    }
+                }
+            };
+        }
+        Choreographer.getInstance().postFrameCallback(frameCallback);
     }
 
     @Override
     protected void onPause() {
         Log.i(TAG, "onPause(): called");
 
-        mCameraAccessHandler.closeCamera();
+        if (!mCameraAccessHandler.getCameraAccessPermissions()) {
+            if (frameCallback != null) {
+                Choreographer.getInstance().removeFrameCallback(frameCallback);
+                frameCallback = null;
+            }
+            ARController.getInstance().stopAndFinal();
+        }
+
 
         if (mGlView != null) {
             mGlView.onPause();
@@ -310,7 +375,7 @@ public abstract class ARActivity extends /*AppCompat*/Activity implements View.O
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-        onStart();
+        onResume();
     }
 
     /**

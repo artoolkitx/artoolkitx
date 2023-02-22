@@ -47,6 +47,7 @@
 #include "../cparamSearch.h"
 
 #include "camera_utils.h"
+#include <unistd.h> // usleep
 
 
 #undef ARVIDEO_ANDROID_NATIVE
@@ -82,7 +83,7 @@ int ar2VideoDispOptionAndroid(void)
     ARPRINT(" -format=[0|RGBA].\n");
     ARPRINT("    Specifies the pixel format for output images.\n");
     ARPRINT("    0=use system default. RGBA=output RGBA, including conversion if necessary.\n");
-    ARPRINT(" -preference=(any|exact|closestsameaspect|closestpixelcount|sameaspect|\n");
+    ARPRINT(" -prefer=(any|exact|closestsameaspect|closestpixelcount|sameaspect|\n");
     ARPRINT("    largestwithmaximum|smallestwithminimum|largest|smallest)\n");
     ARPRINT("    indiciate video stream size preference. Used alongside -width and -height.\n");
     ARPRINT("    default value is 'any'.\n");
@@ -229,25 +230,6 @@ static bool getSensorOrientation(AR2VideoParamAndroidT *vid, const char *cameraI
     if (facing) *facing = (int32_t)(face.data.u8[0]);
     if (angle) *angle = orientation.data.i32[0];
     return true;
-}
-
-static void onImageCallback(void* ctx, AImageReader* reader)
-{
-    AR2VideoParamAndroidT *vid = (AR2VideoParamAndroidT *)ctx;
-    AImage *image = nullptr;
-    media_status_t status = AImageReader_acquireLatestImage(reader, &image);
-    if (status != AMEDIA_OK) {
-        ARLOGe("Unable to acquire latest image.");
-        goto done;
-    }
-
-    pthread_mutex_lock(&(vid->frameLock));
-    if (vid->imageReady) {
-        AImage_delete(vid->imageReady);
-    }
-    vid->imageReady = image;
-done:
-    pthread_mutex_unlock(&(vid->frameLock));
 }
 
 AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callback)(void *), void *userdata)
@@ -476,18 +458,7 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
 	pthread_mutex_init(&(vid->frameLock), NULL);
 	pthread_cond_init(&(vid->pushInitedCond), NULL);
 	
-	if (!vid->native) {
-        pthread_attr_t attr;
-        pthread_attr_init(&attr);
-        pthread_attr_setdetachstate(&attr, 1); // Preclude the need to do pthread_join on the thread after it exits.
-        pthread_t t;
-        err_i = pthread_create(&t, &attr, openAsyncThread, vid);
-        pthread_attr_destroy(&attr);
-        if (err_i != 0) {
-            ARLOGe("ar2VideoOpenAsyncAndroid(): pthread_create error %d.\n");
-            goto bail;
-        }
-    } else {
+	if (vid->native) {
         // Native camera init.
         vid->cameraMgr_ = ACameraManager_create();
         if (!vid->cameraMgr_) {
@@ -501,7 +472,7 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
         if (!sil || sil->count == 0) {
             ARLOGe("ar2VideoOpenAsyncAndroid(): No camera available.\n");
             ar2VideoDeleteSourceInfoList(&sil);
-            goto bail;
+            goto bail1;
         }      
         // 2. If user requested by UID, try to locate it.
         if (uid) {
@@ -599,6 +570,9 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
             vid->sensitivityRangeMin_ = vid->sensitivityRangeMax_ = 0;
             vid->sensitivity_ = 0;
         }
+
+        // At the moment, just using NV21 for YUV_420_888.
+        vid->pixelFormat = AR_PIXEL_FORMAT_NV21; // NV21 and also used for YUV_420_888.
 
         // Query for available capture resolutions and find one preferred by user.
         entry = {0};
@@ -707,19 +681,29 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
 
         // Done with metadata.
         ACameraMetadata_free(metadata);
-        
-
-        // FIXME: can't call this callback until vid has been returned!
-        if (vid->callback) (vid->callback)(vid->userdata);
+    } // vid->native
+    
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    pthread_attr_setdetachstate(&attr, 1); // Preclude the need to do pthread_join on the thread after it exits.
+    pthread_t t;
+    err_i = pthread_create(&t, &attr, openAsyncThread, vid);
+    pthread_attr_destroy(&attr);
+    if (err_i != 0) {
+        ARLOGe("ar2VideoOpenAsyncAndroid(): pthread_create error %d.\n");
+        goto bail1;
     }
-      
+ 
     goto done;
 
 bail1:
-    ACameraManager_delete(vid->cameraMgr_);
+    if (vid->native) {
+        ACameraManager_delete(vid->cameraMgr_);
+    }
 bail:
     free(vid);
     vid = NULL;
+
 done:
     free(cacheDir);
     free(cacheInitDir);
@@ -736,19 +720,25 @@ static void *openAsyncThread(void *arg)
     int err;
 
     AR2VideoParamAndroidT *vid = (AR2VideoParamAndroidT *)arg; // Cast the thread start arg to the correct type.
-    pthread_mutex_lock(&(vid->frameLock));
-    while (!vid->pushInited) {
-        // Android "Bionic" libc doesn't implement cancelation, so need to let wait expire somewhat regularly.
-        struct timeval tv;
-        struct timespec ts;
-        gettimeofday(&tv, NULL);
-        ts.tv_sec = tv.tv_sec + 2;
-        ts.tv_nsec = 0;
-        if ((err = pthread_cond_timedwait(&(vid->pushInitedCond), &(vid->frameLock), &ts)) != 0) {
-            ARLOGe("openAsyncThread(): pthread_cond_timedwait error %d.\n", err);
+    
+    if (vid->native) {
+        usleep(1000); // Wait 1 millisecond.
+    } else {
+        pthread_mutex_lock(&(vid->frameLock));
+        while (!vid->pushInited) {
+            // Android "Bionic" libc doesn't implement cancelation, so need to let wait expire somewhat regularly.
+            struct timeval tv;
+            struct timespec ts;
+            gettimeofday(&tv, NULL);
+            ts.tv_sec = tv.tv_sec + 2;
+            ts.tv_nsec = 0;
+            if ((err = pthread_cond_timedwait(&(vid->pushInitedCond), &(vid->frameLock), &ts)) != 0) {
+                ARLOGe("openAsyncThread(): pthread_cond_timedwait error %d.\n", err);
+                break;
+            }
         }
+        pthread_mutex_unlock(&(vid->frameLock));
     }
-    pthread_mutex_unlock(&(vid->frameLock));
     (vid->callback)(vid->userdata);
 
     return (NULL);
@@ -809,6 +799,25 @@ int ar2VideoGetSizeAndroid(AR2VideoParamAndroidT *vid, int *x, int *y)
     return 0;
 }
 
+static void onImageCallback(void* ctx, AImageReader* reader)
+{
+    AR2VideoParamAndroidT *vid = (AR2VideoParamAndroidT *)ctx;
+    AImage *image = nullptr;
+    media_status_t status = AImageReader_acquireLatestImage(reader, &image);
+    if (status != AMEDIA_OK) {
+        ARLOGe("Unable to acquire latest image.");
+        goto done;
+    }
+
+    pthread_mutex_lock(&(vid->frameLock));
+    if (vid->imageReady) {
+        AImage_delete(vid->imageReady);
+    }
+    vid->imageReady = image;
+done:
+    pthread_mutex_unlock(&(vid->frameLock));
+}
+
 AR2VideoBufferT *ar2VideoGetImageAndroid(AR2VideoParamAndroidT *vid)
 {
     AR2VideoBufferT *ret = NULL;
@@ -842,17 +851,24 @@ AR2VideoBufferT *ar2VideoGetImageAndroid(AR2VideoParamAndroidT *vid)
             // U and V planes both have pixelstride of 2, rowstride of pixelstride * vid->width/2, and are interleaved by 1 byte, so it's already NV21 and we can do a direct copy.
             vid->buffer.bufPlanes[1] = (ARUint8 *)data2;
             
-            ret = &vid->buffer;
-            
-            vid->imageCheckedOutDownstream = vid->imageReady;
-            vid->imageReady = NULL;
-            
+            int64_t timestampNs;
+            media_status_t status = AImage_getTimestamp(vid->imageReady, &timestampNs);
+            uint64_t timestampUs = (uint64_t)timestampNs / 1000;
+            vid->buffer.time.sec  = timestampUs / 1000000u;
+            vid->buffer.time.usec = (uint32_t)(timestampUs % 1000000u);
+
             // Convert if the user requested RGBA.
             if (vid->convertToRGBA) {
                 videoRGBA((uint32_t *)&vid->buffer.buff, &(vid->buffer), vid->width, vid->height, vid->pixelFormat);
             } else {
                 vid->buffer.buff = vid->buffer.bufPlanes[0];
             }
+
+            vid->buffer.fillFlag = 1;
+            ret = &vid->buffer;
+            
+            vid->imageCheckedOutDownstream = vid->imageReady;
+            vid->imageReady = NULL;
         }
     } else {
         if (vid->pushInited && vid->pushNewFrameReady) {
@@ -904,8 +920,10 @@ int ar2VideoCapStartAndroid(AR2VideoParamAndroidT *vid)
             goto done;
         }
         // Set up buffers for YUV formats.
-        vid->pixelFormat = AR_PIXEL_FORMAT_NV21; // NV21 and also used for YUV_420_888.
-        //vid->pixelFormat = AR_PIXEL_FORMAT_420f; // NV12.
+        if (vid->pixelFormat != AR_PIXEL_FORMAT_NV21 && vid->pixelFormat != AR_PIXEL_FORMAT_420f) { // 420f == NV12.
+            ARLOGe("ar2VideoCapStartAndroid: Can't use pixel format %s.", arUtilGetPixelFormatName(vid->pixelFormat));
+            goto done;
+        } 
         vid->buffer.bufPlaneCount = 2;
         vid->buffer.bufPlanes = (ARUint8 **)calloc(vid->buffer.bufPlaneCount, sizeof(ARUint8 *));
         if (vid->convertToRGBA) {
@@ -942,6 +960,7 @@ int ar2VideoCapStartAndroid(AR2VideoParamAndroidT *vid)
             .onActive = onSessionActive,
         };
         CALL_DEV(createCaptureSession(vid->cameraDevice_, vid->captureSessionOutputContainer_, &sessionListener, &vid->captureSession_));
+        CALL_SESSION(setRepeatingRequest(vid->captureSession_, nullptr, 1, &vid->captureRequest_, nullptr)); // ACameraCaptureSession_captureCallbacks *callbacks = nullptr, int requests = 1, int *captureSequenceId
         
     } else {
         vid->pushNewFrameReady = false;

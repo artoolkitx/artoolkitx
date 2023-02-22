@@ -318,9 +318,42 @@ typedef struct {
     ARVideoLumaInfo *lumaInfo;
 } AR2VideoParamT;
 
+// AR2VideoBufferT is defined in <ARX/AR/ar.h>
+
 ARVIDEO_EXTERN AR_VIDEO_MODULE   arVideoGetDefaultModule(void);
+
+/*!
+    @brief Open a video input module.
+    @details Opening a video input module selects, connects to, and configures a video source
+        for other video operations. Once this call has returned, other APIs can be invoked.
+    @oaram config A configuration string, consisting of a series of space-separated configuration
+        tokens. While the configuration string options are largely platform- and system-dependent,
+        the token "-module=X" where X is a video input module name is always accepted.
+        For information on configuration options, see https://github.com/artoolkitx/artoolkitx/wiki/artoolkitX-video-module-configuration-reference
+    @see arVideoOpenAsync ar2VideoOpen ar2VideoOpenAsync arVideoClose ar2VideoClose
+    @return -1 in case of error, 0 in case of no error.
+ */
 ARVIDEO_EXTERN int               arVideoOpen            (const char *config);
+
+/*!
+    @brief Open a video input module, invoking a callback once opening is complete.
+    @details Opening a video input module selects, connects to, and configures a video source
+        for other video operations.
+        This variant returns immediately while continuing the opening operation asynchronously,
+        invoking a user-supplied callback once opening has completed. The only API permissible to
+        call between this function and the invocation of the callback is arVideoGetModule.
+    @oaram config A configuration string, consisting of a series of space-separated configuration
+        tokens. While the configuration string options are largely platform- and system-dependent,
+        the token "-module=X" where X is a video input module name is always accepted.
+        For information on configuration options, see https://github.com/artoolkitx/artoolkitx/wiki/artoolkitX-video-module-configuration-reference
+    @param callback The callback to invoke once opening is complete. In most cases, the callback
+        will be invoked on a different thread, so care must be taken if the caller is sensitive to this.
+    @param userdata An arbitrary pointer which will be passed to the callback.
+    @see arVideoOpenAsync ar2VideoOpen ar2VideoOpenAsync arVideoClose ar2VideoClose arVideoGetModule
+    @return -1 in case of error, 0 in case of no error.
+ */
 ARVIDEO_EXTERN int               arVideoOpenAsync       (const char *config, void (*callback)(void *), void *userdata);
+
 ARVIDEO_EXTERN int               arVideoClose           (void);
 ARVIDEO_EXTERN int               arVideoDispOption      (void);
 ARVIDEO_EXTERN AR_VIDEO_MODULE   arVideoGetModule       (void);
@@ -506,9 +539,43 @@ char *arVideoUtilFindAspectRatioName(int w, int h);
 #define  arVideoGetVersion() arVideoGetParami(AR_VIDEO_GET_VERSION, NULL)
 
 ARVIDEO_EXTERN ARVideoSourceInfoListT *ar2VideoCreateSourceInfoList(const char *config);
+
 ARVIDEO_EXTERN void              ar2VideoDeleteSourceInfoList(ARVideoSourceInfoListT **p);
+
+/*!
+    @brief Open a video input module and return control object.
+    @details Opening a video input module selects, connects to, and configures a video source
+        for other video operations. Once this call has returned, other APIs can be invoked.
+    @oaram config A configuration string, consisting of a series of space-separated configuration
+        tokens. While the configuration string options are largely platform- and system-dependent,
+        the token "-module=X" where X is a video input module name is always accepted.
+        For information on configuration options, see https://github.com/artoolkitx/artoolkitx/wiki/artoolkitX-video-module-configuration-reference
+    @see arVideoOpenAsync ar2VideoOpen ar2VideoOpenAsync arVideoClose ar2VideoClose
+    @return NULL in case of error, or allocates and returns a pointer to an AR2VideoParamT structure
+        if successful. The allocation is dispoed of by ar2VideoClose.
+ */
 ARVIDEO_EXTERN AR2VideoParamT   *ar2VideoOpen            (const char *config);
+
+/*!
+    @brief Open a video input module, and return control object, invoking a callback once opening is complete.
+    @details Opening a video input module selects, connects to, and configures a video source
+        for other video operations.
+        This variant returns immediately while continuing the opening operation asynchronously,
+        invoking a user-supplied callback once opening has completed. The only API permissible to
+        call between this function and the invocation of the callback is ar2VideoGetModule.
+    @oaram config A configuration string, consisting of a series of space-separated configuration
+        tokens. While the configuration string options are largely platform- and system-dependent,
+        the token "-module=X" where X is a video input module name is always accepted.
+        For information on configuration options, see https://github.com/artoolkitx/artoolkitx/wiki/artoolkitX-video-module-configuration-reference
+    @param callback The callback to invoke once opening is complete. In most cases, the callback
+        will be invoked on a different thread, so care must be taken if the caller is sensitive to this.
+    @param userdata An arbitrary pointer which will be passed to the callback.
+    @see arVideoOpenAsync ar2VideoOpen ar2VideoOpenAsync arVideoClose ar2VideoClose ar2VideoGetModule
+    @return NULL in case of error, or allocates and returns a pointer to an AR2VideoParamT structure
+        if successful. The allocation is dispoed of by ar2VideoClose.
+ */
 ARVIDEO_EXTERN AR2VideoParamT   *ar2VideoOpenAsync       (const char *config, void (*callback)(void *), void *userdata);
+
 ARVIDEO_EXTERN int               ar2VideoClose           (AR2VideoParamT *vid);
 ARVIDEO_EXTERN int               ar2VideoDispOption      (AR2VideoParamT *vid);
 ARVIDEO_EXTERN AR_VIDEO_MODULE   ar2VideoGetModule       (AR2VideoParamT *vid);

@@ -119,7 +119,7 @@ public abstract class ARRenderer implements GLSurfaceView.Renderer {
                 firstRun = false;
             }
             GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-            if (!ARController.getInstance().drawVideoSettings(cameraIndex)) {
+            if (!ARController.getInstance().drawVideo(cameraIndex)) {
                 Log.e(TAG, "Error during call of displayFrame.");
             }
             draw();

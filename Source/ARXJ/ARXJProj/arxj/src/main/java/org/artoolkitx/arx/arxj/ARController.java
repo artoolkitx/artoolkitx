@@ -118,7 +118,7 @@ public class ARController {
     }
 
     /**
-     * Initialises the ARController using the specified video size.
+     * Initialises the ARController.
      *
      * @param videoWidth     The width of the video image in pixels.
      * @param videoHeight    The height of the video image in pixels.
@@ -126,49 +126,24 @@ public class ARController {
 	 * @param cameraParaPath Either: null to search for camera parameters specific to the device,
 	 *            or a path (in the filesystem) to a camera parameter file. The path may be an
 	 *            absolute path, or relative to the resourcesDirectoryPath set in initialiseNative().
-	 * @param cameraIndex    Integer 0-based index of the camera in use. E.g. 0 represents the first (usually rear) camera on the device. The
-	 *            camera represented by a given index must not change over the lifetime of the device.
-	 * @param cameraIsFrontFacing false if camera is rear-facing (the default) or true if camera is facing toward the user.
+     * @param cameraIsFrontFacing false to search for a rear-facing camera, or true to search for a camera facing toward the user.
+	 * @param cameraIndex    Zero-based index of the camera in use, i.e. if 0, the first camera facing in the requested direction will be used, if 1 then the second etc.
      * @return true if initialisation was successful.
      */
-    public boolean startWithPushedVideo(int videoWidth, int videoHeight, String pixelFormat, String cameraParaPath, int cameraIndex, boolean cameraIsFrontFacing) {
+    public boolean start(int videoWidth, int videoHeight, String pixelFormat, String cameraParaPath, int cameraIndex, boolean cameraIsFrontFacing) {
 
         if (!initedNative) {
-            Log.e(TAG, "startWithPushedVideo(): Cannot start because native interface not inited.");
+            Log.e(TAG, "start(): Cannot start because native interface not inited.");
             return false;
         }
 
-        if (!ARX_jni.arwStartRunning("", cameraParaPath)) {
-            Log.e(TAG, "startWithPushedVideo(): Error starting");
-            return false;
-        }
-        if (ARX_jni.arwAndroidVideoPushInit(0, videoWidth, videoHeight,
-                                            pixelFormat, cameraIndex,
-                                            (cameraIsFrontFacing ? 1 : 0)) < 0) {
-            Log.e(TAG, "startWithPushedVideo(): Error initialising Android video");
+        // Not currently using cameraIsFrontFacing. String would be " -position=" + (cameraIsFrontFacing ? "front" : "back")
+        if (!ARX_jni.arwStartRunning("-native -width=" + videoWidth + " -height=" + videoHeight + " -prefer=closestpixelcount -source=" + cameraIndex, cameraParaPath)) {
+            Log.e(TAG, "start(): Error starting");
             return false;
         }
 
         return true;
-    }
-
-    /**
-     * Unity helper function to only push the video as opposed to {@link #startWithPushedVideo(int, int, String, String, int, boolean)}
-     * which also calls {@link ARX_jni#arwStartRunning(String, String)}
-     *
-     * @param videoWidth
-     * @param videoHeight
-     * @param pixelFormat
-     * @param cameraIndex
-     * @param cameraIsFrontFacing
-     * @return true if successful
-     */
-    public boolean onlyPushVideo(int videoWidth, int videoHeight, String pixelFormat, int cameraIndex, boolean cameraIsFrontFacing) {
-        if(isInited()) {
-            return (ARX_jni.arwAndroidVideoPushInit(0, videoWidth, videoHeight, pixelFormat,
-                    cameraIndex, (cameraIsFrontFacing ? 1 : 0)) < 0);
-        }
-        return false;
     }
 
     /**
@@ -308,92 +283,30 @@ public class ARController {
     }
 
     /**
-     * Takes an incoming frame from the Android camera and passes it to native
-     * code for conversion and tracking.
+     * Checks for a new frame available from the camera and captures it if so.
      *
-     * @param frame New video frame to process.
-     * @return true if successful, otherwise false.
+     * @return true if frame was captured, otherwise false.
      */
-    public boolean convertAndDetect1(byte[] frame, int frameSize) {
+    public boolean capture() {
 
-        if ((!initedNative) || (frame == null)) {
+        if (!initedNative) {
             return false;
         }
-
-        if (ARX_jni.arwAndroidVideoPush1(0, frame, frameSize) < 0) {
-            return false;
-        }
-        //noinspection SimplifiableIfStatement
-        if (!ARX_jni.arwCapture()) {
-            return false;
-        }
-        return ARX_jni.arwUpdateAR();
-    }
-
-    public boolean convert1(byte[] frame, int frameSize){
-        return ARX_jni.arwAndroidVideoPush1(0,frame,frameSize) < 0;
+        return ARX_jni.arwCapture();
     }
 
     /**
      * Takes an incoming frame from the Android camera and passes it to native
      * code for conversion and tracking.
      *
-     * @param framePlanes New video frame to process.
      * @return true if successful, otherwise false.
      */
-    public boolean convertAndDetect2(ByteBuffer[] framePlanes, int[] framePlanePixelStrides, int[] framePlaneRowStrides) {
+    public boolean update() {
 
-        if ((!initedNative) || (framePlanes == null)) {
-            return false;
-        }
-
-        //Convert
-        if (!convert(framePlanes, framePlanePixelStrides, framePlaneRowStrides)) return false;
-
-        //Detect
-        //noinspection SimplifiableIfStatement
-        if (!ARX_jni.arwCapture()) {
+        if (!initedNative) {
             return false;
         }
         return ARX_jni.arwUpdateAR();
-    }
-
-    public boolean convert(ByteBuffer[] framePlanes, int[] framePlanePixelStrides, int[] framePlaneRowStrides) {
-        int framePlaneCount = Math.min(framePlanes.length, 4); // Maximum 4 planes can be passed to native.
-        if (framePlaneCount == 1) {
-            if (ARX_jni.arwAndroidVideoPush2(0,
-                    framePlanes[0], framePlanePixelStrides[0], framePlaneRowStrides[0],
-                    null, 0, 0,
-                    null, 0, 0,
-                    null, 0, 0) < 0) {
-                return false;
-            }
-        } else if (framePlaneCount == 2) {
-            if (ARX_jni.arwAndroidVideoPush2(0,
-                    framePlanes[0], framePlanePixelStrides[0], framePlaneRowStrides[0],
-                    framePlanes[1], framePlanePixelStrides[1], framePlaneRowStrides[1],
-                    null, 0, 0,
-                    null, 0, 0) < 0) {
-                return false;
-            }
-        } else if (framePlaneCount == 3) {
-            if (ARX_jni.arwAndroidVideoPush2(0,
-                    framePlanes[0], framePlanePixelStrides[0], framePlaneRowStrides[0],
-                    framePlanes[1], framePlanePixelStrides[1], framePlaneRowStrides[1],
-                    framePlanes[2], framePlanePixelStrides[2], framePlaneRowStrides[2],
-                    null, 0, 0) < 0) {
-                return false;
-            }
-        } else if (framePlaneCount == 4) {
-            if (ARX_jni.arwAndroidVideoPush2(0,
-                    framePlanes[0], framePlanePixelStrides[0], framePlaneRowStrides[0],
-                    framePlanes[1], framePlanePixelStrides[1], framePlaneRowStrides[1],
-                    framePlanes[2], framePlanePixelStrides[2], framePlaneRowStrides[2],
-                    framePlanes[3], framePlanePixelStrides[3], framePlaneRowStrides[3]) < 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
@@ -403,17 +316,10 @@ public class ARController {
 
         if (!initedNative) return;
 
-        ARX_jni.arwAndroidVideoPushFinal(0);
         ARX_jni.arwStopRunning();
         ARX_jni.arwShutdownAR();
 
         initedNative = false;
-    }
-
-    public void onlyFinal() {
-        if(isInited()) {
-            ARX_jni.arwAndroidVideoPushFinal(0);
-        }
     }
 
     /**
@@ -516,7 +422,7 @@ public class ARController {
      * @return true if successful
      */
     @SuppressWarnings("WeakerAccess")
-    public boolean drawVideoSettings(int videoSourceIndex) {
+    public boolean drawVideo(int videoSourceIndex) {
         return ARX_jni.arwDrawVideo(videoSourceIndex);
     }
     
