@@ -1,5 +1,17 @@
 <map id="arGetTransMatSquareCont" name="arGetTransMatSquareCont">
-<area shape="rect" id="node2" href="$icp_point_8c.html#a466204966df0b17ea76bd05a3d396307" title="icpPoint" alt="" coords="235,31,304,56"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title="arUtilMatMul" alt="" coords="402,5,498,31"/>
-<area shape="rect" id="node4" href="$icp_core_8c.html#aceeb3fd72a762c2078d8fb88ec03ccfb" title="icpGetU_from_X_by_MatX2U" alt="" coords="352,55,549,80"/>
+<area shape="rect" id="node1" title="(description)" alt="" coords="5,181,184,207"/>
+<area shape="rect" id="node2" href="$icp_point_8c.html#a466204966df0b17ea76bd05a3d396307" title=" " alt="" coords="232,181,301,207"/>
+<area shape="rect" id="node3" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title=" " alt="" coords="399,83,495,108"/>
+<area shape="rect" id="node4" href="$icp_core_8c.html#a4906398b4594d29ab8035b4016a7e9de" title=" " alt="" coords="397,132,497,157"/>
+<area shape="rect" id="node13" href="$icp_core_8c.html#ac384ca6737fdee325d58740d665eda0a" title=" " alt="" coords="397,181,497,207"/>
+<area shape="rect" id="node14" href="$icp_core_8c.html#aceeb3fd72a762c2078d8fb88ec03ccfb" title=" " alt="" coords="349,231,544,256"/>
+<area shape="rect" id="node15" href="$icp_core_8c.html#a94201124387610a46b975cdb9d8a1db6" title=" " alt="" coords="395,280,498,305"/>
+<area shape="rect" id="node5" href="$m_alloc_mul_8c.html#a8e99293b68c38ce8a8d1920884d69f73" title=" " alt="" coords="598,107,717,132"/>
+<area shape="rect" id="node7" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="775,56,869,81"/>
+<area shape="rect" id="node8" href="$m_mul_8c.html#a202bc2db43d563792c99e852ea0b7ba4" title=" " alt="" coords="777,156,867,181"/>
+<area shape="rect" id="node9" href="$m_alloc_trans_8c.html#a4e2bf8cd529487fb1ff4d0bbc52eee1e" title=" " alt="" coords="592,5,723,31"/>
+<area shape="rect" id="node11" href="$m_disp_8c.html#a60f36997579d355f6030f872faad84a2" title=" " alt="" coords="609,208,705,233"/>
+<area shape="rect" id="node12" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="602,257,713,283"/>
+<area shape="rect" id="node6" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="773,107,871,132"/>
+<area shape="rect" id="node10" href="$m_trans_8c.html#ad3d9712dd27f655902a8a3315e623d85" title=" " alt="" coords="771,5,873,31"/>
 </map>

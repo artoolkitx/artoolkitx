@@ -53,39 +53,39 @@ import java.util.List;
 /**
  * CameraPreferencesActivity provides a menu which allows the camera and its
  * resolution to be selected interactively by the user.
- * <p/>
+ * <br>
  * To use CameraPreferencesActivity in your own application, add the following
  * to your AndroidManifest.xml:
- * <p/>
- * <activity
+ * <br>
+ * \<activity
  * android:name="org.artoolkitx.arx.arxj.camera.CameraPreferencesActivity"
- * ></activity>
- * <p/>
+ * \>\</activity\>
+ * <br>
  * The activity draws on string values provided by ARXJ's strings.xml
  * resource.
- * <p/>
+ * <br>
  * Additionally, if your activity is not based on ARActivity, the following
  * additional additions must be made:
- * <p/>
+ * <br>
  * Once per install of Application and prior to using any of the camera
  * preferences, e.g. in Application.onCreate(), or if not subclassing
  * Application, in Activity.onCreate():
- * <p/>
+ * <br>
  * import android.preference.PreferenceManager;
  * PreferenceManager.setDefaultValues(this,
  * org.artoolkitx.arx.arxj.R.xml.preferences, false);
- * <p/>
+ * <br>
  * When opening the camera:
- * <p/>
+ * <br>
  * import android.os.Build; import android.preference.PreferenceManager; Camera
- * camera = null; if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD)
+ * camera = null; if (Build.VERSION.SDK_INT \>= Build.VERSION_CODES.GINGERBREAD)
  * { int cameraIndex =
  * Integer.parseInt(PreferenceManager.getDefaultSharedPreferences
  * (callingContext).getString("pref_cameraIndex", "0"));
  * Camera.open(cameraIndex); } else { else camera = Camera.open(); }
- * <p/>
+ * <br>
  * When configuring camera:
- * <p/>
+ * <br>
  * String camResolution =
  * PreferenceManager.getDefaultSharedPreferences(callingContext
  * ).getString("pref_cameraResolution",
@@ -93,10 +93,10 @@ import java.util.List;
  * String[] dims = camResolution.split("x", 2); Camera.Parameters parameters =
  * camera.getParameters(); parameters.setPreviewSize(Integer.parseInt(dims[0]),
  * Integer.parseInt(dims[1])); camera.setParameters(parameters);
- * <p/>
+ * <br>
  * To determine if the camera is rear-facing or front-facing:
- * <p/>
- * boolean frontFacing = false; if (Build.VERSION.SDK_INT >=
+ * <br>
+ * boolean frontFacing = false; if (Build.VERSION.SDK_INT \>=
  * Build.VERSION_CODES.GINGERBREAD) { Camera.CameraInfo cameraInfo = new
  * Camera.CameraInfo(); int cameraIndex =
  * Integer.parseInt(PreferenceManager.getDefaultSharedPreferences

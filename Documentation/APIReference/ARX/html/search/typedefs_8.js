@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['pfn_5flogcallback',['PFN_LOGCALLBACK',['../_platform_8h.html#a212d8381dbd718c619af1b7f19e94d03',1,'Platform.h']]],
-  ['point2f',['Point2f',['../kpm_type_8h.html#ac3734a4012ab76c1b318bda43e527ead',1,'kpmType.h']]],
-  ['point2i',['Point2i',['../kpm_type_8h.html#a5986440e08a1c3c68e7d08c814a72e87',1,'kpmType.h']]]
+  ['open64_5ffile_5ffunc_0',['open64_file_func',['../ioapi_8h.html#a41439504bb696eee6f2863ef9acce40e',1,'ioapi.h']]],
+  ['open_5ffile_5ffunc_1',['open_file_func',['../ioapi_8h.html#a7711037f9ab9af5047bfdf76d3e542c4',1,'ioapi.h']]],
+  ['opendisk64_5ffile_5ffunc_2',['opendisk64_file_func',['../ioapi_8h.html#abdd95e47c5f939087370589e845a7fd0',1,'ioapi.h']]],
+  ['opendisk_5ffile_5ffunc_3',['opendisk_file_func',['../ioapi_8h.html#acee033a359ba2fe68806af67b481a758',1,'ioapi.h']]]
 ];

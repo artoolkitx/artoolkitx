@@ -1,0 +1,13 @@
+<map id="arMultiReadConfigFile" name="arMultiReadConfigFile">
+<area shape="rect" id="node1" title="Creates a new multi&#45;marker configuration and fills it with the config from the multi&#45;marker config fi..." alt="" coords="5,80,156,105"/>
+<area shape="rect" id="node2" href="$ar_multi_edit_config_8c.html#ad1fc20004885bcb4b4cb3ee0931df634" title="Creates a new empty multi&#45;marker configuration." alt="" coords="249,5,377,31"/>
+<area shape="rect" id="node3" href="$ar_multi_edit_config_8c.html#a7a45fb2f0acb56ddee63efcdaaf654a1" title=" " alt="" coords="215,55,411,80"/>
+<area shape="rect" id="node8" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="271,104,356,129"/>
+<area shape="rect" id="node11" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="204,153,423,179"/>
+<area shape="rect" id="node4" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title=" " alt="" coords="499,55,593,80"/>
+<area shape="rect" id="node5" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="675,5,774,31"/>
+<area shape="rect" id="node6" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="677,55,772,80"/>
+<area shape="rect" id="node7" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="669,104,780,129"/>
+<area shape="rect" id="node9" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="471,104,621,129"/>
+<area shape="rect" id="node10" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="526,153,566,179"/>
+</map>

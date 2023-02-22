@@ -1,3 +1,4 @@
 <map id="ARVideoSourceInfoListT" name="ARVideoSourceInfoListT">
-<area shape="rect" id="node2" href="$struct_a_r_video_source_info_t.html" title="Values describing a video source. " alt="" coords="16,5,162,31"/>
+<area shape="rect" id="node1" title="Values describing a list of video sources." alt="" coords="5,93,172,119"/>
+<area shape="rect" id="node2" href="$struct_a_r_video_source_info_t.html" title="Values describing a video source." alt="" coords="16,5,161,31"/>
 </map>

@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.View;
 
 import org.artoolkitx.arx.arxj.camera.CameraAccessHandler;
-import org.artoolkitx.arx.arxj.camera.CameraSurface;
 
 /*
  *  LayoutChangeListenerImpl.java
@@ -58,15 +57,9 @@ class LayoutChangeListenerImpl implements View.OnLayoutChangeListener {
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
         View decorView = activity.getWindow().getDecorView();
-        CameraSurface cameraSurface = cameraAccessHandler.getCameraSurfaceView();
         if (AndroidUtils.VIEW_VISIBILITY == decorView.getSystemUiVisibility()) {
-            if (!cameraAccessHandler.getCameraAccessPermissions()) {
-
-                if (!cameraSurface.isImageReaderCreated()) {
-                    cameraSurface.surfaceCreated();
-                }
-                if (!cameraSurface.isCamera2DeviceOpen())
-                    cameraSurface.surfaceChanged();
+            if (cameraAccessHandler.getCameraAccessPermissions()) {
+                return;
             }
         } else{
             Log.v(TAG,"Not in fullscreen.");

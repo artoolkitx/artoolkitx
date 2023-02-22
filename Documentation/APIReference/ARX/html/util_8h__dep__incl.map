@@ -1,6 +1,7 @@
 <map id="Source/ARX/AR2/include/ARX/AR2/util.h" name="Source/ARX/AR2/include/ARX/AR2/util.h">
-<area shape="rect" id="node2" href="$handle_8c.html" title="Source/ARX/AR2/handle.c" alt="" coords="5,92,184,117"/>
-<area shape="rect" id="node3" href="$marker_8c.html" title="Source/ARX/AR2/marker.c" alt="" coords="208,92,387,117"/>
-<area shape="rect" id="node4" href="$surface_8c.html" title="Source/ARX/AR2/surface.c" alt="" coords="410,92,592,117"/>
-<area shape="rect" id="node5" href="$util_8c.html" title="Source/ARX/AR2/util.c" alt="" coords="617,92,772,117"/>
+<area shape="rect" id="node1" title=" " alt="" coords="315,5,485,45"/>
+<area shape="rect" id="node2" href="$handle_8c.html" title=" " alt="" coords="5,93,184,119"/>
+<area shape="rect" id="node3" href="$marker_8c.html" title=" " alt="" coords="208,93,387,119"/>
+<area shape="rect" id="node4" href="$surface_8c.html" title=" " alt="" coords="411,93,594,119"/>
+<area shape="rect" id="node5" href="$util_8c.html" title=" " alt="" coords="619,93,776,119"/>
 </map>

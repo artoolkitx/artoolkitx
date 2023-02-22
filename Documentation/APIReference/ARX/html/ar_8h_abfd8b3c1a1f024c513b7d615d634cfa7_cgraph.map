@@ -1,3 +1,4 @@
 <map id="arDeleteHandle" name="arDeleteHandle">
-<area shape="rect" id="node2" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory. " alt="" coords="167,5,294,31"/>
+<area shape="rect" id="node1" title="Delete a handle which holds settings for an artoolkitX tracker instance." alt="" coords="5,5,117,31"/>
+<area shape="rect" id="node2" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="165,5,289,31"/>
 </map>

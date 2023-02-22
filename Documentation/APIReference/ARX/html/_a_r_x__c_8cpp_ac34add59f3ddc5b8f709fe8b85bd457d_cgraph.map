@@ -1,0 +1,35 @@
+<map id="arwInitialiseAR" name="arwInitialiseAR">
+<area shape="rect" id="node1" title="Initialises the artoolkitX." alt="" coords="5,673,116,699"/>
+<area shape="rect" id="node2" href="$class_a_r_controller.html#abd86050d4df0583854f0d7eec08b6f43" title="Start trackable management so trackables can be added and removed." alt="" coords="164,673,347,699"/>
+<area shape="rect" id="node3" href="$ar_util_8c.html#a5f6a6f78cfce8c8dfc80479b47232eb4" title="Get the artoolkitX version information in numberic and string format." alt="" coords="426,648,525,673"/>
+<area shape="rect" id="node4" href="$class_a_r_controller.html#ac3aad1d57eb54ef10ecdd57562fad461" title="Stop, if running." alt="" coords="395,697,556,723"/>
+<area shape="rect" id="node5" href="$class_a_r_controller.html#ac2961fa58ba3a2e10dbde637571efb91" title="Returns the number of currently loaded trackables." alt="" coords="879,660,1080,685"/>
+<area shape="rect" id="node6" href="$class_a_r_controller.html#a4be78b9f44e98f73f850b12700607da1" title="Clears the collection of trackables." alt="" coords="604,697,831,723"/>
+<area shape="rect" id="node7" href="$class_a_r_controller.html#a889dbbe581e771d1f4f2e28fad3f686b" title="Video capture and tracking stops, but trackables are still valid and can be configured." alt="" coords="628,747,807,772"/>
+<area shape="rect" id="node8" href="$class_a_r_video_source.html#ae67083e64b2b3c6d7aa6d8cbe33ef95f" title="Closes the video source." alt="" coords="902,721,1057,747"/>
+<area shape="rect" id="node33" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="897,771,1061,796"/>
+<area shape="rect" id="node9" href="$video2_8c.html#a76c9cee4e58dd8dd4940ed6af42cdba2" title=" " alt="" coords="1128,252,1252,277"/>
+<area shape="rect" id="node20" href="$video2_8c.html#ad80147e1796fd8bfdd41d5adfb0c10dd" title=" " alt="" coords="1137,721,1243,747"/>
+<area shape="rect" id="node32" href="$param_l_t_8c.html#a42d02aaf13cedaf0f2cd1b93a5d81643" title="Dispose of a memory allocated to a lookup&#45;table camera parameter." alt="" coords="1134,771,1246,796"/>
+<area shape="rect" id="node10" href="$video1394_8h.html#a23f653b38bb02af6d9050d02b0702f94" title=" " alt="" coords="1326,5,1478,31"/>
+<area shape="rect" id="node11" href="$video_android_8h.html#a0d13c2368b42b9e85c60830fb13fd04e" title=" " alt="" coords="1318,55,1486,80"/>
+<area shape="rect" id="node12" href="$video_a_v_foundation_8h.html#a80dffabb6c571245b002d91e9031ca64" title=" " alt="" coords="1300,104,1504,129"/>
+<area shape="rect" id="node13" href="$video_dummy_8h.html#a78fa5654276bc8d340ffe8182d0bcd6c" title=" " alt="" coords="1317,153,1487,179"/>
+<area shape="rect" id="node14" href="$video_emscripten_8h.html#ada6b833e6406915a8351305b4ab63dc6" title=" " alt="" coords="1307,203,1497,228"/>
+<area shape="rect" id="node15" href="$video_g_streamer_8h.html#a7742f3dc5f58756420a4f50e9f588432" title=" " alt="" coords="1309,252,1495,277"/>
+<area shape="rect" id="node16" href="$video_image_8h.html#af8b971aac579641ba46492cbd6394293" title=" " alt="" coords="1322,301,1482,327"/>
+<area shape="rect" id="node17" href="$video_v4_l2_8h.html#a530b43b034daf2f89586fb69e9de74aa" title=" " alt="" coords="1325,351,1479,376"/>
+<area shape="rect" id="node18" href="$video_windows_media_capture_8h.html#a7fb2e79c53df9853a1a61b16be3b8e80" title=" " alt="" coords="1318,400,1486,425"/>
+<area shape="rect" id="node19" href="$video_windows_media_foundation_8h.html#a76577330dd560a4785693d80f71d3919" title=" " alt="" coords="1319,449,1485,475"/>
+<area shape="rect" id="node21" href="$video1394_8h.html#aaea7efdd8dad25a42fe9b8f3bc3edf0b" title=" " alt="" coords="1335,499,1469,524"/>
+<area shape="rect" id="node22" href="$video_android_8h.html#afb5748a9176a3e1a8aee435726c18be2" title=" " alt="" coords="1327,548,1477,573"/>
+<area shape="rect" id="node23" href="$video_a_v_foundation_8h.html#a2883b331cca58ccd1c036f2318041f03" title=" " alt="" coords="1309,597,1495,623"/>
+<area shape="rect" id="node24" href="$video_dummy_8h.html#ae518c53d87b1320ba8cd80ed8a23bf0a" title=" " alt="" coords="1325,647,1479,672"/>
+<area shape="rect" id="node25" href="$video_emscripten_8h.html#a676c1a2ebe7188cbb7b816b717a8f07a" title=" " alt="" coords="1315,696,1489,721"/>
+<area shape="rect" id="node26" href="$video_g_streamer_8h.html#a2b535cabcc05dd8fd6927690db49a902" title=" " alt="" coords="1317,745,1487,771"/>
+<area shape="rect" id="node27" href="$video_image_8h.html#a3ffc443b510b55d94d0aed46e4277388" title=" " alt="" coords="1331,795,1473,820"/>
+<area shape="rect" id="node28" href="$video_v4_l2_8h.html#a160602fb4d1827e9053166f051f4613d" title=" " alt="" coords="1333,844,1471,869"/>
+<area shape="rect" id="node29" href="$video_windows_media_capture_8h.html#ab22b3535389f49f07154d5b1dd5d302e" title=" " alt="" coords="1327,893,1477,919"/>
+<area shape="rect" id="node30" href="$video_windows_media_foundation_8h.html#a88f48eef52a6f3c3c94bc8cdd48a7e9a" title=" " alt="" coords="1327,943,1477,968"/>
+<area shape="rect" id="node31" href="$video_luma_8c.html#af73e0e884452c46682458a136539792b" title=" " alt="" coords="1339,992,1465,1017"/>
+</map>

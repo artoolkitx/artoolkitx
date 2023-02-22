@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['open64_5ffile_5ffunc',['open64_file_func',['../ioapi_8h.html#a41439504bb696eee6f2863ef9acce40e',1,'ioapi.h']]],
-  ['open_5ffile_5ffunc',['open_file_func',['../ioapi_8h.html#a7711037f9ab9af5047bfdf76d3e542c4',1,'ioapi.h']]],
-  ['opendisk64_5ffile_5ffunc',['opendisk64_file_func',['../ioapi_8h.html#abdd95e47c5f939087370589e845a7fd0',1,'ioapi.h']]],
-  ['opendisk_5ffile_5ffunc',['opendisk_file_func',['../ioapi_8h.html#acee033a359ba2fe68806af67b481a758',1,'ioapi.h']]]
+  ['matchpoint_0',['MatchPoint',['../kpm_type_8h.html#a47dd81f9b453ac7bc128584fbce34972',1,'kpmType.h']]],
+  ['my_5ferror_5fptr_1',['my_error_ptr',['../jpeg_8c.html#a17bb08c876725fc3608be875c457af71',1,'jpeg.c']]]
 ];

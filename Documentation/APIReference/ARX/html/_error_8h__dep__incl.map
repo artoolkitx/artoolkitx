@@ -1,6 +1,7 @@
 <map id="Source/ARX/include/ARX/Error.h" name="Source/ARX/include/ARX/Error.h">
-<area shape="rect" id="node2" href="$_a_r_controller_8cpp.html" title="Source/ARX/ARController.cpp" alt="" coords="5,99,205,124"/>
-<area shape="rect" id="node3" href="$_a_r_video_source_8cpp.html" title="Source/ARX/ARVideoSource.cpp" alt="" coords="228,99,446,124"/>
-<area shape="rect" id="node4" href="$_a_r_x__c_8h.html" title="Source/ARX/include\l/ARX/ARX_c.h" alt="" coords="469,92,610,131"/>
-<area shape="rect" id="node5" href="$_a_r_x__c_8cpp.html" title="Source/ARX/ARX_c.cpp" alt="" coords="457,179,622,204"/>
+<area shape="rect" id="node1" title="Defines error codes used in the ARX library." alt="" coords="267,5,407,45"/>
+<area shape="rect" id="node2" href="$_a_r_controller_8cpp.html" title=" " alt="" coords="5,101,204,126"/>
+<area shape="rect" id="node3" href="$_a_r_video_source_8cpp.html" title=" " alt="" coords="228,101,445,126"/>
+<area shape="rect" id="node4" href="$_a_r_x__c_8h.html" title=" " alt="" coords="469,93,609,133"/>
+<area shape="rect" id="node5" href="$_a_r_x__c_8cpp.html" title=" " alt="" coords="456,181,623,207"/>
 </map>

@@ -49,7 +49,6 @@ import android.view.View;
 
 import org.artoolkitx.arx.arxj.camera.CameraAccessHandler;
 import org.artoolkitx.arx.arxj.camera.CameraAccessHandlerImpl;
-import org.artoolkitx.arx.arxj.camera.CameraEventListener;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -211,16 +210,4 @@ public class AndroidUtils {
                 + ", Density: " + density);
 
     }
-
-    @NonNull
-    public static CameraAccessHandler createCameraAccessHandler(Activity activity, CameraEventListener cameraEventListener) {
-        CameraAccessHandler cameraAccessHandler;
-        // Create the camera preview
-        cameraAccessHandler = new CameraAccessHandlerImpl(activity, cameraEventListener) {
-        };
-        Log.i(TAG, "onResume(): Cam2CaptureSurface constructed");
-
-        return cameraAccessHandler;
-    }
-
 }

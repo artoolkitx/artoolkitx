@@ -4,7 +4,7 @@ android {
     compileSdk 33
     defaultConfig {
         applicationId "org.artoolkitx.arx.ar2dtracking"
-        minSdkVersion 21
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -38,7 +38,7 @@ allprojects {
 dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation(name:'arxj-release', ext:'aar') // This links the ARXJ-release library from the repository specified above ('../../../../../../SDK/lib/ARXJ').
-    //compile project(':ARXJ')                   // If you want to develop ARXJ and test it with AR2dTrackingExample you need to un-commend this line and
+    //implementation project(':ARXJ')                   // If you want to develop ARXJ and test it with AR2dTrackingExample you need to un-commend this line and
                                                // comment-out the line above.
 }
 

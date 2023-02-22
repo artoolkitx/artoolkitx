@@ -1,3 +1,4 @@
 <map id="kpmLoadRefDataSet" name="kpmLoadRefDataSet">
-<area shape="rect" id="node2" href="$kpm_fopen_8c.html#a1f4f22f6719de1db342b90fbfe189596" title="kpmFopen" alt="" coords="198,5,283,31"/>
+<area shape="rect" id="node1" title="Load a reference data set from the filesystem into memory." alt="" coords="5,5,149,31"/>
+<area shape="rect" id="node2" href="$kpm_fopen_8c.html#a3183ffcaddce8bab8621315f7e5567fc" title=" " alt="" coords="197,5,280,31"/>
 </map>

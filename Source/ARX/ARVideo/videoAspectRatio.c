@@ -81,6 +81,8 @@ AR_VIDEO_ASPECT_RATIO arVideoUtilFindAspectRatio(int w, int h)
 {
     int i;
     
+    if (!w || !h) return AR_VIDEO_ASPECT_RATIO_INVALID;
+    
     // Reduce.
     int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 #define PRIMES_COUNT (sizeof(primes)/sizeof(primes[0]))
@@ -109,6 +111,8 @@ char *arVideoUtilFindAspectRatioName(int w, int h)
 #endif
     char *ret;
     
+    if (!w || !h) return NULL;
+
     // Reduce.
     int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
 #define PRIMES_COUNT (sizeof(primes)/sizeof(primes[0]))

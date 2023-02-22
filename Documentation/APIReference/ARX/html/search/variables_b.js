@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keys',['keys',['../structunz64__s.html#aa03c3b5e9e69adabfab8e2b36884c9f7',1,'unz64_s::keys()'],['../structcurfile64__info.html#ac823e66fbddb531c7ab3079d80401d40',1,'curfile64_info::keys()']]]
+  ['keys_0',['keys',['../structunz64__internal.html#a3d7a6ad406c1223f20200d7feb0101f8',1,'unz64_internal']]]
 ];

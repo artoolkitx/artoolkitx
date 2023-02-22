@@ -199,7 +199,7 @@ ARVideoSourceInfoListT *ar2VideoCreateSourceInfoList(const char *config_in)
 #endif
 #ifdef ARVIDEO_INPUT_ANDROID
     if (module == AR_VIDEO_MODULE_ANDROID) {
-        return (NULL);
+        return ar2VideoCreateSourceInfoListAndroid(config_in);
     }
 #endif
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_FOUNDATION

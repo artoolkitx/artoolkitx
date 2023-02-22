@@ -1,3 +1,4 @@
 <map id="ARMarkerInfo" name="ARMarkerInfo">
-<area shape="rect" id="node2" href="$struct_a_r_marker_info2.html" title="Captures detail of a trapezoidal region which is a candidate for marker detection. " alt="" coords="5,5,116,31"/>
+<area shape="rect" id="node1" title="Describes a detected trapezoidal area (a candidate for a marker match)." alt="" coords="9,93,112,119"/>
+<area shape="rect" id="node2" href="$struct_a_r_marker_info2.html" title="Captures detail of a trapezoidal region which is a candidate for marker detection." alt="" coords="5,5,116,31"/>
 </map>

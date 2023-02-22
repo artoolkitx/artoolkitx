@@ -229,9 +229,10 @@ else
         fi
         (cd "$abi"
 	    rm -f CMakeCache.txt
+	    # Android 5.0 is API level 21. Android 7.0 (needed for native camera access) is API level 24.
 	    cmake ../.. \
             -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROID_HOME/ndk-bundle/build/cmake/android.toolchain.cmake \
-            -DANDROID_PLATFORM=android-21 \
+            -DANDROID_PLATFORM=android-24 \
             -DANDROID_ABI=$abi \
             -DANDROID_ARM_MODE=arm \
             -DANDROID_ARM_NEON=TRUE \

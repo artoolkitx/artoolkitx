@@ -1,0 +1,4 @@
+<map id="arFilterTransMatInit" name="arFilterTransMatInit">
+<area shape="rect" id="node1" title="Initialise a filter for a single transformation matrix (pose estimate)." alt="" coords="5,5,140,31"/>
+<area shape="rect" id="node2" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="188,5,371,31"/>
+</map>
