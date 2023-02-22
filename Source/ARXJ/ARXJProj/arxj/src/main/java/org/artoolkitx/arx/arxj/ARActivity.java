@@ -74,11 +74,11 @@ import org.artoolkitx.arx.arxj.rendering.ARRenderer;
 /**
  * An activity which can be subclassed to create an AR application. ARActivity handles almost all of
  * the required operations to create a simple augmented reality application.
- * <p/>
+ * <br>
  * ARActivity automatically creates a camera preview surface and an OpenGL surface view, and
  * arranges these correctly in the user interface.The subclass simply needs to provide a FrameLayout
  * object which will be populated with these UI components, using {@link #supplyFrameLayout() supplyFrameLayout}.
- * <p/>
+ * <br>
  * To create a custom AR experience, the subclass should also provide a custom renderer using
  * {@link #supplyRenderer() Renderer}. This allows the subclass to handle OpenGL drawing calls on its own.
  */
