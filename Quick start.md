@@ -7,13 +7,13 @@
 6. [Next Steps](#next-steps)
 
 ## macOS
-* Xcode and a Mac running macOS 10.9 or later is required.
+* For development, Xcode 14 on Mac OS 12.5 or later is required (destination Macs running mac OS 10.13 are supported).
 * Open `Examples` for double-clickable example apps.
 * Xcode project for each example is in `Examples/*example name*/macOS`.
 * To rebuild the SDK and examples for macOS, in Terminal navigate to `Source` and execute the command `./build.sh macos examples`
 
 ## iOS 
-* Xcode and an iOS device running iOS 8.0 or later is required.
+* For development, Xcode 14 on Mac OS 12.5 or later, and an iOS device running iOS 11.0 or later is required.
 * Open `Examples`. Because apps must be signed for your iOS device, no prebuilt app is provided.
 * Xcode project for each example is in `Examples/*example name*/iOS`.
     1. Open the Xcode project.
@@ -38,13 +38,13 @@
 * To rebuild the SDK and examples for Linux, in a terminal navigate to `Source` and execute the command `./build.sh linux examples`
 
 ## Android
-* Android Studio 2021 or later with NDK release 21 or later, and an Android device running Android 5.0 or later is required.
+* Android Studio 2021 or later with NDK release 21 or later, and an Android device running Android 7.0 or later is required.
 * Open `Examples` for prebuilt .apks. These may be installed on your device via `adb install *example name*.apk` where EXAMPLE is the example name.
 * An Android Studio project for each example is in `Examples/*example name*/Android`.
 * To rebuild the SDK and examples for Android, in a terminal navigate to `Source` and execute the command `./build.sh android examples`
 
 ## Windows
-* Visual Studio Community Editor or Professional and a 64-bit PC running Windows 7 or later is required.
+* For development Visual Studio 2019 or later, Community Editor or Professional, and a 64-bit PC running Windows 10 or later is required.
 * Open `Examples` for double-clickable example apps.
 * Visual Studio project for each example is in `Examples/*example name*/Windows`. 
 * To rebuild the SDK and examples for Windows, using a bash shell provided by either git-bash, Windows Subsystem for Linux, or Cygwin, navigate to `Source` and execute the command `./build.sh windows examples`

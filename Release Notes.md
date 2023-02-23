@@ -1,12 +1,13 @@
 # artoolkitX Release Notes
 --------------------------
 
-## Version 1.0.7
-### 2023-02-01
+## Version 1.1.0
+### 2023-02-23
 
 This release improves and updates platform support.
+ * A new native video input module (Camera2) on Android removes the requirement for pushing of video frames from Java code over JNI. Some video configuration options have changed, in particular you must add "-native" to the video configuration string to use the new module. While ARX retains backwards-compatibility for now, the Java ARXJ framework has been reworked to remove support for pushing video and now uses the new native video capabilities.
+ * On Android, the minimum supported OS is now Android 7.0 (API level 24).
  * On iOS, the minimum supported OS is now iOS v11.0.
- * On Android, the minimum supported OS is now Android 5.0 (API level 21).
  * On mac OS, full support for the ARM64 (Apple Silicon) CPU. The minimum supported OS is now mac OS 10.13.
  * On Windows, the default Visual Studio version is now VS 2019.
  * On Linux, the system OpenCV implementation is preferred.
