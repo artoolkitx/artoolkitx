@@ -39,7 +39,7 @@ package org.artoolkitx.arx.arxj.rendering;
 
 /**
  * Created by Thorsten Bux on 21.01.2016.
- * <p/>
+ * <br>
  * Provides an interface that ensures the basic shader methods and information in a shader implementation
  * are provided.
  */

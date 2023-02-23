@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     {
         ARPRINT("Searching for images in - %s.\n",imgDir);
         std::vector<std::string> fileNames = getFiles(imgDir, true);
-        ARPRINT("Found %lu images in %s.\n", fileNames.size(), imgDir);
+        ARPRINT("Found %zu images in %s.\n", fileNames.size(), imgDir);
         if (fileNames.size() > 0) {
             int parsedFiles = 0;
             for (int i = 0; i < fileNames.size(); i++) {

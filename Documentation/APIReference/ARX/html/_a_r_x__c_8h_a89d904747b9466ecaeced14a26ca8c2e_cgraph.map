@@ -1,0 +1,9 @@
+<map id="arwGetProjectionMatrix" name="arwGetProjectionMatrix">
+<area shape="rect" id="node1" title="Populates the given float array with the projection matrix computed from camera parameters for the vi..." alt="" coords="5,92,164,117"/>
+<area shape="rect" id="node2" href="$class_a_r_controller.html#abcb66342e96bdac04ea895cc85e03ac3" title="Populates the provided array with the ARToolKit projection matrix." alt="" coords="212,85,373,125"/>
+<area shape="rect" id="node3" href="$param_g_l_8c.html#a47cc5a7056c5638682a07acee44df9f4" title="Create an OpenGL perspective projection matrix." alt="" coords="436,5,593,31"/>
+<area shape="rect" id="node5" href="$class_a_r_video_source.html#a5feeb630d5706513ba1d48ba7dcd2c31" title="Returns the camera parameters for the video source." alt="" coords="421,55,608,95"/>
+<area shape="rect" id="node6" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="433,120,597,145"/>
+<area shape="rect" id="node7" href="$class_a_r_video_source.html#adcdfb6d6fcf844c7578bec2b3f978108" title="Returns true if the video source is open and ready to be queried." alt="" coords="424,169,605,195"/>
+<area shape="rect" id="node4" href="$param_decomp_8c.html#af8d8284f4489d90d4408f7514866dca1" title=" " alt="" coords="656,5,799,31"/>
+</map>

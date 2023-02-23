@@ -71,7 +71,7 @@ void drawSetup(ARG_API drawAPI_in, bool rotate90_in, bool flipH_in, bool flipV_i
     
     if (arOSG) return;
     
-    arOSG = arOSGInit();
+    arOSG = arOSGInit(MAX_MODELS);
     if (!arOSG) {
         ARLOGe("Unable to init OSG.\n");
         return;

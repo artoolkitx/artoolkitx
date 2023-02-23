@@ -66,6 +66,7 @@
 #  define FSEEKO_FUNC(stream, offset, origin) fseeko64(stream, offset, origin)
 #  include <conio.h> // getch()
 #  define snprintf _snprintf
+#  include <processenv.h> // SetEnvironmentVariableA
 #else
 #  include <unistd.h> // chdir()
 #  include <sys/param.h> // MAXPATHLEN
@@ -79,6 +80,7 @@
 #  define FTELLO_FUNC(stream) ftello(stream)
 #  define FSEEKO_FUNC(stream, offset, origin) fseeko(stream, offset, origin)
 #  include <termios.h> // struct termios, tcgetattr(), tcsetattr()
+#  include <stdlib.h> // setenv
 #endif
 #include <sys/stat.h> // struct stat, stat(), mkdir()
 #include <errno.h> // errno, ENOENT
@@ -86,8 +88,10 @@
 
 #define WRITEBUFFERSIZE (8192)
 
-
-
+// We don't support password-protected archives, so no need to support crypt.
+#ifndef NOCRYPT
+#  define NOCRYPT
+#endif
 #include "unzip.h"
 #include "zip.h"
 
@@ -788,4 +792,18 @@ char read_sn1(void)
 #else
     return -1;
 #endif
+}
+
+int export_(const char *name, const char *val)
+{
+    if (!name) return (-1);
+
+#if defined(_WIN32)
+    if (SetEnvironmentVariableA(name, val)) {
+        return (0);
+    }
+#else
+    return (setenv(name, val, 1));
+#endif
+    return (-1);
 }

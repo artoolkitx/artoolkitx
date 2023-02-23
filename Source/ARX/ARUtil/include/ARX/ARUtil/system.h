@@ -87,6 +87,17 @@ ARUTIL_EXTERN char *arUtilGetOSVersion(void);
  */
 ARUTIL_EXTERN char *arUtilGetCPUName(void);
 
+/*!
+ @brief   Get the full pathname of the code module in which this function exists.
+ @details
+    Gets the full filesystem path of the module in which this function is running.
+    This is typically either an executable path or a dynamic library path.
+ @result
+    Returns A null-terminated string with the filesystem path. The returned value
+    is malloc()ed internally and must be free()d by the caller. NULL in case of error.
+ */
+ARUTIL_EXTERN char *arUtilGetModulePath(void);
+
 #ifdef __cplusplus
 }
 #endif

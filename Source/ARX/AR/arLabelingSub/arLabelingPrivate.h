@@ -66,12 +66,10 @@ int arLabelingSubEWRC( ARUint8 *image, int xsize, int ysize, int labelingThresh,
 
 /*  Adaptive */
 
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
 int arLabelingSubDBZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo );
 int arLabelingSubDWZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo );
 int arLabelingSubEBZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo );
 int arLabelingSubEWZ( ARUint8 *image, const int xsize, const int ysize, ARUint8* image_thresh, ARLabelInfo *labelInfo );
-#endif
 
 #ifdef __cplusplus
 }

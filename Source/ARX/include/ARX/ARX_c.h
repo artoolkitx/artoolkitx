@@ -234,7 +234,8 @@ extern "C" {
     /**
      * Asks the video source to push the most recent frame into the passed-in buffer.
      * @param buffer Pointer to a buffer of pixels (of type 'uint32_t') to be filled with video.
-     *      It is the caller's responsibility to ensure that the buffer is of sufficient size.
+     *      It is the caller's responsibility to ensure that the buffer is of sufficient size,
+     *      e.g. using arwGetVideoParams.
      *      The pixels are RGBA in little-endian systems, or ABGR in big-endian systems.
      * @return            true if successful, false if an error occurred
      */
@@ -244,12 +245,12 @@ extern "C" {
      * Asks the video source to push the most recent stereo frame into the passed-in buffer.
      * @param bufferL Pointer to a buffer of pixels (of type 'uint32_t') to be filled with video
      *      from the left camera. It is the caller's responsibility to ensure that the buffer is
-     *      of sufficient size. The pixels are RGBA in little-endian systems, or ABGR in big-endian
-     *      systems.
+     *      of sufficient size, e.g. using arwGetVideoParamsStereo.
+     *      The pixels are RGBA in little-endian systems, or ABGR in big-endian systems.
      * @param bufferR Pointer to a buffer of pixels (of type 'uint32_t') to be filled with video
      *      from the right camera. It is the caller's responsibility to ensure that the buffer is
-     *      of sufficient size. The pixels are RGBA in little-endian systems, or ABGR in big-endian
-     *      systems.
+     *      of sufficient size, e.g. using arwGetVideoParamsStereo.
+     *      The pixels are RGBA in little-endian systems, or ABGR in big-endian systems.
      * @return            true if successful, false if an error occurred
      */
     ARX_EXTERN bool arwUpdateTexture32Stereo(uint32_t *bufferL, uint32_t *bufferR);
@@ -278,7 +279,7 @@ extern "C" {
     ARX_EXTERN bool arwDrawVideoInit(const int videoSourceIndex);
     
     /**
-     * Specifies desired horizontal alignement of video frames in drawing graphics context.
+     * Specifies desired horizontal alignment of video frames in drawing graphics context.
      */
     enum {
         ARW_H_ALIGN_LEFT,       ///< Align the left edge of the video frame with the left edge of the context.
@@ -287,7 +288,7 @@ extern "C" {
     };
     
     /**
-     * Specifies desired vertical alignement of video frames in drawing graphics context.
+     * Specifies desired vertical alignment of video frames in drawing graphics context.
      */
     enum {
         ARW_V_ALIGN_TOP,        ///< Align the top edge of the video frame with the top edge of the context.
@@ -300,8 +301,8 @@ extern "C" {
      */
     enum {
         ARW_SCALE_MODE_FIT,     ///< Scale the video frame proportionally up or down so that it fits visible in its entirety in the graphics context. When the graphics context is wider than the frame, it will be pillarboxed. When the graphics context is taller than the frame, it will be letterboxed.
-        ARW_SCALE_MODE_FILL,    ///< Scale the video frame proportionally up or down so that it fills the entire in the graphics context. When the graphics context is wider than the frame, it will be cropped top and/or bottom. When the graphics context is taller than the frame, it will be cropped left and/or right.
-        ARW_SCALE_MODE_STRETCH, ///< Scale the video frame un-proportionally up or down so that it matches exactly the size of the graphics context.
+        ARW_SCALE_MODE_FILL,    ///< Scale the video frame proportionally up or down so that it fills the entire in the graphics context. When the graphics context is wider than the frame, the frame will be cropped top and/or bottom. When the graphics context is taller than the frame, the frame will be cropped left and/or right.
+        ARW_SCALE_MODE_STRETCH, ///< Scale the video frame non-proportionally up or down so that it matches exactly the size of the graphics context. If the frame and the context have different aspect ratios, the frame will appear stretched or squashed.
         ARW_SCALE_MODE_1_TO_1   ///< Do not scale the video frame. One pixel of the video frame will be represented by one pixel of the graphics context.
     };
     
@@ -316,8 +317,9 @@ extern "C" {
      * returned to the caller.
      *
      * This function must only be called with a graphics context active
-     * (typically from the rendering thread) and only while arwIsRunning is true
-     * and only between calls to arwDrawVideoInit and arwDrawVideoFinal.
+     * (i.e. typically called only from a rendering thread) and only while
+     * arwIsRunning is true and only between calls to arwDrawVideoInit and
+     * arwDrawVideoFinal.
      *
      * @param videoSourceIndex The 0-based index of the video source which
      *     is supplying frames for drawing. Normally 0, but for the second camera in a stereo pair, 1.
@@ -461,6 +463,7 @@ extern "C" {
      * - Square marker from pattern passed in config: "single_buffer;pattern_width;buffer=[]", e.g. "single_buffer;80;buffer=234 221 237..."
      * - Square barcode marker: "single_barcode;barcode_id;pattern_width", e.g. "single_barcode;0;80"
      * - Multi-square marker: "multi;config_file", e.g. "multi;data/multi/marker.dat"
+     * - Multi-square auto marker: "multi;origin_barcode_id;pattern_width", e.g. "multi;0;80.0"
      * - NFT marker: "nft;nft_dataset_pathname", e.g. "nft;gibraltar"
 	 * @param cfg		The configuration string
 	 * @return			The unique identifier (UID) of the trackable instantiated based on the configuration string, or -1 if an error occurred
@@ -571,6 +574,7 @@ extern "C" {
         ARW_TRACKABLE_OPTION_MULTI_MIN_SUBMARKERS = 8,             ///< int, minimum number of submarkers for tracking to be valid.
         ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_MATRIX = 9,            ///< float, minimum confidence value for submarker matrix tracking to be valid.
         ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_PATTERN = 10,          ///< float, minimum confidence value for submarker pattern tracking to be valid.
+        ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB = 11,           ///< float, minimum inlier probability value for robust multimarker pose estimation (range 1.0 - 0.0).
     };
     
 	/**

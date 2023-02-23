@@ -55,6 +55,7 @@ ARMultiMarkerInfoT *arMultiAllocConfig(void)
     marker_info->cfPattCutoff = AR_MULTI_CONFIDENCE_PATTERN_CUTOFF_DEFAULT;
     marker_info->cfMatrixCutoff = AR_MULTI_CONFIDENCE_MATRIX_CUTOFF_DEFAULT;
     marker_info->min_submarker = 0;
+    marker_info->minInlierProb = ICP_INLIER_PROBABILITY;
     
     return (marker_info);
 }
@@ -85,7 +86,8 @@ ARMultiMarkerInfoT *arMultiCopyConfig(const ARMultiMarkerInfoT *marker_info)
     mi->cfPattCutoff = marker_info->cfPattCutoff;
     mi->cfMatrixCutoff = marker_info->cfMatrixCutoff;
     mi->min_submarker = marker_info->min_submarker;
-    
+    mi->minInlierProb = marker_info->minInlierProb;
+
     return (mi);
 }
 
@@ -198,7 +200,7 @@ int arMultiRemoveSubmarker(ARMultiMarkerInfoT *marker_info, int patt_id, int pat
     // Reduce the array size. Because we're shrinking, realloc failure isn't fatal.
     ARMultiEachMarkerInfoT *emi = (ARMultiEachMarkerInfoT *)realloc(marker_info->marker, sizeof(ARMultiEachMarkerInfoT) * (marker_info->marker_num - 1));
     if (!emi) {
-        ARLOGw("arMultiAddOrUpdateEachMarker out of memory!!\n.");
+        ARLOGw("arMultiRemoveSubmarker out of memory!!\n.");
     } else {
         marker_info->marker = emi;
     }

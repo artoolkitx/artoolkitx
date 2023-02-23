@@ -1,0 +1,5 @@
+<map id="arwGetTrackablePatternImage" name="arwGetTrackablePatternImage">
+<area shape="rect" id="node1" title="Gets a pattern image associated with a trackable." alt="" coords="5,31,204,56"/>
+<area shape="rect" id="node2" href="$class_a_r_controller.html#a4eafe05e50bdb9e788ad836f4c2104f1" title="Searches the collection of trackables for the given ID." alt="" coords="252,5,435,31"/>
+<area shape="rect" id="node3" href="$class_a_r_trackable.html#a1218f9a7aa029689492cd1765fff7e10" title="Returns the specified pattern within this trackable." alt="" coords="260,55,427,80"/>
+</map>

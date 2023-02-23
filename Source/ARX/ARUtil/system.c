@@ -42,8 +42,10 @@
 
 #define _GNU_SOURCE   // asprintf()/vasprintf() on Linux.
 #include <stdio.h>
-#include <string.h>
-#ifdef __APPLE__
+#include <string.h> // strdup/_strdup
+#if defined(_WIN32)
+#  include <Windows.h>
+#elif defined(__APPLE__)
 #  include <TargetConditionals.h>
 #  include <sys/types.h>
 #  include <sys/sysctl.h> // sysctlbyname()
@@ -60,6 +62,12 @@
 #  include <ARX/ARUtil/android.h>
 #elif defined(__linux)
 #  include <sys/utsname.h> // uname()
+#endif
+
+#ifdef _WIN32
+#  include <libloaderapi.h>
+#else
+#  include <dlfcn.h> // dladdr
 #endif
 
 char *arUtilGetOSName(void)
@@ -88,11 +96,10 @@ char *arUtilGetOSVersion(void)
 #  if TARGET_OS_IPHONE
     ret = strdup([[[UIDevice currentDevice] systemVersion] UTF8String]);
 #  else
-    SInt32 versMaj, versMin, versBugFix;
-    Gestalt(gestaltSystemVersionMajor, &versMaj);
-    Gestalt(gestaltSystemVersionMinor, &versMin);
-    Gestalt(gestaltSystemVersionBugFix, &versBugFix);
-    if (asprintf(&ret, "%d.%d.%d", versMaj, versMin, versBugFix) == -1) return (NULL);
+    size_t size;;
+    sysctlbyname("kern.osproductversion", NULL, &size, NULL, 0);
+    ret = malloc(size);
+    sysctlbyname("kern.osproductversion", ret, &size, NULL, 0);
 #  endif
 #elif defined(ANDROID) // Android
     char os[PROP_VALUE_MAX];
@@ -193,4 +200,29 @@ char *arUtilGetCPUName(void)
     ret = strdup("unknown");
 #endif
     return (ret);
+}
+
+char *arUtilGetModulePath(void)
+{
+#ifdef _WIN32
+    char path[MAX_PATH];
+    HMODULE hm = NULL;
+    if (GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)arUtilGetModulePath, &hm) == 0) {
+        //int ret = GetLastError();
+        //fprintf(stderr, "GetModuleHandle failed, error = %d\n", ret);
+        return NULL;
+    }
+    if (GetModuleFileName(hm, path, sizeof(path)) == 0) {
+        //int ret = GetLastError();
+        //fprintf(stderr, "GetModuleFileName failed, error = %d\n", ret);
+        return NULL;
+    }
+    return (_strdup(path));
+#else
+    Dl_info info;
+    if (dladdr(arUtilGetModulePath, &info) == 0) {
+        return NULL;
+    }
+    return (strdup(info.dli_fname));
+#endif
 }

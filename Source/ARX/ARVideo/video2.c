@@ -74,6 +74,9 @@
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
 #include "WindowsMediaCapture/videoWindowsMediaCapture.h"
 #endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+#include "Emscripten/videoEmscripten.h"
+#endif
     
 
 static const char *ar2VideoGetConfig(const char *config_in)
@@ -141,6 +144,8 @@ static int ar2VideoGetModuleWithConfig(const char *config, const char **configSt
                 module = AR_VIDEO_MODULE_WINDOWS_MEDIA_FOUNDATION;
             } else if (strcmp(b, "-module=WinMC") == 0)    {
                 module = AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE;
+            } else if (strcmp(b, "-module=Emscripten") == 0)    {
+                module = AR_VIDEO_MODULE_EMSCRIPTEN;
             }
 
             while (*a != ' ' && *a != '\t' && *a != '\0') a++;
@@ -194,7 +199,7 @@ ARVideoSourceInfoListT *ar2VideoCreateSourceInfoList(const char *config_in)
 #endif
 #ifdef ARVIDEO_INPUT_ANDROID
     if (module == AR_VIDEO_MODULE_ANDROID) {
-        return (NULL);
+        return ar2VideoCreateSourceInfoListAndroid(config_in);
     }
 #endif
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_FOUNDATION
@@ -204,6 +209,11 @@ ARVideoSourceInfoListT *ar2VideoCreateSourceInfoList(const char *config_in)
 #endif
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
     if (module == AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE) {
+        return (NULL);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (module == AR_VIDEO_MODULE_EMSCRIPTEN) {
         return (NULL);
     }
 #endif
@@ -303,6 +313,13 @@ AR2VideoParamT *ar2VideoOpen(const char *config_in)
         ARLOGe("ar2VideoOpen: Error: module \"WinMC\" not supported on this build/architecture/system.\n");
 #endif
     }
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+        if ((vid->moduleParam = (void *)ar2VideoOpenEmscripten(config)) != NULL) return vid;
+#else
+        ARLOGe("ar2VideoOpen: Error: module \"Emscripten\" not supported on this build/architecture/system.\n");
+#endif
+    }
 
     free(vid);
     return NULL;
@@ -397,6 +414,11 @@ int ar2VideoClose(AR2VideoParamT *vid)
         ret = ar2VideoCloseWinMC((AR2VideoParamWinMCT *)vid->moduleParam);
     }
 #endif
+#ifdef ARVIDEO_INPUT_WINDOWS_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        ret = ar2VideoCloseEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam);
+    }
+#endif
     free (vid);
     return (ret);
 }
@@ -447,6 +469,11 @@ int ar2VideoDispOption(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
     if (vid->module == AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE) {
         return ar2VideoDispOptionWinMC();
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoDispOptionEmscripten();
     }
 #endif
     return (-1);
@@ -506,6 +533,11 @@ int ar2VideoGetId(AR2VideoParamT *vid, ARUint32 *id0, ARUint32 *id1)
         return ar2VideoGetIdWinMC((AR2VideoParamWinMCT *)vid->moduleParam, id0, id1);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoGetIdEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam, id0, id1);
+    }
+#endif
     return (-1);
 }
 
@@ -555,6 +587,11 @@ int ar2VideoGetSize(AR2VideoParamT *vid, int *x,int *y)
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
     if (vid->module == AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE) {
         return ar2VideoGetSizeWinMC((AR2VideoParamWinMCT *)vid->moduleParam, x, y);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoGetSizeEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam, x, y);
     }
 #endif
     return (-1);
@@ -613,6 +650,11 @@ AR_PIXEL_FORMAT ar2VideoGetPixelFormat(AR2VideoParamT *vid)
         return ar2VideoGetPixelFormatWinMC((AR2VideoParamWinMCT *)vid->moduleParam);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoGetPixelFormatEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam);
+    }
+#endif
     return (AR_PIXEL_FORMAT_INVALID);
 }
 
@@ -664,6 +706,11 @@ AR2VideoBufferT *ar2VideoGetImage(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
     if (vid->module == AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE) {
         ret = ar2VideoGetImageWinMC((AR2VideoParamWinMCT *)vid->moduleParam);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        ret = ar2VideoGetImageEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam);
     }
 #endif
     if (ret) {
@@ -749,6 +796,11 @@ int ar2VideoCapStart(AR2VideoParamT *vid)
         return ar2VideoCapStartWinMC((AR2VideoParamWinMCT *)vid->moduleParam);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoCapStartEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam);
+    }
+#endif
     return (-1);
 }
 
@@ -809,6 +861,11 @@ int ar2VideoCapStop(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
     if (vid->module == AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE) {
         return ar2VideoCapStopWinMC((AR2VideoParamWinMCT *)vid->moduleParam);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoCapStopEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam);
     }
 #endif
     return (-1);
@@ -877,6 +934,11 @@ int ar2VideoGetParami(AR2VideoParamT *vid, int paramName, int *value)
         return ar2VideoGetParamiWinMC((AR2VideoParamWinMCT *)vid->moduleParam, paramName, value);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoGetParamiEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam, paramName, value);
+    }
+#endif
     return (-1);
 }
 
@@ -926,6 +988,11 @@ int ar2VideoSetParami(AR2VideoParamT *vid, int paramName, int value)
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
     if (vid->module == AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE) {
         return ar2VideoSetParamiWinMC((AR2VideoParamWinMCT *)vid->moduleParam, paramName, value);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoSetParamiEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam, paramName, value);
     }
 #endif
     return (-1);
@@ -979,6 +1046,11 @@ int ar2VideoGetParamd(AR2VideoParamT *vid, int paramName, double *value)
         return ar2VideoGetParamdWinMC((AR2VideoParamWinMCT *)vid->moduleParam, paramName, value);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoGetParamdEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam, paramName, value);
+    }
+#endif
     return (-1);
 }
 
@@ -1028,6 +1100,11 @@ int ar2VideoSetParamd(AR2VideoParamT *vid, int paramName, double value)
 #ifdef ARVIDEO_INPUT_WINDOWS_MEDIA_CAPTURE
     if (vid->module == AR_VIDEO_MODULE_WINDOWS_MEDIA_CAPTURE) {
         return ar2VideoSetParamdWinMC((AR2VideoParamWinMCT *)vid->moduleParam, paramName, value);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoSetParamdEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam, paramName, value);
     }
 #endif
     return (-1);
@@ -1082,6 +1159,11 @@ int ar2VideoGetParams(AR2VideoParamT *vid, const int paramName, char **value)
         return ar2VideoGetParamsWinMC((AR2VideoParamWinMCT *)vid->moduleParam, paramName, value);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoGetParamsEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam, paramName, value);
+    }
+#endif
     return (-1);
 }
 
@@ -1133,6 +1215,11 @@ int ar2VideoSetParams(AR2VideoParamT *vid, const int paramName, const char *valu
         return ar2VideoSetParamsWinMC((AR2VideoParamWinMCT *)vid->moduleParam, paramName, value);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoSetParamsEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam, paramName, value);
+    }
+#endif
     return (-1);
 }
 
@@ -1176,6 +1263,11 @@ int ar2VideoSetBufferSize(AR2VideoParamT *vid, const int width, const int height
         return ar2VideoSetBufferSizeImage((AR2VideoParamImageT *)vid->moduleParam, width, height);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoSetBufferSizeEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam, width, height);
+    }
+#endif
     return (-1);
 }
 
@@ -1195,6 +1287,11 @@ int ar2VideoGetBufferSize(AR2VideoParamT *vid, int *width, int *height)
 #ifdef ARVIDEO_INPUT_IMAGE
     if (vid->module == AR_VIDEO_MODULE_IMAGE) {
         return ar2VideoGetBufferSizeImage((AR2VideoParamImageT *)vid->moduleParam, width, height);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EMSCRIPTEN
+    if (vid->module == AR_VIDEO_MODULE_EMSCRIPTEN) {
+        return ar2VideoGetBufferSizeEmscripten((AR2VideoParamEmscriptenT *)vid->moduleParam, width, height);
     }
 #endif
     return (-1);

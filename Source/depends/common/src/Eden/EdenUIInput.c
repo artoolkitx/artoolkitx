@@ -97,7 +97,7 @@ EdenUIInput_t EdenUIInputNew(const unsigned char *prompt, const unsigned int min
     input->buf = (unsigned char *)malloc(input->promptLen + input->maxLen + 2); // +1 for cursor and +1 for nul-terminator.
     if (!input->buf) goto bail;
     if (prompt) {
-        strncpy((char *)input->buf, (const char *)prompt, input->promptLen);
+        memcpy((void *)input->buf, (const void *)prompt, input->promptLen);
     }
     input->bufPtr = input->buf + input->promptLen;
     input->bufPtr[0] = '\0';
@@ -179,7 +179,7 @@ unsigned char *EdenUIInputGetInputForDrawing(EdenUIInput_t input)
             if (sys_time.millitm < 500ul) cursorState = 1;
             else cursorState = 0;
 #else
-#  if defined(__linux) || defined(__APPLE__)
+#  if defined(__linux) || defined(__APPLE__) || defined(EMSCRIPTEN)
             gettimeofday(&time, NULL);
 #  else
             gettimeofday(&time);

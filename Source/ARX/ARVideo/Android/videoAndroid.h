@@ -73,18 +73,19 @@ int                    ar2VideoGetParamdAndroid      ( AR2VideoParamAndroidT *vi
 int                    ar2VideoSetParamdAndroid      ( AR2VideoParamAndroidT *vid, int paramName, double  value );
 int                    ar2VideoGetParamsAndroid      ( AR2VideoParamAndroidT *vid, const int paramName, char **value );
 int                    ar2VideoSetParamsAndroid      ( AR2VideoParamAndroidT *vid, const int paramName, const char  *value );
+ARVideoSourceInfoListT *ar2VideoCreateSourceInfoListAndroid(const char *config_in);
 
 int                    ar2VideoGetCParamAsyncAndroid (AR2VideoParamAndroidT *vid, void (*callback)(const ARParam *, void *), void *userdata);
 
 // JNI interface.
-jint ar2VideoPushInitAndroid(AR2VideoParamAndroidT *vid, JNIEnv *env, jobject obj, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face);
-jint ar2VideoPushAndroid1(AR2VideoParamAndroidT *vid, JNIEnv *env, jobject obj, jbyteArray buf, jint bufSize);
-jint ar2VideoPushAndroid2(AR2VideoParamAndroidT *vid, JNIEnv *env, jobject obj,
+jint ar2VideoPushInitAndroid(AR2VideoParamAndroidT *vid, C_JNIEnv *env, jobject obj, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face);
+jint ar2VideoPushAndroid1(AR2VideoParamAndroidT *vid, C_JNIEnv *env, jobject obj, jbyteArray buf, jint bufSize);
+jint ar2VideoPushAndroid2(AR2VideoParamAndroidT *vid, C_JNIEnv *env, jobject obj,
                           jobject buf0, jint buf0PixelStride, jint buf0RowStride,
                           jobject buf1, jint buf1PixelStride, jint buf1RowStride,
                           jobject buf2, jint buf2PixelStride, jint buf2RowStride,
                           jobject buf3, jint buf3PixelStride, jint buf3RowStride);
-jint ar2VideoPushFinalAndroid(AR2VideoParamAndroidT *vid, JNIEnv *env, jobject obj);
+jint ar2VideoPushFinalAndroid(AR2VideoParamAndroidT *vid, C_JNIEnv *env, jobject obj);
 
 #ifdef  __cplusplus
 }

@@ -76,7 +76,7 @@ namespace vision {
     VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::~VisualDatabase() {}
     
     template<typename FEATURE_EXTRACTOR, typename STORE, typename MATCHER>
-    void VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::addImage(const vision::Image& image, id_t id) throw(Exception) {
+    void VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::addImage(const vision::Image& image, id_t id) {
         if(mKeyframeMap.find(id) != mKeyframeMap.end()) {
             throw EXCEPTION("ID already exists");
         }
@@ -99,7 +99,7 @@ namespace vision {
     }
     
     template<typename FEATURE_EXTRACTOR, typename STORE, typename MATCHER>
-    void VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::addImage(const GaussianScaleSpacePyramid* pyramid, id_t id) throw(Exception) {
+    void VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::addImage(const GaussianScaleSpacePyramid* pyramid, id_t id) {
         if(mKeyframeMap.find(id) != mKeyframeMap.end()) {
             throw EXCEPTION("ID already exists");
         }
@@ -129,7 +129,7 @@ namespace vision {
     }
     
     template<typename FEATURE_EXTRACTOR, typename STORE, typename MATCHER>
-    void VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::addKeyframe(keyframe_ptr_t keyframe , id_t id) throw(Exception) {
+    void VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::addKeyframe(keyframe_ptr_t keyframe , id_t id) {
         typename keyframe_map_t::iterator it = mKeyframeMap.find(id);
         if(it != mKeyframeMap.end()) {
             throw EXCEPTION("ID already exists");
@@ -139,7 +139,7 @@ namespace vision {
     }
     
     template<typename FEATURE_EXTRACTOR, typename STORE, typename MATCHER>
-    bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const vision::Image& image) throw(Exception) {
+    bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const vision::Image& image) {
         // Allocate pyramid
         if(mPyramid.images().size() == 0 ||
            mPyramid.images()[0].width() != image.width() ||
@@ -157,7 +157,7 @@ namespace vision {
     }
     
     template<typename FEATURE_EXTRACTOR, typename STORE, typename MATCHER>
-    bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const GaussianScaleSpacePyramid* pyramid) throw(Exception) {
+    bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const GaussianScaleSpacePyramid* pyramid) {
         // Allocate detector
         if(mDetector.width() != pyramid->images()[0].width() ||
            mDetector.height() != pyramid->images()[0].height()) {
@@ -177,7 +177,7 @@ namespace vision {
     }
     
     template<typename FEATURE_EXTRACTOR, typename STORE, typename MATCHER>
-    bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const keyframe_t* query_keyframe) throw(Exception) {
+    bool VisualDatabase<FEATURE_EXTRACTOR, STORE, MATCHER>::query(const keyframe_t* query_keyframe) {
         mMatchedInliers.clear();
         mMatchedId = -1;
         

@@ -1,0 +1,4 @@
+<map id="arPattGetImage3" name="arPattGetImage3">
+<area shape="rect" id="node1" title="Extract the image (i.e. locate and unwarp) of an arbitrary portion of a detected square." alt="" coords="5,5,127,31"/>
+<area shape="rect" id="node2" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="175,5,341,31"/>
+</map>

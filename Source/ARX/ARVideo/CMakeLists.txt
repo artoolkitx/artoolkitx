@@ -9,21 +9,6 @@
 # Submodules should use PARENT_SCOPE in the set command to ensure that
 # their changes propagate to this main build file.
 #
-if(NOT ARX_TARGET_PLATFORM_WINDOWS)
-	find_package(JPEG REQUIRED)
-else()
-	find_path(JPEG_INCLUDE_DIR
-		NAMES jconfig.h jmorecfg.h jpeglib.h jversion.h
-		PATHS ${PROJECT_SOURCE_DIR}/depends/windows/include
-		DOC "The directory where jpeg headers resides"
-	)
-
-	find_library(JPEG_LIBRARIES
-		NAMES libjpeg
-		PATHS ${PROJECT_SOURCE_DIR}/depends/windows/lib/x64
-		DOC "The directory where jpeg static library resides"
-	)
-endif()
 
 set(SOURCE
     cparamSearch.h
@@ -122,6 +107,12 @@ endif()
 if(ARX_TARGET_PLATFORM_WINDOWS)
     add_subdirectory("WindowsMediaFoundation")
     set(DEFINES ${DEFINES} "ARVIDEO_INPUT_DEFAULT_WINDOWS_MEDIA_FOUNDATION")
+endif()
+
+# Video modules for Emscripten.
+if(ARX_TARGET_PLATFORM_EMSCRIPTEN)
+    add_subdirectory("Emscripten")
+    set(DEFINES ${DEFINES} "ARVIDEO_INPUT_DEFAULT_EMSCRIPTEN")
 endif()
 
 add_library(ARVideo STATIC

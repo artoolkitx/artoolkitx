@@ -1,6 +1,7 @@
 <map id="Source/ARX/KPM/kpmPrivate.h" name="Source/ARX/KPM/kpmPrivate.h">
-<area shape="rect" id="node2" href="$kpm_handle_8cpp.html" title="Source/ARX/KPM/kpmHandle.cpp" alt="" coords="5,85,229,111"/>
-<area shape="rect" id="node3" href="$kpm_matching_8cpp.html" title="Source/ARX/KPM/kpmMatching.cpp" alt="" coords="253,85,488,111"/>
-<area shape="rect" id="node4" href="$kpm_ref_data_set_8cpp.html" title="Source/ARX/KPM/kpmRefData\lSet.cpp" alt="" coords="512,79,717,117"/>
-<area shape="rect" id="node5" href="$kpm_result_8cpp.html" title="Source/ARX/KPM/kpmResult.cpp" alt="" coords="741,85,960,111"/>
+<area shape="rect" id="node1" title=" " alt="" coords="388,5,597,31"/>
+<area shape="rect" id="node2" href="$kpm_handle_8cpp.html" title=" " alt="" coords="5,86,228,111"/>
+<area shape="rect" id="node3" href="$kpm_matching_8cpp.html" title=" " alt="" coords="253,86,487,111"/>
+<area shape="rect" id="node4" href="$kpm_ref_data_set_8cpp.html" title=" " alt="" coords="512,79,719,119"/>
+<area shape="rect" id="node5" href="$kpm_result_8cpp.html" title=" " alt="" coords="743,86,963,111"/>
 </map>

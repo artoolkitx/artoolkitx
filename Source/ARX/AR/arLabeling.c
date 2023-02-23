@@ -60,18 +60,14 @@ int arLabeling( ARUint8 *imageLuma, int xsize, int ysize,
     if (debugMode == AR_DEBUG_DISABLE) {
 #endif
         if (labelingMode == AR_LABELING_BLACK_REGION) {
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
             if (image_thresh) return arLabelingSubDBZ(imageLuma, xsize, ysize, image_thresh, labelInfo);
-#endif
             if (imageProcMode == AR_IMAGE_PROC_FRAME_IMAGE) {
                 return arLabelingSubDBRC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
             } else /* imageProcMode == AR_IMAGE_PROC_FIELD_IMAGE */ {
                 return arLabelingSubDBIC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
             }
         } else /* labelingMode == AR_LABELING_WHITE_REGION */ {
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
             if (image_thresh) return arLabelingSubDWZ(imageLuma, xsize, ysize, image_thresh, labelInfo);
-#endif
             if (imageProcMode == AR_IMAGE_PROC_FRAME_IMAGE) {
                 return arLabelingSubDWRC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
             } else /* imageProcMode == AR_IMAGE_PROC_FIELD_IMAGE */ {
@@ -81,18 +77,14 @@ int arLabeling( ARUint8 *imageLuma, int xsize, int ysize,
 #if !AR_DISABLE_LABELING_DEBUG_MODE
     } else /* debugMode == AR_DEBUG_ENABLE */ {
         if (labelingMode == AR_LABELING_BLACK_REGION) {
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
             if (image_thresh) return arLabelingSubEBZ(imageLuma, xsize, ysize, image_thresh, labelInfo);
-#endif
             if (imageProcMode == AR_IMAGE_PROC_FRAME_IMAGE) {
                 return arLabelingSubEBRC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
             } else /* imageProcMode == AR_IMAGE_PROC_FIELD_IMAGE */ {
                 return arLabelingSubEBIC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
             }
         } else /* labelingMode == AR_LABELING_WHITE_REGION */ {
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
             if (image_thresh) return arLabelingSubEWZ(imageLuma, xsize, ysize, image_thresh, labelInfo);
-#endif
             if (imageProcMode == AR_IMAGE_PROC_FRAME_IMAGE) {
                 return arLabelingSubEWRC(imageLuma, xsize, ysize, labelingThresh, labelInfo);
             } else /* imageProcMode == AR_IMAGE_PROC_FIELD_IMAGE */ {

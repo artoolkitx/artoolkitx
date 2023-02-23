@@ -57,6 +57,10 @@
 #include <string.h>        // strchr(), strstr(), strlen()
 #include <ARX/ARG/mtx.h>
 #include <ARX/ARG/shader_gl.h>
+#ifdef _WIN32
+#  define WIN32_LEAN_AND_MEAN 1
+#  include <windows.h> // HMODULE, LoadLibraryA(), FreeLibrary(), GetProcAddress()
+#endif
 
 // ============================================================================
 //    Private types and defines.
@@ -80,8 +84,19 @@
 #endif
 
 // On Windows, all OpenGL v3 and later API must be dynamically resolved against the actual driver
-#if defined(_WIN32)
-    # define ARGL_GET_PROC_ADDRESS wglGetProcAddress
+#ifdef _WIN32
+    # define ARGL_GET_PROC_ADDRESS get_proc
+    static PFNGLBINDTEXTUREPROC glBindTexture = NULL;
+    static PFNGLDELETETEXTURESPROC glDeleteTextures = NULL;
+    static PFNGLGENTEXTURESPROC glGenTextures = NULL;
+    static PFNGLTEXPARAMETERIPROC glTexParameteri = NULL;
+    static PFNGLGETSTRINGPROC glGetString = NULL;
+    static PFNGLVIEWPORTPROC glViewport = NULL;
+    static PFNGLDISABLEPROC glDisable = NULL;
+    static PFNGLDRAWARRAYSPROC glDrawArrays = NULL;
+    static PFNGLGETINTEGERVPROC glGetIntegerv = NULL;
+    static PFNGLPIXELSTOREIPROC glPixelStorei = NULL;
+    static PFNGLTEXIMAGE2DPROC glTexImage2D = NULL;
     static PFNGLATTACHSHADERPROC glAttachShader = NULL; // (PFNGLGENBUFFERSPROC)ARGL_GET_PROC_ADDRESS("glGenBuffersARB");
     static PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays = NULL;
     static PFNGLGENVERTEXARRAYSPROC glGenVertexArrays = NULL;
@@ -153,11 +168,25 @@ typedef struct _ARGL_CONTEXT_SETTINGS_GL3 *ARGL_CONTEXT_SETTINGS_GL3_REF;
 //    Private globals.
 // ============================================================================
 
+#ifdef _WIN32
+static HMODULE libgl;
+#endif
 
 #pragma mark -
 // ============================================================================
 //    Private functions.
 // ============================================================================
+
+#ifdef _WIN32
+static void *get_proc(const char *proc)
+{
+	void *res;
+	res = wglGetProcAddress(proc);
+	if (!res)
+		res = GetProcAddress(libgl, proc);
+	return res;
+}
+#endif
 
 #ifdef ARGL_DEBUG
 static void arglGetErrorGL3(const char *tag)
@@ -487,7 +516,19 @@ int arglSetupForCurrentContextGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_
         return (FALSE);
     }
 
-#if defined(_WIN32)
+#ifdef _WIN32
+    libgl = LoadLibraryA("opengl32.dll");
+    if (!glBindTexture) glBindTexture = (PFNGLBINDTEXTUREPROC) ARGL_GET_PROC_ADDRESS("glBindTexture");
+    if (!glDeleteTextures) glDeleteTextures = (PFNGLDELETETEXTURESPROC) ARGL_GET_PROC_ADDRESS("glDeleteTextures");
+    if (!glGenTextures) glGenTextures = (PFNGLGENTEXTURESPROC) ARGL_GET_PROC_ADDRESS("glGenTextures");
+    if (!glTexParameteri) glTexParameteri = (PFNGLTEXPARAMETERIPROC) ARGL_GET_PROC_ADDRESS("glTexParameteri");
+    if (!glGetString) glGetString = (PFNGLGETSTRINGPROC) ARGL_GET_PROC_ADDRESS("glGetString");
+    if (!glViewport) glViewport = (PFNGLVIEWPORTPROC) ARGL_GET_PROC_ADDRESS("glViewport");
+    if (!glDisable) glDisable = (PFNGLDISABLEPROC) ARGL_GET_PROC_ADDRESS("glDisable");
+    if (!glDrawArrays) glDrawArrays = (PFNGLDRAWARRAYSPROC) ARGL_GET_PROC_ADDRESS("glDrawArrays");
+    if (!glGetIntegerv) glGetIntegerv = (PFNGLGETINTEGERVPROC) ARGL_GET_PROC_ADDRESS("glGetIntegerv");
+    if (!glPixelStorei) glPixelStorei = (PFNGLPIXELSTOREIPROC) ARGL_GET_PROC_ADDRESS("glPixelStorei");
+    if (!glTexImage2D) glTexImage2D = (PFNGLTEXIMAGE2DPROC) ARGL_GET_PROC_ADDRESS("glTexImage2D");
 	if (!glAttachShader) glAttachShader = (PFNGLATTACHSHADERPROC) ARGL_GET_PROC_ADDRESS("glAttachShader");
     if (!glDeleteVertexArrays) glDeleteVertexArrays = (PFNGLDELETEVERTEXARRAYSPROC) ARGL_GET_PROC_ADDRESS("glDeleteVertexArrays");
     if (!glGenVertexArrays) glGenVertexArrays = (PFNGLGENVERTEXARRAYSPROC) ARGL_GET_PROC_ADDRESS("glGenVertexArrays");
@@ -506,12 +547,15 @@ int arglSetupForCurrentContextGL3(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_
     if (!glDeleteBuffers) glDeleteBuffers = (PFNGLDELETEBUFFERSPROC)ARGL_GET_PROC_ADDRESS("glDeleteBuffers");
 	if (!glBindBuffer) glBindBuffer = (PFNGLBINDBUFFERPROC)ARGL_GET_PROC_ADDRESS("glBindBuffer");
 	if (!glBufferData) glBufferData = (PFNGLBUFFERDATAPROC)ARGL_GET_PROC_ADDRESS("glBufferData");
+	FreeLibrary(libgl);
 
-	if (!glAttachShader || !glDeleteVertexArrays || !glBindAttribLocation || !glCreateProgram || 
+	if (!glDeleteTextures || !glGenTextures || !glTexParameteri || !glGetString || !glViewport ||
+        !glDisable || !glDrawArrays || !glGetIntegerv || !glPixelStorei || !glTexImage2D ||
+        !glAttachShader || !glDeleteVertexArrays || !glBindAttribLocation || !glCreateProgram ||
         !glEnableVertexAttribArray || !glVertexAttribPointer || !glBindVertexArray || !glGenVertexArrays || 
         !glGetUniformLocation || !glUseProgram || !glUniformMatrix4fv || !glUniform1i || !glGetStringi || 
         !glActiveTexture || !glGenBuffers ) {
-            ARLOGe("Error: a required OpenGL function counld not be bound.\n");
+            ARLOGe("arglSetupForCurrentContextGL3 error: a required OpenGL function counld not be bound.\n");
 		    return (FALSE);
     }
 #endif

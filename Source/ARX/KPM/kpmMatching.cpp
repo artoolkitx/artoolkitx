@@ -410,6 +410,8 @@ int kpmMatching(KpmHandle *kpmHandle, ARUint8 *inImageLuma)
     
     if (procMode == KpmProcFullSize) {
         imageLuma = inImageLuma;
+        xsize2 = xsize;
+        ysize2 = ysize;
         imageLumaWasAllocated = 0;
     } else {
         imageLuma = kpmUtilResizeImage(inImageLuma, xsize, ysize, procMode, &xsize2, &ysize2);
@@ -418,10 +420,10 @@ int kpmMatching(KpmHandle *kpmHandle, ARUint8 *inImageLuma)
     }
 
 #if BINARY_FEATURE
-    kpmHandle->freakMatcher->query(imageLuma, xsize ,ysize);
+    kpmHandle->freakMatcher->query(imageLuma, xsize2, ysize2);
     kpmHandle->inDataSet.num = (int)kpmHandle->freakMatcher->getQueryFeaturePoints().size();
 #else
-    surfSubExtractFeaturePoint( kpmHandle->surfHandle, inImageBW, kpmHandle->skipRegion.region, kpmHandle->skipRegion.regionNum );
+    surfSubExtractFeaturePoint( kpmHandle->surfHandle, imageLuma, kpmHandle->skipRegion.region, kpmHandle->skipRegion.regionNum );
     kpmHandle->skipRegion.regionNum = 0;
     kpmHandle->inDataSet.num = featureVector.num = surfSubGetFeaturePointNum( kpmHandle->surfHandle );
 #endif

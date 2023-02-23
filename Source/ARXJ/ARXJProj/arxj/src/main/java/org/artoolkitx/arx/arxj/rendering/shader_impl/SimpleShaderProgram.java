@@ -49,7 +49,7 @@ import java.nio.FloatBuffer;
  * The shader program links together the vertex shader and the fragment shader and compiles them.
  * It also is responsible for binding the attributes. Attributes can be used to pass in values to the
  * shader during runtime.
- * <p/>
+ * <br>
  * Finally it renders the given geometry.
  */
 public class SimpleShaderProgram extends ShaderProgram {
@@ -90,7 +90,7 @@ public class SimpleShaderProgram extends ShaderProgram {
     /**
      * There are several render methods available from the base class. In this case we override the {@link ShaderProgram#render(FloatBuffer, FloatBuffer, ByteBuffer)} one.
      * Although we never use the index ByteBuffer.
-     * We pass in the vertex and color information from the {@link org.artoolkit.ar6.base.rendering.shader_impl.Line} object.
+     * We pass in the vertex and color information from the {@link org.artoolkit.arx.arxj.rendering.shader_impl.Line} object.
      *
      * @param vertexBuffer Contains the position information as two vertexes. Start and end of the line to draw
      * @param colorBuffer  Contains the color of the line

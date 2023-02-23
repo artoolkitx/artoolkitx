@@ -54,13 +54,11 @@ public class CameraAccessHandlerImpl implements CameraAccessHandler {
      * Android logging tag for this class.
      */
     private static final String TAG = CameraAccessHandlerImpl.class.getSimpleName();
-    private final CameraSurfaceImpl mCameraSurface;
-    private boolean mAskPermissionFirst = false;
+     private boolean mAskPermissionFirst = false;
 
-    public CameraAccessHandlerImpl(Activity activity, CameraEventListener cameraEventListener) {
+    public CameraAccessHandlerImpl(Activity activity) {
         Log.i(TAG, "CameraAccessHandlerImpl(): ctor called");
         Context mAppContext = activity.getApplicationContext();
-        this.mCameraSurface = new CameraSurfaceImpl(cameraEventListener, mAppContext);
 
         try {
              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -94,15 +92,5 @@ public class CameraAccessHandlerImpl implements CameraAccessHandler {
     @Override
     public boolean getCameraAccessPermissions() {
         return this.mAskPermissionFirst;
-    }
-
-    @Override
-    public void closeCamera() {
-        this.getCameraSurfaceView().closeCameraDevice();
-    }
-
-    @Override
-    public CameraSurface getCameraSurfaceView() {
-        return this.mCameraSurface;
     }
 }

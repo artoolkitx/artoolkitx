@@ -107,7 +107,7 @@ uint16_t arglOpenGLVersion()
 #  ifdef _WIN32
 	if (!glGetIntegerv) glGetIntegerv = (PFNGLGETINTEGERVPROC)ARGL_GET_PROC_ADDRESS("glGetIntegerv");
 	if (!glGetIntegerv) {
-		ARLOGe("Error: a required OpenGL function counld not be bound.\n");
+		ARLOGe("arglOpenGLVersion error: a required OpenGL function counld not be bound.\n");
 		return 0;
 	}
 #  endif

@@ -349,7 +349,7 @@ int arglSetupForCurrentContextGL(ARGL_CONTEXT_SETTINGS_REF contextSettings, AR_P
         || !glActiveTexture || !glClientActiveTexture
 #  endif
         ) {
-		ARLOGe("Error: a required OpenGL function counld not be bound.\n");
+		ARLOGe("arglSetupForCurrentContextGL error: a required OpenGL function counld not be bound.\n");
 		return (FALSE);
 	}
 #endif
@@ -759,12 +759,11 @@ int arglPixelBufferDataUploadBiPlanarGL(ARGL_CONTEXT_SETTINGS_REF contextSetting
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, acs->texture);
     
-    glPixelStorei(GL_UNPACK_ALIGNMENT, ((((acs->bufSizeIsTextureSize ? acs->textureSizeX : acs->bufSizeX) * acs->pixSize) & 0x3) == 0 ? 4 : 1));
-    
     if (contextSettings->arhandle) {
         arDebugMode = arGetDebugMode(contextSettings->arhandle);
     }
     if (arDebugMode == AR_DEBUG_DISABLE) {
+        glPixelStorei(GL_UNPACK_ALIGNMENT, ((((acs->bufSizeIsTextureSize ? acs->textureSizeX : acs->bufSizeX) * acs->pixSize) & 0x3) == 0 ? 4 : 1));
         if (acs->bufSizeIsTextureSize) {
             glTexImage2D(GL_TEXTURE_2D, 0, acs->pixIntFormat, acs->textureSizeX, acs->textureSizeY, 0, acs->pixFormat, acs->pixType, bufDataPtr0);
         } else {
@@ -775,6 +774,7 @@ int arglPixelBufferDataUploadBiPlanarGL(ARGL_CONTEXT_SETTINGS_REF contextSetting
         }
     } else {
         if (contextSettings->arhandle->labelInfo.bwImage) {
+            glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
             arImageProcMode = arGetImageProcMode(contextSettings->arhandle);
             if (arImageProcMode == AR_IMAGE_PROC_FIELD_IMAGE) {
                 if (acs->bufSizeIsTextureSize) {

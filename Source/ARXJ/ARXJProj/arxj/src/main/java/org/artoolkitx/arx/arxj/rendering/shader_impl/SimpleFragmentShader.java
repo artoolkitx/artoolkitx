@@ -43,7 +43,7 @@ import org.artoolkitx.arx.arxj.rendering.OpenGLShader;
 
 /**
  * Here you define your fragment shader and what it does with the given color.
- * <p/>
+ * <br>
  * This class also provides the implementation of the {@link #configureShader()} method. So all you need to do is
  * call this one from your fragment shader implementation.
  */

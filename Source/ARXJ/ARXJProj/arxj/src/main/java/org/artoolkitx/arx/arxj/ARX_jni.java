@@ -210,7 +210,7 @@ public class ARX_jni {
 
     /**
      * Returns the parameters of the video source frame.
-     * <p/>
+     * <br>
      * Usage example:
      * int[] width = new int[1];
      * int[] height = new int[1];
@@ -229,7 +229,7 @@ public class ARX_jni {
 
     /**
      * Returns the parameters of the video source frames.
-     * <p/>
+     * <br>
      * Usage example:
      * int[] widthL = new int[1];
      * int[] heightL = new int[1];
@@ -568,13 +568,17 @@ public class ARX_jni {
      * May only be made after calling arwAndroidVideoPushInit and may not be made after a call to arwAndroidVideoPushFinal.
      * @param videoSourceIndex Zero-based index of the video source which is being pushed. Normally 0, but for the second camera in a stereo pair, 1.
      * @param buf0			For interleaved formats (e.g. RGBA), reference to a byte buffer holding the frame data. For interleaved formats this will be the only plane. For planar formats, reference to a byte buffer holding plane 0 of the frame. For planar NV21 and YUV_420_888 formats, this will be the luma plane.
-     * @param buf0Size		The length (in bytes) of the buffer referred to by buf0.
-     * @param buf1			For planar formats consisting of 2 or more planes, reference to a byte buffer holding plane 1 of the frame. For planar NV21 image format, this will be the chroma plane. For planar YUV_420_888 format, this will be the Cb chroma plane.
-     * @param buf1Size		The length (in bytes) of the buffer referred to by buf1.
+	 * @param buf0PixelStride The number of bytes between pixels in adjacent columns in buf0
+	 * @param buf0RowStride The number of bytes between pixels in adjacent rows in buf0
+	 * @param buf1			For planar formats consisting of 2 or more planes, reference to a byte buffer holding plane 1 of the frame. For planar NV21 image format, this will be the chroma plane. For planar YUV_420_888 format, this will be the Cb chroma plane.
+	 * @param buf1PixelStride The number of bytes between pixels in adjacent columns in buf1
+	 * @param buf1RowStride The number of bytes between pixels in adjacent rows in buf1
      * @param buf2			For planar formats consisting 3 or more planes, reference to a byte buffer holding plane 2 of the frame. For planar YUV_420_888 format, this will be the Cr chroma plane.
-     * @param buf2Size		The length (in bytes) of the buffer referred to by buf2.
+	 * @param buf2PixelStride The number of bytes between pixels in adjacent columns in buf2
+	 * @param buf2RowStride The number of bytes between pixels in adjacent rows in buf2
      * @param buf3			For planar formats consisting of 4 planes, reference to a byte buffer holding plane 3 of the frame.
-     * @param buf3Size		The length (in bytes) of the buffer referred to by buf3.
+	 * @param buf3PixelStride The number of bytes between pixels in adjacent columns in buf3
+	 * @param buf3RowStride The number of bytes between pixels in adjacent rows in buf3
      * @return				0 if no error occurred, otherwise an error value less than 0.
      */
     public static native int arwAndroidVideoPush2(int videoSourceIndex,

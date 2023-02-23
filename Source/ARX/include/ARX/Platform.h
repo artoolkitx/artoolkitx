@@ -82,22 +82,11 @@
 #    endif
 #  endif
 #  define CALL_CONV __stdcall
-#  define LOGI(...) fprintf(stdout, __VA_ARGS__)
-#  define LOGE(...) fprintf(stderr, __VA_ARGS__)
 
-#elif ARX_TARGET_PLATFORM_MACOS || ARX_TARGET_PLATFORM_IOS || ARX_TARGET_PLATFORM_LINUX
+#elif ARX_TARGET_PLATFORM_MACOS || ARX_TARGET_PLATFORM_IOS || ARX_TARGET_PLATFORM_LINUX || ARX_TARGET_PLATFORM_ANDROID || ARX_TARGET_PLATFORM_EMSCRIPTEN
 
 #  define ARX_EXTERN
 #  define CALL_CONV
-#  define LOGI(...) fprintf(stdout, __VA_ARGS__)
-#  define LOGE(...) fprintf(stderr, __VA_ARGS__)
-
-#elif ARX_TARGET_PLATFORM_ANDROID
-
-#  define ARX_EXTERN
-#  define CALL_CONV
-#  define LOGI(...)  __android_log_print(ANDROID_LOG_INFO,"libARX",__VA_ARGS__)
-#  define LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,"libARX",__VA_ARGS__)
 
 #else
 

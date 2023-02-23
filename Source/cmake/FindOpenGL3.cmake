@@ -15,7 +15,7 @@ SET(OPENGL_SEARCH_PATHS
     /opt/local
     ${GL3_PATH}
 )
-message(${OPENGL_SEARCH_PATHS})
+#message(${OPENGL_SEARCH_PATHS})
 IF(WIN32)
     FIND_PATH(OpenGL3_INCLUDE_PATH
         NAMES GL/glcorearb.h

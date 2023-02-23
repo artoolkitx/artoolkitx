@@ -137,6 +137,7 @@ int ar2FreeJpegImage( AR2JpegImageT **jpegImage )
 
 #define BUFFER_HEIGHT 5
 
+static char jpegLastErrorMsg[JMSG_LENGTH_MAX] = "";
 static void my_error_exit (j_common_ptr cinfo)
 {
     /* cinfo->err really points to a my_error_mgr struct, so coerce pointer */
@@ -145,7 +146,10 @@ static void my_error_exit (j_common_ptr cinfo)
     /* Always display the message. */
     /* We could postpone this until after returning, if we chose. */
     //(*cinfo->err->output_message) (cinfo);
-    
+
+    /* Create the message */
+    (*(cinfo->err->format_message)) (cinfo, jpegLastErrorMsg);
+
     /* Return control to the setjmp point */
     longjmp(myerr->setjmp_buffer, 1);
 }
@@ -173,7 +177,7 @@ static unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
          * We need to clean up the JPEG object, close the input file, and return.
          */
         jpeg_destroy_decompress(&cinfo);
-        ARLOGe("Error reading JPEG file.\n");
+        ARLOGe("Error reading JPEG file: %s\n", jpegLastErrorMsg);
         return NULL;
     }
 
@@ -218,7 +222,6 @@ static unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
     }
 
     (void) jpeg_finish_decompress(&cinfo);
-    jpeg_destroy_decompress(&cinfo);
 
     if (w) *w = cinfo.image_width;
     if (h) *h = cinfo.image_height;
@@ -235,6 +238,8 @@ static unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
         }
     }
     
+    jpeg_destroy_decompress(&cinfo);
+
     return pixels;
 }
 

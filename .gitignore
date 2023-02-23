@@ -38,14 +38,18 @@ ipch/
 
 #### IDE user-config.
 # Android Studio
-local.properties
 *.iml
 **/.gradle/
-**/.idea/caches/
-**/.idea/workspace.xml
+**/.idea/caches
 **/.idea/libraries
+**/.idea/modules.xml
+**/.idea/workspace.xml
+**/.idea/navEditor.xml
+**/.idea/assetWizardSettings.xml
 **/captures/
 **/.externalNativeBuild/
+**/.cxx/
+local.properties
 
 # MonoDevelop/Xamarin Studio
 *.userprefs

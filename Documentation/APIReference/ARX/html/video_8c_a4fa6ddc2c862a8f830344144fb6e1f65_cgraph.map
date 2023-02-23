@@ -1,0 +1,14 @@
+<map id="arVideoCapStop" name="arVideoCapStop">
+<area shape="rect" id="node1" title="Stop video capture." alt="" coords="5,228,123,253"/>
+<area shape="rect" id="node2" href="$video2_8c.html#a76c9cee4e58dd8dd4940ed6af42cdba2" title=" " alt="" coords="171,228,295,253"/>
+<area shape="rect" id="node3" href="$video1394_8h.html#a23f653b38bb02af6d9050d02b0702f94" title=" " alt="" coords="369,5,521,31"/>
+<area shape="rect" id="node4" href="$video_android_8h.html#a0d13c2368b42b9e85c60830fb13fd04e" title=" " alt="" coords="361,55,529,80"/>
+<area shape="rect" id="node5" href="$video_a_v_foundation_8h.html#a80dffabb6c571245b002d91e9031ca64" title=" " alt="" coords="343,104,547,129"/>
+<area shape="rect" id="node6" href="$video_dummy_8h.html#a78fa5654276bc8d340ffe8182d0bcd6c" title=" " alt="" coords="359,153,530,179"/>
+<area shape="rect" id="node7" href="$video_emscripten_8h.html#ada6b833e6406915a8351305b4ab63dc6" title=" " alt="" coords="349,203,540,228"/>
+<area shape="rect" id="node8" href="$video_g_streamer_8h.html#a7742f3dc5f58756420a4f50e9f588432" title=" " alt="" coords="351,252,538,277"/>
+<area shape="rect" id="node9" href="$video_image_8h.html#af8b971aac579641ba46492cbd6394293" title=" " alt="" coords="365,301,525,327"/>
+<area shape="rect" id="node10" href="$video_v4_l2_8h.html#a530b43b034daf2f89586fb69e9de74aa" title=" " alt="" coords="367,351,522,376"/>
+<area shape="rect" id="node11" href="$video_windows_media_capture_8h.html#a7fb2e79c53df9853a1a61b16be3b8e80" title=" " alt="" coords="361,400,529,425"/>
+<area shape="rect" id="node12" href="$video_windows_media_foundation_8h.html#a76577330dd560a4785693d80f71d3919" title=" " alt="" coords="361,449,528,475"/>
+</map>

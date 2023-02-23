@@ -2,8 +2,6 @@
  *  OCVConfig.h
  *  artoolkitX
  *
- *  A C++ class implementing the artoolkitX square fiducial marker tracker.
- *
  *  This file is part of artoolkitX.
  *
  *  artoolkitX is free software: you can redistribute it and/or modify
@@ -41,7 +39,7 @@
 #ifndef OCV_CONFIG_H
 #define OCV_CONFIG_H
 #include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
+//#include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/calib3d.hpp>
 

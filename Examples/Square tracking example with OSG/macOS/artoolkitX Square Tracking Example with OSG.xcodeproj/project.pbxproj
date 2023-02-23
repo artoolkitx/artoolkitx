@@ -84,6 +84,7 @@
 		4A5047071DB4476D002C7904 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		4AC06DEE1F7372BD00CCBEF6 /* hiro.patt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hiro.patt; path = ../hiro.patt; sourceTree = "<group>"; };
 		4AC06DEF1F7372BD00CCBEF6 /* kanji.patt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = kanji.patt; path = ../kanji.patt; sourceTree = "<group>"; };
+		4ADB4B1B296BCB9A00255CF7 /* artoolkitX Square Tracking Example with OSG.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "artoolkitX Square Tracking Example with OSG.entitlements"; sourceTree = "<group>"; };
 		4ADF1CBC1DAEFA6B00BF20FF /* artoolkitX Square Tracking Example with OSG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "artoolkitX Square Tracking Example with OSG.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADF1CC51DAEFA6B00BF20FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4ADF1CCA1DAEFA6B00BF20FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 		4ADF1CB31DAEFA6B00BF20FF = {
 			isa = PBXGroup;
 			children = (
+				4ADB4B1B296BCB9A00255CF7 /* artoolkitX Square Tracking Example with OSG.entitlements */,
 				4ADF1CDB1DAEFCAB00BF20FF /* Source */,
 				4ADF1CDC1DAEFCB900BF20FF /* Resources */,
 				4ADF1CE01DAEFD4700BF20FF /* Frameworks */,
@@ -234,19 +236,19 @@
 		4ADF1CB41DAEFA6B00BF20FF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = artoolkit.org;
 				TargetAttributes = {
 					4ADF1CBB1DAEFA6B00BF20FF = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 7ER2WP8VB3;
+						DevelopmentTeam = EA4A28G9X5;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 4ADF1CB71DAEFA6B00BF20FF /* Build configuration list for PBXProject "artoolkitX Square Tracking Example with OSG" */;
 			compatibilityVersion = "Xcode 6.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -296,6 +298,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -316,6 +319,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -324,6 +328,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -357,6 +362,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -377,6 +383,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -385,6 +392,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -414,12 +422,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "artoolkitX Square Tracking Example with OSG.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_LOCATION = YES;
-				DEVELOPMENT_TEAM = 7ER2WP8VB3;
+				DEVELOPMENT_TEAM = EA4A28G9X5;
 				DSTROOT = ../..;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -427,7 +438,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.artoolkitx.arx.example.square-tracking-example-with-osg-macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -439,12 +450,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "artoolkitX Square Tracking Example with OSG.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_LOCATION = YES;
-				DEVELOPMENT_TEAM = 7ER2WP8VB3;
+				DEVELOPMENT_TEAM = EA4A28G9X5;
 				DSTROOT = ../..;
+				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -452,7 +466,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.artoolkitx.arx.example.square-tracking-example-with-osg-macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

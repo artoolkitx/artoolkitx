@@ -55,11 +55,11 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * Base renderer which should be subclassed in the main application and provided
  * to the ARActivity using its {@link ARActivity#supplyRenderer() supplyRenderer} method.
- * <p/>
+ * <br>
  * Subclasses should override {@link #configureARScene() configureARScene}, which will be called by
  * the Activity when AR initialisation is complete. The Renderer can use this method
  * to add markers to the scene, and perform other scene initialisation.
- * <p/>
+ * <br>
  * The {@link #draw()}  render} method should also be overridden to perform actual rendering. This is
  * in preference to directly overriding {@link #onDrawFrame(GL10) onDrawFrame}, because ARRenderer will check
  * that the ARToolKitX is running before calling render.
@@ -119,7 +119,7 @@ public abstract class ARRenderer implements GLSurfaceView.Renderer {
                 firstRun = false;
             }
             GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-            if (!ARController.getInstance().drawVideoSettings(cameraIndex)) {
+            if (!ARController.getInstance().drawVideo(cameraIndex)) {
                 Log.e(TAG, "Error during call of displayFrame.");
             }
             draw();

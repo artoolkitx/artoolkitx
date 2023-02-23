@@ -1,0 +1,14 @@
+<map id="arVideoGetParamd" name="arVideoGetParamd">
+<area shape="rect" id="node1" title="Get value of a double&#45;precision floating&#45;point parameter from active video module." alt="" coords="5,228,137,253"/>
+<area shape="rect" id="node2" href="$video2_8c.html#a35ebadb76d6c06b7987b97bc14f12e65" title=" " alt="" coords="185,228,324,253"/>
+<area shape="rect" id="node3" href="$video1394_8h.html#ab316073294e8c5b39ae3e8df6a379913" title=" " alt="" coords="398,5,565,31"/>
+<area shape="rect" id="node4" href="$video_android_8h.html#a6183e26c3a8bcdb13c3d988500d23bb0" title=" " alt="" coords="390,55,573,80"/>
+<area shape="rect" id="node5" href="$video_a_v_foundation_8h.html#aaf1de47a4b3b505919cfcb547210b40e" title=" " alt="" coords="372,104,591,129"/>
+<area shape="rect" id="node6" href="$video_dummy_8h.html#a6d6c05ad9c51e4747f50d11f2ce158be" title=" " alt="" coords="389,153,574,179"/>
+<area shape="rect" id="node7" href="$video_emscripten_8h.html#ac06d2c2f9dcc17e385c9b7aa7e5f6fe4" title=" " alt="" coords="379,203,584,228"/>
+<area shape="rect" id="node8" href="$video_g_streamer_8h.html#a4b20d5fcb2db25d09ee73607d3260ab7" title=" " alt="" coords="380,252,583,277"/>
+<area shape="rect" id="node9" href="$video_image_8h.html#a519145a9d0460b001d6271da67bf892c" title=" " alt="" coords="394,301,569,327"/>
+<area shape="rect" id="node10" href="$video_v4_l2_8h.html#adbee1ab9a6763926f5d8e04322726984" title=" " alt="" coords="397,351,566,376"/>
+<area shape="rect" id="node11" href="$video_windows_media_capture_8h.html#a154aa8f2c5df358d0b01cd19d42ab02e" title=" " alt="" coords="390,400,573,425"/>
+<area shape="rect" id="node12" href="$video_windows_media_foundation_8h.html#a7175bd4049ab55af7cd5b41ed22b3547" title=" " alt="" coords="391,449,572,475"/>
+</map>

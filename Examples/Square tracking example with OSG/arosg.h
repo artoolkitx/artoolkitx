@@ -28,6 +28,7 @@
  *  are not obligated to do so. If you do not wish to do so, delete this exception
  *  statement from your version.
  *
+ *  Copyright 2020 Mozilla.
  *  Copyright 2018 Realmax, Inc.
  *  Copyright 2015-2016 Daqri, LLC.
  *  Copyright 2009-2015 ARToolworks, Inc.
@@ -53,33 +54,33 @@
 #define AR_OSG_H
 
 #include <ARX/AR/ar.h>
+#include <ARX/ARG/arg.h>
+
+#ifdef _WIN32
+#  ifdef LIBAROSG_EXPORTS
+#    define AR_OSG_EXTERN __declspec(dllexport)
+#  else
+#    ifdef _DLL
+#      define AR_OSG_EXTERN __declspec(dllimport)
+#    else
+#      define AR_OSG_EXTERN extern
+#    endif
+#  endif
+#else
+#  define AR_OSG_EXTERN
+#endif
+#ifdef __EMSCRIPTEN__
+#  include <emscripten/emscripten.h>
+#  define AR_OSG_EXTDEF EMSCRIPTEN_KEEPALIVE
+#else
+#  define AR_OSG_EXTDEF
+#endif
+
+typedef struct _AROSG AROSG; // (Forward definition of opaque structure).
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-    
-#ifdef _WIN32
-#  ifdef LIBAROSG_EXPORTS
-#    define AR_DLL_API __declspec(dllexport)
-#  else
-#    ifdef _DLL
-#      define AR_DLL_API __declspec(dllimport)
-#    else
-#      define AR_DLL_API extern
-#    endif
-#  endif
-#else
-#  define AR_DLL_API
-#endif
-
-
-#if AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
-#define AR_OSG_MODELS_MAX 64
-#else
-#define AR_OSG_MODELS_MAX 1024
-#endif
-
-typedef struct _AROSG AROSG; // (Forward definition of opaque structure).
 
 /*!
     @function
@@ -108,17 +109,38 @@ typedef struct _AROSG AROSG; // (Forward definition of opaque structure).
         byte (bits 7-0).
     @availability Available in ARToolKit v4.4.2 and later.
  */
-AR_DLL_API     unsigned int arOSGGetVersion();
-    
+AR_OSG_EXTERN     unsigned int arOSGGetVersion();
+
+
+/*!
+    @function
+    @abstract   Get the preferred OpenGL API of the underlying OSG build.
+    @result
+        Returns an enum indicating the preferred OpenGL API.
+ */
+AR_OSG_EXTERN     ARG_API arOSGGetPreferredAPI();
+
 /*!
     @function
     @abstract   Create a settings structure for use with all other arOSG functions.
     @discussion
         All other arOSG functions require a reference to settings and global data.
         Use this function to create and initialise such a structure.
+    @param       maxModels An integer value specifying the maximum number of models
+        that may be loaded at any one time.
     @result      Pointer to the new AROSG settings structure.
 */
-AR_DLL_API     AROSG *arOSGInit();
+AR_OSG_EXTERN     AROSG *arOSGInit(int maxModels);
+
+/*!
+    @function
+    @abstract   Dispose of an AROSG settings structure.
+    @discussion
+        If you have finished with an AROSG settings structure in your running program,
+        you can unload its internal data by calling arOSGFinal.
+    @param      arOsg Pointer to the AROSG settings structure to be disposed of. (See arOSGInit().)
+*/
+AR_OSG_EXTERN     void arOSGFinal(AROSG *arOsg);
 
 /*!
     @function
@@ -153,6 +175,12 @@ AR_DLL_API     AROSG *arOSGInit();
             <li> TRANSPARENT: Provides a hint that this object includes transparent
                 portions, and should be drawn alpha-blended. Default is
                 that no transparency hint is provided.
+            <li> TEXTURES: Provides a hint that this object includes textured
+                portions, and should be drawn with texturing enabled. Default is
+                that no texturing hint is provided.
+            <li> SELECTABLE f: Enables or disables the ability for this model to
+                be selectable by hit-testing methods.
+                f = 0 to disable, f = 1 to enable. Default is enabled.
             </ul>
         </ul>
     @param      arOsg Pointer to the AROSG settings structure into which the model should be loaded. (See arOSGInit().)
@@ -162,10 +190,10 @@ AR_DLL_API     AROSG *arOSGInit();
         to be applied to the model, the rotation (in angle/axis form, as degrees, angle of rotation x,y,z), and
         the scale factor to be applied to the model (in the x,y,z axes). See the sample files included
         in the ARToolKit distribution in the directory bin/OSG for examples.
-    @result     An index value with which the loaded model can be referred to, in the range [0, AR_OSG_MODELS_MAX - 1],
+    @result     An index value with which the loaded model can be referred to, in the range [0, maxModels - 1],
         or, in case of error, a value less than 0.
 */
-AR_DLL_API     int arOSGLoadModel(AROSG *arOsg, const char *modelDescriptionFilePath);
+AR_OSG_EXTERN     int arOSGLoadModel(AROSG *arOsg, const char *modelDescriptionFilePath);
 
 /*!
     @function
@@ -177,11 +205,11 @@ AR_DLL_API     int arOSGLoadModel(AROSG *arOsg, const char *modelDescriptionFile
     @param      rotation The rotation (in angle/axis form, as degrees, angle of rotation x,y,z) to be applied to the model, or NULL to apply no rotation.
     @param      scale The scale factor to be applied to the model (in the x,y,z axes) or NULL to retain the scale at 1.0.
     @param      textures Provides a hint that the model uses textures. This is required when using programmable OpenGL pipelines (e.g. OpenGL ES 2.0+, or OpenGL 3.1+) with textured models.
-    @result     An index value with which the loaded model can be referred to, in the range [0, AR_OSG_MODELS_MAX - 1],
+    @result     An index value with which the loaded model can be referred to, in the range [0, maxModels - 1],
         or, in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
  */
-AR_DLL_API     int arOSGLoadModel2(AROSG *arOsg, const char *modelFilePath, const ARdouble translation[3], const ARdouble rotation[4], const ARdouble scale[3], const int textures);
+AR_OSG_EXTERN     int arOSGLoadModel2(AROSG *arOsg, const char *modelFilePath, const double translation[3], const double rotation[4], const double scale[3], const int textures);
 
 /*!
     @function
@@ -191,7 +219,7 @@ AR_DLL_API     int arOSGLoadModel2(AROSG *arOsg, const char *modelFilePath, cons
     @param      arOsg Pointer to the AROSG settings structure from which the model should be unloaded. (See arOSGInit().)
     @result     0, or in case of error, a value less than 0.
 */
-AR_DLL_API     int arOSGUnloadModel(AROSG *arOsg, const int index);
+AR_OSG_EXTERN     int arOSGUnloadModel(AROSG *arOsg, const int index);
 
 /*!
     @function
@@ -203,7 +231,7 @@ AR_DLL_API     int arOSGUnloadModel(AROSG *arOsg, const int index);
     @param      visible 0 to hide, or non-zero to show.
     @result     0, or in case of error, a value less than 0.
 */
-AR_DLL_API     int arOSGSetModelVisibility(AROSG *arOsg, const int index, const int visible);
+AR_OSG_EXTERN     int arOSGSetModelVisibility(AROSG *arOsg, const int index, const int visible);
 
 /*!
     @function
@@ -216,7 +244,7 @@ AR_DLL_API     int arOSGSetModelVisibility(AROSG *arOsg, const int index, const 
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
 */
-AR_DLL_API     int arOSGGetModelVisibility(AROSG *arOsg, const int index, int *visible);
+AR_OSG_EXTERN     int arOSGGetModelVisibility(AROSG *arOsg, const int index, int *visible);
 
 /*!
     @function
@@ -229,7 +257,7 @@ AR_DLL_API     int arOSGGetModelVisibility(AROSG *arOsg, const int index, int *v
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
 */
-AR_DLL_API     int arOSGSetModelLighting(AROSG *arOsg, const int index, const int lit);
+AR_OSG_EXTERN     int arOSGSetModelLighting(AROSG *arOsg, const int index, const int lit);
     
 /*!
     @function
@@ -242,7 +270,7 @@ AR_DLL_API     int arOSGSetModelLighting(AROSG *arOsg, const int index, const in
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
 */
-AR_DLL_API     int arOSGGetModelLighting(AROSG *arOsg, const int index, int *lit);
+AR_OSG_EXTERN     int arOSGGetModelLighting(AROSG *arOsg, const int index, int *lit);
     
 /*!
     @function
@@ -258,7 +286,7 @@ AR_DLL_API     int arOSGGetModelLighting(AROSG *arOsg, const int index, int *lit
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.6. and later.
 */
-AR_DLL_API     int arOSGSetModelTransparency(AROSG *arOsg, const int index, const int transparent);
+AR_OSG_EXTERN     int arOSGSetModelTransparency(AROSG *arOsg, const int index, const int transparent);
 
 /*!
     @function
@@ -271,7 +299,7 @@ AR_DLL_API     int arOSGSetModelTransparency(AROSG *arOsg, const int index, cons
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.6.7 and later.
 */
-AR_DLL_API     int arOSGSetModelAnimationPause(AROSG *arOsg, const int index, const int pause);
+AR_OSG_EXTERN     int arOSGSetModelAnimationPause(AROSG *arOsg, const int index, const int pause);
 
 /*!
     @function
@@ -284,7 +312,7 @@ AR_DLL_API     int arOSGSetModelAnimationPause(AROSG *arOsg, const int index, co
     @param animationTime A pointer to a double, which will be filled with the animation time (should one be available), or 0 if no animation time is defined.
     @availability Available in ARToolKit v4.6.7 and later.
 */
-AR_DLL_API     int arOSGGetModelAnimationTime(AROSG *arOsg, const int index, double *animationTime);
+AR_OSG_EXTERN     int arOSGGetModelAnimationTime(AROSG *arOsg, const int index, double *animationTime);
 
 /*!
     @function
@@ -296,7 +324,7 @@ AR_DLL_API     int arOSGGetModelAnimationTime(AROSG *arOsg, const int index, dou
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.6.7 and later.
 */
-AR_DLL_API     int arOSGSetModelAnimationReset(AROSG *arOsg, const int index);
+AR_OSG_EXTERN     int arOSGSetModelAnimationReset(AROSG *arOsg, const int index);
 
 /*!
     @function
@@ -313,7 +341,7 @@ AR_DLL_API     int arOSGSetModelAnimationReset(AROSG *arOsg, const int index);
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.6.7 and later.
 */
-AR_DLL_API     int arOSGSetModelAnimationLoopModeOverride(AROSG *arOsg, const int index, const int mode);
+AR_OSG_EXTERN     int arOSGSetModelAnimationLoopModeOverride(AROSG *arOsg, const int index, const int mode);
 
 /*!
     @function
@@ -323,12 +351,17 @@ AR_DLL_API     int arOSGSetModelAnimationLoopModeOverride(AROSG *arOsg, const in
     @param      p A 4x4 OpenGL transform matrix (column-major order) representing the projection transform.
     @result     0, or in case of error, a value less than 0.
 */
-AR_DLL_API     int arOSGSetProjection(AROSG *arOsg, ARdouble p[16]);
-#ifdef ARDOUBLE_IS_FLOAT
-#define arOSGSetProjectionf arOSGSetProjection
-#else
-AR_DLL_API     int arOSGSetProjectionf(AROSG *arOsg, float p[16]);
-#endif
+AR_OSG_EXTERN     int arOSGSetProjection(AROSG *arOsg, double p[16]);
+
+/*!
+    @function
+    @abstract   Set the projection matrix used in OSG drawing.
+    @discussion -
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      p A 4x4 OpenGL transform matrix (column-major order) representing the projection transform.
+    @result     0, or in case of error, a value less than 0.
+*/
+AR_OSG_EXTERN     int arOSGSetProjectionf(AROSG *arOsg, float p[16]);
 
 /*!
     @function
@@ -339,34 +372,62 @@ AR_DLL_API     int arOSGSetProjectionf(AROSG *arOsg, float p[16]);
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
  */
-AR_DLL_API     int arOSGGetProjection(AROSG *arOsg, ARdouble *p);
+AR_OSG_EXTERN     int arOSGGetProjection(AROSG *arOsg, double *p);
+
+/*!
+    @function
+    @abstract   Get the projection matrix used in OSG drawing.
+    @discussion -
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      p A 4x4 OpenGL transform matrix (column-major order) representing the projection transform.
+    @result     0, or in case of error, a value less than 0.
+    @availability Available in ARToolKit v4.5.1 and later.
+ */
+AR_OSG_EXTERN     int arOSGGetProjectionf(AROSG *arOsg, float *p);
 
 /*!
     @function
     @abstract   Set the view matrix used in OSG drawing.
     @discussion -
     @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
-    @param      p A 4x4 OpenGL transform matrix (column-major order) representing the viewing transform.
+    @param      v A 4x4 OpenGL transform matrix (column-major order) representing the viewing transform.
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v5.4 and later.
 */
-AR_DLL_API     int arOSGSetView(AROSG *arOsg, ARdouble p[16]);
-#ifdef ARDOUBLE_IS_FLOAT
-#define arOSGSetViewf arOSGSetView
-#else
-AR_DLL_API     int arOSGSetViewf(AROSG *arOsg, float p[16]);
-#endif
+AR_OSG_EXTERN     int arOSGSetView(AROSG *arOsg, double v[16]);
+
+/*!
+    @function
+    @abstract   Set the view matrix used in OSG drawing.
+    @discussion -
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      v A 4x4 OpenGL transform matrix (column-major order) representing the viewing transform.
+    @result     0, or in case of error, a value less than 0.
+    @availability Available in ARToolKit v5.4 and later.
+*/
+AR_OSG_EXTERN     int arOSGSetViewf(AROSG *arOsg, float v[16]);
 
 /*!
     @function
     @abstract   Get the view matrix used in OSG drawing.
     @discussion -
     @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
-    @param      p A 4x4 OpenGL transform matrix (column-major order) representing the view transform.
+    @param      v A 4x4 OpenGL transform matrix (column-major order) representing the view transform.
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v5.4 and later.
  */
-AR_DLL_API     int arOSGGetView(AROSG *arOsg, ARdouble *p);
+AR_OSG_EXTERN     int arOSGGetView(AROSG *arOsg, double *v);
+
+/*!
+    @function
+    @abstract   Get the view matrix used in OSG drawing.
+    @discussion -
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      v A 4x4 OpenGL transform matrix (column-major order) representing the view transform.
+    @result     0, or in case of error, a value less than 0.
+    @availability Available in ARToolKit v5.4 and later.
+ */
+AR_OSG_EXTERN     int arOSGGetViewf(AROSG *arOsg, float *v);
 
 /*!
     @function
@@ -377,7 +438,7 @@ AR_DLL_API     int arOSGGetView(AROSG *arOsg, ARdouble *p);
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v5.0 and later.
  */
-AR_DLL_API     int arOSGSetFrontFace(AROSG *arOsg, int winding);
+AR_OSG_EXTERN     int arOSGSetFrontFace(AROSG *arOsg, int winding);
 
 /*!
     @function
@@ -388,7 +449,7 @@ AR_DLL_API     int arOSGSetFrontFace(AROSG *arOsg, int winding);
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v5.0 and later.
  */
-AR_DLL_API     int arOSGGetFrontFace(AROSG *arOsg, int *winding);
+AR_OSG_EXTERN     int arOSGGetFrontFace(AROSG *arOsg, int *winding);
 
 /*!
     @function
@@ -399,12 +460,18 @@ AR_DLL_API     int arOSGGetFrontFace(AROSG *arOsg, int *winding);
     @param      modelview A 4x4 OpenGL transform matrix (column-major order) representing the modelview transform of the model.
     @result     0, or in case of error, a value less than 0.
 */
-AR_DLL_API     int arOSGSetModelPose(AROSG *arOsg, const int index, const ARdouble modelview[16]);
-#ifdef ARDOUBLE_IS_FLOAT
-#define arOSGSetModelPosef arOSGSetModelPose
-#else
-AR_DLL_API     int arOSGSetModelPosef(AROSG *arOsg, const int index, const float modelview[16]);
-#endif
+AR_OSG_EXTERN     int arOSGSetModelPose(AROSG *arOsg, const int index, const double modelview[16]);
+
+/*!
+    @function
+    @abstract   Set the pose (position and orientation) of an OSG-based model.
+    @discussion -
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      index The index of the model to adjust the pose of. See arOSGLoadModel().
+    @param      modelview A 4x4 OpenGL transform matrix (column-major order) representing the modelview transform of the model.
+    @result     0, or in case of error, a value less than 0.
+*/
+AR_OSG_EXTERN     int arOSGSetModelPosef(AROSG *arOsg, const int index, const float modelview[16]);
 
 /*!
     @function
@@ -416,7 +483,19 @@ AR_DLL_API     int arOSGSetModelPosef(AROSG *arOsg, const int index, const float
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
  */
-AR_DLL_API     int arOSGGetModelPose(AROSG *arOsg, const int index, ARdouble *modelview);
+AR_OSG_EXTERN     int arOSGGetModelPose(AROSG *arOsg, const int index, double *modelview);
+
+/*!
+    @function
+    @abstract   Get the pose (position and orientation) of an OSG-based model.
+    @discussion -
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      index The index of the model to retrieve the pose of. See arOSGLoadModel().
+    @param      modelview A 4x4 OpenGL transform matrix (column-major order) representing the modelview transform of the model.
+    @result     0, or in case of error, a value less than 0.
+    @availability Available in ARToolKit v4.5.1 and later.
+ */
+AR_OSG_EXTERN     int arOSGGetModelPosef(AROSG *arOsg, const int index, float *modelview);
 
 /*!
     @function
@@ -428,7 +507,19 @@ AR_DLL_API     int arOSGGetModelPose(AROSG *arOsg, const int index, ARdouble *mo
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.5 and later.
 */
-AR_DLL_API     int arOSGSetModelLocalPose(AROSG *arOsg, const int index, const ARdouble model[16]);
+AR_OSG_EXTERN     int arOSGSetModelLocalPose(AROSG *arOsg, const int index, const double model[16]);
+
+/*!
+    @function
+    @abstract   Set the local pose (position and orientation) of an OSG-based model.
+    @discussion -
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      index The index of the model to adjust the pose of. See arOSGLoadModel().
+    @param      model A 4x4 OpenGL transform matrix (column-major order) representing the local transform of the model.
+    @result     0, or in case of error, a value less than 0.
+    @availability Available in ARToolKit v4.5.5 and later.
+*/
+AR_OSG_EXTERN     int arOSGSetModelLocalPosef(AROSG *arOsg, const int index, const float model[16]);
 
 /*!
     @function
@@ -440,7 +531,19 @@ AR_DLL_API     int arOSGSetModelLocalPose(AROSG *arOsg, const int index, const A
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.5 and later.
  */
-AR_DLL_API     int arOSGGetModelLocalPose(AROSG *arOsg, const int index, ARdouble *model);
+AR_OSG_EXTERN     int arOSGGetModelLocalPose(AROSG *arOsg, const int index, double *model);
+
+/*!
+    @function
+    @abstract   Get the local pose (position and orientation) of an OSG-based model.
+    @discussion -
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      index The index of the model to retrieve the pose of. See arOSGLoadModel().
+    @param      model A 4x4 OpenGL transform matrix (column-major order) representing the local transform of the model.
+    @result     0, or in case of error, a value less than 0.
+    @availability Available in ARToolKit v4.5.5 and later.
+ */
+AR_OSG_EXTERN     int arOSGGetModelLocalPosef(AROSG *arOsg, const int index, float *model);
 
 /*!
     @function
@@ -455,10 +558,11 @@ AR_DLL_API     int arOSGGetModelLocalPose(AROSG *arOsg, const int index, ARdoubl
         Outlining is initially disabled.
     @param      rgba The colour of the outline, as an array of unsigned bytes in order red, green, blue, alpha.
         An opaque outline can be generated by passing 255 for the alpha value. Values less than 255 will result in a transparent outline.
+        To use the default colour, just pass NULL.
     @result     0, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.6.3 and later.
  */
-AR_DLL_API     int arOSGSetModelOutline(AROSG *arOsg, const int index, const int width, const unsigned char rgba[4]);
+AR_OSG_EXTERN     int arOSGSetModelOutline(AROSG *arOsg, const int index, const int width, const unsigned char rgba[4]);
 
 /*!
     @function
@@ -474,7 +578,7 @@ AR_DLL_API     int arOSGSetModelOutline(AROSG *arOsg, const int index, const int
     @result     1 if an intersection was found, 0 if no intersection was found, or in case of error, a value less than 0.
     @availability Available in ARToolKit v4.5.1 and later.
 */
-AR_DLL_API     int arOSGGetModelIntersection(AROSG *arOsg, const int index, const ARdouble p1[3], const ARdouble p2[3]);
+AR_OSG_EXTERN     int arOSGGetModelIntersectionf(AROSG *arOsg, const int index, const float p1[3], const float p2[3]);
 
 /*!
     @constant
@@ -503,7 +607,7 @@ extern const double AR_OSG_TIME_USE_REFERENCE_TIME;
     @seealso AR_OSG_TIME_USE_REFERENCE_TIME AR_OSG_TIME_USE_REFERENCE_TIME
     @seealso arOSGDraw arOSGDraw
 */
-AR_DLL_API     int arOSGSetDrawTime(AROSG *arOsg, double time);
+AR_OSG_EXTERN     int arOSGSetDrawTime(AROSG *arOsg, double time);
     
 /*!
     @function
@@ -515,7 +619,7 @@ AR_DLL_API     int arOSGSetDrawTime(AROSG *arOsg, double time);
     @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
     @result     0, or in case of error, a value less than 0.
 */
-AR_DLL_API     int arOSGDraw(AROSG *arOsg);
+AR_OSG_EXTERN     int arOSGDraw(AROSG *arOsg);
 
 /*!
     @function
@@ -528,7 +632,7 @@ AR_DLL_API     int arOSGDraw(AROSG *arOsg);
     @param      w The new window width, in pixels.
     @param      h The new window height, in pixels.
  */
-AR_DLL_API     void arOSGHandleReshape(AROSG *arOsg, const int w, const int h);
+AR_OSG_EXTERN     void arOSGHandleReshape(AROSG *arOsg, const int w, const int h);
     
 /*!
     @function
@@ -543,7 +647,7 @@ AR_DLL_API     void arOSGHandleReshape(AROSG *arOsg, const int w, const int h);
     @param      width The new viewport width, in pixels.
     @param      height The new viewport height, in pixels.
  */
-AR_DLL_API     void arOSGHandleReshape2(AROSG *arOsg, const int left, const int bottom, const int width, const int height);
+AR_OSG_EXTERN     void arOSGHandleReshape2(AROSG *arOsg, const int left, const int bottom, const int width, const int height);
 
 /*!
     @function
@@ -557,7 +661,7 @@ AR_DLL_API     void arOSGHandleReshape2(AROSG *arOsg, const int left, const int 
     @param      x The mouse x location in window relative coordinates when the mouse button was pressed.
     @param      y The mouse y location in window relative coordinates.
 */
-AR_DLL_API     void arOSGHandleMouseDownUp(AROSG *arOsg, const int button, const int state, const int x, const int y);
+AR_OSG_EXTERN     void arOSGHandleMouseDownUp(AROSG *arOsg, const int button, const int state, const int x, const int y);
 
 /*!
     @function
@@ -567,7 +671,7 @@ AR_DLL_API     void arOSGHandleMouseDownUp(AROSG *arOsg, const int button, const
     @param      x The mouse x location in window relative coordinates.
     @param      y The mouse y location in window relative coordinates.
 */
-AR_DLL_API     void arOSGHandleMouseMove(AROSG *arOsg, int x, int y);
+AR_OSG_EXTERN     void arOSGHandleMouseMove(AROSG *arOsg, int x, int y);
 
 /*!
     @function
@@ -581,18 +685,79 @@ AR_DLL_API     void arOSGHandleMouseMove(AROSG *arOsg, int x, int y);
     @param      x The mouse x location in window relative coordinates when the key was pressed -- presently ignored.
     @param      y The mouse y location in window relative coordinates when the key was pressed -- presently ignored.
 */
-AR_DLL_API     void arOSGHandleKeyboard(AROSG *arOsg, int key, int x, int y);
+AR_OSG_EXTERN     void arOSGHandleKeyboard(AROSG *arOsg, int key, int x, int y);
 
 /*!
     @function
-    @abstract   Dispose of an AROSG settings structure.
-    @discussion
-        If you have finished with an AROSG settings structure in your running program,
-        you can unload its internal data by calling arOSGFinal.
-    @param      arOsg Pointer to the AROSG settings structure to be disposed of. (See arOSGInit().)
+    @abstract   Enable or disable ray selection on a model.
+    @discussion When using the provided ray selection model, this function can
+        be used to disable or re-enable selectability of an object. Objects which
+        are marked as not selectable will not be considered when determining the
+        ray path.
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      index The index of the model of which to set the selectability.
+    @param      selectable 0 to make the object un-selectable, 1 to make it selectable.
 */
-AR_DLL_API     void arOSGFinal(AROSG *arOsg);
+AR_OSG_EXTERN     void arOSGSetModelSelectable(AROSG *arOsg, const int index, const int selectable);
 
+/*!
+    @function
+    @abstract   Query whether ray selection on a model is enabled or disabled.
+    @discussion When using the provided ray selection model, this function can
+        be used to determine the selectability of an object.
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      index The index of the model of which to query the selectability.
+    @result     0 if the object is un-selectable, 1 if it is selectable.
+*/
+AR_OSG_EXTERN     int arOSGGetModelSelectable(AROSG *arOsg, const int index);
+
+#define AR_OSG_RAYS_MAX 2
+/*!
+    @function
+    @abstract   Enables a ray for ray-based selection and test for object hits. 
+    @discussion This function allows for a laser-pointer-like "ray" to be shown
+        in the scene and used by the user to select objects.
+        After this call, the position (in world coordinates) of the first (if any)
+        object struck by the ray will be queryable via calling arOSGGetRayHit.
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      ray The index of the ray (in the range [0, AR_OSG_RAYS_MAX - 1]
+        to enable and test for object hits.
+    @param      pose Sets the position and orientation of the proximal end of the
+        ray, as a 4x4 column-major transform. If the identity matrix is passed,
+        the ray will begin at the origin and point in the direction of the -z axis.
+*/
+AR_OSG_EXTERN     void arOSGShowRayAndSetPose(AROSG *arOsg, int ray, float pose[16]);
+
+/*!
+    @function
+    @abstract   Disable a ray for ray-based selection and test for object hits.
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      ray The index of the ray (in the range [0, AR_OSG_RAYS_MAX - 1]
+        to disable for object hits.
+*/
+AR_OSG_EXTERN     void arOSGHideRay(AROSG *arOsg, int ray);
+  
+/*!
+    @function
+    @abstract   Enables a ray for ray-based selection and test for object hits. 
+    @discussion This function allows for a laser-pointer-like "ray" to be shown
+        in the scene and used by the user to select objects.
+        After this call, the position (in world coordinates) of the first (if any)
+        object struck by the ray will be queryable via calling arOSGGetRayHit.
+    @param      arOsg Pointer to the AROSG settings structure. (See arOSGInit().)
+    @param      ray The index of the ray (in the range [0, AR_OSG_RAYS_MAX - 1]
+        for which to return object hits.
+    @param      pos The position in world coordinates of the point where the ray
+        hit the object, or NULL if this value is not required.
+    @param      norm The normal vector in world coordinates of the surface at the
+        point where the ray hit the object, or NULL if this value is not required.
+    @param      modelIndexPtr A pointer to an integer which will be set to the
+        index of the loaded model which was hit, nor NULL if this value is not required.
+    @result     0 if the ray is did not hit an object, 1 if it hit an object.
+*/
+AR_OSG_EXTERN     int arOSGGetRayHit(AROSG *arOsg, int ray, float pos[3], float norm[3], int *modelIndexPtr);
+
+AR_OSG_EXTERN     int arOSGSetModelLabel(AROSG *arOsg, const int index, const char *labelText);
 #ifdef __cplusplus
 }
 #endif

@@ -1,6 +1,11 @@
 <map id="TrackableInfo" name="TrackableInfo">
-<area shape="rect" id="node3" href="$class_tracking_point_selector.html" title="TrackingPointSelector" alt="" coords="840,103,991,129"/>
-<area shape="rect" id="node6" href="$class_tracked_point.html" title="TrackedPoint" alt="" coords="5,138,105,163"/>
-<area shape="rect" id="node7" title="STL class. " alt="" coords="876,153,955,178"/>
-<area shape="rect" id="node8" title="STL class. " alt="" coords="526,227,651,266"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1152,135,1253,161"/>
+<area shape="rect" id="node2" title=" " alt="" coords="504,46,675,71"/>
+<area shape="rect" id="node6" href="$class_tracking_point_selector.html" title=" " alt="" coords="843,111,993,137"/>
+<area shape="rect" id="node3" title=" " alt="" coords="878,161,958,186"/>
+<area shape="rect" id="node4" title=" " alt="" coords="526,236,653,276"/>
+<area shape="rect" id="node5" title=" " alt="" coords="827,210,1009,235"/>
+<area shape="rect" id="node7" title=" " alt="" coords="209,145,395,170"/>
+<area shape="rect" id="node9" title=" " alt="" coords="500,172,679,212"/>
+<area shape="rect" id="node8" href="$class_tracked_point.html" title=" " alt="" coords="5,145,104,170"/>
 </map>

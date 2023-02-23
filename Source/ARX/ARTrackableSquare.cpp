@@ -326,7 +326,10 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
             err = arGetTransMatSquareStereo(handle, (kL == -1 ? NULL : &markerInfoL[kL]), (kR == -1 ?  NULL : &markerInfoR[kR]), m_width, trans);
             if (err < 10.0) {
                 visible = true;
-                m_cf = MAX(markerInfoL[kL].cf, markerInfoR[kR].cf);
+                ARdouble left  = kL == -1 ? -1 : markerInfoL[kL].cf;
+                ARdouble right = kR == -1 ? -1 : markerInfoR[kR].cf;
+
+                m_cf = MAX(left, right);
             }
             
             //if (kL == -1)      ARLOGd("[%2d] right:      err = %f\n", patt_id, err);

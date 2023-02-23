@@ -1,20 +1,40 @@
 <map id="Source/ARX/OCVT/PlanarTracker.cpp" name="Source/ARX/OCVT/PlanarTracker.cpp">
-<area shape="rect" id="node2" href="$_planar_tracker_8h.html" title="PlanarTracker.h" alt="" coords="986,79,1101,104"/>
-<area shape="rect" id="node25" href="$_o_c_v_config_8h.html" title="OCVConfig.h" alt="" coords="1679,225,1779,251"/>
-<area shape="rect" id="node30" href="$_o_c_v_feature_detector_8h.html" title="OCVFeatureDetector.h" alt="" coords="1284,152,1441,177"/>
-<area shape="rect" id="node33" href="$_harris_detector_8h.html" title="HarrisDetector.h" alt="" coords="1847,79,1965,104"/>
-<area shape="rect" id="node34" href="$_trackable_info_8h.html" title="TrackableInfo.h" alt="" coords="1394,79,1506,104"/>
-<area shape="rect" id="node37" href="$_homography_info_8h.html" title="HomographyInfo.h" alt="" coords="1530,79,1661,104"/>
-<area shape="rect" id="node38" href="$_o_c_v_utils_8h.html" title="OCVUtils.h" alt="" coords="1685,79,1772,104"/>
-<area shape="rect" id="node8" href="$ar_8h.html" title="artoolkitX core routines. " alt="" coords="623,152,720,177"/>
-<area shape="rect" id="node14" href="$ar_config_8h.html" title="ARX/AR/arConfig.h" alt="" coords="230,225,366,251"/>
-<area shape="rect" id="node15" href="$log_8h.html" title="Logging utilities. " alt="" coords="683,225,806,251"/>
-<area shape="rect" id="node19" href="$matrix_8h.html" title="ARX/AR/matrix.h" alt="" coords="390,225,512,251"/>
-<area shape="rect" id="node21" href="$icp_8h.html" title="ARX/AR/icp.h" alt="" coords="983,225,1085,251"/>
-<area shape="rect" id="node23" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters. " alt="" coords="536,225,660,251"/>
-<area shape="rect" id="node24" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing. " alt="" coords="44,225,206,251"/>
-<area shape="rect" id="node18" href="$types_8h.html" title="ARX/ARUtil/types.h" alt="" coords="535,299,672,324"/>
-<area shape="rect" id="node22" href="$icp_core_8h.html" title="ARX/AR/icpCore.h" alt="" coords="1049,299,1181,324"/>
-<area shape="rect" id="node35" href="$_tracking_point_selector_8h.html" title="TrackingPointSelector.h" alt="" coords="1464,152,1626,177"/>
-<area shape="rect" id="node36" href="$_tracked_point_8h.html" title="TrackedPoint.h" alt="" coords="1539,225,1649,251"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1687,5,1933,31"/>
+<area shape="rect" id="node2" href="$_planar_tracker_8h.html" title=" " alt="" coords="1171,79,1284,104"/>
+<area shape="rect" id="node6" title=" " alt="" coords="1373,152,1445,177"/>
+<area shape="rect" id="node25" href="$_o_c_v_config_8h.html" title=" " alt="" coords="1856,225,1956,251"/>
+<area shape="rect" id="node29" href="$_o_c_v_feature_detector_8h.html" title=" " alt="" coords="1469,152,1623,177"/>
+<area shape="rect" id="node32" href="$_harris_detector_8h.html" title=" " alt="" coords="1847,79,1965,104"/>
+<area shape="rect" id="node33" href="$_trackable_info_8h.html" title=" " alt="" coords="1661,79,1773,104"/>
+<area shape="rect" id="node36" href="$_homography_info_8h.html" title=" " alt="" coords="1989,79,2119,104"/>
+<area shape="rect" id="node37" href="$_o_c_v_utils_8h.html" title=" " alt="" coords="2143,79,2232,104"/>
+<area shape="rect" id="node38" title=" " alt="" coords="2257,79,2387,104"/>
+<area shape="rect" id="node3" title=" " alt="" coords="1106,152,1175,177"/>
+<area shape="rect" id="node4" title=" " alt="" coords="1200,152,1255,177"/>
+<area shape="rect" id="node5" title=" " alt="" coords="1279,152,1349,177"/>
+<area shape="rect" id="node7" title=" " alt="" coords="1537,225,1595,251"/>
+<area shape="rect" id="node8" href="$ar_8h.html" title="artoolkitX core routines." alt="" coords="642,152,741,177"/>
+<area shape="rect" id="node9" title=" " alt="" coords="553,299,614,324"/>
+<area shape="rect" id="node10" title=" " alt="" coords="374,299,438,324"/>
+<area shape="rect" id="node11" title=" " alt="" coords="713,225,779,251"/>
+<area shape="rect" id="node12" title=" " alt="" coords="463,299,528,324"/>
+<area shape="rect" id="node13" title=" " alt="" coords="835,299,958,324"/>
+<area shape="rect" id="node14" href="$ar_config_8h.html" title=" " alt="" coords="1041,225,1179,251"/>
+<area shape="rect" id="node15" href="$log_8h.html" title="Logging utilities." alt="" coords="282,225,407,251"/>
+<area shape="rect" id="node19" href="$matrix_8h.html" title=" " alt="" coords="1203,225,1327,251"/>
+<area shape="rect" id="node21" href="$icp_8h.html" title=" " alt="" coords="584,225,689,251"/>
+<area shape="rect" id="node23" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters." alt="" coords="133,225,257,251"/>
+<area shape="rect" id="node24" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing." alt="" coords="854,225,1017,251"/>
+<area shape="rect" id="node16" title=" " alt="" coords="281,299,350,324"/>
+<area shape="rect" id="node17" title=" " alt="" coords="5,299,92,324"/>
+<area shape="rect" id="node18" href="$types_8h.html" title=" " alt="" coords="116,299,256,324"/>
+<area shape="rect" id="node20" title=" " alt="" coords="1233,299,1296,324"/>
+<area shape="rect" id="node22" href="$icp_core_8h.html" title=" " alt="" coords="638,299,771,324"/>
+<area shape="rect" id="node26" title=" " alt="" coords="1683,299,1809,324"/>
+<area shape="rect" id="node27" title=" " alt="" coords="1833,299,1979,324"/>
+<area shape="rect" id="node28" title=" " alt="" coords="2003,299,2145,324"/>
+<area shape="rect" id="node30" title=" " alt="" coords="1351,225,1512,251"/>
+<area shape="rect" id="node31" title=" " alt="" coords="1620,225,1667,251"/>
+<area shape="rect" id="node34" href="$_tracking_point_selector_8h.html" title=" " alt="" coords="1647,152,1807,177"/>
+<area shape="rect" id="node35" href="$_tracked_point_8h.html" title=" " alt="" coords="1691,225,1801,251"/>
 </map>

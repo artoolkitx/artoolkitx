@@ -161,6 +161,9 @@ public:
 
     /**
         @brief Asks the video source to capture a frame.
+        @details
+            Query the current video source for availability of a new frame, and if one is available,
+            update the current video frame buffer to point to the new frame.
         @return        true if the video source captured a frame, otherwise false
      */
     bool captureFrame();
@@ -176,6 +179,8 @@ public:
             with a call to checkinFrame() on the same thread.
             Multiple callers may simultaneously checkout frames, but the next frame will not be
             made available until all callers have called checkinFrame() on the current frame.
+            The function will block if the current video frame is currently being updated (or waiting
+            to be updated) until the update is complete.
         @param         time Timestamp of frame to compare. Passing a timestamp of {0, 0} will ensure that the timestamp test always passes.
         @return        Pointer to the buffer containing the current video frame, if frame's timestamp is newer and a frame is available.
         @see checkinFrame

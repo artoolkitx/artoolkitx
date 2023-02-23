@@ -75,7 +75,7 @@ public:
 #endif
     
 #if HAVE_2D
-    bool load2DTrackerImage(std::shared_ptr<unsigned char*> arImage, float imageX, float imageY, float width, float height);
+    bool load2DTrackerImage(std::shared_ptr<unsigned char> arImage, float imageX, float imageY, float width, float height);
 #endif
     
 	ARdouble m_matrix[16];	///< Transform of the pattern from origin.

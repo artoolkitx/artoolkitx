@@ -93,6 +93,12 @@ ARUTIL_EXTERN char *cat(const char *file, size_t *bufSize_p);
 // Read a single character from the terminal without echo, like 'read -s -n 1'.
 ARUTIL_EXTERN char read_sn1(void);
 
+// Set an environment variable for the current process,
+// like 'export name=val' (sh) or 'setenv name val' (csh).
+// Passing NULL for val will clear the export like 'export -n name' (sh) or 'unsetenv name' (csh).
+// Returns 0 in case of success, -1 in case of error and the error code in 'errno'.
+ARUTIL_EXTERN int export_(const char *name, const char *val);
+
 #ifdef __cplusplus
 }
 #endif

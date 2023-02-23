@@ -4,11 +4,11 @@
 # To invoke CMake on this file, from the chosen build directory, invoke:
 #     cmake <path to directory containing this file>.
 #
-# Copyright 2018, artoolkitX Contributors.
+# Copyright 2018-2023, artoolkitX Contributors.
 # Author(s): Philip Lamb <phil@artoolkitx.org>
 #
 
-cmake_minimum_required( VERSION 3.4 )
+cmake_minimum_required( VERSION 3.6.0 )
 
 # Any directives that must go before the project command.
 
@@ -22,8 +22,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 option(BUILD_UTILITIES "Build the utilities" ON)
 
 set(ARX_VERSION_MAJOR 1)
-set(ARX_VERSION_MINOR 0)
-set(ARX_VERSION_TINY  2)
+set(ARX_VERSION_MINOR 1)
+set(ARX_VERSION_TINY  0)
 set(ARX_VERSION_DEV   0)
 set(ARX_VERSION_STRING "${ARX_VERSION_MAJOR}.${ARX_VERSION_MINOR}.${ARX_VERSION_TINY}")
 math(EXPR ARX_VERSION_NUMBER "${ARX_VERSION_MAJOR}*1000000+${ARX_VERSION_MINOR}*10000+${ARX_VERSION_TINY}*100+${ARX_VERSION_DEV}")
@@ -42,7 +42,9 @@ else()
 endif()
 
 # Identify platform
-if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+if(${CMAKE_SYSTEM_NAME} MATCHES "iOS")
+    set(ARX_PLATFORM_NAME "iOS")
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     if(${CMAKE_TOOLCHAIN_FILE} MATCHES "ios.toolchain.cmake")
         set(ARX_PLATFORM_NAME "iOS")
     else()
@@ -54,6 +56,8 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Android")
     set(ARX_PLATFORM_NAME "Android")
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(ARX_PLATFORM_NAME "Windows")
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+    set(ARX_PLATFORM_NAME "Emscripten")
 else()
     message(FATAL_ERROR "Unsupported platform \"${CMAKE_SYSTEM_NAME}\".")
 endif()
@@ -66,11 +70,9 @@ else()
     set(ARX_PLATFORM_NAME_FILESYSTEM "${ARX_PLATFORM_NAME_LC}")
 endif()
 
-# Set supported platform and SDK.
-if (ARX_TARGET_PLATFORM_IOS)
-    set(CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "8.0" CACHE STRING "Code will load on this and later versions of iOS.")
-elseif(ARX_TARGET_PLATFORM_MACOS)
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Code will load on this and later versions of macOS." FORCE)
+# Set mac OS supported platform and SDK. For iOS, these are set in the toolchain file.
+if (ARX_TARGET_PLATFORM_MACOS)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Code will load on this and later versions of macOS." FORCE)
     execute_process(COMMAND /usr/bin/xcrun -sdk macosx --show-sdk-path OUTPUT_VARIABLE CMAKE_OSX_SYSROOT OUTPUT_STRIP_TRAILING_WHITESPACE)
     set(CMAKE_OSX_SYSROOT "${CMAKE_OSX_SYSROOT}" CACHE STRING "The product will be built against the headers and libraries located inside the indicated SDK." FORCE)
 endif()
@@ -91,6 +93,7 @@ endif()
 
 # Search prefix.
 list(APPEND CMAKE_FIND_ROOT_PATH "${PROJECT_SOURCE_DIR}/depends/${ARX_PLATFORM_NAME_FILESYSTEM}")
+list(APPEND CMAKE_FIND_ROOT_PATH "${PROJECT_SOURCE_DIR}/depends/common")
 if (ARX_TARGET_PLATFORM_ANDROID)
     set(CMAKE_LIBRARY_ARCHITECTURE "${ANDROID_ABI}")
     list(APPEND CMAKE_FIND_ROOT_PATH "${PROJECT_SOURCE_DIR}/depends/${ARX_PLATFORM_NAME_LC}/obj/local/${ANDROID_ABI}")
@@ -135,7 +138,8 @@ endif()
 
 # Configuration defaults.
 set(HAVE_NFT 1)
-set(HAVE_2D 1)
+set(HAVE_2D 0)
+set(HAVE_OPENCV 0)
 set(USE_CPARAM_SEARCH 0)
 set(ARX_INSTALL_LIBRARY_DIR "lib")
 
@@ -144,16 +148,18 @@ set(ARX_INSTALL_LIBRARY_DIR "lib")
 if(ARX_TARGET_PLATFORM_IOS OR ARX_TARGET_PLATFORM_MACOS)
 	set(OpenCV_PATH "${CMAKE_SOURCE_DIR}/depends/${ARX_PLATFORM_NAME_LC}/Frameworks")
 endif()
-if(ARX_TARGET_PLATFORM_WINDOWS)
+if(ARX_TARGET_PLATFORM_WINDOWS OR ARX_TARGET_PLATFORM_EMSCRIPTEN)
 	set(OpenCV_PATH "${CMAKE_SOURCE_DIR}/depends/${ARX_PLATFORM_NAME_LC}")
 endif()
 if(ARX_TARGET_PLATFORM_ANDROID)
     set(OpenCV_PATH "${CMAKE_SOURCE_DIR}/depends/${ARX_PLATFORM_NAME_LC}/lib/${ANDROID_ABI}")
 endif()
 find_package(OpenCV)
-if(NOT OpenCV_FOUND)
+if(OpenCV_FOUND)
+    set(HAVE_OPENCV 1)
+    set(HAVE_2D 1)
+else()
     message(WARNING "OpenCV not found, will build without 2D tracker" )
-    set(HAVE_2D 0)
 endif()
 
 # Cached and project-specific platform variables.
@@ -177,6 +183,9 @@ elseif(ARX_TARGET_PLATFORM_ANDROID)
 
     set(USE_CPARAM_SEARCH 1)
     set(ARX_INSTALL_LIBRARY_DIR "lib/${ANDROID_ABI}")
+    # Take only the first 3 fields from ANDROID_TOOLCHAIN_NAME (i.e. drop the "clang" or gcc version suffix, if present).
+    string(REGEX MATCH "^[^-]+-[^-]+-[^-]+" ARX_ANDROID_SYSTEM_LIBDIR_NAME ${ANDROID_TOOLCHAIN_NAME})
+    set(ARX_ANDROID_SYSTEM_LIBDIR ${CMAKE_SYSROOT}/usr/lib/${ARX_ANDROID_SYSTEM_LIBDIR_NAME})
 
 elseif(ARX_TARGET_PLATFORM_LINUX)
 
@@ -212,6 +221,13 @@ elseif(ARX_TARGET_PLATFORM_WINDOWS)
     # C4996: Deprecated POSIX function name.
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4068 /wd4244 /wd4996")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd4068 /wd4244 /wd4996")
+
+elseif(ARX_TARGET_PLATFORM_EMSCRIPTEN)
+
+    set(HAVE_INTEL_SIMD 1)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mssse3 -msimd128")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mssse3 -msimd128")
+    add_definitions("-DEIGEN_DONT_VECTORIZE")
 
 endif()
 

@@ -46,7 +46,7 @@ import org.artoolkitx.arx.arxj.rendering.OpenGLShader;
  * Here you define your vertex shader and what it does with the geometry position.
  * This vertex shader class calculates the MVP matrix and applies it to the passed
  * in geometry position vectors.
- * <p/>
+ * <br>
  * This class also provides the implementation of the {@link #configureShader()} method. So all you need to do is
  * call this one from your fragment shader implementation.
  */

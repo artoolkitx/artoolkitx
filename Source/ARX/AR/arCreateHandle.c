@@ -70,6 +70,10 @@ ARHandle *arCreateHandle(ARParamLT *paramLT)
     handle->arMarkerExtractionMode  = AR_DEFAULT_MARKER_EXTRACTION_MODE;
     handle->pattRatio               = AR_PATT_RATIO;
     handle->matrixCodeType          = AR_MATRIX_CODE_TYPE_DEFAULT;
+    handle->arCornerRefinementMode  = AR_DEFAULT_CORNER_REFINEMENT_MODE;
+    handle->areaMax                 = AR_AREA_MAX;
+    handle->areaMin                 = AR_AREA_MIN;
+    handle->squareFitThresh         = AR_SQUARE_FIT_THRESH;
 
     handle->arParamLT           = paramLT;
     handle->xsize               = paramLT->param.xsize;
@@ -87,6 +91,8 @@ ARHandle *arCreateHandle(ARParamLT *paramLT)
     arSetDebugMode(handle, AR_DEFAULT_DEBUG_MODE);
     
     handle->arLabelingThreshMode = -1;
+    handle->arLabelingThreshAutoAdaptiveKernelSize = AR_LABELING_THRESH_ADAPTIVE_KERNEL_SIZE_DEFAULT;
+    handle->arLabelingThreshAutoAdaptiveBias = AR_LABELING_THRESH_ADAPTIVE_BIAS_DEFAULT;
     arSetLabelingThreshMode(handle, AR_LABELING_THRESH_MODE_DEFAULT);
     arSetLabelingThreshModeAutoInterval(handle, AR_LABELING_THRESH_AUTO_INTERVAL_DEFAULT);
     
@@ -189,9 +195,7 @@ void arSetLabelingThreshMode(ARHandle *handle, const AR_LABELING_THRESH_MODE mod
         switch (mode) {
             case AR_LABELING_THRESH_MODE_AUTO_MEDIAN:
             case AR_LABELING_THRESH_MODE_AUTO_OTSU:
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
             case AR_LABELING_THRESH_MODE_AUTO_ADAPTIVE:
-#endif
                 handle->arImageProcInfo = arImageProcInit(handle->xsize, handle->ysize);
                 break;
             case AR_LABELING_THRESH_MODE_AUTO_BRACKETING:
@@ -230,6 +234,36 @@ void arSetLabelingThreshModeAutoInterval(ARHandle *handle, const int interval)
 
     handle->arLabelingThreshAutoInterval = interval;
     handle->arLabelingThreshAutoIntervalTTL = 0;
+}
+
+void arSetLabelingThreshAutoAdaptiveKernelSize(ARHandle *handle, const int labelingThreshAutoAdaptiveKernelSize)
+{
+    if (!handle) return;
+
+    if (labelingThreshAutoAdaptiveKernelSize < 3 || (labelingThreshAutoAdaptiveKernelSize % 2) != 1) return;
+
+    handle->arLabelingThreshAutoAdaptiveKernelSize = labelingThreshAutoAdaptiveKernelSize;
+}
+
+int arGetLabelingThreshAutoAdaptiveKernelSize(ARHandle *handle)
+{
+    if (!handle) return (AR_LABELING_THRESH_ADAPTIVE_KERNEL_SIZE_DEFAULT);
+    
+    return (handle->arLabelingThreshAutoAdaptiveKernelSize);
+}
+
+void arSetLabelingThreshAutoAdaptiveBias(ARHandle *handle, const int labelingThreshAutoAdaptiveBias)
+{
+    if (!handle) return;
+
+    handle->arLabelingThreshAutoAdaptiveBias = labelingThreshAutoAdaptiveBias;
+}
+
+int arGetLabelingThreshAutoAdaptiveBias(ARHandle *handle)
+{
+    if (!handle) return (AR_LABELING_THRESH_ADAPTIVE_BIAS_DEFAULT);
+    
+    return (handle->arLabelingThreshAutoAdaptiveBias);
 }
 
 int arGetLabelingThreshModeAutoInterval(const ARHandle *handle)
@@ -408,6 +442,72 @@ int arGetPixelFormat(ARHandle *handle)
     return (handle->arPixelFormat);
 }
 
+void arSetCornerRefinementMode(ARHandle *handle, int mode)
+{
+    if (!handle) return;
+    
+    switch (mode) {
+        case AR_CORNER_REFINEMENT_DISABLE:
+        case AR_CORNER_REFINEMENT_ENABLE:
+            break;
+        default:
+            return;
+    }
+    
+    handle->arCornerRefinementMode = mode;
+}
+
+void arSetAreaMax(ARHandle *handle, const ARdouble areaMax)
+{
+    if (!handle) return;
+    if (areaMax <= 0.0) return;
+    
+    handle->areaMax = areaMax;
+}
+
+ARdouble arGetAreaMax(ARHandle *handle)
+{
+    if (!handle) return (AR_AREA_MAX);
+    
+    return (handle->areaMax);
+}
+
+void arSetAreaMin(ARHandle *handle, const ARdouble areaMin)
+{
+    if (!handle) return;
+    if (areaMin <= 0.0) return;
+    
+    handle->areaMin = areaMin;
+}
+
+ARdouble arGetAreaMin(ARHandle *handle)
+{
+    if (!handle) return (AR_AREA_MIN);
+    
+    return (handle->areaMin);
+}
+
+void arSetSquareFitThresh(ARHandle *handle, const ARdouble squareFitThresh)
+{
+    if (!handle) return;
+    if (squareFitThresh <= 0.0) return;
+    
+    handle->squareFitThresh = squareFitThresh;
+}
+
+ARdouble arGetSquareFitThresh(ARHandle *handle)
+{
+    if (!handle) return (AR_SQUARE_FIT_THRESH);
+    
+    return (handle->squareFitThresh);
+}
+
+int arGetCornerRefinementMode(ARHandle *handle)
+{
+    if (!handle) return (AR_DEFAULT_CORNER_REFINEMENT_MODE);
+    
+    return (handle->arCornerRefinementMode);
+}
 
 int arGetMarkerNum(ARHandle *handle)
 {

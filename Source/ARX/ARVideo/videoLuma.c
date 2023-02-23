@@ -55,7 +55,7 @@
 #if HAVE_INTEL_SIMD
 #  include <emmintrin.h> // SSE2.
 #  include <pmmintrin.h> // SSE3.
-#  include <tmmintrin.h> // SSSE3.
+#  include <tmmintrin.h> // SSSE3. _mm_hadd_epi32
 #endif
 #if defined(ANDROID) && (HAVE_ARM_NEON || HAVE_INTEL_SIMD)
 #  include "cpu-features.h"

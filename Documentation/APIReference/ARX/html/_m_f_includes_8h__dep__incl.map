@@ -1,7 +1,8 @@
 <map id="Source/ARX/ARVideo/WindowsMediaCapture/CaptureFrameGrabber/MFIncludes.h" name="Source/ARX/ARVideo/WindowsMediaCapture/CaptureFrameGrabber/MFIncludes.h">
-<area shape="rect" id="node2" href="$_media_stream_sink_8h.html" title="Source/ARX/ARVideo\l/WindowsMediaCapture\l/CaptureFrameGrabber\l/MediaStreamSink.h" alt="" coords="124,119,287,184"/>
-<area shape="rect" id="node4" href="$_media_stream_sink_8cpp.html" title="Source/ARX/ARVideo\l/WindowsMediaCapture\l/CaptureFrameGrabber\l/MediaStreamSink.cpp" alt="" coords="5,232,168,297"/>
-<area shape="rect" id="node5" href="$_capture_frame_grabber_8h.html" title="Source/ARX/ARVideo\l/WindowsMediaCapture\l/CaptureFrameGrabber\l/CaptureFrameGrabber.h" alt="" coords="311,119,481,184"/>
-<area shape="rect" id="node3" href="$_capture_frame_grabber_8cpp.html" title="Source/ARX/ARVideo\l/WindowsMediaCapture\l/CaptureFrameGrabber\l/CaptureFrameGrabber.cpp" alt="" coords="192,232,376,297"/>
-<area shape="rect" id="node6" href="$_windows_media_capture_8h.html" title="Source/ARX/ARVideo\l/WindowsMediaCapture\l/WindowsMediaCapture.h" alt="" coords="400,239,574,291"/>
+<area shape="rect" id="node1" title=" " alt="" coords="287,5,448,75"/>
+<area shape="rect" id="node2" href="$_capture_frame_grabber_8h.html" title=" " alt="" coords="97,123,262,192"/>
+<area shape="rect" id="node5" href="$_media_stream_sink_8cpp.html" title=" " alt="" coords="405,240,567,309"/>
+<area shape="rect" id="node6" href="$_media_stream_sink_8h.html" title=" " alt="" coords="287,123,448,192"/>
+<area shape="rect" id="node3" href="$_capture_frame_grabber_8cpp.html" title=" " alt="" coords="202,240,381,309"/>
+<area shape="rect" id="node4" href="$_windows_media_capture_8h.html" title=" " alt="" coords="5,247,177,302"/>
 </map>

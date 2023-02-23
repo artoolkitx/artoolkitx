@@ -2,8 +2,6 @@
  *  OCVFeatureDetector.h
  *  artoolkitX
  *
- *  A C++ class implementing the artoolkitX square fiducial marker tracker.
- *
  *  This file is part of artoolkitX.
  *
  *  artoolkitX is free software: you can redistribute it and/or modify

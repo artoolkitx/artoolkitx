@@ -40,6 +40,4 @@ package org.artoolkitx.arx.arxj.camera;
 public interface CameraAccessHandler {
     void resetCameraAccessPermissionsFromUser();
     boolean getCameraAccessPermissions();
-    void closeCamera();
-    CameraSurface getCameraSurfaceView();
 }

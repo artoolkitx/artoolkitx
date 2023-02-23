@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['versionmadeby',['VERSIONMADEBY',['../zip_8c.html#a0887c08f255f7a753b460e30ed14a3cf',1,'zip.c']]],
-  ['vzero',['VZERO',['../m_p_c_a_8c.html#ac12852581bcfd5cc941817d943a6da75',1,'mPCA.c']]]
+  ['true_0',['TRUE',['../ar_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE():&#160;ar.h'],['../ar_image_proc_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE():&#160;arImageProc.h']]],
+  ['tryfree_1',['TRYFREE',['../unzip_8c.html#a5fb23c00a00f3856832e660edc2ab03d',1,'TRYFREE():&#160;unzip.c'],['../zip_8c.html#a5fb23c00a00f3856832e660edc2ab03d',1,'TRYFREE():&#160;zip.c']]]
 ];

@@ -59,9 +59,7 @@ extern "C" {
 #endif
 
 #ifdef __APPLE__
-#  if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
-#    define AR_IMAGEPROC_USE_VIMAGE 1
-#  endif
+#  define AR_IMAGEPROC_USE_VIMAGE 1
 #endif
 
 /*!
@@ -188,9 +186,7 @@ int arImageProcLumaHistAndOtsu(ARImageProcInfo *ipi, const ARUint8 *__restrict d
         to be processed, as created by arImageProcInit.
     @result 0 in case of success, or a value less than 0 in case of error.
  */
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
 int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr, const int boxSize, const int bias);
-#endif
 
 /*!
     @brief Calculate image histogram, cumulative density function, and minimum and maximum luminance values.

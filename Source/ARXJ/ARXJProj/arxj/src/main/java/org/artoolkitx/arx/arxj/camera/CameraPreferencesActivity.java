@@ -53,39 +53,39 @@ import java.util.List;
 /**
  * CameraPreferencesActivity provides a menu which allows the camera and its
  * resolution to be selected interactively by the user.
- * <p/>
+ * <br>
  * To use CameraPreferencesActivity in your own application, add the following
  * to your AndroidManifest.xml:
- * <p/>
- * <activity
+ * <br>
+ * \<activity
  * android:name="org.artoolkitx.arx.arxj.camera.CameraPreferencesActivity"
- * ></activity>
- * <p/>
+ * \>\</activity\>
+ * <br>
  * The activity draws on string values provided by ARXJ's strings.xml
  * resource.
- * <p/>
+ * <br>
  * Additionally, if your activity is not based on ARActivity, the following
  * additional additions must be made:
- * <p/>
+ * <br>
  * Once per install of Application and prior to using any of the camera
  * preferences, e.g. in Application.onCreate(), or if not subclassing
  * Application, in Activity.onCreate():
- * <p/>
+ * <br>
  * import android.preference.PreferenceManager;
  * PreferenceManager.setDefaultValues(this,
  * org.artoolkitx.arx.arxj.R.xml.preferences, false);
- * <p/>
+ * <br>
  * When opening the camera:
- * <p/>
+ * <br>
  * import android.os.Build; import android.preference.PreferenceManager; Camera
- * camera = null; if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD)
+ * camera = null; if (Build.VERSION.SDK_INT \>= Build.VERSION_CODES.GINGERBREAD)
  * { int cameraIndex =
  * Integer.parseInt(PreferenceManager.getDefaultSharedPreferences
  * (callingContext).getString("pref_cameraIndex", "0"));
  * Camera.open(cameraIndex); } else { else camera = Camera.open(); }
- * <p/>
+ * <br>
  * When configuring camera:
- * <p/>
+ * <br>
  * String camResolution =
  * PreferenceManager.getDefaultSharedPreferences(callingContext
  * ).getString("pref_cameraResolution",
@@ -93,10 +93,10 @@ import java.util.List;
  * String[] dims = camResolution.split("x", 2); Camera.Parameters parameters =
  * camera.getParameters(); parameters.setPreviewSize(Integer.parseInt(dims[0]),
  * Integer.parseInt(dims[1])); camera.setParameters(parameters);
- * <p/>
+ * <br>
  * To determine if the camera is rear-facing or front-facing:
- * <p/>
- * boolean frontFacing = false; if (Build.VERSION.SDK_INT >=
+ * <br>
+ * boolean frontFacing = false; if (Build.VERSION.SDK_INT \>=
  * Build.VERSION_CODES.GINGERBREAD) { Camera.CameraInfo cameraInfo = new
  * Camera.CameraInfo(); int cameraIndex =
  * Integer.parseInt(PreferenceManager.getDefaultSharedPreferences
@@ -112,7 +112,6 @@ public class CameraPreferencesActivity extends PreferenceActivity implements
     private ListPreference cameraIndexPreference;
     private ListPreference cameraResolutionPreference;
 
-    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,7 +119,7 @@ public class CameraPreferencesActivity extends PreferenceActivity implements
 
         // Ensure we have a camera!
         PackageManager pm = this.getPackageManager();
-        if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+        if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
             finish();
             return;
         }
@@ -270,7 +269,7 @@ public class CameraPreferencesActivity extends PreferenceActivity implements
 		}
 	}
 
-    private static final PixelSizeToAspectRatio aspectRatios[] = new PixelSizeToAspectRatio[]{
+    private static final PixelSizeToAspectRatio[] aspectRatios = new PixelSizeToAspectRatio[]{
 		new PixelSizeToAspectRatio(1, 1, ASPECT_RATIO._1_1, "1:1"), // 1.0:
 		new PixelSizeToAspectRatio(11, 9, ASPECT_RATIO._11_9, "11:9"), // 1.222: 176x144, (QCIF), 352x288, (CIF)
 		new PixelSizeToAspectRatio(5, 4, ASPECT_RATIO._5_4, "5:4"), // 1.25: 1280x1024, (SXGA), 2560x2048
@@ -314,7 +313,7 @@ public class CameraPreferencesActivity extends PreferenceActivity implements
     public ASPECT_RATIO findAspectRatio(int w, int h) {
 
         // Reduce.
-        int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
+        int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
                 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
         int w_lcd = w, h_lcd = h;
         for (int i : primes) {
@@ -345,7 +344,7 @@ public class CameraPreferencesActivity extends PreferenceActivity implements
     public String findAspectRatioName(int w, int h) {
 
         // Reduce.
-        int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
+        int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
                 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
         int w_lcd = w, h_lcd = h;
         for (int i : primes) {

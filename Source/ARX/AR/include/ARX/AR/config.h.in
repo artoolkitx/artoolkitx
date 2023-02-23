@@ -247,9 +247,16 @@ typedef enum {
 #define HAVE_GL @HAVE_GL@
 #define HAVE_GLES2 @HAVE_GLES2@
 #define HAVE_GL3 @HAVE_GL3@
+#define HAVE_OPENCV @HAVE_OPENCV@
+#define HAVE_GTSAM @HAVE_GTSAM@
 
 #define USE_CPARAM_SEARCH @USE_CPARAM_SEARCH@
 #define USE_GL_STATE_CACHE @USE_GL_STATE_CACHE@
+#if HAVE_GTSAM
+#  define USE_GTSAM @USE_GTSAM@
+#else
+#  define USE_GTSAM 0
+#endif
 
 //
 //  For Linux
@@ -392,16 +399,20 @@ typedef enum {
 
 #elif TARGET_OS_IPHONE
 
-#define ARDOUBLE_IS_FLOAT
-#ifdef __LP64__
-#  define HAVE_ARM64_NEON 1
-#else
-#  define HAVE_ARM_NEON 1
-#endif
+#  define ARDOUBLE_IS_FLOAT
+#  ifdef __LP64__
+#    define HAVE_ARM64_NEON 1
+#  else
+#    define HAVE_ARM_NEON 1
+#  endif
 
 #elif TARGET_OS_MAC
 
-#define HAVE_INTEL_SIMD 1
+#  ifdef __aarch64__
+#    define HAVE_ARM64_NEON 1
+#  else
+#    define HAVE_INTEL_SIMD 1
+#  endif
 
 #endif
 
@@ -412,7 +423,6 @@ typedef enum {
 //
 
 #if AR_ENABLE_MINIMIZE_MEMORY_FOOTPRINT
-#define AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE 1
 #define AR_DISABLE_NON_CORE_FNS 1
 #define AR_DISABLE_LABELING_DEBUG_MODE 1
 #endif

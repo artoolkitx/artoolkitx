@@ -164,12 +164,12 @@ dc1394error_t dc1394_video_get_framerate(dc1394camera_t *camera, dc1394framerate
 dc1394error_t dc1394_video_set_framerate(dc1394camera_t *camera, dc1394framerate_t framerate);
 
 /**
- * Gets the current vide mode.
+ * Gets the current video mode.
  */
 dc1394error_t dc1394_video_get_mode(dc1394camera_t *camera, dc1394video_mode_t *video_mode);
 
 /**
- * Sets the current vide mode.
+ * Sets the current video mode.
  */
 dc1394error_t dc1394_video_set_mode(dc1394camera_t *camera, dc1394video_mode_t video_mode);
 

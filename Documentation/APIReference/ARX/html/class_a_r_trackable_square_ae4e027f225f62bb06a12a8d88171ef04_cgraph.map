@@ -1,15 +1,27 @@
 <map id="ARTrackableSquare::updateWithDetectedMarkers" name="ARTrackableSquare::updateWithDetectedMarkers">
-<area shape="rect" id="node2" href="$ar_get_trans_mat_8c.html#a340510d7028a7bc041ed68824f92652e" title="(description) " alt="" coords="244,8,425,33"/>
-<area shape="rect" id="node6" href="$ar_get_trans_mat_8c.html#a4e7134891f6bb5fdae0594f8df049d19" title="(description) " alt="" coords="258,60,411,85"/>
-<area shape="rect" id="node8" href="$class_a_r_trackable.html#a445a8894d99c98bc966ebff530d58278" title="Completes an update begun in the parent class, performing filtering, generating OpenGL view matrix an..." alt="" coords="262,169,407,195"/>
-<area shape="rect" id="node3" href="$icp_point_8c.html#a466204966df0b17ea76bd05a3d396307" title="icpPoint" alt="" coords="516,5,584,31"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title="arUtilMatMul" alt="" coords="725,63,821,88"/>
-<area shape="rect" id="node5" href="$icp_core_8c.html#aceeb3fd72a762c2078d8fb88ec03ccfb" title="icpGetU_from_X_by_MatX2U" alt="" coords="675,5,871,31"/>
-<area shape="rect" id="node7" href="$icp_util_8c.html#a9a0da1f41013b11363f39d99a5c937e9" title="icpGetInitXw2Xc_from\l_PlanarData" alt="" coords="473,55,627,93"/>
-<area shape="rect" id="node9" href="$ar_filter_trans_mat_8c.html#a575d29079692c1af23b19f0477ee2123" title="Filters the supplied pose estimate transformation matrix in&#45;place. " alt="" coords="491,169,609,195"/>
-<area shape="rect" id="node13" href="$param_g_l_8h.html#a417be19c9a53d64da33898a938d80944" title="arglCameraViewRHf" alt="" coords="479,219,621,244"/>
-<area shape="rect" id="node14" href="$param_g_l_8h.html#abb0e707a0812fc2c5bdbbaee6694a16f" title="Create an OpenGL viewing transformation matrix. " alt="" coords="480,268,619,293"/>
-<area shape="rect" id="node10" href="$ar_util_8c.html#adb4a9f8d233d3b954fd85bbb3deda173" title="arUtilMat2QuatPos" alt="" coords="706,120,840,145"/>
-<area shape="rect" id="node11" href="$ar_util_8c.html#aa543b10d8b401ccf5626aba7dfa12e09" title="arUtilQuatNorm" alt="" coords="716,169,830,195"/>
-<area shape="rect" id="node12" href="$ar_util_8c.html#a016bf9cc45eee7cd9eae471cecc68e9a" title="arUtilQuatPos2Mat" alt="" coords="706,219,840,244"/>
+<area shape="rect" id="node1" title="Updates the marker with new tracking info." alt="" coords="5,166,193,206"/>
+<area shape="rect" id="node2" href="$ar_get_trans_mat_8c.html#a4e7134891f6bb5fdae0594f8df049d19" title="(description)" alt="" coords="255,124,406,149"/>
+<area shape="rect" id="node18" href="$ar_get_trans_mat_8c.html#a340510d7028a7bc041ed68824f92652e" title="(description)" alt="" coords="241,173,420,199"/>
+<area shape="rect" id="node19" href="$class_a_r_trackable.html#a445a8894d99c98bc966ebff530d58278" title="Completes an update begun in the parent class, performing filtering, generating OpenGL view matrix an..." alt="" coords="258,247,403,272"/>
+<area shape="rect" id="node3" href="$icp_util_8c.html#a9a0da1f41013b11363f39d99a5c937e9" title=" " alt="" coords="679,22,833,62"/>
+<area shape="rect" id="node11" href="$icp_point_8c.html#a466204966df0b17ea76bd05a3d396307" title=" " alt="" coords="505,148,574,173"/>
+<area shape="rect" id="node4" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="1082,55,1181,80"/>
+<area shape="rect" id="node5" href="$m_alloc_mul_8c.html#a8e99293b68c38ce8a8d1920884d69f73" title=" " alt="" coords="907,131,1026,156"/>
+<area shape="rect" id="node6" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="1084,129,1179,155"/>
+<area shape="rect" id="node8" href="$m_alloc_trans_8c.html#a4e2bf8cd529487fb1ff4d0bbc52eee1e" title=" " alt="" coords="901,29,1032,55"/>
+<area shape="rect" id="node10" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="911,180,1022,205"/>
+<area shape="rect" id="node7" href="$m_mul_8c.html#a202bc2db43d563792c99e852ea0b7ba4" title=" " alt="" coords="1086,255,1177,280"/>
+<area shape="rect" id="node9" href="$m_trans_8c.html#ad3d9712dd27f655902a8a3315e623d85" title=" " alt="" coords="1080,5,1183,31"/>
+<area shape="rect" id="node12" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title=" " alt="" coords="708,284,804,309"/>
+<area shape="rect" id="node13" href="$icp_core_8c.html#a4906398b4594d29ab8035b4016a7e9de" title=" " alt="" coords="706,235,806,260"/>
+<area shape="rect" id="node15" href="$icp_core_8c.html#ac384ca6737fdee325d58740d665eda0a" title=" " alt="" coords="706,87,806,112"/>
+<area shape="rect" id="node16" href="$icp_core_8c.html#aceeb3fd72a762c2078d8fb88ec03ccfb" title=" " alt="" coords="659,136,853,161"/>
+<area shape="rect" id="node17" href="$icp_core_8c.html#a94201124387610a46b975cdb9d8a1db6" title=" " alt="" coords="705,185,807,211"/>
+<area shape="rect" id="node14" href="$m_disp_8c.html#a60f36997579d355f6030f872faad84a2" title=" " alt="" coords="919,281,1015,307"/>
+<area shape="rect" id="node20" href="$ar_filter_trans_mat_8c.html#a575d29079692c1af23b19f0477ee2123" title="Filters the supplied pose estimate transformation matrix in&#45;place." alt="" coords="481,360,598,385"/>
+<area shape="rect" id="node24" href="$param_g_l_8c.html#a21250f8dd05058fe653e4a0116e7f592" title="Create an OpenGL viewing transformation matrix." alt="" coords="470,197,609,223"/>
+<area shape="rect" id="node25" href="$param_g_l_8c.html#a069eee4b7a32208a45b8c438283e9a7f" title=" " alt="" coords="468,247,611,272"/>
+<area shape="rect" id="node21" href="$ar_util_8c.html#adb4a9f8d233d3b954fd85bbb3deda173" title=" " alt="" coords="689,333,823,359"/>
+<area shape="rect" id="node22" href="$ar_util_8c.html#aa543b10d8b401ccf5626aba7dfa12e09" title=" " alt="" coords="699,383,813,408"/>
+<area shape="rect" id="node23" href="$ar_util_8c.html#a016bf9cc45eee7cd9eae471cecc68e9a" title=" " alt="" coords="689,432,823,457"/>
 </map>

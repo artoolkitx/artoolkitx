@@ -1,3 +1,5 @@
 <map id="arPattSave" name="arPattSave">
-<area shape="rect" id="node2" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square..." alt="" coords="141,5,264,31"/>
+<area shape="rect" id="node1" title="Save a pattern to a pattern file." alt="" coords="5,5,92,31"/>
+<area shape="rect" id="node2" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="140,5,261,31"/>
+<area shape="rect" id="node3" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="309,5,476,31"/>
 </map>

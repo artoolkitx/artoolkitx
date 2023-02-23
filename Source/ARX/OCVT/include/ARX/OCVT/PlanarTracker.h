@@ -2,8 +2,6 @@
  *  PlanarTracker.h
  *  artoolkitX
  *
- *  A C++ class implementing the artoolkitX square fiducial marker tracker.
- *
  *  This file is part of artoolkitX.
  *
  *  artoolkitX is free software: you can redistribute it and/or modify
@@ -49,7 +47,7 @@
 class TrackedImageInfo
 {
 public:
-    std::shared_ptr<unsigned char*> imageData;
+    std::shared_ptr<unsigned char> imageData;
     int uid;
     float scale;
     int width;

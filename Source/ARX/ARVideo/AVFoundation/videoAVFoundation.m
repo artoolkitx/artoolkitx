@@ -83,6 +83,8 @@ int ar2VideoDispOptionAVFoundation( void )
 {
     ARPRINT(" -module=AVFoundation\n");
     ARPRINT("\n");
+    ARPRINT(" -source=n Choose input n (numbered from 0).\n");
+    ARPRINT(" -uid=X Choose input with UID X.\n");
     ARPRINT(" -preset=(qvga|cif|480p|540p|vga|720p|1080p|low|medium|high)\n");
     ARPRINT("     specify camera settings preset to use. cif=352x288, vga/480p=640x480,\n");
     ARPRINT("     720p=1280x720, 1080p=1920x1080, qvga=320x240, 540p=960x540.\n");

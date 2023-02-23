@@ -35,8 +35,13 @@
  *  Author(s): Julian Looser, Philip Lamb.
  *
  */
- 
-#include <ARX/Platform.h>
+
+#include <stdlib.h>
+#include <inttypes.h>
+#ifdef _WIN32
+#  define _USE_MATH_DEFINES
+#endif
+#include <math.h>
 #include <ARX/ARVideoSource.h>
 #include <ARX/Error.h>
 #include <ARX/ARController.h>
@@ -47,12 +52,6 @@
 #    include "cpu-features.h"
 #  endif
 #endif
-#include <stdlib.h>
-#include <inttypes.h>
-#ifdef _WIN32
-#  define _USE_MATH_DEFINES
-#endif
-#include <math.h>
 
 
 #define MAX(x,y) (x > y ? x : y)
@@ -209,7 +208,7 @@ bool ARVideoSource::open2()
             ARLOGi("Camera parameters loaded from buffer.\n");
             return (open3(&cparam));
         }
-    } else if (cameraParam) {
+    } else if (cameraParam && *cameraParam) {
         if (arParamLoad(cameraParam, 1, &cparam) < 0) {
             ARLOGe("Error: failed to load camera parameters from file '%s'.\n", cameraParam);
             this->close();
@@ -290,6 +289,7 @@ bool ARVideoSource::open3(const ARParam *cparam_p)
 
 bool ARVideoSource::captureFrame()
 {
+    bool ret = false;
     if (deviceState == DEVICE_RUNNING) {
         if (m_captureFrameWaitCount) {
             ARLOGi("Video source is running. (Waited %d calls.)\n", m_captureFrameWaitCount);
@@ -297,18 +297,18 @@ bool ARVideoSource::captureFrame()
         }
         pthread_rwlock_wrlock(&m_frameBufferLock);
         AR2VideoBufferT *vbuff = ar2VideoGetImage(m_vid);
-        pthread_rwlock_unlock(&m_frameBufferLock);
         if (vbuff && vbuff->fillFlag) {
             m_frameBuffer = vbuff;
-            return true;
+            ret = true;
         }
+        pthread_rwlock_unlock(&m_frameBufferLock);
     } else {
         if (!m_captureFrameWaitCount) {
             ARLOGi("Waiting for video source.\n");
         }
         m_captureFrameWaitCount++;
     }
-    return false;
+    return ret;
 }
 
 bool ARVideoSource::close()

@@ -1,6 +1,7 @@
 <map id="arMatrixPCA" name="arMatrixPCA">
-<area shape="rect" id="node2" href="$matrix_8h.html#a312a4e43097686beff3b8b13f248da13" title="arMatrixAllocDup" alt="" coords="150,55,273,80"/>
-<area shape="rect" id="node3" href="$matrix_8h.html#a4ab6ed1bcea1368a2040e9779ab28b9b" title="arMatrixAlloc" alt="" coords="321,5,419,31"/>
-<area shape="rect" id="node4" href="$matrix_8h.html#ab4713153a247e78332e6ce6dde31d2f4" title="arMatrixDup" alt="" coords="323,55,417,80"/>
-<area shape="rect" id="node5" href="$matrix_8h.html#a7b6cca2930147818bd060cddd5c5a28a" title="arMatrixFree" alt="" coords="322,104,419,129"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,79,103,104"/>
+<area shape="rect" id="node2" href="$m_alloc_dup_8c.html#ace5d8c6eb6524469fbc3770081658081" title=" " alt="" coords="151,53,273,79"/>
+<area shape="rect" id="node5" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="323,104,418,129"/>
+<area shape="rect" id="node3" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="321,5,420,31"/>
+<area shape="rect" id="node4" href="$m_dup_8c.html#a988e4c76394edccbf1e86005b97f725a" title=" " alt="" coords="324,55,417,80"/>
 </map>

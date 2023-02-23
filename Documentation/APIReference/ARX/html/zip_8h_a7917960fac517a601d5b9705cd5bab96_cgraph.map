@@ -1,5 +1,11 @@
 <map id="zipOpenNewFileInZip4_64" name="zipOpenNewFileInZip4_64">
-<area shape="rect" id="node2" href="$zip_8c.html#ae470f753aef4cffe4f77a5ec2bcfbde1" title="zipCloseFileInZip" alt="" coords="232,5,355,31"/>
-<area shape="rect" id="node3" href="$zip_8c.html#ac90ee507f85e5f6586a2bfe90aad5ddc" title="zipCloseFileInZipRaw" alt="" coords="403,5,554,31"/>
-<area shape="rect" id="node4" href="$zip_8c.html#abed3466e1d5d1e4af5c0fdb68fec9fd2" title="zipCloseFileInZipRaw64" alt="" coords="602,5,767,31"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,55,180,80"/>
+<area shape="rect" id="node2" href="$zip_8c.html#a78566dab77b01784411c7812a49b8f5f" title=" " alt="" coords="228,47,375,87"/>
+<area shape="rect" id="node3" href="$crypt_8c.html#a953a11931a423879e848cdebd3f2028e" title=" " alt="" coords="445,55,523,80"/>
+<area shape="rect" id="node4" href="$crypt_8c.html#ac5349111b2860fe3e63daaa442e196a8" title=" " alt="" coords="631,5,707,31"/>
+<area shape="rect" id="node7" href="$zip_8c.html#ae470f753aef4cffe4f77a5ec2bcfbde1" title=" " alt="" coords="423,104,545,129"/>
+<area shape="rect" id="node5" href="$crypt_8c.html#af7f8340e687fdf86775997a8b047b407" title=" " alt="" coords="631,55,706,80"/>
+<area shape="rect" id="node6" href="$crypt_8c.html#ab5d0ab24efa196a08ac9ffa7c50e18cc" title=" " alt="" coords="826,55,922,80"/>
+<area shape="rect" id="node8" href="$zip_8c.html#ac90ee507f85e5f6586a2bfe90aad5ddc" title=" " alt="" coords="593,104,744,129"/>
+<area shape="rect" id="node9" href="$zip_8c.html#abed3466e1d5d1e4af5c0fdb68fec9fd2" title=" " alt="" coords="792,104,956,129"/>
 </map>

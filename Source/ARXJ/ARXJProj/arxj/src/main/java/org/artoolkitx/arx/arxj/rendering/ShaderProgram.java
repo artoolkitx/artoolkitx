@@ -46,20 +46,20 @@ import java.nio.FloatBuffer;
 
 /**
  * Created by Thorsten Bux on 21.01.2016.
- * <p/>
+ * <br>
  * The shader program links together the vertex shader and the fragment shader and compiles them.
  * It also is responsible for binding the attributes. Attributes can be used to pass in values to the
  * shader during runtime.
- * <p/>
+ * <br>
  * It is important to call {@link #setupShaderUsage()} as first method inside your
  * implementation of the {@link #render(float[])} render()} method.
- * <p/>
+ * <br>
  * This abstract class provides the basic implementation for binding shaders see {@link #createProgram(int, int)}
  * you can just call this method and do not need to worry about binding shaders.
- * <p/>
+ * <br>
  * This class also provides stubs of methodes you might want to override when you create your own Shader Program.
  * You can see an example Shader Program in {@link SimpleShaderProgram}
- * <p/>
+ * <br>
  * Finally it renders the given geometry.
  */
 @SuppressWarnings("SameParameterValue")

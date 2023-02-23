@@ -199,7 +199,6 @@ int arImageProcLumaHistAndOtsu(ARImageProcInfo *ipi, const ARUint8 *__restrict d
     return (0);
 }
 
-#if !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
 int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr, const int boxSize, const int bias)
 {
     int ret, i;
@@ -251,7 +250,6 @@ int arImageProcLumaHistAndBoxFilterWithBias(ARImageProcInfo *ipi, const ARUint8 
     if (bias) for (i = 0; i < ipi->imageX*ipi->imageY; i++) ipi->image2[i] += bias;
     return (0);
 }
-#endif // !AR_DISABLE_THRESH_MODE_AUTO_ADAPTIVE
 
 int arImageProcLumaHistAndCDFAndLevels(ARImageProcInfo *ipi, const ARUint8 *__restrict dataPtr)
 {

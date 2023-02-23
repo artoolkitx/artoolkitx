@@ -72,6 +72,11 @@
 #define  AR_USE_TRACKING_HISTORY_V2           2
 #define  AR_DEFAULT_MARKER_EXTRACTION_MODE    AR_USE_TRACKING_HISTORY_V2
 
+/* for arCornerRefinementMode */
+#define  AR_CORNER_REFINEMENT_DISABLE         0
+#define  AR_CORNER_REFINEMENT_ENABLE          1
+#define  AR_DEFAULT_CORNER_REFINEMENT_MODE    AR_CORNER_REFINEMENT_DISABLE
+
 /* for arGetTransMat */
 #define  AR_MAX_LOOP_COUNT                    5
 #define  AR_LOOP_BREAK_THRESH                 0.5
@@ -95,7 +100,7 @@
 
 #define   AR_AREA_MAX                   1000000		// Maximum area (in pixels) of connected regions considered valid candidate for marker detection.
 #define   AR_AREA_MIN                        70		// Minimum area (in pixels) of connected regions considered valid candidate for marker detection.
-#define   AR_SQUARE_FIT_THRESH                1.0
+#define   AR_SQUARE_FIT_THRESH                1.0   // Tolerance value for accepting connected region as square. Greater value = more tolerant.
 
 #define   AR_LABELING_32_BIT                  0     // 0 = 16 bits per label, 1 = 32 bits per label.
 #if AR_LABELING_32_BIT
