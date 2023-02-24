@@ -1,6 +1,0 @@
-include ':AR2DTrackingExample'//, ':ARXJ'
-
-//project(':ARXJ').projectDir = new File('../../../../Source/ARXJ/ARXJProj/ARXJ')
-
-//If you want to implement ARXJ and test the changes with AR2dTrackingExample remove the
-// comments from the ARXJ lib above and see the AR2dTrackingExample build.gradle file in dependencies.
