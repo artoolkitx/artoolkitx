@@ -52,7 +52,8 @@ ARTrackerNFT::ARTrackerNFT() :
     trackingThreadHandle(NULL),
     m_ar2Handle(NULL),
     m_kpmHandle(NULL),
-    m_surfaceSet{NULL}
+    m_surfaceSet{NULL},
+    m_pageCount(0)
 {
 }
 
@@ -138,6 +139,7 @@ bool ARTrackerNFT::unloadNFTData(void)
     }
     for (i = 0; i < PAGES_MAX; i++) m_surfaceSet[i] = NULL; // Discard weak-references.
     m_kpmRequired = true;
+    m_pageCount = 0;
     
     return true;
 }
@@ -153,21 +155,21 @@ bool ARTrackerNFT::loadNFTData(std::vector<ARTrackable *>& trackables)
     }
     
     KpmRefDataSet *refDataSet = NULL;
-    int pageCount = 0;
     
     for (std::vector<ARTrackable *>::iterator it = trackables.begin(); it != trackables.end(); ++it) {
         if ((*it)->type == ARTrackable::NFT) {
+            ARTrackableNFT *t = static_cast<ARTrackableNFT *>(*it);
             // Load KPM data.
             KpmRefDataSet *refDataSet2;
-            ARLOGi("Reading '%s.fset3'.\n", ((ARTrackableNFT *)(*it))->datasetPathname);
-            if (kpmLoadRefDataSet(((ARTrackableNFT *)(*it))->datasetPathname, "fset3", &refDataSet2) < 0) {
-                ARLOGe("Error reading KPM data from '%s.fset3'.\n", ((ARTrackableNFT *)(*it))->datasetPathname);
-                ((ARTrackableNFT *)(*it))->pageNo = -1;
+            ARLOGi("Reading '%s.fset3'.\n", t->datasetPathname);
+            if (kpmLoadRefDataSet(t->datasetPathname, "fset3", &refDataSet2) < 0) {
+                ARLOGe("Error reading KPM data from '%s.fset3'.\n", t->datasetPathname);
+                t->pageNo = -1;
                 continue;
             }
-            ((ARTrackableNFT *)(*it))->pageNo = pageCount;
-            ARLOGi("  Assigned page no. %d.\n", pageCount);
-            if (kpmChangePageNoOfRefDataSet(refDataSet2, KpmChangePageNoAllPages, pageCount) < 0) {
+            t->pageNo = m_pageCount;
+            ARLOGi("  Assigned page no. %d.\n", t->pageNo);
+            if (kpmChangePageNoOfRefDataSet(refDataSet2, KpmChangePageNoAllPages, t->pageNo) < 0) {
                 ARLOGe("kpmChangePageNoOfRefDataSet\n");
                 exit(-1);
             }
@@ -178,10 +180,10 @@ bool ARTrackerNFT::loadNFTData(std::vector<ARTrackable *>& trackables)
             ARLOGi("Done.\n");
             
             // For convenience, create a weak reference to the AR2 data.
-            m_surfaceSet[pageCount] = ((ARTrackableNFT *)(*it))->surfaceSet;
+            m_surfaceSet[t->pageNo] = t->surfaceSet;
             
-            pageCount++;
-            if (pageCount == PAGES_MAX) {
+            m_pageCount++;
+            if (m_pageCount == PAGES_MAX) {
                 ARLOGe("Maximum number of NFT pages (%d) loaded.\n", PAGES_MAX);
                 break;
             }
@@ -264,14 +266,15 @@ bool ARTrackerNFT::update(AR2VideoBufferT *buff, std::vector<ARTrackable *>& tra
         
         for (std::vector<ARTrackable *>::iterator it = trackables.begin(); it != trackables.end(); ++it) {
             if ((*it)->type == ARTrackable::NFT) {
-                
+                ARTrackableNFT *t = static_cast<ARTrackableNFT *>(*it);
+
                 if (m_surfaceSet[page]->contNum > 0) {
                     if (ar2Tracking(m_ar2Handle, m_surfaceSet[page], buff->buffLuma, trackingTrans, &err) < 0) {
                         ARLOGd("Tracking lost on page %d.\n", page);
-                        success &= ((ARTrackableNFT *)(*it))->updateWithNFTResults(-1, NULL, NULL);
+                        success &= t->updateWithNFTResults(-1, NULL, NULL);
                     } else {
                         ARLOGd("Tracked page %d (pos = {% 4f, % 4f, % 4f}).\n", page, trackingTrans[0][3], trackingTrans[1][3], trackingTrans[2][3]);
-                        success &= ((ARTrackableNFT *)(*it))->updateWithNFTResults(page, trackingTrans, (ARdouble (*)[4])transL2R);
+                        success &= t->updateWithNFTResults(page, trackingTrans, (ARdouble (*)[4])transL2R);
                         pagesTracked++;
                     }
                 }

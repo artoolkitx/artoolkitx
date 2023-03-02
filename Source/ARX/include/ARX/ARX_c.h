@@ -654,4 +654,53 @@ extern "C" {
     ARX_EXTERN bool arwLoadOpticalParams(const char *optical_param_name, const char *optical_param_buff, const int optical_param_buffLen, const float projectionNearPlane, const float projectionFarPlane, float *fovy_p, float *aspect_p, float m[16], float p[16]);
 }
 
+    // ----------------------------------------------------------------------------------------------------
+#pragma mark  Video source info list management
+    // ----------------------------------------------------------------------------------------------------
+
+    /**
+     * Create a video source info list using the supplied video configuration string.
+     *
+     * arwInitialiseAR does NOT need to be called before calling this function.
+     * A single video source info list can exist at any one time.
+     * The source info list is created by the default video module, or the module selected by
+     * passing "-module=" in the configuration string. See
+     * https://github.com/artoolkitx/artoolkitx/wiki/artoolkitX-video-module-configuration-reference#video-modules-and-selection
+     *
+     * Entries in the list can be queried by calling arwGetVideoSourceInfoListEntry.
+     * @param config    The video configuration string.
+     * @return The number of entries in the video source info list, or 0 if no video source is available or an error occured.
+     *  If a non-zero value is returned, the list must be deleted with arwDeleteVideoSourceInfoList once the user is
+     *  finished.
+     */
+    ARX_EXTERN int arwCreateVideoSourceInfoList(char *config);
+
+    /**
+     * Get an entry from the video source info list describing the name, model, UID, flags, and more for the video source info..
+     *
+     * Provided a video source info list has been created by calling arwCreateVideoSourceInfoList, this function
+     * gets an entry from the list.
+     * @param nameBuf Pointer to a buffer which will be filled with the user-readable name of the video input (as a nul-terminated C-string) or NULL if this information is not required.
+     *  It is recommended that at least 256 bytes are allocated, and if the string is longer, it will be truncated to fit into the buffer (including the string nul-terminator).
+     * @param nameBufLen Length (in bytes) of nameBuf, or 0 if the string is not required.
+     * @param modelBuf Pointer to a buffer which will be filled with the user-readable model of the video input (as a nul-terminated C-string) or NULL if this information is not required.
+     *  It is recommended that at least 256 bytes are allocated, and if the string is longer, it will be truncated to fit into the buffer (including the string nul-terminator).
+     * @param modelBufLen Length (in bytes) of modelBuf, or 0 if the string is not required.
+     * @param UIDBuf Pointer to a buffer which will be filled with the unique ID of the video input (as a nul-terminated C-string) or NULL if this information is not required.
+     *  It is recommended that at least 256 bytes are allocated, and if the string is longer, it will be truncated to fit into the buffer (including the string nul-terminator).
+     * @param UIDBufLen Length (in bytes) of UIDBuf, or 0 if the string is not required.
+     * @param flags_p Pointer to an unsigned 32-bit integer, which if non-NULL will be filled with the flags applicable to this video input.
+     * @param openTokenBuf Pointer to a buffer which will be filled with the machine-readable token which should be passed to the ar*VideoOpen function's
+     *  configuration string to select this video input, (as a nul-terminated C-string) or NULL if this information is not required.
+     *  It is recommended that at least 256 bytes are allocated, and if the string is longer, it will be truncated to fit into the buffer (including the string nul-terminator).
+     * @param openTokenBufLen Length (in bytes) of openTokenBuf, or 0 if the string is not required.
+     * @return true if option is set, false if option is not set or an error occurred.
+     */
+    ARX_EXTERN bool arwGetVideoSourceInfoListEntry(int index, char *nameBuf, int nameBufLen, char *modelBuf, int modelBufLen, char *UIDBuf, int UIDBufLen, uint32_t *flags_p, char *openTokenBuf, int openTokenBufLen);
+
+    /**
+     * Delete a video source info list.
+     */
+    ARX_EXTERN void arwDeleteVideoSourceInfoList(void);
+
 #endif // !ARX_C_H

@@ -54,7 +54,7 @@ private:
     bool m_loaded;
     float m_twoDScale;
     bool robustFlag;                                    ///< Flag specifying which pose estimation approach to use
-    int pageNo;
+    int pageNo;                                         ///< "Page number" (first page is page 0), or -1 if 2D data not yet loaded into tracker. Not strictly necessary for 2D tracker, but useful when multiple 2D trackables are loaded.
     char *datasetPathname;
     unsigned char* surfaceImage;
     int m_refImageX, m_refImageY;
@@ -66,11 +66,26 @@ public:
     
     ARTrackable2d();
     ~ARTrackable2d();
-    
+
+    /**
+     Loads an image as a 2D dataset.
+     The image can be any time loadble by ARUtil's ReadImageFromFile, which currently
+     uses STBI internally and can therefore load JPEG, PNG, BMP, PSD, TGA, GIF, HDR,
+     PIC and PNM files. Note that the 2D tracker uses only image luminance, therefore colour
+     images will be down-converted to greyscale during loading.
+     \param dataSetPathname_in Pathname to the image.
+     */
     bool load(const char* dataSetPathname_in);
+    /**
+     Load a 2D dataset from user-supplied greyscale (luminance) image data.
+     \param dataSetPathname_in Pathname to the image.
+     \param refImage shared_ptr to tightly-packed greyscale image pixels.
+     \param m_refImageX Dimension in X (i.e. width) of the image data.
+     \param m_refImageY Dimension in X (i.e. height) of the image data.
+     */
     bool load2DData(const char* dataSetPathname_in, std::shared_ptr<unsigned char> refImage, int m_refImageX, int m_refImageY);
 
-    bool updateWithTwoDResults(int detectedPage, float trackingTrans[3][4], ARdouble transL2R[3][4] = NULL);
+    bool updateWithTwoDResults(float trackingTrans[3][4], ARdouble transL2R[3][4] = NULL);
     
     void setTwoDScale(const float scale);
     float TwoDScale();

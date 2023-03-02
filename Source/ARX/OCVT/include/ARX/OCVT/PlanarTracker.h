@@ -43,7 +43,7 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
-#include <ARX/AR/ar.h> // ARdouble
+#include <ARX/AR/ar.h> // ARdouble, ARLOG
 class TrackedImageInfo
 {
 public:

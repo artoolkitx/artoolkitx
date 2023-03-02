@@ -97,6 +97,7 @@ private:
 
     bool unloadNFTData();
     bool loadNFTData(std::vector<ARTrackable *>& trackables);
+    int m_pageCount; ///< Number of loaded pages, in range [0 - PAGES_MAX].
 };
 
 #endif // HAVE_NFT

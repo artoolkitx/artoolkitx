@@ -2,8 +2,6 @@
  *  TrackingPointSelector.cpp
  *  artoolkitX
  *
- *  A C++ class implementing the artoolkitX square fiducial marker tracker.
- *
  *  This file is part of artoolkitX.
  *
  *  artoolkitX is free software: you can redistribute it and/or modify
@@ -54,21 +52,23 @@ TrackingPointSelector::TrackingPointSelector(std::vector<cv::Point2f> pts, int w
 void TrackingPointSelector::DistributeBins(int width, int height, int markerTemplateWidth)
 {
     int numberOfBins = 10;
-    
+
+    // Split width and height dimensions into 10 bins each, for total of 100 bins.
     int totalXBins = width/numberOfBins;
     int totalYBins = height/numberOfBins;
+    // Init empty bins.
     for(int i=0; i<(numberOfBins * numberOfBins) ; i++) {
         trackingPointBin.insert(std::pair<int, std::vector<TrackedPoint> >(i, std::vector<TrackedPoint>()));
     }
     
-    //Iterate the points and add points to each bin
+    // Iterate the points and add points to each bin.
     for(int i=0, id=0; i<_pts.size(); i++) {
         int bx = (int)_pts[i].x/totalXBins;
         int by = (int)_pts[i].y/totalYBins;
         int index = bx + (by * numberOfBins);
         
         cv::Rect templateRoi = cv::Rect(_pts[i].x-markerTemplateWidth, _pts[i].y-markerTemplateWidth, markerTemplateWidth*2, markerTemplateWidth*2);
-        bool is_inside = (templateRoi & cv::Rect(0, 0, width, height)) == templateRoi;
+        bool is_inside = (templateRoi & cv::Rect(0, 0, width, height)) == templateRoi; // templateRoi must not intersect image boundary.
         if(is_inside) {
             TrackedPoint newPt;
             newPt.id = id;
