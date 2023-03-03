@@ -68,6 +68,7 @@ static union { unsigned char __c[4]; float __d; } __nan_union = { __nan_bytes };
 // ----------------------------------------------------------------------------------------------------
 
 static ARController *gARTK = NULL;
+static ARVideoSourceInfoListT *gARVideoSourceInfoList = NULL;
 
 // ----------------------------------------------------------------------------------------------------
 
@@ -791,6 +792,77 @@ bool arwLoadOpticalParams(const char *optical_param_name, const char *optical_pa
     return true;
 #endif
 }
+
+// ----------------------------------------------------------------------------------------------------
+#pragma mark  Video source info list management
+// ----------------------------------------------------------------------------------------------------
+
+int arwCreateVideoSourceInfoList(char *config)
+{
+    if (gARVideoSourceInfoList) {
+        ar2VideoDeleteSourceInfoList(&gARVideoSourceInfoList);
+    }
+    gARVideoSourceInfoList = ar2VideoCreateSourceInfoList(config);
+    if (!gARVideoSourceInfoList) {
+        return 0;
+    } else if (gARVideoSourceInfoList->count == 0) {
+        ar2VideoDeleteSourceInfoList(&gARVideoSourceInfoList);
+        return 0;
+    } else {
+        return gARVideoSourceInfoList->count;
+    }
+}
+
+bool arwGetVideoSourceInfoListEntry(int index, char *nameBuf, int nameBufLen, char *modelBuf, int modelBufLen, char *UIDBuf, int UIDBufLen, uint32_t *flags_p, char *openTokenBuf, int openTokenBufLen)
+{
+    if (!gARVideoSourceInfoList) {
+        return false;
+    }
+    if (index < 0 || index >= gARVideoSourceInfoList->count) {
+        return false;
+    }
+    if (nameBuf && nameBufLen > 0) {
+        if (!gARVideoSourceInfoList->info[index].name) *nameBuf = '\0';
+        else {
+            strncpy(nameBuf, gARVideoSourceInfoList->info[index].name, nameBufLen);
+            nameBuf[nameBufLen - 1] = '\0';
+        }
+    }
+    if (modelBuf && modelBufLen > 0) {
+        if (!gARVideoSourceInfoList->info[index].model) *modelBuf = '\0';
+        else {
+            strncpy(modelBuf, gARVideoSourceInfoList->info[index].model, modelBufLen);
+            modelBuf[modelBufLen - 1] = '\0';
+        }
+    }
+    if (UIDBuf && UIDBufLen > 0) {
+        if (!gARVideoSourceInfoList->info[index].UID) *UIDBuf = '\0';
+        else {
+            strncpy(UIDBuf, gARVideoSourceInfoList->info[index].UID, UIDBufLen);
+            UIDBuf[UIDBufLen - 1] = '\0';
+        }
+    }
+    if (flags_p) {
+        *flags_p = gARVideoSourceInfoList->info[index].flags;
+    }
+    if (openTokenBuf && openTokenBufLen > 0) {
+        if (!gARVideoSourceInfoList->info[index].open_token) *openTokenBuf = '\0';
+        else {
+            strncpy(openTokenBuf, gARVideoSourceInfoList->info[index].open_token, openTokenBufLen);
+            openTokenBuf[openTokenBufLen - 1] = '\0';
+        }
+    }
+    return true;
+}
+
+void arwDeleteVideoSourceInfoList(void)
+{
+    if (gARVideoSourceInfoList) {
+        ar2VideoDeleteSourceInfoList(&gARVideoSourceInfoList);
+        gARVideoSourceInfoList = NULL;
+    }
+}
+
 
 // ----------------------------------------------------------------------------------------------------
 #pragma mark  Java API

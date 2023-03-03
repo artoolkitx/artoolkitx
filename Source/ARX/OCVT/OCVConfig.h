@@ -45,8 +45,9 @@
 
 extern int minRequiredDetectedFeatures;
 extern int markerTemplateWidth;
-extern int maxLevel;
-extern const cv::Size subPixWinSize, winSize;
+extern int maxLevel;  ///< Maximum number of levels in optical flow image pyramid.
+extern const cv::Size subPixWinSize;
+extern const cv::Size winSize;
 extern cv::TermCriteria termcrit;
 extern const int MAX_COUNT;
 extern int maxNumberOfToTrack;
@@ -54,9 +55,9 @@ extern int searchRadius;
 extern int match_method;
 extern int featureDetectPyramidLevel;
 extern int defaultDetectorType;
-extern const double nn_match_ratio; // Nearest-neighbour matching ratio
-extern const double ransac_thresh; // RANSAC inlier threshold
+extern const double nn_match_ratio; ///< Nearest-neighbour matching ratio
+extern const double ransac_thresh; ///< RANSAC inlier threshold
 extern cv::RNG rng;
-extern int harrisBorder;
+extern int harrisBorder; ///< Harris corners within this many pixels of the border of the image will be ignored.
 
 #endif

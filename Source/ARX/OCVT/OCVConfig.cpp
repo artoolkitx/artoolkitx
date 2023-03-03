@@ -38,8 +38,9 @@
 
 int minRequiredDetectedFeatures = 50;
 int markerTemplateWidth = 15;
-int maxLevel = 3;
-const cv::Size subPixWinSize(10,10), winSize(31,31);
+int maxLevel = 3; ///< Maximum number of levels in optical flow image pyramid.
+const cv::Size subPixWinSize(10,10);
+const cv::Size winSize(31,31);
 cv::TermCriteria termcrit(cv::TermCriteria::COUNT|cv::TermCriteria::EPS,20,0.03);
 const int MAX_COUNT = 300;
 int maxNumberOfToTrack = 1;
@@ -47,7 +48,7 @@ int searchRadius = 15;
 int match_method = cv::TM_SQDIFF_NORMED;
 int featureDetectPyramidLevel = 2;
 int defaultDetectorType = 0;
-const double nn_match_ratio = 0.8f; // Nearest-neighbour matching ratio
-const double ransac_thresh = 2.5f; // RANSAC inlier threshold
+const double nn_match_ratio = 0.8f; ///< Nearest-neighbour matching ratio
+const double ransac_thresh = 2.5f; ///< RANSAC inlier threshold
 cv::RNG rng( 0xFFFFFFFF );
 int harrisBorder = 10;

@@ -112,14 +112,13 @@ bool ARTrackable2d::unload()
     return true;
 }
 
-bool ARTrackable2d::updateWithTwoDResults(int detectedPage, float trackingTrans[3][4], ARdouble transL2R[3][4])
+bool ARTrackable2d::updateWithTwoDResults(float trackingTrans[3][4], ARdouble transL2R[3][4])
 {
     if (!m_loaded) return false;
     
     visiblePrev = visible;
     
-    // The marker will only have a pageNo if the data has actually been loaded by a call to ARController::loadNFTData().
-    if (pageNo >= 0 && pageNo == detectedPage) {
+    if (trackingTrans) {
         visible = true;
         for (int j = 0; j < 3; j++) {
             trans[j][0] = (ARdouble)trackingTrans[j][0];

@@ -101,7 +101,7 @@ bool ARTrackableNFT::updateWithNFTResults(int detectedPage, float trackingTrans[
     
 	visiblePrev = visible;
     
-    // The marker will only have a pageNo if the data has actually been loaded by a call to ARController::loadNFTData().
+    // The marker will only have a pageNo if the data has actually been loaded by a call to ARTrackerNFT::loadNFTData().
 	if (pageNo >= 0 && pageNo == detectedPage) {
         visible = true;
         for (int j = 0; j < 3; j++) {

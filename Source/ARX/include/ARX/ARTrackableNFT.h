@@ -54,7 +54,7 @@ private:
     bool m_loaded;
     float m_nftScale;
     bool robustFlag;                                    ///< Flag specifying which pose estimation approach to use
-    int pageNo;
+    int pageNo;                                         ///< "Page number" (first page is page 0), or -1 if NFT data not yet loaded into tracker.
     char *datasetPathname;
     AR2SurfaceSetT *surfaceSet;
     bool unload();

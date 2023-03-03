@@ -2,8 +2,6 @@
  *  PlanarTracker.cpp
  *  artoolkitX
  *
- *  A C++ class implementing the artoolkitX square fiducial marker tracker.
- *
  *  This file is part of artoolkitX.
  *
  *  artoolkitX is free software: you can redistribute it and/or modify
@@ -494,12 +492,12 @@ public:
                 }
                 success = true;
             } catch (std::exception e) {
-                std::cout << "Error: Something went wrong when saving " << fileName << std::endl;
+                ARLOGe("Error: Something went wrong while writing trackable database to path '%s'.\n", fileName.c_str());
             }
         }
         else
         {
-            std::cout << "Error: Could not open - " << fileName << std::endl;
+            ARLOGe("Error: Could not create new trackable database at path '%s'.\n", fileName.c_str());
         }
         fs.release();
         return success;
@@ -542,12 +540,12 @@ public:
                 }
                 success = true;
             } catch(std::exception e) {
-                std::cout << "Error: Something went wrong when loading " << fileName << std::endl;
+                ARLOGe("Error: Something went wrong while reading trackable database from path '%s'.\n", fileName.c_str());
             }
         }
         else
         {
-            std::cout << "Error: Could not open - " << fileName << std::endl;
+            ARLOGe("Error: Could not open trackable database from path '%s'.\n", fileName.c_str());
         }
         fs.release();
         return success;
@@ -576,7 +574,7 @@ public:
             newTrackable._trackSelection = TrackingPointSelector(newTrackable._cornerPoints, newTrackable._width, newTrackable._height, markerTemplateWidth);
             
             _trackables.push_back(newTrackable);
-            std::cout << "Marker Added" << std::endl;
+            ARLOGi("2D marker added.\n");
         }
     }
 

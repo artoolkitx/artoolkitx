@@ -606,7 +606,7 @@ ARTrackable *ARTrackerSquare::newTrackable(std::vector<std::string> config)
         }
         
         ARTrackableMultiSquareAuto *ret = new ARTrackableMultiSquareAuto();
-        if (!ret->initWithOriginMarkerUID(originMarkerUID, width)) {
+        if (!ret->initWithOriginMarkerUID((int)originMarkerUID, width)) {
             // Marker failed to load, or was not added
             delete ret;
             ret = NULL;
