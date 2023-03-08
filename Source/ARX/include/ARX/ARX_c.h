@@ -48,7 +48,9 @@
  * Defines functions that provide a C-compatible API. These functions are accessible to 
  * other C applications, as well as languages like C#.
  */
+#ifdef __cplusplus
 extern "C" {
+#endif
 
 	/**
 	 * Registers a callback function to use when a message is logged.
@@ -624,7 +626,21 @@ extern "C" {
 	 * @return floating-point value of option, or NAN if an error occurred.
      */
     ARX_EXTERN float arwGetTrackableOptionFloat(int trackableUID, int option);
-    
+
+    /**
+     * Load a 2D trackable set from a trackable database.
+     * @param databaseFileName Path of the file to load.
+     * @return true if load succeeded, false if an error occurred.
+     */
+    ARX_EXTERN bool arwLoad2dTrackableDatabase(const char *databaseFileName);
+
+    /**
+     * Save the currently loaded 2D trackable set as a trackable database.
+     * @param databaseFileName Path of the file to save.
+     * @return true if save succeeded, false if an error occurred.
+     */
+    ARX_EXTERN bool arwSave2dTrackableDatabase(const char *databaseFileName);
+
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  Utility
     // ----------------------------------------------------------------------------------------------------
@@ -652,7 +668,6 @@ extern "C" {
      *      projectionFarPlane.
      */
     ARX_EXTERN bool arwLoadOpticalParams(const char *optical_param_name, const char *optical_param_buff, const int optical_param_buffLen, const float projectionNearPlane, const float projectionFarPlane, float *fovy_p, float *aspect_p, float m[16], float p[16]);
-}
 
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  Video source info list management
@@ -703,4 +718,7 @@ extern "C" {
      */
     ARX_EXTERN void arwDeleteVideoSourceInfoList(void);
 
+#ifdef __cplusplus
+}
+#endif
 #endif // !ARX_C_H
