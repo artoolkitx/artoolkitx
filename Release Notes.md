@@ -1,6 +1,11 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.1
+### 2023-03-10
+
+ * Minor additions to the ARX wrapper API to enable fetching of video source input lists.
+
 ## Version 1.1.0
 ### 2023-02-23
 
