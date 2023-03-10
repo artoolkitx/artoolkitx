@@ -85,11 +85,11 @@ int ar2VideoDispOptionAVFoundation( void )
     ARPRINT("\n");
     ARPRINT(" -source=n Choose input n (numbered from 0).\n");
     ARPRINT(" -uid=X Choose input with UID X.\n");
-    ARPRINT(" -preset=(qvga|cif|480p|540p|vga|720p|1080p|low|medium|high)\n");
+    ARPRINT(" -preset=(qvga|cif|480p|540p|vga|720p|1080p|2160p|low|medium|high)\n");
     ARPRINT("     specify camera settings preset to use. cif=352x288, vga/480p=640x480,\n");
-    ARPRINT("     720p=1280x720, 1080p=1920x1080, qvga=320x240, 540p=960x540.\n");
+    ARPRINT("     720p=1280x720, 1080p=1920x1080, 2160p=3140x2160, qvga=320x240, 540p=960x540.\n");
     ARPRINT("     default value is 'medium'.\n");
-    ARPRINT("     qvga|540p not available on iOS. 1080p not available on macOS.\n");
+    ARPRINT("     qvga|540p not available on iOS.\n");
     ARPRINT(" -position=(rear|back|front)\n");
     ARPRINT("    choose between rear/back and front-mounted camera (where available).\n");
     ARPRINT("    default value is 'rear'.\n");
@@ -287,12 +287,11 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
                         preset = AVCaptureSessionPresetLow;
                         ARLOGi("Requesting capture session preset 'low'.\n");
                     } else if (strcmp(b+8, "1080p") == 0) {
-#if TARGET_OS_IOS
                         preset = AVCaptureSessionPreset1920x1080;
                         ARLOGi("Requesting capture session preset '1080p'.\n");
-#else
-                        ARLOGw("Ignoring request for unsupported 1920x1080 format.\n");
-#endif
+                    } else if (strcmp(b+8, "2160p") == 0) {
+                        preset = AVCaptureSessionPreset3840x2160;
+                        ARLOGi("Requesting capture session preset '2160p'.\n");
                     } else if (strcmp(b+8, "720p") == 0) {
                         preset = AVCaptureSessionPreset1280x720;
                         ARLOGi("Requesting capture session preset '720p'.\n");
@@ -464,13 +463,15 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
             } else if (width == 960 && height == 540) {
                 preset = AVCaptureSessionPreset960x540;
                 ARLOGi("Requesting capture session preset '540p'.\n");
-#else
+#endif
             } else if (width == 1920 && height == 1080) {
                 preset = AVCaptureSessionPreset1920x1080;
                 ARLOGi("Requesting capture session preset '1080p'.\n");
-#endif
+            } else if (width == 3840 && height == 2160) {
+                preset = AVCaptureSessionPreset3840x2160;
+                ARLOGi("Requesting capture session preset '2160p'.\n");
             }
-        }
+        } 
         if (!preset) preset = AVCaptureSessionPresetMedium;
     }
 
