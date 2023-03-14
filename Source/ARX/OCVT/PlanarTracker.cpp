@@ -405,6 +405,8 @@ public:
     
     void ProcessFrameData(unsigned char * frame)
     {
+        // Just wraps `frame` rather than copying it, i.e. `frame` must remain valid
+        // for the duration of the call.
         cv::Mat newFrame(_frameSizeY, _frameSizeX, CV_8UC1, frame);
         ProcessFrame(newFrame);
         newFrame.release();

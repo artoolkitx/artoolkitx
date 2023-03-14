@@ -64,7 +64,12 @@ public:
     PlanarTracker& operator = (PlanarTracker&&);
     
     void Initialise(int xFrameSize, int yFrameSize, ARdouble cParam[][4]);
-    
+
+    /// Perform tracking on a single frame of video.
+    /// The frame is passed as a single buffer of 8-bit greyscale pixels, starting with the top-left-most pixel
+    /// of the frame and proceeding first by row, then by column. The size of the buffer must exactly match
+    /// that passed in xFrameSize and yFrameSize parameters to Initialise() (i.e. xFrameSize * yFrameSize bytes).
+    /// The frame data must remain valid for the entire duration of the call.
     void ProcessFrameData(unsigned char * frame);
     
     void RemoveAllMarkers();
