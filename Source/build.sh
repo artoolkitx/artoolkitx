@@ -544,6 +544,8 @@ if [ $BUILD_WINDOWS ] ; then
         cp $OURDIR/depends/windows/lib/x64/SDL2.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/ARX*.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/pinball.jpg ./${DEBUG+Debug}${DEBUG-Release}
+        cp $OURDIR/../SDK/bin/gibraltar.jpg ./${DEBUG+Debug}${DEBUG-Release}
+        cp $OURDIR/../SDK/bin/Harlech_Castle_plan_colour.jpg ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/database.xml.gz ./${DEBUG+Debug}${DEBUG-Release}
     )
     fi
