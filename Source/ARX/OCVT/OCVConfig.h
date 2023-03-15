@@ -53,7 +53,7 @@ extern const int MAX_COUNT;
 extern int maxNumberOfToTrack;
 extern int searchRadius;
 extern int match_method;
-extern int featureDetectPyramidLevel;
+extern int featureDetectPyramidLevel; ///> Scale factor applied to image pyramid to determine image to perform feature matching upon.
 extern int defaultDetectorType;
 extern const double nn_match_ratio; ///< Nearest-neighbour matching ratio
 extern const double ransac_thresh; ///< RANSAC inlier threshold

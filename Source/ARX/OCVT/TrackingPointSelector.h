@@ -62,7 +62,8 @@ public:
     cv::Mat GetHomography();
     
     void UpdatePointStatus(std::vector<uchar> status);
-    
+
+    /// Reset selected points and then randomly select one point from each bin.
     void SelectPoints();
     
     std::vector<cv::Point2f> GetSelectedFeatures();
@@ -72,7 +73,8 @@ public:
     std::vector<cv::Point3f> GetSelectedFeatures3d();
     
     std::vector<cv::Point2f> GetSelectedFeaturesWarped();
-    
+
+    /// Get all points from all bins that are candidates for selection.
     std::vector<cv::Point2f> GetAllFeatures();
     
     void CleanUp();

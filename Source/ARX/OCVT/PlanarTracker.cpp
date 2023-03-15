@@ -556,6 +556,8 @@ public:
     void AddMarker(unsigned char* buff, std::string fileName, int width, int height, int uid, float scale)
     {
         TrackableInfo newTrackable;
+        // Just wraps `buff` rather than copying it, i.e. `buff` must remain valid
+        // for the duration of the trackable.
         newTrackable._image = cv::Mat(height, width, CV_8UC1, buff);
         if(!newTrackable._image.empty()) {
             newTrackable._id = uid;
@@ -580,7 +582,7 @@ public:
         }
     }
 
-    float* GetTrackablePose(int trackableId)
+    bool GetTrackablePose(int trackableId, float transMat[3][4])
     {
         for(int i=0;i<_trackables.size(); i++) {
             if(_trackables[i]._id == trackableId) {
@@ -589,10 +591,11 @@ public:
                 pose.convertTo(poseOut, CV_32FC1);
                 //std::cout << "poseOut" << std::endl;
                 //std::cout << poseOut << std::endl;
-                return poseOut.ptr<float>(0);
+                memcpy(transMat, poseOut.ptr<float>(0), 3*4*sizeof(float));
+                return true;
             }
         }
-        return NULL;
+        return false;
     }
     
     bool IsTrackableVisible(int trackableId)
@@ -646,23 +649,22 @@ public:
         }
         return imageIds;
     }
+
     TrackedImageInfo GetTrackableImageInfo(int trackableId)
     {
         TrackedImageInfo info;
-        for(int i=0;i<_trackables.size(); i++) {
-            if(_trackables[i]._id==trackableId) {
-                info.uid = _trackables[i]._id;
-                info.scale = _trackables[i]._scale;
-                info.fileName = _trackables[i]._fileName;
-                // Copy the image data and use a shared_ptr to refer to it.
-                unsigned char *data = (unsigned char *)malloc(_trackables[i]._width * _trackables[i]._height);
-                memcpy(data, _trackables[i]._image.ptr(), _trackables[i]._width * _trackables[i]._height);
-                info.imageData.reset(data, free);
-                info.width = _trackables[i]._width;
-                info.height = _trackables[i]._height;
-                info.fileName = _trackables[i]._fileName;
-                return info;
-            }
+        auto t = std::find_if(_trackables.begin(), _trackables.end(), [&](const TrackableInfo& e) { return e._id == trackableId; });
+        if (t != _trackables.end()) {
+            info.uid = t->_id;
+            info.scale = t->_scale;
+            info.fileName = t->_fileName;
+            // Copy the image data and use a shared_ptr to refer to it.
+            unsigned char *data = (unsigned char *)malloc(t->_width * t->_height);
+            memcpy(data, t->_image.ptr(), t->_width * t->_height);
+            info.imageData.reset(data, free);
+            info.width = t->_width;
+            info.height = t->_height;
+            info.fileName = t->_fileName;
         }
         return info;
     }
@@ -702,9 +704,9 @@ void PlanarTracker::AddMarker(unsigned char* buff, std::string fileName, int wid
     _trackerImpl->AddMarker(buff, fileName, width, height, uid, scale);
 }
 
-float* PlanarTracker::GetTrackablePose(int trackableId)
+bool PlanarTracker::GetTrackablePose(int trackableId, float transMat[3][4])
 {
-    return _trackerImpl->GetTrackablePose(trackableId);
+    return _trackerImpl->GetTrackablePose(trackableId, transMat);
 }
 
 bool PlanarTracker::IsTrackableVisible(int trackableId)

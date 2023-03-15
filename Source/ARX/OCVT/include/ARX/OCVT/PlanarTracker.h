@@ -76,7 +76,7 @@ public:
     void AddMarker(unsigned char* buff, std::string fileName, int width, int height, int uid, float scale);
     void AddMarker(std::string imageName, int uid, float scale);
     
-    float* GetTrackablePose(int trackableId);
+    bool GetTrackablePose(int trackableId, float transMat[3][4]);
     
     bool IsTrackableVisible(int trackableId);
     bool LoadTrackableDatabase(std::string fileName);

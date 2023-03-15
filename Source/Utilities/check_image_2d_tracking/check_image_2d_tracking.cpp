@@ -105,6 +105,7 @@ static char            *inputFilePath = NULL;
 static std::shared_ptr<unsigned char> refImage;
 static int refImageX, refImageY;
 static std::vector<cv::KeyPoint> _featurePoints;
+static std::vector<cv::Point2f> _templatePoints;
 static TrackingPointSelector _trackSelection;
 static int                      page = 0;
 static double                   imageZoom = 1.0f;
@@ -252,10 +253,11 @@ static void loadImage(void)
     if (display_templates || display_features) {
         cv::Mat _image = cv::Mat(refImageY, refImageX, CV_8UC1, refImage.get());
         if (display_templates) {
-            ARPRINT("Generating templates .\n");
+            ARPRINT("Generating template features.\n");
             HarrisDetector _harrisDetector = HarrisDetector();
             std::vector<cv::Point2f> _cornerPoints = _harrisDetector.FindCorners(_image);
             _trackSelection = TrackingPointSelector(_cornerPoints, refImageX, refImageY, markerTemplateWidth);
+            _templatePoints = _trackSelection.GetAllFeatures();
             ARPRINT("  end.\n");
         }
         if (display_features) {
@@ -438,39 +440,40 @@ static void drawView(void)
     EdenGLFontSetViewSize(refImageX, refImageY);
     
     if (display_templates) {
- /*
-        // Draw red boxes around features, and number.
+
+        // Draw red boxes around template features, and number.
         glLineWidth(2.0f);
         float red[4] = {1.0f, 0.0f, 0.0f, 1.0f};
         glColor4fv(red);
         EdenGLFontSetColor(red);
+
+        float templateRadius = markerTemplateWidth/2.0f;
         
-        for (i = 0; i < featureSet->list[page].num; i++) {
-            int x = featureSet->list[page].coord[i].x;
-            int y = featureSet->list[page].coord[i].y;
+        for (i = 0; i < _templatePoints.size(); i++) {
+            int x = _templatePoints[i].x;
+            int y = refImageY - _templatePoints[i].y; // OpenGL y-origin is at bottom, tracker y origin is at top.
             
             GLfloat vertices[4][2];
-            vertices[0][0] = x - AR2_DEFAULT_TS1;
-            vertices[0][1] = y - AR2_DEFAULT_TS1;
-            vertices[1][0] = x - AR2_DEFAULT_TS1;
-            vertices[1][1] = y + AR2_DEFAULT_TS2;
-            vertices[2][0] = x + AR2_DEFAULT_TS2;
-            vertices[2][1] = y + AR2_DEFAULT_TS2;
-            vertices[3][0] = x + AR2_DEFAULT_TS2;
-            vertices[3][1] = y - AR2_DEFAULT_TS1;
+            vertices[0][0] = x - templateRadius;
+            vertices[0][1] = y - templateRadius;
+            vertices[1][0] = x - templateRadius;
+            vertices[1][1] = y + templateRadius;
+            vertices[2][0] = x + templateRadius;
+            vertices[2][1] = y + templateRadius;
+            vertices[3][0] = x + templateRadius;
+            vertices[3][1] = y - templateRadius;
             glVertexPointer(2, GL_FLOAT, 0, vertices);
             glEnableClientState(GL_VERTEX_ARRAY);
             glDrawArrays(GL_LINE_LOOP, 0, 4);
 
-            glLineWidth(1.0f);
-            char text[16];
-            snprintf(text, sizeof(text), "%d", i);
-            EdenGLFontDrawLine(0, NULL, (unsigned char *)text, (float)x, (float)y, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE);
+            //glLineWidth(1.0f);
+            //char text[16];
+            //snprintf(text, sizeof(text), "%d", i);
+            //EdenGLFontDrawLine(0, NULL, (unsigned char *)text, (float)x, (float)y, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE);
             
             glDisableClientState(GL_VERTEX_ARRAY);
         }
-        ARPRINT("fset:  Num of feature points: %d\n", featureSet->list[page].num);
-        */
+        ARPRINT("fset:  Num of template features: %zu\n", _templatePoints.size());
     }
     
     if (display_bins) {
