@@ -1,6 +1,11 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.2
+### 2023-03-16
+
+ * Addition of a new utility check_image_2d_tracking which displays features and tracking templates used by the 2D planar tracker. 
+
 ## Version 1.1.1
 ### 2023-03-10
 
