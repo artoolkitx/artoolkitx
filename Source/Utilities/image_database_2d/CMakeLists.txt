@@ -1,7 +1,7 @@
 # Build system for a utility tool to be included in artoolkitX.
 
 set(TARGET "artoolkitx_image_database2d")
-set(TARGET_PACKAGE "org.artoolkitx.utility.image_database2d")
+set(TARGET_PACKAGE "org.artoolkitx.utility.image-database2d")
 
 set(SOURCE
     image_database2d.cpp

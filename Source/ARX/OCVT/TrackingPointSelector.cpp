@@ -169,11 +169,13 @@ std::vector<cv::Point2f> TrackingPointSelector::GetSelectedFeaturesWarped()
     
 std::vector<cv::Point2f> TrackingPointSelector::GetAllFeatures()
 {
-    std::vector<cv::Point2f> selectedPoints;
-    for(std::vector<cv::Point2f>::iterator it = _pts.begin(); it != _pts.end(); ++it) {
-        selectedPoints.push_back(it[0]);
+    std::vector<cv::Point2f> allBinnedPoints;
+    for(auto &track : trackingPointBin) {
+        for(auto &trackPt : track.second) {
+            allBinnedPoints.push_back(trackPt.pt);
+        }
     }
-    return selectedPoints;
+    return allBinnedPoints;
 }
 
 void TrackingPointSelector::CleanUp()

@@ -12,6 +12,8 @@
 		4A5047051DB44596002C7904 /* ARX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5046FE1DB441C6002C7904 /* ARX.framework */; };
 		4A5047061DB44598002C7904 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADF1CDD1DAEFD0200BF20FF /* SDL2.framework */; };
 		4A5047081DB4476D002C7904 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5047071DB4476D002C7904 /* OpenGL.framework */; };
+		4ABDCE9929C189D400E22DA2 /* gibraltar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4ABDCE9729C189D400E22DA2 /* gibraltar.jpg */; };
+		4ABDCE9A29C189D400E22DA2 /* Harlech_Castle_plan_colour.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4ABDCE9829C189D400E22DA2 /* Harlech_Castle_plan_colour.jpg */; };
 		4ADF1CC61DAEFA6B00BF20FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4ADF1CC51DAEFA6B00BF20FF /* Assets.xcassets */; };
 		4ADF1CD61DAEFC8A00BF20FF /* draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ADF1CD11DAEFC8A00BF20FF /* draw.cpp */; };
 		4ADF1CDA1DAEFC8A00BF20FF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ADF1CD51DAEFC8A00BF20FF /* main.cpp */; };
@@ -36,6 +38,8 @@
 /* Begin PBXFileReference section */
 		4A5046FE1DB441C6002C7904 /* ARX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARX.framework; path = ../../../SDK/Frameworks/ARX.framework; sourceTree = "<group>"; };
 		4A5047071DB4476D002C7904 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		4ABDCE9729C189D400E22DA2 /* gibraltar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = gibraltar.jpg; path = ../gibraltar.jpg; sourceTree = "<group>"; };
+		4ABDCE9829C189D400E22DA2 /* Harlech_Castle_plan_colour.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Harlech_Castle_plan_colour.jpg; path = ../Harlech_Castle_plan_colour.jpg; sourceTree = "<group>"; };
 		4ADB4B1A296BCA9B00255CF7 /* artoolkitX 2d Tracking Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "artoolkitX 2d Tracking Example.entitlements"; sourceTree = "<group>"; };
 		4ADF1CBC1DAEFA6B00BF20FF /* artoolkitX 2d Tracking Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "artoolkitX 2d Tracking Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADF1CC51DAEFA6B00BF20FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 		4ADF1CDC1DAEFCB900BF20FF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4ABDCE9729C189D400E22DA2 /* gibraltar.jpg */,
+				4ABDCE9829C189D400E22DA2 /* Harlech_Castle_plan_colour.jpg */,
 				65A20EE4204F666100128948 /* pinball.jpg */,
 			);
 			name = Resources;
@@ -145,7 +151,7 @@
 		4ADF1CB41DAEFA6B00BF20FF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1420;
 				ORGANIZATIONNAME = artoolkit.org;
 				TargetAttributes = {
 					4ADF1CBB1DAEFA6B00BF20FF = {
@@ -178,8 +184,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ABDCE9A29C189D400E22DA2 /* Harlech_Castle_plan_colour.jpg in Resources */,
 				65A20EE5204F666100128948 /* pinball.jpg in Resources */,
 				4ADF1CC61DAEFA6B00BF20FF /* Assets.xcassets in Resources */,
+				4ABDCE9929C189D400E22DA2 /* gibraltar.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +231,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -231,6 +240,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -253,7 +263,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -285,6 +295,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -293,6 +304,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -312,7 +324,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
@@ -325,6 +337,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = EA4A28G9X5;
 				DSTROOT = ../..;
@@ -332,7 +345,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.artoolkitx.arx.example.2d-tracking-example-macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -347,6 +360,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DEVELOPMENT_TEAM = EA4A28G9X5;
 				DSTROOT = ../..;
@@ -354,7 +368,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = /;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.artoolkitx.arx.example.2d-tracking-example-macos";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

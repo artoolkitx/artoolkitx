@@ -72,6 +72,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 
 set(RESOURCES
     ../pinball.jpg
+    ../gibraltar.jpg
+    ../Harlech_Castle_plan_colour.jpg
     ../database.xml.gz
 )
 

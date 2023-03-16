@@ -11,7 +11,7 @@ elseif (${CPACK_GENERATOR} STREQUAL "RPM")
 endif()
 
 #Set all util apps
-set(AR_utils "${ARTK_HOME}/SDK/bin/artoolkitx_check_id" "${ARTK_HOME}/SDK/bin/artoolkitx_checkResolution" "${ARTK_HOME}/SDK/bin/artoolkitx_dispTexData" "${ARTK_HOME}/SDK/bin/artoolkitx_genMarkerSet" "${ARTK_HOME}/SDK/bin/artoolkitx_genTexData" "${ARTK_HOME}/SDK/bin/artoolkitx_mk_patt")
+set(AR_utils "${ARTK_HOME}/SDK/bin/artoolkitx_check_id" "${ARTK_HOME}/SDK/bin/artoolkitx_checkResolution" "${ARTK_HOME}/SDK/bin/artoolkitx_dispTexData" "${ARTK_HOME}/SDK/bin/artoolkitx_genMarkerSet" "${ARTK_HOME}/SDK/bin/artoolkitx_genTexData" "${ARTK_HOME}/SDK/bin/artoolkitx_mk_patt"  "${ARTK_HOME}/SDK/bin/artoolkitx_check_image_2d_tracking" "${ARTK_HOME}/SDK/bin/artoolkitx_image_database2d")
 
 ##Add the util binary files
 install(FILES ${AR_utils} DESTINATION bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)

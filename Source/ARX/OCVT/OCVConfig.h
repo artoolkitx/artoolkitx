@@ -38,26 +38,43 @@
 
 #ifndef OCV_CONFIG_H
 #define OCV_CONFIG_H
+
+#ifdef _WIN32
+#  ifdef OCV_STATIC
+#    define OCV_EXTERN
+#  else
+#    ifdef ARX_EXPORTS
+#      define OCV_EXTERN __declspec(dllexport)
+#    else
+#      define OCV_EXTERN __declspec(dllimport)
+#    endif
+#  endif
+#  define OCV_CALLBACK __stdcall
+#else
+#  define OCV_EXTERN
+#  define OCV_CALLBACK
+#endif
+
 #include <opencv2/core.hpp>
 //#include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/calib3d.hpp>
 
-extern int minRequiredDetectedFeatures;
-extern int markerTemplateWidth;
-extern int maxLevel;  ///< Maximum number of levels in optical flow image pyramid.
-extern const cv::Size subPixWinSize;
-extern const cv::Size winSize;
-extern cv::TermCriteria termcrit;
-extern const int MAX_COUNT;
-extern int maxNumberOfToTrack;
-extern int searchRadius;
-extern int match_method;
-extern int featureDetectPyramidLevel;
-extern int defaultDetectorType;
-extern const double nn_match_ratio; ///< Nearest-neighbour matching ratio
-extern const double ransac_thresh; ///< RANSAC inlier threshold
-extern cv::RNG rng;
-extern int harrisBorder; ///< Harris corners within this many pixels of the border of the image will be ignored.
+OCV_EXTERN extern int minRequiredDetectedFeatures;
+OCV_EXTERN extern int markerTemplateWidth;
+OCV_EXTERN extern int maxLevel;  ///< Maximum number of levels in optical flow image pyramid.
+OCV_EXTERN extern const cv::Size subPixWinSize;
+OCV_EXTERN extern const cv::Size winSize;
+OCV_EXTERN extern cv::TermCriteria termcrit;
+OCV_EXTERN extern const int MAX_COUNT;
+OCV_EXTERN extern int maxNumberOfToTrack;
+OCV_EXTERN extern int searchRadius;
+OCV_EXTERN extern int match_method;
+OCV_EXTERN extern int featureDetectPyramidLevel; ///> Scale factor applied to image pyramid to determine image to perform feature matching upon.
+OCV_EXTERN extern int defaultDetectorType;
+OCV_EXTERN extern const double nn_match_ratio; ///< Nearest-neighbour matching ratio
+OCV_EXTERN extern const double ransac_thresh; ///< RANSAC inlier threshold
+OCV_EXTERN extern cv::RNG rng;
+OCV_EXTERN extern int harrisBorder; ///< Harris corners within this many pixels of the border of the image will be ignored.
 
-#endif
+#endif // OCV_CONFIG_H

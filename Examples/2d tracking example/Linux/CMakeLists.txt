@@ -98,8 +98,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${DEVICE_FLAGS} -DGL_GLEXT_PROTOTYPES=1 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${DEVICE_FLAGS} -DGL_GLEXT_PROTOTYPES=1 -fPIC")
 
 set(RESOURCES
-    ../hiro.patt
-    ../kanji.patt
+    ../pinball.jpg
+    ../gibraltar.jpg
+    ../Harlech_Castle_plan_colour.jpg
+    ../database.xml.gz
 )
 
 set(SOURCE

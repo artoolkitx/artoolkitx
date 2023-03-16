@@ -1,9 +1,9 @@
 # Build system for a utility tool to be included in artoolkitX.
 
-set(TARGET "artoolkitx_mk_patt")
-set(TARGET_PACKAGE "org.artoolkitx.utility.mk-patt")
+set(TARGET "artoolkitx_check_image_2d_tracking")
+set(TARGET_PACKAGE "org.artoolkitx.utility.check-image-2d-tracking")
 
-if (ARX_TARGET_PLATFORM_MACOS OR ARX_TARGET_PLATFORM_LINUX OR ARX_TARGET_PLATFORM_WINDOWS)
+if (ARX_TARGET_PLATFORM_MACOS OR ARX_TARGET_PLATFORM_LINUX  OR ARX_TARGET_PLATFORM_WINDOWS)
   find_package(OpenGL REQUIRED)
   include_directories(${OPENGL_INCLUDE_DIR})
 endif()
@@ -39,30 +39,26 @@ endif()
 #)
 
 set(SOURCE
-	mk_patt.cpp
+	check_image_2d_tracking.cpp
     ${RESOURCES}
 )
 
 add_executable(${TARGET} ${SOURCE})
 
 add_dependencies(${TARGET}
-    AR
-    ARUtil
-    ARVideo
-    ARG
+    ARX
     Eden
 )
 
 target_include_directories(${TARGET}
     PRIVATE ${CMAKE_SOURCE_DIR}/ARX/AR/include
     PRIVATE ${CMAKE_SOURCE_DIR}/ARX/ARUtil/include
-    PRIVATE ${CMAKE_SOURCE_DIR}/ARX/ARVideo/include
     PRIVATE ${CMAKE_SOURCE_DIR}/ARX/ARG/include
+    PRIVATE ${CMAKE_SOURCE_DIR}/ARX/OCVT/include
     PRIVATE ${CMAKE_SOURCE_DIR}/depends/common/src
     PRIVATE ${PROJECT_BINARY_DIR}/ARX/AR/include
+    PRIVATE ${OpenCV_INCLUDE_DIR}
 )
-
-message("CMAKE_SOURCE_DIR " ${CMAKE_SOURCE_DIR})
 
 if (ARX_TARGET_PLATFORM_MACOS OR ARX_TARGET_PLATFORM_IOS)
 	set_target_properties(${TARGET} PROPERTIES
@@ -90,16 +86,27 @@ else()
 endif()
 
 target_link_libraries(${TARGET}
-    AR
-    ARUtil
-    ARVideo
-    ARG
-    ARX
-    Eden
-    ${OPENGL_LIBRARIES}
-    ${SDL2_LIBRARY}
-    ${LIBS}
+    PRIVATE ARX
+    PRIVATE Eden
+    PRIVATE ${OPENGL_LIBRARIES}
+    PRIVATE ${SDL2_LIBRARY}
+    PRIVATE ${LIBS}
 )    
+
+if(NOT ARX_TARGET_PLATFORM_WINDOWS)
+	target_link_libraries(${TARGET}
+		PRIVATE ${OpenCV_LIBS}
+	)
+else()
+	set (LINK_LIST "")
+	foreach(x ${OpenCV_LIBS})
+		string(REPLACE ".lib" "341d.lib" x_debug ${x})
+		list (APPEND LINK_LIST debug ${x_debug} optimized ${x})
+	endforeach()
+	target_link_libraries(${TARGET}
+	    PRIVATE ${LINK_LIST}
+	)
+endif()
 
 install(TARGETS ${TARGET}
     RUNTIME DESTINATION bin

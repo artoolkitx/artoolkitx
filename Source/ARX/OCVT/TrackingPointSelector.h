@@ -46,14 +46,9 @@
 class TrackingPointSelector
 {
 public:
-    TrackingPointSelector();
+    OCV_EXTERN TrackingPointSelector();
     
-    TrackingPointSelector(std::vector<cv::Point2f> pts, int width, int height, int markerTemplateWidth);
-    
-    std::vector<TrackedPoint> _selectedPts;
-    std::vector<cv::Point2f> _pts;
-    std::map<int, std::vector<TrackedPoint> > trackingPointBin;
-    cv::Mat homography;
+    OCV_EXTERN TrackingPointSelector(std::vector<cv::Point2f> pts, int width, int height, int markerTemplateWidth);
     
     void DistributeBins(int width, int height, int markerTemplateWidth);
     
@@ -62,7 +57,8 @@ public:
     cv::Mat GetHomography();
     
     void UpdatePointStatus(std::vector<uchar> status);
-    
+
+    /// Reset selected points and then randomly select one point from each bin.
     void SelectPoints();
     
     std::vector<cv::Point2f> GetSelectedFeatures();
@@ -72,10 +68,17 @@ public:
     std::vector<cv::Point3f> GetSelectedFeatures3d();
     
     std::vector<cv::Point2f> GetSelectedFeaturesWarped();
+
+    /// Get all points from all bins that are candidates for selection.
+    OCV_EXTERN std::vector<cv::Point2f> GetAllFeatures();
     
-    std::vector<cv::Point2f> GetAllFeatures();
-    
-    void CleanUp();
+    OCV_EXTERN void CleanUp();
+
+private:
+    std::vector<TrackedPoint> _selectedPts;
+    std::vector<cv::Point2f> _pts;
+    std::map<int, std::vector<TrackedPoint> > trackingPointBin;
+    cv::Mat homography;
 
 };
 #endif //TRACKINGPOINTSELECTOR
