@@ -1,7 +1,7 @@
 # Build system for a utility tool to be included in artoolkitX.
 
 set(TARGET "artoolkitx_check_image_2d_tracking")
-set(TARGET_PACKAGE "org.artoolkitx.utility.check_image_2d_tracking")
+set(TARGET_PACKAGE "org.artoolkitx.utility.check-image-2d-tracking")
 
 if (ARX_TARGET_PLATFORM_MACOS OR ARX_TARGET_PLATFORM_LINUX  OR ARX_TARGET_PLATFORM_WINDOWS)
   find_package(OpenGL REQUIRED)
@@ -57,6 +57,7 @@ target_include_directories(${TARGET}
     PRIVATE ${CMAKE_SOURCE_DIR}/ARX/OCVT/include
     PRIVATE ${CMAKE_SOURCE_DIR}/depends/common/src
     PRIVATE ${PROJECT_BINARY_DIR}/ARX/AR/include
+    PRIVATE ${OpenCV_INCLUDE_DIR}
 )
 
 if (ARX_TARGET_PLATFORM_MACOS OR ARX_TARGET_PLATFORM_IOS)
@@ -85,12 +86,27 @@ else()
 endif()
 
 target_link_libraries(${TARGET}
-    ARX
-    Eden
-    ${OPENGL_LIBRARIES}
-    ${SDL2_LIBRARY}
-    ${LIBS}
+    PRIVATE ARX
+    PRIVATE Eden
+    PRIVATE ${OPENGL_LIBRARIES}
+    PRIVATE ${SDL2_LIBRARY}
+    PRIVATE ${LIBS}
 )    
+
+if(NOT ARX_TARGET_PLATFORM_WINDOWS)
+	target_link_libraries(${TARGET}
+		PRIVATE ${OpenCV_LIBS}
+	)
+else()
+	set (LINK_LIST "")
+	foreach(x ${OpenCV_LIBS})
+		string(REPLACE ".lib" "341d.lib" x_debug ${x})
+		list (APPEND LINK_LIST debug ${x_debug} optimized ${x})
+	endforeach()
+	target_link_libraries(${TARGET}
+	    PRIVATE ${LINK_LIST}
+	)
+endif()
 
 install(TARGETS ${TARGET}
     RUNTIME DESTINATION bin

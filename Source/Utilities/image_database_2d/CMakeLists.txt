@@ -1,7 +1,7 @@
 # Build system for a utility tool to be included in artoolkitX.
 
 set(TARGET "artoolkitx_image_database2d")
-set(TARGET_PACKAGE "org.artoolkitx.utility.image_database2d")
+set(TARGET_PACKAGE "org.artoolkitx.utility.image-database2d")
 
 set(SOURCE
     image_database2d.cpp
@@ -25,7 +25,6 @@ target_include_directories(${TARGET}
     PRIVATE ${CMAKE_SOURCE_DIR}/ARX/KPM/include
     PRIVATE ${CMAKE_SOURCE_DIR}/ARX/OCVT/include
     PRIVATE ${PROJECT_BINARY_DIR}/ARX/AR/include
-    PRIVATE ${OpenCV_INCLUDE_DIR}
 )
 
 if (ARX_TARGET_PLATFORM_MACOS OR ARX_TARGET_PLATFORM_IOS)
