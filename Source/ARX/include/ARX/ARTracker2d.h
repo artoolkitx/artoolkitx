@@ -67,8 +67,8 @@ public:
     
     bool initialize() override;
     
-    void setTwoDMultiMode(bool on);
-    bool TwoDMultiMode() const;
+    void setMaxMarkersToTrack(int maximumNumberOfMarkersToTrack);
+    int getMaxMarkersToTrack() const;
     
     bool start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat) override;
     bool start(ARParamLT *paramLT0, AR_PIXEL_FORMAT pixelFormat0, ARParamLT *paramLT1, AR_PIXEL_FORMAT pixelFormat1, const ARdouble transL2R[3][4]) override;
@@ -85,6 +85,7 @@ public:
     bool saveImageDatabase(std::string filename);
     
     void setDetectorType(int detectorType);
+    int getDetectorType(void);
 private:
     int m_cameraXSize;
     int m_cameraYSize;
@@ -96,7 +97,6 @@ private:
     // 2d data.
     ARdouble m_transL2R[3][4];          ///< For stereo tracking, transformation matrix from left camera to right camera.
     
-    bool m_twoDMultiMode;
     bool m_running;
     bool unloadTwoDData();
     bool loadTwoDData(std::vector<ARTrackable *>& trackables);

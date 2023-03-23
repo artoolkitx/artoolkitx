@@ -69,14 +69,14 @@ bool ARTracker2d::initialize()
     return true;
 }
 
-void ARTracker2d::setTwoDMultiMode(bool on)
+void ARTracker2d::setMaxMarkersToTrack(int maximumNumberOfMarkersToTrack)
 {
-    m_twoDMultiMode = on;
+    m_2DTracker->SetMaximumNumberOfMarkersToTrack(maximumNumberOfMarkersToTrack);
 }
 
-bool ARTracker2d::TwoDMultiMode() const
+int ARTracker2d::getMaxMarkersToTrack() const
 {
-    return m_twoDMultiMode;
+    return m_2DTracker->GetMaximumNumberOfMarkersToTrack();
 }
 
 bool ARTracker2d::start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat)
@@ -289,9 +289,15 @@ bool ARTracker2d::saveImageDatabase(std::string filename)
 
 void ARTracker2d::setDetectorType(int detectorType)
 {
-    if(unloadTwoDData()) {
+    if (unloadTwoDData()) {
         m_2DTracker->SetFeatureDetector(detectorType);
     }
 }
+
+int ARTracker2d::getDetectorType(void)
+{
+    return m_2DTracker->GetFeatureDetector();
+}
+
 #endif // HAVE_2D
 

@@ -67,7 +67,6 @@ OCV_EXTERN extern const cv::Size subPixWinSize;
 OCV_EXTERN extern const cv::Size winSize;
 OCV_EXTERN extern cv::TermCriteria termcrit;
 OCV_EXTERN extern const int MAX_COUNT;
-OCV_EXTERN extern int maxNumberOfToTrack;
 OCV_EXTERN extern int searchRadius;
 OCV_EXTERN extern int match_method;
 OCV_EXTERN extern int featureDetectPyramidLevel; ///> Scale factor applied to image pyramid to determine image to perform feature matching upon.

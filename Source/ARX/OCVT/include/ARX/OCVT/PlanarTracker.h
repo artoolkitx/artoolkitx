@@ -87,6 +87,11 @@ public:
     TrackedImageInfo GetTrackableImageInfo(int trackableId);
     
     void SetFeatureDetector(int detectorType);
+    int GetFeatureDetector(void);
+
+    void SetMaximumNumberOfMarkersToTrack(int maximumNumberOfMarkersToTrack);
+    int GetMaximumNumberOfMarkersToTrack(void);
+
 
 private:
     class PlanarTrackerImpl;
