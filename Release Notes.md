@@ -1,6 +1,11 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.3
+### 2023-03-23
+
+ * Added support for setting the number of 2D planar tracker markers that can be simultaneously tracked. 
+
 ## Version 1.1.2
 ### 2023-03-16
 
