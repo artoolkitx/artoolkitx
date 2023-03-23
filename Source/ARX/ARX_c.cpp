@@ -323,9 +323,8 @@ void arwSetTrackerOptionBool(int option, bool value)
     if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
 #if HAVE_NFT
         gARTK->getNFTTracker()->setNFTMultiMode(value);
-#else
-        return;
 #endif
+        return;
     } else if (option == ARW_TRACKER_OPTION_SQUARE_DEBUG_MODE) {
         gARTK->getSquareTracker()->setDebugMode(value);
     }
@@ -356,8 +355,10 @@ void arwSetTrackerOptionInt(int option, int value)
 #if HAVE_2D
         if (value < 0 || value > 3) return;
         gARTK->get2dTracker()->setDetectorType(value);
-#else
-        return;
+#endif
+    } else if (option == ARW_TRACKER_OPTION_2D_MAXIMUM_MARKERS_TO_TRACK) {
+#if HAVE_2D
+        gARTK->get2dTracker()->setMaxMarkersToTrack(value);
 #endif
     }
 }
@@ -379,8 +380,6 @@ bool arwGetTrackerOptionBool(int option)
     if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
 #if HAVE_NFT
         return  gARTK->getNFTTracker()->NFTMultiMode();
-#else
-        return false;
 #endif
     } else if (option == ARW_TRACKER_OPTION_SQUARE_DEBUG_MODE) {
         return gARTK->getSquareTracker()->debugMode();
@@ -408,6 +407,14 @@ int arwGetTrackerOptionInt(int option)
         return gARTK->getSquareTracker()->patternSize();
     } else if (option == ARW_TRACKER_OPTION_SQUARE_PATTERN_COUNT_MAX) {
         return gARTK->getSquareTracker()->patternCountMax();
+    } else if (option == ARW_TRACKER_OPTION_2D_TRACKER_FEATURE_TYPE) {
+#if HAVE_2D
+        return gARTK->get2dTracker()->getDetectorType();
+#endif
+    } else if (option == ARW_TRACKER_OPTION_2D_MAXIMUM_MARKERS_TO_TRACK) {
+#if HAVE_2D
+        return gARTK->get2dTracker()->getMaxMarkersToTrack();
+#endif
     }
     return (INT_MAX);
 }

@@ -43,7 +43,6 @@ const cv::Size subPixWinSize(10,10);
 const cv::Size winSize(31,31);
 cv::TermCriteria termcrit(cv::TermCriteria::COUNT|cv::TermCriteria::EPS,20,0.03);
 const int MAX_COUNT = 300;
-int maxNumberOfToTrack = 1;
 int searchRadius = 15;
 int match_method = cv::TM_SQDIFF_NORMED;
 int featureDetectPyramidLevel = 2; ///> Scale factor applied to image pyramid to determine image to perform feature matching upon.
