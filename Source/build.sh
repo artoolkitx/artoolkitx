@@ -506,7 +506,7 @@ if [ $BUILD_WINDOWS ] ; then
     fi
 
     if [ ! -d "depends/windows/include/opencv2" ] ; then
-        curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-windows.tgz" -o opencv2.tgz
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.7.0-dev-artoolkitx/opencv-4.7.0-dev-artoolkitx-win-vc16.tgz" -o opencv2.tgz
         tar xzf opencv2.tgz --strip-components=1 -C depends/windows
         rm opencv2.tgz
     fi
@@ -515,7 +515,7 @@ if [ $BUILD_WINDOWS ] ; then
     rm -f CMakeCache.txt
     cmake.exe .. -G "$CMAKE_GENERATOR" ${CMAKE_ARCH+-A ${CMAKE_ARCH}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
     cmake.exe --build . --config ${DEBUG+Debug}${DEBUG-Release} --target install
-    cp $OURDIR/depends/windows/lib/x64/opencv* $OURDIR/../SDK/bin
+    #cp $OURDIR/depends/windows/lib/x64/opencv* $OURDIR/../SDK/bin
     cp $OURDIR/depends/windows/lib/x64/SDL2.dll $OURDIR/../SDK/bin
 
     if [ $BUILD_EXAMPLES ] ; then
@@ -528,7 +528,7 @@ if [ $BUILD_WINDOWS ] ; then
         cmake.exe --build . --config ${DEBUG+Debug}${DEBUG-Release}  --target install
         #Copy needed dlls into the corresponding Visual Studio directory to allow running examples from inside the Visual Studio GUI
         mkdir -p ${DEBUG+Debug}${DEBUG-Release}
-        cp $OURDIR/depends/windows/lib/x64/opencv*.dll ./${DEBUG+Debug}${DEBUG-Release}
+        #cp $OURDIR/depends/windows/lib/x64/opencv*.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/depends/windows/lib/x64/SDL2.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/ARX*.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/*.patt ./${DEBUG+Debug}${DEBUG-Release}
@@ -540,7 +540,7 @@ if [ $BUILD_WINDOWS ] ; then
         cmake.exe --build . --config ${DEBUG+Debug}${DEBUG-Release}  --target install
         #Copy needed dlls into the corresponding Visual Studio directory to allow running examples from inside the Visual Studio GUI
         mkdir -p ${DEBUG+Debug}${DEBUG-Release}
-        cp $OURDIR/depends/windows/lib/x64/opencv*.dll ./${DEBUG+Debug}${DEBUG-Release}
+        #cp $OURDIR/depends/windows/lib/x64/opencv*.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/depends/windows/lib/x64/SDL2.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/ARX*.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/pinball.jpg ./${DEBUG+Debug}${DEBUG-Release}

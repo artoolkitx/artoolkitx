@@ -7,6 +7,7 @@ Examples/*.exe
 ### Packaging
 Source/packaging/linux/cpack/
 *.deb
+*.dmg
 
 #### OS-generated caches and resources
 .DS_Store
@@ -59,6 +60,7 @@ local.properties
 *.user
 *.userosscache
 *.sln.docstates
+.vscode/settings.json
 
 # Xcode
 xcuserdata/
@@ -69,4 +71,3 @@ xcuserdata/
 
 #### Other VCS
 .svn/
-*.dmg

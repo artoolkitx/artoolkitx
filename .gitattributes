@@ -1,13 +1,26 @@
 # We want Unix line-endings even on Windows, so that bash works on all platforms.
 * text eol=lf
+
 # InnoSetup on Windows requires CRLF line endings.
 *.iss text eol=crlf
+
+# Keep bat files CRLF
+*.bat text eol=crlf
+
 # Archives are binary.
 *.a binary
 *.lib binary
 *.dll binary
 *.exe binary
 *.zip binary
+*.gz binary
+*.bz2 binary
+*.db binary
+
+# Images.
+*.jpg binary
+*.png binary
+*.pdf binary
 
 # Dependencies without extensions
 Source/depends/macos/Frameworks/SDL2.framework/Versions/A/SDL2 binary
