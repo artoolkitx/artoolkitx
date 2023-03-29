@@ -155,7 +155,7 @@ bool ARTracker2d::update(AR2VideoBufferT *buff, std::vector<ARTrackable *>& trac
         }
     }
     
-    m_2DTracker->ProcessFrameData(buff->buff);
+    m_2DTracker->ProcessFrameData(buff->buffLuma);
     // Loop through all loaded 2D targets and match against tracking results.
     m_2DTrackerDetectedImageCount = 0;
     for (std::vector<ARTrackable *>::iterator it = trackables.begin(); it != trackables.end(); ++it) {

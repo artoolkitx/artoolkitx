@@ -1,10 +1,16 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.4
+### 2023-03-30
+
+ * Corrected a long-standing Windows bug that affected 2D planar tracking with 32-bit video formats.
+ * Updated the OpenCV build used by the 2D planar tracker on Windows and switched to static OpenCV libraries. This saves users from having to deploy the OpenCV DLLs alongside built apps.
+
 ## Version 1.1.3
 ### 2023-03-23
 
- * Added support for setting the number of 2D planar tracker markers that can be simultaneously tracked. 
+ * Added support for setting the number of 2D planar tracker markers that can be simultaneously tracked.
 
 ## Version 1.1.2
 ### 2023-03-16
