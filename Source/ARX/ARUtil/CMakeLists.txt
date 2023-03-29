@@ -14,9 +14,9 @@ else()
             )
 
     FIND_LIBRARY( ZLIB_LIBRARIES
-                NAMES zlibstatic
+                NAMES zlib
                 PATHS ${PROJECT_SOURCE_DIR}/depends/windows/lib/x64
-                DOC "The directory where zlibstatic.lib static library resides"
+                DOC "The directory where zlib.lib static library resides"
                 )
 endif()
 
