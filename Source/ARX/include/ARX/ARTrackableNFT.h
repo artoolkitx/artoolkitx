@@ -59,6 +59,7 @@ private:
     AR2SurfaceSetT *surfaceSet;
     bool unload();
 
+    AR2ImageT *getBestImage(int patternIndex);
 public:
     
 	ARTrackableNFT();
@@ -70,6 +71,12 @@ public:
 
     void setNFTScale(const float scale);
     float NFTScale();
+
+    int getPatternCount() override;
+    std::pair<float, float> getPatternSize(int patternIndex) override;
+    std::pair<int, int> getPatternImageSize(int patternIndex) override;
+    bool getPatternTransform(int patternIndex, ARdouble T[16]) override;
+    bool getPatternImage(int patternIndex, uint32_t *pattImageBuffer) override;
 };
 
 #endif // HAVE_NFT

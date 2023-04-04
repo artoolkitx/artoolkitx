@@ -41,7 +41,7 @@
 
 #include <ARX/ARTrackable.h>
 #if HAVE_2D
-//#include <ARX/AR2/imageSet.h>
+#include <memory>
 
 /**
  * 2D marker type of ARTrackable.
@@ -56,7 +56,6 @@ private:
     bool robustFlag;                                    ///< Flag specifying which pose estimation approach to use
     int pageNo;                                         ///< "Page number" (first page is page 0), or -1 if 2D data not yet loaded into tracker. Not strictly necessary for 2D tracker, but useful when multiple 2D trackables are loaded.
     char *datasetPathname;
-    unsigned char* surfaceImage;
     int m_refImageX, m_refImageY;
     float m_height;
     std::shared_ptr<unsigned char> m_refImage;
@@ -89,6 +88,12 @@ public:
     
     void setTwoDScale(const float scale);
     float TwoDScale();
+
+    int getPatternCount() override;
+    std::pair<float, float> getPatternSize(int patternIndex) override;
+    std::pair<int, int> getPatternImageSize(int patternIndex) override;
+    bool getPatternTransform(int patternIndex, ARdouble T[16]) override;
+    bool getPatternImage(int patternIndex, uint32_t *pattImageBuffer) override;
 };
 
 #endif // HAVE_2D

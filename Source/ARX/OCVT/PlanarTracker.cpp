@@ -552,12 +552,12 @@ public:
         return success;
     }
     
-    void AddMarker(unsigned char* buff, std::string fileName, int width, int height, int uid, float scale)
+    void AddMarker(std::shared_ptr<unsigned char> buff, std::string fileName, int width, int height, int uid, float scale)
     {
         TrackableInfo newTrackable;
-        // Just wraps `buff` rather than copying it, i.e. `buff` must remain valid
-        // for the duration of the trackable.
-        newTrackable._image = cv::Mat(height, width, CV_8UC1, buff);
+        // cv::Mat() wraps `buff` rather than copying it, but this is OK as we share ownership with caller via the shared_ptr.
+        newTrackable._imageBuff = buff;
+        newTrackable._image = cv::Mat(height, width, CV_8UC1, buff.get());
         if (!newTrackable._image.empty()) {
             newTrackable._id = uid;
             newTrackable._fileName = fileName;
@@ -710,7 +710,7 @@ void PlanarTracker::RemoveAllMarkers()
     _trackerImpl->RemoveAllMarkers();
 }
 
-void PlanarTracker::AddMarker(unsigned char* buff, std::string fileName, int width, int height, int uid, float scale)
+void PlanarTracker::AddMarker(std::shared_ptr<unsigned char> buff, std::string fileName, int width, int height, int uid, float scale)
 {
     _trackerImpl->AddMarker(buff, fileName, width, height, uid, scale);
 }

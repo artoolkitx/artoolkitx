@@ -292,7 +292,7 @@ int main(int argc, char *argv[])
                 
                 if (gARTImageSavePlease) {
                     char imageNumberText[15];
-                    sprintf(imageNumberText, "image-%04d.jpg", imageNumber++);
+                    snprintf(imageNumberText, sizeof(imageNumberText), "image-%04d.jpg", imageNumber++);
                     if (arVideoSaveImageJPEG(gARHandle->xsize, gARHandle->ysize, gARHandle->arPixelFormat, image->buff, imageNumberText, 75, 0) < 0) {
                         ARLOGe("Error saving video image.\n");
                     }

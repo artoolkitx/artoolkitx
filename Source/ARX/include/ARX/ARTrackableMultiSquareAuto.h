@@ -39,6 +39,7 @@
 
 #include <ARX/ARTrackable.h>
 #include <ARX/AR/arMulti.h>
+#include <memory>
 
 /**
  * An ARTrackable that auto-builds a map of matrix (2D barcode) markers.
@@ -85,6 +86,12 @@ public:
      * Caller must call arMultiFreeConfig() on the returned value when done.
      */
     ARMultiMarkerInfoT *copyMultiConfig();
+
+    int getPatternCount() override;
+    std::pair<float, float> getPatternSize(int patternIndex) override;
+    std::pair<int, int> getPatternImageSize(int patternIndex) override;
+    bool getPatternTransform(int patternIndex, ARdouble T[16]) override;
+    bool getPatternImage(int patternIndex, uint32_t *pattImageBuffer) override;
 };
 
 

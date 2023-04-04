@@ -38,6 +38,7 @@
 
 #include <ARX/ARTrackableSquare.h>
 #include <ARX/ARController.h>
+#include "AR/matrixCode.h"
 #ifndef MAX
 #  define MAX(x,y) (x > y ? x : y)
 #endif
@@ -62,7 +63,6 @@ ARTrackableSquare::~ARTrackableSquare()
 bool ARTrackableSquare::unload()
 {
     if (m_loaded) {
-        freePatterns();
         if (patt_type == AR_PATTERN_TYPE_TEMPLATE && patt_id != -1) {
             if (m_arPattHandle) {
                 arPattFree(m_arPattHandle, patt_id);
@@ -99,10 +99,6 @@ bool ARTrackableSquare::initWithPatternFile(const char* path, ARdouble width, AR
     m_width = width;
     
 	visible = visiblePrev = false;
-    
-    // An ARPattern to hold an image of the pattern for display to the user.
-	allocatePatterns(1);
-	patterns[0]->loadTemplate(patt_id, m_arPattHandle, (float)m_width);
 
     m_loaded = true;
 	return true;
@@ -128,16 +124,12 @@ bool ARTrackableSquare::initWithPatternFromBuffer(const char* buffer, ARdouble w
 	m_width = width;
 
 	visible = visiblePrev = false;
-	
-    // An ARPattern to hold an image of the pattern for display to the user.
-	allocatePatterns(1);
-	patterns[0]->loadTemplate(patt_id, arPattHandle, (float)m_width);
-	
+
     m_loaded = true;
 	return true;
 }
 
-bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width)
+bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
 	if (barcodeID < 0) return false;
     
@@ -148,13 +140,10 @@ bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width)
 	patt_id = barcodeID;
 	
     patt_type = AR_PATTERN_TYPE_MATRIX;
+    m_matrixCodeType = matrixCodeType;
 	m_width = width;
     
 	visible = visiblePrev = false;
-		
-    // An ARPattern to hold an image of the pattern for display to the user.
-	allocatePatterns(1);
-	patterns[0]->loadMatrix(patt_id, AR_MATRIX_CODE_3x3, (float)m_width); // FIXME: need to determine actual matrix code type.
 
     m_loaded = true;
 	return true;
@@ -341,3 +330,82 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
 	return (ARTrackable::update(transL2R)); // Parent class will finish update.
 }
 
+int ARTrackableSquare::getPatternCount()
+{
+    return 1;
+}
+
+std::pair<float, float> ARTrackableSquare::getPatternSize(int patternIndex)
+{
+    if (patternIndex != 0) return std::pair<float, float>();
+    return std::pair<float, float>((float)m_width, (float)m_width);
+}
+
+std::pair<int, int> ARTrackableSquare::getPatternImageSize(int patternIndex)
+{
+    if (patternIndex != 0) return std::pair<int, int>();
+    if (patt_type == AR_PATTERN_TYPE_TEMPLATE) {
+        if (!m_arPattHandle) return std::pair<int, int>();
+        return std::pair<int, int>(m_arPattHandle->pattSize, m_arPattHandle->pattSize);
+    } else  /* patt_type == AR_PATTERN_TYPE_MATRIX */ {
+        return std::pair<int, int>(m_matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK, m_matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK);
+    }
+}
+
+bool ARTrackableSquare::getPatternTransform(int patternIndex, ARdouble T[16])
+{
+    if (patternIndex != 0) return false;
+    T[ 0] = _1_0; T[ 1] = _0_0; T[ 2] = _0_0; T[ 3] = _0_0;
+    T[ 4] = _0_0; T[ 5] = _1_0; T[ 6] = _0_0; T[ 7] = _0_0;
+    T[ 8] = _0_0; T[ 9] = _0_0; T[10] = _1_0; T[11] = _0_0;
+    T[12] = _0_0; T[13] = _0_0; T[14] = _0_0; T[15] = _1_0;
+    return true;
+}
+
+bool ARTrackableSquare::getPatternImage(int patternIndex, uint32_t *pattImageBuffer)
+{
+    if (patternIndex != 0) return false;
+
+    if (patt_type == AR_PATTERN_TYPE_TEMPLATE) {
+        if (!m_arPattHandle || !m_arPattHandle->pattf[patt_id]) return false;
+        const int *arr = m_arPattHandle->patt[patt_id * 4];
+        for (int y = 0; y < m_arPattHandle->pattSize; y++) {
+            for (int x = 0; x < m_arPattHandle->pattSize; x++) {
+
+                int pattIdx = (m_arPattHandle->pattSize - 1 - y)*m_arPattHandle->pattSize + x; // Flip pattern in Y.
+                int buffIdx = y*m_arPattHandle->pattSize + x;
+
+                uint8_t *c = (uint8_t *)&(pattImageBuffer[buffIdx]);
+                *c++ = 255 - arr[pattIdx * 3 + 2];
+                *c++ = 255 - arr[pattIdx * 3 + 1];
+                *c++ = 255 - arr[pattIdx * 3 + 0];
+                *c++ = 255;
+            }
+        }
+        return true;
+    } else  /* patt_type == AR_PATTERN_TYPE_MATRIX */ {
+        uint8_t *code;
+        encodeMatrixCode(m_matrixCodeType, patt_id, &code);
+        int barcode_dimensions = m_matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK;
+        int bit = 0;
+        const uint32_t colour_black = 0x000000ff;
+        const uint32_t colour_white = 0xffffffff;
+        for (int row = barcode_dimensions - 1; row >= 0; row--) {
+            for (int col = barcode_dimensions - 1; col >= 0; col--) {
+                uint32_t pixel_colour;
+                if ((row == 0 || row == (barcode_dimensions - 1)) && col == 0) {
+                    pixel_colour = colour_black;
+                } else if (row == (barcode_dimensions - 1) && col == (barcode_dimensions - 1)) {
+                    pixel_colour = colour_white;
+                } else {
+                    if (code[bit]) pixel_colour = colour_black;
+                    else pixel_colour = colour_white;
+                    bit++;
+                }
+                pattImageBuffer[barcode_dimensions * row + col] = pixel_colour;
+            }
+        }
+        free(code);
+        return true;
+    }
+}
