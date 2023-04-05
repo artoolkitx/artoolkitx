@@ -86,10 +86,6 @@ bool ARTrackable2d::load2DData(const char* dataSetPathname_in, std::shared_ptr<u
 
     datasetPathname = strdup(dataSetPathname_in);
     
-    allocatePatterns(1);
-    patterns[0]->load2DTrackerImage(m_refImage, m_refImageX, m_refImageY, m_height*((float)m_refImageX)/((float)m_refImageY), m_height);
-    
-    allocatePatterns(1);
     m_loaded = true;
     
     return true;
@@ -99,7 +95,6 @@ bool ARTrackable2d::load2DData(const char* dataSetPathname_in, std::shared_ptr<u
 bool ARTrackable2d::unload()
 {
     if (m_loaded) {
-        freePatterns();
         pageNo = -1;
         m_refImage.reset();
         if (datasetPathname) {
@@ -139,6 +134,45 @@ void ARTrackable2d::setTwoDScale(const float scale)
 float ARTrackable2d::TwoDScale()
 {
     return (m_twoDScale);
+}
+
+int ARTrackable2d::getPatternCount()
+{
+    return 1;
+}
+
+std::pair<float, float> ARTrackable2d::getPatternSize(int patternIndex)
+{
+    if (patternIndex != 0) return std::pair<float, float>();
+    return std::pair<float, float>(m_height*((float)m_refImageX)/((float)m_refImageY), m_height);
+}
+
+std::pair<int, int> ARTrackable2d::getPatternImageSize(int patternIndex)
+{
+    if (patternIndex != 0) return std::pair<int, int>();
+    return std::pair<int, int>(m_refImageX, m_refImageY);
+}
+
+bool ARTrackable2d::getPatternTransform(int patternIndex, ARdouble T[16])
+{
+    if (patternIndex != 0) return false;
+    T[ 0] = _1_0; T[ 1] = _0_0; T[ 2] = _0_0; T[ 3] = _0_0;
+    T[ 4] = _0_0; T[ 5] = _1_0; T[ 6] = _0_0; T[ 7] = _0_0;
+    T[ 8] = _0_0; T[ 9] = _0_0; T[10] = _1_0; T[11] = _0_0;
+    T[12] = _0_0; T[13] = _0_0; T[14] = _0_0; T[15] = _1_0;
+    return true;
+}
+
+bool ARTrackable2d::getPatternImage(int patternIndex, uint32_t *pattImageBuffer)
+{
+    if (patternIndex != 0) return false;
+    if (m_refImage == nullptr) return false;
+    unsigned char *buff = m_refImage.get();
+    for (int p = 0; p < m_refImageX * m_refImageY; p++) {
+        unsigned char c = buff[p];
+        pattImageBuffer[p] = c << 24 | c << 16 | c << 8 | 255;
+    }
+    return true;
 }
 
 #endif // HAVE_2D

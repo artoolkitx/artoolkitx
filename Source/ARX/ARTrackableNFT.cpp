@@ -67,10 +67,7 @@ bool ARTrackableNFT::load(const char* dataSetPathname_in)
         return (false);
     }
  	datasetPathname = strdup(dataSetPathname_in);
-    
-    allocatePatterns(1);
-    patterns[0]->loadISet(surfaceSet->surface[0].imageSet, m_nftScale);
-   
+
     m_loaded = true;
     
 	return true;
@@ -79,7 +76,6 @@ bool ARTrackableNFT::load(const char* dataSetPathname_in)
 bool ARTrackableNFT::unload()
 {
     if (m_loaded) {
-        freePatterns();
         pageNo = -1;
         if (surfaceSet) {
             ARLOGi("Unloading '%s.fset'.\n", datasetPathname);
@@ -118,12 +114,89 @@ bool ARTrackableNFT::updateWithNFTResults(int detectedPage, float trackingTrans[
 void ARTrackableNFT::setNFTScale(const float scale)
 {
     m_nftScale = scale;
-    patterns[0]->loadISet(surfaceSet->surface[0].imageSet, m_nftScale);
 }
 
 float ARTrackableNFT::NFTScale()
 {
     return (m_nftScale);
+}
+
+int ARTrackableNFT::getPatternCount()
+{
+    if (!surfaceSet) return 0;
+    return surfaceSet->num;
+}
+
+AR2ImageT *ARTrackableNFT::getBestImage(int patternIndex)
+{
+    if (!surfaceSet
+        || patternIndex < 0 || patternIndex >= surfaceSet->num
+        || !surfaceSet->surface
+        || !surfaceSet->surface[patternIndex].imageSet
+        || surfaceSet->surface[patternIndex].imageSet->num < 1
+        || !surfaceSet->surface[patternIndex].imageSet->scale) {
+        return nullptr;
+    }
+    return surfaceSet->surface[patternIndex].imageSet->scale[0]; // Assume best scale (largest image) is first entry in array scale[index] (index is in range [0, imageSet->num - 1]).
+}
+
+std::pair<float, float> ARTrackableNFT::getPatternSize(int patternIndex)
+{
+    AR2ImageT *image = getBestImage(patternIndex);
+    if (!image) return std::pair<float, float>();
+
+    float w = image->xsize * 25.4f / image->dpi * m_nftScale;
+    float h = image->ysize * 25.4f / image->dpi * m_nftScale;
+    return std::pair<float, float>(w, h);
+}
+
+std::pair<int, int> ARTrackableNFT::getPatternImageSize(int patternIndex)
+{
+    AR2ImageT *image = getBestImage(patternIndex);
+    if (!image) return std::pair<int, int>();
+
+    return std::pair<int, int>(image->xsize, image->ysize);
+}
+
+bool ARTrackableNFT::getPatternTransform(int patternIndex, ARdouble T[16])
+{
+    if (!surfaceSet
+        || patternIndex < 0 || patternIndex >= surfaceSet->num
+        || !surfaceSet->surface) {
+        return false;
+    }
+    T[ 0] = surfaceSet->surface[patternIndex].trans[0][0];
+    T[ 1] = surfaceSet->surface[patternIndex].trans[1][0];
+    T[ 2] = surfaceSet->surface[patternIndex].trans[2][0];
+    T[ 3] = _0_0;
+    T[ 4] = surfaceSet->surface[patternIndex].trans[0][1];
+    T[ 5] = surfaceSet->surface[patternIndex].trans[1][1];
+    T[ 6] = surfaceSet->surface[patternIndex].trans[2][1];
+    T[ 7] = _0_0;
+    T[ 8] = surfaceSet->surface[patternIndex].trans[0][2];
+    T[ 9] = surfaceSet->surface[patternIndex].trans[1][2];
+    T[10] = surfaceSet->surface[patternIndex].trans[2][2];
+    T[11] = _0_0;
+    T[12] = surfaceSet->surface[patternIndex].trans[0][3] * m_nftScale;
+    T[13] = surfaceSet->surface[patternIndex].trans[1][3] * m_nftScale;
+    T[14] = surfaceSet->surface[patternIndex].trans[2][3] * m_nftScale;
+    T[15] = _1_0;
+    return true;
+}
+
+bool ARTrackableNFT::getPatternImage(int patternIndex, uint32_t *pattImageBuffer)
+{
+    AR2ImageT *image = getBestImage(patternIndex);
+    if (!image) return false;
+    for (int p = 0; p < image->xsize * image->xsize; p++) {
+#if AR2_CAPABLE_ADAPTIVE_TEMPLATE
+        ARUint8 c = image->imgBWBlur[0][p];
+#else
+        ARUint8 c = image->imgBW[p];
+#endif
+        pattImageBuffer[p] = c << 24 | c << 16 | c << 8 | 255;
+    }
+    return true;
 }
 
 #endif // HAVE_NFT

@@ -73,7 +73,7 @@ public:
     void ProcessFrameData(unsigned char * frame);
     
     void RemoveAllMarkers();
-    void AddMarker(unsigned char* buff, std::string fileName, int width, int height, int uid, float scale);
+    void AddMarker(std::shared_ptr<unsigned char> buff, std::string fileName, int width, int height, int uid, float scale);
     void AddMarker(std::string imageName, int uid, float scale);
     
     bool GetTrackablePose(int trackableId, float transMat[3][4]);

@@ -93,6 +93,8 @@ set(SOURCE
     vHouse.c
     vInnerP.c
     vTridiag.c
+    matrixCode.h
+    matrixCode.c
 )
 
 if (ARX_TARGET_PLATFORM_ANDROID)

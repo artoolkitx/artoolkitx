@@ -540,58 +540,44 @@ int arwGetTrackablePatternCount(int trackableUID)
         ARLOGe("arwGetTrackablePatternCount(): Couldn't locate trackable with UID %d.\n", trackableUID);
         return 0;
     }
-    return trackable->patternCount;
+    return (int)trackable->getPatternCount();
 }
 
 bool arwGetTrackablePatternConfig(int trackableUID, int patternID, float matrix[16], float *width, float *height, int *imageSizeX, int *imageSizeY)
 {
     ARTrackable *trackable;
-    ARPattern *p;
-    
+
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwGetTrackablePatternConfig(): Couldn't locate trackable with UID %d.\n", trackableUID);
         return false;
     }
 
-    if (!(p = trackable->getPattern(patternID))) {
-        ARLOGe("arwGetTrackablePatternConfig(): Trackable with UID %d has no pattern with ID %d.\n", trackableUID, patternID);
-        return false;
-    }
-
     if (matrix) {
-        for (int i = 0; i < 16; i++) matrix[i] = (float)p->m_matrix[i];
+        ARdouble pattMtx[16];
+        if (!trackable->getPatternTransform(patternID, pattMtx)) return false;
+        for (int i = 0; i < 16; i++) matrix[i] = (float)pattMtx[i];
     }
-    if (width) *width = (float)p->m_width;
-    if (height) *height = (float)p->m_height;
-    if (imageSizeX) *imageSizeX = p->m_imageSizeX;
-    if (imageSizeY) *imageSizeY = p->m_imageSizeY;
+    std::pair<float, float> size = trackable->getPatternSize(patternID);
+    if (width) *width = size.first;
+    if (height) *height = size.second;
+    std::pair<int, int> imageSize = trackable->getPatternImageSize(patternID);
+    if (imageSizeX) *imageSizeX = imageSize.first;
+    if (imageSizeY) *imageSizeY = imageSize.second;
     return true;
 }
 
 bool arwGetTrackablePatternImage(int trackableUID, int patternID, uint32_t *buffer)
 {
     ARTrackable *trackable;
-    ARPattern *p;
     
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwGetTrackablePatternImage(): Couldn't locate trackable with UID %d.\n", trackableUID);
         return false;
     }
-    
-    if (!(p = trackable->getPattern(patternID))) {
-        ARLOGe("arwGetTrackablePatternImage(): Trackable with UID %d has no pattern with ID %d.\n", trackableUID, patternID);
-        return false;
-    }
 
-    if (!p->m_image) {
-        return false;
-    }
-    
-    memcpy(buffer, p->m_image, sizeof(uint32_t) * p->m_imageSizeX * p->m_imageSizeY);
-    return true;
-
+    return trackable->getPatternImage(patternID, buffer);
 }
 
 // ----------------------------------------------------------------------------------------------------

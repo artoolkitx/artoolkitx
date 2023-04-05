@@ -127,7 +127,7 @@ bool ARTracker2d::loadTwoDData(std::vector<ARTrackable *>& trackables)
             ARTrackable2d *t = static_cast<ARTrackable2d *>(*it);
             t->pageNo = m_pageCount;
             // N.B.: PlanarTracker::AddMarker takes a copy of the image data.
-            m_2DTracker->AddMarker(t->m_refImage.get(), t->datasetPathname, t->m_refImageX, t->m_refImageY, t->UID, t->TwoDScale());
+            m_2DTracker->AddMarker(t->m_refImage, t->datasetPathname, t->m_refImageX, t->m_refImageY, t->UID, t->TwoDScale());
             ARLOGi("'%s' assigned page no. %d.\n", t->datasetPathname, t->pageNo);
             m_pageCount++; // For 2D tracker, no fixed upper limit on number of trackables that can be loaded.
         }

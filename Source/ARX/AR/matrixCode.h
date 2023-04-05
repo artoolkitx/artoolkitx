@@ -1,5 +1,5 @@
 /*
- *  TrackableInfo.h
+ *  matrixCode.h
  *  artoolkitX
  *
  *  This file is part of artoolkitX.
@@ -28,49 +28,35 @@
  *  are not obligated to do so. If you do not wish to do so, delete this exception
  *  statement from your version.
  *
+ *  Copyright 2023 Philip Lamb
  *  Copyright 2018 Realmax, Inc.
  *  Copyright 2015 Daqri, LLC.
- *  Copyright 2010-2015 ARToolworks, Inc.
+ *  Copyright 2003-2015 ARToolworks, Inc.
  *
- *  Author(s): Philip Lamb, Daniel Bell.
+ *  Author(s): Philip Lamb
  *
  */
 
-#ifndef TRACKABLE_INFO_H
-#define TRACKABLE_INFO_H
-#include "TrackingPointSelector.h"
-class TrackableInfo
-{
-public:
-    int _id;
-    float _scale;
-    std::shared_ptr<unsigned char> _imageBuff;
-    cv::Mat _image;
-    std::vector<cv::Point2f> _points;
-    int _width;
-    int _height;
-    std::string _fileName;
-    
-    cv::Mat _pose;
-    std::vector<cv::KeyPoint> _featurePoints;
-    cv::Mat _descriptors;
-    std::vector<cv::Point2f> _cornerPoints;
-    
-    std::vector<cv::Point2f> _bBox;
-    std::vector<cv::Point2f> _bBoxTransformed;
-    bool _isTracking, _isDetected, _resetTracks;
-    
-    TrackingPointSelector _trackSelection;
-    
-    void CleanUp()
-    {
-        _descriptors.release();
-        _pose.release();
-        _featurePoints.clear();
-        _trackSelection.CleanUp();
-        _image.release();
-        _imageBuff.reset();
-    }
-};
+#ifndef matrixCode_h
+#define matrixCode_h
 
-#endif //TRACKABLE_INFO
+#include <stdio.h>
+#include <stdint.h>
+#include <ARX/AR/ar.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/// Caller must free *out_bits_p;
+/// Returns length of *out_bits_p*
+int encode_bch(int length, int k, const int *g, uint64_t number, uint8_t **out_bits_p);
+
+/// Caller must free *out_bits_p;
+/// Returns length of *out_bits_p*
+int encodeMatrixCode(const AR_MATRIX_CODE_TYPE matrixCodeType, uint64_t in, uint8_t **out_bits_p);
+
+#ifdef __cplusplus
+}
+#endif
+#endif /* matrixCode_h */

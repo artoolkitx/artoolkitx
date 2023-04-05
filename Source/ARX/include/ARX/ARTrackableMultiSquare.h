@@ -49,6 +49,7 @@ class ARTrackableMultiSquare : public ARTrackable {
 
 private:
     bool m_loaded;
+    ARPattHandle *m_arPattHandle;
     
 protected:
     bool unload();
@@ -73,6 +74,12 @@ public:
 	bool updateWithDetectedMarkers(ARMarkerInfo *markerInfo, int markerNum, AR3DHandle *ar3DHandle);
 
     bool updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfoL, int markerNumL, ARMarkerInfo* markerInfoR, int markerNumR, AR3DStereoHandle *handle, ARdouble transL2R[3][4]);
+
+    int getPatternCount() override;
+    std::pair<float, float> getPatternSize(int patternIndex) override;
+    std::pair<int, int> getPatternImageSize(int patternIndex) override;
+    bool getPatternTransform(int patternIndex, ARdouble T[16]) override;
+    bool getPatternImage(int patternIndex, uint32_t *pattImageBuffer) override;
 };
 
 #endif // !ARMARKERMULTI_H

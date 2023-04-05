@@ -191,19 +191,15 @@ void arLogv(const char *tag, const int logLevel, const char *format, va_list ap)
         //#elif defined(_WINRT)
         //            OutputDebugStringA(buf);
 #elif defined(__APPLE__)
-        if (os_log_create == NULL) { // os_log only available macOS 10.12 / iOS 10.0 and later.
-            fprintf(stderr, "%s", buf);
-        } else {
-            os_log_type_t type;
-            switch (logLevel) {
-                case AR_LOG_LEVEL_REL_INFO:         type = OS_LOG_TYPE_DEFAULT; break;
-                case AR_LOG_LEVEL_ERROR:            type = OS_LOG_TYPE_ERROR; break;
-                case AR_LOG_LEVEL_WARN:             type = OS_LOG_TYPE_DEFAULT;  break;
-                case AR_LOG_LEVEL_INFO:             type = OS_LOG_TYPE_INFO;  break;
-                case AR_LOG_LEVEL_DEBUG: default:   type = OS_LOG_TYPE_DEBUG; break;
-            }
-            os_log_with_type(OS_LOG_DEFAULT, type, "%{public}s", buf);
+        os_log_type_t type;
+        switch (logLevel) {
+            case AR_LOG_LEVEL_REL_INFO:         type = OS_LOG_TYPE_DEFAULT; break;
+            case AR_LOG_LEVEL_ERROR:            type = OS_LOG_TYPE_ERROR; break;
+            case AR_LOG_LEVEL_WARN:             type = OS_LOG_TYPE_DEFAULT;  break;
+            case AR_LOG_LEVEL_INFO:             type = OS_LOG_TYPE_INFO;  break;
+            case AR_LOG_LEVEL_DEBUG: default:   type = OS_LOG_TYPE_DEBUG; break;
         }
+        os_log_with_type(OS_LOG_DEFAULT, type, "%{public}s", buf);
 #else
         fprintf(stderr, "%s", buf);
 #endif
