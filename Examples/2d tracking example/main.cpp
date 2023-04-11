@@ -93,12 +93,12 @@ static long gFrameNo = 0;
 
 struct marker {
     const char *name;
-    float height;
+    float width;
 };
 static const struct marker markers[] = {
-    {"pinball.jpg", 0.236},
-    {"gibraltar.jpg", 0.16},
-    {"Harlech_Castle_plan_colour.jpg", 0.16}
+    {"pinball.jpg", 188.0f},
+    {"gibraltar.jpg", 247.0f},
+    {"Harlech_Castle_plan_colour.jpg", 254.0f}
 };
 static const int markerCount = (sizeof(markers)/sizeof(markers[0]));
 
@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
     int markerModelIDs[markerCount];
     char *resourcesDir = arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_BEST);
     for (int i = 0; i < markerCount; i++) {
-        std::string markerConfig = "2d;" + std::string(resourcesDir) + '/' + markers[i].name + ';' + std::to_string(markers[i].height);
+        std::string markerConfig = "2d;" + std::string(resourcesDir) + '/' + markers[i].name + ';' + std::to_string(markers[i].width);
         markerIDs[i] = arController->addTrackable(markerConfig);
         if (markerIDs[i] == -1) {
             ARLOGe("Error adding marker.\n");

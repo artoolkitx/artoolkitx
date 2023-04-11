@@ -86,7 +86,7 @@ bool ARTracker2d::start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat)
     m_cameraXSize = paramLT->param.xsize;
     m_cameraYSize = paramLT->param.ysize;
 
-    m_2DTracker->Initialise(m_cameraXSize,m_cameraYSize, paramLT->param.mat);
+    m_2DTracker->Initialise(m_cameraXSize, m_cameraYSize, paramLT->param.mat);
     
     m_videoSourceIsStereo = false;
     m_running = true;
@@ -248,11 +248,9 @@ void ARTracker2d::deleteTrackable(ARTrackable **trackable_p)
     if (!trackable_p || !(*trackable_p)) return;
     if ((*trackable_p)->type != ARTrackable::TwoD) return;
 
-    m_2DTracker->RemoveAllMarkers();
+    unloadTwoDData();
     delete (*trackable_p);
     (*trackable_p) = NULL;
-    
-    unloadTwoDData();
 }
 
 std::vector<ARTrackable*> ARTracker2d::loadImageDatabase(std::string fileName)

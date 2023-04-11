@@ -43,10 +43,9 @@
 
 ARTrackable2d::ARTrackable2d() : ARTrackable(TwoD),
 m_loaded(false),
-m_twoDScale(1.0f),
+m_twoDScale(1000.0f),
 pageNo(-1),
-datasetPathname(NULL),
-m_height(1.0f)
+datasetPathname(NULL)
 {
     ARTrackable::setFiltered(true);
 }
@@ -119,7 +118,7 @@ bool ARTrackable2d::updateWithTwoDResults(float trackingTrans[3][4], ARdouble tr
             trans[j][0] = (ARdouble)trackingTrans[j][0];
             trans[j][1] = (ARdouble)trackingTrans[j][1];
             trans[j][2] = (ARdouble)trackingTrans[j][2];
-            trans[j][3] = (ARdouble)(trackingTrans[j][3]) * m_twoDScale;
+            trans[j][3] = (ARdouble)(trackingTrans[j][3]) * m_twoDScale * 0.001f;
         }
     } else visible = false;
     
@@ -144,7 +143,7 @@ int ARTrackable2d::getPatternCount()
 std::pair<float, float> ARTrackable2d::getPatternSize(int patternIndex)
 {
     if (patternIndex != 0) return std::pair<float, float>();
-    return std::pair<float, float>(m_height*((float)m_refImageX)/((float)m_refImageY), m_height);
+    return std::pair<float, float>(m_twoDScale, m_twoDScale/((float)m_refImageX / (float)m_refImageY));
 }
 
 std::pair<int, int> ARTrackable2d::getPatternImageSize(int patternIndex)
