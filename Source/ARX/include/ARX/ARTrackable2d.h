@@ -57,7 +57,6 @@ private:
     int pageNo;                                         ///< "Page number" (first page is page 0), or -1 if 2D data not yet loaded into tracker. Not strictly necessary for 2D tracker, but useful when multiple 2D trackables are loaded.
     char *datasetPathname;
     int m_refImageX, m_refImageY;
-    float m_height;
     std::shared_ptr<unsigned char> m_refImage;
 
     bool unload();
