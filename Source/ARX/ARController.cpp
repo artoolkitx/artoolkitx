@@ -665,11 +665,6 @@ int ARController::addTrackable(const std::string& cfgs)
 bool ARController::addTrackable(ARTrackable* trackable)
 {
     ARLOGd("ARController::addTrackable(): called\n");
-	if (!isInited()) {
-        ARLOGe("Error: Cannot add trackable. artoolkitX not initialised.\n");
-		return false;
-	}
-
 	if (!trackable) {
         ARLOGe("ARController::addTrackable(): NULL trackable.\n");
 		return false;
@@ -810,6 +805,11 @@ unsigned int ARController::countTrackables(ARTrackable::TrackableType trackableT
 #if HAVE_2D
 bool ARController::load2DTrackerImageDatabase(const char* databaseFileName)
 {
+    if (!isInited()) {
+        ARLOGe("Error: Cannot load image database. artoolkitX not initialised.\n");
+        return false;
+    }
+
     removeAllTrackables();
     std::vector<ARTrackable *> newTrackables = m_twoDTracker->loadImageDatabase(std::string(databaseFileName));
     if (newTrackables.size() == 0) {
