@@ -63,7 +63,7 @@ public:
     PlanarTracker(PlanarTracker&&);
     PlanarTracker& operator = (PlanarTracker&&);
     
-    void Initialise(int xFrameSize, int yFrameSize, ARdouble cParam[][4]);
+    void Initialise(ARParam cParam);
 
     /// Perform tracking on a single frame of video.
     /// The frame is passed as a single buffer of 8-bit greyscale pixels, starting with the top-left-most pixel

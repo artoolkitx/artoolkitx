@@ -82,11 +82,9 @@ int ARTracker2d::getMaxMarkersToTrack() const
 bool ARTracker2d::start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat)
 {
     if (!paramLT || pixelFormat == AR_PIXEL_FORMAT_INVALID) return false;
-    
-    m_cameraXSize = paramLT->param.xsize;
-    m_cameraYSize = paramLT->param.ysize;
 
-    m_2DTracker->Initialise(m_cameraXSize, m_cameraYSize, paramLT->param.mat);
+
+    m_2DTracker->Initialise(paramLT->param);
     
     m_videoSourceIsStereo = false;
     m_running = true;

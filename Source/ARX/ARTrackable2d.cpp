@@ -118,7 +118,7 @@ bool ARTrackable2d::updateWithTwoDResults(float trackingTrans[3][4], ARdouble tr
             trans[j][0] =  (ARdouble)trackingTrans[j][0];
             trans[j][1] = -(ARdouble)trackingTrans[j][1];
             trans[j][2] = -(ARdouble)trackingTrans[j][2];
-            trans[j][3] =  (ARdouble)(trackingTrans[j][3] * m_twoDScale * 0.001f);
+            trans[j][3] =  (ARdouble)(trackingTrans[j][3] * m_twoDScale * 0.001f * 1.64f );
         }
     } else visible = false;
     
