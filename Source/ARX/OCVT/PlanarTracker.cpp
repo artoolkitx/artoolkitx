@@ -63,7 +63,8 @@ private:
     int _frameSizeX;
     int _frameSizeY;
     cv::Mat _K;
-    
+    cv::Mat _distortionCoeff;
+
     int _selectedFeatureDetectorType;
 public:
     PlanarTrackerImpl()
@@ -78,17 +79,31 @@ public:
         _frameSizeX = 0;
         _frameSizeY = 0;
         _K = cv::Mat();
+        _distortionCoeff = cv::Mat();
     }
     
-    void Initialise(int xFrameSize, int yFrameSize, ARdouble cParam[][4])
+    void Initialise(ARParam cParam)
     {
-        _frameSizeX = xFrameSize;
-        _frameSizeY = yFrameSize;
+        _frameSizeX = cParam.xsize;
+        _frameSizeY = cParam.ysize;
         _K = cv::Mat(3,3, CV_64FC1);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                _K.at<double>(i,j) = (double)(cParam[i][j]);
+                _K.at<double>(i,j) = (double)(cParam.mat[i][j]);
             }
+        }
+
+        if (cParam.dist_function_version == 5) {
+            // k1,k2,p1,p2,k3,k4,k5,k6,s1,s2,s3,s4.
+            _distortionCoeff = cv::Mat::zeros(12, 1, CV_64F);
+            for (int i = 0; i < 12; i++) _distortionCoeff.at<double>(i) = cParam.dist_factor[i];
+        } else if (cParam.dist_function_version == 4) {
+            _distortionCoeff = cv::Mat::zeros(5, 1, CV_64F);
+            // k1,k2,p1,p2, and k3=0.
+            for (int i = 0; i < 4; i++) _distortionCoeff.at<double>(i) = cParam.dist_factor[i];
+            _distortionCoeff.at<double>(4) = 0.0;
+        } else {
+            ARLOGw("Unsupported camera parameters.\n");
         }
     }
     
@@ -609,7 +624,7 @@ public:
         cv::Mat rvec = cv::Mat::zeros(3, 1, CV_64FC1);          // output rotation vector
         cv::Mat tvec = cv::Mat::zeros(3, 1, CV_64FC1);          // output translation vector
         
-        cv::solvePnPRansac(objPts, imgPts, _K, cv::Mat(), rvec, tvec);
+        cv::solvePnPRansac(objPts, imgPts, _K, _distortionCoeff, rvec, tvec);
         
         cv::Mat rMat;
         Rodrigues(rvec,rMat);
@@ -695,9 +710,9 @@ PlanarTracker::~PlanarTracker() = default;
 PlanarTracker::PlanarTracker(PlanarTracker&&) = default;
 PlanarTracker& PlanarTracker::operator=(PlanarTracker&&) = default;
 
-void PlanarTracker::Initialise(int xFrameSize, int yFrameSize, ARdouble cParam[][4])
+void PlanarTracker::Initialise(ARParam cParam)
 {
-    _trackerImpl->Initialise(xFrameSize, yFrameSize, cParam);
+    _trackerImpl->Initialise(cParam);
 }
 
 void PlanarTracker::ProcessFrameData(unsigned char * frame)

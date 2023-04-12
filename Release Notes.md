@@ -1,6 +1,13 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.5
+### 2023-04-12
+
+ * Corrected 2D planar tracker orientation and scaling issues.
+ * Clarified that "2D tracker scale factor" specifies image width, not height. Now in same units (usually millimetres) as other trackers.
+ * Overhauled ARTrackable pattern handling, including new support for 2D and NFT surfaces, plus barcodes. Remove ARPattern class.
+
 ## Version 1.1.4
 ### 2023-03-30
 

@@ -87,8 +87,6 @@ public:
     void setDetectorType(int detectorType);
     int getDetectorType(void);
 private:
-    int m_cameraXSize;
-    int m_cameraYSize;
     
     bool m_videoSourceIsStereo;
     bool m_2DTrackerDataLoaded;
