@@ -38,6 +38,7 @@
 
 #include <ARX/ARTrackableMultiSquare.h>
 #include <ARX/ARController.h>
+#include "AR/matrixCode.h"
 
 #ifdef ARDOUBLE_IS_FLOAT
 #  define _0_0 0.0f
@@ -157,15 +158,14 @@ std::pair<float, float> ARTrackableMultiSquare::getPatternSize(int patternIndex)
     return std::pair<float, float>((float)config->marker[patternIndex].width, (float)config->marker[patternIndex].width);
 }
 
-std::pair<int, int> ARTrackableMultiSquare::getPatternImageSize(int patternIndex)
+std::pair<int, int> ARTrackableMultiSquare::getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
     if (!config || patternIndex < 0 || patternIndex >= config->marker_num) return std::pair<int, int>();
     if (config->marker[patternIndex].patt_type == AR_MULTI_PATTERN_TYPE_TEMPLATE) {
         if (!m_arPattHandle) return std::pair<int, int>();
         return std::pair<int, int>(m_arPattHandle->pattSize, m_arPattHandle->pattSize);
     } else  /* config->marker[patternIndex].patt_type == AR_PATTERN_TYPE_MATRIX */ {
-        //return std::pair<int, int>(m_matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK, m_matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK);
-        return std::pair<int, int>();
+        return std::pair<int, int>(matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK, matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK);
     }
 }
 
@@ -192,7 +192,7 @@ bool ARTrackableMultiSquare::getPatternTransform(int patternIndex, ARdouble T[16
     return true;
 }
 
-bool ARTrackableMultiSquare::getPatternImage(int patternIndex, uint32_t *pattImageBuffer)
+bool ARTrackableMultiSquare::getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
     if (!config || patternIndex < 0 || patternIndex >= config->marker_num) return false;
 
@@ -205,17 +205,42 @@ bool ARTrackableMultiSquare::getPatternImage(int patternIndex, uint32_t *pattIma
                 int pattIdx = (m_arPattHandle->pattSize - 1 - y)*m_arPattHandle->pattSize + x; // Flip pattern in Y.
                 int buffIdx = y*m_arPattHandle->pattSize + x;
 
-                uint8_t *c = (uint8_t *)&(pattImageBuffer[buffIdx]);
-                *c++ = 255 - arr[pattIdx * 3 + 2];
-                *c++ = 255 - arr[pattIdx * 3 + 1];
-                *c++ = 255 - arr[pattIdx * 3 + 0];
-                *c++ = 255;
+#ifdef AR_LITTLE_ENDIAN
+                pattImageBuffer[buffIdx] = 0xff000000 | (arr[pattIdx*3] & 0xff) << 16 | (arr[pattIdx*3 + 1] & 0xff) << 8 | (arr[pattIdx*3 + 2] & 0xff); // In-memory ordering will be R->G->B->A.
+#else
+                pattImageBuffer[buffIdx] = (arr[pattIdx*3 + 2] & 0xff) << 24 | (arr[pattIdx*3 + 1] & 0xff) << 16 | (arr[pattIdx*3] & 0xff) << 8 | 0xff;
+#endif
             }
         }
         return true;
     } else  /* config->marker[patternIndex].patt_type == AR_PATTERN_TYPE_MATRIX */ {
-        // TODO: implement matrix code to image.
-        return false;
+        uint8_t *code;
+        encodeMatrixCode(matrixCodeType, config->marker[patternIndex].patt_id, &code);
+        int barcode_dimensions = matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK;
+        int bit = 0;
+#ifdef AR_LITTLE_ENDIAN
+        const uint32_t colour_black = 0xff000000;
+#else
+        const uint32_t colour_black = 0x000000ff;
+#endif
+        const uint32_t colour_white = 0xffffffff;
+        for (int row = barcode_dimensions - 1; row >= 0; row--) {
+            for (int col = barcode_dimensions - 1; col >= 0; col--) {
+                uint32_t pixel_colour;
+                if ((row == 0 || row == (barcode_dimensions - 1)) && col == 0) {
+                    pixel_colour = colour_black;
+                } else if (row == (barcode_dimensions - 1) && col == (barcode_dimensions - 1)) {
+                    pixel_colour = colour_white;
+                } else {
+                    if (code[bit]) pixel_colour = colour_black;
+                    else pixel_colour = colour_white;
+                    bit++;
+                }
+                pattImageBuffer[barcode_dimensions * (barcode_dimensions - 1 - row) + col] = pixel_colour; // Flip pattern in Y, because output texture has origin at lower-left.
+            }
+        }
+        free(code);
+        return true;
     }
 }
 

@@ -150,7 +150,7 @@ std::pair<float, float> ARTrackableNFT::getPatternSize(int patternIndex)
     return std::pair<float, float>(w, h);
 }
 
-std::pair<int, int> ARTrackableNFT::getPatternImageSize(int patternIndex)
+std::pair<int, int> ARTrackableNFT::getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
     AR2ImageT *image = getBestImage(patternIndex);
     if (!image) return std::pair<int, int>();
@@ -184,17 +184,24 @@ bool ARTrackableNFT::getPatternTransform(int patternIndex, ARdouble T[16])
     return true;
 }
 
-bool ARTrackableNFT::getPatternImage(int patternIndex, uint32_t *pattImageBuffer)
+bool ARTrackableNFT::getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
     AR2ImageT *image = getBestImage(patternIndex);
     if (!image) return false;
-    for (int p = 0; p < image->xsize * image->xsize; p++) {
+
+    for (int y = 0; y < image->ysize; y++) {
+        for (int x = 0; x < image->xsize; x++) {
 #if AR2_CAPABLE_ADAPTIVE_TEMPLATE
-        ARUint8 c = image->imgBWBlur[0][p];
+            ARUint8 c = image->imgBWBlur[0][(image->ysize - 1 - y) * image->xsize + x]; // flip in y as output image has origin at lower-left.
 #else
-        ARUint8 c = image->imgBW[p];
+            ARUint8 c = image->imgBW[(image->ysize - 1 - y) * image->xsize + x]; // flip in y as output image has origin at lower-left.
 #endif
-        pattImageBuffer[p] = c << 24 | c << 16 | c << 8 | 255;
+#ifdef AR_LITTLE_ENDIAN
+            *pattImageBuffer++ = 0xff000000 | c << 16 | c << 8 | c;
+#else
+            *pattImageBuffer++ = c << 24 | c << 16 | c << 8 | 0xff;
+#endif
+        }
     }
     return true;
 }

@@ -57,7 +57,6 @@ protected:
     ARdouble m_width;
     ARdouble m_cf;
     ARdouble m_cfMin;
-    AR_MATRIX_CODE_TYPE m_matrixCodeType;
     
     bool unload();
     
@@ -76,7 +75,7 @@ public:
     
 	bool initWithPatternFile(const char* path, ARdouble width, ARPattHandle *arPattHandle);
 	bool initWithPatternFromBuffer(const char* buffer, ARdouble width, ARPattHandle *arPattHandle);
-    bool initWithBarcode(int barcodeID, ARdouble width, AR_MATRIX_CODE_TYPE matrixCodeType);
+    bool initWithBarcode(int barcodeID, ARdouble width);
 
 	/**
 	 * Updates the marker with new tracking info.
@@ -91,9 +90,9 @@ public:
 
     int getPatternCount() override;
     std::pair<float, float> getPatternSize(int patternIndex) override;
-    std::pair<int, int> getPatternImageSize(int patternIndex) override;
+    std::pair<int, int> getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType) override;
     bool getPatternTransform(int patternIndex, ARdouble T[16]) override;
-    bool getPatternImage(int patternIndex, uint32_t *pattImageBuffer) override;
+    bool getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType) override;
 
 };
 

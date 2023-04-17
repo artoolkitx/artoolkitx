@@ -35,6 +35,7 @@
  */
 
 #include <ARX/ARTrackableMultiSquareAuto.h>
+#include "AR/matrixCode.h"
 
 #if USE_GTSAM
 #  include "mapper.hpp"
@@ -248,9 +249,9 @@ std::pair<float, float> ARTrackableMultiSquareAuto::getPatternSize(int patternIn
     return std::pair<float, float>(m_markerWidth, m_markerWidth);
 }
 
-std::pair<int, int> ARTrackableMultiSquareAuto::getPatternImageSize(int patternIndex)
+std::pair<int, int> ARTrackableMultiSquareAuto::getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
-    return std::pair<int, int>(); // TODO: determine matrix code type in use.
+    return std::pair<int, int>(matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK, matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK);
 }
 
 bool ARTrackableMultiSquareAuto::getPatternTransform(int patternIndex, ARdouble T[16])
@@ -276,10 +277,35 @@ bool ARTrackableMultiSquareAuto::getPatternTransform(int patternIndex, ARdouble 
     return true;
 }
 
-bool ARTrackableMultiSquareAuto::getPatternImage(int patternIndex, uint32_t *pattImageBuffer)
+bool ARTrackableMultiSquareAuto::getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
     if (!m_MultiConfig || patternIndex < 0 || patternIndex >= m_MultiConfig->marker_num) return false;
 
-    // TODO: implement matrix code to image.
-    return false;
+    uint8_t *code;
+    encodeMatrixCode(matrixCodeType, m_MultiConfig->marker[patternIndex].patt_id, &code);
+    int barcode_dimensions = matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK;
+    int bit = 0;
+#ifdef AR_LITTLE_ENDIAN
+    const uint32_t colour_black = 0xff000000;
+#else
+    const uint32_t colour_black = 0x000000ff;
+#endif
+    const uint32_t colour_white = 0xffffffff;
+    for (int row = barcode_dimensions - 1; row >= 0; row--) {
+        for (int col = barcode_dimensions - 1; col >= 0; col--) {
+            uint32_t pixel_colour;
+            if ((row == 0 || row == (barcode_dimensions - 1)) && col == 0) {
+                pixel_colour = colour_black;
+            } else if (row == (barcode_dimensions - 1) && col == (barcode_dimensions - 1)) {
+                pixel_colour = colour_white;
+            } else {
+                if (code[bit]) pixel_colour = colour_black;
+                else pixel_colour = colour_white;
+                bit++;
+            }
+            pattImageBuffer[barcode_dimensions * (barcode_dimensions - 1 - row) + col] = pixel_colour; // Flip pattern in Y, because output texture has origin at lower-left.
+        }
+    }
+    free(code);
+    return true;
 }

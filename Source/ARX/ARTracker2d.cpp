@@ -83,6 +83,10 @@ bool ARTracker2d::start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat)
 {
     if (!paramLT || pixelFormat == AR_PIXEL_FORMAT_INVALID) return false;
 
+    ARLOGd("ARTracker2d::start(): Camera parameters: frame %dx%d, intrinsics:", paramLT->param.xsize, paramLT->param.ysize);
+    for (int i = 0; i < 3; i++) {
+        ARLOGd("[% 5.3f % 5.3f % 5.3f] [% 6.1f]\n", paramLT->param.mat[i][0], paramLT->param.mat[i][1], paramLT->param.mat[i][2], paramLT->param.mat[i][3]);
+    }
 
     m_2DTracker->Initialise(paramLT->param);
     
