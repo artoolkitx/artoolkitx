@@ -146,7 +146,7 @@ bool ARController::initialiseBase()
 #if HAVE_2D
     m_twoDTracker = std::shared_ptr<ARTracker2d>(new ARTracker2d);
     if (!m_twoDTracker->initialize()) {
-        ARLOGe("Error initialising NFT tracker.\n");
+        ARLOGe("Error initialising 2D tracker.\n");
         goto bail2;
     }
 #endif

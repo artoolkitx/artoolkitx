@@ -191,6 +191,7 @@ elseif(ARX_TARGET_PLATFORM_ANDROID)
 elseif(ARX_TARGET_PLATFORM_LINUX)
 
     set(USE_CPARAM_SEARCH 1)
+    set(OpenGL_GL_PREFERENCE GLVND)
     if ("${ARX_TARGET_PLATFORM_VARIANT}" STREQUAL "raspbian")
         if(ARX_TARGET_DEVICE_RASPBERRY_PI_2_MODEL_B)
             set(DEVICE_FLAGS "-march=armv7-a+neon-vfpv4 -mtune=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard -ftree-vectorize")

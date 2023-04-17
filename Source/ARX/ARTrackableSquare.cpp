@@ -129,7 +129,7 @@ bool ARTrackableSquare::initWithPatternFromBuffer(const char* buffer, ARdouble w
 	return true;
 }
 
-bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width, AR_MATRIX_CODE_TYPE matrixCodeType)
+bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width)
 {
 	if (barcodeID < 0) return false;
     
@@ -140,7 +140,6 @@ bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width, AR_MATRIX
 	patt_id = barcodeID;
 	
     patt_type = AR_PATTERN_TYPE_MATRIX;
-    m_matrixCodeType = matrixCodeType;
 	m_width = width;
     
 	visible = visiblePrev = false;
@@ -341,14 +340,14 @@ std::pair<float, float> ARTrackableSquare::getPatternSize(int patternIndex)
     return std::pair<float, float>((float)m_width, (float)m_width);
 }
 
-std::pair<int, int> ARTrackableSquare::getPatternImageSize(int patternIndex)
+std::pair<int, int> ARTrackableSquare::getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
     if (patternIndex != 0) return std::pair<int, int>();
     if (patt_type == AR_PATTERN_TYPE_TEMPLATE) {
         if (!m_arPattHandle) return std::pair<int, int>();
         return std::pair<int, int>(m_arPattHandle->pattSize, m_arPattHandle->pattSize);
     } else  /* patt_type == AR_PATTERN_TYPE_MATRIX */ {
-        return std::pair<int, int>(m_matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK, m_matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK);
+        return std::pair<int, int>(matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK, matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK);
     }
 }
 
@@ -362,7 +361,7 @@ bool ARTrackableSquare::getPatternTransform(int patternIndex, ARdouble T[16])
     return true;
 }
 
-bool ARTrackableSquare::getPatternImage(int patternIndex, uint32_t *pattImageBuffer)
+bool ARTrackableSquare::getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
     if (patternIndex != 0) return false;
 
@@ -372,23 +371,27 @@ bool ARTrackableSquare::getPatternImage(int patternIndex, uint32_t *pattImageBuf
         for (int y = 0; y < m_arPattHandle->pattSize; y++) {
             for (int x = 0; x < m_arPattHandle->pattSize; x++) {
 
-                int pattIdx = (m_arPattHandle->pattSize - 1 - y)*m_arPattHandle->pattSize + x; // Flip pattern in Y.
+                int pattIdx = (m_arPattHandle->pattSize - 1 - y)*m_arPattHandle->pattSize + x; // Flip pattern in Y, because output texture has origin at lower-left.
                 int buffIdx = y*m_arPattHandle->pattSize + x;
 
-                uint8_t *c = (uint8_t *)&(pattImageBuffer[buffIdx]);
-                *c++ = 255 - arr[pattIdx * 3 + 2];
-                *c++ = 255 - arr[pattIdx * 3 + 1];
-                *c++ = 255 - arr[pattIdx * 3 + 0];
-                *c++ = 255;
+#ifdef AR_LITTLE_ENDIAN
+                pattImageBuffer[buffIdx] = 0xff000000 | (arr[pattIdx*3] & 0xff) << 16 | (arr[pattIdx*3 + 1] & 0xff) << 8 | (arr[pattIdx*3 + 2] & 0xff); // In-memory ordering will be R->G->B->A.
+#else
+                pattImageBuffer[buffIdx] = (arr[pattIdx*3 + 2] & 0xff) << 24 | (arr[pattIdx*3 + 1] & 0xff) << 16 | (arr[pattIdx*3] & 0xff) << 8 | 0xff;
+#endif
             }
         }
         return true;
     } else  /* patt_type == AR_PATTERN_TYPE_MATRIX */ {
         uint8_t *code;
-        encodeMatrixCode(m_matrixCodeType, patt_id, &code);
-        int barcode_dimensions = m_matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK;
+        encodeMatrixCode(matrixCodeType, patt_id, &code);
+        int barcode_dimensions = matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK;
         int bit = 0;
+#ifdef AR_LITTLE_ENDIAN
+        const uint32_t colour_black = 0xff000000;
+#else
         const uint32_t colour_black = 0x000000ff;
+#endif
         const uint32_t colour_white = 0xffffffff;
         for (int row = barcode_dimensions - 1; row >= 0; row--) {
             for (int col = barcode_dimensions - 1; col >= 0; col--) {
@@ -402,7 +405,7 @@ bool ARTrackableSquare::getPatternImage(int patternIndex, uint32_t *pattImageBuf
                     else pixel_colour = colour_white;
                     bit++;
                 }
-                pattImageBuffer[barcode_dimensions * row + col] = pixel_colour;
+                pattImageBuffer[barcode_dimensions * (barcode_dimensions - 1 - row) + col] = pixel_colour; // Flip pattern in Y, because output texture has origin at lower-left.
             }
         }
         free(code);

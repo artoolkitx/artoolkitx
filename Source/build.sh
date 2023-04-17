@@ -368,10 +368,10 @@ if [ $BUILD_LINUX ] ; then
     # Check if a suitable version of OpenCV is installed. If not, but its available, install it.
     # If neither, try our precompiled version.
     if (type dpkg-query >/dev/null 2>&1) ; then
-        if (apt-cache --quiet=1 policy libopencv-dev | grep -E 'Installed: (3|4)\.') ; then
+        if (env LC_ALL="C" apt-cache --quiet=1 policy libopencv-dev | grep -E 'Installed: (3|4)\.') ; then
             echo "Using installed OpenCV"
         else
-            if (apt-cache --quiet=1 policy libopencv-dev | grep -E 'Candidate: (3|4)\.') ; then
+            if (env LC_ALL="C" apt-cache --quiet=1 policy libopencv-dev | grep -E 'Candidate: (3|4)\.') ; then
                 echo "Installing OpenCV"
                 sudo apt-get install libopencv-dev
             else

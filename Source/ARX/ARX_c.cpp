@@ -561,7 +561,7 @@ bool arwGetTrackablePatternConfig(int trackableUID, int patternID, float matrix[
     std::pair<float, float> size = trackable->getPatternSize(patternID);
     if (width) *width = size.first;
     if (height) *height = size.second;
-    std::pair<int, int> imageSize = trackable->getPatternImageSize(patternID);
+    std::pair<int, int> imageSize = trackable->getPatternImageSize(patternID, trackable->type == ARTrackable::SINGLE || trackable->type == ARTrackable::MULTI || trackable->type == ARTrackable::MULTI_AUTO ? gARTK->getSquareTracker()->matrixCodeType() : (AR_MATRIX_CODE_TYPE)0);
     if (imageSizeX) *imageSizeX = imageSize.first;
     if (imageSizeY) *imageSizeY = imageSize.second;
     return true;
@@ -577,7 +577,7 @@ bool arwGetTrackablePatternImage(int trackableUID, int patternID, uint32_t *buff
         return false;
     }
 
-    return trackable->getPatternImage(patternID, buffer);
+    return trackable->getPatternImage(patternID, buffer, trackable->type == ARTrackable::SINGLE || trackable->type == ARTrackable::MULTI || trackable->type == ARTrackable::MULTI_AUTO ? gARTK->getSquareTracker()->matrixCodeType() : (AR_MATRIX_CODE_TYPE)0);
 }
 
 // ----------------------------------------------------------------------------------------------------

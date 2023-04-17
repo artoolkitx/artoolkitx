@@ -116,11 +116,11 @@ public:
 
     virtual int getPatternCount() = 0;
     virtual std::pair<float, float> getPatternSize(int patternIndex) = 0;
-    virtual std::pair<int, int> getPatternImageSize(int patternIndex) = 0;
+    virtual std::pair<int, int> getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType) = 0;
     /// Get the transform, relative to this trackable's origin, of this pattern.
     /// Fills T with the transform in column-major (OpenGL) order.
     virtual bool getPatternTransform(int patternIndex, ARdouble T[16]) = 0;
-    virtual bool getPatternImage(int patternIndex, uint32_t *pattImageBuffer) = 0;
+    virtual bool getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType) = 0;
 
     // Filter control.
     void setFiltered(bool flag);

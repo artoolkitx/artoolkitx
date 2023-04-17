@@ -553,7 +553,7 @@ ARTrackable *ARTrackerSquare::newTrackable(std::vector<std::string> config)
         }
         
         ARTrackableSquare *ret = new ARTrackableSquare();
-        if (!ret->initWithBarcode((int)barcodeID, width, m_matrixCodeType)) {
+        if (!ret->initWithBarcode((int)barcodeID, width)) {
             // Marker failed to load, or was not added
             delete ret;
             ret = NULL;

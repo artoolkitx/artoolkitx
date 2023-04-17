@@ -146,7 +146,7 @@ std::pair<float, float> ARTrackable2d::getPatternSize(int patternIndex)
     return std::pair<float, float>(m_twoDScale, m_twoDScale/((float)m_refImageX / (float)m_refImageY));
 }
 
-std::pair<int, int> ARTrackable2d::getPatternImageSize(int patternIndex)
+std::pair<int, int> ARTrackable2d::getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
     if (patternIndex != 0) return std::pair<int, int>();
     return std::pair<int, int>(m_refImageX, m_refImageY);
@@ -162,14 +162,21 @@ bool ARTrackable2d::getPatternTransform(int patternIndex, ARdouble T[16])
     return true;
 }
 
-bool ARTrackable2d::getPatternImage(int patternIndex, uint32_t *pattImageBuffer)
+bool ARTrackable2d::getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType)
 {
     if (patternIndex != 0) return false;
     if (m_refImage == nullptr) return false;
     unsigned char *buff = m_refImage.get();
-    for (int p = 0; p < m_refImageX * m_refImageY; p++) {
-        unsigned char c = buff[p];
-        pattImageBuffer[p] = c << 24 | c << 16 | c << 8 | 255;
+    for (int y = 0; y < m_refImageY; y++) {
+        unsigned char *buffRow = buff + (m_refImageY - 1 - y)*m_refImageX; // Flip in y as output image has origin at lower-left.
+        for (int x = 0; x < m_refImageX; x++) {
+            unsigned char c = buffRow[x];
+#ifdef AR_LITTLE_ENDIAN
+            *pattImageBuffer++ = 0xff000000 | c << 16 | c << 8 | c;
+#else
+            *pattImageBuffer++ = c << 24 | c << 16 | c << 8 | 0xff;
+#endif
+        }
     }
     return true;
 }
