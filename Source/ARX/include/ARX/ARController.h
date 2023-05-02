@@ -105,8 +105,6 @@ private:
     AR2VideoTimestampT m_updateFrameStamp1;
     ARVideoView *m_arVideoViews[2];
     
-    std::vector<ARTrackable *> m_trackables;    ///< List of trackables.
-
     bool doSquareMarkerDetection;
     std::shared_ptr<ARTrackerSquare> m_squareTracker;
 #if HAVE_NFT
@@ -120,30 +118,6 @@ private:
     int m_error;
     void setError(int error);
     
-#pragma mark Private methods.
-    // ------------------------------------------------------------------------------
-    // Private methods.
-    // ------------------------------------------------------------------------------
-
-    //
-    // Internal trackable management.
-    //
-    
-	/**
-	 * Adds a trackable to the collection.
-	 * @param trackable	The trackable to add
-	 * @return			true if the trackable was added successfully, otherwise false
-	 */
-	bool addTrackable(ARTrackable* trackable);
-
-	/**
-	 * Removes the specified trackable.
-	 * @param trackable		The trackable to remove
-	 * @return				true if the trackable was removed, false if an error occurred.
-	 */
-	bool removeTrackable(ARTrackable* trackable);
-	
-
 public:
 #pragma mark Public API
     // ------------------------------------------------------------------------------
@@ -322,18 +296,17 @@ public:
     unsigned int countTrackables(ARTrackable::TrackableType trackableType) const;
     
     /**
-     * Returns the trackable at the specified index.
-     * @param index           0-based index into the array of trackables.
-     * @return                The trackable, or NULL if no trackable exists at that index.
+     * Returns all trackables.
+     * @return                A vector of shared pointers to the trackables.
      */
-    ARTrackable* getTrackableAtIndex(unsigned int index);
+    std::vector<std::shared_ptr<ARTrackable>> getAllTrackables();
     
     /**
      * Searches the collection of trackables for the given ID.
-     * @param UID             The UID of the trackables to find
-     * @return                The found trackable, or NULL if no matching UID was found.
+     * @param UID             The UID of the trackable to find
+     * @return                The found trackable, or null pointer if no matching UID was found.
      */
-    ARTrackable* findTrackable(int UID);
+    std::shared_ptr<ARTrackable> findTrackable(int UID);
 	
     /**
      * Requests the capture of a new frame from the video source(s).

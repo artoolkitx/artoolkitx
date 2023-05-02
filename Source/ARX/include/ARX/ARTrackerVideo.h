@@ -3,6 +3,8 @@
  *  artoolkitX
  *
  *  A C++ class encapsulating functionality of a tracker which tracks from video.
+ *  All optical trackers should derive from this class. Non-optical (e.g. inertial)
+ *  trackers may derive directly from ARTracker.
  *
  *  This file is part of artoolkitX.
  *
@@ -51,8 +53,8 @@ public:
 
     virtual bool start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat) = 0;
     virtual bool start(ARParamLT *paramLT0, AR_PIXEL_FORMAT pixelFormat0, ARParamLT *paramLT1, AR_PIXEL_FORMAT pixelFormat1, const ARdouble transL2R[3][4]) = 0;
-    virtual bool update(AR2VideoBufferT *buff, std::vector<ARTrackable *>& trackables) = 0;
-    virtual bool update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1, std::vector<ARTrackable *>& trackables) = 0;
+    virtual bool update(AR2VideoBufferT *buff) = 0;
+    virtual bool update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1) = 0;
 private:
     bool start() { return false; };
     bool update() { return false; };

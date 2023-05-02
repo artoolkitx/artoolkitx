@@ -324,7 +324,7 @@ int main(int argc, char *argv[])
             for (int i = 0; i < markerCount; i++) {
 
                 // Find the trackable for the given trackable ID.
-                ARTrackable *marker = arController->findTrackable(markerIDs[i]);
+                std::shared_ptr<ARTrackable> marker = arController->findTrackable(markerIDs[i]);
                 float view[16];
                 if (marker->visible) {
                     //arUtilPrintMtx16(marker->transformationMatrix);

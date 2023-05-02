@@ -152,17 +152,22 @@ public:
     bool start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat) override;
     bool start(ARParamLT *paramLT0, AR_PIXEL_FORMAT pixelFormat0, ARParamLT *paramLT1, AR_PIXEL_FORMAT pixelFormat1, const ARdouble transL2R[3][4]) override;
     bool isRunning() override;
-    bool update(AR2VideoBufferT *buff, std::vector<ARTrackable *>& trackables) override;
-    bool update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1, std::vector<ARTrackable *>& trackables) override;
+    bool update(AR2VideoBufferT *buff) override;
+    bool update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1) override;
     bool stop() override;
     void terminate() override;
 
-    ARTrackable *newTrackable(std::vector<std::string> config) override;
-    void deleteTrackable(ARTrackable **trackable_p) override;
-    
+    int newTrackable(std::vector<std::string> config) override;
+    unsigned int countTrackables() override;
+    std::shared_ptr<ARTrackable> getTrackable(int UID) override;
+    std::vector<std::shared_ptr<ARTrackable>> getAllTrackables() override;
+    bool deleteTrackable(int UID) override;
+    void deleteAllTrackables() override;
+
     bool updateDebugTextureRGBA32(const int videoSourceIndex, uint32_t* buffer);
     
 private:
+    std::vector<std::shared_ptr<ARTrackable>> m_trackables;
     int m_threshold;
     AR_LABELING_THRESH_MODE m_thresholdMode;
     int m_imageProcMode;

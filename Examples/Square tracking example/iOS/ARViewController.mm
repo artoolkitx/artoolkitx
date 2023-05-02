@@ -259,7 +259,7 @@ static const int markerCount = (sizeof(markers)/sizeof(markers[0]));
         for (int i = 0; i < markerCount; i++) {
             
             // Find the marker for the given marker ID.
-            ARTrackable *marker = arController->findTrackable(markerIDs[i]);
+            std::shared_ptr<ARTrackable> marker = arController->findTrackable(markerIDs[i]);
             float view[16];
             if (marker->visible) {
                 //arUtilPrintMtx16(marker->transformationMatrix);

@@ -46,6 +46,7 @@
 #include <ARX/OCVT/PlanarTracker.h>
 
 ARTracker2d::ARTracker2d() :
+m_trackables(),
 m_videoSourceIsStereo(false),
 m_2DTrackerDataLoaded(false),
 m_2DTrackerDetectedImageCount(0),
@@ -115,7 +116,7 @@ bool ARTracker2d::unloadTwoDData(void)
     return true;
 }
 
-bool ARTracker2d::loadTwoDData(std::vector<ARTrackable *>& trackables)
+bool ARTracker2d::loadTwoDData()
 {
     // If data was already loaded, unload previously loaded data.
     if (m_2DTrackerDataLoaded) {
@@ -124,15 +125,13 @@ bool ARTracker2d::loadTwoDData(std::vector<ARTrackable *>& trackables)
     } else {
         ARLOGi("Loading 2D data.\n");
     }
-    for (std::vector<ARTrackable *>::iterator it = trackables.begin(); it != trackables.end(); ++it) {
-        if ((*it)->type == ARTrackable::TwoD) {
-            ARTrackable2d *t = static_cast<ARTrackable2d *>(*it);
-            t->pageNo = m_pageCount;
-            // N.B.: PlanarTracker::AddMarker takes a copy of the image data.
-            m_2DTracker->AddMarker(t->m_refImage, t->datasetPathname, t->m_refImageX, t->m_refImageY, t->UID, t->TwoDScale());
-            ARLOGi("'%s' assigned page no. %d.\n", t->datasetPathname, t->pageNo);
-            m_pageCount++; // For 2D tracker, no fixed upper limit on number of trackables that can be loaded.
-        }
+    for (std::vector<std::shared_ptr<ARTrackable>>::iterator it = m_trackables.begin(); it != m_trackables.end(); ++it) {
+        std::shared_ptr<ARTrackable2d> t = std::static_pointer_cast<ARTrackable2d>(*it);
+        t->pageNo = m_pageCount;
+        // N.B.: PlanarTracker::AddMarker takes a copy of the image data.
+        m_2DTracker->AddMarker(t->m_refImage, t->datasetPathname, t->m_refImageX, t->m_refImageY, t->UID, t->TwoDScale());
+        ARLOGi("'%s' assigned page no. %d.\n", t->datasetPathname, t->pageNo);
+        m_pageCount++; // For 2D tracker, no fixed upper limit on number of trackables that can be loaded.
     }
     
     m_2DTrackerDataLoaded = true;
@@ -146,12 +145,12 @@ bool ARTracker2d::isRunning()
     return m_running;
 }
 
-bool ARTracker2d::update(AR2VideoBufferT *buff, std::vector<ARTrackable *>& trackables)
+bool ARTracker2d::update(AR2VideoBufferT *buff)
 {
     ARLOGd("ARX::ARTracker2d::update()\n");
     // Late loading of data now that we have image width and height.
     if (!m_2DTrackerDataLoaded) {
-        if (!loadTwoDData(trackables)) {
+        if (!loadTwoDData()) {
             ARLOGe("Error loading 2D image tracker data.\n");
             return false;
         }
@@ -160,29 +159,27 @@ bool ARTracker2d::update(AR2VideoBufferT *buff, std::vector<ARTrackable *>& trac
     m_2DTracker->ProcessFrameData(buff->buffLuma);
     // Loop through all loaded 2D targets and match against tracking results.
     m_2DTrackerDetectedImageCount = 0;
-    for (std::vector<ARTrackable *>::iterator it = trackables.begin(); it != trackables.end(); ++it) {
-        if ((*it)->type == ARTrackable::TwoD) {
-            ARTrackable2d *trackable2D = static_cast<ARTrackable2d *>(*it);
-            if (m_2DTracker->IsTrackableVisible(trackable2D->UID)) {
-                float transMat[3][4];
-                if (m_2DTracker->GetTrackablePose(trackable2D->UID, transMat)) {
-                    ARdouble *transL2R = (m_videoSourceIsStereo ? (ARdouble *)m_transL2R : NULL);
-                    bool success = trackable2D->updateWithTwoDResults(transMat, (ARdouble (*)[4])transL2R);
-                    m_2DTrackerDetectedImageCount++;
-                } else {
-                    trackable2D->updateWithTwoDResults(NULL, NULL);
-                }
+    for (std::vector<std::shared_ptr<ARTrackable>>::iterator it = m_trackables.begin(); it != m_trackables.end(); ++it) {
+        std::shared_ptr<ARTrackable2d> t = std::static_pointer_cast<ARTrackable2d>(*it);
+        if (m_2DTracker->IsTrackableVisible(t->UID)) {
+            float transMat[3][4];
+            if (m_2DTracker->GetTrackablePose(t->UID, transMat)) {
+                ARdouble *transL2R = (m_videoSourceIsStereo ? (ARdouble *)m_transL2R : NULL);
+                bool success = t->updateWithTwoDResults(transMat, (ARdouble (*)[4])transL2R);
+                m_2DTrackerDetectedImageCount++;
             } else {
-                trackable2D->updateWithTwoDResults(NULL, NULL);
+                t->updateWithTwoDResults(NULL, NULL);
             }
+        } else {
+            t->updateWithTwoDResults(NULL, NULL);
         }
     }
     return true;
 }
 
-bool ARTracker2d::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1, std::vector<ARTrackable *>& trackables)
+bool ARTracker2d::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1)
 {
-    return update(buff0, trackables);
+    return update(buff0);
 }
 
 bool ARTracker2d::stop()
@@ -203,23 +200,23 @@ void ARTracker2d::terminate()
     
 }
 
-ARTrackable *ARTracker2d::newTrackable(std::vector<std::string> config)
+int ARTracker2d::newTrackable(std::vector<std::string> config)
 {
     // Minimum config length.
     if (config.size() < 1) {
         ARLOGe("Trackable config. must contain at least trackable type.\n");
-        return nullptr;
+        return ARTrackable::NO_ID;
     }
     
     // First token is trackable type.
     if (config.at(0).compare("2d") != 0) {
-        return nullptr;
+        return ARTrackable::NO_ID;
     }
     
     // Second token is path to 2D data.
     if (config.size() < 2) {
         ARLOGe("2D config. requires path to 2D data.\n");
-        return nullptr;
+        return ARTrackable::NO_ID;
     }
     
     // Optional 3rd parameter: scale.
@@ -237,28 +234,59 @@ ARTrackable *ARTracker2d::newTrackable(std::vector<std::string> config)
     if (!ok) {
         // Marker failed to load, or was not added
         delete ret;
-        ret = nullptr;
-    } else {
-        // Trigger reload on next tracker update.
-        unloadTwoDData();
+        return ARTrackable::NO_ID;
     }
-    return ret;
-}
 
-void ARTracker2d::deleteTrackable(ARTrackable **trackable_p)
-{
-    if (!trackable_p || !(*trackable_p)) return;
-    if ((*trackable_p)->type != ARTrackable::TwoD) return;
-
+    m_trackables.push_back(std::shared_ptr<ARTrackable>(ret));
+    // Trigger reload on next tracker update.
     unloadTwoDData();
-    delete (*trackable_p);
-    (*trackable_p) = NULL;
+
+    return ret->UID;
 }
 
-std::vector<ARTrackable*> ARTracker2d::loadImageDatabase(std::string fileName)
+unsigned int ARTracker2d::countTrackables()
 {
-    std::vector<ARTrackable*> loadedTrackables;
-    if (m_2DTracker->LoadTrackableDatabase(fileName)) {
+    return (unsigned int)m_trackables.size();
+}
+
+std::shared_ptr<ARTrackable> ARTracker2d::getTrackable(int UID)
+{
+    auto ti = std::find_if(m_trackables.begin(), m_trackables.end(), [&](std::shared_ptr<ARTrackable> t) { return t->UID == UID; } );
+    if (ti == m_trackables.end()) {
+        return std::shared_ptr<ARTrackable>();
+    }
+    return *ti;
+}
+
+std::vector<std::shared_ptr<ARTrackable>> ARTracker2d::getAllTrackables()
+{
+    return std::vector<std::shared_ptr<ARTrackable>>(m_trackables);
+}
+
+bool ARTracker2d::deleteTrackable(int UID)
+{
+    auto ti = std::find_if(m_trackables.begin(), m_trackables.end(), [&](std::shared_ptr<ARTrackable> t) { return t->UID == UID; } );
+    if (ti == m_trackables.end()) {
+        return false;
+    }
+    m_trackables.erase(ti);
+    unloadTwoDData();
+    return true;
+}
+
+void ARTracker2d::deleteAllTrackables()
+{
+    m_trackables.clear();
+    unloadTwoDData();
+}
+
+bool ARTracker2d::loadImageDatabase(std::string fileName)
+{
+    deleteAllTrackables();
+
+    if (!m_2DTracker->LoadTrackableDatabase(fileName)) {
+        return false;
+    } else {
         std::vector<int> loadedIds = m_2DTracker->GetImageIds();
         for (int i = 0; i < loadedIds.size(); i++) {
             //Get loaded image infomation
@@ -266,20 +294,23 @@ std::vector<ARTrackable*> ARTracker2d::loadImageDatabase(std::string fileName)
             TrackedImageInfo info = m_2DTracker->GetTrackableImageInfo(loadedId);
             
             //Create trackable from loaded info
-            ARTrackable2d *ret = new ARTrackable2d();
-            ret->load2DData(info.fileName.c_str(), info.imageData, info.width, info.height);
-            ret->setTwoDScale(info.scale);
-            ret->pageNo = i;
+            std::shared_ptr<ARTrackable2d> t = std::make_shared<ARTrackable2d>();
+            t->load2DData(info.fileName.c_str(), info.imageData, info.width, info.height);
+            t->setTwoDScale(info.scale);
+            t->pageNo = i;
             //Change ID to the Trackable generated UID
-            m_2DTracker->ChangeImageId(loadedId, ret->UID);
-            loadedTrackables.push_back(ret);
+            m_2DTracker->ChangeImageId(loadedId, t->UID);
+            m_trackables.push_back(t);
         }
     }
     
-    if (loadedTrackables.size() > 0) {
-        m_2DTrackerDataLoaded = true;
+    if (m_trackables.size() == 0) {
+        return false;
     }
-    return loadedTrackables;
+    
+    m_2DTrackerDataLoaded = true;
+    m_pageCount = (int)m_trackables.size();
+    return true;
 }
 
 bool ARTracker2d::saveImageDatabase(std::string filename)
