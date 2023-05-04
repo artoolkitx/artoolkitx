@@ -175,6 +175,7 @@ static ARdouble  arGetTransMatMultiSquare2(AR3DHandle *handle, ARMarkerInfo *mar
         j++;
     }
 
+    // Did the previous frame have a valid pose?
     if (config->prevF == 0) {
         if (robustFlag) {
             ARdouble inlierProb = 1.0;

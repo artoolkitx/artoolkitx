@@ -97,7 +97,7 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
         if( config->marker[i].patt_type == AR_MULTI_PATTERN_TYPE_TEMPLATE ) {
             for( j = 0; j < marker_numL; j++ ) {
                 if( marker_infoL[j].idPatt != config->marker[i].patt_id ) continue;
-                if( marker_infoL[j].cfPatt < 0.50 ) continue;
+                if( marker_infoL[j].cfPatt < config->cfPattCutoff ) continue;
                 if( k == -1 ) k = j;
                 else if( marker_infoL[k].cfPatt < marker_infoL[j].cfPatt ) k = j;
             }
@@ -108,8 +108,13 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
         }
         else {
             for( j = 0; j < marker_numL; j++ ) {
-                if( marker_infoL[j].idMatrix != config->marker[i].patt_id ) continue;
-                if( marker_infoL[j].cfMatrix < 0.50 ) continue;
+                // Check if we need to examine the globalID rather than patt_id.
+                if (marker_infoL[j].idMatrix == 0 && marker_infoL[j].globalID != 0ULL) {
+                    if( marker_infoL[j].globalID != config->marker[i].globalID ) continue;
+                } else {
+                    if( marker_infoL[j].idMatrix != config->marker[i].patt_id ) continue;
+                }
+                if( marker_infoL[j].cfMatrix < config->cfMatrixCutoff ) continue;
                 if( k == -1 ) k = j;
                 else if( marker_infoL[k].cfMatrix < marker_infoL[j].cfMatrix ) k = j;
             }
@@ -123,7 +128,7 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
         if( config->marker[i].patt_type == AR_MULTI_PATTERN_TYPE_TEMPLATE ) {
             for( j = 0; j < marker_numR; j++ ) {
                 if( marker_infoR[j].idPatt != config->marker[i].patt_id ) continue;
-                if( marker_infoR[j].cfPatt < 0.50 ) continue;
+                if( marker_infoR[j].cfPatt < config->cfPattCutoff ) continue;
                 if( k == -1 ) k = j;
                 else if( marker_infoR[k].cfPatt < marker_infoR[j].cfPatt ) k = j;
             }
@@ -134,8 +139,13 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
         }
         else {
             for( j = 0; j < marker_numR; j++ ) {
-                if( marker_infoR[j].idMatrix != config->marker[i].patt_id ) continue;
-                if( marker_infoR[j].cfMatrix < 0.50 ) continue;
+                // Check if we need to examine the globalID rather than patt_id.
+                if (marker_infoR[j].idMatrix == 0 && marker_infoR[j].globalID != 0ULL) {
+                    if( marker_infoR[j].globalID != config->marker[i].globalID ) continue;
+                } else {
+                    if( marker_infoR[j].idMatrix != config->marker[i].patt_id ) continue;
+                }
+                if( marker_infoR[j].cfMatrix < config->cfMatrixCutoff ) continue;
                 if( k == -1 ) k = j;
                 else if( marker_infoR[k].cfMatrix < marker_infoR[j].cfMatrix ) k = j;
             }
@@ -157,6 +167,8 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
             continue;
         }
 
+        // Use the largest (in terms of 2D coordinates) marker's pose estimate as the
+        // input for the initial estimate for the pose estimator.
         if( vnumL == 0 || maxArea < marker_infoL[j].area ) {
             maxArea = marker_infoL[j].area;
             max = i; 
@@ -177,6 +189,8 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
             continue;
         }
 
+        // Use the largest (in terms of 2D coordinates) marker's pose estimate as the
+        // input for the initial estimate for the pose estimator.
         if( (vnumL == 0 && vnumR == 0) || maxArea < marker_infoR[j].area ) {
             maxArea = marker_infoR[j].area;
             max = i; 
@@ -257,6 +271,7 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
         j++;
     }
 
+    // Did the previous frame have a valid pose?
     if (config->prevF == 0) {
         arUtilMatMul((const ARdouble (*)[4])trans1, (const ARdouble (*)[4])config->marker[max].itrans, trans2);
         if (robustFlag) {
@@ -315,6 +330,11 @@ static ARdouble  arGetTransMatMultiSquareStereo2(AR3DStereoHandle *handle,
     }
     else {
         config->prevF = 0;
+        for (i = 0; i < config->marker_num; i++) {
+            if ((k = config->marker[i].visible) < 0) continue;
+            if (marker_infoL[k].cutoffPhase == AR_MARKER_INFO_CUTOFF_PHASE_NONE) marker_infoL[k].cutoffPhase = AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR_MULTI;
+            if (marker_infoR[k].cutoffPhase == AR_MARKER_INFO_CUTOFF_PHASE_NONE) marker_infoR[k].cutoffPhase = AR_MARKER_INFO_CUTOFF_PHASE_POSE_ERROR_MULTI;
+        }
     }
 
     return err;

@@ -375,7 +375,7 @@ bool ARTrackerSquare::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1)
 
     ARLOGd("ARX::ARTrackerSquare::update()\n");
 
-    if (!m_arHandle0 || (buff1 && !m_arHandle1)) return false;
+    if (!buff0 || !m_arHandle0 || (buff1 && !m_arHandle1)) return false;
 
     if (arDetectMarker(m_arHandle0, buff0) < 0) {
         ARLOGe("arDetectMarker().\n");

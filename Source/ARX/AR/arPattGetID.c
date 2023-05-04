@@ -204,11 +204,11 @@ int arPattGetIDGlobal( ARPattHandle *pattHandle, int imageProcMode, int pattDete
                 
                 if (errorCodeMtx < 0) {
                     *codeMatrix = -1;
-                } else if (codeGlobalID == UINT64_MAX) { // Heuristic-based elimination of frequently misrecognised codes.
+                } else if (codeGlobalID == 0 || codeGlobalID == UINT64_MAX) { // Heuristic-based elimination of frequently misrecognised codes.
                     errorCodeMtx = -5;
                     *codeMatrix = -1;
                 } else {
-                    if ((codeGlobalID & 0xffff8000ULL) == 0ULL) *codeMatrix = (int)(codeGlobalID & 0x00007fffULL); // If upper 33 bits are zero, return lower 31 bits as regular matrix code as well.
+                    if ((codeGlobalID & 0xffffffff80000000ULL) == 0ULL) *codeMatrix = (int)(codeGlobalID & 0x7fffffffULL); // If upper 33 bits are zero, return lower 31 bits as regular matrix code as well.
                     else *codeMatrix = 0; // otherwise, regular matrix code = 0;
                     if (codeGlobalID_p) *codeGlobalID_p = codeGlobalID;
                 }

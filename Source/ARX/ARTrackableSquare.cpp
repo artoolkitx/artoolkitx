@@ -50,6 +50,7 @@ ARTrackableSquare::ARTrackableSquare() : ARTrackable(SINGLE),
     m_cfMin(AR_CONFIDENCE_CUTOFF_DEFAULT),
     patt_id(-1),
     patt_type(-1),
+    globalID(0),
     useContPoseEstimation(true)
 {
 }
@@ -70,6 +71,7 @@ bool ARTrackableSquare::unload()
             }
         }
         patt_id = patt_type = -1;
+        globalID = 0;
         m_cf = 0.0f;
         m_width = 0.0f;
         m_loaded = false;
@@ -129,16 +131,21 @@ bool ARTrackableSquare::initWithPatternFromBuffer(const char* buffer, ARdouble w
 	return true;
 }
 
-bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width)
+bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width, uint64_t globalID_)
 {
 	if (barcodeID < 0) return false;
     
     if (m_loaded) unload();
 
 	ARLOGi("Adding single AR marker with barcode %d, width %f.\n", barcodeID, width);
-	
-	patt_id = barcodeID;
-	
+
+    if (barcodeID == 0 && globalID_ != 0) {
+        globalID = globalID_;
+        if ((globalID & 0xffffffff80000000ULL) == 0ULL) patt_id = (int)(globalID & 0x7fffffffULL); // If upper 33 bits are zero, use lower 31 bits as regular matrix code.
+    } else {
+        patt_id = barcodeID;
+    }
+
     patt_type = AR_PATTERN_TYPE_MATRIX;
 	m_width = width;
     
@@ -169,7 +176,7 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
 
     ARLOGd("ARTrackableSquare::updateWithDetectedMarkers(...)\n");
     
-	if (patt_id < 0) return false;	// Can't update if no pattern loaded
+	if (patt_id < 0) return false;	// Can't update if not inited.
 
     visiblePrev = visible;
     visible = false;
@@ -181,12 +188,11 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
         if (patt_type == AR_PATTERN_TYPE_TEMPLATE) { 
             // Iterate over all detected markers.
             for (int j = 0; j < markerNum; j++ ) {
-                if (patt_id == markerInfo[j].idPatt) {
-                    // The pattern of detected trapezoid matches marker[k].
-                    if (k == -1) {
-                        if (markerInfo[j].cfPatt > m_cfMin) k = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfo[j].cfPatt > markerInfo[k].cfPatt) k = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
-                }
+                if (patt_id != markerInfo[j].idPatt) continue;
+                // The pattern of detected trapezoid matches marker[k].
+                if (k == -1) {
+                    if (markerInfo[j].cfPatt > m_cfMin) k = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfo[j].cfPatt > markerInfo[k].cfPatt) k = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (k != -1) {
                 markerInfo[k].id = markerInfo[k].idPatt;
@@ -195,11 +201,16 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
             }
         } else {
             for (int j = 0; j < markerNum; j++) {
-                if (patt_id == markerInfo[j].idMatrix) {
-                    if (k == -1) {
-                        if (markerInfo[j].cfMatrix >= m_cfMin) k = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfo[j].cfMatrix > markerInfo[k].cfMatrix) k = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
+                if (markerInfo[j].matched) continue;
+                // Check if we need to examine the globalID rather than patt_id.
+                if (markerInfo[j].idMatrix == 0 && markerInfo[j].globalID != 0ULL) {
+                    if (markerInfo[j].globalID != globalID ) continue;
+                } else {
+                    if (markerInfo[j].idMatrix != patt_id ) continue;
                 }
+                if (k == -1) {
+                    if (markerInfo[j].cfMatrix >= m_cfMin) k = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfo[j].cfMatrix > markerInfo[k].cfMatrix) k = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (k != -1) {
                 markerInfo[k].id = markerInfo[k].idMatrix;
@@ -233,7 +244,7 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
     
     ARLOGd("ARTrackableSquare::updateWithDetectedMarkersStereo(...)\n");
     
-	if (patt_id < 0) return false;	// Can't update if no pattern loaded
+	if (patt_id < 0) return false;	// Can't update if not inited.
     
     visiblePrev = visible;
     visible = false;
@@ -245,12 +256,11 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
         if (patt_type == AR_PATTERN_TYPE_TEMPLATE) {
             // Iterate over all detected markers.
             for (int j = 0; j < markerNumL; j++ ) {
-                if (patt_id == markerInfoL[j].idPatt) {
-                    // The pattern of detected trapezoid matches marker[kL].
-                    if (kL == -1) {
-                        if (markerInfoL[j].cfPatt > m_cfMin) kL = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfoL[j].cfPatt > markerInfoL[kL].cfPatt) kL = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
-                }
+                if (patt_id != markerInfoL[j].idPatt) continue;
+                // The pattern of detected trapezoid matches marker[kL].
+                if (kL == -1) {
+                    if (markerInfoL[j].cfPatt > m_cfMin) kL = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfoL[j].cfPatt > markerInfoL[kL].cfPatt) kL = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (kL != -1) {
                 markerInfoL[kL].id = markerInfoL[kL].idPatt;
@@ -258,12 +268,11 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
                 markerInfoL[kL].dir = markerInfoL[kL].dirPatt;
             }
             for (int j = 0; j < markerNumR; j++ ) {
-                if (patt_id == markerInfoR[j].idPatt) {
-                    // The pattern of detected trapezoid matches marker[kR].
-                    if (kR == -1) {
-                        if (markerInfoR[j].cfPatt > m_cfMin) kR = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfoR[j].cfPatt > markerInfoR[kR].cfPatt) kR = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
-                }
+                if (patt_id != markerInfoR[j].idPatt) continue;
+                // The pattern of detected trapezoid matches marker[kR].
+                if (kR == -1) {
+                    if (markerInfoR[j].cfPatt > m_cfMin) kR = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfoR[j].cfPatt > markerInfoR[kR].cfPatt) kR = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (kR != -1) {
                 markerInfoR[kR].id = markerInfoR[kR].idPatt;
@@ -272,11 +281,15 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
             }
         } else {
             for (int j = 0; j < markerNumL; j++) {
-                if (patt_id == markerInfoL[j].idMatrix) {
-                    if (kL == -1) {
-                        if (markerInfoL[j].cfMatrix >= m_cfMin) kL = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfoL[j].cfMatrix > markerInfoL[kL].cfMatrix) kL = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
+                // Check if we need to examine the globalID rather than patt_id.
+                if (markerInfoL[j].idMatrix == 0 && markerInfoL[j].globalID != 0ULL) {
+                    if (markerInfoL[j].globalID != globalID ) continue;
+                } else {
+                    if (markerInfoL[j].idMatrix != patt_id ) continue;
                 }
+                if (kL == -1) {
+                    if (markerInfoL[j].cfMatrix >= m_cfMin) kL = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfoL[j].cfMatrix > markerInfoL[kL].cfMatrix) kL = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (kL != -1) {
                 markerInfoL[kL].id = markerInfoL[kL].idMatrix;
@@ -284,11 +297,15 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
                 markerInfoL[kL].dir = markerInfoL[kL].dirMatrix;
             }
             for (int j = 0; j < markerNumR; j++) {
-                if (patt_id == markerInfoR[j].idMatrix) {
-                    if (kR == -1) {
-                        if (markerInfoR[j].cfMatrix >= m_cfMin) kR = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfoR[j].cfMatrix > markerInfoR[kR].cfMatrix) kR = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
+                // Check if we need to examine the globalID rather than patt_id.
+                if (markerInfoR[j].idMatrix == 0 && markerInfoR[j].globalID != 0ULL) {
+                    if (markerInfoR[j].globalID != globalID ) continue;
+                } else {
+                    if (markerInfoR[j].idMatrix != patt_id ) continue;
                 }
+                if (kR == -1) {
+                    if (markerInfoR[j].cfMatrix >= m_cfMin) kR = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfoR[j].cfMatrix > markerInfoR[kR].cfMatrix) kR = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (kR != -1) {
                 markerInfoR[kR].id = markerInfoR[kR].idMatrix;
