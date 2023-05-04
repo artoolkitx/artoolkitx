@@ -412,6 +412,8 @@ extern "C" {
         ARW_TRACKER_OPTION_SQUARE_PATTERN_COUNT_MAX = 10,              ///< Maximum number of square template (pattern) markers that may be loaded at once. Defaults to AR_PATT_NUM_MAX, which is at least 25 in all versions of ARToolKit prior to 5.3. int.
         ARW_TRACKER_OPTION_2D_TRACKER_FEATURE_TYPE = 11,               ///< Feature detector type used in the 2d Tracker - 0 AKAZE, 1 ORB, 2 BRISK, 3 KAZE
         ARW_TRACKER_OPTION_2D_MAXIMUM_MARKERS_TO_TRACK = 12,           ///< Maximum number of markers able to be tracked simultaneously. Defaults to 1. Should not be set higher than the number of 2D markers loaded.
+        ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES = 13, ///< If true, when the square tracker is detecting matrix (barcode) markers, new trackables will be created for unmatched markers. Defaults to false. bool.
+        ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES_DEFAULT_WIDTH = 14, ///< If ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES is true, this value will be used for the initial width of new trackables for unmatched markers. Defaults to 80.0f. float.
     };
     
     /**

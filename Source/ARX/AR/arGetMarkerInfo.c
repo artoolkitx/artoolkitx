@@ -99,6 +99,7 @@ int arGetMarkerInfo( ARUint8 *image, int xsize, int ysize, int pixelFormat, ARMa
             markerInfo[j].dir = markerInfo[j].dirMatrix;
             markerInfo[j].cf  = markerInfo[j].cfMatrix;
         }
+        markerInfo[j].matched = 0;
 
         j++;
     }

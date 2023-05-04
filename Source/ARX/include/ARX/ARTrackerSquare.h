@@ -149,6 +149,15 @@ public:
     
     int patternCountMax() const;
     
+    void setMatrixModeAutoCreateNewTrackables(bool on) { m_matrixModeAutoCreateNewTrackables = on; }
+
+    bool matrixModeAutoCreateNewTrackables() const { return m_matrixModeAutoCreateNewTrackables; }
+
+    static constexpr float k_matrixModeAutoCreateNewTrackablesDefaultWidth_default = 80.0f;
+    void setMatrixModeAutoCreateNewTrackablesDefaultWidth(ARdouble width) { m_matrixModeAutoCreateNewTrackablesDefaultWidth = width; }
+
+    float matrixModeAutoCreateNewTrackablesDefaultWidth() const { return m_matrixModeAutoCreateNewTrackablesDefaultWidth; }
+
     bool start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat) override;
     bool start(ARParamLT *paramLT0, AR_PIXEL_FORMAT pixelFormat0, ARParamLT *paramLT1, AR_PIXEL_FORMAT pixelFormat1, const ARdouble transL2R[3][4]) override;
     bool isRunning() override;
@@ -178,6 +187,8 @@ private:
     bool m_debugMode;
     int m_patternSize;
     int m_patternCountMax;
+    bool m_matrixModeAutoCreateNewTrackables;
+    float m_matrixModeAutoCreateNewTrackablesDefaultWidth;
     
     ARHandle *m_arHandle0;              ///< Structure containing square tracker state.
     ARHandle *m_arHandle1;              ///< For stereo tracking, structure containing square tracker state for second tracker in stereo pair.

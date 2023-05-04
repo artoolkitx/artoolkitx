@@ -320,7 +320,9 @@ void arwSetTrackerOptionBool(int option, bool value)
 {
     if (!gARTK) return;
     
-    if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
+    if (option == ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES) {
+        gARTK->getSquareTracker()->setMatrixModeAutoCreateNewTrackables(value);
+    } else if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
 #if HAVE_NFT
         gARTK->getNFTTracker()->setNFTMultiMode(value);
 #endif
@@ -370,6 +372,9 @@ void arwSetTrackerOptionFloat(int option, float value)
     if (option == ARW_TRACKER_OPTION_SQUARE_BORDER_SIZE) {
         if (value <= 0.0f || value >= 0.5f) return;
         gARTK->getSquareTracker()->setPattRatio(1.0f - 2.0f*value); // Convert from border size to pattern ratio.
+    } else if (option == ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES_DEFAULT_WIDTH) {
+        if (value <= 0.0f) return;
+        gARTK->getSquareTracker()->setMatrixModeAutoCreateNewTrackablesDefaultWidth(value);
     }
 }
 
@@ -377,7 +382,9 @@ bool arwGetTrackerOptionBool(int option)
 {
     if (!gARTK) return false;
     
-    if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
+    if (option == ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES) {
+        return gARTK->getSquareTracker()->matrixModeAutoCreateNewTrackables();
+    } else if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
 #if HAVE_NFT
         return  gARTK->getNFTTracker()->NFTMultiMode();
 #endif
@@ -426,6 +433,8 @@ float arwGetTrackerOptionFloat(int option)
     if (option == ARW_TRACKER_OPTION_SQUARE_BORDER_SIZE) {
         float value = gARTK->getSquareTracker()->pattRatio();
         if (value > 0.0f && value < 1.0f) return (1.0f - value)/2.0f; // Convert from pattern ratio to border size.
+    } else if (option == ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES_DEFAULT_WIDTH) {
+        return gARTK->getSquareTracker()->matrixModeAutoCreateNewTrackablesDefaultWidth();
     }
     return (NAN);
 }

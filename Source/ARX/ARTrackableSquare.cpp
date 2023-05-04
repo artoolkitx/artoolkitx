@@ -188,6 +188,7 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
         if (patt_type == AR_PATTERN_TYPE_TEMPLATE) { 
             // Iterate over all detected markers.
             for (int j = 0; j < markerNum; j++ ) {
+                if (markerInfo[j].matched) continue;
                 if (patt_id != markerInfo[j].idPatt) continue;
                 // The pattern of detected trapezoid matches marker[k].
                 if (k == -1) {
@@ -221,6 +222,7 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
         
 		// Consider marker visible if a match was found.
         if (k != -1) {
+            markerInfo[k].matched = 1;
             ARdouble err;
             // If the model is visible, update its transformation matrix
 			if (visiblePrev && useContPoseEstimation) {
@@ -256,6 +258,7 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
         if (patt_type == AR_PATTERN_TYPE_TEMPLATE) {
             // Iterate over all detected markers.
             for (int j = 0; j < markerNumL; j++ ) {
+                if (markerInfoL[j].matched) continue;
                 if (patt_id != markerInfoL[j].idPatt) continue;
                 // The pattern of detected trapezoid matches marker[kL].
                 if (kL == -1) {
@@ -268,6 +271,7 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
                 markerInfoL[kL].dir = markerInfoL[kL].dirPatt;
             }
             for (int j = 0; j < markerNumR; j++ ) {
+                if (markerInfoR[j].matched) continue;
                 if (patt_id != markerInfoR[j].idPatt) continue;
                 // The pattern of detected trapezoid matches marker[kR].
                 if (kR == -1) {
@@ -281,6 +285,7 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
             }
         } else {
             for (int j = 0; j < markerNumL; j++) {
+                if (markerInfoL[j].matched) continue;
                 // Check if we need to examine the globalID rather than patt_id.
                 if (markerInfoL[j].idMatrix == 0 && markerInfoL[j].globalID != 0ULL) {
                     if (markerInfoL[j].globalID != globalID ) continue;
@@ -297,6 +302,7 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
                 markerInfoL[kL].dir = markerInfoL[kL].dirMatrix;
             }
             for (int j = 0; j < markerNumR; j++) {
+                if (markerInfoR[j].matched) continue;
                 // Check if we need to examine the globalID rather than patt_id.
                 if (markerInfoR[j].idMatrix == 0 && markerInfoR[j].globalID != 0ULL) {
                     if (markerInfoR[j].globalID != globalID ) continue;
@@ -315,7 +321,9 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
         }
         
         if (kL != -1 || kR != -1) {
-            
+            if (kL != -1) markerInfoL[kL].matched = 1;
+            if (kR != -1) markerInfoR[kR].matched = 1;
+
             ARdouble err;
             
             if (kL != -1 && kR != -1) {
