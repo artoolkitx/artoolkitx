@@ -153,6 +153,11 @@ public:
 
     bool matrixModeAutoCreateNewTrackables() const { return m_matrixModeAutoCreateNewTrackables; }
 
+    typedef void (*MatrixModeAutoCreateNewTrackablesCallback_t)(const ARTrackableSquare& trackable);
+    void setMatrixModeAutoCreateNewTrackablesCallback(MatrixModeAutoCreateNewTrackablesCallback_t callback) { m_matrixModeAutoCreateNewTrackablesCallback = callback; }
+    MatrixModeAutoCreateNewTrackablesCallback_t matrixModeAutoCreateNewTrackablesCallback() const { return m_matrixModeAutoCreateNewTrackablesCallback; }
+
+
     static constexpr float k_matrixModeAutoCreateNewTrackablesDefaultWidth_default = 80.0f;
     void setMatrixModeAutoCreateNewTrackablesDefaultWidth(ARdouble width) { m_matrixModeAutoCreateNewTrackablesDefaultWidth = width; }
 
@@ -189,7 +194,8 @@ private:
     int m_patternCountMax;
     bool m_matrixModeAutoCreateNewTrackables;
     float m_matrixModeAutoCreateNewTrackablesDefaultWidth;
-    
+    MatrixModeAutoCreateNewTrackablesCallback_t m_matrixModeAutoCreateNewTrackablesCallback;
+
     ARHandle *m_arHandle0;              ///< Structure containing square tracker state.
     ARHandle *m_arHandle1;              ///< For stereo tracking, structure containing square tracker state for second tracker in stereo pair.
     ARPattHandle *m_arPattHandle;       ///< Structure containing information about trained patterns.

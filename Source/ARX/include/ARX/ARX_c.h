@@ -461,6 +461,7 @@ extern "C" {
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  Trackable management
     // ----------------------------------------------------------------------------------------------------
+
     /**
 	 * Adds a trackable as specified in the given configuration string. The format of the string can be
 	 * one of:
@@ -474,22 +475,32 @@ extern "C" {
 	 * @return			The unique identifier (UID) of the trackable instantiated based on the configuration string, or -1 if an error occurred
 	 */
 	ARX_EXTERN int arwAddTrackable(const char *cfg);
-    
+
+#pragma pack(push, 4)
     typedef struct {
         int uid;
         bool visible;
         float matrix[16];
         float matrixR[16]; // For stereo.
     } ARWTrackableStatus;
+#pragma pack(pop)
+
+    /**
+     * Gets current number of trackables.
+     * @return          The number of trackables currently loaded, or -1 in case of error.
+     */
+    ARX_EXTERN int arwGetTrackableCount(void);
     
     /**
-     * Gets all current trackables and their status.
-     * @param count_p Pointer to a location which will be filled with the number of trackable statuses in the array pointed to by statuses_p.
-     * @param statuses_p Pointer to a location which will be filled with a pointer to the first element of an array of trackable statuses, or NULL if the current status is not required. This array is allocated internally and must be deallocated (by calling free() on the pointer) when the caller has finished using the array.
+     * Gets status of trackables.
+     * @param statuses Pointer to the first element of an array of trackable statuses. This array should be allocated by the caller.
+     *  Use the function arwGetTrackableCount to determine an appropriate number of elements for this array.
+     * @param statusesCount The number of elements in the statuses array. If this is more than the number of trackables loaded, excess
+     *  elements will not be modified. If this number is fewer than the number of trackables loaded, only the first `statuses` trackables will be reported.
      * @return          true if the function proceeded without error, false if an error occurred
      */
-    ARX_EXTERN bool arwGetTrackables(int *count_p, ARWTrackableStatus **statuses_p);
-    
+    ARX_EXTERN bool arwGetTrackableStatuses(ARWTrackableStatus *statuses, int statusesCount);
+
     /**
 	 * Removes the trackable with the given unique identifier (UID).
 	 * @param trackableUID	The unique identifier (UID) of the trackable to remove
@@ -629,6 +640,14 @@ extern "C" {
 	 * @return floating-point value of option, or NAN if an error occurred.
      */
     ARX_EXTERN float arwGetTrackableOptionFloat(int trackableUID, int option);
+
+    enum {
+        ARW_TRACKABLE_EVENT_TYPE_NONE = 0,
+        ARW_TRACKABLE_EVENT_TYPE_AUTOCREATED = 1,
+        ARW_TRACKABLE_EVENT_TYPE_AUTOREMOVED = 2,
+    };
+
+    ARX_EXTERN void arwRegisterTrackableEventCallback(PFN_TRACKABLEEVENTCALLBACK callback);
 
     /**
      * Load a 2D trackable set from a trackable database.

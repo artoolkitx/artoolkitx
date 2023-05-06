@@ -58,6 +58,7 @@ ARTrackerSquare::ARTrackerSquare() :
     m_patternCountMax(AR_PATT_NUM_MAX),
     m_matrixModeAutoCreateNewTrackables(false),
     m_matrixModeAutoCreateNewTrackablesDefaultWidth(k_matrixModeAutoCreateNewTrackablesDefaultWidth_default),
+    m_matrixModeAutoCreateNewTrackablesCallback(nullptr),
     m_arHandle0(NULL),
     m_arHandle1(NULL),
     m_arPattHandle(NULL),
@@ -455,7 +456,12 @@ bool ARTrackerSquare::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1)
                 }
             }
         }
-        m_trackables.insert(m_trackables.end(), newTrackables.begin(), newTrackables.end());
+        for (std::shared_ptr<ARTrackableSquare> trackable : newTrackables) {
+            m_trackables.push_back(trackable);
+            if (m_matrixModeAutoCreateNewTrackablesCallback) {
+                (*m_matrixModeAutoCreateNewTrackablesCallback)(*trackable);
+            }
+        }
     }
 
     return true;

@@ -69,6 +69,7 @@ static union { unsigned char __c[4]; float __d; } __nan_union = { __nan_bytes };
 
 static ARController *gARTK = NULL;
 static ARVideoSourceInfoListT *gARVideoSourceInfoList = NULL;
+static PFN_TRACKABLEEVENTCALLBACK gMatrixModeAutoCreatedCallback = nullptr;
 
 // ----------------------------------------------------------------------------------------------------
 
@@ -178,6 +179,13 @@ bool arwShutdownAR()
     if (gARTK) {
         delete gARTK; // Delete the artoolkitX instance to initiate shutdown.
         gARTK = NULL;
+    }
+    if (gARVideoSourceInfoList) {
+        free(gARVideoSourceInfoList);
+        gARVideoSourceInfoList = nullptr;
+    }
+    if (gMatrixModeAutoCreatedCallback) {
+        gMatrixModeAutoCreatedCallback = nullptr;
     }
 
     return (true);
@@ -443,43 +451,52 @@ float arwGetTrackerOptionFloat(int option)
 #pragma mark  Trackable management
 // ---------------------------------------------------------------------------------------------
 
+static void matrixModeAutoCreatedShim(const ARTrackableSquare& trackable)
+{
+    if (gMatrixModeAutoCreatedCallback) (*gMatrixModeAutoCreatedCallback)(ARW_TRACKABLE_EVENT_TYPE_AUTOCREATED, trackable.UID);
+}
+
+void arwRegisterTrackableEventCallback(PFN_TRACKABLEEVENTCALLBACK callback)
+{
+    if (!gARTK) return;
+    gMatrixModeAutoCreatedCallback = callback;
+    gARTK->getSquareTracker()->setMatrixModeAutoCreateNewTrackablesCallback(callback ? matrixModeAutoCreatedShim : nullptr);
+}
+
 int arwAddTrackable(const char *cfg)
 {
     if (!gARTK) return -1;
 	return gARTK->addTrackable(cfg);
 }
 
-bool arwGetTrackables(int *count_p, ARWTrackableStatus **statuses_p)
+int arwGetTrackableCount(void)
+{
+    if (!gARTK) return -1;
+    return gARTK->countTrackables();
+}
+
+bool arwGetTrackableStatuses(ARWTrackableStatus *statuses, int statusesCount)
 {
     if (!gARTK) return false;
-    if (!count_p) return false;
+    if (!statuses || statusesCount < 1) return false;
 
     std::vector<std::shared_ptr<ARTrackable>> trackables = gARTK->getAllTrackables();
-    *count_p = (int)trackables.size();
-    if (statuses_p) {
-        if (trackables.empty()) *statuses_p = NULL;
-        else {
-            ARWTrackableStatus *st = (ARWTrackableStatus *)calloc(trackables.size(), sizeof(ARWTrackableStatus));
-            for (unsigned int i = 0; i < trackables.size(); i++) {
-                std::shared_ptr<ARTrackable> t = trackables[i];
-                if (!t) {
-                    st[i].uid = -1;
-                } else {
-                    st[i].uid = t->UID;
-                    st[i].visible = t->visible;
-#ifdef ARDOUBLE_IS_FLOAT
-                    memcpy(st[i].matrix, t->transformationMatrix, 16*sizeof(float));
-                    memcpy(st[i].matrixR, t->transformationMatrixR, 16*sizeof(float));
-#else
-                    for (int j = 0; j < 16; j++) st[i].matrix[j] = (float)t->transformationMatrix[j];
-                    for (int j = 0; j < 16; j++) st[i].matrixR[j] = (float)t->transformationMatrixR[j];
-#endif
-                }
-            }
-            *statuses_p = st;
+    int i = 0;
+    std::vector<std::shared_ptr<ARTrackable>>::iterator it = trackables.begin();
+    while (i < statusesCount && it != trackables.end()) {
+        std::shared_ptr<ARTrackable> t = *it;
+        if (!t) {
+            statuses[i].uid = -1;
+        } else {
+            statuses[i].uid = t->UID;
+            statuses[i].visible = t->visible;
+            for (int j = 0; j < 16; j++) statuses[i].matrix[j] = (float)t->transformationMatrix[j];
+            for (int j = 0; j < 16; j++) statuses[i].matrixR[j] = (float)t->transformationMatrixR[j];
         }
+        i++;
+        it++;
     }
-    
+
     return true;
 }
 
