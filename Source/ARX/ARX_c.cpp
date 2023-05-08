@@ -668,6 +668,31 @@ int arwGetTrackableOptionInt(int trackableUID, int option)
     }
     
     switch (option) {
+        case ARW_TRACKABLE_OPTION_TYPE:
+            switch (trackable->type) {
+                case ARTrackable::SINGLE:
+                    {
+                        int patt_type = std::static_pointer_cast<ARTrackableSquare>(trackable)->patt_type;
+                        if (patt_type == AR_PATTERN_TYPE_TEMPLATE) return ARW_TRACKABLE_TYPE_Square;
+                        else if (patt_type == AR_PATTERN_TYPE_MATRIX) return ARW_TRACKABLE_TYPE_SquareBarcode;
+                        else return ARW_TRACKABLE_TYPE_Unknown;
+                    }
+                    break;
+                case ARTrackable::MULTI:
+                case ARTrackable::MULTI_AUTO:
+                    return ARW_TRACKABLE_TYPE_Multimarker;
+                    break;
+                case ARTrackable::NFT:
+                    return ARW_TRACKABLE_TYPE_NFT;
+                    break;
+                case ARTrackable::TwoD:
+                    return ARW_TRACKABLE_TYPE_TwoD;
+                    break;
+                default:
+                    return ARW_TRACKABLE_TYPE_Unknown;
+                    break;
+            }
+            break;
         case ARW_TRACKABLE_OPTION_MULTI_MIN_SUBMARKERS:
             if (trackable->type == ARTrackable::MULTI) return (std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->min_submarker);
             break;

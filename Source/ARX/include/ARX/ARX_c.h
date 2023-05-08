@@ -581,6 +581,7 @@ extern "C" {
      * Constants for use with trackable option setters/getters.
      */
     enum {
+        ARW_TRACKABLE_OPTION_TYPE = 0,                             ///< readonly int enum, trackable type as per ARW_TRACKABLE_TYPE_* enum .
         ARW_TRACKABLE_OPTION_FILTERED = 1,                         ///< bool, true for filtering enabled.
         ARW_TRACKABLE_OPTION_FILTER_SAMPLE_RATE = 2,               ///< float, sample rate for filter calculations.
         ARW_TRACKABLE_OPTION_FILTER_CUTOFF_FREQ = 3,               ///< float, cutoff frequency of filter.
@@ -595,7 +596,17 @@ extern "C" {
         ARW_TRACKABLE_OPTION_SQUARE_WIDTH = 12,                    ///< float, square marker width
         ARW_TRACKABLE_OPTION_2D_SCALE = 13,                        ///< float, 2D trackable scale (i.e. width).
     };
-    
+
+    enum
+    {
+        ARW_TRACKABLE_TYPE_Unknown = -1,       ///< Type not known, e.g. autocreated trackable.
+        ARW_TRACKABLE_TYPE_Square = 0,         ///< A square template (pattern) marker.
+        ARW_TRACKABLE_TYPE_SquareBarcode = 1,  ///< A square matrix (2D barcode) marker.
+        ARW_TRACKABLE_TYPE_Multimarker = 2,    ///< Multiple square markers treated as a single marker.
+        ARW_TRACKABLE_TYPE_NFT = 3,            ///< A legacy NFT marker.
+        ARW_TRACKABLE_TYPE_TwoD = 4,           ///< An artoolkitX 2D textured trackable.
+    };
+
 	/**
 	 * Set boolean options associated with a trackable.
 	 * @param trackableUID	The unique identifier (UID) of the trackable
