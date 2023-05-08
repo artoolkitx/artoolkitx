@@ -44,6 +44,7 @@
 #include <ARX/ARTrackable2d.h>
 #include "trackingSub.h"
 #include <ARX/OCVT/PlanarTracker.h>
+#include <algorithm>
 
 ARTracker2d::ARTracker2d() :
 m_trackables(),

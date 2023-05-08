@@ -43,6 +43,7 @@
 #if HAVE_NFT
 #include <ARX/ARTrackableNFT.h>
 #include "trackingSub.h"
+#include <algorithm>
 
 ARTrackerNFT::ARTrackerNFT() :
     m_trackables(),

@@ -46,6 +46,7 @@
 #include "OCVUtils.h"
 #include <opencv2/video.hpp>
 #include <iostream>
+#include <algorithm>
 
 class PlanarTracker::PlanarTrackerImpl
 {

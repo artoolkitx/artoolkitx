@@ -46,6 +46,7 @@
 #include <ARX/ARTrackable.h>
 #include <vector>
 #include <string>
+#include <memory>
 
 enum class ARTrackerType {
     SQUARE_FIDUCIAL,

@@ -43,6 +43,7 @@
 #include <ARX/ARTrackableMultiSquare.h>
 #include <ARX/ARTrackableMultiSquareAuto.h>
 #include <ARX/AR/ar.h>
+#include <algorithm>
 
 ARTrackerSquare::ARTrackerSquare() :
     m_trackables(),
