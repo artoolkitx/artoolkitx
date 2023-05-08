@@ -73,6 +73,8 @@ public:
     ARdouble getConfidence();
     ARdouble getConfidenceCutoff();
     void setConfidenceCutoff(ARdouble value);
+    ARdouble width() { return m_width; }
+    void setWidth(ARdouble width) { m_width = width; }
     
 	bool initWithPatternFile(const char* path, ARdouble width, ARPattHandle *arPattHandle);
 	bool initWithPatternFromBuffer(const char* buffer, ARdouble width, ARPattHandle *arPattHandle);

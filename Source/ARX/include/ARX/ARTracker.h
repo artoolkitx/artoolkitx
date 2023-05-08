@@ -78,6 +78,7 @@ public:
         single_barcode;0;80
         multi;data/multi/marker.dat
         nft;data/nft/pinball
+        2d;pinball.jpg;188.0
      * @return The UID of the new trackable.
      */
     virtual int newTrackable(std::vector<std::string> config) = 0;

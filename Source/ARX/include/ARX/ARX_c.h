@@ -471,6 +471,7 @@ extern "C" {
      * - Multi-square marker: "multi;config_file", e.g. "multi;data/multi/marker.dat"
      * - Multi-square auto marker: "multi;origin_barcode_id;pattern_width", e.g. "multi;0;80.0"
      * - NFT marker: "nft;nft_dataset_pathname", e.g. "nft;gibraltar"
+     * - 2D textured surface: "2d;image_pathname;image_width" e.g. "2d;pinball.jpg;188.0"
 	 * @param cfg		The configuration string
 	 * @return			The unique identifier (UID) of the trackable instantiated based on the configuration string, or -1 if an error occurred
 	 */
@@ -591,6 +592,8 @@ extern "C" {
         ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_MATRIX = 9,            ///< float, minimum confidence value for submarker matrix tracking to be valid.
         ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_PATTERN = 10,          ///< float, minimum confidence value for submarker pattern tracking to be valid.
         ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB = 11,           ///< float, minimum inlier probability value for robust multimarker pose estimation (range 1.0 - 0.0).
+        ARW_TRACKABLE_OPTION_SQUARE_WIDTH = 12,                    ///< float, square marker width
+        ARW_TRACKABLE_OPTION_2D_SCALE = 13,                        ///< float, 2D trackable scale (i.e. width).
     };
     
 	/**

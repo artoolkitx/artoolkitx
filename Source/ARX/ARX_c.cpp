@@ -743,6 +743,14 @@ float arwGetTrackableOptionFloat(int trackableUID, int option)
             if (trackable->type == ARTrackable::MULTI) return (float)std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->minInlierProb;
             else return (NAN);
             break;
+        case ARW_TRACKABLE_OPTION_SQUARE_WIDTH:
+            if (trackable->type == ARTrackable::SINGLE) return (float)std::static_pointer_cast<ARTrackableSquare>(trackable)->width();
+            else return (NAN);
+            break;
+        case ARW_TRACKABLE_OPTION_2D_SCALE:
+            if (trackable->type == ARTrackable::TwoD) return std::static_pointer_cast<ARTrackable2d>(trackable)->TwoDScale();
+            else return (NAN);
+            break;
         default:
             ARLOGe("arwGetTrackableOptionFloat(): Unrecognised option %d.\n", option);
             break;
@@ -783,6 +791,12 @@ void arwSetTrackableOptionFloat(int trackableUID, int option, float value)
             break;
         case ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB:
             if (trackable->type == ARTrackable::MULTI) std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->minInlierProb = value;
+            break;
+        case ARW_TRACKABLE_OPTION_SQUARE_WIDTH:
+            if (trackable->type == ARTrackable::SINGLE) std::static_pointer_cast<ARTrackableSquare>(trackable)->setWidth(value);
+            break;
+        case ARW_TRACKABLE_OPTION_2D_SCALE:
+            if (trackable->type == ARTrackable::TwoD) std::static_pointer_cast<ARTrackable2d>(trackable)->setTwoDScale(value);
             break;
         default:
             ARLOGe("arwSetTrackableOptionFloat(): Unrecognised option %d.\n", option);
