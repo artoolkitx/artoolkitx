@@ -44,6 +44,7 @@
 
 #include <vector>
 #include <utility>
+#include <atomic>
 
 #ifdef ARDOUBLE_IS_FLOAT
 #  define _0_0 0.0f
@@ -70,6 +71,8 @@ protected:
 
     ARdouble m_positionScaleFactor;
 
+    static std::atomic<int> nextUID;
+
 public:
 
 	enum TrackableType {
@@ -81,6 +84,7 @@ public:
 	};
 
 	int UID;								///< Internal unique ID (note: not the same as artoolkitX pattern ID)
+    static const int NO_ID = -1;            ///< Value of UID that indicates no ID.
 	TrackableType type;						///< Type of trackable: single, multi, ...
 	
     // Inputs from subclasses.

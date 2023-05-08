@@ -106,7 +106,7 @@ ARMultiMarkerInfoT *arMultiReadConfigFile( const char *filename, ARPattHandle *p
             have_template_submarker = true;
         } else {
             
-            if ((marker[i].globalID & 0xffff8000ULL) == 0ULL) marker[i].patt_id = (int)(marker[i].globalID & 0x00007fffULL); // If upper 33 bits are zero, use lower 31 bits as regular matrix code.
+            if ((marker[i].globalID & 0xffffffff80000000ULL) == 0ULL) marker[i].patt_id = (int)(marker[i].globalID & 0x7fffffffULL); // If upper 33 bits are zero, use lower 31 bits as regular matrix code.
             else marker[i].patt_id = 0;
             ARLOGd("Marker %3d is matrix code %" PRIu64 ".\n", i + 1, marker[i].globalID);
             marker[i].patt_type = AR_MULTI_PATTERN_TYPE_MATRIX;

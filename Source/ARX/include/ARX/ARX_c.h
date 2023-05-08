@@ -412,6 +412,8 @@ extern "C" {
         ARW_TRACKER_OPTION_SQUARE_PATTERN_COUNT_MAX = 10,              ///< Maximum number of square template (pattern) markers that may be loaded at once. Defaults to AR_PATT_NUM_MAX, which is at least 25 in all versions of ARToolKit prior to 5.3. int.
         ARW_TRACKER_OPTION_2D_TRACKER_FEATURE_TYPE = 11,               ///< Feature detector type used in the 2d Tracker - 0 AKAZE, 1 ORB, 2 BRISK, 3 KAZE
         ARW_TRACKER_OPTION_2D_MAXIMUM_MARKERS_TO_TRACK = 12,           ///< Maximum number of markers able to be tracked simultaneously. Defaults to 1. Should not be set higher than the number of 2D markers loaded.
+        ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES = 13, ///< If true, when the square tracker is detecting matrix (barcode) markers, new trackables will be created for unmatched markers. Defaults to false. bool.
+        ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES_DEFAULT_WIDTH = 14, ///< If ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES is true, this value will be used for the initial width of new trackables for unmatched markers. Defaults to 80.0f. float.
     };
     
     /**
@@ -459,6 +461,7 @@ extern "C" {
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  Trackable management
     // ----------------------------------------------------------------------------------------------------
+
     /**
 	 * Adds a trackable as specified in the given configuration string. The format of the string can be
 	 * one of:
@@ -468,26 +471,37 @@ extern "C" {
      * - Multi-square marker: "multi;config_file", e.g. "multi;data/multi/marker.dat"
      * - Multi-square auto marker: "multi;origin_barcode_id;pattern_width", e.g. "multi;0;80.0"
      * - NFT marker: "nft;nft_dataset_pathname", e.g. "nft;gibraltar"
+     * - 2D textured surface: "2d;image_pathname;image_width" e.g. "2d;pinball.jpg;188.0"
 	 * @param cfg		The configuration string
 	 * @return			The unique identifier (UID) of the trackable instantiated based on the configuration string, or -1 if an error occurred
 	 */
 	ARX_EXTERN int arwAddTrackable(const char *cfg);
-    
+
+#pragma pack(push, 4)
     typedef struct {
         int uid;
         bool visible;
         float matrix[16];
         float matrixR[16]; // For stereo.
     } ARWTrackableStatus;
+#pragma pack(pop)
+
+    /**
+     * Gets current number of trackables.
+     * @return          The number of trackables currently loaded, or -1 in case of error.
+     */
+    ARX_EXTERN int arwGetTrackableCount(void);
     
     /**
-     * Gets all current trackables and their status.
-     * @param count_p Pointer to a location which will be filled with the number of trackable statuses in the array pointed to by statuses_p.
-     * @param statuses_p Pointer to a location which will be filled with a pointer to the first element of an array of trackable statuses, or NULL if the current status is not required. This array is allocated internally and must be deallocated (by calling free() on the pointer) when the caller has finished using the array.
+     * Gets status of trackables.
+     * @param statuses Pointer to the first element of an array of trackable statuses. This array should be allocated by the caller.
+     *  Use the function arwGetTrackableCount to determine an appropriate number of elements for this array.
+     * @param statusesCount The number of elements in the statuses array. If this is more than the number of trackables loaded, excess
+     *  elements will not be modified. If this number is fewer than the number of trackables loaded, only the first `statuses` trackables will be reported.
      * @return          true if the function proceeded without error, false if an error occurred
      */
-    ARX_EXTERN bool arwGetTrackables(int *count_p, ARWTrackableStatus **statuses_p);
-    
+    ARX_EXTERN bool arwGetTrackableStatuses(ARWTrackableStatus *statuses, int statusesCount);
+
     /**
 	 * Removes the trackable with the given unique identifier (UID).
 	 * @param trackableUID	The unique identifier (UID) of the trackable to remove
@@ -567,6 +581,7 @@ extern "C" {
      * Constants for use with trackable option setters/getters.
      */
     enum {
+        ARW_TRACKABLE_OPTION_TYPE = 0,                             ///< readonly int enum, trackable type as per ARW_TRACKABLE_TYPE_* enum .
         ARW_TRACKABLE_OPTION_FILTERED = 1,                         ///< bool, true for filtering enabled.
         ARW_TRACKABLE_OPTION_FILTER_SAMPLE_RATE = 2,               ///< float, sample rate for filter calculations.
         ARW_TRACKABLE_OPTION_FILTER_CUTOFF_FREQ = 3,               ///< float, cutoff frequency of filter.
@@ -578,8 +593,20 @@ extern "C" {
         ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_MATRIX = 9,            ///< float, minimum confidence value for submarker matrix tracking to be valid.
         ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_PATTERN = 10,          ///< float, minimum confidence value for submarker pattern tracking to be valid.
         ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB = 11,           ///< float, minimum inlier probability value for robust multimarker pose estimation (range 1.0 - 0.0).
+        ARW_TRACKABLE_OPTION_SQUARE_WIDTH = 12,                    ///< float, square marker width
+        ARW_TRACKABLE_OPTION_2D_SCALE = 13,                        ///< float, 2D trackable scale (i.e. width).
     };
-    
+
+    enum
+    {
+        ARW_TRACKABLE_TYPE_Unknown = -1,       ///< Type not known, e.g. autocreated trackable.
+        ARW_TRACKABLE_TYPE_Square = 0,         ///< A square template (pattern) marker.
+        ARW_TRACKABLE_TYPE_SquareBarcode = 1,  ///< A square matrix (2D barcode) marker.
+        ARW_TRACKABLE_TYPE_Multimarker = 2,    ///< Multiple square markers treated as a single marker.
+        ARW_TRACKABLE_TYPE_NFT = 3,            ///< A legacy NFT marker.
+        ARW_TRACKABLE_TYPE_TwoD = 4,           ///< An artoolkitX 2D textured trackable.
+    };
+
 	/**
 	 * Set boolean options associated with a trackable.
 	 * @param trackableUID	The unique identifier (UID) of the trackable
@@ -627,6 +654,14 @@ extern "C" {
 	 * @return floating-point value of option, or NAN if an error occurred.
      */
     ARX_EXTERN float arwGetTrackableOptionFloat(int trackableUID, int option);
+
+    enum {
+        ARW_TRACKABLE_EVENT_TYPE_NONE = 0,
+        ARW_TRACKABLE_EVENT_TYPE_AUTOCREATED = 1,
+        ARW_TRACKABLE_EVENT_TYPE_AUTOREMOVED = 2,
+    };
+
+    ARX_EXTERN void arwRegisterTrackableEventCallback(PFN_TRACKABLEEVENTCALLBACK callback);
 
     /**
      * Load a 2D trackable set from a trackable database.

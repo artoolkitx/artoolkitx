@@ -149,20 +149,40 @@ public:
     
     int patternCountMax() const;
     
+    void setMatrixModeAutoCreateNewTrackables(bool on) { m_matrixModeAutoCreateNewTrackables = on; }
+
+    bool matrixModeAutoCreateNewTrackables() const { return m_matrixModeAutoCreateNewTrackables; }
+
+    typedef void (*MatrixModeAutoCreateNewTrackablesCallback_t)(const ARTrackableSquare& trackable);
+    void setMatrixModeAutoCreateNewTrackablesCallback(MatrixModeAutoCreateNewTrackablesCallback_t callback) { m_matrixModeAutoCreateNewTrackablesCallback = callback; }
+    MatrixModeAutoCreateNewTrackablesCallback_t matrixModeAutoCreateNewTrackablesCallback() const { return m_matrixModeAutoCreateNewTrackablesCallback; }
+
+
+    static constexpr float k_matrixModeAutoCreateNewTrackablesDefaultWidth_default = 80.0f;
+    void setMatrixModeAutoCreateNewTrackablesDefaultWidth(ARdouble width) { m_matrixModeAutoCreateNewTrackablesDefaultWidth = width; }
+
+    float matrixModeAutoCreateNewTrackablesDefaultWidth() const { return m_matrixModeAutoCreateNewTrackablesDefaultWidth; }
+
     bool start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat) override;
     bool start(ARParamLT *paramLT0, AR_PIXEL_FORMAT pixelFormat0, ARParamLT *paramLT1, AR_PIXEL_FORMAT pixelFormat1, const ARdouble transL2R[3][4]) override;
     bool isRunning() override;
-    bool update(AR2VideoBufferT *buff, std::vector<ARTrackable *>& trackables) override;
-    bool update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1, std::vector<ARTrackable *>& trackables) override;
+    bool wantsUpdate() override;
+    bool update(AR2VideoBufferT *buff) override;
+    bool update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1) override;
     bool stop() override;
     void terminate() override;
 
-    ARTrackable *newTrackable(std::vector<std::string> config) override;
-    void deleteTrackable(ARTrackable **trackable_p) override;
-    
+    int newTrackable(std::vector<std::string> config) override;
+    unsigned int countTrackables() override;
+    std::shared_ptr<ARTrackable> getTrackable(int UID) override;
+    std::vector<std::shared_ptr<ARTrackable>> getAllTrackables() override;
+    bool deleteTrackable(int UID) override;
+    void deleteAllTrackables() override;
+
     bool updateDebugTextureRGBA32(const int videoSourceIndex, uint32_t* buffer);
     
 private:
+    std::vector<std::shared_ptr<ARTrackable>> m_trackables;
     int m_threshold;
     AR_LABELING_THRESH_MODE m_thresholdMode;
     int m_imageProcMode;
@@ -173,7 +193,10 @@ private:
     bool m_debugMode;
     int m_patternSize;
     int m_patternCountMax;
-    
+    bool m_matrixModeAutoCreateNewTrackables;
+    float m_matrixModeAutoCreateNewTrackablesDefaultWidth;
+    MatrixModeAutoCreateNewTrackablesCallback_t m_matrixModeAutoCreateNewTrackablesCallback;
+
     ARHandle *m_arHandle0;              ///< Structure containing square tracker state.
     ARHandle *m_arHandle1;              ///< For stereo tracking, structure containing square tracker state for second tracker in stereo pair.
     ARPattHandle *m_arPattHandle;       ///< Structure containing information about trained patterns.

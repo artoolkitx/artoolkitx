@@ -58,7 +58,7 @@ int arGetMarkerInfo( ARUint8 *image, int xsize, int ysize, int pixelFormat, ARMa
     float pos0, pos1;
 #endif
 
-    for( i = j = 0; i < marker2_num; i++ ) {
+    for( i = j = 0; i < marker2_num; i++ ) { // marker2_num is capped at AR_SQUARE_MAX by arLabeling().
         markerInfo[j].area   = markerInfo2[i].area;
 #ifdef ARDOUBLE_IS_FLOAT
         if (arParamObserv2IdealLTf(arParamLTf, markerInfo2[i].pos[0], markerInfo2[i].pos[1],
@@ -99,6 +99,7 @@ int arGetMarkerInfo( ARUint8 *image, int xsize, int ysize, int pixelFormat, ARMa
             markerInfo[j].dir = markerInfo[j].dirMatrix;
             markerInfo[j].cf  = markerInfo[j].cfMatrix;
         }
+        markerInfo[j].matched = 0;
 
         j++;
     }

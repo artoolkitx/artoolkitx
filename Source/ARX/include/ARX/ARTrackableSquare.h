@@ -62,8 +62,9 @@ protected:
     
 public:
 	
-	int patt_id;							///< Unique pattern ID provided by artoolkitX
+	int patt_id;							///< Pattern ID provided by libAR.
     int patt_type;
+    uint64_t globalID;
 
 	ARTrackableSquare();
 	~ARTrackableSquare();
@@ -72,10 +73,19 @@ public:
     ARdouble getConfidence();
     ARdouble getConfidenceCutoff();
     void setConfidenceCutoff(ARdouble value);
+    ARdouble width() { return m_width; }
+    void setWidth(ARdouble width) { m_width = width; }
     
 	bool initWithPatternFile(const char* path, ARdouble width, ARPattHandle *arPattHandle);
 	bool initWithPatternFromBuffer(const char* buffer, ARdouble width, ARPattHandle *arPattHandle);
-    bool initWithBarcode(int barcodeID, ARdouble width);
+
+    /**
+     * Init the trackable as a barcode.
+     * @param barcodeID The barcode (matrix code) ID in the range alloweable by the current matrix code type, or 0 if the barcode is a globalD code,
+     * @param width The width of the marker between the outer edge of the square borders, in calibrated camera units (usually millimetres).
+     * @param globalID_ If barcodeID is 0 and this is non-zero, the globalID code to be used. Otherwise, ignored.
+     */
+    bool initWithBarcode(int barcodeID, ARdouble width, uint64_t globalID_ = 0);
 
 	/**
 	 * Updates the marker with new tracking info.

@@ -228,6 +228,7 @@ typedef struct {
     AR_MARKER_INFO_CUTOFF_PHASE cutoffPhase;///< If a trapezoidal region is detected, but is eliminated from the candidates for tracking, this field is filled out with the tracking phase at which the marker was cut off. An English-language description of the phase can be obtained by indexing into the C-string array arMarkerInfoCutoffPhaseDescriptions[].
     int             errorCorrected;         ///< For marker types including error detection and correction, the numbers of errors detected and corrected.
     uint64_t        globalID;               ///< If arPattDetectionMode is a matrix mode, matrixCodeType is AR_MATRIX_CODE_GLOBAL_ID, and idMatrix >= 0, will contain the globalID.
+    int             matched;                ///< Initialised to 0 during marker detection, a non-zero value indicates that this marker has already been matched against a search set of markers, and should be ignored as a candidate for further matches.
 } ARMarkerInfo;
 
 /*!

@@ -69,14 +69,6 @@ ARController::ARController() :
     m_updateFrameStamp0({0,0}),
     m_updateFrameStamp1({0,0}),
     m_arVideoViews{NULL},
-    m_trackables(),
-    doSquareMarkerDetection(false),
-#if HAVE_NFT
-    doNFTMarkerDetection(false),
-#endif
-#if HAVE_2D
-    doTwoDMarkerDetection(false),
-#endif
     m_error(ARX_ERROR_NONE)
 {
 }
@@ -364,32 +356,32 @@ bool ARController::update()
 
     bool ret = true;
 
-    if (doSquareMarkerDetection) {
+    if (m_squareTracker->wantsUpdate()) {
         if (!m_squareTracker->isRunning()) {
             if (!m_videoSourceIsStereo) ret = m_squareTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat());
             else ret = m_squareTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat(), m_videoSource1->getCameraParameters(), m_videoSource1->getPixelFormat(), m_transL2R);
             if (!ret) goto done;
         }
-        m_squareTracker->update(image0, image1, m_trackables);
+        m_squareTracker->update(image0, image1);
     }
 #if HAVE_NFT
-    if (doNFTMarkerDetection) {
+    if (m_nftTracker->wantsUpdate()) {
         if (!m_nftTracker->isRunning()) {
             if (!m_videoSourceIsStereo) ret = m_nftTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat());
             else ret = m_nftTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat(), m_videoSource1->getCameraParameters(), m_videoSource1->getPixelFormat(), m_transL2R);
             if (!ret) goto done;
-       }
-        m_nftTracker->update(image0, image1, m_trackables);
+        }
+        m_nftTracker->update(image0, image1);
     }
 #endif
 #if HAVE_2D
-    if (doTwoDMarkerDetection) {
+    if (m_twoDTracker->wantsUpdate()) {
         if (!m_twoDTracker->isRunning()) {
             if (!m_videoSourceIsStereo) ret = m_twoDTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat());
             else ret = m_twoDTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat(), m_videoSource1->getCameraParameters(), m_videoSource1->getPixelFormat(), m_transL2R);
             if (!ret) goto done;
         }
-        m_twoDTracker->update(image0, image1, m_trackables);
+        m_twoDTracker->update(image0, image1);
     }
 #endif
 done:
@@ -624,7 +616,7 @@ bool ARController::videoParameters(const int videoSourceIndex, int *width, int *
 int ARController::addTrackable(const std::string& cfgs)
 {
 	if (!isInited()) {
-		ARLOGe("Error: Cannot add trackable. artoolkitX not initialised\n");
+		ARLOGe("Error: Cannot add trackable. artoolkitX not initialised.\n");
 		return -1;
 	}
     
@@ -642,164 +634,87 @@ int ARController::addTrackable(const std::string& cfgs)
     }
     
     // Until we have a registry, have to manually request from all trackers.
-    ARTrackable *trackable;
-    if ((trackable = m_squareTracker->newTrackable(config)) != nullptr) {
-#if HAVE_NFT
-    } else if ((trackable = m_nftTracker->newTrackable(config)) != nullptr) {
-#endif
-#if HAVE_2D
-    } else if ((trackable = m_twoDTracker->newTrackable(config)) != nullptr) {
-#endif
-    }
-    if (!trackable) {
-        ARLOGe("Error: Failed to load trackable.\n");
-        return -1;
-    }
-    if (!addTrackable(trackable)) {
-        return -1;
-    }
-    return trackable->UID;
-}
-
-// private
-bool ARController::addTrackable(ARTrackable* trackable)
-{
-    ARLOGd("ARController::addTrackable(): called\n");
-	if (!trackable) {
-        ARLOGe("ARController::addTrackable(): NULL trackable.\n");
-		return false;
-	}
-
-    m_trackables.push_back(trackable);
-
-#if HAVE_NFT
-    if (trackable->type == ARTrackable::NFT) {
-        if (!doNFTMarkerDetection)
-            ARLOGi("First NFT marker trackable added; enabling NFT marker tracker.\n");
-        doNFTMarkerDetection = true;
-    } else
-#endif
-#if HAVE_2D
-    if (trackable->type == ARTrackable::TwoD) {
-        if (!doTwoDMarkerDetection)
-            ARLOGi("First 2D marker trackable added; enabling 2D marker tracker.\n");
-        doTwoDMarkerDetection = true;
-    } else
-#endif
-    if (trackable->type == ARTrackable::SINGLE || trackable->type == ARTrackable::MULTI || trackable->type == ARTrackable::MULTI_AUTO) {
-        if (!doSquareMarkerDetection)
+    int UID;
+    if ((UID = m_squareTracker->newTrackable(config)) != ARTrackable::NO_ID) {
+        if (m_squareTracker->countTrackables() == 1) {
             ARLOGi("First square marker trackable added; enabling square marker tracker.\n");
-        doSquareMarkerDetection = true;
+        }
+#if HAVE_NFT
+    } else if ((UID = m_nftTracker->newTrackable(config)) != ARTrackable::NO_ID) {
+        if (m_nftTracker->countTrackables() == 1) {
+            ARLOGi("First NFT marker trackable added; enabling NFT marker tracker.\n");
+        }
+#endif
+#if HAVE_2D
+    } else if ((UID = m_twoDTracker->newTrackable(config)) != ARTrackable::NO_ID) {
+        if (m_twoDTracker->countTrackables() == 1) {
+            ARLOGi("First 2D marker trackable added; enabling 2D marker tracker.\n");
+        }
+#endif
+    } else {
+        ARLOGe("Error: Failed to load trackable.\n");
+        return ARTrackable::NO_ID;
     }
-
-	ARLOGi("Added trackable (UID=%d), total trackables loaded: %d.\n", trackable->UID, countTrackables());
-	return true;
+    ARLOGi("Added trackable (UID=%d), total trackables loaded: %d.\n", UID, countTrackables());
+    return UID;
 }
 
 bool ARController::removeTrackable(int UID)
 {
-    ARTrackable *trackable = findTrackable(UID);
-    if (!trackable) {
-        ARLOGe("ARController::removeTrackable(): could not find trackable (UID=%d).\n");
-        return (false);
-    }
-	return removeTrackable(trackable);
-}
-
-// private
-bool ARController::removeTrackable(ARTrackable* trackable)
-{
     ARLOGd("ARController::removeTrackable(): called\n");
-	if (!trackable) {
-        ARLOGe("ARController::removeTrackable(): NULL trackable.\n");
-		return false;
-	}
 
-	int UID = trackable->UID;
-    std::vector<ARTrackable *>::iterator position = std::find(m_trackables.begin(), m_trackables.end(), trackable);
-    bool found = (position != m_trackables.end());
-    if (!found) {
+    // Until we have a registry, have to manually request from all trackers.
+    if (m_squareTracker->deleteTrackable(UID)) {
+        if (m_squareTracker->countTrackables() == 0) {
+            ARLOGi("Last square marker removed; disabling square marker tracking.\n");
+        }
+#if HAVE_NFT
+    } else if (m_nftTracker->deleteTrackable(UID)) {
+        if (m_nftTracker->countTrackables() == 0) {
+            ARLOGi("Last NFT marker removed; disabling NFT marker tracking.\n");
+        }
+#endif
+#if HAVE_2D
+    } else if (m_twoDTracker->deleteTrackable(UID)) {
+        if (m_twoDTracker->countTrackables() == 0) {
+            ARLOGi("Last 2D marker removed; disabling 2D marker tracking.\n");
+        }
+#endif
+    } else {
         ARLOGe("ARController::removeTrackable(): Could not find trackable (UID=%d).\n", UID);
         return false;
     }
-
-    // Until we have a registry, have to manually request from all trackers.
-    m_squareTracker->deleteTrackable(&trackable);
-#if HAVE_NFT
-    m_nftTracker->deleteTrackable(&trackable);
-#endif
-#if HAVE_2D
-    m_twoDTracker->deleteTrackable(&trackable);
-#endif
-
-    // Remove from our trackable list.
-    m_trackables.erase(position);
-
-    // Count each type of trackable so we know whether we can disable a given type of tracker.
-    if (countTrackables(ARTrackable::SINGLE) + countTrackables(ARTrackable::MULTI) + countTrackables(ARTrackable::MULTI_AUTO) == 0) {
-        if (doSquareMarkerDetection)
-            ARLOGi("Last square marker removed; disabling square marker tracking.\n");
-        doSquareMarkerDetection = false;
-    }
-#if HAVE_NFT
-    if (countTrackables(ARTrackable::NFT) == 0) {
-        if (doNFTMarkerDetection)
-            ARLOGi("Last NFT marker removed; disabling NFT marker tracking.\n");
-        doNFTMarkerDetection = false;
-    }
-#endif
-#if HAVE_2D
-    if (countTrackables(ARTrackable::TwoD) == 0) {
-        if (doTwoDMarkerDetection)
-            ARLOGi("Last 2D marker removed; disabling 2D marker tracking.\n");
-        doTwoDMarkerDetection = false;
-    }
-#endif
     ARLOGi("Removed trackable (UID=%d), now %d trackables loaded\n", UID, countTrackables());
 
-    return (found);
+    return (true);
 }
 
 int ARController::removeAllTrackables()
 {
-	unsigned int count = countTrackables();
-    
-    for (std::vector<ARTrackable *>::iterator it = m_trackables.begin(); it != m_trackables.end(); ++it) {
-        m_squareTracker->deleteTrackable(&(*it));
-#if HAVE_NFT
-        m_nftTracker->deleteTrackable(&(*it));
-#endif
-#if HAVE_2D
-        m_twoDTracker->deleteTrackable(&(*it));
-#endif
-    }
-    m_trackables.clear();
-    doSquareMarkerDetection = false;
-#if HAVE_NFT
-    doNFTMarkerDetection = false;
-#endif
-#if HAVE_2D
-    doTwoDMarkerDetection = false;
-#endif
-	ARLOGi("Removed all %d trackables.\n", count);
+    unsigned int count = countTrackables();
 
+    m_squareTracker->deleteAllTrackables();
+#if HAVE_NFT
+    m_nftTracker->deleteAllTrackables();
+#endif
+#if HAVE_2D
+    m_twoDTracker->deleteAllTrackables();
+#endif
+
+    ARLOGi("Removed all %d trackables and disabled all tracking.\n", count);
 	return count;
 }
 
 unsigned int ARController::countTrackables() const
 {
-	return ((unsigned int)m_trackables.size());
-}
-
-unsigned int ARController::countTrackables(ARTrackable::TrackableType trackableType) const
-{
-    int trackableCount = 0;
-    for (int i = 0; i < m_trackables.size(); i++) {
-        if (m_trackables[i]->type == trackableType) {
-            trackableCount++;
-        }
-    }
-    return trackableCount;
+    unsigned int count = m_squareTracker->countTrackables();
+#if HAVE_NFT
+    count += m_nftTracker->countTrackables();
+#endif
+#if HAVE_2D
+    count += m_twoDTracker->countTrackables();
+#endif
+	return (count);
 }
 
 #if HAVE_2D
@@ -810,42 +725,45 @@ bool ARController::load2DTrackerImageDatabase(const char* databaseFileName)
         return false;
     }
 
-    removeAllTrackables();
-    std::vector<ARTrackable *> newTrackables = m_twoDTracker->loadImageDatabase(std::string(databaseFileName));
-    if (newTrackables.size() == 0) {
-        return false;
-    }
-    for (int i = 0; i < newTrackables.size(); i++) {
-        addTrackable(newTrackables[i]);
-    }
-    return true;
+    return m_twoDTracker->loadImageDatabase(std::string(databaseFileName));
 }
 
 bool ARController::save2DTrackerImageDatabase(const char* databaseFileName)
 {
-    if (m_twoDTracker->saveImageDatabase(std::string(databaseFileName))) {
-        return true;
-    }
-    
-    return false;
+    return m_twoDTracker->saveImageDatabase(std::string(databaseFileName));
 }
 #endif // HAVE_2D
 
-ARTrackable* ARController::getTrackableAtIndex(unsigned int index)
+std::shared_ptr<ARTrackable> ARController::findTrackable(int UID)
 {
-    if (index >= m_trackables.size()) return NULL;
-    return m_trackables[index];
+    std::shared_ptr<ARTrackable> trackable;
+    if ((trackable = m_squareTracker->getTrackable(UID))) {
+        return trackable;
+#if HAVE_NFT
+    } else if ((trackable = m_nftTracker->getTrackable(UID))) {
+        return trackable;
+#endif
+#if HAVE_2D
+    } else if ((trackable = m_twoDTracker->getTrackable(UID))) {
+        return trackable;
+#endif
+    }
+
+	return std::shared_ptr<ARTrackable>();
 }
 
-ARTrackable* ARController::findTrackable(int UID)
+std::vector<std::shared_ptr<ARTrackable>> ARController::getAllTrackables()
 {
-
-    std::vector<ARTrackable *>::const_iterator it = m_trackables.begin();
-	while (it != m_trackables.end()) {
-		if ((*it)->UID == UID) return (*it);
-        ++it;
-	}
-	return NULL;
+    std::vector<std::shared_ptr<ARTrackable>> trackables = m_squareTracker->getAllTrackables();
+#if HAVE_NFT
+    std::vector<std::shared_ptr<ARTrackable>> trackablesNFT = m_nftTracker->getAllTrackables();
+    trackables.insert(trackables.end(), std::make_move_iterator(trackablesNFT.begin()), std::make_move_iterator(trackablesNFT.end()));
+#endif
+#if HAVE_2D
+    std::vector<std::shared_ptr<ARTrackable>> trackables2D = m_twoDTracker->getAllTrackables();
+    trackables.insert(trackables.end(), std::make_move_iterator(trackables2D.begin()), std::make_move_iterator(trackables2D.end()));
+#endif
+    return trackables;
 }
 
 // ----------------------------------------------------------------------------------------------------

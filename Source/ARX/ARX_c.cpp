@@ -69,6 +69,7 @@ static union { unsigned char __c[4]; float __d; } __nan_union = { __nan_bytes };
 
 static ARController *gARTK = NULL;
 static ARVideoSourceInfoListT *gARVideoSourceInfoList = NULL;
+static PFN_TRACKABLEEVENTCALLBACK gMatrixModeAutoCreatedCallback = nullptr;
 
 // ----------------------------------------------------------------------------------------------------
 
@@ -178,6 +179,13 @@ bool arwShutdownAR()
     if (gARTK) {
         delete gARTK; // Delete the artoolkitX instance to initiate shutdown.
         gARTK = NULL;
+    }
+    if (gARVideoSourceInfoList) {
+        free(gARVideoSourceInfoList);
+        gARVideoSourceInfoList = nullptr;
+    }
+    if (gMatrixModeAutoCreatedCallback) {
+        gMatrixModeAutoCreatedCallback = nullptr;
     }
 
     return (true);
@@ -320,7 +328,9 @@ void arwSetTrackerOptionBool(int option, bool value)
 {
     if (!gARTK) return;
     
-    if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
+    if (option == ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES) {
+        gARTK->getSquareTracker()->setMatrixModeAutoCreateNewTrackables(value);
+    } else if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
 #if HAVE_NFT
         gARTK->getNFTTracker()->setNFTMultiMode(value);
 #endif
@@ -370,6 +380,9 @@ void arwSetTrackerOptionFloat(int option, float value)
     if (option == ARW_TRACKER_OPTION_SQUARE_BORDER_SIZE) {
         if (value <= 0.0f || value >= 0.5f) return;
         gARTK->getSquareTracker()->setPattRatio(1.0f - 2.0f*value); // Convert from border size to pattern ratio.
+    } else if (option == ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES_DEFAULT_WIDTH) {
+        if (value <= 0.0f) return;
+        gARTK->getSquareTracker()->setMatrixModeAutoCreateNewTrackablesDefaultWidth(value);
     }
 }
 
@@ -377,7 +390,9 @@ bool arwGetTrackerOptionBool(int option)
 {
     if (!gARTK) return false;
     
-    if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
+    if (option == ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES) {
+        return gARTK->getSquareTracker()->matrixModeAutoCreateNewTrackables();
+    } else if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
 #if HAVE_NFT
         return  gARTK->getNFTTracker()->NFTMultiMode();
 #endif
@@ -426,6 +441,8 @@ float arwGetTrackerOptionFloat(int option)
     if (option == ARW_TRACKER_OPTION_SQUARE_BORDER_SIZE) {
         float value = gARTK->getSquareTracker()->pattRatio();
         if (value > 0.0f && value < 1.0f) return (1.0f - value)/2.0f; // Convert from pattern ratio to border size.
+    } else if (option == ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES_DEFAULT_WIDTH) {
+        return gARTK->getSquareTracker()->matrixModeAutoCreateNewTrackablesDefaultWidth();
     }
     return (NAN);
 }
@@ -434,43 +451,52 @@ float arwGetTrackerOptionFloat(int option)
 #pragma mark  Trackable management
 // ---------------------------------------------------------------------------------------------
 
+static void matrixModeAutoCreatedShim(const ARTrackableSquare& trackable)
+{
+    if (gMatrixModeAutoCreatedCallback) (*gMatrixModeAutoCreatedCallback)(ARW_TRACKABLE_EVENT_TYPE_AUTOCREATED, trackable.UID);
+}
+
+void arwRegisterTrackableEventCallback(PFN_TRACKABLEEVENTCALLBACK callback)
+{
+    if (!gARTK) return;
+    gMatrixModeAutoCreatedCallback = callback;
+    gARTK->getSquareTracker()->setMatrixModeAutoCreateNewTrackablesCallback(callback ? matrixModeAutoCreatedShim : nullptr);
+}
+
 int arwAddTrackable(const char *cfg)
 {
     if (!gARTK) return -1;
 	return gARTK->addTrackable(cfg);
 }
 
-bool arwGetTrackables(int *count_p, ARWTrackableStatus **statuses_p)
+int arwGetTrackableCount(void)
+{
+    if (!gARTK) return -1;
+    return gARTK->countTrackables();
+}
+
+bool arwGetTrackableStatuses(ARWTrackableStatus *statuses, int statusesCount)
 {
     if (!gARTK) return false;
-    if (!count_p) return false;
-    
-    unsigned int trackableCount = gARTK->countTrackables();
-    *count_p = (int)trackableCount;
-    if (statuses_p) {
-        if (trackableCount == 0) *statuses_p = NULL;
-        else {
-            ARWTrackableStatus *st = (ARWTrackableStatus *)calloc(trackableCount, sizeof(ARWTrackableStatus));
-            for (unsigned int i = 0; i < trackableCount; i++) {
-                ARTrackable *t = gARTK->getTrackableAtIndex(i);
-                if (!t) {
-                    st[i].uid = -1;
-                } else {
-                    st[i].uid = t->UID;
-                    st[i].visible = t->visible;
-#ifdef ARDOUBLE_IS_FLOAT
-                    memcpy(st[i].matrix, t->transformationMatrix, 16*sizeof(float));
-                    memcpy(st[i].matrixR, t->transformationMatrixR, 16*sizeof(float));
-#else
-                    for (int j = 0; j < 16; j++) st[i].matrix[j] = (float)t->transformationMatrix[j];
-                    for (int j = 0; j < 16; j++) st[i].matrixR[j] = (float)t->transformationMatrixR[j];
-#endif
-                }
-            }
-            *statuses_p = st;
+    if (!statuses || statusesCount < 1) return false;
+
+    std::vector<std::shared_ptr<ARTrackable>> trackables = gARTK->getAllTrackables();
+    int i = 0;
+    std::vector<std::shared_ptr<ARTrackable>>::iterator it = trackables.begin();
+    while (i < statusesCount && it != trackables.end()) {
+        std::shared_ptr<ARTrackable> t = *it;
+        if (!t) {
+            statuses[i].uid = -1;
+        } else {
+            statuses[i].uid = t->UID;
+            statuses[i].visible = t->visible;
+            for (int j = 0; j < 16; j++) statuses[i].matrix[j] = (float)t->transformationMatrix[j];
+            for (int j = 0; j < 16; j++) statuses[i].matrixR[j] = (float)t->transformationMatrixR[j];
         }
+        i++;
+        it++;
     }
-    
+
     return true;
 }
 
@@ -502,7 +528,7 @@ bool arwSave2dTrackableDatabase(const char *databaseFileName)
 
 bool arwQueryTrackableVisibilityAndTransformation(int trackableUID, float matrix[16])
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
     
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -515,7 +541,7 @@ bool arwQueryTrackableVisibilityAndTransformation(int trackableUID, float matrix
 
 bool arwQueryTrackableVisibilityAndTransformationStereo(int trackableUID, float matrixL[16], float matrixR[16])
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
     
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -533,7 +559,7 @@ bool arwQueryTrackableVisibilityAndTransformationStereo(int trackableUID, float 
 
 int arwGetTrackablePatternCount(int trackableUID)
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
     
     if (!gARTK) return 0;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -545,7 +571,7 @@ int arwGetTrackablePatternCount(int trackableUID)
 
 bool arwGetTrackablePatternConfig(int trackableUID, int patternID, float matrix[16], float *width, float *height, int *imageSizeX, int *imageSizeY)
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
 
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -569,7 +595,7 @@ bool arwGetTrackablePatternConfig(int trackableUID, int patternID, float matrix[
 
 bool arwGetTrackablePatternImage(int trackableUID, int patternID, uint32_t *buffer)
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
     
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -586,7 +612,7 @@ bool arwGetTrackablePatternImage(int trackableUID, int patternID, uint32_t *buff
 
 bool arwGetTrackableOptionBool(int trackableUID, int option)
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
     
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -599,7 +625,7 @@ bool arwGetTrackableOptionBool(int trackableUID, int option)
             return(trackable->isFiltered());
             break;
         case ARW_TRACKABLE_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION:
-            if (trackable->type == ARTrackable::SINGLE) return (((ARTrackableSquare *)trackable)->useContPoseEstimation);
+            if (trackable->type == ARTrackable::SINGLE) return (std::static_pointer_cast<ARTrackableSquare>(trackable)->useContPoseEstimation);
             break;
         default:
             ARLOGe("arwGetTrackableOptionBool(): Unrecognised option %d.\n", option);
@@ -610,7 +636,7 @@ bool arwGetTrackableOptionBool(int trackableUID, int option)
 
 void arwSetTrackableOptionBool(int trackableUID, int option, bool value)
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
     
     if (!gARTK) return;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -623,7 +649,7 @@ void arwSetTrackableOptionBool(int trackableUID, int option, bool value)
             trackable->setFiltered(value);
             break;
         case ARW_TRACKABLE_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION:
-            if (trackable->type == ARTrackable::SINGLE) ((ARTrackableSquare *)trackable)->useContPoseEstimation = value;
+            if (trackable->type == ARTrackable::SINGLE) std::static_pointer_cast<ARTrackableSquare>(trackable)->useContPoseEstimation = value;
             break;
         default:
             ARLOGe("arwSetTrackableOptionBool(): Unrecognised option %d.\n", option);
@@ -633,7 +659,7 @@ void arwSetTrackableOptionBool(int trackableUID, int option, bool value)
 
 int arwGetTrackableOptionInt(int trackableUID, int option)
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
     
     if (!gARTK) return INT_MIN;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -642,8 +668,33 @@ int arwGetTrackableOptionInt(int trackableUID, int option)
     }
     
     switch (option) {
+        case ARW_TRACKABLE_OPTION_TYPE:
+            switch (trackable->type) {
+                case ARTrackable::SINGLE:
+                    {
+                        int patt_type = std::static_pointer_cast<ARTrackableSquare>(trackable)->patt_type;
+                        if (patt_type == AR_PATTERN_TYPE_TEMPLATE) return ARW_TRACKABLE_TYPE_Square;
+                        else if (patt_type == AR_PATTERN_TYPE_MATRIX) return ARW_TRACKABLE_TYPE_SquareBarcode;
+                        else return ARW_TRACKABLE_TYPE_Unknown;
+                    }
+                    break;
+                case ARTrackable::MULTI:
+                case ARTrackable::MULTI_AUTO:
+                    return ARW_TRACKABLE_TYPE_Multimarker;
+                    break;
+                case ARTrackable::NFT:
+                    return ARW_TRACKABLE_TYPE_NFT;
+                    break;
+                case ARTrackable::TwoD:
+                    return ARW_TRACKABLE_TYPE_TwoD;
+                    break;
+                default:
+                    return ARW_TRACKABLE_TYPE_Unknown;
+                    break;
+            }
+            break;
         case ARW_TRACKABLE_OPTION_MULTI_MIN_SUBMARKERS:
-            if (trackable->type == ARTrackable::MULTI) return ((ARTrackableMultiSquare *)trackable)->config->min_submarker;
+            if (trackable->type == ARTrackable::MULTI) return (std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->min_submarker);
             break;
         default:
             ARLOGe("arwGetTrackableOptionInt(): Unrecognised option %d.\n", option);
@@ -654,7 +705,7 @@ int arwGetTrackableOptionInt(int trackableUID, int option)
 
 void arwSetTrackableOptionInt(int trackableUID, int option, int value)
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
     
     if (!gARTK) return;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -664,7 +715,7 @@ void arwSetTrackableOptionInt(int trackableUID, int option, int value)
 
     switch (option) {
         case ARW_TRACKABLE_OPTION_MULTI_MIN_SUBMARKERS:
-            if (trackable->type == ARTrackable::MULTI) ((ARTrackableMultiSquare *)trackable)->config->min_submarker = value;
+            if (trackable->type == ARTrackable::MULTI) std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->min_submarker = value;
             break;
         default:
             ARLOGe("arwSetTrackableOptionInt(): Unrecognised option %d.\n", option);
@@ -674,7 +725,7 @@ void arwSetTrackableOptionInt(int trackableUID, int option, int value)
 
 float arwGetTrackableOptionFloat(int trackableUID, int option)
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
     
     if (!gARTK) return (NAN);
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -690,31 +741,39 @@ float arwGetTrackableOptionFloat(int trackableUID, int option)
             return ((float)trackable->filterCutoffFrequency());
             break;
         case ARW_TRACKABLE_OPTION_SQUARE_CONFIDENCE:
-            if (trackable->type == ARTrackable::SINGLE) return ((float)((ARTrackableSquare *)trackable)->getConfidence());
+            if (trackable->type == ARTrackable::SINGLE) return ((float)std::static_pointer_cast<ARTrackableSquare>(trackable)->getConfidence());
             else return (NAN);
             break;
         case ARW_TRACKABLE_OPTION_SQUARE_CONFIDENCE_CUTOFF:
-            if (trackable->type == ARTrackable::SINGLE) return ((float)((ARTrackableSquare *)trackable)->getConfidenceCutoff());
+            if (trackable->type == ARTrackable::SINGLE) return ((float)std::static_pointer_cast<ARTrackableSquare>(trackable)->getConfidenceCutoff());
             else return (NAN);
             break;
         case ARW_TRACKABLE_OPTION_NFT_SCALE:
 #if HAVE_NFT
-            if (trackable->type == ARTrackable::NFT) return ((float)((ARTrackableNFT *)trackable)->NFTScale());
+            if (trackable->type == ARTrackable::NFT) return ((float)std::static_pointer_cast<ARTrackableNFT>(trackable)->NFTScale());
             else return (NAN);
 #else
             return (NAN);
 #endif
             break;
         case ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_MATRIX:
-            if (trackable->type == ARTrackable::MULTI) return (float)((ARTrackableMultiSquare *)trackable)->config->cfMatrixCutoff;
+            if (trackable->type == ARTrackable::MULTI) return (float)std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->cfMatrixCutoff;
             else return (NAN);
             break;
         case ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_PATTERN:
-            if (trackable->type == ARTrackable::MULTI) return (float)((ARTrackableMultiSquare *)trackable)->config->cfPattCutoff;
+            if (trackable->type == ARTrackable::MULTI) return (float)std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->cfPattCutoff;
             else return (NAN);
             break;
         case ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB:
-            if (trackable->type == ARTrackable::MULTI) return (float)((ARTrackableMultiSquare *)trackable)->config->minInlierProb;
+            if (trackable->type == ARTrackable::MULTI) return (float)std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->minInlierProb;
+            else return (NAN);
+            break;
+        case ARW_TRACKABLE_OPTION_SQUARE_WIDTH:
+            if (trackable->type == ARTrackable::SINGLE) return (float)std::static_pointer_cast<ARTrackableSquare>(trackable)->width();
+            else return (NAN);
+            break;
+        case ARW_TRACKABLE_OPTION_2D_SCALE:
+            if (trackable->type == ARTrackable::TwoD) return std::static_pointer_cast<ARTrackable2d>(trackable)->TwoDScale();
             else return (NAN);
             break;
         default:
@@ -726,7 +785,7 @@ float arwGetTrackableOptionFloat(int trackableUID, int option)
 
 void arwSetTrackableOptionFloat(int trackableUID, int option, float value)
 {
-    ARTrackable *trackable;
+    std::shared_ptr<ARTrackable> trackable;
     
     if (!gARTK) return;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
@@ -742,21 +801,27 @@ void arwSetTrackableOptionFloat(int trackableUID, int option, float value)
             trackable->setFilterCutoffFrequency(value);
             break;
         case ARW_TRACKABLE_OPTION_SQUARE_CONFIDENCE_CUTOFF:
-            if (trackable->type == ARTrackable::SINGLE) ((ARTrackableSquare *)trackable)->setConfidenceCutoff(value);
+            if (trackable->type == ARTrackable::SINGLE) std::static_pointer_cast<ARTrackableSquare>(trackable)->setConfidenceCutoff(value);
             break;
         case ARW_TRACKABLE_OPTION_NFT_SCALE:
 #if HAVE_NFT
-            if (trackable->type == ARTrackable::NFT) ((ARTrackableNFT *)trackable)->setNFTScale(value);
+            if (trackable->type == ARTrackable::NFT) std::static_pointer_cast<ARTrackableNFT>(trackable)->setNFTScale(value);
 #endif
             break;
         case ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_MATRIX:
-            if (trackable->type == ARTrackable::MULTI) ((ARTrackableMultiSquare *)trackable)->config->cfMatrixCutoff = value;
+            if (trackable->type == ARTrackable::MULTI) std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->cfMatrixCutoff = value;
             break;
         case ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_PATTERN:
-            if (trackable->type == ARTrackable::MULTI) ((ARTrackableMultiSquare *)trackable)->config->cfPattCutoff = value;
+            if (trackable->type == ARTrackable::MULTI) std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->cfPattCutoff = value;
             break;
         case ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB:
-            if (trackable->type == ARTrackable::MULTI) ((ARTrackableMultiSquare *)trackable)->config->minInlierProb = value;
+            if (trackable->type == ARTrackable::MULTI) std::static_pointer_cast<ARTrackableMultiSquare>(trackable)->config->minInlierProb = value;
+            break;
+        case ARW_TRACKABLE_OPTION_SQUARE_WIDTH:
+            if (trackable->type == ARTrackable::SINGLE) std::static_pointer_cast<ARTrackableSquare>(trackable)->setWidth(value);
+            break;
+        case ARW_TRACKABLE_OPTION_2D_SCALE:
+            if (trackable->type == ARTrackable::TwoD) std::static_pointer_cast<ARTrackable2d>(trackable)->setTwoDScale(value);
             break;
         default:
             ARLOGe("arwSetTrackableOptionFloat(): Unrecognised option %d.\n", option);

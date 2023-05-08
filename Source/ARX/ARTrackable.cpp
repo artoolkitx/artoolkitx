@@ -54,6 +54,8 @@
 #  include <sys/param.h>
 #endif
 
+std::atomic<int> ARTrackable::nextUID {0};
+
 ARTrackable::ARTrackable(TrackableType type) :
     m_ftmi(NULL),
     m_filterCutoffFrequency(AR_FILTER_TRANS_MAT_CUTOFF_FREQ_DEFAULT),
@@ -63,12 +65,11 @@ ARTrackable::ARTrackable(TrackableType type) :
 #else
     m_positionScaleFactor(1.0),
 #endif
+    UID(ARTrackable::nextUID.fetch_add(1, std::memory_order_relaxed)),
     type(type),
     visiblePrev(false),
 	visible(false)
 {
-	static int nextUID = 0;
-	UID = nextUID++;
 }
 
 ARTrackable::~ARTrackable()

@@ -85,7 +85,10 @@ int arDetectMarker2( int xsize, int ysize, ARLabelInfo *labelInfo, int imageProc
         markerInfo2[*marker2_num].pos[0] = labelInfo->pos[i][0];
         markerInfo2[*marker2_num].pos[1] = labelInfo->pos[i][1];
         (*marker2_num)++;
-        if( *marker2_num == AR_SQUARE_MAX ) break;
+        if( *marker2_num == AR_SQUARE_MAX ) {
+            ARLOGd("Max # of label regions (%d) found.\n", AR_SQUARE_MAX);
+            break;
+        }
     }
 
     for( i = 0; i < *marker2_num; i++ ) {
