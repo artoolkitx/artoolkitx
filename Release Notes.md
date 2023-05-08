@@ -1,6 +1,20 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.7
+### 2023-05-08
+
+Internal and API changes:
+ * arwGetTrackableStatuses has replaced arwGetTrackables in the wrapper API.
+ * Provided options in the square tracker barcode (matrix) mode for auto-creation of trackables for newly recognized barcodes, plus a callback mechanism for auto-created trackables, plus wrapper API.
+ * Moved ownership of trackables out of ARController into each ARTracker. Change most methods returning trackable to return shared_ptr.
+ * Added getters/setters for square and 2D trackable width/height at runtime.
+
+Bug fixes:
+ * Correct handling of GlobalID codes in several places.
+ * Fix pattern colour and barcode handling in pattern retrieval.
+ * Minor fix for GL library warning, and locale for apt-cache on Linux.
+
 ## Version 1.1.6
 ### 2023-04-21
 
