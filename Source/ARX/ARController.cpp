@@ -69,13 +69,6 @@ ARController::ARController() :
     m_updateFrameStamp0({0,0}),
     m_updateFrameStamp1({0,0}),
     m_arVideoViews{NULL},
-    doSquareMarkerDetection(false),
-#if HAVE_NFT
-    doNFTMarkerDetection(false),
-#endif
-#if HAVE_2D
-    doTwoDMarkerDetection(false),
-#endif
     m_error(ARX_ERROR_NONE)
 {
 }
@@ -363,7 +356,7 @@ bool ARController::update()
 
     bool ret = true;
 
-    if (doSquareMarkerDetection) {
+    if (m_squareTracker->wantsUpdate()) {
         if (!m_squareTracker->isRunning()) {
             if (!m_videoSourceIsStereo) ret = m_squareTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat());
             else ret = m_squareTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat(), m_videoSource1->getCameraParameters(), m_videoSource1->getPixelFormat(), m_transL2R);
@@ -372,17 +365,17 @@ bool ARController::update()
         m_squareTracker->update(image0, image1);
     }
 #if HAVE_NFT
-    if (doNFTMarkerDetection) {
+    if (m_nftTracker->wantsUpdate()) {
         if (!m_nftTracker->isRunning()) {
             if (!m_videoSourceIsStereo) ret = m_nftTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat());
             else ret = m_nftTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat(), m_videoSource1->getCameraParameters(), m_videoSource1->getPixelFormat(), m_transL2R);
             if (!ret) goto done;
-       }
+        }
         m_nftTracker->update(image0, image1);
     }
 #endif
 #if HAVE_2D
-    if (doTwoDMarkerDetection) {
+    if (m_twoDTracker->wantsUpdate()) {
         if (!m_twoDTracker->isRunning()) {
             if (!m_videoSourceIsStereo) ret = m_twoDTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat());
             else ret = m_twoDTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat(), m_videoSource1->getCameraParameters(), m_videoSource1->getPixelFormat(), m_transL2R);
@@ -643,22 +636,19 @@ int ARController::addTrackable(const std::string& cfgs)
     // Until we have a registry, have to manually request from all trackers.
     int UID;
     if ((UID = m_squareTracker->newTrackable(config)) != ARTrackable::NO_ID) {
-        if (!doSquareMarkerDetection) {
+        if (m_squareTracker->countTrackables() == 1) {
             ARLOGi("First square marker trackable added; enabling square marker tracker.\n");
-            doSquareMarkerDetection = true;
         }
 #if HAVE_NFT
     } else if ((UID = m_nftTracker->newTrackable(config)) != ARTrackable::NO_ID) {
-        if (!doNFTMarkerDetection) {
+        if (m_nftTracker->countTrackables() == 1) {
             ARLOGi("First NFT marker trackable added; enabling NFT marker tracker.\n");
-            doNFTMarkerDetection = true;
         }
 #endif
 #if HAVE_2D
     } else if ((UID = m_twoDTracker->newTrackable(config)) != ARTrackable::NO_ID) {
-        if (!doTwoDMarkerDetection) {
+        if (m_twoDTracker->countTrackables() == 1) {
             ARLOGi("First 2D marker trackable added; enabling 2D marker tracker.\n");
-            doTwoDMarkerDetection = true;
         }
 #endif
     } else {
@@ -676,27 +666,18 @@ bool ARController::removeTrackable(int UID)
     // Until we have a registry, have to manually request from all trackers.
     if (m_squareTracker->deleteTrackable(UID)) {
         if (m_squareTracker->countTrackables() == 0) {
-            if (doSquareMarkerDetection) {
-                ARLOGi("Last square marker removed; disabling square marker tracking.\n");
-                doSquareMarkerDetection = false;
-            }
+            ARLOGi("Last square marker removed; disabling square marker tracking.\n");
         }
 #if HAVE_NFT
     } else if (m_nftTracker->deleteTrackable(UID)) {
         if (m_nftTracker->countTrackables() == 0) {
-            if (doNFTMarkerDetection) {
-                ARLOGi("Last NFT marker removed; disabling NFT marker tracking.\n");
-                doNFTMarkerDetection = false;
-            }
+            ARLOGi("Last NFT marker removed; disabling NFT marker tracking.\n");
         }
 #endif
 #if HAVE_2D
     } else if (m_twoDTracker->deleteTrackable(UID)) {
-        if (m_twoDTracker->countTrackables()) {
-            if (doTwoDMarkerDetection) {
-                ARLOGi("Last 2D marker removed; disabling 2D marker tracking.\n");
-                doTwoDMarkerDetection = false;
-            }
+        if (m_twoDTracker->countTrackables() == 0) {
+            ARLOGi("Last 2D marker removed; disabling 2D marker tracking.\n");
         }
 #endif
     } else {
@@ -713,14 +694,11 @@ int ARController::removeAllTrackables()
     unsigned int count = countTrackables();
 
     m_squareTracker->deleteAllTrackables();
-    doSquareMarkerDetection = false;
 #if HAVE_NFT
     m_nftTracker->deleteAllTrackables();
-    doNFTMarkerDetection = false;
 #endif
 #if HAVE_2D
     m_twoDTracker->deleteAllTrackables();
-    doTwoDMarkerDetection = false;
 #endif
 
     ARLOGi("Removed all %d trackables and disabled all tracking.\n", count);

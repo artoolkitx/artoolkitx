@@ -64,6 +64,7 @@ public:
     virtual bool initialize() = 0;
     virtual bool start() = 0;
     virtual bool isRunning() = 0;
+    virtual bool wantsUpdate() = 0;
     virtual bool update() = 0;
     virtual bool stop() = 0;
     virtual void terminate() = 0;

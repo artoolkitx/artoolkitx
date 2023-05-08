@@ -105,16 +105,14 @@ private:
     AR2VideoTimestampT m_updateFrameStamp1;
     ARVideoView *m_arVideoViews[2];
     
-    bool doSquareMarkerDetection;
     std::shared_ptr<ARTrackerSquare> m_squareTracker;
 #if HAVE_NFT
-    bool doNFTMarkerDetection;
     std::shared_ptr<ARTrackerNFT> m_nftTracker;
 #endif
 #if HAVE_2D
-    bool doTwoDMarkerDetection;
     std::shared_ptr<ARTracker2d> m_twoDTracker;
 #endif
+
     int m_error;
     void setError(int error);
     

@@ -166,6 +166,7 @@ public:
     bool start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat) override;
     bool start(ARParamLT *paramLT0, AR_PIXEL_FORMAT pixelFormat0, ARParamLT *paramLT1, AR_PIXEL_FORMAT pixelFormat1, const ARdouble transL2R[3][4]) override;
     bool isRunning() override;
+    bool wantsUpdate() override;
     bool update(AR2VideoBufferT *buff) override;
     bool update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1) override;
     bool stop() override;

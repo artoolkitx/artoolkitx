@@ -364,6 +364,11 @@ bail:
     return false;
 }
 
+bool ARTrackerSquare::wantsUpdate()
+{
+    return (!m_trackables.empty() || m_matrixModeAutoCreateNewTrackables);
+}
+
 bool ARTrackerSquare::update(AR2VideoBufferT *buff)
 {
     return update(buff, NULL);
@@ -424,12 +429,13 @@ bool ARTrackerSquare::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1)
     if (m_matrixModeAutoCreateNewTrackables) {
         std::vector<std::shared_ptr<ARTrackableSquare>> newTrackables;
         int pattDectectionMode = arGetPatternDetectionMode(m_arHandle0);
-        if (pattDectectionMode == AR_MULTI_PATTERN_DETECTION_MODE_MATRIX || pattDectectionMode == AR_MULTI_PATTERN_DETECTION_MODE_TEMPLATE_AND_MATRIX) {
+        if (pattDectectionMode == AR_MATRIX_CODE_DETECTION || pattDectectionMode == AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX || pattDectectionMode == AR_TEMPLATE_MATCHING_MONO_AND_MATRIX) {
             for (int i = 0; i < markerNum0; i++) {
-                if (markerInfo0[i].idPatt >= 0 && !markerInfo0[i].matched) {
+                if (markerInfo0[i].idMatrix >= 0 && !markerInfo0[i].matched) {
                     uint64_t globalID = m_matrixCodeType == AR_MATRIX_CODE_GLOBAL_ID ? markerInfo0[i].globalID : 0;
                     ARTrackableSquare *t = new ARTrackableSquare();
-                    if (!t->initWithBarcode(globalID ? 0 : markerInfo0[i].idPatt, m_matrixModeAutoCreateNewTrackablesDefaultWidth, globalID)) {
+                    if (!t->initWithBarcode(globalID ? 0 : markerInfo0[i].idMatrix, m_matrixModeAutoCreateNewTrackablesDefaultWidth, globalID)) {
+                        ARLOGe("Error initing new auto-detected barcode marker.", globalID);
                         delete t;
                     } else {
                         newTrackables.push_back(std::shared_ptr<ARTrackableSquare>(t));
@@ -439,14 +445,15 @@ bool ARTrackerSquare::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1)
         }
         if (buff1) {
             pattDectectionMode = arGetPatternDetectionMode(m_arHandle1);
-            if (pattDectectionMode == AR_MULTI_PATTERN_DETECTION_MODE_MATRIX || pattDectectionMode == AR_MULTI_PATTERN_DETECTION_MODE_TEMPLATE_AND_MATRIX) {
+            if (pattDectectionMode == AR_MATRIX_CODE_DETECTION || pattDectectionMode == AR_TEMPLATE_MATCHING_COLOR_AND_MATRIX || pattDectectionMode == AR_TEMPLATE_MATCHING_MONO_AND_MATRIX) {
                 for (int i = 0; i < markerNum1; i++) {
-                    if (markerInfo1[i].idPatt >= 0 && !markerInfo1[i].matched) {
+                    if (markerInfo1[i].idMatrix >= 0 && !markerInfo1[i].matched) {
                         uint64_t globalID = m_matrixCodeType == AR_MATRIX_CODE_GLOBAL_ID ? markerInfo1[i].globalID : 0;
                         // Need to check that we haven't already just added it (e.g. present in both stereo views).
                         if (std::find_if(newTrackables.begin(), newTrackables.end(), [&](std::shared_ptr<ARTrackableSquare> t) { return globalID ? t->globalID == globalID : t->patt_id == markerInfo1[i].idPatt; } ) == newTrackables.end()) {
                             ARTrackableSquare *t = new ARTrackableSquare();
-                            if (!t->initWithBarcode(globalID ? 0 : markerInfo1[i].idPatt, m_matrixModeAutoCreateNewTrackablesDefaultWidth, globalID)) {
+                            if (!t->initWithBarcode(globalID ? 0 : markerInfo1[i].idMatrix, m_matrixModeAutoCreateNewTrackablesDefaultWidth, globalID)) {
+                                ARLOGe("Error initing new auto-detected barcode marker.", globalID);
                                 delete t;
                             } else {
                                 newTrackables.push_back(std::shared_ptr<ARTrackableSquare>(t));

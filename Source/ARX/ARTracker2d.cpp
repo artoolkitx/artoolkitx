@@ -177,6 +177,11 @@ bool ARTracker2d::update(AR2VideoBufferT *buff)
     return true;
 }
 
+bool ARTracker2d::wantsUpdate()
+{
+    return !m_trackables.empty();
+}
+
 bool ARTracker2d::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1)
 {
     return update(buff0);

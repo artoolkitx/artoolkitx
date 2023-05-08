@@ -211,6 +211,11 @@ bool ARTrackerNFT::isRunning()
     return (bool)(m_kpmHandle && m_ar2Handle);
 }
 
+bool ARTrackerNFT::wantsUpdate()
+{
+    return !m_trackables.empty();
+}
+
 bool ARTrackerNFT::update(AR2VideoBufferT *buff)
 {
     ARLOGd("ARX::ARTrackerNFT::update()\n");
