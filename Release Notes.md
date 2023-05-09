@@ -12,8 +12,6 @@ Internal and API changes:
 
 Bug fixes:
  * Correct handling of GlobalID codes in several places.
- * Fix pattern colour and barcode handling in pattern retrieval.
- * Minor fix for GL library warning, and locale for apt-cache on Linux.
 
 ## Version 1.1.6
 ### 2023-04-21

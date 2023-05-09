@@ -85,6 +85,7 @@
 #include <sys/stat.h> // struct stat, stat(), mkdir()
 #include <errno.h> // errno, ENOENT
 #include <time.h> // struct tm, mktime()
+#include "uuid/uuid_sha1.h"
 
 #define WRITEBUFFERSIZE (8192)
 
@@ -806,4 +807,58 @@ int export_(const char *name, const char *val)
     return (setenv(name, val, 1));
 #endif
     return (-1);
+}
+
+int sha1(const char *filePath, char sha1[41])
+{
+    FILE *fp;
+#define SHA1_READ_BUFSIZE 16384
+    unsigned char *buf;
+    size_t count;
+    int ret;
+
+    if (!filePath) {
+        errno = EINVAL;
+        return (-1);
+    }
+    fp = fopen(filePath, "rb");
+    if (!fp) return (-1);
+    buf = (unsigned char *)malloc(SHA1_READ_BUFSIZE);
+    if (!buf) {
+        fclose(fp);
+        return (-1);
+    }
+    sha1_t *s;
+    if (sha1_create(&s) != SHA1_RC_OK) {
+        errno = ENOMEM;
+        return (-1);
+    }
+    ret = 0;
+    do {
+        count = fread(buf, 1, SHA1_READ_BUFSIZE, fp);
+        if (count < SHA1_READ_BUFSIZE && ferror(fp)) {
+            ret = -1;
+            break;
+        }
+        if (sha1_update(s, (void *)buf, count) != SHA1_RC_OK) {
+            errno = EOVERFLOW;
+            ret = -1;
+            break;
+        }
+    } while (count == SHA1_READ_BUFSIZE);
+    free(buf);
+    fclose(fp);
+    if (!ret) {
+        // Binary sha.
+        //if (sha1_store(s, &sha1Bin, NULL) != SHA1_RC_OK) {
+        //    errno = EOVERFLOW;
+        //    ret = -1;
+        //}
+        if (sha1_format(s, &sha1, NULL) != SHA1_RC_OK) {
+            errno = EOVERFLOW;
+            ret = -1;
+        }
+    }
+    sha1_destroy(s);
+    return (ret);
 }
