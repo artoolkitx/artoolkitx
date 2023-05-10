@@ -65,6 +65,8 @@ set(SOURCE
     unzip.c
     zip.h
     zip.c
+    uuid/uuid_sha1.h
+    uuid/uuid_sha1.c
 )
 
 if (ARX_TARGET_PLATFORM_ANDROID)
