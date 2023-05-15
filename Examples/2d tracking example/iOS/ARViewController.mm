@@ -49,7 +49,9 @@ struct marker {
     float height;
 };
 static const struct marker markers[] = {
-    {"pinball.jpg", 1.0}
+    {"pinball.jpg", 188.0f},
+    {"gibraltar.jpg", 247.0f},
+    {"Harlech_Castle_plan_colour.jpg", 254.0f}
 };
 static const int markerCount = (sizeof(markers)/sizeof(markers[0]));
 

@@ -58,7 +58,9 @@ class AR2dTrackingRenderer extends ARRenderer {
     private SimpleShaderProgram shaderProgram;
 
     private static final Trackable trackables[] = new Trackable[]{
-        new Trackable("pinball.jpg", 1.0f)
+        new Trackable("pinball.jpg", 188.0f),
+        new Trackable("gibraltar.jpg", 247.0f),
+        new Trackable("Harlech_Castle_plan_colour.jpg", 254.0f),
     };
     private int trackableUIDs[] = new int[trackables.length];
     

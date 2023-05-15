@@ -1,6 +1,16 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.8
+### 2023-05-15
+
+Internal changes:
+ * Updated OpenCV on iOS to v4.6.0.
+ * Added sha1 calculation in ARUtil.
+
+Bug fixes:
+ * Fix trackable sizes in 2D tracking example on mobile platforms.
+
 ## Version 1.1.7
 ### 2023-05-08
 
