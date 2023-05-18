@@ -60,7 +60,7 @@ extern "C" {
 
 typedef enum {
     AR_VIDEO_MODULE_DUMMY              = 0,
-    AR_VIDEO_MODULE_RESERVED1          = 1,
+    AR_VIDEO_MODULE_EXTERNAL           = 1,
     AR_VIDEO_MODULE_RESERVED2          = 2,
     AR_VIDEO_MODULE_1394               = 3,
     AR_VIDEO_MODULE_RESERVED4          = 4,
@@ -124,14 +124,19 @@ typedef enum {
 #define  AR_VIDEO_1394_GAMMA_MAX_VAL                  100
 #define  AR_VIDEO_1394_GAMMA_MIN_VAL                  101
 
-#define  AR_VIDEO_PARAM_GET_IMAGE_ASYNC               200 ///< int
+#define  AR_VIDEO_PARAM_GET_IMAGE_ASYNC               200 ///< int, readonly. If non-zero, this module can deliver new frames async (via a callback passed to ar2VideoCapStartAsync).
 #define  AR_VIDEO_PARAM_DEVICEID                      201 ///< string, readonly. Optional. Unique name for this exact model of video device, consisting of vendor, model and board identifiers separated by '/' characters.
 #define  AR_VIDEO_PARAM_NAME                          202 ///< string, readonly. Optional. Human-readable name for this model of video device.
 
-#define  AR_VIDEO_FOCUS_MODE                          301 ///< int
-#define  AR_VIDEO_FOCUS_MANUAL_DISTANCE               302 ///< double
-#define  AR_VIDEO_FOCUS_POINT_OF_INTEREST_X           303 ///< double
-#define  AR_VIDEO_FOCUS_POINT_OF_INTEREST_Y           304 ///< double
+/// double. Camera lens focal length, i.e. optimal distance from camera aperture to the focal plane at which objects are optimally in-focus.
+/// When setting, this acts as a hint, i.e. it does not change the actual camera lens.
+/// When getting, on systems where the focal length is measured, the measured value, otherwise the value of the hint previously set.
+/// If unknown or unset, returns 0.
+#define  AR_VIDEO_PARAM_CAMERA_FOCAL_LENGTH           300
+#define  AR_VIDEO_FOCUS_MODE                          301 ///< int, values from constants AR_VIDEO_FOCUS_MODE_*
+#define  AR_VIDEO_FOCUS_MANUAL_DISTANCE               302 ///< double. When focus mode is AR_VIDEO_FOCUS_MODE_MANUAL, manually set camera lens to focus at specified distance measured in metres.
+#define  AR_VIDEO_FOCUS_POINT_OF_INTEREST_X           303 ///< double. When focus mode is AR_VIDEO_FOCUS_MODE_FIXED or AR_VIDEO_FOCUS_MODE_AUTOFOCUS, x coordinate in video frame (from top left) of point to use as metering centre for camera lens auto-focus requests.
+#define  AR_VIDEO_FOCUS_POINT_OF_INTEREST_Y           304 ///< double. When focus mode is AR_VIDEO_FOCUS_MODE_FIXED or AR_VIDEO_FOCUS_MODE_AUTOFOCUS, y coordinate in video frame (from top left) of point to use as metering centre for a camera lens auto-focus request.
 
 #define  AR_VIDEO_PARAM_AVFOUNDATION_IOS_DEVICE                400 ///< int, values from enumeration AR_VIDEO_AVFOUNDATION_IOS_DEVICE.
 #define  AR_VIDEO_PARAM_AVFOUNDATION_FOCUS_PRESET              401 ///< int, values from enumeration AR_VIDEO_AVFOUNDATION_FOCUS_PRESET.
@@ -141,7 +146,7 @@ typedef enum {
 #define  AR_VIDEO_PARAM_ANDROID_CAMERA_INDEX          500 ///< int
 #define  AR_VIDEO_PARAM_ANDROID_CAMERA_FACE           501 ///< int
 #define  AR_VIDEO_PARAM_ANDROID_INTERNET_STATE        502 ///< int
-#define  AR_VIDEO_PARAM_ANDROID_FOCAL_LENGTH          503 ///< double
+#define  AR_VIDEO_PARAM_ANDROID_FOCAL_LENGTH          503 ///< double. Synonym for AR_VIDEO_PARAM_CAMERA_FOCAL_LENGTH.
 
 #define  AR_VIDEO_GET_VERSION                     INT_MAX
 
@@ -348,7 +353,7 @@ ARVIDEO_EXTERN int               arVideoOpen            (const char *config);
         For information on configuration options, see https://github.com/artoolkitx/artoolkitx/wiki/artoolkitX-video-module-configuration-reference
     @param callback The callback to invoke once opening is complete. In most cases, the callback
         will be invoked on a different thread, so care must be taken if the caller is sensitive to this.
-    @param userdata An arbitrary pointer which will be passed to the callback.
+    @param userdata An arbitrary caller-supplied pointer which will be passed to the callback.
     @see arVideoOpenAsync ar2VideoOpen ar2VideoOpenAsync arVideoClose ar2VideoClose arVideoGetModule
     @return -1 in case of error, 0 in case of no error.
  */
@@ -600,18 +605,13 @@ ARVIDEO_EXTERN int               ar2VideoGetBufferSize   (AR2VideoParamT *vid, i
 ARVIDEO_EXTERN int               ar2VideoGetCParam       (AR2VideoParamT *vid, ARParam *cparam);
 ARVIDEO_EXTERN int               ar2VideoGetCParamAsync  (AR2VideoParamT *vid, void (*callback)(const ARParam *, void *), void *userdata);
 
-
-#if ARX_TARGET_PLATFORM_ANDROID
-// JNI interface.
-jint ar2VideoPushInit(AR2VideoParamT *vid, JNIEnv *env, jobject obj, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face);
-jint ar2VideoPush1(AR2VideoParamT *vid, JNIEnv *env, jobject obj, jbyteArray buf, jint bufSize);
-jint ar2VideoPush2(AR2VideoParamT *vid, JNIEnv *env, jobject obj,
-                   jobject buf0, jint buf0PixelStride, jint buf0RowStride,
-                   jobject buf1, jint buf1PixelStride, jint buf1RowStride,
-                   jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                   jobject buf3, jint buf3PixelStride, jint buf3RowStride);
-jint ar2VideoPushFinal(AR2VideoParamT *vid, JNIEnv *env, jobject obj);
-#endif // ARX_TARGET_PLATFORM_ANDROID
+ARVIDEO_EXTERN int ar2VideoPushInit(AR2VideoParamT *vid, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition);
+ARVIDEO_EXTERN int ar2VideoPush(AR2VideoParamT *vid,
+                                ARUint8 *buf0p, long buf0Size, int buf0PixelStride, int buf0RowStride,
+                                ARUint8 *buf1p, long buf1Size, int buf1PixelStride, int buf1RowStride,
+                                ARUint8 *buf2p, long buf2Size, int buf2PixelStride, int buf2RowStride,
+                                ARUint8 *buf3p, long buf3Size, int buf3PixelStride, int buf3RowStride);
+ARVIDEO_EXTERN int ar2VideoPushFinal(AR2VideoParamT *vid);
 
 #ifdef  __cplusplus
 }

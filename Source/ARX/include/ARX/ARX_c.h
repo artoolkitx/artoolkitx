@@ -228,7 +228,18 @@ extern "C" {
 	 * @return			true if successful, false if an error occurred
 	 */
     ARX_EXTERN bool arwUpdateAR();
-    
+
+    // ----------------------------------------------------------------------------------------------------
+#pragma mark  Video push interface.
+    // ----------------------------------------------------------------------------------------------------
+    ARX_EXTERN int arVideoPushInit(int videoSourceIndex, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition);
+    ARX_EXTERN int arVideoPush(int videoSourceIndex,
+                               uint8_t *buf0p, long buf0Size, int buf0PixelStride, int buf0RowStride,
+                               uint8_t *buf1p, long buf1Size, int buf1PixelStride, int buf1RowStride,
+                               uint8_t *buf2p, long buf2Size, int buf2PixelStride, int buf2RowStride,
+                               uint8_t *buf3p, long buf3Size, int buf3PixelStride, int buf3RowStride);
+    ARX_EXTERN int arVideoPushFinal(int videoSourceIndex);
+
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  Video stream retrieval and/or drawing.
     // ----------------------------------------------------------------------------------------------------

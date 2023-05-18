@@ -10,7 +10,6 @@ set(SOURCE
    ${CMAKE_CURRENT_SOURCE_DIR}/videoAndroid.h
    ${CMAKE_CURRENT_SOURCE_DIR}/videoAndroid.cpp
    ${CMAKE_CURRENT_SOURCE_DIR}/videoAndroidPrivate.h
-   ${CMAKE_CURRENT_SOURCE_DIR}/videoAndroidJNI.c
    ${CMAKE_CURRENT_SOURCE_DIR}/sqlite3.h
    ${CMAKE_CURRENT_SOURCE_DIR}/sqlite3.c
    ${CMAKE_CURRENT_SOURCE_DIR}/camera_utils.h

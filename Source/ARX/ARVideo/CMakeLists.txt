@@ -74,6 +74,7 @@ endif()
 
 # Video modules for all platforms.
 add_subdirectory("Dummy")
+add_subdirectory("External")
 add_subdirectory("Image")
 
 # Video modules for Android.

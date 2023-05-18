@@ -290,6 +290,34 @@ bool arwUpdateTexture32Stereo(uint32_t *bufferL, uint32_t *bufferR)
 }
 
 // ----------------------------------------------------------------------------------------------------
+#pragma mark  Video push interface.
+// ----------------------------------------------------------------------------------------------------
+int arVideoPushInit(int videoSourceIndex, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition)
+{
+    if (!gARTK) return -1;
+
+    return (gARTK->arVideoPushInit(videoSourceIndex, width, height, pixelFormat, cameraIndex, cameraPosition));
+}
+
+int arVideoPush(int videoSourceIndex,
+                uint8_t *buf0p, long buf0Size, int buf0PixelStride, int buf0RowStride,
+                uint8_t *buf1p, long buf1Size, int buf1PixelStride, int buf1RowStride,
+                uint8_t *buf2p, long buf2Size, int buf2PixelStride, int buf2RowStride,
+                uint8_t *buf3p, long buf3Size, int buf3PixelStride, int buf3RowStride)
+{
+    if (!gARTK) return -1;
+
+    return (gARTK->arVideoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride));
+}
+
+int arVideoPushFinal(int videoSourceIndex)
+{
+    if (!gARTK) return -1;
+
+    return (gARTK->arVideoPushFinal(videoSourceIndex));
+}
+
+// ----------------------------------------------------------------------------------------------------
 #pragma mark  Video stream drawing.
 // ----------------------------------------------------------------------------------------------------
 bool arwDrawVideoInit(const int videoSourceIndex)
@@ -991,15 +1019,18 @@ extern "C" {
     JNIEXPORT jint JNICALL JNIFUNCTION(arwGetTrackableOptionInt(JNIEnv *env, jobject obj, jint trackableUID, jint option));
     JNIEXPORT jfloat JNICALL JNIFUNCTION(arwGetTrackableOptionFloat(JNIEnv *env, jobject obj, jint trackableUID, jint option));
 
-	// Additional Java-specific function not found in the C-API
-    JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, jstring pixelFormat, jint camera_index, jint camera_face));
-    JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPush1(JNIEnv *env, jobject obj, jint videoSourceIndex, jbyteArray buf, jint bufSize));
-    JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPush2(JNIEnv *env, jobject obj, jint videoSourceIndex,
+	JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, jstring pixelFormat, jint camera_index, jint camera_face));
+    // Differs from the C API in that for each 'bufn' it accepts a Java direct byte buffer, either from Java API (e.g. Camera2) or allocated thus:
+    // <java>
+    //     long bufSize = 640*480 * 4; // VGA RGBA pixels.
+    //     java.nio.ByteBuffer buf = java.nio.ByteBuffer.allocateDirect(bufSize);
+    // </java>
+    JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPush(JNIEnv *env, jobject obj, jint videoSourceIndex,
                                        jobject buf0, jint buf0PixelStride, jint buf0RowStride,
                                        jobject buf1, jint buf1PixelStride, jint buf1RowStride,
                                        jobject buf2, jint buf2PixelStride, jint buf2RowStride,
                                        jobject buf3, jint buf3PixelStride, jint buf3RowStride));
-    JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex));
+    JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex));
 
 	// ------------------------------------------------------------------------------------
 	// JNI Functions Not Yet Implemented
@@ -1316,9 +1347,7 @@ JNIEXPORT jfloat JNICALL JNIFUNCTION(arwGetTrackableOptionFloat(JNIEnv *env, job
     return arwGetTrackableOptionFloat(trackableUID, option);
 }
 
-// Additional JNI functions not found in the C API.
-
-JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, jstring pixelFormat, jint camera_index, jint camera_face))
+JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, jstring pixelFormat, jint cameraIndex, jint cameraPosition))
 {
     if (!gARTK) {
         return -1;
@@ -1328,40 +1357,49 @@ JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPushInit(JNIEnv *env, jobject 
     jint ret;
 
     const char *pixelFormatC = env->GetStringUTFChars(pixelFormat, &isCopy);
-    ret = gARTK->androidVideoPushInit(env, obj, videoSourceIndex, width, height, pixelFormatC, camera_index, camera_face);
+    ret = gARTK->arVideoPushInit(videoSourceIndex, width, height, pixelFormatC, cameraIndex, cameraPosition);
     env->ReleaseStringUTFChars(pixelFormat, pixelFormatC);
     return ret;
 }
 
-JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPush1(JNIEnv *env, jobject obj, jint videoSourceIndex, jbyteArray buf, jint bufSize))
+JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPush(JNIEnv *env, jobject obj, jint videoSourceIndex,
+                                                jobject buf0, jint buf0PixelStride, jint buf0RowStride,
+                                                jobject buf1, jint buf1PixelStride, jint buf1RowStride,
+                                                jobject buf2, jint buf2PixelStride, jint buf2RowStride,
+                                                jobject buf3, jint buf3PixelStride, jint buf3RowStride))
 {
     if (!gARTK) {
         return -1;
     }
+    uint8_t *buf0p = NULL, *buf1p = NULL, *buf2p = NULL, *buf3p = NULL;
+    long buf0Size = 0, buf1Size = 0, buf2Size = 0, buf3Size = 0;
+    if (buf0) {
+        buf0p = (uint8_t *)env->GetDirectBufferAddress(buf0);
+        buf0Size = env->GetDirectBufferCapacity(buf0);
+    }
+    if (buf1) {
+        buf1p = (uint8_t *)env->GetDirectBufferAddress(buf1);
+        buf1Size = env->GetDirectBufferCapacity(buf1);
+    }
+    if (buf2) {
+        buf2p = (uint8_t *)env->GetDirectBufferAddress(buf2);
+        buf2Size = env->GetDirectBufferCapacity(buf2);
+    }
+    if (buf3) {
+        buf3p = (uint8_t *)env->GetDirectBufferAddress(buf3);
+        buf3Size = env->GetDirectBufferCapacity(buf3);
+    }
 
-    return gARTK->androidVideoPush1(env, obj, videoSourceIndex, buf, bufSize);
+    return gARTK->arVideoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
 }
 
-JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPush2(JNIEnv *env, jobject obj, jint videoSourceIndex,
-                                                        jobject buf0, jint buf0PixelStride, jint buf0RowStride,
-                                                        jobject buf1, jint buf1PixelStride, jint buf1RowStride,
-                                                        jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                                                        jobject buf3, jint buf3PixelStride, jint buf3RowStride))
+JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex))
 {
     if (!gARTK) {
         return -1;
     }
 
-    return gARTK->androidVideoPush2(env, obj, videoSourceIndex, buf0, buf0PixelStride, buf0RowStride, buf1, buf1PixelStride, buf1RowStride, buf2, buf2PixelStride, buf2RowStride, buf3, buf3PixelStride, buf3RowStride);
-}
-
-JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex))
-{
-    if (!gARTK) {
-        return -1;
-    }
-
-    return gARTK->androidVideoPushFinal(env, obj, videoSourceIndex);
+    return gARTK->arVideoPushFinal(videoSourceIndex);
 }
 
 #endif // ARX_TARGET_PLATFORM_ANDROID

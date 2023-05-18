@@ -811,11 +811,10 @@ bool ARController::loadOpticalParams(const char *optical_param_name, const char 
 }
 
 // ----------------------------------------------------------------------------------------------------
-#pragma mark  Android-only API
+#pragma mark  Video push API
 // ----------------------------------------------------------------------------------------------------
 
-#if ARX_TARGET_PLATFORM_ANDROID
-jint ARController::androidVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face)
+int ARController::arVideoPushInit(int videoSourceIndex, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition)
 {
     if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
  
@@ -823,12 +822,12 @@ jint ARController::androidVideoPushInit(JNIEnv *env, jobject obj, jint videoSour
     
     ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);;
     if (!vs) {
-        ARLOGe("ARController::androidVideoPushInit: no ARVideoSource.\n");
+        ARLOGe("ARController::arVideoPushInit: no ARVideoSource.\n");
     } else {
         if (!vs->isOpen() || !vs->isRunning()) {
-            ret = vs->androidVideoPushInit(env, obj, width, height, pixelFormat, camera_index, camera_face);
+            ret = vs->arVideoPushInit(width, height, pixelFormat, cameraIndex, cameraPosition);
         } else {
-            ARLOGe("ARController::androidVideoPushInit: ARVideoSource is either closed or already running.\n");
+            ARLOGe("ARController::arVideoPushInit: ARVideoSource is either closed or already running.\n");
         }
     }
 done:
@@ -836,7 +835,11 @@ done:
     return ret;
 }
 
-jint ARController::androidVideoPush1(JNIEnv *env, jobject obj, jint videoSourceIndex, jbyteArray buf, jint bufSize)
+int ARController::arVideoPush(int videoSourceIndex,
+                              ARUint8 *buf0p, long buf0Size, int buf0PixelStride, int buf0RowStride,
+                              ARUint8 *buf1p, long buf1Size, int buf1PixelStride, int buf1RowStride,
+                              ARUint8 *buf2p, long buf2Size, int buf2PixelStride, int buf2RowStride,
+                              ARUint8 *buf3p, long buf3Size, int buf3PixelStride, int buf3RowStride)
 {
     if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
 
@@ -844,12 +847,12 @@ jint ARController::androidVideoPush1(JNIEnv *env, jobject obj, jint videoSourceI
 
     ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
     if (!vs) {
-        ARLOGe("ARController::androidVideoPush1: no ARVideoSource.\n");
+        ARLOGe("ARController::arVideoPush: no ARVideoSource.\n");
     } else {
         if (vs->isRunning()) {
-            ret = vs->androidVideoPush1(env, obj, buf, bufSize);
+            ret = vs->arVideoPush(buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
         } else {
-            ARLOGe("ARController::androidVideoPush1: ARVideoSource is not running.\n");
+            ARLOGe("ARController::arVideoPush: ARVideoSource is not running.\n");
         }
     }
 done:
@@ -857,11 +860,7 @@ done:
     return ret;
 }
 
-jint ARController::androidVideoPush2(JNIEnv *env, jobject obj, jint videoSourceIndex,
-                                     jobject buf0, jint buf0PixelStride, jint buf0RowStride,
-                                     jobject buf1, jint buf1PixelStride, jint buf1RowStride,
-                                     jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                                     jobject buf3, jint buf3PixelStride, jint buf3RowStride)
+int ARController::arVideoPushFinal(int videoSourceIndex)
 {
     if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
 
@@ -869,40 +868,18 @@ jint ARController::androidVideoPush2(JNIEnv *env, jobject obj, jint videoSourceI
 
     ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
     if (!vs) {
-        ARLOGe("ARController::androidVideoPush2: no ARVideoSource.\n");
-    } else {
-        if (vs->isRunning()) {
-            ret = vs->androidVideoPush2(env, obj, buf0, buf0PixelStride, buf0RowStride, buf1, buf1PixelStride, buf1RowStride, buf2, buf2PixelStride, buf2RowStride, buf3, buf3PixelStride, buf3RowStride);
-        } else {
-            ARLOGe("ARController::androidVideoPush2: ARVideoSource is not running.\n");
-        }
-    }
-done:
-
-    return ret;
-}
-
-jint ARController::androidVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex)
-{
-    if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
-
-    int ret = -1;
-
-    ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
-    if (!vs) {
-        ARLOGe("ARController::androidVideoPushFinal: no ARVideoSource.\n");
+        ARLOGe("ARController::arVideoPushFinal: no ARVideoSource.\n");
     } else {
         if (vs->isOpen()) {
-            ret = vs->androidVideoPushFinal(env, obj);
+            ret = vs->arVideoPushFinal();
         } else {
-            ARLOGe("ARController::androidVideoPushFinal: ARVideoSource is not open.\n");
+            ARLOGe("ARController::arVideoPushFinal: ARVideoSource is not open.\n");
         }
     }
 done:
 
     return ret;
 }
-#endif // ARX_TARGET_PLATFORM_ANDROID
 
 // A simple cross-platform way to force the inclusion of symbols from static libraries
 // that otherwise would not be defined as they are not used in any dynamic object.
