@@ -414,6 +414,7 @@ extern "C" {
         ARW_TRACKER_OPTION_2D_MAXIMUM_MARKERS_TO_TRACK = 12,           ///< Maximum number of markers able to be tracked simultaneously. Defaults to 1. Should not be set higher than the number of 2D markers loaded.
         ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES = 13, ///< If true, when the square tracker is detecting matrix (barcode) markers, new trackables will be created for unmatched markers. Defaults to false. bool.
         ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES_DEFAULT_WIDTH = 14, ///< If ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES is true, this value will be used for the initial width of new trackables for unmatched markers. Defaults to 80.0f. float.
+        ARW_TRACKER_OPTION_2D_THREADED = 15,                           ///< bool, If false, 2D tracking updates synchronously, and arwUpdateAR will not return until 2D tracking is complete. If true, 2D tracking updates asychronously on a secondary thread, and arwUpdateAR will not block if the track is busy. Defaults to true.
     };
     
     /**
@@ -595,7 +596,6 @@ extern "C" {
         ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB = 11,           ///< float, minimum inlier probability value for robust multimarker pose estimation (range 1.0 - 0.0).
         ARW_TRACKABLE_OPTION_SQUARE_WIDTH = 12,                    ///< float, square marker width
         ARW_TRACKABLE_OPTION_2D_SCALE = 13,                        ///< float, 2D trackable scale (i.e. width).
-        ARW_TRACKABLE_OPTION_2D_THREADED = 13,                     ///< bool, If false, 2D tracking updates synchronously, and arwUpdateAR will not return until 2D tracking is complete. If true, 2D tracking updates asychronously on a secondary thread, and arwUpdateAR will not block if the track is busy. Defaults to true.
     };
 
     enum

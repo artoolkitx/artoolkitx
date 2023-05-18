@@ -1,6 +1,14 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.9
+### 2023-05-18
+
+* Support for asynchronous tracking (on a secondary thread) has been added to the 2D tracker. When enabled, the tracking rate can run slower than the video capture frame rate. This results in increased smoothness of the display of video frames, at the expense of some memory usage and a possible lag on lower-powered devices between the displayed frame and the tracking results. It has been enabled by default. Use wrapper function arwSetTrackerOptionBool(ARW_TRACKER_OPTION_2D_THREADED, false) to revert to previous behaviour.
+
+Internal changes:
+ * Updated OpenCV on Android to v4.6.0.
+ 
 ## Version 1.1.8
 ### 2023-05-15
 

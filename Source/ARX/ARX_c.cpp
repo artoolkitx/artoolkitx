@@ -337,7 +337,7 @@ void arwSetTrackerOptionBool(int option, bool value)
         return;
     } else if (option == ARW_TRACKER_OPTION_SQUARE_DEBUG_MODE) {
         gARTK->getSquareTracker()->setDebugMode(value);
-    } else if (option == ARW_TRACKABLE_OPTION_2D_THREADED) {
+    } else if (option == ARW_TRACKER_OPTION_2D_THREADED) {
 #if HAVE_2D
         gARTK->get2dTracker()->setThreaded(value);
 #endif
@@ -402,7 +402,7 @@ bool arwGetTrackerOptionBool(int option)
 #endif
     } else if (option == ARW_TRACKER_OPTION_SQUARE_DEBUG_MODE) {
         return gARTK->getSquareTracker()->debugMode();
-    } else if (option == ARW_TRACKABLE_OPTION_2D_THREADED) {
+    } else if (option == ARW_TRACKER_OPTION_2D_THREADED) {
 #if HAVE_2D
         return gARTK->get2dTracker()->threaded();
 #endif
