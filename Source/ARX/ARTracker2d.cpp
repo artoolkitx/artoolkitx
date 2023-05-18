@@ -47,6 +47,9 @@
 #include <algorithm>
 
 ARTracker2d::ARTracker2d() :
+m_pixelFormat(AR_PIXEL_FORMAT_INVALID),
+m_sizeX(0),
+m_sizeY(0),
 m_trackables(),
 m_videoSourceIsStereo(false),
 m_2DTrackerDataLoaded(false),
@@ -59,6 +62,7 @@ m_pageCount(0)
 
 ARTracker2d::~ARTracker2d()
 {
+    stop();
     terminate();
 }
 
@@ -84,6 +88,9 @@ int ARTracker2d::getMaxMarkersToTrack() const
 bool ARTracker2d::start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat)
 {
     if (!paramLT || pixelFormat == AR_PIXEL_FORMAT_INVALID) return false;
+    m_pixelFormat = pixelFormat;
+    m_sizeX = paramLT->param.xsize;
+    m_sizeY = paramLT->param.ysize;
 
     ARLOGd("ARTracker2d::start(): Camera parameters: frame %dx%d, intrinsics:", paramLT->param.xsize, paramLT->param.ysize);
     for (int i = 0; i < 3; i++) {
@@ -102,18 +109,21 @@ bool ARTracker2d::start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat)
 bool ARTracker2d::start(ARParamLT *paramLT0, AR_PIXEL_FORMAT pixelFormat0, ARParamLT *paramLT1, AR_PIXEL_FORMAT pixelFormat1, const ARdouble transL2R[3][4])
 {
     if (!paramLT1 || pixelFormat1 == AR_PIXEL_FORMAT_INVALID || !transL2R) return false;
-    
+
+    if (!start(paramLT0, pixelFormat0)) return false;
+
     m_videoSourceIsStereo = true;
-    m_running = true;
-    
-    return start(paramLT0, pixelFormat0);
+
+    return true;
 }
 
 bool ARTracker2d::unloadTwoDData(void)
 {
-    m_2DTracker->RemoveAllMarkers();
-    m_2DTrackerDataLoaded = false;
-    m_pageCount = 0;
+    if (m_2DTrackerDataLoaded) {
+        m_2DTracker->RemoveAllMarkers();
+        m_2DTrackerDataLoaded = false;
+        m_pageCount = 0;
+    }
     return true;
 }
 
@@ -146,20 +156,9 @@ bool ARTracker2d::isRunning()
     return m_running;
 }
 
-bool ARTracker2d::update(AR2VideoBufferT *buff)
+void ARTracker2d::updateTrackablesFromTracker()
 {
-    ARLOGd("ARX::ARTracker2d::update()\n");
-    // Late loading of data now that we have image width and height.
-    if (!m_2DTrackerDataLoaded) {
-        if (!loadTwoDData()) {
-            ARLOGe("Error loading 2D image tracker data.\n");
-            return false;
-        }
-    }
-    
-    m_2DTracker->ProcessFrameData(buff->buffLuma);
     // Loop through all loaded 2D targets and match against tracking results.
-    m_2DTrackerDetectedImageCount = 0;
     for (std::vector<std::shared_ptr<ARTrackable>>::iterator it = m_trackables.begin(); it != m_trackables.end(); ++it) {
         std::shared_ptr<ARTrackable2d> t = std::static_pointer_cast<ARTrackable2d>(*it);
         float transMat[3][4];
@@ -171,6 +170,24 @@ bool ARTracker2d::update(AR2VideoBufferT *buff)
             t->updateWithTwoDResults(NULL, NULL);
         }
     }
+}
+
+bool ARTracker2d::update(AR2VideoBufferT *buff)
+{
+    ARLOGd("ARX::ARTracker2d::update()\n");
+    if (!buff) return false;
+
+    // Late loading of data now that we have image width and height.
+    if (!m_2DTrackerDataLoaded) {
+        if (!loadTwoDData()) {
+            ARLOGe("Error loading 2D image tracker data.\n");
+            return false;
+        }
+        m_2DTrackerDetectedImageCount = 0;
+    }
+
+    m_2DTracker->ProcessFrameData(buff->buffLuma);
+    updateTrackablesFromTracker();
     return true;
 }
 
@@ -186,20 +203,16 @@ bool ARTracker2d::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1)
 
 bool ARTracker2d::stop()
 {
-    // Tracking thread is holding a reference to the camera parameters. Closing the
-    // video source will dispose of the camera parameters, thus invalidating this reference.
-    // So must stop tracking before closing the video source.
-    if (m_2DTrackerDataLoaded) {
+    if (m_running) {
         unloadTwoDData();
+        m_running = false;
     }
-    m_videoSourceIsStereo = false;
-    
+
     return true;
 }
 
 void ARTracker2d::terminate()
 {
-    
 }
 
 int ARTracker2d::newTrackable(std::vector<std::string> config)

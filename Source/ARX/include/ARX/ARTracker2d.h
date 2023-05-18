@@ -93,6 +93,10 @@ public:
     int getDetectorType(void);
 private:
 
+    AR_PIXEL_FORMAT m_pixelFormat;
+    int m_sizeX;
+    int m_sizeY;
+
     std::vector<std::shared_ptr<ARTrackable>> m_trackables;
     bool m_videoSourceIsStereo;
     bool m_2DTrackerDataLoaded;
@@ -104,6 +108,7 @@ private:
     bool m_running;
     bool unloadTwoDData();
     bool loadTwoDData();
+    void updateTrackablesFromTracker();
     int m_pageCount;                    ///< Number of loaded pages.
 };
 
