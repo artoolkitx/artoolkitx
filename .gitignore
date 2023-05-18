@@ -39,11 +39,9 @@ ipch/
 
 #### IDE user-config.
 # Android Studio
-*.iml
 **/.gradle/
 **/.idea/caches
 **/.idea/libraries
-**/.idea/modules.xml
 **/.idea/workspace.xml
 **/.idea/navEditor.xml
 **/.idea/assetWizardSettings.xml

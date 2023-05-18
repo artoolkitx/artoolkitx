@@ -601,12 +601,13 @@ public:
     {
         auto t = std::find_if(_trackables.begin(), _trackables.end(), [&](const TrackableInfo& e) { return e._id == trackableId; });
         if (t != _trackables.end()) {
-            cv::Mat poseOut;
-            t->_pose.convertTo(poseOut, CV_32FC1);
-            //std::cout << "poseOut" << std::endl;
-            //std::cout << poseOut << std::endl;
-            memcpy(transMat, poseOut.ptr<float>(0), 3*4*sizeof(float));
-            return true;
+            if (t->_isDetected || t->_isTracking) {
+                cv::Mat poseOut;
+                t->_pose.convertTo(poseOut, CV_32FC1);
+                //std::cout << "poseOut: " << poseOut << std::endl;
+                memcpy(transMat, poseOut.ptr<float>(0), 3*4*sizeof(float));
+                return true;
+            }
         }
         return false;
     }

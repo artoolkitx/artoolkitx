@@ -16,6 +16,17 @@ arm64-v8a/libopencv_video.a
 arm64-v8a/libopencv_videoio.a
 arm64-v8a/libtbb.a
 arm64-v8a/libtegra_hal.a
+arm64-v8a/libade.a
+arm64-v8a/libittnotify.a
+arm64-v8a/liblibjpeg-turbo.a
+arm64-v8a/liblibopenjp2.a
+arm64-v8a/libopencv_dnn.a
+arm64-v8a/libopencv_gapi.a
+arm64-v8a/libopencv_ml.a
+arm64-v8a/libopencv_objdetect.a
+arm64-v8a/libopencv_photo.a
+arm64-v8a/libopencv_stitching.a
+arm64-v8a/libquirc.a
 
 armeabi-v7a/libIlmImf.a
 armeabi-v7a/libcpufeatures.a
@@ -35,6 +46,17 @@ armeabi-v7a/libopencv_video.a
 armeabi-v7a/libopencv_videoio.a
 armeabi-v7a/libtbb.a
 armeabi-v7a/libtegra_hal.a
+armeabi-v7a/libade.a
+armeabi-v7a/libittnotify.a
+armeabi-v7a/liblibjpeg-turbo.a
+armeabi-v7a/liblibopenjp2.a
+armeabi-v7a/libopencv_dnn.a
+armeabi-v7a/libopencv_gapi.a
+armeabi-v7a/libopencv_ml.a
+armeabi-v7a/libopencv_objdetect.a
+armeabi-v7a/libopencv_photo.a
+armeabi-v7a/libopencv_stitching.a
+armeabi-v7a/libquirc.a
 
 x86/libIlmImf.a
 x86/libcpufeatures.a
@@ -54,6 +76,18 @@ x86/libopencv_imgproc.a
 x86/libopencv_video.a
 x86/libopencv_videoio.a
 x86/libtbb.a
+x86/libade.a
+x86/libippicv.a
+x86/libippiw.a
+x86/liblibjpeg-turbo.a
+x86/liblibopenjp2.a
+x86/libopencv_dnn.a
+x86/libopencv_gapi.a
+x86/libopencv_ml.a
+x86/libopencv_objdetect.a
+x86/libopencv_photo.a
+x86/libopencv_stitching.a
+x86/libquirc.a
 
 x86_64/libIlmImf.a
 x86_64/libcpufeatures.a
@@ -73,3 +107,15 @@ x86_64/libopencv_imgproc.a
 x86_64/libopencv_video.a
 x86_64/libopencv_videoio.a
 x86_64/libtbb.a
+x86_64/libade.a
+x86_64/libippicv.a
+x86_64/libippiw.a
+x86_64/liblibjpeg-turbo.a
+x86_64/liblibopenjp2.a
+x86_64/libopencv_dnn.a
+x86_64/libopencv_gapi.a
+x86_64/libopencv_ml.a
+x86_64/libopencv_objdetect.a
+x86_64/libopencv_photo.a
+x86_64/libopencv_stitching.a
+x86_64/libquirc.a

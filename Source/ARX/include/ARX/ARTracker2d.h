@@ -91,7 +91,15 @@ public:
     
     void setDetectorType(int detectorType);
     int getDetectorType(void);
+
+    bool threaded(void) const;
+    void setThreaded(bool threaded);
+
 private:
+
+    AR_PIXEL_FORMAT m_pixelFormat;
+    int m_sizeX;
+    int m_sizeY;
 
     std::vector<std::shared_ptr<ARTrackable>> m_trackables;
     bool m_videoSourceIsStereo;
@@ -104,7 +112,13 @@ private:
     bool m_running;
     bool unloadTwoDData();
     bool loadTwoDData();
+    void updateTrackablesFromTracker();
     int m_pageCount;                    ///< Number of loaded pages.
+
+    bool m_threaded;
+    THREAD_HANDLE_T     *m_trackingThread;
+    static void *trackingWorker(THREAD_HANDLE_T *threadHandle);
+    ARUint8 *m_trackingBuffcopy;
 };
 
 #endif // HAVE_2D

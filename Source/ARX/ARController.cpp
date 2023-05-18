@@ -340,7 +340,6 @@ bool ARController::update()
     if (!image0) {
         return true;
     }
-    m_updateFrameStamp0 = image0->time;
     if (m_videoSourceIsStereo) {
         image1 = m_videoSource1->checkoutFrameIfNewerThan(m_updateFrameStamp1);
         if (!image1) {
@@ -349,6 +348,7 @@ bool ARController::update()
         }
         m_updateFrameStamp1 = image1->time;
     }
+    m_updateFrameStamp0 = image0->time;
 
     //
     // Tracker updates.

@@ -157,7 +157,7 @@ if [ $BUILD_IOS ] ; then
 
     
     if [ ! -d "depends/ios/Frameworks/opencv2.framework" ] ; then
-        curl --location "https://sourceforge.net/projects/opencvlibrary/files/4.6.0/opencv-4.6.0-ios-framework.zip/download" -o opencv2.zip
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.6.0/opencv-4.6.0-ios-framework.zip" -o opencv2.zip
         unzip -q opencv2.zip -d depends/ios/Frameworks
         rm opencv2.zip
     fi
@@ -205,7 +205,7 @@ if [ "$OS" = "Linux" ] ; then
 fi
 
 if [ ! -d "depends/android/include/opencv2" ] ; then
-    curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-android.tgz" -o opencv2.tgz
+    curl --location "https://github.com/artoolkitx/opencv/releases/download/4.6.0/opencv-4.6.0-dev-artoolkitx-android.tgz" -o opencv2.tgz
     tar xzf opencv2.tgz --strip-components=1 -C depends/android
     rm opencv2.tgz
 fi
