@@ -162,15 +162,11 @@ bool ARTracker2d::update(AR2VideoBufferT *buff)
     m_2DTrackerDetectedImageCount = 0;
     for (std::vector<std::shared_ptr<ARTrackable>>::iterator it = m_trackables.begin(); it != m_trackables.end(); ++it) {
         std::shared_ptr<ARTrackable2d> t = std::static_pointer_cast<ARTrackable2d>(*it);
-        if (m_2DTracker->IsTrackableVisible(t->UID)) {
-            float transMat[3][4];
-            if (m_2DTracker->GetTrackablePose(t->UID, transMat)) {
-                ARdouble *transL2R = (m_videoSourceIsStereo ? (ARdouble *)m_transL2R : NULL);
-                bool success = t->updateWithTwoDResults(transMat, (ARdouble (*)[4])transL2R);
-                m_2DTrackerDetectedImageCount++;
-            } else {
-                t->updateWithTwoDResults(NULL, NULL);
-            }
+        float transMat[3][4];
+        if (m_2DTracker->GetTrackablePose(t->UID, transMat)) {
+            ARdouble *transL2R = (m_videoSourceIsStereo ? (ARdouble *)m_transL2R : NULL);
+            bool success = t->updateWithTwoDResults(transMat, (ARdouble (*)[4])transL2R);
+            m_2DTrackerDetectedImageCount++;
         } else {
             t->updateWithTwoDResults(NULL, NULL);
         }

@@ -75,7 +75,9 @@ public:
     void RemoveAllMarkers();
     void AddMarker(std::shared_ptr<unsigned char> buff, std::string fileName, int width, int height, int uid, float scale);
     void AddMarker(std::string imageName, int uid, float scale);
-    
+
+    ///  If trackable is not visible, returns false, otherwise retrieves pose of trackable into transMat
+    ///  and returns true.
     bool GetTrackablePose(int trackableId, float transMat[3][4]);
     
     bool IsTrackableVisible(int trackableId);
