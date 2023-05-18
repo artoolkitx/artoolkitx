@@ -56,7 +56,10 @@ m_2DTrackerDataLoaded(false),
 m_2DTrackerDetectedImageCount(0),
 m_2DTracker(NULL),
 m_running(false),
-m_pageCount(0)
+m_pageCount(0),
+m_threaded(false),
+m_trackingThread(NULL),
+m_trackingBuffcopy(NULL)
 {
 }
 
@@ -85,6 +88,32 @@ int ARTracker2d::getMaxMarkersToTrack() const
     return m_2DTracker->GetMaximumNumberOfMarkersToTrack();
 }
 
+bool ARTracker2d::threaded(void) const
+{
+    return m_threaded;
+}
+
+void ARTracker2d::setThreaded(bool threaded)
+{
+    if (threaded && !m_threaded) {
+        m_threaded = threaded;
+        if (m_running) {
+            m_trackingBuffcopy = (ARUint8 *)malloc(m_sizeX * m_sizeY);
+            m_trackingThread = threadInit(0, this, trackingWorker);
+        }
+    } else if (!threaded && m_threaded) {
+        m_threaded = threaded;
+        if (m_trackingThread) {
+            threadWaitQuit(m_trackingThread);
+            threadFree(&m_trackingThread);
+        }
+        if (m_trackingBuffcopy) {
+            free(m_trackingBuffcopy);
+            m_trackingBuffcopy = NULL;
+        }
+    }
+}
+
 bool ARTracker2d::start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat)
 {
     if (!paramLT || pixelFormat == AR_PIXEL_FORMAT_INVALID) return false;
@@ -101,6 +130,11 @@ bool ARTracker2d::start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat)
     
     m_videoSourceIsStereo = false;
     m_running = true;
+
+    if (m_threaded) {
+        m_trackingBuffcopy = (ARUint8 *)malloc(m_sizeX * m_sizeY);
+        m_trackingThread = threadInit(0, this, trackingWorker);
+    }
 
     ARLOGd("ARTracker2d::start(): done.\n");
     return (true);
@@ -186,9 +220,48 @@ bool ARTracker2d::update(AR2VideoBufferT *buff)
         m_2DTrackerDetectedImageCount = 0;
     }
 
-    m_2DTracker->ProcessFrameData(buff->buffLuma);
-    updateTrackablesFromTracker();
+    if (!m_threaded) {
+        m_2DTracker->ProcessFrameData(buff->buffLuma);
+        updateTrackablesFromTracker();
+    } else {
+        // First, see if a frane has been completely processed.
+        if (threadGetStatus(m_trackingThread)) {
+            threadEndWait(m_trackingThread); // We know from status above that worker has already finished, so this just resets it.
+            updateTrackablesFromTracker();
+        }
+
+        // If corner finder worker thread is ready and waiting, submit the new image.
+        if (!threadGetBusyStatus(m_trackingThread)) {
+            // The calling routine expects us to have finished with the frame, so we need to
+            // make a copy of it for OCVT.
+            memcpy(m_trackingBuffcopy, buff->buffLuma, m_sizeX * m_sizeY);
+            // Kick off tracking. The results will be collected on a subsequent cycle.
+            threadStartSignal(m_trackingThread);
+        }
+    }
     return true;
+}
+
+// Worker thread.
+// static
+void *ARTracker2d::trackingWorker(THREAD_HANDLE_T *threadHandle)
+{
+#ifdef DEBUG
+    ARLOGi("Start tracking thread.\n");
+#endif
+
+    ARTracker2d *tracker2D = (ARTracker2d *)threadGetArg(threadHandle);
+
+    while (threadStartWait(threadHandle) == 0) {
+        // Do tracking.
+        tracker2D->m_2DTracker->ProcessFrameData(tracker2D->m_trackingBuffcopy);
+        threadEndSignal(threadHandle);
+    }
+
+#ifdef DEBUG
+    ARLOGi("End tracking thread.\n");
+#endif
+    return (NULL);
 }
 
 bool ARTracker2d::wantsUpdate()
@@ -204,6 +277,16 @@ bool ARTracker2d::update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1)
 bool ARTracker2d::stop()
 {
     if (m_running) {
+        if (m_threaded) {
+            if (m_trackingThread) {
+                threadWaitQuit(m_trackingThread);
+                threadFree(&m_trackingThread);
+            }
+            if (m_trackingBuffcopy) {
+                free(m_trackingBuffcopy);
+                m_trackingBuffcopy = NULL;
+            }
+        }
         unloadTwoDData();
         m_running = false;
     }
