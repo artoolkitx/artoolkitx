@@ -57,7 +57,7 @@ m_2DTrackerDetectedImageCount(0),
 m_2DTracker(NULL),
 m_running(false),
 m_pageCount(0),
-m_threaded(false),
+m_threaded(true),
 m_trackingThread(NULL),
 m_trackingBuffcopy(NULL)
 {

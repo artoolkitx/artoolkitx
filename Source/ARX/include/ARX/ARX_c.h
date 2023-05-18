@@ -595,6 +595,7 @@ extern "C" {
         ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB = 11,           ///< float, minimum inlier probability value for robust multimarker pose estimation (range 1.0 - 0.0).
         ARW_TRACKABLE_OPTION_SQUARE_WIDTH = 12,                    ///< float, square marker width
         ARW_TRACKABLE_OPTION_2D_SCALE = 13,                        ///< float, 2D trackable scale (i.e. width).
+        ARW_TRACKABLE_OPTION_2D_THREADED = 13,                     ///< bool, If false, 2D tracking updates synchronously, and arwUpdateAR will not return until 2D tracking is complete. If true, 2D tracking updates asychronously on a secondary thread, and arwUpdateAR will not block if the track is busy. Defaults to true.
     };
 
     enum
