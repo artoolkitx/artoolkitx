@@ -135,6 +135,8 @@ typedef struct {
     
     vImage_Buffer      imageSrcBuf;
     vImage_Buffer      imageDestBuf;
+
+    float focalLengthPixelsY;
 }
 
 @synthesize tookPictureDelegate = tookPictureDelegate, tookPictureDelegateUserData = tookPictureDelegateUserData;
@@ -218,6 +220,7 @@ typedef struct {
         tookPictureDelegate = nil;
         tookPictureDelegateUserData = NULL;
         flipV = flipH = FALSE;
+        focalLengthPixelsY = 0.0f;
         
         // Create a mutex to protect access to the frame.
         int err;
@@ -347,7 +350,8 @@ typedef struct {
     }
     
     NSError *error = nil;
-    
+    [captureSession beginConfiguration];
+
     AVCaptureDeviceInput *captureDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
     if (!captureDeviceInput) {
         NSLog(@"Unable to acquire video capture device input.\n");
@@ -420,8 +424,16 @@ typedef struct {
     [captureStillImageOutput setOutputSettings:[NSDictionary dictionaryWithObject:AVVideoCodecJPEG
                                                                            forKey:AVVideoCodecKey]];
 	if ([captureSession canAddOutput:captureStillImageOutput]) [captureSession addOutput:captureStillImageOutput];
-    
-    
+
+    [captureSession commitConfiguration];
+
+    // Enable delivery of camera intrinsics.
+    for (AVCaptureConnection *connection in captureVideoDataOutput.connections) {
+        if (connection.isCameraIntrinsicMatrixDeliverySupported) {
+            connection.cameraIntrinsicMatrixDeliveryEnabled = YES;
+        }
+    }
+
     //
     // Get things running.
     //
@@ -510,7 +522,23 @@ bail0:
     //CMTime pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
 
     CVPixelBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    
+
+    CFTypeRef intrinsics = CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, NULL);
+    if (intrinsics) {
+        matrix_float3x3 *camMatrix = (matrix_float3x3 *)(CFDataGetBytePtr((CFDataRef)intrinsics)); // column-major order.
+        focalLengthPixelsY = (*camMatrix).columns[1][1];
+        //float m[3][3]; // row-major
+        //m[0][0] = (*camMatrix).columns[0][0]; // fx, focal length in pixels. Same as fy for square pixels.
+        //m[0][1] = (*camMatrix).columns[1][0]; // 0
+        //m[0][2] = (*camMatrix).columns[2][0]; // ox, principal point offset x coord in pixels, from top-left of image plane.
+        //m[1][0] = (*camMatrix).columns[0][1]; // 0
+        //m[1][1] = (*camMatrix).columns[1][1]; // fy, focal length in pixels. Same as fx for square pixels.
+        //m[1][2] = (*camMatrix).columns[2][1]; // oy, principal point offset y coord, in pixels, from top-left of image plane.
+        //m[2][0] = (*camMatrix).columns[0][2]; // 0
+        //m[2][1] = (*camMatrix).columns[1][2]; // 0
+        //m[2][2] = (*camMatrix).columns[2][2]; // 1
+    }
+
     pthread_mutex_lock(&frameLock_pthread_mutex);
 
     if (!planes) {
@@ -893,6 +921,39 @@ bail0:
         [captureDevice unlockForConfiguration];
         return TRUE;
     }
+}
+
+- (BOOL) perspectiveMatrix:(float [16])p nearplane:(float)zNear farPlane:(float)zFar
+{
+    if (focalLengthPixelsY == 0.0f) return FALSE;
+
+    p[0] = focalLengthPixelsY / (0.5f * self.width);
+    p[1] = 0.0f;
+    p[2] = 0.0f;
+    p[3] = 0.0f;
+
+    p[4] = 0.0f;
+    p[5] = focalLengthPixelsY / (0.5f * self.height);
+    p[6] = 0.0f;
+    p[7] = 0.0f;
+
+    p[8] = 0.0f;
+    p[8] = 0.0f;
+    p[8] = (zFar + zNear) / (zNear - zFar);
+    p[8] = -1.0f;
+
+    p[8] = 0.0f;
+    p[8] = 0.0f;
+    p[8] = 2.0f * zFar * zNear / (zNear - zFar);
+    p[8] = 0.0f;
+
+    return TRUE;
+}
+
+- (float) fieldOfViewY
+{
+    if (focalLengthPixelsY == 0.0f) return 0.0f;
+    return (2.0f * atanf(self.height * 0.5f / focalLengthPixelsY));
 }
 
 - (void) stop

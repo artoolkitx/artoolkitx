@@ -43,7 +43,7 @@
 
 @protocol CameraVideoTookPictureDelegate<NSObject>
 @required
-/*
+/**
     This delegate method is called each time a frame is captured
     from the video stream.
  
@@ -54,7 +54,7 @@
  */
 - (void) cameraVideoTookPicture:(id)sender userData:(void *)data;
 @optional
-/*
+/**
     This delegate method is called if the user requested a high-resolution JPEG photo.
     You can write the JPEG to the user's photo roll with this code:
  
@@ -122,7 +122,7 @@ extern NSString *const CameraVideoiOSDeviceAppleTVX; // "Apple TV (Unknown model
 
 @property(readonly) NSString *iOSDevice;
 
-/*
+/**
  Set or get the video image quality/size.
  
  Attempts to change this property while (running == TRUE) will be ignored.
@@ -149,7 +149,7 @@ extern NSString *const CameraVideoiOSDeviceAppleTVX; // "Apple TV (Unknown model
  */
 @property(nonatomic, assign) NSString *captureSessionPreset;
 
-/*
+/**
  Set or get the video device position.
  
  Attempts to change this property while (running == TRUE) will be ignored.
@@ -162,7 +162,7 @@ extern NSString *const CameraVideoiOSDeviceAppleTVX; // "Apple TV (Unknown model
  */
 @property(nonatomic) AVCaptureDevicePosition captureDevicePosition;
 
-/*
+/**
  Set or get the video device index.
  
  Attempts to change this property while (running == TRUE) will be ignored.
@@ -178,7 +178,7 @@ extern NSString *const CameraVideoiOSDeviceAppleTVX; // "Apple TV (Unknown model
 @property(nonatomic, readonly) NSString *captureDeviceIDName;
 @property(nonatomic, readonly) NSString *captureDeviceIDModel;
 
-/*
+/**
  Set or get the video device unique ID.
  
  Attempts to change this property while (running == TRUE) will be ignored.
@@ -189,7 +189,7 @@ extern NSString *const CameraVideoiOSDeviceAppleTVX; // "Apple TV (Unknown model
  */
 @property(nonatomic, copy) NSString *captureDeviceIDUID;
 
-/*
+/**
  Set or get the video image pixel format.
  
  Attempts to change this property while (running == TRUE) will be ignored.
@@ -202,38 +202,42 @@ extern NSString *const CameraVideoiOSDeviceAppleTVX; // "Apple TV (Unknown model
   */
 @property(nonatomic) OSType pixelFormat;
 
-// Starts capture from camera and waits until the first frame has
-// been received. Then sets 'running' and returns to caller.
-// Note that since this runs the runloop, it may deadlock if
-// a runloop task is invoked which waits on this this thread.
-// It is recommended to use -startAsync: instead.
-// In cases of error, 'running' will not be set on return.
+/// Starts capture from camera and waits until the first frame has
+/// been received. Then sets 'running' and returns to caller.
+/// Note that since this runs the runloop, it may deadlock if
+/// a runloop task is invoked which waits on this this thread.
+/// It is recommended to use -startAsync: instead.
+/// In cases of error, 'running' will not be set on return.
 - (void) start;
 
-// Starts capture from camera, sets 'running' and returns to caller
-// immediately. Once the first frame has been received, invokes
-// 'completion' on main queue.
-// In cases of error, 'running' will not be set on return.
+/// Starts capture from camera, sets 'running' and returns to caller
+/// immediately. Once the first frame has been received, invokes
+/// 'completion' on main queue.
+/// In cases of error, 'running' will not be set on return.
 - (void) startAsync:(CameraVideoStartAsyncCompletionBlock)completion;
 
 // Set once -start or -startAsync: has been called successfully.
 @property(nonatomic, readonly) BOOL running;
 @property(nonatomic) BOOL pause;
 
-// The delegate which gets call each time a new frame is available, and its userdata.
-// See discussion of CameraVideoTookPictureDelegate above.
+/// The delegate which gets call each time a new frame is available, and its userdata.
+/// @see CameraVideoTookPictureDelegate.
 @property(nonatomic, assign) id <CameraVideoTookPictureDelegate> tookPictureDelegate;
 @property(nonatomic, assign) void *tookPictureDelegateUserData;
 
-// These values are valid only once the first frame has been received.
-// When invalid, they return 0.
-// When a multi-planar format is in use, these are the same as calling
-// -widthOfPlane:0, -heightOfPlane:0 or -bytesPerRowOfPlane:0.
+/// Frame width. Valid only once the first frame has been received. 0 when invalid.
+/// When a multi-planar format is in use, ths is the same as calling -widthOfPlane:0.
 @property(nonatomic, readonly) size_t width;
+/// Frame height. Valid only once the first frame has been received. 0 when invalid.
+/// When a multi-planar format is in use, ths is the same as calling -heightOfPlane:0
+/// -widthOfPlane:0,  or -bytesPerRowOfPlane:0.
 @property(nonatomic, readonly) size_t height;
+/// Frame bytes per row. Valid only once the first frame has been received. 0 when invalid.
+/// When a multi-planar format is in use, ths is the same as calling -bytesPerRowOfPlane:0.
 @property(nonatomic, readonly) size_t bytesPerRow;
 
-@property(nonatomic, readonly) size_t planeCount; // 0 for non-planar formats, or number of planes (will be 2 for kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange and kCVPixelFormatType_420YpCbCr8BiPlanarFullRange.
+/// 0 for non-planar formats, or number of planes (will be 2 for kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange and kCVPixelFormatType_420YpCbCr8BiPlanarFullRange.
+@property(nonatomic, readonly) size_t planeCount;
 - (size_t)widthOfPlane:(unsigned int)plane;
 - (size_t)heightOfPlane:(unsigned int)plane;
 - (size_t)bytesPerRowOfPlane:(unsigned int)plane;
@@ -241,34 +245,45 @@ extern NSString *const CameraVideoiOSDeviceAppleTVX; // "Apple TV (Unknown model
 @property(nonatomic) BOOL flipV;
 @property(nonatomic) BOOL flipH;
 
-// Invoke this method to request the capture of a high resolution photo from the video
-// stream. If successful, the CameraVideoTookPictureDelegate delegate protocol
-// method -cameravideoTookPictureHires:userData:jpegData: will be invoked, so make
-// sure you've set the delegate before invocation.
+/// Invoke this method to request the capture of a high resolution photo from the video
+/// stream. If successful, the CameraVideoTookPictureDelegate delegate protocol
+/// method -cameravideoTookPictureHires:userData:jpegData: will be invoked, so make
+/// sure you've set the delegate before invocation.
+/// @see takePhotoViaNotification Can also do the same thing, just from a notification.
 - (void) takePhoto;
-// You can also do the same thing, just from a notification with this method.
+
+/// @see takePhoto for discussion.
 - (void) takePhotoViaNotification:(NSNotification *)notification;
 
-// If set, when the next frame arrives it will be saved to the user's camera roll.
-// Only supported when using 32-bit RGB pixel formats, e.g. pixelFormat = kCVPixelFormatType_32BGRA.
+/// If set, when the next frame arrives it will be saved to the user's camera roll, and then the value will be reset.
+/// Only supported when using 32-bit RGB pixel formats, e.g. pixelFormat = kCVPixelFormatType_32BGRA.
 @property BOOL willSaveNextFrame;
 
-// Sets focus mode. When mode == AVCaptureFocusModeAutoFocus, then coords must be a
-// valid 2D coordinate in pixels, with 0,0 at the top-left of the frame where the frame
-// is considered upright when the device is held in landscape mode with the home button on the right.
-// Note that this DOES NOT give a visual indication of the focus point; that is up to the
-// caller to display, should he or she wish to.
+/// Sets focus mode. When mode == AVCaptureFocusModeAutoFocus, then coords must be a
+/// valid 2D coordinate in pixels, with 0,0 at the top-left of the frame where the frame
+/// is considered upright when the device is held in landscape mode with the home button on the right.
+/// Note that this DOES NOT give a visual indication of the focus point; that is up to the
+/// caller to display, should he or she wish to.
 - (BOOL) setFocus:(AVCaptureFocusMode)mode atPixelCoords:(CGPoint)coords;
 
-// Get a pointer to the most recent frame.
-// If timestampOut is non-NULL, it will be filled with a timestamp using the same
-// timebase as CVGetCurrentHostTime().
+/// Fills p with OpenGL-style (4x4 column-major) projection matrix representing pespective projection with current camera field-of-view.
+/// Returns TRUE if perspective matrix is available, FALSE if retrieval of camera intrinsics is not supported.
+- (BOOL) perspectiveMatrix:(float [16])p nearplane:(float)zNear farPlane:(float)zFar;
+
+/// Returns camera field of view in y dimension, in radians.
+/// To get the value in degrees, multiply by (180.0f/M_PI).
+/// Returns 0.0f if retrieval of camera intrinsics is not supported.
+@property(nonatomic, readonly) float fieldOfViewY;
+
+/// Get a pointer to the most recent frame.
+/// If timestampOut is non-NULL, it will be filled with a timestamp using the same
+/// timebase as CVGetCurrentHostTime().
 - (unsigned char *) frameTimestamp:(UInt64 *)timestampOut;
 
-// Get a pointer to the most recent only if it is newer than 'timestamp'.
-// Otherwise returns NULL.
-// If timestampOut is non-NULL, it will be filled with a timestamp using the same
-// timebase as CVGetCurrentHostTime().
+/// Get a pointer to the most recent only if it is newer than 'timestamp'.
+/// Otherwise returns NULL.
+/// If timestampOut is non-NULL, it will be filled with a timestamp using the same
+/// timebase as CVGetCurrentHostTime().
 - (unsigned char *) frameTimestamp:(UInt64 *)timestampOut ifNewerThanTimestamp:(UInt64)timestamp;
 
 - (BOOL) framePlanes:(unsigned char **)bufDataPtrs count:(size_t)count timestamp:(UInt64 *)timestampOut;
