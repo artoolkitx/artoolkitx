@@ -357,7 +357,7 @@ AR2VideoParamT *ar2VideoOpenAsync(const char *config_in, void (*callback)(void *
     vid->module = ar2VideoGetModuleWithConfig(config, &configStringFollowingDevice);
 
     if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
-#ifdef ARVIDEO_INPUT_EXTENAL
+#ifdef ARVIDEO_INPUT_EXTERNAL
         if ((vid->moduleParam = (void *)ar2VideoOpenAsyncExternal(config, callback, userdata)) != NULL) return vid;
 #else
         ARLOGe("ar2VideoOpenAsync: Error: module \"External\" not supported on this build/architecture/system.\n");
@@ -398,7 +398,7 @@ int ar2VideoClose(AR2VideoParamT *vid)
         ret = ar2VideoCloseDummy((AR2VideoParamDummyT *)vid->moduleParam);
     }
 #endif
-#ifdef ARVIDEO_INPUT_EXTENAL
+#ifdef ARVIDEO_INPUT_EXTERNAL
     if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
         ret = ar2VideoCloseExternal((AR2VideoParamExternalT *)vid->moduleParam);
     }
