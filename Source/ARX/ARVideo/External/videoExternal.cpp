@@ -309,7 +309,7 @@ AR2VideoParamExternalT *ar2VideoOpenAsyncExternal(const char *config, void (*cal
     err_i = pthread_create(&t, &attr, openAsyncThread, vid);
     pthread_attr_destroy(&attr);
     if (err_i != 0) {
-        ARLOGe("ar2VideoOpenAsyncExternal(): pthread_create error %d.\n");
+        ARLOGe("ar2VideoOpenAsyncExternal(): pthread_create error %s (%d).\n", strerror(err_i), err_i);
         goto bail1;
     }
 
@@ -353,8 +353,9 @@ static void *openAsyncThread(void *arg)
         struct timespec ts;
         ts.tv_sec = sec + 2;
         ts.tv_nsec = usec * 1000;
-        if ((err = pthread_cond_timedwait(&(vid->pushInitedCond), &(vid->frameLock), &ts)) != 0) {
-            ARLOGe("openAsyncThread(): pthread_cond_timedwait error %d.\n", err);
+        err = pthread_cond_timedwait(&(vid->pushInitedCond), &(vid->frameLock), &ts);
+        if (err != ETIMEDOUT && err != 0) {
+            ARLOGe("openAsyncThread(): pthread_cond_timedwait error %s (%d).\n", strerror(err), err);
             break;
         }
     }
@@ -760,7 +761,7 @@ int ar2VideoPushInitExternal(AR2VideoParamExternalT *vid, int width, int height,
 done:
     pthread_mutex_unlock(&(vid->frameLock));
     if ((err = pthread_cond_signal(&(vid->pushInitedCond))) != 0) {
-        ARLOGe("ar2VideoPushInitAndroid(): pthread_cond_signal error %d.\n", err);
+        ARLOGe("ar2VideoPushInitAndroid(): pthread_cond_signal error %s (%d).\n", strerror(err), err);
     }
     return (ret);
 
