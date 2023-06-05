@@ -432,11 +432,11 @@ bool ARVideoSource::getFrameTextureRGBA32(uint32_t *buffer) {
     return true;
 }
 
-int ARVideoSource::arVideoPushInit(int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition)
+int ARVideoSource::videoPushInit(int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition)
 {
     if (deviceState == DEVICE_GETTING_READY) return 0; // This path will be exercised if another frame arrives while we're waiting for the callback.
     else if (deviceState != DEVICE_OPEN) {
-        ARLOGe("ARVideoSource::arVideoPushInit: Error: device not open.\n");
+        ARLOGe("ARVideoSource::videoPushInit: Error: device not open.\n");
         return -1;
     }
     deviceState = DEVICE_GETTING_READY;
@@ -444,7 +444,7 @@ int ARVideoSource::arVideoPushInit(int width, int height, const char *pixelForma
     return (ar2VideoPushInit(m_vid, width, height, pixelFormat, cameraIndex, cameraPosition));
 }
 
-int ARVideoSource::arVideoPush(ARUint8 *buf0p, long buf0Size, int buf0PixelStride, int buf0RowStride,
+int ARVideoSource::videoPush(ARUint8 *buf0p, long buf0Size, int buf0PixelStride, int buf0RowStride,
                                ARUint8 *buf1p, long buf1Size, int buf1PixelStride, int buf1RowStride,
                                ARUint8 *buf2p, long buf2Size, int buf2PixelStride, int buf2RowStride,
                                ARUint8 *buf3p, long buf3Size, int buf3PixelStride, int buf3RowStride)
@@ -454,10 +454,10 @@ int ARVideoSource::arVideoPush(ARUint8 *buf0p, long buf0Size, int buf0PixelStrid
     return (ar2VideoPush(m_vid, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride));
 }
 
-int ARVideoSource::arVideoPushFinal(void)
+int ARVideoSource::videoPushFinal(void)
 {
     if (deviceState == DEVICE_CLOSED) {
-        ARLOGe("ARVideoSource::arVideoPushFinal: Error: device not open.\n");
+        ARLOGe("ARVideoSource::videoPushFinal: Error: device not open.\n");
         return -1;
     }
 

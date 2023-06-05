@@ -45,7 +45,7 @@
 
 /**
  * \file ARToolKitWrapperExportedAPI.h
- * Defines functions that provide a C-compatible API. These functions are accessible to 
+ * Defines functions that provide a C-compatible API. These functions are accessible to
  * other C applications, as well as languages like C#.
  */
 #ifdef __cplusplus
@@ -60,7 +60,7 @@ extern "C" {
 	ARX_EXTERN void arwRegisterLogCallback(PFN_LOGCALLBACK callback);
 
     ARX_EXTERN void arwSetLogLevel(const int logLevel);
-    
+
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  artoolkitX lifecycle functions
     // ----------------------------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ extern "C" {
      * @return			enum with error code.
      */
     ARX_EXTERN int arwGetError();
-    
+
 	/**
 	 * Changes the working directory to the resources directory used by artoolkitX.
      * Normally, this would be called immediately after arwInitialiseAR()
@@ -111,7 +111,7 @@ extern "C" {
 	 * @see				arwInitialiseAR()
 	 */
 	ARX_EXTERN bool arwChangeToResourcesDir(const char *resourcesDirectoryPath);
-    
+
 	/**
 	 * Initialises and starts video capture.
 	 * @param vconf		The video configuration string
@@ -120,7 +120,7 @@ extern "C" {
 	 * @see				arwStopRunning()
 	 */
 	ARX_EXTERN bool arwStartRunning(const char *vconf, const char *cparaName);
-	
+
 	/**
 	 * Initialises and starts video capture.
 	 * @param vconf		The video configuration string
@@ -132,7 +132,7 @@ extern "C" {
 	ARX_EXTERN bool arwStartRunningB(const char *vconf, const char *cparaBuff, const int cparaBuffLen);
 
     ARX_EXTERN bool arwStartRunningStereo(const char *vconfL, const char *cparaNameL, const char *vconfR, const char *cparaNameR, const char *transL2RName);
-    
+
     ARX_EXTERN bool arwStartRunningStereoB(const char *vconfL, const char *cparaBuffL, const int cparaBuffLenL, const char *vconfR, const char *cparaBuffR, int cparaBuffLenR, const char *transL2RBuff, const int transL2RBuffLen);
 
 	/**
@@ -163,7 +163,7 @@ extern "C" {
 	 * @see				arwInitialiseAR()
 	 */
 	ARX_EXTERN bool arwShutdownAR();
-    
+
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  Video stream management
     // ----------------------------------------------------------------------------------------------------
@@ -176,7 +176,7 @@ extern "C" {
 	 * @return          true if successful, false if an error occurred
 	 */
 	ARX_EXTERN bool arwGetProjectionMatrix(const float nearPlane, const float farPlane, float p[16]);
-    
+
 	/**
 	 * Populates the given float arrays with the projection matrices computed from camera parameters for each of the stereo video sources.
      * @param nearPlane Near plane distance for projection matrix calculation.
@@ -186,7 +186,7 @@ extern "C" {
 	 * @return          true if successful, false if an error occurred
 	 */
 	ARX_EXTERN bool arwGetProjectionMatrixStereo(const float nearPlane, const float farPlane, float pL[16], float pR[16]);
-	
+
 	/**
 	 * Returns the parameters of the video source frame.
      * @param width Pointer to an int which will be filled with the width (in pixels) of the video frame, or NULL if this information is not required.
@@ -198,7 +198,7 @@ extern "C" {
 	 * @see				arwGetVideoParamsStereo
 	 */
 	ARX_EXTERN bool arwGetVideoParams(int *width, int *height, int *pixelSize, char *pixelFormatStringBuffer, int pixelFormatStringBufferLen);
-    
+
 	/**
 	 * Returns the parameters of the video source frames.
      * @param widthL Pointer to an int which will be filled with the width (in pixels) of the video frame, or NULL if this information is not required.
@@ -215,13 +215,13 @@ extern "C" {
 	 * @see				arwGetVideoParams
 	 */
 	ARX_EXTERN bool arwGetVideoParamsStereo(int *widthL, int *heightL, int *pixelSizeL, char *pixelFormatStringBufferL, int pixelFormatStringBufferLenL, int *widthR, int *heightR, int *pixelSizeR, char *pixelFormatStringBufferR, int pixelFormatStringBufferLenR);
-    
+
 	/**
 	 * Captures a newest frame from the video source.
 	 * @return			true if successful, false if an error occurred
 	 */
 	ARX_EXTERN bool arwCapture();
-	
+
 	/**
 	 * Performs tracking and trackable updates. The newest frame from the video source is retrieved and
 	 * analysed. All loaded trackables are updated.
@@ -232,13 +232,13 @@ extern "C" {
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  Video push interface.
     // ----------------------------------------------------------------------------------------------------
-    ARX_EXTERN int arVideoPushInit(int videoSourceIndex, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition);
-    ARX_EXTERN int arVideoPush(int videoSourceIndex,
+    ARX_EXTERN int arwVideoPushInit(int videoSourceIndex, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition);
+    ARX_EXTERN int arwVideoPush(int videoSourceIndex,
                                uint8_t *buf0p, long buf0Size, int buf0PixelStride, int buf0RowStride,
                                uint8_t *buf1p, long buf1Size, int buf1PixelStride, int buf1RowStride,
                                uint8_t *buf2p, long buf2Size, int buf2PixelStride, int buf2RowStride,
                                uint8_t *buf3p, long buf3Size, int buf3PixelStride, int buf3RowStride);
-    ARX_EXTERN int arVideoPushFinal(int videoSourceIndex);
+    ARX_EXTERN int arwVideoPushFinal(int videoSourceIndex);
 
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  Video stream retrieval and/or drawing.
@@ -253,7 +253,7 @@ extern "C" {
      * @return            true if successful, false if an error occurred
      */
     ARX_EXTERN bool arwUpdateTexture32(uint32_t *buffer);
-    
+
     /**
      * Asks the video source to push the most recent stereo frame into the passed-in buffer.
      * @param bufferL Pointer to a buffer of pixels (of type 'uint32_t') to be filled with video
@@ -267,7 +267,7 @@ extern "C" {
      * @return            true if successful, false if an error occurred
      */
     ARX_EXTERN bool arwUpdateTexture32Stereo(uint32_t *bufferL, uint32_t *bufferR);
-    
+
     /**
      * Initialise drawing of video frames in a graphics context.
      *
@@ -290,7 +290,7 @@ extern "C" {
      * @see arwDrawVideoFinal
      */
     ARX_EXTERN bool arwDrawVideoInit(const int videoSourceIndex);
-    
+
     /**
      * Specifies desired horizontal alignment of video frames in drawing graphics context.
      */
@@ -299,7 +299,7 @@ extern "C" {
         ARW_H_ALIGN_CENTRE,     ///< Align the centre of the video frame with the centre of the context.
         ARW_H_ALIGN_RIGHT       ///< Align the right edge of the video frame with the right edge of the context.
     };
-    
+
     /**
      * Specifies desired vertical alignment of video frames in drawing graphics context.
      */
@@ -308,7 +308,7 @@ extern "C" {
         ARW_V_ALIGN_CENTRE,     ///< Align the centre of the video frame with the centre of the context.
         ARW_V_ALIGN_BOTTOM      ///< Align the bottom edge of the video frame with the bottom edge of the context.
     };
-    
+
     /**
      * Specifies desired scaling of video frames to drawing graphics context.
      */
@@ -318,7 +318,7 @@ extern "C" {
         ARW_SCALE_MODE_STRETCH, ///< Scale the video frame non-proportionally up or down so that it matches exactly the size of the graphics context. If the frame and the context have different aspect ratios, the frame will appear stretched or squashed.
         ARW_SCALE_MODE_1_TO_1   ///< Do not scale the video frame. One pixel of the video frame will be represented by one pixel of the graphics context.
     };
-    
+
     /**
      * Specify the layout of the graphics context in which drawing of video frames will occur.
      *
@@ -365,7 +365,7 @@ extern "C" {
      * @see arwDrawVideoFinal
      */
     ARX_EXTERN bool arwDrawVideoSettings(int videoSourceIndex, int width, int height, bool rotate90, bool flipH, bool flipV, int hAlign, int vAlign, int scalingMode, int32_t viewport[4]);
-    
+
     /**
      * Draws the latest frame from the video source in the active graphics context.
      *
@@ -385,7 +385,7 @@ extern "C" {
      * @see arwDrawVideoSettings
      */
     ARX_EXTERN bool arwDrawVideo(const int videoSourceIndex);
-    
+
     /**
      * Finalise drawing of video frames in a graphics context.
      *
@@ -402,7 +402,7 @@ extern "C" {
      * @see arwDrawVideoInit
      */
     ARX_EXTERN bool arwDrawVideoFinal(const int videoSourceIndex);
-    
+
 	// ----------------------------------------------------------------------------------------------------
 #pragma mark  Tracking configuration
     // ----------------------------------------------------------------------------------------------------
@@ -427,49 +427,49 @@ extern "C" {
         ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES_DEFAULT_WIDTH = 14, ///< If ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES is true, this value will be used for the initial width of new trackables for unmatched markers. Defaults to 80.0f. float.
         ARW_TRACKER_OPTION_2D_THREADED = 15,                           ///< bool, If false, 2D tracking updates synchronously, and arwUpdateAR will not return until 2D tracking is complete. If true, 2D tracking updates asychronously on a secondary thread, and arwUpdateAR will not block if the track is busy. Defaults to true.
     };
-    
+
     /**
      * Set boolean options associated with a tracker.
      * @param option Symbolic constant identifying tracker option to set.
      * @param value The value to set it to.
      */
     ARX_EXTERN void arwSetTrackerOptionBool(int option, bool value);
-    
+
     /**
      * Set integer options associated with a tracker.
      * @param option Symbolic constant identifying tracker option to set.
      * @param value The value to set it to.
      */
     ARX_EXTERN void arwSetTrackerOptionInt(int option, int value);
-    
+
     /**
      * Set floating-point options associated with a tracker.
      * @param option Symbolic constant identifying tracker option to set.
      * @param value The value to set it to.
      */
     ARX_EXTERN void arwSetTrackerOptionFloat(int option, float value);
-    
+
     /**
      * Get boolean options associated with a tracker.
      * @param option Symbolic constant identifying tracker option to get.
      * @return true if option is set, false if option is not set or an error occurred.
      */
     ARX_EXTERN bool arwGetTrackerOptionBool(int option);
-    
+
     /**
      * Get integer options associated with a tracker.
      * @param option Symbolic constant identifying tracker option to get.
      * @return integer value of option, or INT_MAX if an error occurred.
      */
     ARX_EXTERN int arwGetTrackerOptionInt(int option);
-    
+
     /**
      * Get floating-point options associated with a tracker.
      * @param option Symbolic constant identifying tracker option to get.
      * @return floating-point value of option, or NAN if an error occurred.
      */
     ARX_EXTERN float arwGetTrackerOptionFloat(int option);
-    
+
     // ----------------------------------------------------------------------------------------------------
 #pragma mark  Trackable management
     // ----------------------------------------------------------------------------------------------------
@@ -503,7 +503,7 @@ extern "C" {
      * @return          The number of trackables currently loaded, or -1 in case of error.
      */
     ARX_EXTERN int arwGetTrackableCount(void);
-    
+
     /**
      * Gets status of trackables.
      * @param statuses Pointer to the first element of an array of trackable statuses. This array should be allocated by the caller.
@@ -520,16 +520,16 @@ extern "C" {
 	 * @return			true if the trackable was removed, false if an error occurred
 	 */
 	ARX_EXTERN bool arwRemoveTrackable(int trackableUID);
-	
+
 	/**
 	 * Clears the collection of trackables.
 	 * @return			The number of trackables removed
 	 */
 	ARX_EXTERN int arwRemoveAllTrackables();
-    
+
 	/**
 	 * Returns the visibility and pose of the specified trackable.
-	 * 
+	 *
 	 * After a call to arwUpdate, all trackable information will be current. Any trackable can
 	 * then be checked for visibility in the current frame, and if visible, additionally
 	 * queried for its pose.
@@ -538,7 +538,7 @@ extern "C" {
 	 * @return			true if the specified trackable is visible, false if not, or an error occurred.
 	 */
 	ARX_EXTERN bool arwQueryTrackableVisibilityAndTransformation(int trackableUID, float matrix[16]);
-    
+
 	/**
 	 * Returns the visibility and stereo pose of the specified trackable.
 	 *
@@ -551,7 +551,7 @@ extern "C" {
 	 * @return			true if the specified trackable is visible, false if not, or an error occurred
 	 */
 	ARX_EXTERN bool arwQueryTrackableVisibilityAndTransformationStereo(int trackableUID, float matrixL[16], float matrixR[16]);
-	
+
 	/**
 	 * Returns the number of pattern images associated with the specified trackable. A single square marker trackable has
      * one pattern image. A multi-square marker trackable has one or more pattern images.
@@ -560,7 +560,7 @@ extern "C" {
 	 * @return			The number of pattern images.
 	 */
 	ARX_EXTERN int arwGetTrackablePatternCount(int trackableUID);
-	
+
 	/**
 	 * Gets configuration of a pattern associated with a trackable.
 	 * @param trackableUID	The unique identifier (UID) of the trackable
@@ -573,7 +573,7 @@ extern "C" {
 	 * @return			true if successful, false if an error occurred
 	 */
 	ARX_EXTERN bool arwGetTrackablePatternConfig(int trackableUID, int patternID, float matrix[16], float *width, float *height, int *imageSizeX, int *imageSizeY);
-	
+
 	/**
 	 * Gets a pattern image associated with a trackable. The provided color buffer is populated with the image of the
 	 * pattern for the specified trackable. If the trackable is a multi-square marker, then the pattern image specified
@@ -588,7 +588,7 @@ extern "C" {
 	 * @return			true if successful, false if an error occurred
 	 */
 	ARX_EXTERN bool arwGetTrackablePatternImage(int trackableUID, int patternID, uint32_t *buffer);
-    
+
     /**
      * Constants for use with trackable option setters/getters.
      */
@@ -626,7 +626,7 @@ extern "C" {
      * @param value The value to set it to.
      */
     ARX_EXTERN void arwSetTrackableOptionBool(int trackableUID, int option, bool value);
-    
+
 	/**
 	 * Set integer options associated with a trackable.
 	 * @param trackableUID	The unique identifier (UID) of the trackable
@@ -634,7 +634,7 @@ extern "C" {
      * @param value The value to set it to.
      */
     ARX_EXTERN void arwSetTrackableOptionInt(int trackableUID, int option, int value);
-    
+
 	/**
 	 * Set floating-point options associated with a trackable.
 	 * @param trackableUID	The unique identifier (UID) of the trackable
@@ -650,7 +650,7 @@ extern "C" {
 	 * @return true if option is set, false if option is not set or an error occurred.
      */
     ARX_EXTERN bool arwGetTrackableOptionBool(int trackableUID, int option);
-    
+
 	/**
 	 * Get integer options associated with a trackable.
 	 * @param trackableUID	The unique identifier (UID) of the trackable
@@ -658,7 +658,7 @@ extern "C" {
 	 * @return integer value of option, or INT_MIN if an error occurred.
      */
     ARX_EXTERN int arwGetTrackableOptionInt(int trackableUID, int option);
-    
+
 	/**
 	 * Get floating-point options associated with a trackable.
 	 * @param trackableUID	The unique identifier (UID) of the trackable
