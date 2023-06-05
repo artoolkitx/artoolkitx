@@ -685,7 +685,7 @@ int ar2VideoPushInitExternal(AR2VideoParamExternalT *vid, int width, int height,
     int err;
     int ret = -1;
 
-    ARLOGd("ar2VideoPushInitExternal(): called with %s camera at %dx%d (%s).\n", (cameraPosition == AR_VIDEO_POSITION_FRONT ? "front" : "back"), width, height, pixelFormat);
+    ARLOGd("ar2VideoPushInitExternal(): %s camera at %dx%d (%s).\n", (cameraPosition == AR_VIDEO_POSITION_FRONT ? "front" : "back"), width, height, pixelFormat);
 
     if (!vid || width <= 0 || height <= 0 || !pixelFormat) return (-1); // Sanity check.
 
@@ -775,6 +775,8 @@ int ar2VideoPushExternal(AR2VideoParamExternalT *vid,
 {
     int ret = -1;
     if (!vid) return -1; // Sanity check.
+
+    //ARLOGd("ar2VideoPushExternal(buf0p=%p, buf0Size=%d, buf0PixelStride=%d, buf0RowStride=%d, buf1p=%p, buf1Size=%d, buf1PixelStride=%d, buf1RowStride=%d, buf2p=%p, buf2Size=%d, buf2PixelStride=%d, buf2RowStride=%d, buf3p=%p, buf3Size=%d, buf3PixelStride=%d, buf3RowStride=%d)\n", buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
 
     pthread_mutex_lock(&(vid->frameLock));
     if (!vid->pushInited || !vid->capturing) goto done; // Both ar2VideoPushInitExternal AND ar2VideoCapStartExternal must have been called.
@@ -880,6 +882,8 @@ done:
 
 int ar2VideoPushFinalExternal(AR2VideoParamExternalT *vid)
 {
+    ARLOGd("ar2VideoPushFinalExternal()\n");
+
     int ret = -1;
 
     if (!vid) return -1; // Sanity check.

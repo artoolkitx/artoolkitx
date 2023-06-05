@@ -849,7 +849,7 @@ int ARController::videoPush(int videoSourceIndex,
     if (!vs) {
         ARLOGe("ARController::videoPush: no ARVideoSource.\n");
     } else {
-        if (vs->isRunning()) {
+        if (vs->isOpen()) {
             ret = vs->videoPush(buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
         } else {
             ARLOGe("ARController::videoPush: ARVideoSource is not running.\n");
