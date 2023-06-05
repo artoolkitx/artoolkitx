@@ -65,7 +65,8 @@ struct _AR2VideoParamAVFoundationT  {
     videoAVFoundationCameraVideoTookPictureDelegate *cameraVideoTookPictureDelegate;
     AR_VIDEO_FRAME_READY_CALLBACK frameReadyCallback;
     void *frameReadyUserdata;
-    AR_VIDEO_AVFOUNDATION_FOCUS_PRESET focus;
+    AR_VIDEO_AVFOUNDATION_FOCUS_PRESET focalLengthPreset;
+    float              focalLength;
     float              focusPointOfInterestX;
     float              focusPointOfInterestY;
     BOOL               itsAMovie;
@@ -108,6 +109,12 @@ int ar2VideoDispOptionAVFoundation( void )
     ARPRINT("    \"Multithreaded\", i.e. allow new frame callbacks on non-main thread.\n");
     //ARPRINT(" -[no]fliph\n");
     //ARPRINT("    Flip camera image horizontally.\n");
+    ARPRINT(" -cachedir=/path/to/cparam_cache.db\n");
+    ARPRINT("    Specifies the path in which to look for/store camera parameter cache files.\n");
+    ARPRINT("    Default is app's cache directory\n");
+    ARPRINT(" -cacheinitdir=/path/to/cparam_cache_init.db\n");
+    ARPRINT("    Specifies the path in which to look for/store initial camera parameter cache file.\n");
+    ARPRINT("    Default is app's bundle directory.\n");
     ARPRINT("\n");
 
     return 0;
@@ -287,11 +294,19 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
                         preset = AVCaptureSessionPresetLow;
                         ARLOGi("Requesting capture session preset 'low'.\n");
                     } else if (strcmp(b+8, "1080p") == 0) {
-                        preset = AVCaptureSessionPreset1920x1080;
-                        ARLOGi("Requesting capture session preset '1080p'.\n");
+                        if (@available(macos 10.15, ios 5.0, macCatalyst 14.0, *)) {
+                            preset = AVCaptureSessionPreset1920x1080;
+                            ARLOGi("Requesting capture session preset '1080p'.\n");
+                        } else {
+                            ARLOGw("Ignoring request for unsupported 1920x1080 format.\n");
+                        }
                     } else if (strcmp(b+8, "2160p") == 0) {
-                        preset = AVCaptureSessionPreset3840x2160;
-                        ARLOGi("Requesting capture session preset '2160p'.\n");
+                        if (@available(macos 10.15, ios 9.0, macCatalyst 14.0, *)) {
+                            preset = AVCaptureSessionPreset3840x2160;
+                            ARLOGi("Requesting capture session preset '2160p'.\n");
+                        } else {
+                            ARLOGw("Ignoring request for unsupported 3840x2160 format.\n");
+                        }
                     } else if (strcmp(b+8, "720p") == 0) {
                         preset = AVCaptureSessionPreset1280x720;
                         ARLOGi("Requesting capture session preset '720p'.\n");
@@ -465,10 +480,10 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
                 ARLOGi("Requesting capture session preset '540p'.\n");
 #endif
             } else if (width == 1920 && height == 1080) {
-                preset = AVCaptureSessionPreset1920x1080;
+                if (@available(macos 10.15, ios 5.0, macCatalyst 14.0, *)) preset = AVCaptureSessionPreset1920x1080;
                 ARLOGi("Requesting capture session preset '1080p'.\n");
-            } else if (width == 3840 && height == 2160) {
-                preset = AVCaptureSessionPreset3840x2160;
+            } else if (width == 3840 && height == 2160 ) {
+                if (@available(macos 10.15, ios 9.0, macCatalyst 14.0, *)) preset = AVCaptureSessionPreset3840x2160;
                 ARLOGi("Requesting capture session preset '2160p'.\n");
             }
         } 
@@ -500,6 +515,8 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
 
     arMallocClear(vid, AR2VideoParamAVFoundationT, 1);
     vid->focusPointOfInterestX = vid->focusPointOfInterestY = -1.0f;
+    vid->focalLengthPreset = AR_VIDEO_AVFOUNDATION_FOCUS_NONE;
+    vid->focalLength = 0.0f;
     
     // Init the CameraVideo object.
     vid->cameraVideo = [[CameraVideo alloc] init];
@@ -874,7 +891,7 @@ int ar2VideoGetParamiAVFoundation( AR2VideoParamAVFoundationT *vid, int paramNam
             } else return (-1);
             break;
         case AR_VIDEO_PARAM_AVFOUNDATION_FOCUS_PRESET:
-            *value = vid->focus;
+            *value = vid->focalLengthPreset;
             break;
         case AR_VIDEO_PARAM_AVFOUNDATION_CAMERA_POSITION:
             if (vid->cameraVideo) {
@@ -904,7 +921,8 @@ int ar2VideoSetParamiAVFoundation( AR2VideoParamAVFoundationT *vid, int paramNam
             break;
         case AR_VIDEO_PARAM_AVFOUNDATION_FOCUS_PRESET:
             if (value < 0) return (-1);
-            vid->focus = value;
+            vid->focalLengthPreset = value;
+            vid->focalLength = 0.0f;
             break;
         case AR_VIDEO_FOCUS_MODE:
             if (value == AR_VIDEO_FOCUS_MODE_FIXED) {
@@ -942,6 +960,31 @@ int ar2VideoGetParamdAVFoundation( AR2VideoParamAVFoundationT *vid, int paramNam
     if (!vid || !value) return (-1);
     
     switch (paramName) {
+        case AR_VIDEO_PARAM_CAMERA_FOCAL_LENGTH:
+        case AR_VIDEO_PARAM_ANDROID_FOCAL_LENGTH:
+            if (vid->focalLength > 0.0f) {
+                *value = vid->focalLength;
+            } else {
+                switch (vid->focalLengthPreset) {
+                    case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
+                        *value = INFINITY;
+                        break;
+                    case AR_VIDEO_AVFOUNDATION_FOCUS_1_0M:
+                        *value = 1.0;
+                        break;
+                    case AR_VIDEO_AVFOUNDATION_FOCUS_MACRO:
+                        *value = 0.01;
+                        break;
+                    case AR_VIDEO_AVFOUNDATION_FOCUS_0_3M:
+                        *value = 0.3;
+                        break;
+                    case AR_VIDEO_AVFOUNDATION_FOCUS_NONE:
+                    default:
+                        *value = 0.0;
+                        break;
+                }
+            }
+            break;
         default:
             return (-1);
     }
@@ -952,16 +995,33 @@ int ar2VideoSetParamdAVFoundation( AR2VideoParamAVFoundationT *vid, int paramNam
 {
     if (!vid) return (-1);
     
+    float valuef = (float)value;
     switch (paramName) {
         case AR_VIDEO_FOCUS_MANUAL_DISTANCE:
             ARLOGe("Error: request for manual focus but this mode not currently supported on iOS.\n");
             return (-1);
             break;
         case AR_VIDEO_FOCUS_POINT_OF_INTEREST_X:
-            vid->focusPointOfInterestX = (float)value;
+            vid->focusPointOfInterestX = valuef;
             break;
         case AR_VIDEO_FOCUS_POINT_OF_INTEREST_Y:
-            vid->focusPointOfInterestY = (float)value;
+            vid->focusPointOfInterestY = valuef;
+            break;
+        case AR_VIDEO_PARAM_CAMERA_FOCAL_LENGTH:
+        case AR_VIDEO_PARAM_ANDROID_FOCAL_LENGTH:
+            vid->focalLength = valuef;
+            // Also find the closest preset.
+            if (valuef <= 0.0f) {
+                vid->focalLengthPreset = AR_VIDEO_AVFOUNDATION_FOCUS_NONE;
+            } else if (valuef > 6.0f) {
+                vid->focalLengthPreset = AR_VIDEO_AVFOUNDATION_FOCUS_INF;
+            } else if (valuef < 0.05f) {
+                vid->focalLengthPreset = AR_VIDEO_AVFOUNDATION_FOCUS_MACRO;
+            } else if (valuef > 0.5f) {
+                vid->focalLengthPreset = AR_VIDEO_AVFOUNDATION_FOCUS_1_0M;
+            } else {
+                vid->focalLengthPreset = AR_VIDEO_AVFOUNDATION_FOCUS_0_3M;
+            }
             break;
         default:
             return (-1);
@@ -1043,7 +1103,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     vid->cameraVideo.captureSessionPreset == AVCaptureSessionPreset1280x720 ||
                     vid->cameraVideo.captureSessionPreset == AVCaptureSessionPreset1920x1080 ||
                     vid->cameraVideo.captureSessionPreset == AVCaptureSessionPresetiFrame960x540) {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPhone_4_rear_1280x720_inf;
                             cparamname = "camera_para_iPhone_4_rear_1280x720_inf.dat";
@@ -1063,7 +1123,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                             break;
                     }
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPhone_4_rear_640x480_inf;
                             cparamname = "camera_para_iPhone_4_rear_640x480_inf.dat";
@@ -1095,7 +1155,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     vid->cameraVideo.captureSessionPreset == AVCaptureSessionPreset1280x720 ||
                     vid->cameraVideo.captureSessionPreset == AVCaptureSessionPreset1920x1080 ||
                     vid->cameraVideo.captureSessionPreset == AVCaptureSessionPresetiFrame960x540) {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPhone_4S_rear_1280x720_inf;
                             cparamname = "camera_para_iPhone_4S_rear_1280x720_inf.dat";
@@ -1115,7 +1175,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                             break;
                     }
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPhone_4S_rear_640x480_inf;
                             cparamname = "camera_para_iPhone_4S_rear_640x480_inf.dat";
@@ -1150,7 +1210,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     cparambytes = camera_para_iPhone_5_front_1280x720;
                     cparamname = "camera_para_iPhone_5_front_1280x720.dat";
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPhone_5_rear_1280x720_inf;
                             cparamname = "camera_para_iPhone_5_rear_1280x720_inf.dat";
@@ -1175,7 +1235,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     cparambytes = camera_para_iPhone_5_front_640x480;
                     cparamname = "camera_para_iPhone_5_front_640x480.dat";
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPhone_5_rear_640x480_inf;
                             cparamname = "camera_para_iPhone_5_rear_640x480_inf.dat";
@@ -1205,7 +1265,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     cparambytes = camera_para_iPhone_5s_front_1280x720;
                     cparamname = "camera_para_iPhone_5s_front_1280x720.dat";
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPhone_5s_rear_1280x720_inf;
                             cparamname = "camera_para_iPhone_5s_rear_1280x720_inf.dat";
@@ -1230,7 +1290,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     cparambytes = camera_para_iPhone_5s_front_640x480;
                     cparamname = "camera_para_iPhone_5s_front_640x480.dat";
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPhone_5s_rear_640x480_inf;
                             cparamname = "camera_para_iPhone_5s_rear_640x480_inf.dat";
@@ -1292,7 +1352,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     cparambytes = camera_para_iPad_mini_3_front_1280x720;
                     cparamname = "camera_para_iPad_mini_3_front_1280x720.dat";
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPad_mini_3_rear_1280x720_inf;
                             cparamname = "camera_para_iPad_mini_3_rear_1280x720_inf.dat";
@@ -1317,7 +1377,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     cparambytes = camera_para_iPad_mini_3_front_640x480;
                     cparamname = "camera_para_iPad_mini_3_front_640x480.dat";
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPad_mini_3_rear_640x480_inf;
                             cparamname = "camera_para_iPad_mini_3_rear_640x480_inf.dat";
@@ -1347,7 +1407,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     cparambytes = camera_para_iPhone_6_Plus_front_1280x720;
                     cparamname = "camera_para_iPhone_6_Plus_front_1280x720.dat";
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPhone_6_Plus_rear_1280x720_inf;
                             cparamname = "camera_para_iPhone_6_Plus_rear_1280x720_inf.dat";
@@ -1372,7 +1432,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     cparambytes = camera_para_iPhone_6_Plus_front_640x480;
                     cparamname = "camera_para_iPhone_6_Plus_front_640x480.dat";
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPhone_6_Plus_rear_640x480_inf;
                             cparamname = "camera_para_iPhone_6_Plus_rear_640x480_inf.dat";
@@ -1467,7 +1527,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     cparambytes = camera_para_iPad_Air_2_front_1280x720;
                     cparamname = "camera_para_iPad_Air_2_front_1280x720.dat";
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPad_Air_2_rear_1280x720_inf;
                             cparamname = "camera_para_iPad_Air_2_rear_1280x720_inf.dat";
@@ -1492,7 +1552,7 @@ int ar2VideoGetCParamAVFoundation(AR2VideoParamAVFoundationT *vid, ARParam *cpar
                     cparambytes = camera_para_iPad_Air_2_front_640x480;
                     cparamname = "camera_para_iPad_Air_2_front_640x480.dat";
                 } else {
-                    switch (vid->focus) {
+                    switch (vid->focalLengthPreset) {
                         case AR_VIDEO_AVFOUNDATION_FOCUS_INF:
                             cparambytes = camera_para_iPad_Air_2_rear_640x480_inf;
                             cparamname = "camera_para_iPad_Air_2_rear_640x480_inf.dat";
@@ -1579,13 +1639,17 @@ int ar2VideoGetCParamAsyncAVFoundation(AR2VideoParamAVFoundationT *vid, void (*c
     }
 
     int camera_index = (vid->cameraVideo.captureDevicePosition == AVCaptureDevicePositionFront ? 1 : 0);
-    float focal_length = 0.0f;
-    switch (vid->focus) {
-        case AR_VIDEO_AVFOUNDATION_FOCUS_0_3M: focal_length = 0.3f; break;
-        case AR_VIDEO_AVFOUNDATION_FOCUS_1_0M: focal_length = 1.0f; break;
-        case AR_VIDEO_AVFOUNDATION_FOCUS_INF: focal_length = FLT_MAX; break;
-        case AR_VIDEO_AVFOUNDATION_FOCUS_MACRO: focal_length = 0.02f; break;
-        default: break;
+    float focalLength = 0.0f;
+    if (vid->focalLength > 0.0f) {
+        focalLength = vid->focalLength;
+    } else {
+        switch (vid->focalLengthPreset) {
+            case AR_VIDEO_AVFOUNDATION_FOCUS_0_3M: focalLength = 0.3f; break;
+            case AR_VIDEO_AVFOUNDATION_FOCUS_1_0M: focalLength = 1.0f; break;
+            case AR_VIDEO_AVFOUNDATION_FOCUS_INF: focalLength = INFINITY; break;
+            case AR_VIDEO_AVFOUNDATION_FOCUS_MACRO: focalLength = 0.01f; break;
+            default: break;
+        }
     }
     int width = 0, height = 0;
     if (ar2VideoGetSizeAVFoundation(vid, &width, &height) < 0) {
@@ -1596,7 +1660,7 @@ int ar2VideoGetCParamAsyncAVFoundation(AR2VideoParamAVFoundationT *vid, void (*c
     vid->cparamSearchCallback = callback;
     vid->cparamSearchUserdata = userdata;
     
-    CPARAM_SEARCH_STATE initialState = cparamSearch(vid->device_id, camera_index, width, height, focal_length, &cparamSeachCallback, (void *)vid);
+    CPARAM_SEARCH_STATE initialState = cparamSearch(vid->device_id, camera_index, width, height, focalLength, &cparamSeachCallback, (void *)vid);
     if (initialState != CPARAM_SEARCH_STATE_INITIAL) {
         ARLOGe("Error %d returned from cparamSearch.\n", initialState);
         vid->cparamSearchCallback = vid->cparamSearchUserdata = NULL;

@@ -99,7 +99,7 @@ bool arwGetARToolKitVersion(char *buffer, int length)
 {
 	if (!buffer) return false;
     if (!gARTK) return false;
-    
+
 	if (const char *version = gARTK->getARToolKitVersion()) {
 		strncpy(buffer, version, length - 1); buffer[length - 1] = '\0';
 		return true;
@@ -234,7 +234,7 @@ bool arwGetProjectionMatrixStereo(const float nearPlane, const float farPlane, f
 bool arwGetVideoParams(int *width, int *height, int *pixelSize, char *pixelFormatStringBuffer, int pixelFormatStringBufferLen)
 {
     AR_PIXEL_FORMAT pf;
-    
+
     if (!gARTK) return false;
 	if (!gARTK->videoParameters(0, width, height, &pf)) return false;
     if (pixelSize) *pixelSize = arUtilGetPixelSize(pf);
@@ -248,7 +248,7 @@ bool arwGetVideoParams(int *width, int *height, int *pixelSize, char *pixelForma
 bool arwGetVideoParamsStereo(int *widthL, int *heightL, int *pixelSizeL, char *pixelFormatStringBufferL, int pixelFormatStringBufferLenL, int *widthR, int *heightR, int *pixelSizeR, char *pixelFormatStringBufferR, int pixelFormatStringBufferLenR)
 {
     AR_PIXEL_FORMAT pfL, pfR;
-    
+
     if (!gARTK) return false;
 	if (!gARTK->videoParameters(0, widthL, heightL, &pfL)) return false;
 	if (!gARTK->videoParameters(1, widthR, heightR, &pfR)) return false;
@@ -290,33 +290,61 @@ bool arwUpdateTexture32Stereo(uint32_t *bufferL, uint32_t *bufferR)
 }
 
 // ----------------------------------------------------------------------------------------------------
+#pragma mark  Video push interface.
+// ----------------------------------------------------------------------------------------------------
+int arwVideoPushInit(int videoSourceIndex, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition)
+{
+    if (!gARTK) return -1;
+
+    return (gARTK->videoPushInit(videoSourceIndex, width, height, pixelFormat, cameraIndex, cameraPosition));
+}
+
+int arwVideoPush(int videoSourceIndex,
+                uint8_t *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
+                uint8_t *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
+                uint8_t *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
+                uint8_t *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride)
+{
+    if (!gARTK) return -1;
+
+    return (gARTK->videoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride));
+}
+
+int arwVideoPushFinal(int videoSourceIndex)
+{
+    if (!gARTK) return -1;
+
+    return (gARTK->videoPushFinal(videoSourceIndex));
+}
+
+// ----------------------------------------------------------------------------------------------------
 #pragma mark  Video stream drawing.
 // ----------------------------------------------------------------------------------------------------
 bool arwDrawVideoInit(const int videoSourceIndex)
 {
     if (!gARTK) return false;
-    
+
     return (gARTK->drawVideoInit(videoSourceIndex));
 }
 
 bool arwDrawVideoSettings(int videoSourceIndex, int width, int height, bool rotate90, bool flipH, bool flipV, int hAlign, int vAlign, int scalingMode, int32_t viewport[4])
 {
     if (!gARTK)return false;
-    
+
     return (gARTK->drawVideoSettings(videoSourceIndex, width, height, rotate90, flipH, flipV, (ARVideoView::HorizontalAlignment)hAlign, (ARVideoView::VerticalAlignment)vAlign, (ARVideoView::ScalingMode)scalingMode, viewport));
 }
 
 bool arwDrawVideo(const int videoSourceIndex)
 {
     if (!gARTK)return false;
-    
+
     return (gARTK->drawVideo(videoSourceIndex));
 }
 
 bool arwDrawVideoFinal(const int videoSourceIndex)
 {
     if (!gARTK) return false;
-    
+
     return (gARTK->drawVideoFinal(videoSourceIndex));
 }
 
@@ -327,7 +355,7 @@ bool arwDrawVideoFinal(const int videoSourceIndex)
 void arwSetTrackerOptionBool(int option, bool value)
 {
     if (!gARTK) return;
-    
+
     if (option == ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES) {
         gARTK->getSquareTracker()->setMatrixModeAutoCreateNewTrackables(value);
     } else if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
@@ -347,7 +375,7 @@ void arwSetTrackerOptionBool(int option, bool value)
 void arwSetTrackerOptionInt(int option, int value)
 {
     if (!gARTK) return;
-    
+
     if (option == ARW_TRACKER_OPTION_SQUARE_THRESHOLD) {
         if (value < 0 || value > 255) return;
         gARTK->getSquareTracker()->setThreshold(value);
@@ -380,7 +408,7 @@ void arwSetTrackerOptionInt(int option, int value)
 void arwSetTrackerOptionFloat(int option, float value)
 {
     if (!gARTK) return;
-    
+
     if (option == ARW_TRACKER_OPTION_SQUARE_BORDER_SIZE) {
         if (value <= 0.0f || value >= 0.5f) return;
         gARTK->getSquareTracker()->setPattRatio(1.0f - 2.0f*value); // Convert from border size to pattern ratio.
@@ -393,7 +421,7 @@ void arwSetTrackerOptionFloat(int option, float value)
 bool arwGetTrackerOptionBool(int option)
 {
     if (!gARTK) return false;
-    
+
     if (option == ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES) {
         return gARTK->getSquareTracker()->matrixModeAutoCreateNewTrackables();
     } else if (option == ARW_TRACKER_OPTION_NFT_MULTIMODE) {
@@ -413,7 +441,7 @@ bool arwGetTrackerOptionBool(int option)
 int arwGetTrackerOptionInt(int option)
 {
     if (!gARTK) return (INT_MAX);
-    
+
     if (option == ARW_TRACKER_OPTION_SQUARE_THRESHOLD) {
         return gARTK->getSquareTracker()->threshold();
     } else if (option == ARW_TRACKER_OPTION_SQUARE_THRESHOLD_MODE) {
@@ -445,7 +473,7 @@ int arwGetTrackerOptionInt(int option)
 float arwGetTrackerOptionFloat(int option)
 {
     if (!gARTK) return (NAN);
-    
+
     if (option == ARW_TRACKER_OPTION_SQUARE_BORDER_SIZE) {
         float value = gARTK->getSquareTracker()->pattRatio();
         if (value > 0.0f && value < 1.0f) return (1.0f - value)/2.0f; // Convert from pattern ratio to border size.
@@ -537,7 +565,7 @@ bool arwSave2dTrackableDatabase(const char *databaseFileName)
 bool arwQueryTrackableVisibilityAndTransformation(int trackableUID, float matrix[16])
 {
     std::shared_ptr<ARTrackable> trackable;
-    
+
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwQueryTrackableVisibilityAndTransformation(): Couldn't locate trackable with UID %d.\n", trackableUID);
@@ -550,7 +578,7 @@ bool arwQueryTrackableVisibilityAndTransformation(int trackableUID, float matrix
 bool arwQueryTrackableVisibilityAndTransformationStereo(int trackableUID, float matrixL[16], float matrixR[16])
 {
     std::shared_ptr<ARTrackable> trackable;
-    
+
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwQueryTrackableVisibilityAndTransformationStereo(): Couldn't locate trackable with UID %d.\n", trackableUID);
@@ -568,7 +596,7 @@ bool arwQueryTrackableVisibilityAndTransformationStereo(int trackableUID, float 
 int arwGetTrackablePatternCount(int trackableUID)
 {
     std::shared_ptr<ARTrackable> trackable;
-    
+
     if (!gARTK) return 0;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwGetTrackablePatternCount(): Couldn't locate trackable with UID %d.\n", trackableUID);
@@ -604,7 +632,7 @@ bool arwGetTrackablePatternConfig(int trackableUID, int patternID, float matrix[
 bool arwGetTrackablePatternImage(int trackableUID, int patternID, uint32_t *buffer)
 {
     std::shared_ptr<ARTrackable> trackable;
-    
+
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwGetTrackablePatternImage(): Couldn't locate trackable with UID %d.\n", trackableUID);
@@ -621,13 +649,13 @@ bool arwGetTrackablePatternImage(int trackableUID, int patternID, uint32_t *buff
 bool arwGetTrackableOptionBool(int trackableUID, int option)
 {
     std::shared_ptr<ARTrackable> trackable;
-    
+
     if (!gARTK) return false;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwGetTrackableOptionBool(): Couldn't locate trackable with UID %d.\n", trackableUID);
         return false;
     }
-    
+
     switch (option) {
         case ARW_TRACKABLE_OPTION_FILTERED:
             return(trackable->isFiltered());
@@ -645,7 +673,7 @@ bool arwGetTrackableOptionBool(int trackableUID, int option)
 void arwSetTrackableOptionBool(int trackableUID, int option, bool value)
 {
     std::shared_ptr<ARTrackable> trackable;
-    
+
     if (!gARTK) return;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwSetTrackableOptionBool(): Couldn't locate trackable with UID %d.\n", trackableUID);
@@ -668,13 +696,13 @@ void arwSetTrackableOptionBool(int trackableUID, int option, bool value)
 int arwGetTrackableOptionInt(int trackableUID, int option)
 {
     std::shared_ptr<ARTrackable> trackable;
-    
+
     if (!gARTK) return INT_MIN;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwGetTrackableOptionBool(): Couldn't locate trackable with UID %d.\n", trackableUID);
         return (INT_MIN);
     }
-    
+
     switch (option) {
         case ARW_TRACKABLE_OPTION_TYPE:
             switch (trackable->type) {
@@ -714,7 +742,7 @@ int arwGetTrackableOptionInt(int trackableUID, int option)
 void arwSetTrackableOptionInt(int trackableUID, int option, int value)
 {
     std::shared_ptr<ARTrackable> trackable;
-    
+
     if (!gARTK) return;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwSetTrackableOptionInt(): Couldn't locate trackable with UID %d.\n", trackableUID);
@@ -734,13 +762,13 @@ void arwSetTrackableOptionInt(int trackableUID, int option, int value)
 float arwGetTrackableOptionFloat(int trackableUID, int option)
 {
     std::shared_ptr<ARTrackable> trackable;
-    
+
     if (!gARTK) return (NAN);
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwGetTrackableOptionBool(): Couldn't locate trackable with UID %d.\n", trackableUID);
         return (NAN);
     }
-    
+
     switch (option) {
         case ARW_TRACKABLE_OPTION_FILTER_SAMPLE_RATE:
             return ((float)trackable->filterSampleRate());
@@ -794,7 +822,7 @@ float arwGetTrackableOptionFloat(int trackableUID, int option)
 void arwSetTrackableOptionFloat(int trackableUID, int option, float value)
 {
     std::shared_ptr<ARTrackable> trackable;
-    
+
     if (!gARTK) return;
 	if (!(trackable = gARTK->findTrackable(trackableUID))) {
         ARLOGe("arwSetTrackableOptionFloat(): Couldn't locate trackable with UID %d.\n", trackableUID);
@@ -843,7 +871,7 @@ void arwSetTrackableOptionFloat(int trackableUID, int option, float value)
 bool arwLoadOpticalParams(const char *optical_param_name, const char *optical_param_buff, const int optical_param_buffLen, const float projectionNearPlane, const float projectionFarPlane, float *fovy_p, float *aspect_p, float m[16], float p[16])
 {
     if (!gARTK) return false;
-    
+
 #ifdef ARDOUBLE_IS_FLOAT
     return gARTK->loadOpticalParams(optical_param_name, optical_param_buff, optical_param_buffLen, projectionNearPlane, projectionFarPlane, fovy_p, aspect_p, m, p);
 #else
@@ -935,8 +963,8 @@ void arwDeleteVideoSourceInfoList(void)
 // ----------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------
 // Java API
-// 
-// The following functions provide a JNI compatible wrapper around the first set of 
+//
+// The following functions provide a JNI compatible wrapper around the first set of
 // exported functions.
 // --------------------------------------------------------------------------------------
 #if ARX_TARGET_PLATFORM_ANDROID
@@ -991,15 +1019,18 @@ extern "C" {
     JNIEXPORT jint JNICALL JNIFUNCTION(arwGetTrackableOptionInt(JNIEnv *env, jobject obj, jint trackableUID, jint option));
     JNIEXPORT jfloat JNICALL JNIFUNCTION(arwGetTrackableOptionFloat(JNIEnv *env, jobject obj, jint trackableUID, jint option));
 
-	// Additional Java-specific function not found in the C-API
-    JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, jstring pixelFormat, jint camera_index, jint camera_face));
-    JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPush1(JNIEnv *env, jobject obj, jint videoSourceIndex, jbyteArray buf, jint bufSize));
-    JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPush2(JNIEnv *env, jobject obj, jint videoSourceIndex,
+	JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, jstring pixelFormat, jint camera_index, jint camera_face));
+    // Differs from the C API in that for each 'bufn' it accepts a Java direct byte buffer, either from Java API (e.g. Camera2) or allocated thus:
+    // <java>
+    //     long bufSize = 640*480 * 4; // VGA RGBA pixels.
+    //     java.nio.ByteBuffer buf = java.nio.ByteBuffer.allocateDirect(bufSize);
+    // </java>
+    JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPush(JNIEnv *env, jobject obj, jint videoSourceIndex,
                                        jobject buf0, jint buf0PixelStride, jint buf0RowStride,
                                        jobject buf1, jint buf1PixelStride, jint buf1RowStride,
                                        jobject buf2, jint buf2PixelStride, jint buf2RowStride,
                                        jobject buf3, jint buf3PixelStride, jint buf3RowStride));
-    JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex));
+    JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex));
 
 	// ------------------------------------------------------------------------------------
 	// JNI Functions Not Yet Implemented
@@ -1020,11 +1051,11 @@ JNIEXPORT void JNICALL JNIFUNCTION(arwSetLogLevel(JNIEnv * env, jobject
 }
 
 
-JNIEXPORT jstring JNICALL JNIFUNCTION(arwGetARToolKitVersion(JNIEnv *env, jobject obj)) 
+JNIEXPORT jstring JNICALL JNIFUNCTION(arwGetARToolKitVersion(JNIEnv *env, jobject obj))
 {
 	char versionString[1024];
-    
-	if (arwGetARToolKitVersion(versionString, 1024)) return env->NewStringUTF(versionString);		
+
+	if (arwGetARToolKitVersion(versionString, 1024)) return env->NewStringUTF(versionString);
 	return env->NewStringUTF("unknown version");
 }
 
@@ -1033,25 +1064,25 @@ JNIEXPORT jint JNICALL JNIFUNCTION(arwGetError(JNIEnv *env, jobject obj))
     return arwGetError();
 }
 
-JNIEXPORT jboolean JNICALL JNIFUNCTION(arwInitialiseAR(JNIEnv *env, jobject obj)) 
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwInitialiseAR(JNIEnv *env, jobject obj))
 {
 	return arwInitialiseAR();
 }
 
-JNIEXPORT jboolean JNICALL JNIFUNCTION(arwChangeToResourcesDir(JNIEnv *env, jobject obj, jstring resourcesDirectoryPath)) 
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwChangeToResourcesDir(JNIEnv *env, jobject obj, jstring resourcesDirectoryPath))
 {
     bool ok;
-    
+
     if (resourcesDirectoryPath != NULL) {
         const char *resourcesDirectoryPathC = env->GetStringUTFChars(resourcesDirectoryPath, NULL);
         ok = arwChangeToResourcesDir(resourcesDirectoryPathC);
         env->ReleaseStringUTFChars(resourcesDirectoryPath, resourcesDirectoryPathC);
     } else ok = arwChangeToResourcesDir(NULL);
-    
+
     return ok;
 }
 
-JNIEXPORT jboolean JNICALL JNIFUNCTION(arwShutdownAR(JNIEnv *env, jobject obj)) 
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwShutdownAR(JNIEnv *env, jobject obj))
 {
 	return arwShutdownAR();
 }
@@ -1076,29 +1107,29 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION(arwStartRunningStereo(JNIEnv *env, jobjec
 	const char *vconfRC = env->GetStringUTFChars(vconfR, NULL);
 	const char *cparaNameRC = env->GetStringUTFChars(cparaNameR, NULL);
 	const char *transL2RNameC = env->GetStringUTFChars(transL2RName, NULL);
-    
+
 	bool running = arwStartRunningStereo(vconfLC, cparaNameLC, vconfRC, cparaNameRC, transL2RNameC);
-    
+
 	env->ReleaseStringUTFChars(vconfL, vconfLC);
 	env->ReleaseStringUTFChars(cparaNameL, cparaNameLC);
 	env->ReleaseStringUTFChars(vconfR, vconfRC);
 	env->ReleaseStringUTFChars(cparaNameR, cparaNameRC);
 	env->ReleaseStringUTFChars(transL2RName, transL2RNameC);
-    
+
 	return running;
 }
 
-JNIEXPORT jboolean JNICALL JNIFUNCTION(arwIsRunning(JNIEnv *env, jobject obj)) 
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwIsRunning(JNIEnv *env, jobject obj))
 {
 	return arwIsRunning();
 }
 
-JNIEXPORT jboolean JNICALL JNIFUNCTION(arwIsInited(JNIEnv *env, jobject obj)) 
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwIsInited(JNIEnv *env, jobject obj))
 {
 	return arwIsInited();
 }
 
-JNIEXPORT jboolean JNICALL JNIFUNCTION(arwStopRunning(JNIEnv *env, jobject obj)) 
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwStopRunning(JNIEnv *env, jobject obj))
 {
 	return arwStopRunning();
 }
@@ -1109,7 +1140,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION(arwGetVideoParams(JNIEnv *env, jobject ob
 {
     int w, h, ps;
     char pf[PIXEL_FORMAT_BUFFER_SIZE];
-    
+
     if (!arwGetVideoParams(&w, &h, &ps, pf, PIXEL_FORMAT_BUFFER_SIZE)) return false;
     if (width) env->SetIntArrayRegion(width, 0, 1, &w);
     if (height) env->SetIntArrayRegion(height, 0, 1, &h);
@@ -1138,16 +1169,16 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION(arwGetVideoParamsStereo(JNIEnv *env, jobj
 JNIEXPORT jfloatArray JNICALL JNIFUNCTION(arwGetProjectionMatrix(JNIEnv *env, jobject obj, jfloat nearPlane, jfloat farPlane))
 {
 	float proj[16];
-    
+
 	if (arwGetProjectionMatrix(nearPlane, farPlane, proj)) return glArrayToJava(env, proj, 16);
 	return NULL;
 }
-	
+
 JNIEXPORT jboolean JNICALL JNIFUNCTION(arwGetProjectionMatrixStereo(JNIEnv *env, jobject obj, jfloat nearPlane, jfloat farPlane, jfloatArray projL, jfloatArray projR))
 {
 	float pL[16];
 	float pR[16];
-    
+
 	if (!arwGetProjectionMatrixStereo(nearPlane, farPlane, pL, pR)) return false;
     env->SetFloatArrayRegion(projL, 0, 16, pL);
     env->SetFloatArrayRegion(projR, 0, 16, pR);
@@ -1159,7 +1190,7 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION(arwCapture(JNIEnv *env, jobject obj))
 	return arwCapture();
 }
 
-JNIEXPORT jboolean JNICALL JNIFUNCTION(arwUpdateAR(JNIEnv *env, jobject obj)) 
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwUpdateAR(JNIEnv *env, jobject obj))
 {
 	return arwUpdateAR();
 }
@@ -1226,12 +1257,12 @@ JNIEXPORT jint JNICALL JNIFUNCTION(arwAddTrackable(JNIEnv *env, jobject obj, jst
 	return trackableUID;
 }
 
-JNIEXPORT jboolean JNICALL JNIFUNCTION(arwRemoveTrackable(JNIEnv *env, jobject obj, jint trackableUID)) 
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwRemoveTrackable(JNIEnv *env, jobject obj, jint trackableUID))
 {
 	return arwRemoveTrackable(trackableUID);
 }
 
-JNIEXPORT jint JNICALL JNIFUNCTION(arwRemoveAllTrackables(JNIEnv *env, jobject obj)) 
+JNIEXPORT jint JNICALL JNIFUNCTION(arwRemoveAllTrackables(JNIEnv *env, jobject obj))
 {
 	return arwRemoveAllTrackables();
 }
@@ -1239,7 +1270,7 @@ JNIEXPORT jint JNICALL JNIFUNCTION(arwRemoveAllTrackables(JNIEnv *env, jobject o
 JNIEXPORT jboolean JNICALL JNIFUNCTION(arwQueryTrackableVisibilityAndTransformation(JNIEnv *env, jobject obj, jint trackableUID, jfloatArray matrix))
 {
     float m[16];
-    
+
     if (!arwQueryTrackableVisibilityAndTransformation(trackableUID, m)) return false;
     env->SetFloatArrayRegion(matrix, 0, 16, m);
     return true;
@@ -1249,14 +1280,14 @@ JNIEXPORT jboolean JNICALL JNIFUNCTION(arwQueryTrackableVisibilityAndTransformat
 {
 	float mL[16];
 	float mR[16];
-    
+
 	if (!arwQueryTrackableVisibilityAndTransformationStereo(trackableUID, mL, mR)) return false;
     env->SetFloatArrayRegion(matrixL, 0, 16, mL);
     env->SetFloatArrayRegion(matrixR, 0, 16, mR);
 	return true;
 }
 
-JNIEXPORT jint JNICALL JNIFUNCTION(arwGetTrackablePatternCount(JNIEnv *env, jobject obj, int trackableUID)) 
+JNIEXPORT jint JNICALL JNIFUNCTION(arwGetTrackablePatternCount(JNIEnv *env, jobject obj, int trackableUID))
 {
 	return arwGetTrackablePatternCount(trackableUID);
 }
@@ -1296,29 +1327,27 @@ JNIEXPORT void JNICALL JNIFUNCTION(arwSetTrackableOptionInt(JNIEnv *env, jobject
     return arwSetTrackableOptionInt(trackableUID, option, value);
 }
 
-JNIEXPORT void JNICALL JNIFUNCTION(arwSetTrackableOptionFloat(JNIEnv *env, jobject obj, jint trackableUID, jint option, jfloat value)) 
+JNIEXPORT void JNICALL JNIFUNCTION(arwSetTrackableOptionFloat(JNIEnv *env, jobject obj, jint trackableUID, jint option, jfloat value))
 {
     return arwSetTrackableOptionFloat(trackableUID, option, value);
 }
 
-JNIEXPORT jboolean JNICALL JNIFUNCTION(arwGetTrackableOptionBool(JNIEnv *env, jobject obj, jint trackableUID, jint option)) 
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwGetTrackableOptionBool(JNIEnv *env, jobject obj, jint trackableUID, jint option))
 {
     return arwGetTrackableOptionBool(trackableUID, option);
 }
 
-JNIEXPORT jint JNICALL JNIFUNCTION(arwGetTrackableOptionInt(JNIEnv *env, jobject obj, jint trackableUID, jint option)) 
+JNIEXPORT jint JNICALL JNIFUNCTION(arwGetTrackableOptionInt(JNIEnv *env, jobject obj, jint trackableUID, jint option))
 {
     return arwGetTrackableOptionInt(trackableUID, option);
 }
 
-JNIEXPORT jfloat JNICALL JNIFUNCTION(arwGetTrackableOptionFloat(JNIEnv *env, jobject obj, jint trackableUID, jint option)) 
+JNIEXPORT jfloat JNICALL JNIFUNCTION(arwGetTrackableOptionFloat(JNIEnv *env, jobject obj, jint trackableUID, jint option))
 {
     return arwGetTrackableOptionFloat(trackableUID, option);
 }
 
-// Additional JNI functions not found in the C API.
-
-JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, jstring pixelFormat, jint camera_index, jint camera_face))
+JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, jstring pixelFormat, jint cameraIndex, jint cameraPosition))
 {
     if (!gARTK) {
         return -1;
@@ -1328,40 +1357,49 @@ JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPushInit(JNIEnv *env, jobject 
     jint ret;
 
     const char *pixelFormatC = env->GetStringUTFChars(pixelFormat, &isCopy);
-    ret = gARTK->androidVideoPushInit(env, obj, videoSourceIndex, width, height, pixelFormatC, camera_index, camera_face);
+    ret = gARTK->videoPushInit(videoSourceIndex, width, height, pixelFormatC, cameraIndex, cameraPosition);
     env->ReleaseStringUTFChars(pixelFormat, pixelFormatC);
     return ret;
 }
 
-JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPush1(JNIEnv *env, jobject obj, jint videoSourceIndex, jbyteArray buf, jint bufSize))
+JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPush(JNIEnv *env, jobject obj, jint videoSourceIndex,
+                                                jobject buf0, jint buf0PixelStride, jint buf0RowStride,
+                                                jobject buf1, jint buf1PixelStride, jint buf1RowStride,
+                                                jobject buf2, jint buf2PixelStride, jint buf2RowStride,
+                                                jobject buf3, jint buf3PixelStride, jint buf3RowStride))
 {
     if (!gARTK) {
         return -1;
     }
+    uint8_t *buf0p = NULL, *buf1p = NULL, *buf2p = NULL, *buf3p = NULL;
+    int buf0Size = 0, buf1Size = 0, buf2Size = 0, buf3Size = 0;
+    if (buf0) {
+        buf0p = (uint8_t *)env->GetDirectBufferAddress(buf0);
+        buf0Size = (int)env->GetDirectBufferCapacity(buf0);
+    }
+    if (buf1) {
+        buf1p = (uint8_t *)env->GetDirectBufferAddress(buf1);
+        buf1Size = (int)env->GetDirectBufferCapacity(buf1);
+    }
+    if (buf2) {
+        buf2p = (uint8_t *)env->GetDirectBufferAddress(buf2);
+        buf2Size = (int)env->GetDirectBufferCapacity(buf2);
+    }
+    if (buf3) {
+        buf3p = (uint8_t *)env->GetDirectBufferAddress(buf3);
+        buf3Size = (int)env->GetDirectBufferCapacity(buf3);
+    }
 
-    return gARTK->androidVideoPush1(env, obj, videoSourceIndex, buf, bufSize);
+    return gARTK->videoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
 }
 
-JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPush2(JNIEnv *env, jobject obj, jint videoSourceIndex,
-                                                        jobject buf0, jint buf0PixelStride, jint buf0RowStride,
-                                                        jobject buf1, jint buf1PixelStride, jint buf1RowStride,
-                                                        jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                                                        jobject buf3, jint buf3PixelStride, jint buf3RowStride))
+JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex))
 {
     if (!gARTK) {
         return -1;
     }
 
-    return gARTK->androidVideoPush2(env, obj, videoSourceIndex, buf0, buf0PixelStride, buf0RowStride, buf1, buf1PixelStride, buf1RowStride, buf2, buf2PixelStride, buf2RowStride, buf3, buf3PixelStride, buf3RowStride);
-}
-
-JNIEXPORT jint JNICALL JNIFUNCTION(arwAndroidVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex))
-{
-    if (!gARTK) {
-        return -1;
-    }
-
-    return gARTK->androidVideoPushFinal(env, obj, videoSourceIndex);
+    return gARTK->videoPushFinal(videoSourceIndex);
 }
 
 #endif // ARX_TARGET_PLATFORM_ANDROID

@@ -211,16 +211,12 @@ public:
      */
     bool getFrameTextureRGBA32(uint32_t *buffer);
     
-#if ARX_TARGET_PLATFORM_ANDROID
-    jint androidVideoPushInit(JNIEnv *env, jobject obj, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face);
-    jint androidVideoPush1(JNIEnv *env, jobject obj, jbyteArray buf, jint bufSize);
-    jint androidVideoPush2(JNIEnv *env, jobject obj,
-                           jobject buf0, jint buf0PixelStride, jint buf0RowStride,
-                           jobject buf1, jint buf1PixelStride, jint buf1RowStride,
-                           jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                           jobject buf3, jint buf3PixelStride, jint buf3RowStride);
-    jint androidVideoPushFinal(JNIEnv *env, jobject obj);
-#endif
+    int videoPushInit(int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition);
+    int videoPush(ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
+                  ARUint8 *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
+                  ARUint8 *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
+                  ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride);
+    int videoPushFinal(void);
 
 };
 

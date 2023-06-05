@@ -50,6 +50,9 @@
 #ifdef ARVIDEO_INPUT_DUMMY
 #include "Dummy/videoDummy.h"
 #endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+#include "External/videoExternal.h"
+#endif
 #ifdef ARVIDEO_INPUT_V4L2
 #include "Video4Linux2/videoV4L2.h"
 #endif
@@ -127,6 +130,8 @@ static int ar2VideoGetModuleWithConfig(const char *config, const char **configSt
 
             if (strcmp(b, "-module=Dummy") == 0)             {
                 module = AR_VIDEO_MODULE_DUMMY;
+            } else if (strcmp(b, "-module=External") == 0) {
+                module = AR_VIDEO_MODULE_EXTERNAL;
             } else if (strcmp(b, "-module=V4L") == 0 || strcmp(b, "-module=V4L2") == 0) {
                 module = AR_VIDEO_MODULE_V4L2;
             } else if (strcmp(b, "-module=1394") == 0) {
@@ -169,6 +174,11 @@ ARVideoSourceInfoListT *ar2VideoCreateSourceInfoList(const char *config_in)
     int module = ar2VideoGetModuleWithConfig(ar2VideoGetConfig(config_in), NULL);
 #ifdef ARVIDEO_INPUT_DUMMY
     if (module == AR_VIDEO_MODULE_DUMMY) {
+        return (NULL);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (module == AR_VIDEO_MODULE_EXTERNAL) {
         return (NULL);
     }
 #endif
@@ -257,6 +267,13 @@ AR2VideoParamT *ar2VideoOpen(const char *config_in)
         ARLOGe("ar2VideoOpen: Error: module \"Dummy\" not supported on this build/architecture/system.\n");
 #endif
     }
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+#ifdef ARVIDEO_INPUT_EXTERNAL
+        ARLOGe("ar2VideoOpen: Error: module \"External\" requires ar2VideoOpenAsync.\n");
+#else
+        ARLOGe("ar2VideoOpen: Error: module \"External\" not supported on this build/architecture/system.\n");
+#endif
+    }
     if (vid->module == AR_VIDEO_MODULE_V4L2) {
 #ifdef ARVIDEO_INPUT_V4L2
         if ((vid->moduleParam = (void *)ar2VideoOpenV4L2(config)) != NULL) return vid;
@@ -339,6 +356,13 @@ AR2VideoParamT *ar2VideoOpenAsync(const char *config_in, void (*callback)(void *
     config = ar2VideoGetConfig(config_in);
     vid->module = ar2VideoGetModuleWithConfig(config, &configStringFollowingDevice);
 
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+#ifdef ARVIDEO_INPUT_EXTERNAL
+        if ((vid->moduleParam = (void *)ar2VideoOpenAsyncExternal(config, callback, userdata)) != NULL) return vid;
+#else
+        ARLOGe("ar2VideoOpenAsync: Error: module \"External\" not supported on this build/architecture/system.\n");
+#endif
+    }
     if (vid->module == AR_VIDEO_MODULE_AVFOUNDATION) {
 #ifdef ARVIDEO_INPUT_AVFOUNDATION
         if ((vid->moduleParam = (void *)ar2VideoOpenAsyncAVFoundation(config, callback, userdata)) != NULL) return vid;
@@ -372,6 +396,11 @@ int ar2VideoClose(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_DUMMY
     if (vid->module == AR_VIDEO_MODULE_DUMMY) {
         ret = ar2VideoCloseDummy((AR2VideoParamDummyT *)vid->moduleParam);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        ret = ar2VideoCloseExternal((AR2VideoParamExternalT *)vid->moduleParam);
     }
 #endif
 #ifdef ARVIDEO_INPUT_V4L2
@@ -429,6 +458,11 @@ int ar2VideoDispOption(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_DUMMY
     if (vid->module == AR_VIDEO_MODULE_DUMMY) {
         return ar2VideoDispOptionDummy();
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoDispOptionExternal();
     }
 #endif
 #ifdef ARVIDEO_INPUT_V4L2
@@ -493,6 +527,11 @@ int ar2VideoGetId(AR2VideoParamT *vid, ARUint32 *id0, ARUint32 *id1)
         return ar2VideoGetIdDummy((AR2VideoParamDummyT *)vid->moduleParam, id0, id1);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoGetIdExternal((AR2VideoParamExternalT *)vid->moduleParam, id0, id1);
+    }
+#endif
 #ifdef ARVIDEO_INPUT_V4L2
     if (vid->module == AR_VIDEO_MODULE_V4L2) {
         return ar2VideoGetIdV4L2((AR2VideoParamV4L2T *)vid->moduleParam, id0, id1);
@@ -547,6 +586,11 @@ int ar2VideoGetSize(AR2VideoParamT *vid, int *x,int *y)
 #ifdef ARVIDEO_INPUT_DUMMY
     if (vid->module == AR_VIDEO_MODULE_DUMMY) {
         return ar2VideoGetSizeDummy((AR2VideoParamDummyT *)vid->moduleParam, x, y);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoGetSizeExternal((AR2VideoParamExternalT *)vid->moduleParam, x, y);
     }
 #endif
 #ifdef ARVIDEO_INPUT_V4L2
@@ -610,6 +654,11 @@ AR_PIXEL_FORMAT ar2VideoGetPixelFormat(AR2VideoParamT *vid)
         return ar2VideoGetPixelFormatDummy((AR2VideoParamDummyT *)vid->moduleParam);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoGetPixelFormatExternal((AR2VideoParamExternalT *)vid->moduleParam);
+    }
+#endif
 #ifdef ARVIDEO_INPUT_V4L2
     if (vid->module == AR_VIDEO_MODULE_V4L2) {
         return ar2VideoGetPixelFormatV4L2((AR2VideoParamV4L2T *)vid->moduleParam);
@@ -666,6 +715,11 @@ AR2VideoBufferT *ar2VideoGetImage(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_DUMMY
     if (vid->module == AR_VIDEO_MODULE_DUMMY) {
         ret = ar2VideoGetImageDummy((AR2VideoParamDummyT *)vid->moduleParam);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        ret = ar2VideoGetImageExternal((AR2VideoParamExternalT *)vid->moduleParam);
     }
 #endif
 #ifdef ARVIDEO_INPUT_V4L2
@@ -756,6 +810,11 @@ int ar2VideoCapStart(AR2VideoParamT *vid)
         return ar2VideoCapStartDummy((AR2VideoParamDummyT *)vid->moduleParam);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoCapStartExternal((AR2VideoParamExternalT *)vid->moduleParam);
+    }
+#endif
 #ifdef ARVIDEO_INPUT_V4L2
     if (vid->module == AR_VIDEO_MODULE_V4L2) {
         return ar2VideoCapStartV4L2((AR2VideoParamV4L2T *)vid->moduleParam);
@@ -821,6 +880,11 @@ int ar2VideoCapStop(AR2VideoParamT *vid)
 #ifdef ARVIDEO_INPUT_DUMMY
     if (vid->module == AR_VIDEO_MODULE_DUMMY) {
         return ar2VideoCapStopDummy((AR2VideoParamDummyT *)vid->moduleParam);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoCapStopExternal((AR2VideoParamExternalT *)vid->moduleParam);
     }
 #endif
 #ifdef ARVIDEO_INPUT_V4L2
@@ -894,6 +958,11 @@ int ar2VideoGetParami(AR2VideoParamT *vid, int paramName, int *value)
         return ar2VideoGetParamiDummy((AR2VideoParamDummyT *)vid->moduleParam, paramName, value);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoGetParamiExternal((AR2VideoParamExternalT *)vid->moduleParam, paramName, value);
+    }
+#endif
 #ifdef ARVIDEO_INPUT_V4L2
     if (vid->module == AR_VIDEO_MODULE_V4L2) {
         return ar2VideoGetParamiV4L2((AR2VideoParamV4L2T *)vid->moduleParam, paramName, value);
@@ -948,6 +1017,11 @@ int ar2VideoSetParami(AR2VideoParamT *vid, int paramName, int value)
 #ifdef ARVIDEO_INPUT_DUMMY
     if (vid->module == AR_VIDEO_MODULE_DUMMY) {
         return ar2VideoSetParamiDummy((AR2VideoParamDummyT *)vid->moduleParam, paramName, value);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoSetParamiExternal((AR2VideoParamExternalT *)vid->moduleParam, paramName, value);
     }
 #endif
 #ifdef ARVIDEO_INPUT_V4L2
@@ -1006,6 +1080,11 @@ int ar2VideoGetParamd(AR2VideoParamT *vid, int paramName, double *value)
         return ar2VideoGetParamdDummy((AR2VideoParamDummyT *)vid->moduleParam, paramName, value);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoGetParamdExternal((AR2VideoParamExternalT *)vid->moduleParam, paramName, value);
+    }
+#endif
 #ifdef ARVIDEO_INPUT_V4L2
     if (vid->module == AR_VIDEO_MODULE_V4L2) {
         return ar2VideoGetParamdV4L2((AR2VideoParamV4L2T *)vid->moduleParam, paramName, value);
@@ -1060,6 +1139,11 @@ int ar2VideoSetParamd(AR2VideoParamT *vid, int paramName, double value)
 #ifdef ARVIDEO_INPUT_DUMMY
     if (vid->module == AR_VIDEO_MODULE_DUMMY) {
         return ar2VideoSetParamdDummy((AR2VideoParamDummyT *)vid->moduleParam, paramName, value);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoSetParamdExternal((AR2VideoParamExternalT *)vid->moduleParam, paramName, value);
     }
 #endif
 #ifdef ARVIDEO_INPUT_V4L2
@@ -1119,6 +1203,11 @@ int ar2VideoGetParams(AR2VideoParamT *vid, const int paramName, char **value)
         return ar2VideoGetParamsDummy((AR2VideoParamDummyT *)vid->moduleParam, paramName, value);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoGetParamsExternal((AR2VideoParamExternalT *)vid->moduleParam, paramName, value);
+    }
+#endif
 #ifdef ARVIDEO_INPUT_V4L2
     if (vid->module == AR_VIDEO_MODULE_V4L2) {
         return ar2VideoGetParamsV4L2((AR2VideoParamV4L2T *)vid->moduleParam, paramName, value);
@@ -1173,6 +1262,11 @@ int ar2VideoSetParams(AR2VideoParamT *vid, const int paramName, const char *valu
 #ifdef ARVIDEO_INPUT_DUMMY
     if (vid->module == AR_VIDEO_MODULE_DUMMY) {
         return ar2VideoSetParamsDummy((AR2VideoParamDummyT *)vid->moduleParam, paramName, value);
+    }
+#endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoSetParamsExternal((AR2VideoParamExternalT *)vid->moduleParam, paramName, value);
     }
 #endif
 #ifdef ARVIDEO_INPUT_V4L2
@@ -1331,56 +1425,39 @@ int ar2VideoGetCParamAsync(AR2VideoParamT *vid, void (*callback)(const ARParam *
     return (-1);
 }
 
-#ifdef ANDROID
-// JNI interface.
-jint ar2VideoPushInit(AR2VideoParamT *vid, JNIEnv *env, jobject obj, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face)
+int ar2VideoPushInit(AR2VideoParamT *vid, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition)
 {
     if (!vid) return -1;
-#ifdef ARVIDEO_INPUT_ANDROID
-    if (vid->module == AR_VIDEO_MODULE_ANDROID) {
-        return ar2VideoPushInitAndroid((AR2VideoParamAndroidT *)vid->moduleParam, env, obj, width, height, pixelFormat, camera_index, camera_face);
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoPushInitExternal((AR2VideoParamExternalT *)vid->moduleParam, width, height, pixelFormat, cameraIndex, cameraPosition);
     }
 #endif
     return (-1);
 }
 
-jint ar2VideoPush1(AR2VideoParamT *vid, JNIEnv *env, jobject obj, jbyteArray buf, jint bufSize)
+int ar2VideoPush(AR2VideoParamT *vid,
+                 ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
+                 ARUint8 *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
+                 ARUint8 *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
+                 ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride)
 {
     if (!vid) return -1;
-#ifdef ARVIDEO_INPUT_ANDROID
-    if (vid->module == AR_VIDEO_MODULE_ANDROID) {
-        return ar2VideoPushAndroid1((AR2VideoParamAndroidT *)vid->moduleParam, env, obj, buf, bufSize);
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoPushExternal((AR2VideoParamExternalT *)vid->moduleParam, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
     }
 #endif
     return (-1);
 }
 
-jint ar2VideoPush2(AR2VideoParamT *vid, JNIEnv *env, jobject obj,
-                   jobject buf0, jint buf0PixelStride, jint buf0RowStride,
-                   jobject buf1, jint buf1PixelStride, jint buf1RowStride,
-                   jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                   jobject buf3, jint buf3PixelStride, jint buf3RowStride)
+int ar2VideoPushFinal(AR2VideoParamT *vid)
 {
     if (!vid) return -1;
-#ifdef ARVIDEO_INPUT_ANDROID
-    if (vid->module == AR_VIDEO_MODULE_ANDROID) {
-        return ar2VideoPushAndroid2((AR2VideoParamAndroidT *)vid->moduleParam, env, obj, buf0, buf0PixelStride, buf0RowStride, buf1, buf1PixelStride, buf1RowStride, buf2, buf2PixelStride, buf2RowStride, buf3, buf3PixelStride, buf3RowStride);
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoPushFinalExternal((AR2VideoParamExternalT *)vid->moduleParam);
     }
 #endif
     return (-1);
 }
-
-jint ar2VideoPushFinal(AR2VideoParamT *vid, JNIEnv *env, jobject obj)
-{
-    if (!vid) return -1;
-#ifdef ARVIDEO_INPUT_ANDROID
-    if (vid->module == AR_VIDEO_MODULE_ANDROID) {
-        return ar2VideoPushFinalAndroid((AR2VideoParamAndroidT *)vid->moduleParam, env, obj);
-    }
-#endif
-    return (-1);
-}
-
-#endif // ANDROID
-
-

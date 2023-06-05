@@ -260,8 +260,7 @@ public class ARController {
 	/**
 	 * Queries whether artoolkitX is initialized. This will be true
 	 * after a call to {@link #initialiseNative(String)}. At
-	 * this point arwStartRunning and
-	 * arwAndroidVideoPushInit can be called.
+	 * this point arwStartRunning can be called.
 	 *
 	 * @return true artoolkitX has been initialized
 	 */
@@ -271,7 +270,7 @@ public class ARController {
         };
         return initedNative;
     }
-    
+
     /**
      * Returns true when video and tracking are running.
      *
@@ -414,7 +413,7 @@ public class ARController {
     public boolean drawVideoSettings(int videoSourceIndex, int width, int height, boolean rotate90, boolean flipH, boolean flipV, int hAlign, int vAlign, int scalingMode, int[] viewport) {
         return ARX_jni.arwDrawVideoSettings(videoSourceIndex, width, height, rotate90, flipH, flipV, hAlign, vAlign, scalingMode, viewport);
     }
-    
+
     /**
      * Draw a video frame.
      * Must be called from a rendering thread with an active rendering context.
@@ -425,7 +424,7 @@ public class ARController {
     public boolean drawVideo(int videoSourceIndex) {
         return ARX_jni.arwDrawVideo(videoSourceIndex);
     }
-    
+
     /**
      * Perform required cleanup after drawing of video frames.
      * Must be called from a rendering thread with an active rendering context.

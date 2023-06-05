@@ -432,44 +432,35 @@ bool ARVideoSource::getFrameTextureRGBA32(uint32_t *buffer) {
     return true;
 }
 
-#if ARX_TARGET_PLATFORM_ANDROID
-jint ARVideoSource::androidVideoPushInit(JNIEnv *env, jobject obj, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face)
+int ARVideoSource::videoPushInit(int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition)
 {
     if (deviceState == DEVICE_GETTING_READY) return 0; // This path will be exercised if another frame arrives while we're waiting for the callback.
     else if (deviceState != DEVICE_OPEN) {
-        ARLOGe("ARVideoSource::androidVideoPushInit: Error: device not open.\n");
+        ARLOGe("ARVideoSource::videoPushInit: Error: device not open.\n");
         return -1;
     }
     deviceState = DEVICE_GETTING_READY;
 
-    return (ar2VideoPushInit(m_vid, env, obj, width, height, pixelFormat, camera_index, camera_face));
+    return (ar2VideoPushInit(m_vid, width, height, pixelFormat, cameraIndex, cameraPosition));
 }
 
-jint ARVideoSource::androidVideoPush1(JNIEnv *env, jobject obj, jbyteArray buf, jint bufSize)
+int ARVideoSource::videoPush(ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
+                             ARUint8 *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
+                             ARUint8 *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
+                             ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride)
 {
     if (deviceState != DEVICE_RUNNING && deviceState != DEVICE_GETTING_READY) return 0;
 
-    return (ar2VideoPush1(m_vid, env, obj, buf, bufSize));
+    return (ar2VideoPush(m_vid, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride));
 }
 
-jint ARVideoSource::androidVideoPush2(JNIEnv *env, jobject obj,
-                                      jobject buf0, jint buf0PixelStride, jint buf0RowStride,
-                                      jobject buf1, jint buf1PixelStride, jint buf1RowStride,
-                                      jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                                      jobject buf3, jint buf3PixelStride, jint buf3RowStride)
-{
-    if (deviceState != DEVICE_RUNNING && deviceState != DEVICE_GETTING_READY) return 0;
-
-    return (ar2VideoPush2(m_vid, env, obj, buf0, buf0PixelStride, buf0RowStride, buf1, buf1PixelStride, buf1RowStride, buf2, buf2PixelStride, buf2RowStride, buf3, buf3PixelStride, buf3RowStride));
-}
-
-jint ARVideoSource::androidVideoPushFinal(JNIEnv *env, jobject obj)
+int ARVideoSource::videoPushFinal(void)
 {
     if (deviceState == DEVICE_CLOSED) {
-        ARLOGe("ARVideoSource::androidVideoPushFinal: Error: device not open.\n");
+        ARLOGe("ARVideoSource::videoPushFinal: Error: device not open.\n");
         return -1;
     }
 
-    return (ar2VideoPushFinal(m_vid, env, obj));
+    return (ar2VideoPushFinal(m_vid));
 }
-#endif
+

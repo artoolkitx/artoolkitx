@@ -119,7 +119,7 @@ public class ARX_jni {
      * @see	{@link #arwShutdownAR()}
      */
     public static native boolean arwInitialiseAR();
-    
+
     /**
      * Changes the working directory to the resources directory used by artoolkitX.
      * Normally, this would be called immediately after arwInitialiseAR()
@@ -156,8 +156,7 @@ public class ARX_jni {
 	/**
 	 * Queries whether artoolkitX is initialized. This will be true
 	 * after a call to {@link #arwInitialiseAR()}. At
-	 * this point {@link #arwStartRunning(String, String, float, float)} and
-	 * {@link #arwAndroidVideoPushInit(int, int, int, int, int, int)} can be called.
+	 * this point {@link #arwStartRunning(String, String, float, float)} can be called.
 	 *
 	 * @return true artoolkitX has been initialized
 	 */
@@ -269,9 +268,9 @@ public class ARX_jni {
     public static native boolean arwUpdateAR();
 
     public static native boolean arwUpdateTexture32(byte[] image);
-  
+
     public static native boolean arwUpdateTextureStereo32(byte[] imageL, byte[] imageR);
-  
+
 	/**
 	 * Initialise drawing of video frames in a graphics context.
 	 *
@@ -522,7 +521,7 @@ public class ARX_jni {
     public static native int arwGetTrackableOptionInt(int trackableUID, int option);
 
     public static native float arwGetTrackableOptionFloat(int trackableUID, int option);
-    
+
     public static final int AR_PIXEL_FORMAT_INVALID = -1,
                             AR_PIXEL_FORMAT_RGB = 0,
                             AR_PIXEL_FORMAT_BGR = 1,
@@ -542,6 +541,8 @@ public class ARX_jni {
 
     /**
      * Tells the native library the source and size and format in which video frames will be pushed.
+     * N.B.: Pushing of video from Java to native is no longer required since artoolkitX v1.1.10 introduced native video capture.
+     * This amended API was added in artoolkitX v1.2 to support tracking from external video sources.
      * This call may only be made after a call to arwStartRunning or arwStartRunningStereo.
      * @param videoSourceIndex Zero-based index of the video source which is being initialized for pushing. Normally 0, but for the second camera in a stereo pair, 1.
      * @param width			Width of the video frame in pixels.
@@ -551,21 +552,13 @@ public class ARX_jni {
      * @param camera_face   0 if camera is rear-facing (the default) or 1 if camera is facing toward the user.
      * @return				0 if no error occurred, otherwise an error value less than 0.
      */
-    public static native int arwAndroidVideoPushInit(int videoSourceIndex, int width, int height, String pixelFormat, int camera_index, int camera_face);
-
-    /**
-     * Pushes a video frame to the native library (single-planar).
-     * May only be made after calling arwAndroidVideoPushInit and may not be made after a call to arwAndroidVideoPushFinal.
-     * @param videoSourceIndex Zero-based index of the video source which is being pushed. Normally 0, but for the second camera in a stereo pair, 1.
-     * @param buf			Reference to a byte buffer holding the frame data. This will be the only plane.
-     * @param bufSize		The length (in bytes) of the buffer referred to by buf.
-     * @return				0 if no error occurred, otherwise an error value less than 0.
-     */
-    public static native int arwAndroidVideoPush1(int videoSourceIndex, byte[] buf, int bufSize);
+    public static native int arwVideoPushInit(int videoSourceIndex, int width, int height, String pixelFormat, int camera_index, int camera_face);
 
     /**
      * Pushes a video frame to the native library.
-     * May only be made after calling arwAndroidVideoPushInit and may not be made after a call to arwAndroidVideoPushFinal.
+     * N.B.: Pushing of video from Java to native is no longer required since artoolkitX v1.1.10 introduced native video capture.
+     * This amended API was added in artoolkitX v1.2 to support tracking from external video sources.
+     * May only be made after calling arwVideoPushInit and may not be made after a call to arwVideoPushFinal.
      * @param videoSourceIndex Zero-based index of the video source which is being pushed. Normally 0, but for the second camera in a stereo pair, 1.
      * @param buf0			For interleaved formats (e.g. RGBA), reference to a byte buffer holding the frame data. For interleaved formats this will be the only plane. For planar formats, reference to a byte buffer holding plane 0 of the frame. For planar NV21 and YUV_420_888 formats, this will be the luma plane.
 	 * @param buf0PixelStride The number of bytes between pixels in adjacent columns in buf0
@@ -581,18 +574,20 @@ public class ARX_jni {
 	 * @param buf3RowStride The number of bytes between pixels in adjacent rows in buf3
      * @return				0 if no error occurred, otherwise an error value less than 0.
      */
-    public static native int arwAndroidVideoPush2(int videoSourceIndex,
-												  ByteBuffer buf0, int buf0PixelStride, int buf0RowStride,
-												  ByteBuffer buf1, int buf1PixelStride, int buf1RowStride,
-												  ByteBuffer buf2, int buf2PixelStride, int buf2RowStride,
-												  ByteBuffer buf3, int buf3PixelStride, int buf3RowStride);
+    public static native int arwVideoPush(int videoSourceIndex,
+										  ByteBuffer buf0, int buf0PixelStride, int buf0RowStride,
+										  ByteBuffer buf1, int buf1PixelStride, int buf1RowStride,
+										  ByteBuffer buf2, int buf2PixelStride, int buf2RowStride,
+										  ByteBuffer buf3, int buf3PixelStride, int buf3RowStride);
 
     /**
      * Tells the native library that no further frames will be pushed.
+     * N.B.: Pushing of video from Java to native is no longer required since artoolkitX v1.1.10 introduced native video capture.
+     * This amended API was added in artoolkitX v1.2 to support tracking from external video sources.
      * This call may only be made before a call to arwStopRunning.
      * @param videoSourceIndex Zero-based index of the video source which is being finalized for pushing. Normally 0, but for the second camera in a stereo pair, 1.
      * @return				0 if no error occurred, otherwise an error value less than 0.
      */
-    public static native int arwAndroidVideoPushFinal(int videoSourceIndex);
+    public static native int arwVideoPushFinal(int videoSourceIndex);
 
 }

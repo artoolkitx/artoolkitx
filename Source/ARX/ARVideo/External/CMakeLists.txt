@@ -1,0 +1,12 @@
+set(SOURCE
+    ${SOURCE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/videoExternal.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/videoExternal.cpp
+    PARENT_SCOPE
+)
+
+set(DEFINES
+    ${DEFINES}
+    ARVIDEO_INPUT_EXTERNAL
+    PARENT_SCOPE
+)
