@@ -52,6 +52,8 @@ do
             ;;
         --debug) DEBUG=
             ;;
+        --no-config) NO_CONFIG=1
+            ;;
         cmake) CMAKE_GENERATOR="$2"
             shift
             ;;
@@ -82,6 +84,11 @@ then
 elif [ "$OS" = "Darwin" ]
 then
     CPUS=`/usr/sbin/sysctl -n hw.ncpu`
+    if [ -x "$(command -v xcbeautify)" ]; then
+        XCBEAUTIFY=xcbeautify
+    else
+        XCBEAUTIFY=true
+    fi
 elif [[ "$OS" == "CYGWIN_NT-"* ]]
 then
     # bash on Cygwin.
@@ -135,18 +142,20 @@ if [ $BUILD_MACOS ] ; then
         mkdir build-macos
     fi
     cd build-macos
-    rm -f CMakeCache.txt
-    cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../cmake/macos.toolchain.cmake ${BUILD_TESTS+-DBUILD_TESTS:BOOL=ON}
-    xcodebuild -target ALL_BUILD -configuration ${DEBUG+Debug}${DEBUG-Release}
-    xcodebuild -target install -configuration ${DEBUG+Debug}${DEBUG-Release}
+    if [ ! $NO_CONFIG ] ; then
+        rm -f CMakeCache.txt
+        cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../cmake/macos.toolchain.cmake ${BUILD_TESTS+-DBUILD_TESTS:BOOL=ON}
+    fi
+    set -o pipefail && xcodebuild -target ALL_BUILD -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
+    set -o pipefail && xcodebuild -target install -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
     cd $OURDIR
 
 	if [ $BUILD_EXAMPLES ] ; then
     	(cd "../Examples/Square tracking example/macOS"
-    	xcodebuild -target "artoolkitX Square Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release}
+    	set -o pipefail && xcodebuild -target "artoolkitX Square Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
     	)
     	(cd "../Examples/2d tracking example/macOS"
-    	xcodebuild -target "artoolkitX 2d Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release}
+    	set -o pipefail && xcodebuild -target "artoolkitX 2d Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
     	)
     fi
 fi
@@ -155,7 +164,7 @@ fi
 # iOS
 if [ $BUILD_IOS ] ; then
 
-    
+
     if [ ! -d "depends/ios/Frameworks/opencv2.framework" ] ; then
         curl --location "https://github.com/artoolkitx/opencv/releases/download/4.6.0/opencv-4.6.0-ios-framework.zip" -o opencv2.zip
         unzip -q opencv2.zip -d depends/ios/Frameworks
@@ -166,19 +175,21 @@ if [ $BUILD_IOS ] ; then
         mkdir build-ios
     fi
     cd build-ios
-    rm -f CMakeCache.txt
-    cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../cmake/ios.toolchain.cmake
-    xcodebuild -target ALL_BUILD -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS
-    xcodebuild -target install -configuration ${DEBUG+Debug}${DEBUG-Release}
+    if [ ! $NO_CONFIG ] ; then
+        rm -f CMakeCache.txt
+        cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../cmake/ios.toolchain.cmake
+    fi
+    set -o pipefail && xcodebuild -target ALL_BUILD -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS | ${XCBEAUTIFY}
+    set -o pipefail && xcodebuild -target install -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
     cd $OURDIR
 
 
     if [ $BUILD_EXAMPLES ] ; then
         (cd "../Examples/Square tracking example/iOS"
-        xcodebuild -target "artoolkitX Square Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS
+        set -o pipefail && xcodebuild -target "artoolkitX Square Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS | ${XCBEAUTIFY}
         )
         # (cd "../Examples/Square tracking example with OSG/iOS"
-        # xcodebuild -target "artoolkitX Square Tracking Example with OSG" -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS
+        # set -o pipefail && xcodebuild -target "artoolkitX Square Tracking Example with OSG" -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS | ${XCBEAUTIFY}
         # )
         cp -rf "../Examples/Square tracking example/iOS/build/Release-iphoneos/artoolkitX Square Tracking Example.app" ../Examples/
         # cp -v "../Examples/Square tracking example with OSG/iOS/build/Release-iphoneos/"artoolkitX Square Tracking Example with OSG.app ../Examples/
@@ -228,16 +239,18 @@ else
 	        mkdir "$abi"
         fi
         (cd "$abi"
-	    rm -f CMakeCache.txt
-	    # Android 5.0 is API level 21. Android 7.0 (needed for native camera access) is API level 24.
-	    cmake ../.. \
-            -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROID_HOME/ndk-bundle/build/cmake/android.toolchain.cmake \
-            -DANDROID_PLATFORM=android-24 \
-            -DANDROID_ABI=$abi \
-            -DANDROID_ARM_MODE=arm \
-            -DANDROID_ARM_NEON=TRUE \
-            -DANDROID_STL=c++_shared \
-            -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+        if [ ! $NO_CONFIG ] ; then
+	        rm -f CMakeCache.txt
+	        # Android 5.0 is API level 21. Android 7.0 (needed for native camera access) is API level 24.
+	        cmake ../.. \
+                -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROID_HOME/ndk-bundle/build/cmake/android.toolchain.cmake \
+                -DANDROID_PLATFORM=android-24 \
+                -DANDROID_ABI=$abi \
+                -DANDROID_ARM_MODE=arm \
+                -DANDROID_ARM_NEON=TRUE \
+                -DANDROID_STL=c++_shared \
+                -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+        fi
 	    cmake --build . --target install${DEBUG-/strip}
         )
     done
@@ -267,7 +280,7 @@ else
         )
     fi
 fi
-    
+
 fi
 # /BUILD_ANDROID
 
@@ -289,7 +302,7 @@ if [ $BUILD_EMSCRIPTEN ] ; then
     fi
     cd build-emscripten
     rm -f CMakeCache.txt
-    
+
     SETTINGS="-s USE_ZLIB=1 -s USE_LIBJPEG=1 -s USE_PTHREADS=1"
     export CFLAGS="${SETTINGS}"
     export CXXFLAGS="${SETTINGS}"
@@ -385,15 +398,17 @@ if [ $BUILD_LINUX ] ; then
                 #fi
             fi
         fi
-    fi    
-    
+    fi
+
 
 	if [ ! -d "build-linux-x86_64" ] ; then
 		mkdir build-linux-x86_64
 	fi
 	cd build-linux-x86_64
-	rm -f CMakeCache.txt
-	cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+    if [ ! $NO_CONFIG ] ; then
+	    rm -f CMakeCache.txt
+	    cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+	fi
 	cmake --build . --target install${DEBUG-/strip}
 	cd ..
 
@@ -452,8 +467,10 @@ if [ $BUILD_LINUX_RASPBIAN ] ; then
             mkdir build-linux-raspbian
         fi
         cd build-linux-raspbian
-        rm -f CMakeCache.txt
-        cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+        if [ ! $NO_CONFIG ] ; then
+            rm -f CMakeCache.txt
+            cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+        fi
         cmake --build . --target install${DEBUG-/strip}
         cd ..
 
@@ -512,8 +529,10 @@ if [ $BUILD_WINDOWS ] ; then
     fi
 
     cd build-windows
-    rm -f CMakeCache.txt
-    cmake.exe .. -G "$CMAKE_GENERATOR" ${CMAKE_ARCH+-A ${CMAKE_ARCH}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
+    if [ ! $NO_CONFIG ] ; then
+        rm -f CMakeCache.txt
+        cmake.exe .. -G "$CMAKE_GENERATOR" ${CMAKE_ARCH+-A ${CMAKE_ARCH}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
+    fi
     cmake.exe --build . --config ${DEBUG+Debug}${DEBUG-Release} --target install
     #cp $OURDIR/depends/windows/lib/x64/opencv* $OURDIR/../SDK/bin
     cp $OURDIR/depends/windows/lib/x64/SDL2.dll $OURDIR/../SDK/bin

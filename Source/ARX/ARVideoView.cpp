@@ -223,10 +223,10 @@ ARVideoView::ScalingMode ARVideoView::scalingMode() const
     return m_scalingMode;
 }
 
-void ARVideoView::setScalingMode(const ScalingMode scaling)
+void ARVideoView::setScalingMode(const ScalingMode scalingMode)
 {
-    if (m_scalingMode != scaling) {
-        m_scalingMode = scaling;
+    if (m_scalingMode != scalingMode) {
+        m_scalingMode = scalingMode;
         update();
     }
 }

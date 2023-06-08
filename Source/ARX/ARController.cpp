@@ -580,7 +580,34 @@ bool ARController::projectionMatrix(const int videoSourceIndex, const ARdouble p
     }
 
     arglCameraFrustumRH(&(paramLT->param), projectionNearPlane, projectionFarPlane, proj);
+
     ARLOGd("Computed projection matrix using near=%f far=%f.\n", projectionNearPlane, projectionFarPlane);
+    return true;
+}
+
+bool ARController::projectionForViewportSizeAndFittingMode(const int videoSourceIndex, const ARVideoSource::Size viewportSize, const ARVideoSource::ScalingMode scalingMode, const ARdouble projectionNearPlane, const ARdouble projectionFarPlane, ARdouble proj[16])
+{
+    if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return false;
+
+    ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
+    if (!vs || !vs->isOpen()) {
+        ARLOGe("Error: projection matrix requested but no video source %d or video source is closed.\n", videoSourceIndex);
+        return false;
+    }
+    if (!vs->isRunning()) {
+        ARLOGe("Error: projection matrix requested but no video source %d not yet running.\n", videoSourceIndex);
+        return false;
+    }
+
+    ARParam* param = vs->getCameraParametersForViewportSizeAndFittingMode(viewportSize, scalingMode);
+    if (!param) {
+        ARLOGe("Error: video source %d unable to supply camera parameters.\n", videoSourceIndex);
+        return false;
+    }
+
+    arglCameraFrustumRH(param, projectionNearPlane, projectionFarPlane, proj);
+
+    ARLOGd("Computed projection matrix using near=%f far=%f, scaling to viewport {%d, %d} with mode %s.\n", projectionNearPlane, projectionFarPlane, viewportSize.width, viewportSize.height, ARVideoSource::ScalingModeName(scalingMode).c_str());
     return true;
 }
 
