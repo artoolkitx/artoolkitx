@@ -38,6 +38,7 @@
 
 #include <stdlib.h>
 #include <inttypes.h>
+#include <algorithm>
 #ifdef _WIN32
 #  define _USE_MATH_DEFINES
 #endif
@@ -52,7 +53,6 @@
 #    include "cpu-features.h"
 #  endif
 #endif
-
 
 #define MAX(x,y) (x > y ? x : y)
 #define MIN(x,y) (x < y ? x : y)
@@ -388,11 +388,11 @@ ARParam* ARVideoSource::getCameraParametersForViewportSizeAndFittingMode(const S
     float scaleRatioWidth = (float)viewportSize.width / (float)cparamLT->param.xsize;
     float scaleRatioHeight = (float)viewportSize.height / (float)cparamLT->param.ysize;
     if (scalingMode == ScalingMode::SCALE_MODE_FILL) {
-        zoomX = std::min(1.0f, scaleRatioWidth / scaleRatioHeight);
-        zoomY = std::min(1.0f, scaleRatioHeight / scaleRatioWidth);
+        zoomX = (std::min)(1.0f, scaleRatioWidth / scaleRatioHeight);
+        zoomY = (std::min)(1.0f, scaleRatioHeight / scaleRatioWidth);
     } else if (scalingMode == ScalingMode::SCALE_MODE_FIT) {
-        zoomX = std::max(1.0f, scaleRatioWidth / scaleRatioHeight);
-        zoomY = std::max(1.0f, scaleRatioHeight / scaleRatioWidth);
+        zoomX = (std::max)(1.0f, scaleRatioWidth / scaleRatioHeight);
+        zoomY = (std::max)(1.0f, scaleRatioHeight / scaleRatioWidth);
     } else {
         zoomX = scaleRatioWidth;
         zoomY = scaleRatioHeight;
