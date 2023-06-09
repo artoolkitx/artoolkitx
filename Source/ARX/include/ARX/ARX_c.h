@@ -168,6 +168,34 @@ extern "C" {
 #pragma mark  Video stream management
     // ----------------------------------------------------------------------------------------------------
 
+    /**
+     * Specifies desired horizontal alignment of video frames in drawing graphics context.
+     */
+    enum {
+        ARW_H_ALIGN_LEFT,       ///< Align the left edge of the video frame with the left edge of the context.
+        ARW_H_ALIGN_CENTRE,     ///< Align the centre of the video frame with the centre of the context.
+        ARW_H_ALIGN_RIGHT       ///< Align the right edge of the video frame with the right edge of the context.
+    };
+
+    /**
+     * Specifies desired vertical alignment of video frames in drawing graphics context.
+     */
+    enum {
+        ARW_V_ALIGN_TOP,        ///< Align the top edge of the video frame with the top edge of the context.
+        ARW_V_ALIGN_CENTRE,     ///< Align the centre of the video frame with the centre of the context.
+        ARW_V_ALIGN_BOTTOM      ///< Align the bottom edge of the video frame with the bottom edge of the context.
+    };
+
+    /**
+     * Specifies desired scaling of video frames to drawing graphics context.
+     */
+    enum {
+        ARW_SCALE_MODE_STRETCH, ///< Scale the video frame non-proportionally up or down so that it matches exactly the size of the graphics context. If the frame and the context have different aspect ratios, the frame will appear stretched or squashed.
+        ARW_SCALE_MODE_FIT,     ///< Scale the video frame proportionally up or down so that it fits visible in its entirety in the graphics context. When the graphics context is wider than the frame, it will be pillarboxed. When the graphics context is taller than the frame, it will be letterboxed.
+        ARW_SCALE_MODE_FILL,    ///< Scale the video frame proportionally up or down so that it fills the entire in the graphics context. When the graphics context is wider than the frame, the frame will be cropped top and/or bottom. When the graphics context is taller than the frame, the frame will be cropped left and/or right.
+        ARW_SCALE_MODE_1_TO_1   ///< Do not scale the video frame. One pixel of the video frame will be represented by one pixel of the graphics context.
+    };
+
 	/**
 	 * Populates the given float array with the projection matrix computed from camera parameters for the video source.
      * @param nearPlane Near plane distance for projection matrix calculation.
@@ -186,6 +214,10 @@ extern "C" {
 	 * @return          true if successful, false if an error occurred
 	 */
 	ARX_EXTERN bool arwGetProjectionMatrixStereo(const float nearPlane, const float farPlane, float pL[16], float pR[16]);
+
+    ARX_EXTERN bool arwGetProjectionMatrixForViewportSizeAndFittingMode(const int width, const int height, const int scaleMode, const int hAlign, const int vAlign, const float nearPlane, const float farPlane, float p[16]);
+
+    ARX_EXTERN bool arwGetProjectionMatrixForViewportSizeAndFittingModeStereo(const int width, const int height, const int scaleMode, const int hAlign, const int vAlign, const float nearPlane, const float farPlane, float pL[16], float pR[16]);
 
 	/**
 	 * Returns the parameters of the video source frame.
@@ -290,34 +322,6 @@ extern "C" {
      * @see arwDrawVideoFinal
      */
     ARX_EXTERN bool arwDrawVideoInit(const int videoSourceIndex);
-
-    /**
-     * Specifies desired horizontal alignment of video frames in drawing graphics context.
-     */
-    enum {
-        ARW_H_ALIGN_LEFT,       ///< Align the left edge of the video frame with the left edge of the context.
-        ARW_H_ALIGN_CENTRE,     ///< Align the centre of the video frame with the centre of the context.
-        ARW_H_ALIGN_RIGHT       ///< Align the right edge of the video frame with the right edge of the context.
-    };
-
-    /**
-     * Specifies desired vertical alignment of video frames in drawing graphics context.
-     */
-    enum {
-        ARW_V_ALIGN_TOP,        ///< Align the top edge of the video frame with the top edge of the context.
-        ARW_V_ALIGN_CENTRE,     ///< Align the centre of the video frame with the centre of the context.
-        ARW_V_ALIGN_BOTTOM      ///< Align the bottom edge of the video frame with the bottom edge of the context.
-    };
-
-    /**
-     * Specifies desired scaling of video frames to drawing graphics context.
-     */
-    enum {
-        ARW_SCALE_MODE_FIT,     ///< Scale the video frame proportionally up or down so that it fits visible in its entirety in the graphics context. When the graphics context is wider than the frame, it will be pillarboxed. When the graphics context is taller than the frame, it will be letterboxed.
-        ARW_SCALE_MODE_FILL,    ///< Scale the video frame proportionally up or down so that it fills the entire in the graphics context. When the graphics context is wider than the frame, the frame will be cropped top and/or bottom. When the graphics context is taller than the frame, the frame will be cropped left and/or right.
-        ARW_SCALE_MODE_STRETCH, ///< Scale the video frame non-proportionally up or down so that it matches exactly the size of the graphics context. If the frame and the context have different aspect ratios, the frame will appear stretched or squashed.
-        ARW_SCALE_MODE_1_TO_1   ///< Do not scale the video frame. One pixel of the video frame will be represented by one pixel of the graphics context.
-    };
 
     /**
      * Specify the layout of the graphics context in which drawing of video frames will occur.

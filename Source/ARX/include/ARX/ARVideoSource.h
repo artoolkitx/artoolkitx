@@ -69,6 +69,7 @@ private:
     char* cameraParamBuffer;
     size_t cameraParamBufferLen;
     ARParamLT *cparamLT;                ///< Camera paramaters
+    ARParam cparamAdjusted;             ///< Adjusted camera parameters (no lookup table).
 
     char* videoConfiguration;           ///< Video configuration string
 
@@ -128,6 +129,34 @@ public:
         @return  The camera parameters, if some are available, or NULL if no parameters are available.
      */
     ARParamLT* getCameraParameters() const;
+
+    struct Size {
+        int width;
+        int height;
+    };
+    
+    enum class ScalingMode {
+        SCALE_MODE_STRETCH,
+        SCALE_MODE_FIT,
+        SCALE_MODE_FILL,
+        SCALE_MODE_1_TO_1
+    };
+
+    static const std::string ScalingModeName(const ScalingMode scalingMode)
+    {
+       switch (scalingMode) {
+            case ScalingMode::SCALE_MODE_STRETCH: return "stretch";
+            case ScalingMode::SCALE_MODE_FIT: return "fit";
+            case ScalingMode::SCALE_MODE_FILL: return "fill";
+            case ScalingMode::SCALE_MODE_1_TO_1: return "1 to 1";
+            default: return "";
+        }
+    }
+
+    /**
+        @brief Adjust camera parameters to fit an output viewport of given size, using fitting and alignment.
+     */
+    ARParam* getCameraParametersForViewportSizeAndFittingMode(const Size viewportSize, const ScalingMode scalingMode);
 
     /**
         @brief Returns the width of the video in pixels.

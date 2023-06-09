@@ -198,18 +198,7 @@ bool arwShutdownAR()
 
 bool arwGetProjectionMatrix(const float nearPlane, const float farPlane, float p[16])
 {
-    if (!gARTK) return false;
-
-#ifdef ARDOUBLE_IS_FLOAT
-    return gARTK->projectionMatrix(0, nearPlane, farPlane, p);
-#else
-    ARdouble p0[16];
-    if (!gARTK->projectionMatrix(0, nearPlane, farPlane, p0)) {
-        return false;
-    }
-    for (int i = 0; i < 16; i++) p[i] = (float)p0[i];
-    return true;
-#endif
+    return arwGetProjectionMatrixStereo(nearPlane, farPlane, p, nullptr);
 }
 
 bool arwGetProjectionMatrixStereo(const float nearPlane, const float farPlane, float pL[16], float pR[16])
@@ -217,19 +206,52 @@ bool arwGetProjectionMatrixStereo(const float nearPlane, const float farPlane, f
     if (!gARTK) return false;
 
 #ifdef ARDOUBLE_IS_FLOAT
-    return (gARTK->projectionMatrix(0, nearPlane, farPlane, pL) && gARTK->projectionMatrix(1, nearPlane, farPlane, pR));
+    return ((!pL || gARTK->projectionMatrix(0, nearPlane, farPlane, pL)) && (!pR || gARTK->projectionMatrix(1, nearPlane, farPlane, pR)));
 #else
-    ARdouble p0L[16];
-    ARdouble p0R[16];
-    if (!gARTK->projectionMatrix(0, nearPlane, farPlane, p0L) || !gARTK->projectionMatrix(1, nearPlane, farPlane, p0R)) {
-        return false;
+    if (pL) {
+        ARdouble p0L[16];
+        if (!gARTK->projectionMatrix(0, nearPlane, farPlane, p0L)) return false;
+        for (int i = 0; i < 16; i++) pL[i] = (float)p0L[i];
     }
-    for (int i = 0; i < 16; i++) pL[i] = (float)p0L[i];
-    for (int i = 0; i < 16; i++) pR[i] = (float)p0R[i];
+    if (pR) {
+        ARdouble p0R[16];
+        if (!gARTK->projectionMatrix(1, nearPlane, farPlane, p0R)) return false;
+        for (int i = 0; i < 16; i++) pR[i] = (float)p0R[i];
+    }
     return true;
 #endif
 }
 
+ARX_EXTERN bool arwGetProjectionMatrixForViewportSizeAndFittingMode(const int width, const int height, const int scaleMode, const int hAlign, const int vAlign, const float nearPlane, const float farPlane, float p[16])
+{
+    return arwGetProjectionMatrixForViewportSizeAndFittingModeStereo(width, height, scaleMode, hAlign, vAlign, nearPlane, farPlane, p, nullptr);
+}
+
+ARX_EXTERN bool arwGetProjectionMatrixForViewportSizeAndFittingModeStereo(const int width, const int height, const int scaleMode, const int hAlign, const int vAlign, const float nearPlane, const float farPlane, float pL[16], float pR[16])
+{
+    ARVideoSource::ScalingMode s;
+    switch (scaleMode) {
+        case ARW_SCALE_MODE_FIT: s = ARVideoSource::ScalingMode::SCALE_MODE_FIT; break;
+        case ARW_SCALE_MODE_FILL: s = ARVideoSource::ScalingMode::SCALE_MODE_FILL; break;
+        case ARW_SCALE_MODE_1_TO_1: s = ARVideoSource::ScalingMode::SCALE_MODE_1_TO_1; break;
+        default /*ARW_SCALE_MODE_STRETCH*/: s = ARVideoSource::ScalingMode::SCALE_MODE_STRETCH; break;
+    }
+#ifdef ARDOUBLE_IS_FLOAT
+    return ((!pL || gARTK->projectionForViewportSizeAndFittingMode(0, {width, height}, s, nearPlane, farPlane, pL)) && (!pR || gARTK->projectionForViewportSizeAndFittingMode(1, {width, height}, s, nearPlane, farPlane, pR)));
+#else
+    if (pL) {
+        ARdouble p0L[16];
+        if (!gARTK->projectionForViewportSizeAndFittingMode(0, {width, height}, s, nearPlane, farPlane, p0L)) return false;
+        for (int i = 0; i < 16; i++) pL[i] = (float)p0L[i];
+    }
+    if (pR) {
+        ARdouble p0R[16];
+        if (!gARTK->projectionForViewportSizeAndFittingMode(1, {width, height}, s, nearPlane, farPlane, p0R)) return false;
+        for (int i = 0; i < 16; i++) pR[i] = (float)p0R[i];
+    }
+    return true;
+#endif
+}
 
 bool arwGetVideoParams(int *width, int *height, int *pixelSize, char *pixelFormatStringBuffer, int pixelFormatStringBufferLen)
 {
@@ -250,10 +272,14 @@ bool arwGetVideoParamsStereo(int *widthL, int *heightL, int *pixelSizeL, char *p
     AR_PIXEL_FORMAT pfL, pfR;
 
     if (!gARTK) return false;
-	if (!gARTK->videoParameters(0, widthL, heightL, &pfL)) return false;
-	if (!gARTK->videoParameters(1, widthR, heightR, &pfR)) return false;
-    if (pixelSizeL) *pixelSizeL = arUtilGetPixelSize(pfL);
-    if (pixelSizeR) *pixelSizeR = arUtilGetPixelSize(pfR);
+    if (widthL || heightL || pixelSizeL) {
+        if (!gARTK->videoParameters(0, widthL, heightL, &pfL)) return false;
+        if (pixelSizeL) *pixelSizeL = arUtilGetPixelSize(pfL);
+    }
+    if (widthR || heightR || pixelSizeR) {
+        if (!gARTK->videoParameters(1, widthR, heightR, &pfR)) return false;
+        if (pixelSizeR) *pixelSizeR = arUtilGetPixelSize(pfR);
+    }
     if (pixelFormatStringBufferL && pixelFormatStringBufferLenL > 0) {
         strncpy(pixelFormatStringBufferL, arUtilGetPixelFormatName(pfL), pixelFormatStringBufferLenL);
         pixelFormatStringBufferL[pixelFormatStringBufferLenL - 1] = '\0'; // guarantee nul termination.
@@ -286,7 +312,17 @@ bool arwUpdateTexture32(uint32_t *buffer)
 bool arwUpdateTexture32Stereo(uint32_t *bufferL, uint32_t *bufferR)
 {
     if (!gARTK) return false;
-    return (gARTK->updateTextureRGBA32(0, bufferL) && gARTK->updateTextureRGBA32(1, bufferR));
+    if (bufferL) {
+        if (!gARTK->updateTextureRGBA32(0, bufferL)) {
+            return false;
+        }
+    }
+    if (bufferR) {
+        if (!gARTK->updateTextureRGBA32(1, bufferR)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 // ----------------------------------------------------------------------------------------------------

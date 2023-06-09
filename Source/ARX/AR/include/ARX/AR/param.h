@@ -193,6 +193,22 @@ AR_EXTERN int    arParamDistFactorClear( ARdouble dist_factor[AR_DIST_FACTOR_NUM
  */
 AR_EXTERN int    arParamClearWithFOVy(ARParam *param, int xsize, int ysize, ARdouble FOVy);
 
+AR_EXTERN int    arParamChangeSizeWithZoom(ARParam *source, int xsize, int ysize, ARdouble x_zoom, ARdouble y_zoom, ARParam *newparam);
+
+/*!
+    @brief Adjust the size of a camera parameter's viewing plane, e.g. to match a renderer frustum size.
+    @details
+        Given a camera parameter structure, this function scales the camera paameter
+        fundamental matrix, focal length and center, to match the passed-in view-plane
+        size. This is often a size in pixels of the renderer frustum.
+    @param source Pointer to an ARParam structure which will be used as the source
+        parameter.
+    @param xsize The horizontal dimension of the desired camera image plane.
+    @param ysize The vertical dimension of the desired camera image plane.
+    @param newparam Pointer to an ARParam structure which will be filled with the resized parameter.
+        This may be the same value as source, in which case the source parameter will be modified.
+    @result 0 if the function completed successfully, or -1 in case of error.
+ */
 AR_EXTERN int    arParamChangeSize( ARParam *source, int xsize, int ysize, ARParam *newparam );
 
 AR_EXTERN int    arParamDecomp( const ARParam *source, ARParam *icpara, ARdouble trans[3][4] );

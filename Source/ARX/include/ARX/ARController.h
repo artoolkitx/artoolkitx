@@ -241,6 +241,21 @@ public:
      */
     bool projectionMatrix(const int videoSourceIndex, const ARdouble projectionNearPlane, const ARdouble projectionFarPlane, ARdouble proj[16]);
 
+    /**
+     * Populates the provided array with the ARToolKit projection matrix, so that the projection maps
+     * to the provided viewport dimensions using the provided scaling mode. The projection matrix is computed
+     * once the video source has been opened, and camera parameters become available. If this method is called
+     * before this happens, then the passed array is untouched and the method will return false.
+     * @param videoSourceIndex Index into an array of video sources, specifying which source should be queried.
+     * @param viewportSize width and height of the viewport to which the projection is to be fitted.
+     * @param scalingMode Whether the camera projection should completely fill, completely fit within, stratch, or map 1:1 to the viewport.
+     * @param projectionNearPlane Near plane distance for projection matrix calculation.
+     * @param projectionFarPlane Far plane distance for projection matrix calculation.
+     * @param proj        Array to populate with OpenGL compatible projection matrix
+     * @return            true if the projection matrix has been computed, otherwise false
+     */
+    bool projectionForViewportSizeAndFittingMode(const int videoSourceIndex, const ARVideoSource::Size viewportSize, const ARVideoSource::ScalingMode scalingMode, const ARdouble projectionNearPlane, const ARdouble projectionFarPlane, ARdouble proj[16]);
+
     bool drawVideoInit(const int videoSourceIndex);
 
     bool drawVideoSettings(const int videoSourceIndex, const int width, const int height, const bool rotate90, const bool flipH, const bool flipV, const ARVideoView::HorizontalAlignment hAlign, const ARVideoView::VerticalAlignment vAlign, const ARVideoView::ScalingMode scalingMode, int32_t viewport[4]);

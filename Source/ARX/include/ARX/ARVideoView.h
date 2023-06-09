@@ -71,9 +71,9 @@ public:
         V_ALIGN_BOTTOM
     };
     enum class ScalingMode {
+        SCALE_MODE_STRETCH,
         SCALE_MODE_FIT,
         SCALE_MODE_FILL,
-        SCALE_MODE_STRETCH,
         SCALE_MODE_1_TO_1
     };
     
@@ -89,7 +89,7 @@ public:
     VerticalAlignment verticalAlignment() const;
     void setVerticalAlignment(const VerticalAlignment vAlign); ///> Defaults to V_ALIGN_CENTRE.
     ScalingMode scalingMode() const;
-    void setScalingMode(const ScalingMode scaling); ///> Defaults to SCALE_MODE_FIT.
+    void setScalingMode(const ScalingMode scalingMode); ///> Defaults to SCALE_MODE_FIT.
     bool distortionCompensation() const;
     void setDistortionCompensation(const bool distortionCompensation); ///> Defaults to true.
     bool rotate90() const;
