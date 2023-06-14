@@ -23,7 +23,7 @@ option(BUILD_UTILITIES "Build the utilities" ON)
 
 set(ARX_VERSION_MAJOR 1)
 set(ARX_VERSION_MINOR 1)
-set(ARX_VERSION_TINY  9)
+set(ARX_VERSION_TINY  10)
 set(ARX_VERSION_DEV   0)
 set(ARX_VERSION_STRING "${ARX_VERSION_MAJOR}.${ARX_VERSION_MINOR}.${ARX_VERSION_TINY}")
 math(EXPR ARX_VERSION_NUMBER "${ARX_VERSION_MAJOR}*1000000+${ARX_VERSION_MINOR}*10000+${ARX_VERSION_TINY}*100+${ARX_VERSION_DEV}")
@@ -81,7 +81,7 @@ endif()
 add_definitions("-DARX_TARGET_PLATFORM_${ARX_PLATFORM_NAME_UC}=1")
 if(CMAKE_CONFIGURATION_TYPES)
   # Definitions for multi-configuration generator, e.g. Xcode, Visual Studio.
-  set_property(DIRECTORY APPEND PROPERTY 
+  set_property(DIRECTORY APPEND PROPERTY
     COMPILE_DEFINITIONS $<$<CONFIG:Debug>:DEBUG=1>
   )
 else()
@@ -211,7 +211,7 @@ elseif(ARX_TARGET_PLATFORM_LINUX)
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=core2 -fPIC -Wl,-rpath-link,${PROJECT_SOURCE_DIR}/depends/${ARX_PLATFORM_NAME_FILESYSTEM}/lib")
         set(HAVE_INTEL_SIMD 1)
     endif()
-    
+
     set(VENDOR_DIR ${CMAKE_SOURCE_DIR}/vendor)
 
 elseif(ARX_TARGET_PLATFORM_WINDOWS)

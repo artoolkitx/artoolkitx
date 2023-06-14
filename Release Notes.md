@@ -1,14 +1,25 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.10
+### 2023-06-14
+
+ * Added a new "External" video module with support for a new all-platform ar2VideoPush* API, including in wrapper and ARController.
+ * Removed entirely support for Android non-native video. Defaults to native now. Users who need pushed video on Android should update to use the new module and API. JNI versions of new wrapper functions optimised for direct byte buffers, same as old arwVideoPushAndroid* functions.
+ * Standardised ARVideo handling of camera focal length hints.
+ * Added some functions to support adjusting camera intrinsics to provide alternate means of scaling viewing frustum to work with a viewport of arbitrary size.
+
+Bug fixes:
+ * Fix iOS builds picking up stray jpeg lib by ensuring libjpeg is included in the static single-object prelink.
+
 ## Version 1.1.9
 ### 2023-05-18
 
-* Support for asynchronous tracking (on a secondary thread) has been added to the 2D tracker. When enabled, the tracking rate can run slower than the video capture frame rate. This results in increased smoothness of the display of video frames, at the expense of some memory usage and a possible lag on lower-powered devices between the displayed frame and the tracking results. It has been enabled by default. Use wrapper function arwSetTrackerOptionBool(ARW_TRACKER_OPTION_2D_THREADED, false) to revert to previous behaviour.
+ * Support for asynchronous tracking (on a secondary thread) has been added to the 2D tracker. When enabled, the tracking rate can run slower than the video capture frame rate. This results in increased smoothness of the display of video frames, at the expense of some memory usage and a possible lag on lower-powered devices between the displayed frame and the tracking results. It has been enabled by default. Use wrapper function arwSetTrackerOptionBool(ARW_TRACKER_OPTION_2D_THREADED, false) to revert to previous behaviour.
 
 Internal changes:
  * Updated OpenCV on Android to v4.6.0.
- 
+
 ## Version 1.1.8
 ### 2023-05-15
 
@@ -60,7 +71,7 @@ Bug fixes:
 ## Version 1.1.2
 ### 2023-03-16
 
- * Addition of a new utility check_image_2d_tracking which displays features and tracking templates used by the 2D planar tracker. 
+ * Addition of a new utility check_image_2d_tracking which displays features and tracking templates used by the 2D planar tracker.
 
 ## Version 1.1.1
 ### 2023-03-10
