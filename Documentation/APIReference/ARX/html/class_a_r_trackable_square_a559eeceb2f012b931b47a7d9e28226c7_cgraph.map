@@ -1,6 +1,5 @@
 <map id="ARTrackableSquare::~ARTrackableSquare" name="ARTrackableSquare::~ARTrackableSquare">
-<area shape="rect" id="node1" title=" " alt="" coords="5,23,152,63"/>
-<area shape="rect" id="node2" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="200,23,347,63"/>
-<area shape="rect" id="node3" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="442,5,525,31"/>
-<area shape="rect" id="node4" href="$class_a_r_trackable.html#aa425f1e3e1ba8d8b39ec6a34f8e2f403" title="Frees allocated patterns and resets the pattern count to zero." alt="" coords="395,55,572,80"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,152,46"/>
+<area shape="rect" id="node2" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="200,5,346,46"/>
+<area shape="rect" id="node3" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="394,13,476,39"/>
 </map>

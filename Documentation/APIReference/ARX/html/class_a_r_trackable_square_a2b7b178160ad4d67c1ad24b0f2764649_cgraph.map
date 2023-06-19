@@ -1,0 +1,6 @@
+<map id="ARTrackableSquare::initWithBarcode" name="ARTrackableSquare::initWithBarcode">
+<area shape="rect" id="node1" title="Init the trackable as a barcode." alt="" coords="5,39,152,79"/>
+<area shape="rect" id="node2" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="200,5,346,46"/>
+<area shape="rect" id="node4" href="$class_a_r_trackable_square.html#af38499ff1ed1065ccb0be6f4cb431058" title=" " alt="" coords="200,71,346,111"/>
+<area shape="rect" id="node3" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="394,13,476,39"/>
+</map>

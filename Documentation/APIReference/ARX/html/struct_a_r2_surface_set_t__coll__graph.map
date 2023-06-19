@@ -1,12 +1,12 @@
 <map id="AR2SurfaceSetT" name="AR2SurfaceSetT">
-<area shape="rect" id="node1" title=" " alt="" coords="219,357,341,383"/>
-<area shape="rect" id="node2" href="$struct_a_r2_surface_t.html" title=" " alt="" coords="151,269,252,295"/>
-<area shape="rect" id="node3" href="$struct_a_r2_image_set_t.html" title=" " alt="" coords="5,181,117,207"/>
-<area shape="rect" id="node4" href="$struct_a_r2_image_t.html" title=" " alt="" coords="15,93,107,119"/>
-<area shape="rect" id="node5" href="$struct_a_r2_feature_set_t.html" title=" " alt="" coords="141,181,261,207"/>
-<area shape="rect" id="node6" href="$struct_a_r2_feature_points_t.html" title=" " alt="" coords="133,93,270,119"/>
-<area shape="rect" id="node7" href="$struct_a_r2_feature_coord_t.html" title=" " alt="" coords="134,5,269,31"/>
-<area shape="rect" id="node8" href="$struct_a_r2_marker_set_t.html" title=" " alt="" coords="286,181,402,207"/>
-<area shape="rect" id="node9" href="$struct_a_r2_marker_t.html" title=" " alt="" coords="296,93,392,119"/>
-<area shape="rect" id="node10" href="$struct_a_r2_template_candidate_t.html" title=" " alt="" coords="276,269,444,295"/>
+<area shape="rect" id="node1" title=" " alt="" coords="220,360,340,386"/>
+<area shape="rect" id="node2" href="$struct_a_r2_surface_t.html" title=" " alt="" coords="151,271,251,297"/>
+<area shape="rect" id="node3" href="$struct_a_r2_image_set_t.html" title=" " alt="" coords="5,183,117,208"/>
+<area shape="rect" id="node4" href="$struct_a_r2_image_t.html" title=" " alt="" coords="15,94,107,120"/>
+<area shape="rect" id="node5" href="$struct_a_r2_feature_set_t.html" title=" " alt="" coords="141,183,261,208"/>
+<area shape="rect" id="node6" href="$struct_a_r2_feature_points_t.html" title=" " alt="" coords="133,94,269,120"/>
+<area shape="rect" id="node7" href="$struct_a_r2_feature_coord_t.html" title=" " alt="" coords="134,5,268,31"/>
+<area shape="rect" id="node8" href="$struct_a_r2_marker_set_t.html" title=" " alt="" coords="285,183,400,208"/>
+<area shape="rect" id="node9" href="$struct_a_r2_marker_t.html" title=" " alt="" coords="295,94,390,120"/>
+<area shape="rect" id="node10" href="$struct_a_r2_template_candidate_t.html" title=" " alt="" coords="275,271,442,297"/>
 </map>

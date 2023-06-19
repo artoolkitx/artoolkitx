@@ -1,19 +1,20 @@
 <map id="ARController::startRunning" name="ARController::startRunning">
-<area shape="rect" id="node1" title="Start video capture and tracking." alt="" coords="5,301,184,327"/>
-<area shape="rect" id="node2" href="$class_a_r_video_source.html#aa385c7136b3d45c6efaa6604bf0a6d9a" title="Sets initial parameters which will be used when the video source is opened." alt="" coords="232,252,408,277"/>
-<area shape="rect" id="node3" href="$class_a_r_video_source.html#a1d4e4cebdf413918427c39aa99a197cc" title=" " alt="" coords="235,301,405,327"/>
-<area shape="rect" id="node4" href="$class_a_r_video_source.html#ad6e81f0a07ddf8e844dfb867bc94de4b" title="Opens the video source." alt="" coords="245,351,395,376"/>
-<area shape="rect" id="node5" href="$video2_8c.html#aef591a0c1b52999872fa5a89f7b2e4e9" title="Open a video input module and return control object." alt="" coords="475,228,579,253"/>
-<area shape="rect" id="node15" href="$video2_8c.html#a3827b2271419905797e3326a91255794" title="Open a video input module, and return control object, invoking a callback once opening is complete." alt="" coords="456,449,597,475"/>
-<area shape="rect" id="node6" href="$video1394_8h.html#a5e135a088763d0bbeb2d95f8c92704b1" title=" " alt="" coords="690,5,822,31"/>
-<area shape="rect" id="node7" href="$video_a_v_foundation_8h.html#aefeea555e04e4d04eb17b4adea17013d" title=" " alt="" coords="664,55,848,80"/>
-<area shape="rect" id="node8" href="$video_dummy_8h.html#a72835c795b3b4f9ec13d7c3bfe482476" title=" " alt="" coords="681,104,831,129"/>
-<area shape="rect" id="node9" href="$video_emscripten_8h.html#a29074bdca28d3b80a8e89895087646b5" title=" " alt="" coords="671,153,841,179"/>
-<area shape="rect" id="node10" href="$video_g_streamer_8h.html#a39ad73e9efc5e41fb011b58ec8262958" title=" " alt="" coords="673,203,839,228"/>
-<area shape="rect" id="node11" href="$video_image_8h.html#a73390fddad6f8e51c827515ba754986b" title=" " alt="" coords="686,252,826,277"/>
-<area shape="rect" id="node12" href="$video_v4_l2_8h.html#abfb2b883b0d8a1b97aece447925d9fbb" title=" " alt="" coords="689,301,823,327"/>
-<area shape="rect" id="node13" href="$video_windows_media_capture_8h.html#a61863b436e12e617a68415854ef8873a" title=" " alt="" coords="682,351,830,376"/>
-<area shape="rect" id="node14" href="$video_windows_media_foundation_8h.html#a0fd1e3b5895e22598a81e24f86820168" title=" " alt="" coords="683,400,829,425"/>
-<area shape="rect" id="node16" href="$video_android_8h.html#a1d6e964f2d94fca2f61cd36f1bcaf8a5" title=" " alt="" coords="663,449,849,475"/>
-<area shape="rect" id="node17" href="$video_a_v_foundation_8h.html#adb1121aa31efbd7a52a0a09f1c287064" title=" " alt="" coords="645,499,867,524"/>
+<area shape="rect" id="node1" title="Start video capture and tracking." alt="" coords="5,325,184,351"/>
+<area shape="rect" id="node2" href="$class_a_r_video_source.html#aa385c7136b3d45c6efaa6604bf0a6d9a" title="Sets initial parameters which will be used when the video source is opened." alt="" coords="232,276,407,302"/>
+<area shape="rect" id="node3" href="$class_a_r_video_source.html#a1d4e4cebdf413918427c39aa99a197cc" title=" " alt="" coords="235,325,404,351"/>
+<area shape="rect" id="node4" href="$class_a_r_video_source.html#ad6e81f0a07ddf8e844dfb867bc94de4b" title="Opens the video source." alt="" coords="244,375,395,400"/>
+<area shape="rect" id="node5" href="$video2_8c.html#aef591a0c1b52999872fa5a89f7b2e4e9" title="Open a video input module and return control object." alt="" coords="474,228,577,254"/>
+<area shape="rect" id="node15" href="$video2_8c.html#a3827b2271419905797e3326a91255794" title="Open a video input module, and return control object, invoking a callback once opening is complete." alt="" coords="455,473,595,499"/>
+<area shape="rect" id="node6" href="$video1394_8h.html#a5e135a088763d0bbeb2d95f8c92704b1" title=" " alt="" coords="688,5,819,31"/>
+<area shape="rect" id="node7" href="$video_a_v_foundation_8h.html#aefeea555e04e4d04eb17b4adea17013d" title=" " alt="" coords="662,55,845,80"/>
+<area shape="rect" id="node8" href="$video_dummy_8h.html#a72835c795b3b4f9ec13d7c3bfe482476" title=" " alt="" coords="679,104,828,130"/>
+<area shape="rect" id="node9" href="$video_emscripten_8h.html#a29074bdca28d3b80a8e89895087646b5" title=" " alt="" coords="669,153,838,179"/>
+<area shape="rect" id="node10" href="$video_g_streamer_8h.html#a39ad73e9efc5e41fb011b58ec8262958" title=" " alt="" coords="670,203,837,228"/>
+<area shape="rect" id="node11" href="$video_image_8h.html#a73390fddad6f8e51c827515ba754986b" title=" " alt="" coords="684,252,823,278"/>
+<area shape="rect" id="node12" href="$video_v4_l2_8h.html#abfb2b883b0d8a1b97aece447925d9fbb" title=" " alt="" coords="687,301,820,327"/>
+<area shape="rect" id="node13" href="$video_windows_media_capture_8h.html#a61863b436e12e617a68415854ef8873a" title=" " alt="" coords="680,351,827,376"/>
+<area shape="rect" id="node14" href="$video_windows_media_foundation_8h.html#a0fd1e3b5895e22598a81e24f86820168" title=" " alt="" coords="681,400,826,426"/>
+<area shape="rect" id="node16" href="$video_android_8h.html#a1d6e964f2d94fca2f61cd36f1bcaf8a5" title=" " alt="" coords="661,449,846,475"/>
+<area shape="rect" id="node17" href="$video_a_v_foundation_8h.html#adb1121aa31efbd7a52a0a09f1c287064" title=" " alt="" coords="643,499,864,524"/>
+<area shape="rect" id="node18" href="$video_external_8h.html#a6688bc62f5be5535ce19a0fd80c23ab4" title=" " alt="" coords="659,548,848,574"/>
 </map>

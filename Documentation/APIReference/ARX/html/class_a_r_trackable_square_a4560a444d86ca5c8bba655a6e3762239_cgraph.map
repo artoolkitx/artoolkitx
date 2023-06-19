@@ -1,9 +1,7 @@
 <map id="ARTrackableSquare::initWithPatternFromBuffer" name="ARTrackableSquare::initWithPatternFromBuffer">
-<area shape="rect" id="node1" title=" " alt="" coords="5,73,179,113"/>
-<area shape="rect" id="node2" href="$class_a_r_trackable.html#a913458e15352cfd5488f893c95f9c4f5" title="Allocates space for patterns within this trackable." alt="" coords="227,5,427,31"/>
-<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="251,55,402,80"/>
-<area shape="rect" id="node5" href="$class_a_r_pattern.html#a6b3fa362244a54588d361af8c09690f6" title=" " alt="" coords="243,104,411,129"/>
-<area shape="rect" id="node6" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="253,154,400,194"/>
-<area shape="rect" id="node3" href="$class_a_r_trackable.html#aa425f1e3e1ba8d8b39ec6a34f8e2f403" title="Frees allocated patterns and resets the pattern count to zero." alt="" coords="475,59,652,84"/>
-<area shape="rect" id="node7" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="522,161,605,187"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,55,178,96"/>
+<area shape="rect" id="node2" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="226,5,375,31"/>
+<area shape="rect" id="node3" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="227,55,374,96"/>
+<area shape="rect" id="node5" href="$class_a_r_trackable_square.html#af38499ff1ed1065ccb0be6f4cb431058" title=" " alt="" coords="227,121,374,161"/>
+<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="423,63,505,88"/>
 </map>

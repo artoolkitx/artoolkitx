@@ -1,12 +1,12 @@
 <map id="ARHandle" name="ARHandle">
-<area shape="rect" id="node1" title="Structure holding state of an instance of the square marker tracker." alt="" coords="761,219,844,244"/>
-<area shape="rect" id="node2" href="$struct_a_r_param_l_t.html" title="Structure holding camera parameters, in lookup table form." alt="" coords="498,55,593,80"/>
-<area shape="rect" id="node3" href="$struct_a_r_param.html" title="Structure holding camera parameters, including image size, projection matrix and lens distortion para..." alt="" coords="267,5,345,31"/>
-<area shape="rect" id="node4" href="$struct_a_r_param_l_tf.html" title="Structure holding camera parameters, in lookup table form; floating point version." alt="" coords="257,55,355,80"/>
-<area shape="rect" id="node5" href="$struct_a_r_marker_info.html" title="Describes a detected trapezoidal area (a candidate for a marker match)." alt="" coords="255,157,357,183"/>
-<area shape="rect" id="node7" href="$struct_a_r_tracking_history.html" title="(description)" alt="" coords="479,219,612,244"/>
-<area shape="rect" id="node6" href="$struct_a_r_marker_info2.html" title="Captures detail of a trapezoidal region which is a candidate for marker detection." alt="" coords="5,131,116,156"/>
-<area shape="rect" id="node8" href="$struct_a_r_label_info.html" title="(description)" alt="" coords="498,268,593,293"/>
-<area shape="rect" id="node9" href="$struct_a_r_patt_handle.html" title="A structure which holds descriptions of trained patterns for template matching." alt="" coords="492,317,599,343"/>
-<area shape="rect" id="node10" href="$struct___a_r_image_proc_info.html" title="Structure holding settings for an instance of the image&#45;processing pipeline." alt="" coords="479,367,612,392"/>
+<area shape="rect" id="node1" title="Structure holding state of an instance of the square marker tracker." alt="" coords="756,219,838,244"/>
+<area shape="rect" id="node2" href="$struct_a_r_param_l_t.html" title="Structure holding camera parameters, in lookup table form." alt="" coords="496,55,589,80"/>
+<area shape="rect" id="node3" href="$struct_a_r_param.html" title="Structure holding camera parameters, including image size, projection matrix and lens distortion para..." alt="" coords="265,5,343,31"/>
+<area shape="rect" id="node4" href="$struct_a_r_param_l_tf.html" title="Structure holding camera parameters, in lookup table form; floating point version." alt="" coords="255,55,353,80"/>
+<area shape="rect" id="node5" href="$struct_a_r_marker_info.html" title="Describes a detected trapezoidal area (a candidate for a marker match)." alt="" coords="253,157,355,183"/>
+<area shape="rect" id="node7" href="$struct_a_r_tracking_history.html" title="(description)" alt="" coords="476,219,608,244"/>
+<area shape="rect" id="node6" href="$struct_a_r_marker_info2.html" title="Captures detail of a trapezoidal region which is a candidate for marker detection." alt="" coords="5,131,115,156"/>
+<area shape="rect" id="node8" href="$struct_a_r_label_info.html" title="(description)" alt="" coords="496,268,589,294"/>
+<area shape="rect" id="node9" href="$struct_a_r_patt_handle.html" title="A structure which holds descriptions of trained patterns for template matching." alt="" coords="490,317,595,343"/>
+<area shape="rect" id="node10" href="$struct___a_r_image_proc_info.html" title="Structure holding settings for an instance of the image&#45;processing pipeline." alt="" coords="476,367,608,392"/>
 </map>

@@ -1,24 +1,25 @@
 <map id="Source/ARX/ARUtil/file_utils.c" name="Source/ARX/ARUtil/file_utils.c">
-<area shape="rect" id="node1" title=" " alt="" coords="670,5,828,45"/>
-<area shape="rect" id="node2" href="$file__utils_8h.html" title=" " alt="" coords="163,93,319,119"/>
-<area shape="rect" id="node6" title=" " alt="" coords="465,240,526,265"/>
-<area shape="rect" id="node7" title=" " alt="" coords="622,93,687,119"/>
-<area shape="rect" id="node8" title=" " alt="" coords="712,93,786,119"/>
-<area shape="rect" id="node9" title=" " alt="" coords="811,93,879,119"/>
-<area shape="rect" id="node10" title=" " alt="" coords="903,93,998,119"/>
-<area shape="rect" id="node11" title=" " alt="" coords="1022,93,1087,119"/>
-<area shape="rect" id="node12" href="$ftw_8h.html" title=" " alt="" coords="1111,93,1160,119"/>
-<area shape="rect" id="node14" title=" " alt="" coords="1158,167,1238,192"/>
-<area shape="rect" id="node15" title=" " alt="" coords="1236,93,1312,119"/>
-<area shape="rect" id="node16" title=" " alt="" coords="550,240,614,265"/>
-<area shape="rect" id="node17" title=" " alt="" coords="1336,93,1399,119"/>
-<area shape="rect" id="node18" href="$time_8h.html" title=" " alt="" coords="65,93,124,119"/>
-<area shape="rect" id="node19" href="$unzip_8h.html" title=" " alt="" coords="357,93,421,119"/>
-<area shape="rect" id="node22" href="$zip_8h.html" title=" " alt="" coords="445,93,496,119"/>
-<area shape="rect" id="node3" title=" " alt="" coords="189,167,258,192"/>
-<area shape="rect" id="node4" title=" " alt="" coords="263,240,328,265"/>
-<area shape="rect" id="node5" href="$types_8h.html" title=" " alt="" coords="24,167,164,192"/>
-<area shape="rect" id="node13" title=" " alt="" coords="1044,167,1134,192"/>
-<area shape="rect" id="node20" title=" " alt="" coords="388,240,441,265"/>
-<area shape="rect" id="node21" href="$ioapi_8h.html" title=" " alt="" coords="384,167,444,192"/>
+<area shape="rect" id="node1" title=" " alt="" coords="672,5,831,46"/>
+<area shape="rect" id="node2" href="$file__utils_8h.html" title=" " alt="" coords="87,94,242,120"/>
+<area shape="rect" id="node6" title=" " alt="" coords="519,241,579,267"/>
+<area shape="rect" id="node7" title=" " alt="" coords="673,94,737,120"/>
+<area shape="rect" id="node8" title=" " alt="" coords="761,94,835,120"/>
+<area shape="rect" id="node9" title=" " alt="" coords="859,94,926,120"/>
+<area shape="rect" id="node10" title=" " alt="" coords="950,94,1043,120"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1067,94,1132,120"/>
+<area shape="rect" id="node12" href="$ftw_8h.html" title=" " alt="" coords="1155,94,1204,120"/>
+<area shape="rect" id="node14" title=" " alt="" coords="1201,168,1280,193"/>
+<area shape="rect" id="node15" title=" " alt="" coords="1278,94,1353,120"/>
+<area shape="rect" id="node16" title=" " alt="" coords="602,241,666,267"/>
+<area shape="rect" id="node17" title=" " alt="" coords="1377,94,1438,120"/>
+<area shape="rect" id="node18" href="$time_8h.html" title=" " alt="" coords="5,94,63,120"/>
+<area shape="rect" id="node19" href="$uuid__sha1_8h.html" title=" " alt="" coords="266,94,386,120"/>
+<area shape="rect" id="node20" href="$unzip_8h.html" title=" " alt="" coords="410,94,474,120"/>
+<area shape="rect" id="node23" href="$zip_8h.html" title=" " alt="" coords="497,94,547,120"/>
+<area shape="rect" id="node3" title=" " alt="" coords="289,168,358,193"/>
+<area shape="rect" id="node4" title=" " alt="" coords="215,241,280,267"/>
+<area shape="rect" id="node5" href="$types_8h.html" title=" " alt="" coords="71,168,210,193"/>
+<area shape="rect" id="node13" title=" " alt="" coords="1088,168,1177,193"/>
+<area shape="rect" id="node21" title=" " alt="" coords="441,241,494,267"/>
+<area shape="rect" id="node22" href="$ioapi_8h.html" title=" " alt="" coords="438,168,497,193"/>
 </map>

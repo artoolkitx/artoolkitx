@@ -1,14 +1,14 @@
 <map id="_KpmHandle" name="_KpmHandle">
-<area shape="rect" id="node1" title=" " alt="" coords="359,295,456,320"/>
-<area shape="rect" id="node2" href="$struct_a_r_param_l_t.html" title="Structure holding camera parameters, in lookup table form." alt="" coords="111,207,205,232"/>
-<area shape="rect" id="node3" href="$struct_a_r_param.html" title="Structure holding camera parameters, including image size, projection matrix and lens distortion para..." alt="" coords="5,108,84,133"/>
-<area shape="rect" id="node4" href="$struct_a_r_param_l_tf.html" title="Structure holding camera parameters, in lookup table form; floating point version." alt="" coords="109,108,207,133"/>
-<area shape="rect" id="node5" href="$struct_kpm_ref_data_set.html" title=" " alt="" coords="348,207,467,232"/>
-<area shape="rect" id="node6" href="$struct___kpm_ref_data.html" title=" " alt="" coords="327,108,432,133"/>
-<area shape="rect" id="node7" href="$struct_kpm_coord2_d.html" title=" " alt="" coords="283,5,385,31"/>
-<area shape="rect" id="node10" href="$struct_kpm_input_data_set.html" title=" " alt="" coords="225,157,352,183"/>
-<area shape="rect" id="node8" href="$struct_kpm_page_info.html" title=" " alt="" coords="457,108,558,133"/>
-<area shape="rect" id="node9" href="$struct_kpm_image_info.html" title=" " alt="" coords="454,5,561,31"/>
-<area shape="rect" id="node11" href="$struct_kpm_skip_region_set.html" title=" " alt="" coords="491,207,627,232"/>
-<area shape="rect" id="node12" href="$struct_kpm_result.html" title=" " alt="" coords="652,207,739,232"/>
+<area shape="rect" id="node1" title=" " alt="" coords="354,297,450,323"/>
+<area shape="rect" id="node2" href="$struct_a_r_param_l_t.html" title="Structure holding camera parameters, in lookup table form." alt="" coords="110,208,203,234"/>
+<area shape="rect" id="node3" href="$struct_a_r_param.html" title="Structure holding camera parameters, including image size, projection matrix and lens distortion para..." alt="" coords="5,109,84,135"/>
+<area shape="rect" id="node4" href="$struct_a_r_param_l_tf.html" title="Structure holding camera parameters, in lookup table form; floating point version." alt="" coords="108,109,205,135"/>
+<area shape="rect" id="node5" href="$struct_kpm_ref_data_set.html" title=" " alt="" coords="343,208,461,234"/>
+<area shape="rect" id="node6" href="$struct___kpm_ref_data.html" title=" " alt="" coords="322,109,426,135"/>
+<area shape="rect" id="node7" href="$struct_kpm_coord2_d.html" title=" " alt="" coords="278,5,379,31"/>
+<area shape="rect" id="node10" href="$struct_kpm_input_data_set.html" title=" " alt="" coords="222,159,347,184"/>
+<area shape="rect" id="node8" href="$struct_kpm_page_info.html" title=" " alt="" coords="450,109,551,135"/>
+<area shape="rect" id="node9" href="$struct_kpm_image_info.html" title=" " alt="" coords="447,5,554,31"/>
+<area shape="rect" id="node11" href="$struct_kpm_skip_region_set.html" title=" " alt="" coords="485,208,620,234"/>
+<area shape="rect" id="node12" href="$struct_kpm_result.html" title=" " alt="" coords="644,208,730,234"/>
 </map>

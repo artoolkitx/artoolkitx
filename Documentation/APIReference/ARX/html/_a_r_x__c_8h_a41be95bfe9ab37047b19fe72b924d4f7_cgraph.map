@@ -1,7 +1,4 @@
 <map id="arwSetTrackableOptionFloat" name="arwSetTrackableOptionFloat">
-<area shape="rect" id="node1" title="Set floating&#45;point options associated with a trackable." alt="" coords="5,63,192,88"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#a4eafe05e50bdb9e788ad836f4c2104f1" title="Searches the collection of trackables for the given ID." alt="" coords="261,5,444,31"/>
-<area shape="rect" id="node3" href="$class_a_r_trackable.html#ad395b7942a14c6862bcbe80891dfcd39" title=" " alt="" coords="258,55,447,95"/>
-<area shape="rect" id="node5" href="$class_a_r_trackable.html#a003593728264b87959a7494f3415e585" title=" " alt="" coords="240,120,465,145"/>
-<area shape="rect" id="node4" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="513,92,696,117"/>
+<area shape="rect" id="node1" title="Set floating&#45;point options associated with a trackable." alt="" coords="5,5,192,31"/>
+<area shape="rect" id="node2" href="$class_a_r_controller.html#aff42fd017881ce2601c53f830ae7d021" title="Searches the collection of trackables for the given ID." alt="" coords="240,5,422,31"/>
 </map>

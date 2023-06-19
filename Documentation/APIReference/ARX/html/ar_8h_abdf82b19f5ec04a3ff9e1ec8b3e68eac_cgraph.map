@@ -1,5 +1,5 @@
 <map id="arPattLoad" name="arPattLoad">
-<area shape="rect" id="node1" title="Load a pattern file into a pattern handle." alt="" coords="5,31,91,56"/>
-<area shape="rect" id="node2" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="139,5,289,31"/>
-<area shape="rect" id="node3" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="194,55,234,80"/>
+<area shape="rect" id="node1" title="Load a pattern file into a pattern handle." alt="" coords="5,31,90,56"/>
+<area shape="rect" id="node2" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="138,5,287,31"/>
+<area shape="rect" id="node3" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="193,55,232,80"/>
 </map>

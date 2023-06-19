@@ -10,14 +10,13 @@ var searchData=
   ['_5fheight_7',['_height',['../class_trackable_info.html#a8a23ab102770e9a25b63b7b4460cabd5',1,'TrackableInfo']]],
   ['_5fid_8',['_id',['../class_trackable_info.html#ab17ae759ef82031cee0ddcdec1952f6c',1,'TrackableInfo']]],
   ['_5fimage_9',['_image',['../class_trackable_info.html#a27f565f6fa822b1e176e65ce2f21b365',1,'TrackableInfo']]],
-  ['_5fisdetected_10',['_isDetected',['../class_trackable_info.html#a2e5d353bd4771b94ea01f82bd3807d1a',1,'TrackableInfo']]],
-  ['_5fistracking_11',['_isTracking',['../class_trackable_info.html#a1ae66f016638148fed9344e9048f85e6',1,'TrackableInfo']]],
-  ['_5fpoints_12',['_points',['../class_trackable_info.html#aff0f7b8c6564c9d53c16924278dbe65c',1,'TrackableInfo']]],
-  ['_5fpose_13',['_pose',['../class_trackable_info.html#a8b9f1f89567f13009996504a0540e72e',1,'TrackableInfo']]],
-  ['_5fpts_14',['_pts',['../class_tracking_point_selector.html#a19a8172d617f96924ec309d3827f6a9f',1,'TrackingPointSelector']]],
+  ['_5fimagebuff_10',['_imageBuff',['../class_trackable_info.html#a3d8ace438c94ce02aa7432061a26c5e9',1,'TrackableInfo']]],
+  ['_5fisdetected_11',['_isDetected',['../class_trackable_info.html#a2e5d353bd4771b94ea01f82bd3807d1a',1,'TrackableInfo']]],
+  ['_5fistracking_12',['_isTracking',['../class_trackable_info.html#a1ae66f016638148fed9344e9048f85e6',1,'TrackableInfo']]],
+  ['_5fpoints_13',['_points',['../class_trackable_info.html#aff0f7b8c6564c9d53c16924278dbe65c',1,'TrackableInfo']]],
+  ['_5fpose_14',['_pose',['../class_trackable_info.html#a8b9f1f89567f13009996504a0540e72e',1,'TrackableInfo']]],
   ['_5fresettracks_15',['_resetTracks',['../class_trackable_info.html#a3daf92027d4b219e3e41527fb252df07',1,'TrackableInfo']]],
   ['_5fscale_16',['_scale',['../class_trackable_info.html#a82ceacf7db7585bed7a0f2bf838d1181',1,'TrackableInfo']]],
-  ['_5fselectedpts_17',['_selectedPts',['../class_tracking_point_selector.html#aa8dcb9465686672cda18fde2a853e68d',1,'TrackingPointSelector']]],
-  ['_5ftrackselection_18',['_trackSelection',['../class_trackable_info.html#a84f41dbec356df38f292771406d64648',1,'TrackableInfo']]],
-  ['_5fwidth_19',['_width',['../class_trackable_info.html#a3db6577bb5422fb43422f4bdb49ec98a',1,'TrackableInfo']]]
+  ['_5ftrackselection_17',['_trackSelection',['../class_trackable_info.html#a84f41dbec356df38f292771406d64648',1,'TrackableInfo']]],
+  ['_5fwidth_18',['_width',['../class_trackable_info.html#a3db6577bb5422fb43422f4bdb49ec98a',1,'TrackableInfo']]]
 ];

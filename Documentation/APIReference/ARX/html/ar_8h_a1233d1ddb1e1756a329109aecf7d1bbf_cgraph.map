@@ -1,5 +1,5 @@
 <map id="arPattGetIDGlobal" name="arPattGetIDGlobal">
-<area shape="rect" id="node1" title="Match the interior of a detected square against known patterns with variable border width." alt="" coords="5,5,135,31"/>
-<area shape="rect" id="node2" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="183,5,304,31"/>
-<area shape="rect" id="node3" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="352,5,519,31"/>
+<area shape="rect" id="node1" title="Match the interior of a detected square against known patterns with variable border width." alt="" coords="5,5,134,31"/>
+<area shape="rect" id="node2" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="182,5,302,31"/>
+<area shape="rect" id="node3" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="350,5,516,31"/>
 </map>

@@ -1,0 +1,7 @@
+<map id="ARController::videoPush" name="ARController::videoPush">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,171,56"/>
+<area shape="rect" id="node2" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="229,5,392,31"/>
+<area shape="rect" id="node3" href="$class_a_r_video_source.html#a8df14d6f55b1911b1c863eb37038ceb3" title=" " alt="" coords="219,55,402,80"/>
+<area shape="rect" id="node4" href="$video2_8c.html#a9bf0ed096895994e6159dc9b9e5f4e2e" title=" " alt="" coords="450,55,552,80"/>
+<area shape="rect" id="node5" href="$video_external_8h.html#a0f3a7382f25a67ff2b263c265290b785" title=" " alt="" coords="600,55,751,80"/>
+</map>

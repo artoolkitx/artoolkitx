@@ -1,8 +1,8 @@
 <map id="Source/ARX/AR2/include/ARX/AR2/coord.h" name="Source/ARX/AR2/include/ARX/AR2/coord.h">
-<area shape="rect" id="node1" title=" " alt="" coords="441,5,611,45"/>
-<area shape="rect" id="node2" href="$coord_8c.html" title=" " alt="" coords="5,93,177,119"/>
-<area shape="rect" id="node3" href="$search_point_8c.html" title=" " alt="" coords="201,93,411,119"/>
-<area shape="rect" id="node4" href="$surface_8c.html" title=" " alt="" coords="435,93,617,119"/>
-<area shape="rect" id="node5" href="$template_8c.html" title=" " alt="" coords="641,93,832,119"/>
-<area shape="rect" id="node6" href="$tracking_8c.html" title=" " alt="" coords="857,93,1043,119"/>
+<area shape="rect" id="node1" title=" " alt="" coords="440,5,609,46"/>
+<area shape="rect" id="node2" href="$coord_8c.html" title=" " alt="" coords="5,94,177,120"/>
+<area shape="rect" id="node3" href="$search_point_8c.html" title=" " alt="" coords="200,94,409,120"/>
+<area shape="rect" id="node4" href="$surface_8c.html" title=" " alt="" coords="433,94,616,120"/>
+<area shape="rect" id="node5" href="$template_8c.html" title=" " alt="" coords="639,94,828,120"/>
+<area shape="rect" id="node6" href="$tracking_8c.html" title=" " alt="" coords="853,94,1038,120"/>
 </map>

@@ -1,15 +1,15 @@
 <map id="arGetMarkerInfo" name="arGetMarkerInfo">
 <area shape="rect" id="node1" title="Examine a set of detected squares for match with known markers." alt="" coords="5,307,121,332"/>
-<area shape="rect" id="node2" href="$ar_get_line_8c.html#a4edefe6026de468f8892a6359db67fbc" title=" " alt="" coords="195,181,273,207"/>
-<area shape="rect" id="node8" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="347,308,513,333"/>
-<area shape="rect" id="node11" href="$ar_patt_get_i_d_8c.html#acce963b8d7e85cedfcb4d33ece5f20db" title="Match the interior of a detected square against known patterns with variable border width." alt="" coords="169,357,299,383"/>
-<area shape="rect" id="node3" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="776,107,875,132"/>
-<area shape="rect" id="node4" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="778,207,873,232"/>
-<area shape="rect" id="node5" href="$m_p_c_a_8c.html#a04d062f49b83d57ac0dec5e906dfcd32" title=" " alt="" coords="381,181,479,207"/>
-<area shape="rect" id="node9" href="$v_alloc_8c.html#a24a15cbbf606806e8a494f4943fb12fe" title=" " alt="" coords="387,5,473,31"/>
-<area shape="rect" id="node10" href="$v_free_8c.html#a08c0d02dd8ddfb8a05d07f3fb80db2c4" title=" " alt="" coords="389,55,471,80"/>
-<area shape="rect" id="node6" href="$m_alloc_dup_8c.html#ace5d8c6eb6524469fbc3770081658081" title=" " alt="" coords="583,156,706,181"/>
-<area shape="rect" id="node7" href="$m_dup_8c.html#a988e4c76394edccbf1e86005b97f725a" title=" " alt="" coords="779,156,872,181"/>
-<area shape="rect" id="node12" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="369,357,491,383"/>
-<area shape="rect" id="node13" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="561,357,728,383"/>
+<area shape="rect" id="node2" href="$ar_get_line_8c.html#a4edefe6026de468f8892a6359db67fbc" title=" " alt="" coords="194,181,272,207"/>
+<area shape="rect" id="node8" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="345,308,511,334"/>
+<area shape="rect" id="node11" href="$ar_patt_get_i_d_8c.html#acce963b8d7e85cedfcb4d33ece5f20db" title="Match the interior of a detected square against known patterns with variable border width." alt="" coords="169,357,297,383"/>
+<area shape="rect" id="node3" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="774,107,871,132"/>
+<area shape="rect" id="node4" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="775,207,870,232"/>
+<area shape="rect" id="node5" href="$m_p_c_a_8c.html#a04d062f49b83d57ac0dec5e906dfcd32" title=" " alt="" coords="380,181,476,207"/>
+<area shape="rect" id="node9" href="$v_alloc_8c.html#a24a15cbbf606806e8a494f4943fb12fe" title=" " alt="" coords="386,5,470,31"/>
+<area shape="rect" id="node10" href="$v_free_8c.html#a08c0d02dd8ddfb8a05d07f3fb80db2c4" title=" " alt="" coords="388,55,469,80"/>
+<area shape="rect" id="node6" href="$m_alloc_dup_8c.html#ace5d8c6eb6524469fbc3770081658081" title=" " alt="" coords="582,156,703,182"/>
+<area shape="rect" id="node7" href="$m_dup_8c.html#a988e4c76394edccbf1e86005b97f725a" title=" " alt="" coords="776,156,869,182"/>
+<area shape="rect" id="node12" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="368,357,488,383"/>
+<area shape="rect" id="node13" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="559,357,726,383"/>
 </map>

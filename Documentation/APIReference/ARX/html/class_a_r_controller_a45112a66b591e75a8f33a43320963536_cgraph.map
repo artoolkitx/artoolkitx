@@ -1,4 +1,5 @@
 <map id="ARController::addTrackable" name="ARController::addTrackable">
-<area shape="rect" id="node1" title="Adds a trackable as specified in the given configuration string." alt="" coords="5,5,188,31"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#a90d60be654e735ff2c5718af543dc8e9" title="Report whether artoolkit was initialized and a trackable can be added." alt="" coords="236,5,383,31"/>
+<area shape="rect" id="node1" title="Adds a trackable as specified in the given configuration string." alt="" coords="5,31,188,56"/>
+<area shape="rect" id="node2" href="$class_a_r_controller.html#ac2961fa58ba3a2e10dbde637571efb91" title="Returns the number of currently loaded trackables." alt="" coords="236,5,436,31"/>
+<area shape="rect" id="node3" href="$class_a_r_controller.html#a90d60be654e735ff2c5718af543dc8e9" title="Report whether artoolkit was initialized and a trackable can be added." alt="" coords="263,55,409,80"/>
 </map>

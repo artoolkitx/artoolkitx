@@ -1,8 +1,8 @@
 <map id="arCreateHandle" name="arCreateHandle">
-<area shape="rect" id="node1" title="Create a handle to hold settings for an artoolkitX tracker instance." alt="" coords="5,55,119,80"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#a01258051f513f5c2760136479c9a2052" title="Enable or disable artoolkitX&#39;s debug mode." alt="" coords="205,5,328,31"/>
-<area shape="rect" id="node3" href="$ar_create_handle_8c.html#aec6c548f3619e700e40764cd1c685fc6" title="Set the labeling threshold mode (auto/manual)." alt="" coords="180,55,353,80"/>
-<area shape="rect" id="node6" href="$ar_create_handle_8c.html#a86e2d00dfb41243650b1e18c55dcf031" title="Set the number of frames between auto&#45;threshold calculations." alt="" coords="167,105,367,145"/>
-<area shape="rect" id="node4" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="415,31,539,56"/>
-<area shape="rect" id="node5" href="$ar_image_proc_8c.html#ab17100ae9f8d3a2b881830f135bfffa8" title="Initialise image processing." alt="" coords="419,80,534,105"/>
+<area shape="rect" id="node1" title="Create a handle to hold settings for an artoolkitX tracker instance." alt="" coords="5,55,118,80"/>
+<area shape="rect" id="node2" href="$ar_create_handle_8c.html#a01258051f513f5c2760136479c9a2052" title="Enable or disable artoolkitX&#39;s debug mode." alt="" coords="204,5,327,31"/>
+<area shape="rect" id="node3" href="$ar_create_handle_8c.html#aec6c548f3619e700e40764cd1c685fc6" title="Set the labeling threshold mode (auto/manual)." alt="" coords="179,55,352,80"/>
+<area shape="rect" id="node6" href="$ar_create_handle_8c.html#a86e2d00dfb41243650b1e18c55dcf031" title="Set the number of frames between auto&#45;threshold calculations." alt="" coords="166,105,365,145"/>
+<area shape="rect" id="node4" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="413,31,536,56"/>
+<area shape="rect" id="node5" href="$ar_image_proc_8c.html#ab17100ae9f8d3a2b881830f135bfffa8" title="Initialise image processing." alt="" coords="418,80,531,106"/>
 </map>

@@ -1,12 +1,12 @@
 <map id="ARVideoView::initWithVideoSource" name="ARVideoView::initWithVideoSource">
-<area shape="rect" id="node1" title=" " alt="" coords="5,154,193,194"/>
-<area shape="rect" id="node2" href="$arg_8c.html#a85f626e83b50240007e8b8cc349f1ddf" title="Free memory used by arg associated with the specified context." alt="" coords="302,5,393,31"/>
-<area shape="rect" id="node3" href="$arg_8c.html#ad95c0c2dafc0b081fde74cb34f8cf7ce" title="Initialise the arg library for the current OpenGL context." alt="" coords="255,55,440,80"/>
-<area shape="rect" id="node5" href="$param_clear_8c.html#a408e5586069334fc2ae229b1924f132c" title="Create a camera parameter structure representing an idealised lens." alt="" coords="296,104,399,129"/>
-<area shape="rect" id="node7" href="$class_a_r_video_source.html#a5feeb630d5706513ba1d48ba7dcd2c31" title="Returns the camera parameters for the video source." alt="" coords="254,154,441,194"/>
-<area shape="rect" id="node8" href="$class_a_r_video_source.html#a4328e4435cfcff995216fb77ddb93619" title="Returns the pixel format of the video." alt="" coords="242,219,453,244"/>
-<area shape="rect" id="node9" href="$class_a_r_video_source.html#adb306d10f6994abd0d03e1fae66a816a" title="Returns the height of the video in pixels." alt="" coords="241,268,453,293"/>
-<area shape="rect" id="node10" href="$class_a_r_video_source.html#adaa6982dd82839f798c878a923be461c" title="Returns the width of the video in pixels." alt="" coords="243,317,451,343"/>
-<area shape="rect" id="node4" href="$arg_8c.html#a70f432550d41765bc7b7b13a53e6015d" title=" " alt="" coords="515,55,650,80"/>
-<area shape="rect" id="node6" href="$param_clear_8c.html#a3a67c8e9b71679e2f01173cfdb2b950a" title=" " alt="" coords="501,104,664,129"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,154,193,195"/>
+<area shape="rect" id="node2" href="$arg_8c.html#a85f626e83b50240007e8b8cc349f1ddf" title="Free memory used by arg associated with the specified context." alt="" coords="301,5,392,31"/>
+<area shape="rect" id="node3" href="$arg_8c.html#ad95c0c2dafc0b081fde74cb34f8cf7ce" title="Initialise the arg library for the current OpenGL context." alt="" coords="254,55,439,80"/>
+<area shape="rect" id="node5" href="$param_clear_8c.html#a408e5586069334fc2ae229b1924f132c" title="Create a camera parameter structure representing an idealised lens." alt="" coords="296,104,397,130"/>
+<area shape="rect" id="node7" href="$class_a_r_video_source.html#a5feeb630d5706513ba1d48ba7dcd2c31" title="Returns the camera parameters for the video source." alt="" coords="253,154,440,195"/>
+<area shape="rect" id="node8" href="$class_a_r_video_source.html#a4328e4435cfcff995216fb77ddb93619" title="Returns the pixel format of the video." alt="" coords="241,219,452,244"/>
+<area shape="rect" id="node9" href="$class_a_r_video_source.html#adb306d10f6994abd0d03e1fae66a816a" title="Returns the height of the video in pixels." alt="" coords="241,268,452,294"/>
+<area shape="rect" id="node10" href="$class_a_r_video_source.html#adaa6982dd82839f798c878a923be461c" title="Returns the width of the video in pixels." alt="" coords="243,317,450,343"/>
+<area shape="rect" id="node4" href="$arg_8c.html#a70f432550d41765bc7b7b13a53e6015d" title=" " alt="" coords="515,55,648,80"/>
+<area shape="rect" id="node6" href="$param_clear_8c.html#a3a67c8e9b71679e2f01173cfdb2b950a" title=" " alt="" coords="500,104,662,130"/>
 </map>

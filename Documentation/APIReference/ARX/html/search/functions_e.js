@@ -10,7 +10,7 @@ var searchData=
   ['points_7',['Points',['../_o_c_v_utils_8h.html#ae0578b8b2c51f5555f86b17854eb6d88',1,'OCVUtils.h']]],
   ['posefromartrans_8',['PoseFromARTrans',['../namespacearx__mapper.html#a403a17fd03c9d52bb4bc1387ba3e00e4',1,'arx_mapper']]],
   ['positionscalefactor_9',['positionScalefactor',['../class_a_r_trackable.html#a4478ff504ba3574ba598d635adc63fb6',1,'ARTrackable']]],
-  ['printcameradeviceerror_10',['PrintCameraDeviceError',['../camera__utils_8h.html#a067ef1f840c3715e4c8859324f5dbcb1',1,'PrintCameraDeviceError(int err):&#160;camera_utils.cpp'],['../camera__utils_8cpp.html#a067ef1f840c3715e4c8859324f5dbcb1',1,'PrintCameraDeviceError(int err):&#160;camera_utils.cpp']]],
+  ['printcameradeviceerror_10',['PrintCameraDeviceError',['../camera__utils_8cpp.html#a067ef1f840c3715e4c8859324f5dbcb1',1,'PrintCameraDeviceError(int err):&#160;camera_utils.cpp'],['../camera__utils_8h.html#a067ef1f840c3715e4c8859324f5dbcb1',1,'PrintCameraDeviceError(int err):&#160;camera_utils.cpp']]],
   ['printcameras_11',['PrintCameras',['../camera__utils_8cpp.html#a0934c9c1fa6f701b0701bb3ac3d2ce29',1,'PrintCameras(ACameraManager *cmrMgr):&#160;camera_utils.cpp'],['../camera__utils_8h.html#aeec3bdd6a78e355636cfb9172dca0e2e',1,'PrintCameras(ACameraManager *cameraMgr):&#160;camera_utils.cpp']]],
   ['printlensfacing_12',['PrintLensFacing',['../camera__utils_8cpp.html#a32cf5b397aa357d0efab35a607e650fc',1,'PrintLensFacing(ACameraMetadata_const_entry &amp;lens):&#160;camera_utils.cpp'],['../camera__utils_8h.html#a3309f5c4cb3a95f083637ab8425084c2',1,'PrintLensFacing(ACameraMetadata_const_entry &amp;lensData):&#160;camera_utils.cpp']]],
   ['printmetadatatags_13',['PrintMetadataTags',['../camera__utils_8cpp.html#a54cd5eba4fdb0391ab932f904414e389',1,'PrintMetadataTags(int32_t entries, const uint32_t *pTags):&#160;camera_utils.cpp'],['../camera__utils_8h.html#a54cd5eba4fdb0391ab932f904414e389',1,'PrintMetadataTags(int32_t entries, const uint32_t *pTags):&#160;camera_utils.cpp']]],
@@ -23,5 +23,6 @@ var searchData=
   ['profileclear_20',['profileClear',['../profile_8h.html#afac2312a8f2fdae6424913341af9e26b',1,'profileClear(void):&#160;profile.c'],['../profile_8c.html#a997db55e25f2c73b305f13fcc94974ee',1,'profileClear(void):&#160;profile.c']]],
   ['profileprint_21',['profilePrint',['../profile_8h.html#afab608f10a863b3a4572c61ef775ddd7',1,'profilePrint(void):&#160;profile.c'],['../profile_8c.html#ace1d12add4dd860dd5b129acabe1cf3e',1,'profilePrint(void):&#160;profile.c']]],
   ['profileset_22',['profileSet',['../profile_8h.html#a65aeba1bf585c607d8b0f51c6fa79b00',1,'profileSet(int n):&#160;profile.c'],['../profile_8c.html#acf74e9c2d5ba0386fb597ea25bde3c3e',1,'profileSet(int n):&#160;profile.c']]],
-  ['projectionmatrix_23',['projectionMatrix',['../class_a_r_controller.html#abcb66342e96bdac04ea895cc85e03ac3',1,'ARController']]]
+  ['projectionforviewportsizeandfittingmode_23',['projectionForViewportSizeAndFittingMode',['../class_a_r_controller.html#a60a5bb0bf5a3b5865a426a8c751e8dfc',1,'ARController']]],
+  ['projectionmatrix_24',['projectionMatrix',['../class_a_r_controller.html#abcb66342e96bdac04ea895cc85e03ac3',1,'ARController']]]
 ];

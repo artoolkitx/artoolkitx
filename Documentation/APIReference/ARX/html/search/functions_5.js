@@ -6,7 +6,7 @@ var searchData=
   ['filtercutofffrequency_3',['filterCutoffFrequency',['../class_a_r_trackable.html#ac91098b6554abbc648a9d9150818ec8d',1,'ARTrackable']]],
   ['filtersamplerate_4',['filterSampleRate',['../class_a_r_trackable.html#a9ec9f17396cbd209b42c82f2f2b7c59e',1,'ARTrackable']]],
   ['findcorners_5',['FindCorners',['../class_harris_detector.html#ade8cc86ef1c9ccff1e0e65e03966bb52',1,'HarrisDetector']]],
-  ['findtrackable_6',['findTrackable',['../class_a_r_controller.html#a4eafe05e50bdb9e788ad836f4c2104f1',1,'ARController']]],
+  ['findtrackable_6',['findTrackable',['../class_a_r_controller.html#aff42fd017881ce2601c53f830ae7d021',1,'ARController']]],
   ['finishasync_7',['FinishAsync',['../class_media_1_1sealed.html#ac0bdbd3f18fa7eed31b81486a7747891',1,'Media::sealed']]],
   ['fliph_8',['flipH',['../class_a_r_video_view.html#a34d5b337ce0eec2744d73169b2e26211',1,'ARVideoView']]],
   ['flipv_9',['flipV',['../class_windows_media_capture.html#af2790c3b28ea5cea289c8f2543b60fda',1,'WindowsMediaCapture::flipV()'],['../class_a_r_video_view.html#a92fd6ecb873b76246736c8dbc42c18d1',1,'ARVideoView::flipV()']]],
@@ -17,7 +17,6 @@ var searchData=
   ['frameplanes_3acount_3atimestamp_3aifnewerthantimestamp_3a_14',['framePlanes:count:timestamp:ifNewerThanTimestamp:',['../interface_camera_video.html#a4001a9f3ae9b787435bb1e72c7ba726e',1,'CameraVideo']]],
   ['frametimestamp_3a_15',['frameTimestamp:',['../interface_camera_video.html#a09e1e6bb6a5600c2678dbcfa8955de9c',1,'CameraVideo']]],
   ['frametimestamp_3aifnewerthantimestamp_3a_16',['frameTimestamp:ifNewerThanTimestamp:',['../interface_camera_video.html#a2871a418822119ebe89e348ded513aed',1,'CameraVideo']]],
-  ['freepatterns_17',['freePatterns',['../class_a_r_trackable.html#aa425f1e3e1ba8d8b39ec6a34f8e2f403',1,'ARTrackable']]],
-  ['ftw_18',['ftw',['../ftw_8h.html#aa96fb7bfe750039b9f45b0da66bb8b24',1,'ftw.h']]],
-  ['ftw64_19',['ftw64',['../ftw_8h.html#aaa4028c45de7865f838124dc39ca1673',1,'ftw.h']]]
+  ['ftw_17',['ftw',['../ftw_8h.html#aa96fb7bfe750039b9f45b0da66bb8b24',1,'ftw.h']]],
+  ['ftw64_18',['ftw64',['../ftw_8h.html#aaa4028c45de7865f838124dc39ca1673',1,'ftw.h']]]
 ];

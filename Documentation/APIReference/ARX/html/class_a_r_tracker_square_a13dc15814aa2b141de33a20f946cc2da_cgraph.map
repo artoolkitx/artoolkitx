@@ -1,6 +1,6 @@
 <map id="ARTrackerSquare::~ARTrackerSquare" name="ARTrackerSquare::~ARTrackerSquare">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,211,45"/>
-<area shape="rect" id="node2" href="$class_a_r_tracker_square.html#a656fdae905e0d0b5a21baa05f6576037" title=" " alt="" coords="259,13,447,38"/>
-<area shape="rect" id="node3" href="$ar_patt_create_handle_8c.html#a4cc694c73a326767ba1614e97fcd00cb" title="Free all loaded patterns and pattern handle." alt="" coords="495,13,631,38"/>
-<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="679,13,761,38"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,210,46"/>
+<area shape="rect" id="node2" href="$class_a_r_tracker_square.html#a656fdae905e0d0b5a21baa05f6576037" title=" " alt="" coords="258,13,445,39"/>
+<area shape="rect" id="node3" href="$ar_patt_create_handle_8c.html#a4cc694c73a326767ba1614e97fcd00cb" title="Free all loaded patterns and pattern handle." alt="" coords="493,13,628,39"/>
+<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="676,13,759,39"/>
 </map>

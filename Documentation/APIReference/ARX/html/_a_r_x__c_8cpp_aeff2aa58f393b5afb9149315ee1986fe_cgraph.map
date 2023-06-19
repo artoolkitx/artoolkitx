@@ -1,0 +1,6 @@
+<map id="arwAddTrackable" name="arwAddTrackable">
+<area shape="rect" id="node1" title="Adds a trackable as specified in the given configuration string." alt="" coords="5,31,128,56"/>
+<area shape="rect" id="node2" href="$class_a_r_controller.html#a45112a66b591e75a8f33a43320963536" title="Adds a trackable as specified in the given configuration string." alt="" coords="176,31,358,56"/>
+<area shape="rect" id="node3" href="$class_a_r_controller.html#ac2961fa58ba3a2e10dbde637571efb91" title="Returns the number of currently loaded trackables." alt="" coords="406,5,606,31"/>
+<area shape="rect" id="node4" href="$class_a_r_controller.html#a90d60be654e735ff2c5718af543dc8e9" title="Report whether artoolkit was initialized and a trackable can be added." alt="" coords="433,55,579,80"/>
+</map>

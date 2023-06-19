@@ -1,5 +1,5 @@
 <map id="ar3DCreateHandle" name="ar3DCreateHandle">
-<area shape="rect" id="node1" title="Create handle used for 3D calculation from calibrated camera parameters." alt="" coords="5,5,136,31"/>
-<area shape="rect" id="node2" href="$ar3_d_create_handle_8c.html#aa7e4d91eb6f9d0b2766a96e7da1e2b56" title="Create handle used for 3D calculation from an intrinsic parameters matrix." alt="" coords="184,5,321,31"/>
-<area shape="rect" id="node3" href="$icp_handle_8c.html#acc980d46da2fee551179fe0eb8853587" title=" " alt="" coords="369,5,488,31"/>
+<area shape="rect" id="node1" title="Create handle used for 3D calculation from calibrated camera parameters." alt="" coords="5,5,135,31"/>
+<area shape="rect" id="node2" href="$ar3_d_create_handle_8c.html#aa7e4d91eb6f9d0b2766a96e7da1e2b56" title="Create handle used for 3D calculation from an intrinsic parameters matrix." alt="" coords="183,5,319,31"/>
+<area shape="rect" id="node3" href="$icp_handle_8c.html#acc980d46da2fee551179fe0eb8853587" title=" " alt="" coords="367,5,485,31"/>
 </map>

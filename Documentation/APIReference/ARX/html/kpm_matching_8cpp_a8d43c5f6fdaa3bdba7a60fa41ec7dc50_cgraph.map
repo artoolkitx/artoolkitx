@@ -1,7 +1,7 @@
 <map id="kpmSetRefDataSetFile" name="kpmSetRefDataSetFile">
-<area shape="rect" id="node1" title="Loads a reference data set from a file into the KPM tracker." alt="" coords="5,55,163,80"/>
-<area shape="rect" id="node2" href="$kpm_ref_data_set_8cpp.html#ae2afc1e3f2fce6618bf611b5043a9f30" title="Dispose of a reference data set and its allocated memory." alt="" coords="211,5,365,31"/>
-<area shape="rect" id="node3" href="$kpm_ref_data_set_8cpp.html#a0e26702b107339fecdf43377b9cca8bf" title="Load a reference data set from the filesystem into memory." alt="" coords="216,55,360,80"/>
-<area shape="rect" id="node5" href="$kpm_matching_8cpp.html#a3f1f8e46753ddee2fa11ea757dcd01ca" title="Load a reference data set into the key point matcher for tracking." alt="" coords="220,104,356,129"/>
-<area shape="rect" id="node4" href="$kpm_fopen_8c.html#a3183ffcaddce8bab8621315f7e5567fc" title=" " alt="" coords="413,55,496,80"/>
+<area shape="rect" id="node1" title="Loads a reference data set from a file into the KPM tracker." alt="" coords="5,55,162,80"/>
+<area shape="rect" id="node2" href="$kpm_ref_data_set_8cpp.html#ae2afc1e3f2fce6618bf611b5043a9f30" title="Dispose of a reference data set and its allocated memory." alt="" coords="210,5,363,31"/>
+<area shape="rect" id="node3" href="$kpm_ref_data_set_8cpp.html#a0e26702b107339fecdf43377b9cca8bf" title="Load a reference data set from the filesystem into memory." alt="" coords="215,55,358,80"/>
+<area shape="rect" id="node5" href="$kpm_matching_8cpp.html#a3f1f8e46753ddee2fa11ea757dcd01ca" title="Load a reference data set into the key point matcher for tracking." alt="" coords="219,104,354,130"/>
+<area shape="rect" id="node4" href="$kpm_fopen_8c.html#a3183ffcaddce8bab8621315f7e5567fc" title=" " alt="" coords="411,55,493,80"/>
 </map>

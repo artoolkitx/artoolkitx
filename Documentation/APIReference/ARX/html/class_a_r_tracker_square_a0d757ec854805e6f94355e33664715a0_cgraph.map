@@ -1,0 +1,24 @@
+<map id="ARTrackerSquare::newTrackable" name="ARTrackerSquare::newTrackable">
+<area shape="rect" id="node1" title="ARTrackable factory method." alt="" coords="5,150,220,176"/>
+<area shape="rect" id="node2" href="$class_a_r_trackable_square.html#a2b7b178160ad4d67c1ad24b0f2764649" title="Init the trackable as a barcode." alt="" coords="291,12,438,53"/>
+<area shape="rect" id="node6" href="$class_a_r_trackable_multi_square_auto.html#a353d2b7eb074081a86b9532c7c560593" title=" " alt="" coords="268,287,461,327"/>
+<area shape="rect" id="node7" href="$class_a_r_trackable_square.html#a9c6707bca764c2f549416338a1a7a428" title=" " alt="" coords="291,143,438,183"/>
+<area shape="rect" id="node11" href="$class_a_r_trackable_square.html#a4560a444d86ca5c8bba655a6e3762239" title=" " alt="" coords="278,77,451,118"/>
+<area shape="rect" id="node12" href="$class_a_r_trackable_multi_square.html#a7dff28becb57da09cd3c9c07416abd00" title=" " alt="" coords="281,221,448,262"/>
+<area shape="rect" id="node3" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="519,5,665,46"/>
+<area shape="rect" id="node5" href="$class_a_r_trackable_square.html#af38499ff1ed1065ccb0be6f4cb431058" title=" " alt="" coords="519,120,665,161"/>
+<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="791,13,874,39"/>
+<area shape="rect" id="node8" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="790,137,875,163"/>
+<area shape="rect" id="node9" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="990,80,1139,105"/>
+<area shape="rect" id="node10" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="1045,137,1084,163"/>
+<area shape="rect" id="node13" href="$ar_multi_read_config_file_8c.html#ae617e7b1d70e73aaccb57e88ba1630dc" title="Creates a new multi&#45;marker configuration and fills it with the config from the multi&#45;marker config fi..." alt="" coords="517,236,667,261"/>
+<area shape="rect" id="node21" href="$class_a_r_trackable_multi_square.html#a57881bb2ce7acf1852db2ee6665cd0f4" title=" " alt="" coords="509,305,675,346"/>
+<area shape="rect" id="node14" href="$ar_multi_edit_config_8c.html#ad1fc20004885bcb4b4cb3ee0931df634" title="Creates a new empty multi&#45;marker configuration." alt="" coords="769,186,896,212"/>
+<area shape="rect" id="node15" href="$ar_multi_edit_config_8c.html#a7a45fb2f0acb56ddee63efcdaaf654a1" title=" " alt="" coords="735,236,930,261"/>
+<area shape="rect" id="node20" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="723,285,942,311"/>
+<area shape="rect" id="node16" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title=" " alt="" coords="1018,236,1111,261"/>
+<area shape="rect" id="node17" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="1193,186,1290,212"/>
+<area shape="rect" id="node18" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="1195,236,1289,261"/>
+<area shape="rect" id="node19" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="1187,285,1296,311"/>
+<area shape="rect" id="node22" href="$ar_multi_free_config_8c.html#a0f33d2031514e1b5af6ba4dfa152633f" title="Frees the multi&#45;marker configuration passed in." alt="" coords="770,334,895,360"/>
+</map>

@@ -2,7 +2,7 @@ var searchData=
 [
   ['r8_5fccir601_0',['R8_CCIR601',['../video_luma_8c.html#a839223332eb69364df4228b1ea46d4ca',1,'videoLuma.c']]],
   ['rand_5fhead_5flen_1',['RAND_HEAD_LEN',['../crypt_8h.html#a109deed4dfe6b1fd43786f74ba2eef9f',1,'crypt.h']]],
-  ['ransac_5fthresh_2',['ransac_thresh',['../_o_c_v_config_8h.html#a42cb488307bc149b34b8e238590d7608',1,'ransac_thresh():&#160;OCVConfig.cpp'],['../_o_c_v_config_8cpp.html#a42cb488307bc149b34b8e238590d7608',1,'ransac_thresh():&#160;OCVConfig.cpp']]],
+  ['ransac_5fthresh_2',['ransac_thresh',['../_o_c_v_config_8h.html#aacad9c1e5962a344951c18ea6b150321',1,'ransac_thresh():&#160;OCVConfig.cpp'],['../_o_c_v_config_8cpp.html#a42cb488307bc149b34b8e238590d7608',1,'ransac_thresh():&#160;OCVConfig.cpp']]],
   ['rate_3',['rate',['../struct___a_r2_video_param1394_t.html#aba668464f2e90c4ed75023afe1fa595d',1,'_AR2VideoParam1394T']]],
   ['rates_4',['rates',['../struct___a_r2_video_param1394_t.html#a4e41b87a635d90acda3e02ab00ea025a',1,'_AR2VideoParam1394T']]],
   ['raw_5',['raw',['../structfile__in__zip64__read__info__s.html#a30297ce02b256c469e5c66c1500c17e1',1,'file_in_zip64_read_info_s::raw()'],['../structcurfile64__info.html#ad86ea5e726a03803f04c05b405af370a',1,'curfile64_info::raw()']]],
@@ -29,7 +29,7 @@ var searchData=
   ['ret_26',['ret',['../struct___a_r2_tracking2_d_param_t.html#a2db555f7dfd653ad420cac0ecbd246a1',1,'_AR2Tracking2DParamT']]],
   ['rm_5frf_27',['rm_rf',['../file__utils_8h.html#afd337c86157d194f6a1a0736631a4706',1,'rm_rf(const char *path):&#160;file_utils.c'],['../file__utils_8c.html#a8b0a03fe24c6eefca3693487562018d2',1,'rm_rf(const char *path):&#160;file_utils.c']]],
   ['rn_5ff_28',['rn_f',['../file__utils_8h.html#ab0da93c9d6797f01131f4449a7e95754',1,'rn_f(const char *source_file, const char *target_file):&#160;file_utils.c'],['../file__utils_8c.html#ac99b01608bd32ece9f15e412e6a8ebc8',1,'rn_f(const char *source_file, const char *target_file):&#160;file_utils.c']]],
-  ['rng_29',['rng',['../_o_c_v_config_8cpp.html#aed3486f8fbe5885448a8dff3286ead93',1,'rng(0xFFFFFFFF):&#160;OCVConfig.cpp'],['../_o_c_v_config_8h.html#ab728ba71fd33041643d7924c725ccbb9',1,'rng():&#160;OCVConfig.h']]],
+  ['rng_29',['rng',['../_o_c_v_config_8cpp.html#aed3486f8fbe5885448a8dff3286ead93',1,'rng(0xFFFFFFFF):&#160;OCVConfig.cpp'],['../_o_c_v_config_8h.html#a97486fa645fcf96cf143b2156ac9c53f',1,'rng():&#160;OCVConfig.h']]],
   ['robustflag_30',['robustFlag',['../class_a_r_trackable_multi_square.html#a54fe89b3d41f255fe788f3f3eda9e0d5',1,'ARTrackableMultiSquare']]],
   ['rotate90_31',['rotate90',['../class_a_r_video_view.html#a1fd2ef182b3414370cafb069885c92c7',1,'ARVideoView::rotate90()'],['../struct___a_r_g_l___c_o_n_t_e_x_t___s_e_t_t_i_n_g_s.html#aaa813ef40513f09336372b6a5364f515',1,'_ARGL_CONTEXT_SETTINGS::rotate90()']]],
   ['row_32',['row',['../struct_a_r_matf.html#af1518c896c4a828bb703bddb833f09ca',1,'ARMatf::row()'],['../struct_a_r_mat.html#a0160fe7dfa8111eed279781649c5549a',1,'ARMat::row()']]],
