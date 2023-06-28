@@ -233,6 +233,11 @@ elseif(ARX_TARGET_PLATFORM_EMSCRIPTEN)
 
 endif()
 
+if (USE_CPARAM_SEARCH)
+    find_package(CURL REQUIRED)
+    message(${CURL_LIBRARIES})
+endif()
+
 get_directory_property(ARX_DEFINES DIRECTORY ${CMAKE_SOURCE_DIR} COMPILE_DEFINITIONS)
 foreach(d ${ARX_DEFINES})
     message(STATUS "Defined: " ${d})
