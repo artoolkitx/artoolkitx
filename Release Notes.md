@@ -1,6 +1,12 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.11
+### 2023-06-28
+
+ * iOS: prelinked OpenCV and CURL so users of libARX.a don't have to.
+ * Documentation update.
+
 ## Version 1.1.10
 ### 2023-06-14
 
