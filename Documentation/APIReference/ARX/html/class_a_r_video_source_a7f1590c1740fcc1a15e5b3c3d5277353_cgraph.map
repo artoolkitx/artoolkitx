@@ -1,0 +1,4 @@
+<map id="ARVideoSource::getCameraParametersForViewportSizeAndFittingMode" name="ARVideoSource::getCameraParametersForViewportSizeAndFittingMode">
+<area shape="rect" id="node1" title="Adjust camera parameters to fit an output viewport of given size, using fitting and alignment." alt="" coords="5,5,213,61"/>
+<area shape="rect" id="node2" href="$param_change_size_8c.html#a52ca3c9c652eee8efb9e968360cc4493" title=" " alt="" coords="261,20,462,46"/>
+</map>

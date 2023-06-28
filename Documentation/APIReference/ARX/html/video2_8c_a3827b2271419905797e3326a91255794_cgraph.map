@@ -1,5 +1,6 @@
 <map id="ar2VideoOpenAsync" name="ar2VideoOpenAsync">
-<area shape="rect" id="node1" title="Open a video input module, and return control object, invoking a callback once opening is complete." alt="" coords="5,31,147,56"/>
-<area shape="rect" id="node2" href="$video_android_8h.html#a1d6e964f2d94fca2f61cd36f1bcaf8a5" title=" " alt="" coords="213,5,398,31"/>
-<area shape="rect" id="node3" href="$video_a_v_foundation_8h.html#adb1121aa31efbd7a52a0a09f1c287064" title=" " alt="" coords="195,55,416,80"/>
+<area shape="rect" id="node1" title="Open a video input module, and return control object, invoking a callback once opening is complete." alt="" coords="5,55,146,80"/>
+<area shape="rect" id="node2" href="$video_android_8h.html#a1d6e964f2d94fca2f61cd36f1bcaf8a5" title=" " alt="" coords="212,5,396,31"/>
+<area shape="rect" id="node3" href="$video_a_v_foundation_8h.html#adb1121aa31efbd7a52a0a09f1c287064" title=" " alt="" coords="194,55,414,80"/>
+<area shape="rect" id="node4" href="$video_external_8h.html#a6688bc62f5be5535ce19a0fd80c23ab4" title=" " alt="" coords="210,104,398,130"/>
 </map>

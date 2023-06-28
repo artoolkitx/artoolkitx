@@ -1,0 +1,11 @@
+<map id="arwGetProjectionMatrixForViewportSizeAndFittingModeStereo" name="arwGetProjectionMatrixForViewportSizeAndFittingModeStereo">
+<area shape="rect" id="node1" title=" " alt="" coords="5,129,233,169"/>
+<area shape="rect" id="node2" href="$class_a_r_controller.html#a60a5bb0bf5a3b5865a426a8c751e8dfc" title="Populates the provided array with the ARToolKit projection matrix, so that the projection maps to the..." alt="" coords="281,129,489,169"/>
+<area shape="rect" id="node3" href="$param_g_l_8c.html#a47cc5a7056c5638682a07acee44df9f4" title="Create an OpenGL perspective projection matrix." alt="" coords="575,5,731,31"/>
+<area shape="rect" id="node5" href="$class_a_r_video_source.html#a7f1590c1740fcc1a15e5b3c3d5277353" title="Adjust camera parameters to fit an output viewport of given size, using fitting and alignment." alt="" coords="550,56,757,111"/>
+<area shape="rect" id="node7" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="572,136,735,162"/>
+<area shape="rect" id="node8" href="$class_a_r_video_source.html#adcdfb6d6fcf844c7578bec2b3f978108" title="Returns true if the video source is open and ready to be queried." alt="" coords="563,185,743,211"/>
+<area shape="rect" id="node9" href="$class_a_r_video_source.html#a0cbb8805bc426c30af2311a9e225f34b" title=" " alt="" coords="537,235,769,260"/>
+<area shape="rect" id="node4" href="$param_decomp_8c.html#af8d8284f4489d90d4408f7514866dca1" title=" " alt="" coords="847,5,989,31"/>
+<area shape="rect" id="node6" href="$param_change_size_8c.html#a52ca3c9c652eee8efb9e968360cc4493" title=" " alt="" coords="817,71,1019,96"/>
+</map>

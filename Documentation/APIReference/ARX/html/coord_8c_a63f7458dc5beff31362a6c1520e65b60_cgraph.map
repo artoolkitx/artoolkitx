@@ -1,5 +1,5 @@
 <map id="ar2MarkerCoord2ScreenCoord" name="ar2MarkerCoord2ScreenCoord">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,204,56"/>
-<area shape="rect" id="node2" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="252,5,419,31"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="280,55,391,80"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,203,56"/>
+<area shape="rect" id="node2" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="251,5,417,31"/>
+<area shape="rect" id="node3" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="279,55,389,80"/>
 </map>

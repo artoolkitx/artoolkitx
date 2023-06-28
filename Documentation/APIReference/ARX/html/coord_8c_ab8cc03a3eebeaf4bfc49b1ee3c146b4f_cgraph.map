@@ -1,6 +1,6 @@
 <map id="ar2GetImageValue" name="ar2GetImageValue">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,135,56"/>
-<area shape="rect" id="node2" href="$coord_8c.html#a5baabf3b8320ed39189b4e1143395d56" title=" " alt="" coords="183,31,381,56"/>
-<area shape="rect" id="node3" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="429,5,596,31"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="457,55,568,80"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,134,56"/>
+<area shape="rect" id="node2" href="$coord_8c.html#a5baabf3b8320ed39189b4e1143395d56" title=" " alt="" coords="182,31,379,56"/>
+<area shape="rect" id="node3" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="427,5,593,31"/>
+<area shape="rect" id="node4" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="455,55,565,80"/>
 </map>

@@ -1,9 +1,9 @@
 <map id="ar2Tracking" name="ar2Tracking">
-<area shape="rect" id="node1" title=" " alt="" coords="5,129,96,155"/>
-<area shape="rect" id="node2" href="$select_template_8c.html#a23a99aae5fb2bcdedff44cb9988f78be" title=" " alt="" coords="153,5,283,31"/>
-<area shape="rect" id="node3" href="$param_distortion_8c.html#af6fab5b34071af3f7fb01d484a75a333" title="Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero&#45;..." alt="" coords="144,55,292,80"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#a2b0bb26c88fe8dfa3957aeb9e8ce2dae" title=" " alt="" coords="168,104,268,129"/>
-<area shape="rect" id="node5" href="$icp_handle_8c.html#a9515de22165e8248a8742e1f5b9e4bef" title=" " alt="" coords="144,153,292,179"/>
-<area shape="rect" id="node6" href="$thread__sub_8c.html#afedcd01faf8f4e79fa17952ac71ca839" title=" " alt="" coords="165,203,271,228"/>
-<area shape="rect" id="node7" href="$thread__sub_8c.html#adf5b0c3a61be2511f7a2d0d563d3f29b" title=" " alt="" coords="157,252,279,277"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,129,95,155"/>
+<area shape="rect" id="node2" href="$select_template_8c.html#a23a99aae5fb2bcdedff44cb9988f78be" title=" " alt="" coords="152,5,281,31"/>
+<area shape="rect" id="node3" href="$param_distortion_8c.html#af6fab5b34071af3f7fb01d484a75a333" title="Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero&#45;..." alt="" coords="143,55,290,80"/>
+<area shape="rect" id="node4" href="$ar_util_8c.html#a2b0bb26c88fe8dfa3957aeb9e8ce2dae" title=" " alt="" coords="167,104,266,130"/>
+<area shape="rect" id="node5" href="$icp_handle_8c.html#a9515de22165e8248a8742e1f5b9e4bef" title=" " alt="" coords="143,153,290,179"/>
+<area shape="rect" id="node6" href="$thread__sub_8c.html#afedcd01faf8f4e79fa17952ac71ca839" title=" " alt="" coords="163,203,270,228"/>
+<area shape="rect" id="node7" href="$thread__sub_8c.html#adf5b0c3a61be2511f7a2d0d563d3f29b" title=" " alt="" coords="156,252,277,278"/>
 </map>

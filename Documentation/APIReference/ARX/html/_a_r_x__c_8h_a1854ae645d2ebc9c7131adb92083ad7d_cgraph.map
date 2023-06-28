@@ -1,5 +1,0 @@
-<map id="arwGetTrackables" name="arwGetTrackables">
-<area shape="rect" id="node1" title="Gets all current trackables and their status." alt="" coords="5,35,133,60"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#ac2961fa58ba3a2e10dbde637571efb91" title="Returns the number of currently loaded trackables." alt="" coords="181,5,383,31"/>
-<area shape="rect" id="node3" href="$class_a_r_controller.html#adfab51ca0563487f550ef69dc9d83379" title="Returns the trackable at the specified index." alt="" coords="192,55,372,95"/>
-</map>

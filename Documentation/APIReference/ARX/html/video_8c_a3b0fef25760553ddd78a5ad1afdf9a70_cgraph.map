@@ -1,14 +1,15 @@
 <map id="arVideoGetParami" name="arVideoGetParami">
-<area shape="rect" id="node1" title="Get value of an integer parameter from active video module." alt="" coords="5,228,133,253"/>
-<area shape="rect" id="node2" href="$video2_8c.html#af67fa1b2fa58610d22a5ba68801259e0" title=" " alt="" coords="181,228,316,253"/>
-<area shape="rect" id="node3" href="$video1394_8h.html#ac6133ea036896d9e6171da008299f853" title=" " alt="" coords="390,5,553,31"/>
-<area shape="rect" id="node4" href="$video_android_8h.html#a8e1c2a91e405805bba46fa18b15191b5" title=" " alt="" coords="382,55,561,80"/>
-<area shape="rect" id="node5" href="$video_a_v_foundation_8h.html#ae243debe2c8a0473ab60d57ac6cfc59b" title=" " alt="" coords="364,104,579,129"/>
-<area shape="rect" id="node6" href="$video_dummy_8h.html#a21cfdfc1d4f7a374258b894b99a8a4d9" title=" " alt="" coords="381,153,562,179"/>
-<area shape="rect" id="node7" href="$video_emscripten_8h.html#abe048926e5905db5d2c3f7cd09d4cc5a" title=" " alt="" coords="371,203,572,228"/>
-<area shape="rect" id="node8" href="$video_g_streamer_8h.html#a06215850227491cca2079bd515353c58" title=" " alt="" coords="372,252,571,277"/>
-<area shape="rect" id="node9" href="$video_image_8h.html#a643853f81e1fd04fccdd8fb8ed778cdb" title=" " alt="" coords="386,301,557,327"/>
-<area shape="rect" id="node10" href="$video_v4_l2_8h.html#a20ec6276fa613171b650569206194a32" title=" " alt="" coords="389,351,554,376"/>
-<area shape="rect" id="node11" href="$video_windows_media_capture_8h.html#a0a27a8d36731b9932418d3e5e80d596b" title=" " alt="" coords="382,400,561,425"/>
-<area shape="rect" id="node12" href="$video_windows_media_foundation_8h.html#af3beb23787c689b81516088f4349c8a4" title=" " alt="" coords="383,449,560,475"/>
+<area shape="rect" id="node1" title="Get value of an integer parameter from active video module." alt="" coords="5,252,133,278"/>
+<area shape="rect" id="node2" href="$video2_8c.html#af67fa1b2fa58610d22a5ba68801259e0" title=" " alt="" coords="181,252,315,278"/>
+<area shape="rect" id="node3" href="$video1394_8h.html#ac6133ea036896d9e6171da008299f853" title=" " alt="" coords="389,5,551,31"/>
+<area shape="rect" id="node4" href="$video_android_8h.html#a8e1c2a91e405805bba46fa18b15191b5" title=" " alt="" coords="381,55,559,80"/>
+<area shape="rect" id="node5" href="$video_a_v_foundation_8h.html#ae243debe2c8a0473ab60d57ac6cfc59b" title=" " alt="" coords="363,104,577,130"/>
+<area shape="rect" id="node6" href="$video_dummy_8h.html#a21cfdfc1d4f7a374258b894b99a8a4d9" title=" " alt="" coords="380,153,560,179"/>
+<area shape="rect" id="node7" href="$video_emscripten_8h.html#abe048926e5905db5d2c3f7cd09d4cc5a" title=" " alt="" coords="370,203,570,228"/>
+<area shape="rect" id="node8" href="$video_external_8h.html#a452a6730ddaa806cb7ef78c9ef5efab7" title=" " alt="" coords="379,252,561,278"/>
+<area shape="rect" id="node9" href="$video_g_streamer_8h.html#a06215850227491cca2079bd515353c58" title=" " alt="" coords="372,301,569,327"/>
+<area shape="rect" id="node10" href="$video_image_8h.html#a643853f81e1fd04fccdd8fb8ed778cdb" title=" " alt="" coords="385,351,555,376"/>
+<area shape="rect" id="node11" href="$video_v4_l2_8h.html#a20ec6276fa613171b650569206194a32" title=" " alt="" coords="388,400,552,426"/>
+<area shape="rect" id="node12" href="$video_windows_media_capture_8h.html#a0a27a8d36731b9932418d3e5e80d596b" title=" " alt="" coords="381,449,559,475"/>
+<area shape="rect" id="node13" href="$video_windows_media_foundation_8h.html#af3beb23787c689b81516088f4349c8a4" title=" " alt="" coords="382,499,558,524"/>
 </map>

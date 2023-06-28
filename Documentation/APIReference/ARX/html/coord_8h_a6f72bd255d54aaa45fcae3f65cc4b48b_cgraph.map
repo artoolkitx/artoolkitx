@@ -1,6 +1,6 @@
 <map id="ar2MarkerCoord2ScreenCoord2" name="ar2MarkerCoord2ScreenCoord2">
-<area shape="rect" id="node1" title=" " alt="" coords="5,55,211,80"/>
-<area shape="rect" id="node2" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="259,5,425,31"/>
-<area shape="rect" id="node3" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="259,55,425,80"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="287,104,397,129"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,55,210,80"/>
+<area shape="rect" id="node2" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="258,5,424,31"/>
+<area shape="rect" id="node3" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="258,55,424,80"/>
+<area shape="rect" id="node4" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="286,104,396,130"/>
 </map>

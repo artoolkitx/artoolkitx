@@ -1,28 +1,28 @@
 <map id="kpmMatching" name="kpmMatching">
 <area shape="rect" id="node1" title="Perform key&#45;point matching on an image." alt="" coords="5,255,105,280"/>
-<area shape="rect" id="node2" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="166,131,333,156"/>
-<area shape="rect" id="node3" href="$kpm_matching_8cpp.html#a445a7adc9ac2265144bea357c29266fd" title=" " alt="" coords="196,180,303,205"/>
-<area shape="rect" id="node4" href="$kpm_util_8cpp.html#a49295a10dea2cb3b990ce3b3e2da2948" title=" " alt="" coords="190,229,309,255"/>
-<area shape="rect" id="node24" href="$kpm_matching_8cpp.html#ab299cdeab2a601fbd39fb64d30aef36e" title=" " alt="" coords="169,279,329,304"/>
-<area shape="rect" id="node25" href="$kpm_util_8cpp.html#accf63fb72a481f55d62b825b2276887d" title=" " alt="" coords="153,328,345,353"/>
-<area shape="rect" id="node26" href="$kpm_util_8cpp.html#a0a8b7d2275bb90bc5c935956be08f35b" title=" " alt="" coords="177,377,321,403"/>
-<area shape="rect" id="node5" href="$icp_handle_8c.html#acc980d46da2fee551179fe0eb8853587" title=" " alt="" coords="408,352,527,377"/>
-<area shape="rect" id="node6" href="$icp_handle_8c.html#a510dee7e69010b7aa075d90f27a8e9da" title=" " alt="" coords="408,253,527,279"/>
-<area shape="rect" id="node7" href="$icp_util_8c.html#a9a0da1f41013b11363f39d99a5c937e9" title=" " alt="" coords="610,277,763,317"/>
-<area shape="rect" id="node15" href="$icp_point_8c.html#a466204966df0b17ea76bd05a3d396307" title=" " alt="" coords="433,103,502,128"/>
-<area shape="rect" id="node22" href="$icp_point_robust_8c.html#a34b02ccedd9db2360adeccaea4fca916" title=" " alt="" coords="412,152,523,177"/>
-<area shape="rect" id="node23" href="$icp_handle_8c.html#a9515de22165e8248a8742e1f5b9e4bef" title=" " alt="" coords="393,303,541,328"/>
-<area shape="rect" id="node8" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="1013,333,1111,359"/>
-<area shape="rect" id="node9" href="$m_alloc_mul_8c.html#a8e99293b68c38ce8a8d1920884d69f73" title=" " alt="" coords="838,133,957,159"/>
-<area shape="rect" id="node10" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="1015,184,1109,209"/>
-<area shape="rect" id="node12" href="$m_alloc_trans_8c.html#a4e2bf8cd529487fb1ff4d0bbc52eee1e" title=" " alt="" coords="832,284,963,309"/>
-<area shape="rect" id="node14" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="842,183,953,208"/>
-<area shape="rect" id="node11" href="$m_mul_8c.html#a202bc2db43d563792c99e852ea0b7ba4" title=" " alt="" coords="1017,57,1107,83"/>
-<area shape="rect" id="node13" href="$m_trans_8c.html#ad3d9712dd27f655902a8a3315e623d85" title=" " alt="" coords="1011,284,1113,309"/>
-<area shape="rect" id="node16" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title=" " alt="" coords="639,227,735,252"/>
-<area shape="rect" id="node17" href="$icp_core_8c.html#a4906398b4594d29ab8035b4016a7e9de" title=" " alt="" coords="637,79,737,104"/>
-<area shape="rect" id="node19" href="$icp_core_8c.html#ac384ca6737fdee325d58740d665eda0a" title=" " alt="" coords="637,29,737,55"/>
-<area shape="rect" id="node20" href="$icp_core_8c.html#aceeb3fd72a762c2078d8fb88ec03ccfb" title=" " alt="" coords="589,177,784,203"/>
-<area shape="rect" id="node21" href="$icp_core_8c.html#a94201124387610a46b975cdb9d8a1db6" title=" " alt="" coords="635,128,738,153"/>
-<area shape="rect" id="node18" href="$m_disp_8c.html#a60f36997579d355f6030f872faad84a2" title=" " alt="" coords="849,32,945,57"/>
+<area shape="rect" id="node2" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="165,131,332,156"/>
+<area shape="rect" id="node3" href="$kpm_matching_8cpp.html#a445a7adc9ac2265144bea357c29266fd" title=" " alt="" coords="196,180,301,206"/>
+<area shape="rect" id="node4" href="$kpm_util_8cpp.html#a49295a10dea2cb3b990ce3b3e2da2948" title=" " alt="" coords="190,229,307,255"/>
+<area shape="rect" id="node24" href="$kpm_matching_8cpp.html#ab299cdeab2a601fbd39fb64d30aef36e" title=" " alt="" coords="169,279,328,304"/>
+<area shape="rect" id="node25" href="$kpm_util_8cpp.html#accf63fb72a481f55d62b825b2276887d" title=" " alt="" coords="153,328,344,354"/>
+<area shape="rect" id="node26" href="$kpm_util_8cpp.html#a0a8b7d2275bb90bc5c935956be08f35b" title=" " alt="" coords="177,377,320,403"/>
+<area shape="rect" id="node5" href="$icp_handle_8c.html#acc980d46da2fee551179fe0eb8853587" title=" " alt="" coords="407,352,525,378"/>
+<area shape="rect" id="node6" href="$icp_handle_8c.html#a510dee7e69010b7aa075d90f27a8e9da" title=" " alt="" coords="407,253,524,279"/>
+<area shape="rect" id="node7" href="$icp_util_8c.html#a9a0da1f41013b11363f39d99a5c937e9" title=" " alt="" coords="608,276,761,317"/>
+<area shape="rect" id="node15" href="$icp_point_8c.html#a466204966df0b17ea76bd05a3d396307" title=" " alt="" coords="432,103,500,128"/>
+<area shape="rect" id="node22" href="$icp_point_robust_8c.html#a34b02ccedd9db2360adeccaea4fca916" title=" " alt="" coords="411,152,521,178"/>
+<area shape="rect" id="node23" href="$icp_handle_8c.html#a9515de22165e8248a8742e1f5b9e4bef" title=" " alt="" coords="392,303,539,328"/>
+<area shape="rect" id="node8" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="1010,333,1107,359"/>
+<area shape="rect" id="node9" href="$m_alloc_mul_8c.html#a8e99293b68c38ce8a8d1920884d69f73" title=" " alt="" coords="836,133,954,159"/>
+<area shape="rect" id="node10" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="1012,184,1106,210"/>
+<area shape="rect" id="node12" href="$m_alloc_trans_8c.html#a4e2bf8cd529487fb1ff4d0bbc52eee1e" title=" " alt="" coords="830,284,960,310"/>
+<area shape="rect" id="node14" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="840,183,950,208"/>
+<area shape="rect" id="node11" href="$m_mul_8c.html#a202bc2db43d563792c99e852ea0b7ba4" title=" " alt="" coords="1014,57,1103,83"/>
+<area shape="rect" id="node13" href="$m_trans_8c.html#ad3d9712dd27f655902a8a3315e623d85" title=" " alt="" coords="1008,284,1109,310"/>
+<area shape="rect" id="node16" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title=" " alt="" coords="637,227,732,252"/>
+<area shape="rect" id="node17" href="$icp_core_8c.html#a4906398b4594d29ab8035b4016a7e9de" title=" " alt="" coords="635,79,734,104"/>
+<area shape="rect" id="node19" href="$icp_core_8c.html#ac384ca6737fdee325d58740d665eda0a" title=" " alt="" coords="635,29,734,55"/>
+<area shape="rect" id="node20" href="$icp_core_8c.html#aceeb3fd72a762c2078d8fb88ec03ccfb" title=" " alt="" coords="587,177,782,203"/>
+<area shape="rect" id="node21" href="$icp_core_8c.html#a94201124387610a46b975cdb9d8a1db6" title=" " alt="" coords="633,128,736,154"/>
+<area shape="rect" id="node18" href="$m_disp_8c.html#a60f36997579d355f6030f872faad84a2" title=" " alt="" coords="847,32,943,58"/>
 </map>

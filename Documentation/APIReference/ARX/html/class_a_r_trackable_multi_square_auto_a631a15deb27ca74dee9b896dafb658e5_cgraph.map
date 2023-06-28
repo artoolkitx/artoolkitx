@@ -1,4 +1,4 @@
 <map id="ARTrackableMultiSquareAuto::copyMultiConfig" name="ARTrackableMultiSquareAuto::copyMultiConfig">
-<area shape="rect" id="node1" title="Make a copy of the multi config." alt="" coords="5,5,200,45"/>
-<area shape="rect" id="node2" href="$ar_multi_edit_config_8c.html#a1ef92097a7dbd0caa9718d6b0f79ae58" title="Takes a deep copy of the multi&#45;marker configuration passed in." alt="" coords="248,13,379,38"/>
+<area shape="rect" id="node1" title="Make a copy of the multi config." alt="" coords="5,5,199,46"/>
+<area shape="rect" id="node2" href="$ar_multi_edit_config_8c.html#a1ef92097a7dbd0caa9718d6b0f79ae58" title="Takes a deep copy of the multi&#45;marker configuration passed in." alt="" coords="247,13,376,39"/>
 </map>

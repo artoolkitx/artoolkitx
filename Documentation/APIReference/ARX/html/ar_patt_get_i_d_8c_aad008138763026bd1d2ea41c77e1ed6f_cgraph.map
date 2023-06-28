@@ -1,6 +1,6 @@
 <map id="arPattGetID2" name="arPattGetID2">
 <area shape="rect" id="node1" title="Match the interior of a detected square against known patterns." alt="" coords="5,5,104,31"/>
-<area shape="rect" id="node2" href="$ar_patt_get_i_d_8c.html#acce963b8d7e85cedfcb4d33ece5f20db" title="Match the interior of a detected square against known patterns with variable border width." alt="" coords="152,5,281,31"/>
-<area shape="rect" id="node3" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="329,5,451,31"/>
-<area shape="rect" id="node4" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="499,5,665,31"/>
+<area shape="rect" id="node2" href="$ar_patt_get_i_d_8c.html#acce963b8d7e85cedfcb4d33ece5f20db" title="Match the interior of a detected square against known patterns with variable border width." alt="" coords="152,5,280,31"/>
+<area shape="rect" id="node3" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="328,5,448,31"/>
+<area shape="rect" id="node4" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="496,5,663,31"/>
 </map>

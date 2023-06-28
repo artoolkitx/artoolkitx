@@ -1,10 +1,10 @@
 <map id="ar2SetTemplateSub" name="ar2SetTemplateSub">
 <area shape="rect" id="node1" title=" " alt="" coords="5,134,141,160"/>
-<area shape="rect" id="node2" href="$coord_8c.html#ab8cc03a3eebeaf4bfc49b1ee3c146b4f" title=" " alt="" coords="224,58,353,84"/>
-<area shape="rect" id="node4" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="683,33,849,58"/>
-<area shape="rect" id="node5" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="711,109,821,134"/>
-<area shape="rect" id="node6" href="$coord_8c.html#a63f7458dc5beff31362a6c1520e65b60" title=" " alt="" coords="189,160,388,185"/>
-<area shape="rect" id="node7" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="452,210,619,236"/>
-<area shape="rect" id="node8" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title=" " alt="" coords="241,261,337,286"/>
-<area shape="rect" id="node3" href="$coord_8c.html#a5baabf3b8320ed39189b4e1143395d56" title=" " alt="" coords="436,58,635,84"/>
+<area shape="rect" id="node2" href="$coord_8c.html#ab8cc03a3eebeaf4bfc49b1ee3c146b4f" title=" " alt="" coords="223,58,352,84"/>
+<area shape="rect" id="node4" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="679,33,846,58"/>
+<area shape="rect" id="node5" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="707,109,818,134"/>
+<area shape="rect" id="node6" href="$coord_8c.html#a63f7458dc5beff31362a6c1520e65b60" title=" " alt="" coords="189,159,386,185"/>
+<area shape="rect" id="node7" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="450,210,616,236"/>
+<area shape="rect" id="node8" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title=" " alt="" coords="240,261,335,286"/>
+<area shape="rect" id="node3" href="$coord_8c.html#a5baabf3b8320ed39189b4e1143395d56" title=" " alt="" coords="434,58,631,84"/>
 </map>

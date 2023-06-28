@@ -1,12 +1,12 @@
 <map id="Source/ARX/AR2/include/ARX/AR2/template.h" name="Source/ARX/AR2/include/ARX/AR2/template.h">
-<area shape="rect" id="node1" title=" " alt="" coords="721,5,891,45"/>
-<area shape="rect" id="node2" href="$tracking_8h.html" title=" " alt="" coords="659,93,830,133"/>
-<area shape="rect" id="node4" href="$matching_8c.html" title=" " alt="" coords="5,181,199,207"/>
-<area shape="rect" id="node5" href="$matching2_8c.html" title=" " alt="" coords="223,181,423,207"/>
-<area shape="rect" id="node6" href="$surface_8c.html" title=" " alt="" coords="448,181,631,207"/>
-<area shape="rect" id="node7" href="$template_8c.html" title=" " alt="" coords="859,181,1049,207"/>
-<area shape="rect" id="node8" href="$tracking_8c.html" title=" " alt="" coords="1074,181,1261,207"/>
-<area shape="rect" id="node9" href="$tracking2d_8c.html" title=" " alt="" coords="1285,181,1485,207"/>
-<area shape="rect" id="node10" href="$select_template_8c.html" title=" " alt="" coords="1007,101,1235,126"/>
-<area shape="rect" id="node3" href="$handle_8c.html" title=" " alt="" coords="655,181,834,207"/>
+<area shape="rect" id="node1" title=" " alt="" coords="717,5,886,46"/>
+<area shape="rect" id="node2" href="$tracking_8h.html" title=" " alt="" coords="656,94,825,135"/>
+<area shape="rect" id="node4" href="$matching_8c.html" title=" " alt="" coords="5,183,198,208"/>
+<area shape="rect" id="node5" href="$matching2_8c.html" title=" " alt="" coords="222,183,421,208"/>
+<area shape="rect" id="node6" href="$surface_8c.html" title=" " alt="" coords="445,183,627,208"/>
+<area shape="rect" id="node7" href="$template_8c.html" title=" " alt="" coords="854,183,1043,208"/>
+<area shape="rect" id="node8" href="$tracking_8c.html" title=" " alt="" coords="1068,183,1253,208"/>
+<area shape="rect" id="node9" href="$tracking2d_8c.html" title=" " alt="" coords="1277,183,1476,208"/>
+<area shape="rect" id="node10" href="$select_template_8c.html" title=" " alt="" coords="1001,102,1229,127"/>
+<area shape="rect" id="node3" href="$handle_8c.html" title=" " alt="" coords="652,183,829,208"/>
 </map>

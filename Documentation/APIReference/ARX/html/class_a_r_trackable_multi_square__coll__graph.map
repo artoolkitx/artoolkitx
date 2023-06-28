@@ -1,7 +1,7 @@
 <map id="ARTrackableMultiSquare" name="ARTrackableMultiSquare">
-<area shape="rect" id="node1" title="Multiple marker type of ARTrackable." alt="" coords="42,181,209,207"/>
-<area shape="rect" id="node2" href="$class_a_r_trackable.html" title="Base class for supported trackable types." alt="" coords="5,93,104,119"/>
-<area shape="rect" id="node3" href="$class_a_r_pattern.html" title="Encapsulates information about a sub&#45;component of a marker useful for presentation to a user." alt="" coords="11,5,93,31"/>
-<area shape="rect" id="node4" href="$struct_a_r_multi_marker_info_t.html" title=" " alt="" coords="132,93,271,119"/>
-<area shape="rect" id="node5" href="$struct_a_r_multi_each_marker_info_t.html" title=" " alt="" coords="118,5,287,31"/>
+<area shape="rect" id="node1" title="Multiple marker type of ARTrackable." alt="" coords="62,183,228,208"/>
+<area shape="rect" id="node2" href="$class_a_r_trackable.html" title="Base class for supported trackable types." alt="" coords="27,94,124,120"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,5,130,31"/>
+<area shape="rect" id="node4" href="$struct_a_r_multi_marker_info_t.html" title=" " alt="" coords="162,94,301,120"/>
+<area shape="rect" id="node5" href="$struct_a_r_multi_each_marker_info_t.html" title=" " alt="" coords="154,5,322,31"/>
 </map>

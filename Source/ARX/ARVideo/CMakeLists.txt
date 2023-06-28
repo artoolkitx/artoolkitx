@@ -39,7 +39,6 @@ set(LIBS
 )
 
 if (USE_CPARAM_SEARCH)
-    find_package(CURL REQUIRED)
     if (NOT ARX_TARGET_PLATFORM_LINUX)
         set(LIBS ${LIBS}
             ${CURL_LIBRARIES}
@@ -53,7 +52,6 @@ if (USE_CPARAM_SEARCH)
             ssl
         )
     endif()
-    message(${CURL_LIBRARIES})
     # On all platforms except Android, we link to sqlite's library. On Android, we compile include sqlite as source.
     if (NOT ARX_TARGET_PLATFORM_ANDROID)
         set(LIBS ${LIBS}

@@ -1,9 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="171,5,363,45"/>
-<area shape="rect" id="node2" href="$interface_camera_video.html" title=" " alt="" coords="490,14,591,39"/>
-<area shape="rect" id="node3" title=" " alt="" coords="228,70,307,95"/>
-<area shape="rect" id="node4" href="$interface_movie_video.html" title=" " alt="" coords="495,67,586,93"/>
-<area shape="rect" id="node5" href="$interfacevideo_a_v_foundation_camera_video_took_picture_delegate.html" title=" " alt="" coords="435,117,647,157"/>
-<area shape="rect" id="node6" title=" " alt="" coords="5,125,100,150"/>
-<area shape="rect" id="node7" href="$protocol_camera_video_took_picture_delegate-p.html" title=" " alt="" coords="148,125,387,150"/>
+<area shape="rect" id="node1" title=" " alt="" coords="171,5,362,46"/>
+<area shape="rect" id="node2" href="$interface_camera_video.html" title=" " alt="" coords="489,14,589,40"/>
+<area shape="rect" id="node3" title=" " alt="" coords="227,70,306,96"/>
+<area shape="rect" id="node4" href="$interface_movie_video.html" title=" " alt="" coords="494,68,583,93"/>
+<area shape="rect" id="node5" href="$interfacevideo_a_v_foundation_camera_video_took_picture_delegate.html" title=" " alt="" coords="433,117,644,158"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,125,100,151"/>
+<area shape="rect" id="node7" href="$protocol_camera_video_took_picture_delegate-p.html" title=" " alt="" coords="148,125,385,151"/>
 </map>

@@ -1,10 +1,10 @@
 <map id="Source/ARX/OCVT/TrackingPointSelector.h" name="Source/ARX/OCVT/TrackingPointSelector.h">
-<area shape="rect" id="node1" title=" " alt="" coords="67,5,258,45"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,93,64,119"/>
-<area shape="rect" id="node3" title=" " alt="" coords="89,93,135,119"/>
-<area shape="rect" id="node4" href="$_o_c_v_config_8h.html" title=" " alt="" coords="309,93,409,119"/>
-<area shape="rect" id="node8" href="$_tracked_point_8h.html" title=" " alt="" coords="159,93,270,119"/>
-<area shape="rect" id="node5" title=" " alt="" coords="144,167,269,192"/>
-<area shape="rect" id="node6" title=" " alt="" coords="293,167,440,192"/>
-<area shape="rect" id="node7" title=" " alt="" coords="464,167,605,192"/>
+<area shape="rect" id="node1" title=" " alt="" coords="66,5,255,46"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,94,63,120"/>
+<area shape="rect" id="node3" title=" " alt="" coords="87,94,133,120"/>
+<area shape="rect" id="node4" href="$_o_c_v_config_8h.html" title=" " alt="" coords="304,94,404,120"/>
+<area shape="rect" id="node8" href="$_tracked_point_8h.html" title=" " alt="" coords="157,94,266,120"/>
+<area shape="rect" id="node5" title=" " alt="" coords="141,168,266,193"/>
+<area shape="rect" id="node6" title=" " alt="" coords="289,168,435,193"/>
+<area shape="rect" id="node7" title=" " alt="" coords="459,168,599,193"/>
 </map>

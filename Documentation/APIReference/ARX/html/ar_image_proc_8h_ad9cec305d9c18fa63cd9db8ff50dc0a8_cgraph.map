@@ -1,4 +1,4 @@
 <map id="arImageProcLumaHistAndBoxFilterWithBias" name="arImageProcLumaHistAndBoxFilterWithBias">
-<area shape="rect" id="node1" title="Calculate image histogram, and box filter image." alt="" coords="5,5,204,45"/>
-<area shape="rect" id="node2" href="$ar_image_proc_8c.html#a9bddf2e229ba8ea9a61ea1f2d5a61b2a" title="Calculate luminance histogram." alt="" coords="252,13,404,38"/>
+<area shape="rect" id="node1" title="Calculate image histogram, and box filter image." alt="" coords="5,5,203,46"/>
+<area shape="rect" id="node2" href="$ar_image_proc_8c.html#a9bddf2e229ba8ea9a61ea1f2d5a61b2a" title="Calculate luminance histogram." alt="" coords="251,13,402,39"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['trackabletype_0',['TrackableType',['../class_a_r_trackable.html#af9b4dc1a6a3e77f1f1cf27f1664fa218',1,'ARTrackable']]]
+  ['verticalalignment_0',['VerticalAlignment',['../class_a_r_video_view.html#acb46431419bd575f6cf0aeb71feb058c',1,'ARVideoView']]]
 ];

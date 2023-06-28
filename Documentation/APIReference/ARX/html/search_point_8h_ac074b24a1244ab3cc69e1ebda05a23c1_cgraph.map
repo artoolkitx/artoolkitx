@@ -1,6 +1,6 @@
 <map id="ar2GetSearchPoint" name="ar2GetSearchPoint">
 <area shape="rect" id="node1" title=" " alt="" coords="5,31,137,56"/>
-<area shape="rect" id="node2" href="$coord_8c.html#a63f7458dc5beff31362a6c1520e65b60" title=" " alt="" coords="185,31,384,56"/>
-<area shape="rect" id="node3" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="432,5,599,31"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="460,55,571,80"/>
+<area shape="rect" id="node2" href="$coord_8c.html#a63f7458dc5beff31362a6c1520e65b60" title=" " alt="" coords="185,31,382,56"/>
+<area shape="rect" id="node3" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="430,5,596,31"/>
+<area shape="rect" id="node4" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="458,55,568,80"/>
 </map>

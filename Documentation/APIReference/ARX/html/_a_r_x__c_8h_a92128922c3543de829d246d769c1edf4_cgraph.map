@@ -1,8 +1,4 @@
 <map id="arwSetTrackableOptionBool" name="arwSetTrackableOptionBool">
-<area shape="rect" id="node1" title="Set boolean options associated with a trackable." alt="" coords="5,31,189,56"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#a4eafe05e50bdb9e788ad836f4c2104f1" title="Searches the collection of trackables for the given ID." alt="" coords="237,5,420,31"/>
-<area shape="rect" id="node3" href="$class_a_r_trackable.html#a28ba769c267933335c7000c2aac66a74" title=" " alt="" coords="245,55,412,80"/>
-<area shape="rect" id="node4" href="$ar_filter_trans_mat_8c.html#a52813489717ce82b433e44adfd3bc3dd" title="Finalise a filter." alt="" coords="468,29,613,55"/>
-<area shape="rect" id="node5" href="$ar_filter_trans_mat_8c.html#a9c87432e371ffb1716e4ee6712a5c0ba" title="Initialise a filter for a single transformation matrix (pose estimate)." alt="" coords="473,79,608,104"/>
-<area shape="rect" id="node6" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="661,79,844,104"/>
+<area shape="rect" id="node1" title="Set boolean options associated with a trackable." alt="" coords="5,5,189,31"/>
+<area shape="rect" id="node2" href="$class_a_r_controller.html#aff42fd017881ce2601c53f830ae7d021" title="Searches the collection of trackables for the given ID." alt="" coords="237,5,419,31"/>
 </map>

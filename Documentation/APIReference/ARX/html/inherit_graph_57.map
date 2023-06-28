@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$struct_a_r_patt_rect_info.html" title="Defines a pattern rectangle as a sub&#45;portion of a marker image." alt="" coords="5,5,120,31"/>
+<area shape="rect" id="node1" href="$class_a_r_trackable.html" title="Base class for supported trackable types." alt="" coords="5,55,103,80"/>
+<area shape="rect" id="node2" href="$class_a_r_trackable_multi_square.html" title="Multiple marker type of ARTrackable." alt="" coords="164,5,331,31"/>
+<area shape="rect" id="node3" href="$class_a_r_trackable_multi_square_auto.html" title="An ARTrackable that auto&#45;builds a map of matrix (2D barcode) markers." alt="" coords="151,55,344,80"/>
+<area shape="rect" id="node4" href="$class_a_r_trackable_square.html" title="Single marker type of ARTrackable." alt="" coords="178,104,317,130"/>
 </map>

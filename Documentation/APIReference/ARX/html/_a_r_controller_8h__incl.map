@@ -1,42 +1,43 @@
 <map id="Source/ARX/include/ARX/ARController.h" name="Source/ARX/include/ARX/ARController.h">
-<area shape="rect" id="node1" title=" " alt="" coords="623,5,766,45"/>
-<area shape="rect" id="node2" href="$_platform_8h.html" title=" " alt="" coords="481,313,596,339"/>
-<area shape="rect" id="node3" href="$ar_8h.html" title="artoolkitX core routines." alt="" coords="627,460,725,485"/>
-<area shape="rect" id="node4" title=" " alt="" coords="895,607,956,632"/>
-<area shape="rect" id="node5" title=" " alt="" coords="1349,607,1413,632"/>
-<area shape="rect" id="node6" title=" " alt="" coords="145,533,210,559"/>
-<area shape="rect" id="node7" title=" " alt="" coords="1438,607,1503,632"/>
-<area shape="rect" id="node15" title=" " alt="" coords="119,607,182,632"/>
-<area shape="rect" id="node20" href="$_a_r_video_source_8h.html" title=" " alt="" coords="145,240,303,265"/>
-<area shape="rect" id="node26" title=" " alt="" coords="95,313,171,339"/>
-<area shape="rect" id="node27" href="$_a_r_video_view_8h.html" title=" " alt="" coords="401,167,545,192"/>
-<area shape="rect" id="node29" href="$_a_r_tracker_square_8h.html" title=" " alt="" coords="671,93,841,119"/>
-<area shape="rect" id="node31" href="$_a_r_trackable_8h.html" title=" " alt="" coords="920,313,1061,339"/>
-<area shape="rect" id="node34" title=" " alt="" coords="1101,460,1171,485"/>
-<area shape="rect" id="node35" title=" " alt="" coords="1184,387,1243,412"/>
-<area shape="rect" id="node8" title=" " alt="" coords="496,607,619,632"/>
-<area shape="rect" id="node9" href="$ar_config_8h.html" title=" " alt="" coords="382,533,519,559"/>
-<area shape="rect" id="node10" href="$log_8h.html" title="Logging utilities." alt="" coords="1168,533,1293,559"/>
-<area shape="rect" id="node14" href="$matrix_8h.html" title=" " alt="" coords="234,533,358,559"/>
-<area shape="rect" id="node16" href="$icp_8h.html" title=" " alt="" coords="782,533,887,559"/>
-<area shape="rect" id="node18" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters." alt="" coords="963,533,1087,559"/>
-<area shape="rect" id="node19" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing." alt="" coords="595,533,757,559"/>
-<area shape="rect" id="node11" title=" " alt="" coords="1256,607,1325,632"/>
-<area shape="rect" id="node12" title=" " alt="" coords="981,607,1067,632"/>
-<area shape="rect" id="node13" href="$types_8h.html" title=" " alt="" coords="1091,607,1231,632"/>
-<area shape="rect" id="node17" href="$icp_core_8h.html" title=" " alt="" coords="737,607,871,632"/>
-<area shape="rect" id="node21" href="$video_8h.html" title=" " alt="" coords="133,387,285,412"/>
-<area shape="rect" id="node25" title=" " alt="" coords="297,313,356,339"/>
-<area shape="rect" id="node22" href="$video_config_8h.html" title=" " alt="" coords="94,460,285,485"/>
-<area shape="rect" id="node23" title=" " alt="" coords="517,460,581,485"/>
-<area shape="rect" id="node24" href="$video_luma_8h.html" title=" " alt="" coords="309,460,493,485"/>
-<area shape="rect" id="node28" href="$arg_8h.html" title="A collection of useful graphics routines for artoolkitX." alt="" coords="327,240,443,265"/>
-<area shape="rect" id="node30" href="$_a_r_trackable_square_8h.html" title=" " alt="" coords="773,167,955,192"/>
-<area shape="rect" id="node36" href="$_a_r_trackable_multi_square_8h.html" title=" " alt="" coords="721,240,932,265"/>
-<area shape="rect" id="node38" href="$_a_r_tracker_video_8h.html" title=" " alt="" coords="979,167,1141,192"/>
-<area shape="rect" id="node32" href="$ar_filter_trans_mat_8h.html" title="Provides filtering of transformation matrices (pose estimates)." alt="" coords="774,387,957,412"/>
-<area shape="rect" id="node33" href="$_a_r_pattern_8h.html" title=" " alt="" coords="1033,387,1159,412"/>
-<area shape="rect" id="node37" href="$ar_multi_8h.html" title=" " alt="" coords="623,387,750,412"/>
-<area shape="rect" id="node39" href="$_a_r_tracker_8h.html" title=" " alt="" coords="1063,240,1190,265"/>
-<area shape="rect" id="node40" title=" " alt="" coords="1086,313,1141,339"/>
+<area shape="rect" id="node1" title=" " alt="" coords="618,5,761,46"/>
+<area shape="rect" id="node2" href="$_platform_8h.html" title=" " alt="" coords="554,315,667,341"/>
+<area shape="rect" id="node3" href="$ar_8h.html" title="artoolkitX core routines." alt="" coords="653,462,750,488"/>
+<area shape="rect" id="node4" title=" " alt="" coords="1198,610,1258,635"/>
+<area shape="rect" id="node5" title=" " alt="" coords="656,610,720,635"/>
+<area shape="rect" id="node6" title=" " alt="" coords="43,536,107,562"/>
+<area shape="rect" id="node7" title=" " alt="" coords="1109,610,1174,635"/>
+<area shape="rect" id="node15" title=" " alt="" coords="93,610,155,635"/>
+<area shape="rect" id="node20" href="$_a_r_video_source_8h.html" title=" " alt="" coords="195,241,352,267"/>
+<area shape="rect" id="node26" title=" " alt="" coords="146,315,222,341"/>
+<area shape="rect" id="node27" href="$_a_r_video_view_8h.html" title=" " alt="" coords="412,168,556,193"/>
+<area shape="rect" id="node29" href="$_a_r_tracker_square_8h.html" title=" " alt="" coords="667,94,835,120"/>
+<area shape="rect" id="node31" href="$_a_r_trackable_8h.html" title=" " alt="" coords="873,315,1013,341"/>
+<area shape="rect" id="node33" title=" " alt="" coords="1165,389,1222,414"/>
+<area shape="rect" id="node41" title=" " alt="" coords="1166,315,1234,341"/>
+<area shape="rect" id="node8" title=" " alt="" coords="335,610,457,635"/>
+<area shape="rect" id="node9" href="$ar_config_8h.html" title=" " alt="" coords="967,536,1103,562"/>
+<area shape="rect" id="node10" href="$log_8h.html" title="Logging utilities." alt="" coords="818,536,942,562"/>
+<area shape="rect" id="node14" href="$matrix_8h.html" title=" " alt="" coords="181,536,304,562"/>
+<area shape="rect" id="node16" href="$icp_8h.html" title=" " alt="" coords="1283,536,1387,562"/>
+<area shape="rect" id="node18" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters." alt="" coords="433,536,556,562"/>
+<area shape="rect" id="node19" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing." alt="" coords="581,536,742,562"/>
+<area shape="rect" id="node11" title=" " alt="" coords="743,610,812,635"/>
+<area shape="rect" id="node12" title=" " alt="" coords="836,610,922,635"/>
+<area shape="rect" id="node13" href="$types_8h.html" title=" " alt="" coords="946,610,1086,635"/>
+<area shape="rect" id="node17" href="$icp_core_8h.html" title=" " alt="" coords="1282,610,1414,635"/>
+<area shape="rect" id="node21" href="$video_8h.html" title=" " alt="" coords="184,389,336,414"/>
+<area shape="rect" id="node25" title=" " alt="" coords="349,315,406,341"/>
+<area shape="rect" id="node22" href="$video_config_8h.html" title=" " alt="" coords="144,462,333,488"/>
+<area shape="rect" id="node23" title=" " alt="" coords="566,462,629,488"/>
+<area shape="rect" id="node24" href="$video_luma_8h.html" title=" " alt="" coords="358,462,541,488"/>
+<area shape="rect" id="node28" href="$arg_8h.html" title="A collection of useful graphics routines for artoolkitX." alt="" coords="426,241,542,267"/>
+<area shape="rect" id="node30" href="$_a_r_trackable_square_8h.html" title=" " alt="" coords="768,168,949,193"/>
+<area shape="rect" id="node36" href="$_a_r_trackable_multi_square_8h.html" title=" " alt="" coords="667,241,877,267"/>
+<area shape="rect" id="node38" href="$_a_r_tracker_video_8h.html" title=" " alt="" coords="973,168,1134,193"/>
+<area shape="rect" id="node32" href="$ar_filter_trans_mat_8h.html" title="Provides filtering of transformation matrices (pose estimates)." alt="" coords="748,389,930,414"/>
+<area shape="rect" id="node34" title=" " alt="" coords="1005,389,1057,414"/>
+<area shape="rect" id="node35" title=" " alt="" coords="1081,389,1141,414"/>
+<area shape="rect" id="node37" href="$ar_multi_8h.html" title=" " alt="" coords="548,389,674,414"/>
+<area shape="rect" id="node39" href="$_a_r_tracker_8h.html" title=" " alt="" coords="1058,241,1185,267"/>
+<area shape="rect" id="node40" title=" " alt="" coords="1037,315,1091,341"/>
 </map>

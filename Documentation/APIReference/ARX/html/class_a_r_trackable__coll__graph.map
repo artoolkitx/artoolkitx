@@ -1,4 +1,4 @@
 <map id="ARTrackable" name="ARTrackable">
-<area shape="rect" id="node1" title="Base class for supported trackable types." alt="" coords="5,93,104,119"/>
-<area shape="rect" id="node2" href="$class_a_r_pattern.html" title="Encapsulates information about a sub&#45;component of a marker useful for presentation to a user." alt="" coords="13,5,96,31"/>
+<area shape="rect" id="node1" title="Base class for supported trackable types." alt="" coords="19,94,116,120"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,130,31"/>
 </map>
