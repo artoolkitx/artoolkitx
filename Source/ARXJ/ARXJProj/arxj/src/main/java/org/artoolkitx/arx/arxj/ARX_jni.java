@@ -442,16 +442,21 @@ public class ARX_jni {
     public static native boolean arwQueryTrackableVisibilityAndTransformationStereo(int trackableUID, float[] matrixL, float[] matrixR);
 
     public static final int ARW_TRACKER_OPTION_NFT_MULTIMODE = 0,                          ///< bool.
-    						ARW_TRACKER_OPTION_SQUARE_THRESHOLD = 1,                       ///< Threshold value used for image binarization. int in range [0-255].
-    						ARW_TRACKER_OPTION_SQUARE_THRESHOLD_MODE = 2,                  ///< Threshold mode used for image binarization. int.
-    						ARW_TRACKER_OPTION_SQUARE_LABELING_MODE = 3,                   ///< int.
-    						ARW_TRACKER_OPTION_SQUARE_PATTERN_DETECTION_MODE = 4,          ///< int.
-    						ARW_TRACKER_OPTION_SQUARE_BORDER_SIZE = 5,                     ///< float in range (0-0.5).
-    						ARW_TRACKER_OPTION_SQUARE_MATRIX_CODE_TYPE = 6,                ///< int.
-    						ARW_TRACKER_OPTION_SQUARE_IMAGE_PROC_MODE = 7,                 ///< int.
-    						ARW_TRACKER_OPTION_SQUARE_DEBUG_MODE = 8,                      ///< Enables or disable state of debug mode in the tracker. When enabled, a black and white debug image is generated during marker detection. The debug image is useful for visualising the binarization process and choosing a threshold value. bool.
-                            ARW_TRACKER_OPTION_SQUARE_PATTERN_SIZE = 9,                    ///< Number of rows and columns in square template (pattern) markers. Defaults to AR_PATT_SIZE1, which is 16 in all versions of ARToolKit prior to 5.3. int.
-                            ARW_TRACKER_OPTION_SQUARE_PATTERN_COUNT_MAX = 10;              ///< Maximum number of square template (pattern) markers that may be loaded at once. Defaults to AR_PATT_NUM_MAX, which is at least 25 in all versions of ARToolKit prior to 5.3. int.
+							ARW_TRACKER_OPTION_SQUARE_THRESHOLD = 1,                       ///< Threshold value used for image binarization. int in range [0-255].
+							ARW_TRACKER_OPTION_SQUARE_THRESHOLD_MODE = 2,                  ///< Threshold mode used for image binarization. int.
+							ARW_TRACKER_OPTION_SQUARE_LABELING_MODE = 3,                   ///< int.
+							ARW_TRACKER_OPTION_SQUARE_PATTERN_DETECTION_MODE = 4,          ///< int.
+							ARW_TRACKER_OPTION_SQUARE_BORDER_SIZE = 5,                     ///< float in range (0-0.5).
+							ARW_TRACKER_OPTION_SQUARE_MATRIX_CODE_TYPE = 6,                ///< int.
+							ARW_TRACKER_OPTION_SQUARE_IMAGE_PROC_MODE = 7,                 ///< int.
+							ARW_TRACKER_OPTION_SQUARE_DEBUG_MODE = 8,                      ///< Enables or disable state of debug mode in the tracker. When enabled, a black and white debug image is generated during marker detection. The debug image is useful for visualising the binarization process and choosing a threshold value. bool.
+							ARW_TRACKER_OPTION_SQUARE_PATTERN_SIZE = 9,                    ///< Number of rows and columns in square template (pattern) markers. Defaults to AR_PATT_SIZE1, which is 16 in all versions of ARToolKit prior to 5.3. int.
+							ARW_TRACKER_OPTION_SQUARE_PATTERN_COUNT_MAX = 10,              ///< Maximum number of square template (pattern) markers that may be loaded at once. Defaults to AR_PATT_NUM_MAX, which is at least 25 in all versions of ARToolKit prior to 5.3. int.
+							ARW_TRACKER_OPTION_2D_TRACKER_FEATURE_TYPE = 11,               ///< Feature detector type used in the 2d Tracker - 0 AKAZE, 1 ORB, 2 BRISK, 3 KAZE
+							ARW_TRACKER_OPTION_2D_MAXIMUM_MARKERS_TO_TRACK = 12,           ///< Maximum number of markers able to be tracked simultaneously. Defaults to 1. Should not be set higher than the number of 2D markers loaded.
+							ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES = 13, ///< If true, when the square tracker is detecting matrix (barcode) markers, new trackables will be created for unmatched markers. Defaults to false. bool.
+							ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES_DEFAULT_WIDTH = 14, ///< If ARW_TRACKER_OPTION_SQUARE_MATRIX_MODE_AUTOCREATE_NEW_TRACKABLES is true, this value will be used for the initial width of new trackables for unmatched markers. Defaults to 80.0f. float.
+							ARW_TRACKER_OPTION_2D_THREADED = 15;                           ///< bool, If false, 2D tracking updates synchronously, and arwUpdateAR will not return until 2D tracking is complete. If true, 2D tracking updates asychronously on a secondary thread, and arwUpdateAR will not block if the track is busy. Defaults to true.
 
     // ARW_TRACKER_OPTION_SQUARE_THRESHOLD_MODE
     public static final int AR_LABELING_THRESH_MODE_MANUAL = 0,
@@ -487,40 +492,117 @@ public class ARX_jni {
 	public static final int AR_IMAGE_PROC_FRAME_IMAGE = 0,
     						AR_IMAGE_PROC_FIELD_IMAGE = 1;
 
-    public static native void arwSetTrackerOptionBool(int option, boolean value);
+	/**
+	 * Set boolean options associated with a tracker.
+	 * @param option Symbolic constant identifying tracker option to set.
+	 * @param value The value to set it to.
+	 */
+	public static native void arwSetTrackerOptionBool(int option, boolean value);
 
-    public static native void arwSetTrackerOptionInt(int option, int value);
+	/**
+	 * Set integer options associated with a tracker.
+	 * @param option Symbolic constant identifying tracker option to set.
+	 * @param value The value to set it to.
+	 */
+	public static native void arwSetTrackerOptionInt(int option, int value);
 
-    public static native void arwSetTrackerOptionFloat(int option, float value);
+	/**
+	 * Set floating-point options associated with a tracker.
+	 * @param option Symbolic constant identifying tracker option to set.
+	 * @param value The value to set it to.
+	 */
+	public static native void arwSetTrackerOptionFloat(int option, float value);
 
-    public static native boolean arwGetTrackerOptionBool(int option);
+	/**
+	 * Get boolean options associated with a tracker.
+	 * @param option Symbolic constant identifying tracker option to get.
+	 * @return true if option is set, false if option is not set or an error occurred.
+	 */
+	public static native boolean arwGetTrackerOptionBool(int option);
 
-    public static native int arwGetTrackerOptionInt(int option);
+	/**
+	 * Get integer options associated with a tracker.
+	 * @param option Symbolic constant identifying tracker option to get.
+	 * @return integer value of option, or INT_MAX if an error occurred.
+	 */
+	public static native int arwGetTrackerOptionInt(int option);
 
-    public static native float arwGetTrackerOptionFloat(int option);
+	/**
+	 * Get floating-point options associated with a tracker.
+	 * @param option Symbolic constant identifying tracker option to get.
+	 * @return floating-point value of option, or NAN if an error occurred.
+	 */
+	public static native float arwGetTrackerOptionFloat(int option);
 
-    public static final int ARW_TRACKABLE_OPTION_FILTERED = 1,
-    						ARW_TRACKABLE_OPTION_FILTER_SAMPLE_RATE = 2,
-    						ARW_TRACKABLE_OPTION_FILTER_CUTOFF_FREQ = 3,
-    						ARW_TRACKABLE_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION = 4,
-    						ARW_TRACKABLE_OPTION_SQUARE_CONFIDENCE = 5,
-    						ARW_TRACKABLE_OPTION_SQUARE_CONFIDENCE_CUTOFF = 6,
-                            ARW_TRACKABLE_OPTION_NFT_SCALE = 7,
-                            ARW_TRACKABLE_OPTION_MULTI_MIN_SUBMARKERS = 8,
-                            ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_MATRIX = 9,
-                            ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_PATTERN = 10;
+    public static final int ARW_TRACKABLE_OPTION_TYPE = 0,                             ///< readonly int enum, trackable type as per ARW_TRACKABLE_TYPE_* enum .
+							ARW_TRACKABLE_OPTION_FILTERED = 1,                         ///< bool, true for filtering enabled.
+							ARW_TRACKABLE_OPTION_FILTER_SAMPLE_RATE = 2,               ///< float, sample rate for filter calculations.
+							ARW_TRACKABLE_OPTION_FILTER_CUTOFF_FREQ = 3,               ///< float, cutoff frequency of filter.
+							ARW_TRACKABLE_OPTION_SQUARE_USE_CONT_POSE_ESTIMATION = 4,  ///< bool, true to use continuous pose estimate.
+							ARW_TRACKABLE_OPTION_SQUARE_CONFIDENCE = 5,                ///< float, confidence value of most recent marker match
+							ARW_TRACKABLE_OPTION_SQUARE_CONFIDENCE_CUTOFF = 6,         ///< float, minimum allowable confidence value used in marker matching.
+							ARW_TRACKABLE_OPTION_NFT_SCALE = 7,                        ///< float, scale factor applied to NFT marker size.
+							ARW_TRACKABLE_OPTION_MULTI_MIN_SUBMARKERS = 8,             ///< int, minimum number of submarkers for tracking to be valid.
+							ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_MATRIX = 9,            ///< float, minimum confidence value for submarker matrix tracking to be valid.
+							ARW_TRACKABLE_OPTION_MULTI_MIN_CONF_PATTERN = 10,          ///< float, minimum confidence value for submarker pattern tracking to be valid.
+							ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB = 11,           ///< float, minimum inlier probability value for robust multimarker pose estimation (range 1.0 - 0.0).
+							ARW_TRACKABLE_OPTION_SQUARE_WIDTH = 12,                    ///< float, square marker width
+							ARW_TRACKABLE_OPTION_2D_SCALE = 13;                        ///< float, 2D trackable scale (i.e. width).
 
-    public static native void arwSetTrackableOptionBool(int trackableUID, int option, boolean value);
+	public static final int ARW_TRACKABLE_TYPE_Unknown = -1,       ///< Type not known, e.g. autocreated trackable.
+							ARW_TRACKABLE_TYPE_Square = 0,         ///< A square template (pattern) marker.
+							ARW_TRACKABLE_TYPE_SquareBarcode = 1,  ///< A square matrix (2D barcode) marker.
+							ARW_TRACKABLE_TYPE_Multimarker = 2,    ///< Multiple square markers treated as a single marker.
+							ARW_TRACKABLE_TYPE_NFT = 3,            ///< A legacy NFT marker.
+							ARW_TRACKABLE_TYPE_TwoD = 4;           ///< An artoolkitX 2D textured trackable.
 
-    public static native void arwSetTrackableOptionInt(int trackableUID, int option, int value);
+	/**
+	 * Set boolean options associated with a trackable.
+	 * @param trackableUID	The unique identifier (UID) of the trackable
+	 * @param option Symbolic constant identifying trackable option to set.
+	 * @param value The value to set it to.
+	 */
+	public static native void arwSetTrackableOptionBool(int trackableUID, int option, boolean value);
 
-    public static native void arwSetTrackableOptionFloat(int trackableUID, int option, float value);
+	/**
+	 * Set integer options associated with a trackable.
+	 * @param trackableUID	The unique identifier (UID) of the trackable
+	 * @param option Symbolic constant identifying trackable option to set.
+	 * @param value The value to set it to.
+	 */
+	public static native void arwSetTrackableOptionInt(int trackableUID, int option, int value);
 
-    public static native boolean arwGetTrackableOptionBool(int trackableUID, int option);
+	/**
+	 * Set floating-point options associated with a trackable.
+	 * @param trackableUID	The unique identifier (UID) of the trackable
+	 * @param option Symbolic constant identifying trackable option to set.
+	 * @param value The value to set it to.
+	 */
+	public static native void arwSetTrackableOptionFloat(int trackableUID, int option, float value);
 
-    public static native int arwGetTrackableOptionInt(int trackableUID, int option);
+	/**
+	 * Get boolean options associated with a trackable.
+	 * @param trackableUID	The unique identifier (UID) of the trackable
+	 * @param option Symbolic constant identifying trackable option to get.
+	 * @return true if option is set, false if option is not set or an error occurred.
+	 */
+	public static native boolean arwGetTrackableOptionBool(int trackableUID, int option);
 
-    public static native float arwGetTrackableOptionFloat(int trackableUID, int option);
+	/**
+	 * Get integer options associated with a trackable.
+	 * @param trackableUID	The unique identifier (UID) of the trackable
+	 * @param option Symbolic constant identifying trackable option to get.
+	 * @return integer value of option, or INT_MIN if an error occurred.
+	 */
+	public static native int arwGetTrackableOptionInt(int trackableUID, int option);
+
+	/**
+	 * Get floating-point options associated with a trackable.
+	 * @param trackableUID	The unique identifier (UID) of the trackable
+	 * @param option Symbolic constant identifying trackable option to get.
+	 * @return floating-point value of option, or NAN if an error occurred.
+	 */
+	public static native float arwGetTrackableOptionFloat(int trackableUID, int option);
 
     public static final int AR_PIXEL_FORMAT_INVALID = -1,
                             AR_PIXEL_FORMAT_RGB = 0,
@@ -589,5 +671,46 @@ public class ARX_jni {
      * @return				0 if no error occurred, otherwise an error value less than 0.
      */
     public static native int arwVideoPushFinal(int videoSourceIndex);
+
+	/**
+	 * Create a video source info list using the supplied video configuration string.
+	 *
+	 * arwInitialiseAR does NOT need to be called before calling this function.
+	 * A single video source info list can exist at any one time.
+	 * The source info list is created by the default video module, or the module selected by
+	 * passing "-module=" in the configuration string. See
+	 * https://github.com/artoolkitx/artoolkitx/wiki/artoolkitX-video-module-configuration-reference#video-modules-and-selection
+	 *
+	 * Entries in the list can be queried by calling arwGetVideoSourceInfoListEntry.
+	 * @param config    The video configuration string.
+	 * @return The number of entries in the video source info list, or 0 if no video source is available or an error occured.
+	 *  If a non-zero value is returned, the list must be deleted with arwDeleteVideoSourceInfoList once the user is
+	 *  finished.
+	 */
+	public static native int arwCreateVideoSourceInfoList(String config);
+
+	/**
+	 * Get an entry from the video source info list describing the name, model, UID, flags, and more for the video source info..
+	 *
+	 * Provided a video source info list has been created by calling arwCreateVideoSourceInfoList, this function
+	 * gets an entry from the list.
+	 * @param nameBuf Pointer to a buffer which will be filled with the user-readable name of the video input (as a nul-terminated C-string) or NULL if this information is not required.
+	 *  It is recommended that at least 256 bytes are allocated, and if the string is longer, it will be truncated to fit into the buffer (including the string nul-terminator).
+	 * @param modelBuf Pointer to a buffer which will be filled with the user-readable model of the video input (as a nul-terminated C-string) or NULL if this information is not required.
+	 *  It is recommended that at least 256 bytes are allocated, and if the string is longer, it will be truncated to fit into the buffer (including the string nul-terminator).
+	 * @param UIDBuf Pointer to a buffer which will be filled with the unique ID of the video input (as a nul-terminated C-string) or NULL if this information is not required.
+	 *  It is recommended that at least 256 bytes are allocated, and if the string is longer, it will be truncated to fit into the buffer (including the string nul-terminator).
+	 * @param flags_p Pointer to an unsigned 32-bit integer, which if non-NULL will be filled with the flags applicable to this video input.
+	 * @param openTokenBuf Pointer to a buffer which will be filled with the machine-readable token which should be passed to the ar*VideoOpen function's
+	 *  configuration string to select this video input, (as a nul-terminated C-string) or NULL if this information is not required.
+	 *  It is recommended that at least 256 bytes are allocated, and if the string is longer, it will be truncated to fit into the buffer (including the string nul-terminator).
+	 * @return true if option is set, false if option is not set or an error occurred.
+	 */
+	public static native boolean arwGetVideoSourceInfoListEntry(int index, String[] nameBuf, String[] modelBuf, String[] UIDBuf, int[] flags_p, String[] openTokenBuf);
+
+	/**
+	 * Delete a video source info list.
+	 */
+	public static native void arwDeleteVideoSourceInfoList();
 
 }

@@ -1362,6 +1362,11 @@ JNIEXPORT jfloat JNICALL JNIFUNCTION(arwGetTrackerOptionFloat(JNIEnv *env, jobje
     return arwGetTrackerOptionFloat(option);
 }
 
+JNIEXPORT void JNICALL JNIFUNCTION(arwSetTrackableOptionBool(JNIEnv *env, jobject obj, jint trackableUID, jint option, jboolean value))
+{
+    return arwSetTrackableOptionBool(trackableUID, option, value);
+}
+
 JNIEXPORT void JNICALL JNIFUNCTION(arwSetTrackableOptionInt(JNIEnv *env, jobject obj, jint trackableUID, jint option, jint value))
 {
     return arwSetTrackableOptionInt(trackableUID, option, value);
