@@ -740,7 +740,7 @@ extern "C" {
      *  If a non-zero value is returned, the list must be deleted with arwDeleteVideoSourceInfoList once the user is
      *  finished.
      */
-    ARX_EXTERN int arwCreateVideoSourceInfoList(char *config);
+    ARX_EXTERN int arwCreateVideoSourceInfoList(const char *config);
 
     /**
      * Get an entry from the video source info list describing the name, model, UID, flags, and more for the video source info..

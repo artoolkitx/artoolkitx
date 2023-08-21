@@ -927,7 +927,7 @@ bool arwLoadOpticalParams(const char *optical_param_name, const char *optical_pa
 #pragma mark  Video source info list management
 // ----------------------------------------------------------------------------------------------------
 
-int arwCreateVideoSourceInfoList(char *config)
+int arwCreateVideoSourceInfoList(const char *config)
 {
     if (gARVideoSourceInfoList) {
         ar2VideoDeleteSourceInfoList(&gARVideoSourceInfoList);
@@ -1067,6 +1067,10 @@ extern "C" {
                                        jobject buf2, jint buf2PixelStride, jint buf2RowStride,
                                        jobject buf3, jint buf3PixelStride, jint buf3RowStride));
     JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex));
+
+    JNIEXPORT jint JNICALL JNIFUNCTION(arwCreateVideoSourceInfoList(JNIEnv *env, jobject obj, jstring config));
+    JNIEXPORT jboolean JNICALL JNIFUNCTION(arwGetVideoSourceInfoListEntry(JNIEnv *env, jobject obj, jint index, jobjectArray nameBuf, jobjectArray modelBuf, jobjectArray UIDBuf, jintArray flags_p, jobjectArray openTokenBuf));
+    JNIEXPORT void JNICALL JNIFUNCTION(arwDeleteVideoSourceInfoList(JNIEnv *env, jobject obj));
 
 	// ------------------------------------------------------------------------------------
 	// JNI Functions Not Yet Implemented
@@ -1437,5 +1441,42 @@ JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushFinal(JNIEnv *env, jobject obj, j
 
     return gARTK->videoPushFinal(videoSourceIndex);
 }
+
+JNIEXPORT jint JNICALL JNIFUNCTION(arwCreateVideoSourceInfoList(JNIEnv *env, jobject obj, jstring config))
+{
+    const char *configC = (env->IsSameObject(config, NULL) ? NULL : env->GetStringUTFChars(config, NULL));
+	int ret = arwCreateVideoSourceInfoList(configC);
+	if (configC) env->ReleaseStringUTFChars(config, configC);
+    return ret;
+}
+
+#define VSI_STRING_BUFFER_SIZE 1024
+
+JNIEXPORT jboolean JNICALL JNIFUNCTION(arwGetVideoSourceInfoListEntry(JNIEnv *env, jobject obj, jint index, jobjectArray nameBuf, jobjectArray modelBuf, jobjectArray UIDBuf, jintArray flags_p, jobjectArray openTokenBuf))
+{
+    uint32_t flags;
+    char *name = NULL, *model = NULL, *UID = NULL, *openToken = NULL;
+    if (nameBuf) name = (char *)calloc(1, VSI_STRING_BUFFER_SIZE);
+    if (modelBuf) model = (char *)calloc(1, VSI_STRING_BUFFER_SIZE);
+    if (UIDBuf) UID = (char *)calloc(1, VSI_STRING_BUFFER_SIZE);
+    if (openTokenBuf) openToken = (char *)calloc(1, VSI_STRING_BUFFER_SIZE);
+    if (!arwGetVideoSourceInfoListEntry(index, name, VSI_STRING_BUFFER_SIZE, model, VSI_STRING_BUFFER_SIZE, UID, VSI_STRING_BUFFER_SIZE, flags_p ? &flags : NULL, openToken, VSI_STRING_BUFFER_SIZE)) return false;
+    if (nameBuf) env->SetObjectArrayElement(nameBuf, 0, env->NewStringUTF(name));
+    if (modelBuf) env->SetObjectArrayElement(modelBuf, 0, env->NewStringUTF(model));
+    if (UIDBuf) env->SetObjectArrayElement(UIDBuf, 0, env->NewStringUTF(UID));
+    if (flags_p) env->SetIntArrayRegion(flags_p, 0, 1, (jint *)(&flags)); // jint is signed, so cast.
+    if (openTokenBuf) env->SetObjectArrayElement(openTokenBuf, 0, env->NewStringUTF(openToken));
+    free(name);
+    free(model);
+    free(UID);
+    free(openToken);
+    return true;
+}
+
+JNIEXPORT void JNICALL JNIFUNCTION(arwDeleteVideoSourceInfoList(JNIEnv *env, jobject obj))
+{
+    arwDeleteVideoSourceInfoList();
+}
+
 
 #endif // ARX_TARGET_PLATFORM_ANDROID
