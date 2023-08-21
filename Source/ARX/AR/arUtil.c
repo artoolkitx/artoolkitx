@@ -716,6 +716,31 @@ bail:
 #endif
 
 #ifdef ANDROID
+jobject arUtilGetGlobalContext(void)
+{
+    // To begin, get a reference to the env and attach to it.
+    JNIEnv *env;
+    int isAttached = 0;
+    if (((*gJavaVM)->GetEnv(gJavaVM, (void**)&env, JNI_VERSION_1_6)) < 0) {
+        // Couldn't get JNI environment, so this thread is native.
+        if (((*gJavaVM)->AttachCurrentThread(gJavaVM, &env, NULL)) < 0) {
+            ARLOGe("Error: Couldn't attach to Java VM.\n");
+            return (NULL);
+        }
+        isAttached = 1;
+    }
+
+    jclass activityThread = (*env)->FindClass(env,"android/app/ActivityThread");
+    jmethodID currentActivityThread = (*env)->GetStaticMethodID(env, activityThread, "currentActivityThread", "()Landroid/app/ActivityThread;");
+    jobject at = (*env)->CallStaticObjectMethod(env, activityThread, currentActivityThread);
+
+    jmethodID getApplication = (*env)->GetMethodID(env, activityThread, "getApplication", "()Landroid/app/Application;");
+    jobject context = (*env)->CallObjectMethod(env, at, getApplication);
+
+    if (isAttached) (*gJavaVM)->DetachCurrentThread(gJavaVM); // Clean up.
+    return context;
+}
+
 char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior, jobject instanceOfAndroidContext)
 #else
 char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behavior)
@@ -876,7 +901,6 @@ char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behav
             // To begin, get a reference to the env and attach to it.
             JNIEnv *env;
             int isAttached = 0;
-            jthrowable exception;
             if (((*gJavaVM)->GetEnv(gJavaVM, (void**)&env, JNI_VERSION_1_6)) < 0) {
                 // Couldn't get JNI environment, so this thread is native.
                 if (((*gJavaVM)->AttachCurrentThread(gJavaVM, &env, NULL)) < 0) {
@@ -892,7 +916,7 @@ char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behav
             jmethodID methodIDgetExternalStorageDirectory = (*env)->GetStaticMethodID(env, classEnvironment, "getExternalStorageDirectory", "()Ljava/io/File;"); // public static File getExternalStorageDirectory ()
             if (!methodIDgetExternalStorageDirectory) goto bailAndroid;
             jobject objectFile = (*env)->CallStaticObjectMethod(env, classEnvironment, methodIDgetExternalStorageDirectory);
-            exception = (*env)->ExceptionOccurred(env);
+            jthrowable exception = (*env)->ExceptionOccurred(env);
             if (exception) {
                 (*env)->ExceptionDescribe(env);
                 (*env)->ExceptionClear(env);
@@ -987,17 +1011,26 @@ char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behav
             // if a subclass of Context is supplied.
             // e.g. JNIEXPORT void JNICALL Java_com_test_TestActivity_test(JNIEnv * env, jobject obj)
             // so make sure before call.
-            jclass classOfSuppliedObject = (*env)->GetObjectClass(env, instanceOfAndroidContext);
+            jobject context = instanceOfAndroidContext;
+            if (!context) {
+                context = arUtilGetGlobalContext();
+                if (!context) {
+                    ARLOGe("Error: Could not get an instance of android/content/Context.\n");
+                    goto bailAndroid1;
+                }
+            }
+            
+            jclass classOfSuppliedObject = (*env)->GetObjectClass(env, context);
             if (!classOfSuppliedObject) goto bailAndroid1;
             jclass classContext = (*env)->FindClass(env, "android/content/Context");
             if (!classContext) goto bailAndroid1;
-            if (!(*env)->IsInstanceOf(env, instanceOfAndroidContext, classContext)) {
+            if (!(*env)->IsInstanceOf(env, context, classContext)) {
                 ARLOGe("Error: supplied object is not an instance of android/content/Context.\n");
                 goto bailAndroid1;
             }
             jmethodID methodGetDir = (*env)->GetMethodID(env, classOfSuppliedObject, "getCacheDir", "()Ljava/io/File;"); // public abstract File getCacheDir();
             if (!methodGetDir) goto bailAndroid1;
-            jobject objectFile = (*env)->CallObjectMethod(env, instanceOfAndroidContext, methodGetDir);
+            jobject objectFile = (*env)->CallObjectMethod(env, context, methodGetDir);
             exception = (*env)->ExceptionOccurred(env);
             if (exception) {
                 (*env)->ExceptionDescribe(env);
@@ -1103,18 +1136,27 @@ char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behav
             // if a subclass of Context is supplied.
             // e.g. JNIEXPORT void JNICALL Java_com_test_TestActivity_test(JNIEnv * env, jobject obj)
             // so make sure before call.
-            jclass classOfSuppliedObject = (*env)->GetObjectClass(env, instanceOfAndroidContext);
+            jobject context = instanceOfAndroidContext;
+            if (!context) {
+                context = arUtilGetGlobalContext();
+                if (!context) {
+                    ARLOGe("Error: Could not get an instance of android/content/Context.\n");
+                    goto bailAndroid1;
+                }
+            }
+
+            jclass classOfSuppliedObject = (*env)->GetObjectClass(env, context);
             if (!classOfSuppliedObject) goto bailAndroid1;
             jclass classContext = (*env)->FindClass(env, "android/content/Context");
             if (!classContext) goto bailAndroid1;
-            if (!(*env)->IsInstanceOf(env, instanceOfAndroidContext, classContext)) {
+            if (!(*env)->IsInstanceOf(env, context, classContext)) {
                 ARLOGe("Error: supplied object is not an instance of android/content/Context.\n");
                 goto bailAndroid2;
             }
             jmethodID methodGetDir = (*env)->GetMethodID(env, classOfSuppliedObject, "getFilesDir", "()Ljava/io/File;"); // public abstract File getFilesDir();
             //jmethodID methodGetDir = (*env)->GetMethodID(env, classOfSuppliedObject, "getDir", "(Ljava/lang/String;)Ljava/io/File;"); // public abstract File getDir(String type);
             if (!methodGetDir) goto bailAndroid1;
-            jobject objectFile = (*env)->CallObjectMethod(env, instanceOfAndroidContext, methodGetDir);
+            jobject objectFile = (*env)->CallObjectMethod(env, context, methodGetDir);
             exception = (*env)->ExceptionOccurred(env);
             if (exception) {
                 (*env)->ExceptionDescribe(env);

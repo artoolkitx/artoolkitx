@@ -1679,6 +1679,10 @@ typedef enum {
     AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_TMP_DIR
 } AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR;
 
+#ifdef ANDROID
+jobject arUtilGetGlobalContext(void);
+#endif
+
 /*!
     @brief   Get the path to the resources directory using the specified behavior.
     @details
