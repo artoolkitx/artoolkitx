@@ -1087,9 +1087,10 @@ char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behav
             break;
 
         //
-        // APP_DATA_DIR
+        // APP_DATA_DIR / APP_EXTERNAL_DATA_DIR
         //
         case AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_DATA_DIR:
+        case AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_EXTERNAL_DATA_DIR:
 #ifdef _WINRT
 			auto folder = Windows::Storage::ApplicationData::Current->RoamingFolder;
 			wpath1 = strdup(folder->Path->Data().c_str());
@@ -1141,22 +1142,28 @@ char *arUtilGetResourcesDirectoryPath(AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR behav
                 context = arUtilGetGlobalContext();
                 if (!context) {
                     ARLOGe("Error: Could not get an instance of android/content/Context.\n");
-                    goto bailAndroid1;
+                    goto bailAndroid2;
                 }
             }
 
             jclass classOfSuppliedObject = (*env)->GetObjectClass(env, context);
-            if (!classOfSuppliedObject) goto bailAndroid1;
+            if (!classOfSuppliedObject) goto bailAndroid2;
             jclass classContext = (*env)->FindClass(env, "android/content/Context");
-            if (!classContext) goto bailAndroid1;
+            if (!classContext) goto bailAndroid2;
             if (!(*env)->IsInstanceOf(env, context, classContext)) {
                 ARLOGe("Error: supplied object is not an instance of android/content/Context.\n");
                 goto bailAndroid2;
             }
-            jmethodID methodGetDir = (*env)->GetMethodID(env, classOfSuppliedObject, "getFilesDir", "()Ljava/io/File;"); // public abstract File getFilesDir();
-            //jmethodID methodGetDir = (*env)->GetMethodID(env, classOfSuppliedObject, "getDir", "(Ljava/lang/String;)Ljava/io/File;"); // public abstract File getDir(String type);
-            if (!methodGetDir) goto bailAndroid1;
-            jobject objectFile = (*env)->CallObjectMethod(env, context, methodGetDir);
+            jobject objectFile;
+            if (behaviorW == AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_EXTERNAL_DATA_DIR) {
+                jmethodID methodGetDir = (*env)->GetMethodID(env, classOfSuppliedObject, "getExternalFilesDir", "(Ljava/lang/String;)Ljava/io/File;"); // public abstract File getExternalFilesDir(String type);
+                if (!methodGetDir) goto bailAndroid2;
+                objectFile = (*env)->CallObjectMethod(env, context, methodGetDir, NULL);
+            } else {
+                jmethodID methodGetDir = (*env)->GetMethodID(env, classOfSuppliedObject, "getFilesDir", "()Ljava/io/File;"); // public abstract File getFilesDir();
+                if (!methodGetDir) goto bailAndroid2;
+                objectFile = (*env)->CallObjectMethod(env, context, methodGetDir);
+            }
             exception = (*env)->ExceptionOccurred(env);
             if (exception) {
                 (*env)->ExceptionDescribe(env);
