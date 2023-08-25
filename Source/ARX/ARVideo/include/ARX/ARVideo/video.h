@@ -144,7 +144,7 @@ typedef enum {
 #define  AR_VIDEO_PARAM_AVFOUNDATION_WILL_CAPTURE_NEXT_FRAME   403 ///< int (0=false, 1=true). If true, next incoming frame will also be captured to system's camera roll.
 
 #define  AR_VIDEO_PARAM_ANDROID_CAMERA_INDEX          500 ///< int
-#define  AR_VIDEO_PARAM_ANDROID_CAMERA_FACE           501 ///< int
+#define  AR_VIDEO_PARAM_ANDROID_CAMERA_FACE           501 ///< int. Cast to AR_VIDEO_ANDROID_CAMERA_FACE.
 #define  AR_VIDEO_PARAM_ANDROID_INTERNET_STATE        502 ///< int
 #define  AR_VIDEO_PARAM_ANDROID_FOCAL_LENGTH          503 ///< double. Synonym for AR_VIDEO_PARAM_CAMERA_FOCAL_LENGTH.
 

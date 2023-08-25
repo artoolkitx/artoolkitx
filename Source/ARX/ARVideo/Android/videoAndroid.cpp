@@ -112,6 +112,7 @@ static ARVideoSourceInfoListT *ar2VideoCreateSourceInfoListAndroid2(const char *
     arMallocClear(sil, ARVideoSourceInfoListT, 1);
     sil->count = cameraIds->numCameras;
     arMallocClear(sil->info, ARVideoSourceInfoT, cameraIds->numCameras);
+    int backCount = 0, frontCount = 0, externalCount = 0;
     for (int i = 0; i < cameraIds->numCameras; i++) {
 
         const char* id = cameraIds->cameraIds[i];
@@ -132,27 +133,61 @@ static ARVideoSourceInfoListT *ar2VideoCreateSourceInfoListAndroid2(const char *
                 switch (static_cast<acamera_metadata_enum_android_lens_facing_t>(lensInfo.data.u8[0])) {
                     case ACAMERA_LENS_FACING_BACK:
                         sil->info[i].flags |= AR_VIDEO_POSITION_BACK;
+                        backCount++;
                         break;
                     case ACAMERA_LENS_FACING_FRONT:
                         sil->info[i].flags |= AR_VIDEO_POSITION_FRONT;
+                        frontCount++;
                         break;
                     case ACAMERA_LENS_FACING_EXTERNAL:
                     default:
+                        externalCount++;
                         sil->info[i].flags |= AR_VIDEO_POSITION_UNKNOWN;
                         break;
                 }
                 break;
-            } // TODO: else if (ACAMERA_? == tags[tagIdx])
+            } else if (ACAMERA_INFO_VERSION == tags[tagIdx]) {
+                ACameraMetadata_const_entry versionInfo = {
+                    0,
+                };
+                CALL_METADATA(getConstEntry(metadataObj, tags[tagIdx], &versionInfo));
+                
+                if (versionInfo.data.u8[0]) {
+                    sil->info[i].model = strdup((const char *)versionInfo.data.u8);
+                    ARLOGe("**** Got model=%s\n", sil->info[i].model);
+                }
+            }
         }
         ACameraMetadata_free(metadataObj);
 
         sil->info[i].flags |= AR_VIDEO_SOURCE_INFO_FLAG_OPEN_ASYNC; // All Android require async opening.
-        //sil->info[i].name = ""; // TODO: Name suitable for user presentation.
-        //sil->info[i].model = ""; // TODO: Machine-readable model string.
+        
+        // Give it a name.
+        const char *nameGeneric = "Camera";
+        const char *nameBack = "Back camera";
+        const char *nameFront = "Front camera";
+        const char *nameExternal = "External camera";
+        const char *name;
+        int number = 0;
+        if ((sil->info[i].flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK) == AR_VIDEO_POSITION_BACK) {
+            if (backCount > 1) number = backCount;
+            name = nameBack;
+        } else if ((sil->info[i].flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK) == AR_VIDEO_POSITION_FRONT) {
+            if (frontCount > 1) number = frontCount;
+            name = nameFront;
+        } else if ((sil->info[i].flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK) == AR_VIDEO_POSITION_UNKNOWN) {
+            if (externalCount > 1) number = externalCount;
+            name = nameExternal;
+        } else {
+            if (i > 0) number = i + 1;
+            name = nameGeneric;
+        }
+        if (asprintf(&sil->info[i].name, number ? "%s %d" : "%s", name, number) < 0) {
+            ARLOGperror(NULL);
+        }
         sil->info[i].UID = strdup(id);
         if (asprintf(&sil->info[i].open_token, "-uid=%s", sil->info[i].UID) < 0) {
             ARLOGperror(NULL);
-            sil->info[i].open_token = NULL;
         }
 
     }
@@ -495,6 +530,7 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
                 if ((sil->info[i].flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK) == position) {
                     if (matchedPositionCount == matchPositionIndex) {
                         uid = strdup(sil->info[i].UID);
+                        if (sil->info[i].name) vid->name = strdup(sil->info[i].name);
                         vid->position = position;
                         vid->camera_index = i;
                         break;
@@ -509,9 +545,10 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
         if (!uid) {
             i = source != -1 && source < sil->count ? source : 0;
             uid = strdup(sil->info[i].UID);
+            if (sil->info[i].name) vid->name = strdup(sil->info[i].name);
             vid->position = sil->info[i].flags & AR_VIDEO_SOURCE_INFO_POSITION_MASK;
             vid->camera_index = i;
-        }
+        }        
         ar2VideoDeleteSourceInfoList(&sil);
 
         ACameraDevice_stateCallbacks cameraDeviceListener = {
@@ -744,6 +781,7 @@ int ar2VideoCloseAndroid(AR2VideoParamAndroidT *vid)
     }
 
 	pthread_mutex_destroy(&(vid->frameLock));
+    free(vid->name);
     free(vid->device_id);
     if (cparamSearchFinal() < 0) {
         ARLOGe("Unable to finalise cparamSearch.\n");
@@ -1060,6 +1098,10 @@ int ar2VideoGetParamsAndroid(AR2VideoParamAndroidT *vid, const int paramName, ch
     switch (paramName) {
         case AR_VIDEO_PARAM_DEVICEID:
             *value = strdup(vid->device_id);
+            break;
+        case AR_VIDEO_PARAM_NAME:
+            if (!vid->name) *value = NULL;
+            else *value = strdup(vid->name);
             break;
         default:
             return (-1);

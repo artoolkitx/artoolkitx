@@ -62,6 +62,7 @@ typedef enum {
 
 struct _AR2VideoParamAndroidT {
     char              *device_id;
+    char              *name;
     int                camera_index; // 0 = first camera, 1 = second etc.
     int                width;
     int                height;

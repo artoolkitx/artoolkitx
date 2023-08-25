@@ -1,6 +1,14 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.12
+### 2023-08-25
+
+Small updates for the Android platform:
+ * Android: Improved handling for Android file storage paths on Android 11 and later (API level 30). As part of this, arUtil APIs that used to require an Android Context instance will now fetch the global Application Context if none is supplied externally.
+ * Android: add video source info list API to the Java ARXJ library.
+ * Android: video sources now have human-readable names.
+
 ## Version 1.1.11
 ### 2023-06-28
 

@@ -414,7 +414,7 @@ extern "C" {
      * Constants for use with tracker option setters/getters.
      */
     enum {
-        ARW_TRACKER_OPTION_NFT_MULTIMODE = 0,                          ///< int.
+        ARW_TRACKER_OPTION_NFT_MULTIMODE = 0,                          ///< bool.
         ARW_TRACKER_OPTION_SQUARE_THRESHOLD = 1,                       ///< Threshold value used for image binarization. int in range [0-255].
         ARW_TRACKER_OPTION_SQUARE_THRESHOLD_MODE = 2,                  ///< Threshold mode used for image binarization. int.
         ARW_TRACKER_OPTION_SQUARE_LABELING_MODE = 3,                   ///< int.
@@ -740,7 +740,7 @@ extern "C" {
      *  If a non-zero value is returned, the list must be deleted with arwDeleteVideoSourceInfoList once the user is
      *  finished.
      */
-    ARX_EXTERN int arwCreateVideoSourceInfoList(char *config);
+    ARX_EXTERN int arwCreateVideoSourceInfoList(const char *config);
 
     /**
      * Get an entry from the video source info list describing the name, model, UID, flags, and more for the video source info..
