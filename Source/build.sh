@@ -368,14 +368,15 @@ if [ $BUILD_LINUX ] ; then
 		check_package cmake
 		check_package libjpeg-turbo-devel
 		check_package mesa-libGL-devel
-		check_package libSDL2-devel
+		check_package mesa-libGLU-devel
+		check_package SDL2-devel
 		check_package systemd-devel
 		check_package libv4l-devel
 		check_package libdc1394-devel
 		check_package gstreamer1-devel
 		check_package libsqlite3x-devel
 		check_package libcurl-devel
-		check_package libopenssl-devel
+		check_package openssl-devel
 	fi
 
     # Check if a suitable version of OpenCV is installed. If not, but its available, install it.
@@ -398,6 +399,12 @@ if [ $BUILD_LINUX ] ; then
                 #fi
             fi
         fi
+	elif (type rpm >/dev/null 2>&1) ; then
+	    if ! $(rpm -qa | grep -q "opencv-devel-(3|4)\.") ; then
+			 echo "Using installed OpenCV"
+	    else
+	        "Warning: recommended package 'opencv-devel' does not appear to be installed. To install it use 'sudo dnf install opencv-devel'."
+		fi
     fi
 
 
