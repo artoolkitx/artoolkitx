@@ -127,6 +127,7 @@ typedef enum {
 #define  AR_VIDEO_PARAM_GET_IMAGE_ASYNC               200 ///< int, readonly. If non-zero, this module can deliver new frames async (via a callback passed to ar2VideoCapStartAsync).
 #define  AR_VIDEO_PARAM_DEVICEID                      201 ///< string, readonly. Optional. Unique name for this exact model of video device, consisting of vendor, model and board identifiers separated by '/' characters.
 #define  AR_VIDEO_PARAM_NAME                          202 ///< string, readonly. Optional. Human-readable name for this model of video device.
+#define  AR_VIDEO_PARAM_SIZE_LIST                     203 ///< string, readonly. Optional. A comma-delimited list of available video frame sizes, with each entry in format wxh where w is an integer width and h is an integer height. E.g. "640x400,1280x720".
 
 /// double. Camera lens focal length, i.e. optimal distance from camera aperture to the focal plane at which objects are optimally in-focus.
 /// When setting, this acts as a hint, i.e. it does not change the actual camera lens.

@@ -48,6 +48,7 @@
 
 #include "camera_utils.h"
 #include <unistd.h> // usleep
+#include <sstream>
 
 
 #undef ARVIDEO_ANDROID_NATIVE
@@ -620,73 +621,99 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
             ARLOGw("Warning: Video frame size preference needs width and height. Reverting to any size.\n");
             sizePreference = AR_VIDEO_SIZE_PREFERENCE_ANY;
         }
+        
+        // Record the list of sizes.
+        // First, reset it. Then count the number of valid sizes.
+        if (vid->sizes) {
+            free(vid->sizes);
+            vid->sizes = NULL;
+            vid->sizesCount = 0;
+        }
+        int sizesCount = 0;
+        for (int i = 0; i < entry.count; i += 4) {
+            int32_t input = entry.data.i32[i + 3];
+            int32_t format = entry.data.i32[i + 0];
+            if (!input && format == AIMAGE_FORMAT_YUV_420_888) {
+                sizesCount++;
+            }
+        }
+        if (sizesCount) {
+            arMallocClear(vid->sizes, struct _size, sizesCount);
+            vid->sizesCount = sizesCount;
+        }
+        
+        sizesCount = 0;
         bool done = false;
-        for (int i = 0; !done && i < entry.count; i += 4) {
+        for (int i = 0; i < entry.count; i += 4) {
             int32_t input = entry.data.i32[i + 3];
             int32_t format = entry.data.i32[i + 0];
             if (input) continue;
             if (format == AIMAGE_FORMAT_YUV_420_888 /*|| format == AIMAGE_FORMAT_JPEG*/) {
                 int32_t formatWidth = entry.data.i32[i + 1];
                 int32_t formatHeight = entry.data.i32[i + 2];
-                int formatArea = formatWidth * formatHeight;
-                switch (sizePreference) {
-                    case AR_VIDEO_SIZE_PREFERENCE_ANY:
-                        vid->width = formatWidth;
-                        vid->height = formatHeight;
-                        done = true;
-                        break;
-                    case AR_VIDEO_SIZE_PREFERENCE_EXACT:
-                        if (formatWidth == width && formatHeight == height) {
+                //ARLOGd("vid->sizes[%d] = {%d,%d}.\n", sizesCount, formatWidth, formatHeight);
+                vid->sizes[sizesCount++] = {formatWidth, formatHeight};
+                if (!done) {
+                    int formatArea = formatWidth * formatHeight;
+                    switch (sizePreference) {
+                        case AR_VIDEO_SIZE_PREFERENCE_ANY:
                             vid->width = formatWidth;
                             vid->height = formatHeight;
                             done = true;
-                        }
-                        break;
-                    case AR_VIDEO_SIZE_PREFERENCE_LARGEST_WITH_MAXIMUM:
-                        if (formatWidth > width || formatHeight > height) continue;
-                        // N.B.: fall through.
-                    case AR_VIDEO_SIZE_PREFERENCE_LARGEST:
-                        if (formatArea > largestArea) {
-                            vid->width = formatWidth;
-                            vid->height = formatHeight;
-                            largestArea = formatArea;
-                        }
-                        break;
-                    case AR_VIDEO_SIZE_PREFERENCE_SMALLEST_WITH_MINIMUM:
-                        if (formatWidth < width || formatHeight < height) continue;
-                        // N.B.: fall through.
-                    case AR_VIDEO_SIZE_PREFERENCE_SMALLEST:
-                        if (formatArea < smallestArea) {
-                            vid->width = formatWidth;
-                            vid->height = formatHeight;
-                            smallestArea = formatArea;
-                        }
-                        break;
-                    case AR_VIDEO_SIZE_PREFERENCE_SAME_ASPECT:
-                    case AR_VIDEO_SIZE_PREFERENCE_CLOSEST_SAME_ASPECT:
-                        {
-                            AR_VIDEO_ASPECT_RATIO formatAspect = arVideoUtilFindAspectRatio(formatWidth, formatHeight);
-                            if ((aspect != AR_VIDEO_ASPECT_RATIO_UNIQUE && aspect != formatAspect) || (aspect == AR_VIDEO_ASPECT_RATIO_UNIQUE && (width != formatWidth || height != formatHeight))) continue;
-                            if (sizePreference == AR_VIDEO_SIZE_PREFERENCE_SAME_ASPECT) {
+                            break;
+                        case AR_VIDEO_SIZE_PREFERENCE_EXACT:
+                            if (formatWidth == width && formatHeight == height) {
                                 vid->width = formatWidth;
                                 vid->height = formatHeight;
                                 done = true;
-                                break;
                             }
-                        }
-                        // N.B.: fall through as passed aspect ratio test.
-                    case AR_VIDEO_SIZE_PREFERENCE_CLOSEST_PIXEL_COUNT:
-                        {
-                            float areaRatio = formatArea > area ? formatArea / area : area / formatArea;
-                            if (areaRatio < closestAreaRatio) {
+                            break;
+                        case AR_VIDEO_SIZE_PREFERENCE_LARGEST_WITH_MAXIMUM:
+                            if (formatWidth > width || formatHeight > height) continue;
+                            // N.B.: fall through.
+                        case AR_VIDEO_SIZE_PREFERENCE_LARGEST:
+                            if (formatArea > largestArea) {
                                 vid->width = formatWidth;
                                 vid->height = formatHeight;
-                                closestAreaRatio = areaRatio;
-                                if (closestAreaRatio == 1.0f) done = true;
+                                largestArea = formatArea;
                             }
-                        }
-                        break;
-                } // switch (sizePreference)
+                            break;
+                        case AR_VIDEO_SIZE_PREFERENCE_SMALLEST_WITH_MINIMUM:
+                            if (formatWidth < width || formatHeight < height) continue;
+                            // N.B.: fall through.
+                        case AR_VIDEO_SIZE_PREFERENCE_SMALLEST:
+                            if (formatArea < smallestArea) {
+                                vid->width = formatWidth;
+                                vid->height = formatHeight;
+                                smallestArea = formatArea;
+                            }
+                            break;
+                        case AR_VIDEO_SIZE_PREFERENCE_SAME_ASPECT:
+                        case AR_VIDEO_SIZE_PREFERENCE_CLOSEST_SAME_ASPECT:
+                            {
+                                AR_VIDEO_ASPECT_RATIO formatAspect = arVideoUtilFindAspectRatio(formatWidth, formatHeight);
+                                if ((aspect != AR_VIDEO_ASPECT_RATIO_UNIQUE && aspect != formatAspect) || (aspect == AR_VIDEO_ASPECT_RATIO_UNIQUE && (width != formatWidth || height != formatHeight))) continue;
+                                if (sizePreference == AR_VIDEO_SIZE_PREFERENCE_SAME_ASPECT) {
+                                    vid->width = formatWidth;
+                                    vid->height = formatHeight;
+                                    done = true;
+                                    break;
+                                }
+                            }
+                            // N.B.: fall through as passed aspect ratio test.
+                        case AR_VIDEO_SIZE_PREFERENCE_CLOSEST_PIXEL_COUNT:
+                            {
+                                float areaRatio = formatArea > area ? (float)formatArea / (float)area : (float)area / (float)formatArea;
+                                if (areaRatio < closestAreaRatio) {
+                                    vid->width = formatWidth;
+                                    vid->height = formatHeight;
+                                    closestAreaRatio = areaRatio;
+                                    if (closestAreaRatio == 1.0f) done = true;
+                                }
+                            }
+                            break;
+                    } // switch (sizePreference)
+                } // !done
             } // format == AIMAGE_FORMAT_YUV_420_888
         }
         if (!vid->width || !vid->height) {
@@ -768,6 +795,12 @@ int ar2VideoCloseAndroid(AR2VideoParamAndroidT *vid)
     if (!vid) return (-1); // Sanity check.
 
     if (vid->capturing) ar2VideoCapStopAndroid(vid);
+
+    if (vid->sizes) {
+        free(vid->sizes);
+        vid->sizes = NULL;
+        vid->sizesCount = 0;
+    }
 
     if (vid->cameraDevice_) {
         CALL_DEV(close(vid->cameraDevice_));
@@ -1102,6 +1135,18 @@ int ar2VideoGetParamsAndroid(AR2VideoParamAndroidT *vid, const int paramName, ch
         case AR_VIDEO_PARAM_NAME:
             if (!vid->name) *value = NULL;
             else *value = strdup(vid->name);
+            break;
+        case AR_VIDEO_PARAM_SIZE_LIST:
+            if (!vid->sizesCount) *value = NULL;
+            else {
+                std::ostringstream buffer;
+                for (int i = 0; i < vid->sizesCount; i++) {
+                    //ARLOGd("vid->size[%d] = {%d,%d}.\n", i, vid->sizes[i].w, vid->sizes[i].h);
+                    buffer <<  vid->sizes[i].w << "x" << vid->sizes[i].h;
+                    if (i + 1 != vid->sizesCount) buffer << ",";
+                }
+                *value = strdup(buffer.str().c_str());
+            }
             break;
         default:
             return (-1);
