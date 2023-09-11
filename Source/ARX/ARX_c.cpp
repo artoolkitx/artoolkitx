@@ -56,6 +56,7 @@
 #if !ARX_TARGET_PLATFORM_WINDOWS && !ARX_TARGET_PLATFORM_WINRT
 #  include <pthread.h>
 #endif
+#include <inttypes.h>
 
 // ----------------------------------------------------------------------------------------------------
 
@@ -641,7 +642,7 @@ int arwGetTrackablePatternCount(int trackableUID)
     return (int)trackable->getPatternCount();
 }
 
-bool arwGetTrackablePatternConfig(int trackableUID, int patternID, float matrix[16], float *width, float *height, int *imageSizeX, int *imageSizeY)
+bool arwGetTrackablePatternConfig(int trackableUID, int patternIndex, float matrix[16], float *width, float *height, int *imageSizeX, int *imageSizeY)
 {
     std::shared_ptr<ARTrackable> trackable;
 
@@ -653,19 +654,21 @@ bool arwGetTrackablePatternConfig(int trackableUID, int patternID, float matrix[
 
     if (matrix) {
         ARdouble pattMtx[16];
-        if (!trackable->getPatternTransform(patternID, pattMtx)) return false;
+        if (!trackable->getPatternTransform(patternIndex, pattMtx)) return false;
         for (int i = 0; i < 16; i++) matrix[i] = (float)pattMtx[i];
     }
-    std::pair<float, float> size = trackable->getPatternSize(patternID);
+    std::pair<float, float> size = trackable->getPatternSize(patternIndex);
     if (width) *width = size.first;
     if (height) *height = size.second;
-    std::pair<int, int> imageSize = trackable->getPatternImageSize(patternID, trackable->type == ARTrackable::SINGLE || trackable->type == ARTrackable::MULTI || trackable->type == ARTrackable::MULTI_AUTO ? gARTK->getSquareTracker()->matrixCodeType() : (AR_MATRIX_CODE_TYPE)0);
-    if (imageSizeX) *imageSizeX = imageSize.first;
-    if (imageSizeY) *imageSizeY = imageSize.second;
+    if (imageSizeX || imageSizeY) {
+        std::pair<int, int> imageSize = trackable->getPatternImageSize(patternIndex, trackable->type == ARTrackable::SINGLE || trackable->type == ARTrackable::MULTI || trackable->type == ARTrackable::MULTI_AUTO ? gARTK->getSquareTracker()->matrixCodeType() : (AR_MATRIX_CODE_TYPE)0);
+        if (imageSizeX) *imageSizeX = imageSize.first;
+        if (imageSizeY) *imageSizeY = imageSize.second;
+    }
     return true;
 }
 
-bool arwGetTrackablePatternImage(int trackableUID, int patternID, uint32_t *buffer)
+bool arwGetTrackablePatternImage(int trackableUID, int patternIndex, uint32_t *buffer)
 {
     std::shared_ptr<ARTrackable> trackable;
 
@@ -675,7 +678,7 @@ bool arwGetTrackablePatternImage(int trackableUID, int patternID, uint32_t *buff
         return false;
     }
 
-    return trackable->getPatternImage(patternID, buffer, trackable->type == ARTrackable::SINGLE || trackable->type == ARTrackable::MULTI || trackable->type == ARTrackable::MULTI_AUTO ? gARTK->getSquareTracker()->matrixCodeType() : (AR_MATRIX_CODE_TYPE)0);
+    return trackable->getPatternImage(patternIndex, buffer, trackable->type == ARTrackable::SINGLE || trackable->type == ARTrackable::MULTI || trackable->type == ARTrackable::MULTI_AUTO ? gARTK->getSquareTracker()->matrixCodeType() : (AR_MATRIX_CODE_TYPE)0);
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -901,6 +904,58 @@ void arwSetTrackableOptionFloat(int trackableUID, int option, float value)
     }
 }
 
+bool arwGetTrackableOptionString(int trackableUID, int option, char *buf, int bufLen)
+{
+    std::shared_ptr<ARTrackable> trackable;
+
+    if (!gARTK || !buf || bufLen < 2) return false;
+    if (!(trackable = gARTK->findTrackable(trackableUID))) {
+        ARLOGe("arwGetTrackableOptionString(): Couldn't locate trackable with UID %d.\n", trackableUID);
+        return false;
+    }
+
+    switch (option) {
+        case ARW_TRACKABLE_OPTION_SQUARE_BARCODE_ID:
+            if (trackable->type == ARTrackable::SINGLE) {
+                auto t = std::static_pointer_cast<ARTrackableSquare>(trackable);
+                int pattID = t->patt_id;
+                if (pattID < 0) {
+                    ARLOGe("arwGetTrackableOptionString(): barcode ID requested from unloaded trackable.\n");
+                } else {
+                    uint64_t barcodeID = (pattID == 0 && t->globalID != 0) ? t->globalID : (uint64_t)pattID;
+                    snprintf(buf, bufLen, "%" PRIu64, barcodeID);
+                    return true;
+                }
+            } else {
+                ARLOGe("arwGetTrackableOptionString(): barcode ID requested from incompatible trackable with UID %d.\n", trackableUID);
+            }
+            break;
+        default:
+            ARLOGe("arwGetTrackableOptionString(): Unrecognised option %d.\n", option);
+            break;
+    }
+    return false;
+}
+
+void arwSetTrackableOptionString(int trackableUID, int option, char *str)
+{
+    std::shared_ptr<ARTrackable> trackable;
+
+    if (!gARTK) return;
+    if (!(trackable = gARTK->findTrackable(trackableUID))) {
+        ARLOGe("arwSetTrackableOptionString(): Couldn't locate trackable with UID %d.\n", trackableUID);
+        return;
+    }
+
+    switch (option) {
+        default:
+            ARLOGe("arwSetTrackableOptionString(): Unrecognised option %d.\n", option);
+            break;
+    }
+    return;
+}
+
+
 // ----------------------------------------------------------------------------------------------------
 #pragma mark  Utility
 // ----------------------------------------------------------------------------------------------------
@@ -1077,8 +1132,8 @@ extern "C" {
     //bool arwStartRunningB(const char *vconf, const char *cparaBuff, const int cparaBuffLen, const float nearPlane, const float farPlane);
     //bool arwStartRunningStereoB(const char *vconfL, const char *cparaBuffL, const int cparaBuffLenL, const char *vconfR, const char *cparaBuffR, const int cparaBuffLenR, const char *transL2RBuff, const int transL2RBuffLen, const float nearPlane, const float farPlane);
     //bool arwGetTrackables(int *count_p, ARWTrackableStatus **statuses_p);
-	//bool arwGetTrackablePatternConfig(int trackableUID, int patternID, float matrix[16], float *width, float *height);
-	//bool arwGetTrackablePatternImage(int trackableUID, int patternID, Color *buffer);
+	//bool arwGetTrackablePatternConfig(int trackableUID, int patternIndex, float matrix[16], float *width, float *height, int *imageSizeX, int *imageSizeY, uint64_t *patternID);
+	//bool arwGetTrackablePatternImage(int trackableUID, int patternIndex, Color *buffer);
 
     //bool arwLoadOpticalParams(const char *optical_param_name, const char *optical_param_buff, const int optical_param_buffLen, float *fovy_p, float *aspect_p, float m[16], float p[16]);
 	// ------------------------------------------------------------------------------------
