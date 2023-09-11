@@ -1,6 +1,13 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.13
+### 2023-09-12
+ 
+ * Added ability to query Android video module (while open) for available video frame sizes.
+ * Minor Fedora Linux packaging fix.
+ * Added support to wrapper for fetching barcode marker IDs.
+
 ## Version 1.1.12
 ### 2023-08-25
 
