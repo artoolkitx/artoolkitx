@@ -39,6 +39,7 @@
 #include <ARX/ARTrackableSquare.h>
 #include <ARX/ARController.h>
 #include "AR/matrixCode.h"
+#include <inttypes.h>
 #ifndef MAX
 #  define MAX(x,y) (x > y ? x : y)
 #endif
@@ -137,11 +138,12 @@ bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width, uint64_t 
     
     if (m_loaded) unload();
 
-	ARLOGi("Adding single AR marker with barcode %d, width %f.\n", barcodeID, width);
+	ARLOGi("Adding single AR marker with barcode %d, width %f, globalID %" PRIu64 ".\n", barcodeID, width, globalID_);
 
     if (barcodeID == 0 && globalID_ != 0) {
         globalID = globalID_;
         if ((globalID & 0xffffffff80000000ULL) == 0ULL) patt_id = (int)(globalID & 0x7fffffffULL); // If upper 33 bits are zero, use lower 31 bits as regular matrix code.
+        else patt_id = 0;
     } else {
         patt_id = barcodeID;
     }

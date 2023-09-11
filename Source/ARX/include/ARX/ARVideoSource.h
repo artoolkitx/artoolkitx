@@ -43,6 +43,7 @@
 #include <ARX/ARVideo/video.h>
 
 #include <mutex>
+#include <string>
 #include <pthread.h>
 
 /**

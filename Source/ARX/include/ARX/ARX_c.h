@@ -568,15 +568,15 @@ extern "C" {
 	/**
 	 * Gets configuration of a pattern associated with a trackable.
 	 * @param trackableUID	The unique identifier (UID) of the trackable
-	 * @param patternID	The id of the pattern within the trackable, in range from 0 to arwGetTrackablePatternCount() - 1, inclusive. Ignored for single square markers and NFT markers (i.e. 0 assumed).
-	 * @param matrix	The float array to populate with the 4x4 transformation matrix of the pattern (column-major order).
-	 * @param width		Float value to set to the width of the pattern
-	 * @param height	Float value to set to the height of the pattern.
-	 * @param imageSizeX Int value to set to the width of the pattern image (in pixels).
-	 * @param imageSizeY Int value to set to the height of the pattern image (in pixels).
+	 * @param patternIndex	The index of the pattern within the trackable, in range from 0 to arwGetTrackablePatternCount() - 1, inclusive. Ignored for trackable types with a single pattern (i.e. 0 assumed).
+	 * @param matrix	The float array to populate with the 4x4 transformation matrix of the pattern (column-major order), or NULL if this value is not required.
+	 * @param width		Pointer to float value to set to the width of the pattern,, or NULL if this value is not required.
+	 * @param height	Pointer to float value to set to the height of the pattern, or NULL if this value is not required.
+	 * @param imageSizeX Pointer to int value to set to the width of the pattern image (in pixels), or NULL if this value is not required.
+	 * @param imageSizeY Pointer to int value to set to the height of the pattern image (in pixels), or NULL if this value is not required.
 	 * @return			true if successful, false if an error occurred
 	 */
-	ARX_EXTERN bool arwGetTrackablePatternConfig(int trackableUID, int patternID, float matrix[16], float *width, float *height, int *imageSizeX, int *imageSizeY);
+	ARX_EXTERN bool arwGetTrackablePatternConfig(int trackableUID, int patternIndex, float matrix[16], float *width, float *height, int *imageSizeX, int *imageSizeY);
 
 	/**
 	 * Gets a pattern image associated with a trackable. The provided color buffer is populated with the image of the
@@ -584,14 +584,14 @@ extern "C" {
      * by patternID is used.
      * Images of NFT marker trackables are not currently supported, so at present this function will return no image for NFT trackables.
 	 * @param trackableUID	The unique identifier (UID) of the trackable
-	 * @param patternID	The id for the pattern within that trackable. Ignored for single square marker and NFT marker trackables.
+	 * @param patternIndex	The index for the pattern within that trackable. Ignored for single square marker and NFT marker trackables.
      * @param buffer    Pointer to a buffer of pixels (of type 'uint32_t') to be filled with pattern image.
      *      It is the caller's responsibility to ensure that the buffer is of sufficient size.
      *      Use arwGetTrackablePatternConfig to get the required size of this array (imageSizeX * imageSizeY elements).
      *      The pixels are RGBA in little-endian systems, or ABGR in big-endian systems.
 	 * @return			true if successful, false if an error occurred
 	 */
-	ARX_EXTERN bool arwGetTrackablePatternImage(int trackableUID, int patternID, uint32_t *buffer);
+	ARX_EXTERN bool arwGetTrackablePatternImage(int trackableUID, int patternIndex, uint32_t *buffer);
 
     /**
      * Constants for use with trackable option setters/getters.
@@ -611,6 +611,7 @@ extern "C" {
         ARW_TRACKABLE_OPTION_MULTI_MIN_INLIER_PROB = 11,           ///< float, minimum inlier probability value for robust multimarker pose estimation (range 1.0 - 0.0).
         ARW_TRACKABLE_OPTION_SQUARE_WIDTH = 12,                    ///< float, square marker width
         ARW_TRACKABLE_OPTION_2D_SCALE = 13,                        ///< float, 2D trackable scale (i.e. width).
+        ARW_TRACKABLE_OPTION_SQUARE_BARCODE_ID = 14,               ///< readonly string, for square matrix (barcode) markers, the uint64_t barcodeID converted to a string.
     };
 
     enum
@@ -648,6 +649,15 @@ extern "C" {
     ARX_EXTERN void arwSetTrackableOptionFloat(int trackableUID, int option, float value);
 
 	/**
+	 * Set string options associated with a trackable.
+	 * @param trackableUID	The unique identifier (UID) of the trackable
+     * @param option Symbolic constant identifying trackable option to get.
+     * @param value nul-terminated string value to set.
+	 * @return floating-point value of option, or NAN if an error occurred.
+     */
+    ARX_EXTERN void arwSetTrackableOptionString(int trackableUID, int option, char *value);
+
+	/**
 	 * Get boolean options associated with a trackable.
 	 * @param trackableUID	The unique identifier (UID) of the trackable
      * @param option Symbolic constant identifying trackable option to get.
@@ -670,6 +680,16 @@ extern "C" {
 	 * @return floating-point value of option, or NAN if an error occurred.
      */
     ARX_EXTERN float arwGetTrackableOptionFloat(int trackableUID, int option);
+
+	/**
+	 * Get string options associated with a trackable.
+	 * @param trackableUID	The unique identifier (UID) of the trackable
+     * @param option Symbolic constant identifying trackable option to get.
+     * @param buf Pointer to a buffer which will be filled with up to bufLen - 1 chars of the string, and then nul-terminated.
+     *  @param bufLen Length of the buffer pointed to by buf, including space for the nul-terminator.
+	 * @return true if string was retrieved OK, false if an error occurred.
+     */
+    ARX_EXTERN bool arwGetTrackableOptionString(int trackableUID, int option, char *buf, int bufLen);
 
     enum {
         ARW_TRACKABLE_EVENT_TYPE_NONE = 0,

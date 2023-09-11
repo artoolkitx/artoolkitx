@@ -60,6 +60,11 @@ typedef enum {
     ARVideoAndroidCameraCaptureSessionState_MAX_STATE
 } ARVideoAndroidCameraCaptureSessionState;
 
+struct _size {
+    int32_t w;
+    int32_t h;
+};
+
 struct _AR2VideoParamAndroidT {
     char              *device_id;
     char              *name;
@@ -101,6 +106,8 @@ struct _AR2VideoParamAndroidT {
     ACameraCaptureSession* captureSession_;
     ARVideoAndroidCameraCaptureSessionState cameraCaptureSessionState;
     int                captureRequestSessionSequenceId_;
+    int                sizesCount;
+    struct _size      *sizes;
 };
 
 #ifdef  __cplusplus
