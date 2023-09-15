@@ -591,11 +591,12 @@ int ARTrackerSquare::newTrackable(std::vector<std::string> config)
             ARLOGe("Barcode marker config. requires barcode ID.\n");
             return ARTrackable::NO_ID;
         }
-        long barcodeID = strtol(config.at(1).c_str(), NULL, 0);
-        if (barcodeID < 0 || (barcodeID == 0 && (errno == EINVAL || errno == ERANGE))) {
+        uint64_t barcodeID64 = (uint64_t)strtoull(config.at(1).c_str(), NULL, 0); // ull is 64-bit on most 32-bit and 64-bit archs.
+        if (barcodeID64 == 0 && (errno == EINVAL || errno == ERANGE)) {
             ARLOGe("Barcode marker config. specified with invalid ID parameter ('%s').\n", config.at(1).c_str());
             return ARTrackable::NO_ID;
         }
+        int barcodeID = ((barcodeID64 & 0xffffffff80000000ULL) == 0ULL ? (int)barcodeID64 : 0);
         
         // Token 3 is marker width.
         if (config.size() < 3) {
@@ -614,7 +615,7 @@ int ARTrackerSquare::newTrackable(std::vector<std::string> config)
         }
         
         ARTrackableSquare *ret = new ARTrackableSquare();
-        if (!ret->initWithBarcode((int)barcodeID, width)) {
+        if (!ret->initWithBarcode(barcodeID, width, barcodeID64)) {
             // Marker failed to load, or was not added
             delete ret;
             return ARTrackable::NO_ID;

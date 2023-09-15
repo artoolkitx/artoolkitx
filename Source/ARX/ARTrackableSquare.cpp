@@ -410,8 +410,10 @@ bool ARTrackableSquare::getPatternImage(int patternIndex, uint32_t *pattImageBuf
         }
         return true;
     } else  /* patt_type == AR_PATTERN_TYPE_MATRIX */ {
+        if (matrixCodeType == AR_MATRIX_CODE_GLOBAL_ID) return false;
         uint8_t *code;
-        encodeMatrixCode(matrixCodeType, patt_id, &code);
+        int length = encodeMatrixCode(matrixCodeType, patt_id, &code);
+        if (length < 1) return false;
         int barcode_dimensions = matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK;
         int bit = 0;
 #ifdef AR_LITTLE_ENDIAN
