@@ -214,7 +214,7 @@ typedef struct {
     int             area;                   ///< Area in pixels of the largest connected region, comprising the marker border and regions connected to it. Note that this is not the same as the actual onscreen area inside the marker border.
     int             id;                     ///< If pattern detection mode is either pattern mode OR matrix but not both, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
     int             idPatt;                 ///< If pattern detection mode includes a pattern mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
-    int             idMatrix;               ///< If pattern detection mode includes a matrix mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
+    int             idMatrix;               ///< If pattern detection mode includes a matrix mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid. If matrixCodeType is AR_MATRIX_CODE_GLOBAL_ID, will be 0 if globalID >= 2^1, or the globalID otherwise.
     int             dir;                    ///< If pattern detection mode is either pattern mode OR matrix but not both, and id != -1, will be marker direction (range 0 to 3, inclusive).
     int             dirPatt;                ///< If pattern detection mode includes a pattern mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
     int             dirMatrix;              ///< If pattern detection mode includes a matrix mode, and id != -1, will be marker direction (range 0 to 3, inclusive).

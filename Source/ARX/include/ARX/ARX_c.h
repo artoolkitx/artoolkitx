@@ -570,8 +570,8 @@ extern "C" {
 	 * @param trackableUID	The unique identifier (UID) of the trackable
 	 * @param patternIndex	The index of the pattern within the trackable, in range from 0 to arwGetTrackablePatternCount() - 1, inclusive. Ignored for trackable types with a single pattern (i.e. 0 assumed).
 	 * @param matrix	The float array to populate with the 4x4 transformation matrix of the pattern (column-major order), or NULL if this value is not required.
-	 * @param width		Pointer to float value to set to the width of the pattern,, or NULL if this value is not required.
-	 * @param height	Pointer to float value to set to the height of the pattern, or NULL if this value is not required.
+	 * @param width		Pointer to float value to set to the width of the pattern,, or NULL if this value is not required. For square markers, this is the width of the border. For 2D and NFT markers, this is the width of the image.
+	 * @param height	Pointer to float value to set to the height of the pattern, or NULL if this value is not required. For square markers, this is the height of the border. For 2D and NFT markers, this is the height of the image.
 	 * @param imageSizeX Pointer to int value to set to the width of the pattern image (in pixels), or NULL if this value is not required.
 	 * @param imageSizeY Pointer to int value to set to the height of the pattern image (in pixels), or NULL if this value is not required.
 	 * @return			true if successful, false if an error occurred

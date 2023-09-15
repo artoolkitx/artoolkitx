@@ -531,7 +531,7 @@ static void *cparamSearchWorker(THREAD_HANDLE_T *threadHandle)
                     reportSQLite3Err(cacheDB);
                     result = CPARAM_SEARCH_STATE_FAILED_ERROR;
                 } else {
-                    sqliteErr = sqlite3_bind_text(stmt, 1, searchData->device_id, -1, SQLITE_STATIC);
+                    sqliteErr = sqlite3_bind_text(stmt, 1, searchData->device_id, -1, SQLITE_STATIC); // Use bind because device_id can contain reserved SQL characters.
                     if (sqliteErr != SQLITE_OK) {
                         reportSQLite3Err(cacheDB);
                         result = CPARAM_SEARCH_STATE_FAILED_ERROR;
