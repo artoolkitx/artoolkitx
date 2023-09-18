@@ -1,6 +1,12 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.14
+### 2023-09-18
+ 
+ * Fix iOS libARX.a linkage to avoid conflicts when building into an app that uses libjpeg or minizip.
+ * Fix handling of new marker with high-numbered globalID barcodes. Also, reject requests for globalID marker images; these can be generated online only.
+
 ## Version 1.1.13
 ### 2023-09-12
  
