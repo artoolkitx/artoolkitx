@@ -39,6 +39,7 @@
 #include <matchers/keyframe.h>
 #include <framework/image.h>
 #include <matchers/visual_database-inline.h>
+#include <cmath>
 
 namespace vision {
     typedef VisualDatabase<FREAKExtractor, BinaryFeatureStore, BinaryFeatureMatcher<96> > vdb_t;

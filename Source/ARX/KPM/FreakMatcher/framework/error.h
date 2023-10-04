@@ -63,7 +63,7 @@
 #   define DEBUG_BLOCK(X)
 #endif
 
-#define isnan(x) ((x) != (x))
-#define isinf(x) (!isnan(x) && isnan(x - x))
+//#define isnan(x) ((x) != (x))
+//#define isinf(x) (!isnan(x) && isnan(x - x))
 #define ASSERT_NAN(x) ASSERT(!isnan(x), "NaN")
 #define ASSERT_INF(x) ASSERT(!isinf(x), "INF")
