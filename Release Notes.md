@@ -1,6 +1,11 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.15
+### 2023-10-04
+ 
+ * Minor fixes to support Xcode 15 (for macOS and iOS platforms).
+
 ## Version 1.1.14
 ### 2023-09-18
  
