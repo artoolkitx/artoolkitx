@@ -94,7 +94,6 @@ int ar2VideoDispOptionExternal( void )
     ARPRINT(" -format=[0|RGBA].\n");
     ARPRINT("    Specifies the pixel format for output images.\n");
     ARPRINT("    0=use system default. RGBA=output RGBA, including conversion if necessary.\n");
-    ARPRINT(" -prefer=(any|exact|closestsameaspect|closestpixelcount|sameaspect|\n");
     ARPRINT(" -cachedir=/path/to/cparam_cache.db\n");
     ARPRINT("    Specifies the path in which to look for/store camera parameter cache files.\n");
     ARPRINT("    Default is app's cache directory, or on Android a folder 'cparam_cache' in the current working directory.\n");

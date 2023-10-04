@@ -134,7 +134,7 @@ public:
     
     bool CanMatchNewFeatures(int detectedFeaturesSize)
     {
-        return (detectedFeaturesSize>minRequiredDetectedFeatures);
+        return (detectedFeaturesSize > minRequiredDetectedFeatures);
     }
     
     void MatchFeatures(std::vector<cv::KeyPoint> newFrameFeatures, cv::Mat newFrameDescriptors)
@@ -160,7 +160,7 @@ public:
                             status.push_back(0);
                         }
                     }
-                    if (totalGoodMatches>maxMatches) {
+                    if (totalGoodMatches > maxMatches) {
                         finalMatched1 = matched1;
                         finalMatched2 = matched2;
                         maxMatches = totalGoodMatches;
@@ -209,7 +209,7 @@ public:
         cv::calcOpticalFlowPyrLK(_prevPyramid, _pyramid, trackablePointsWarped, flowResultPoints, statusFirstPass, err, winSize, 3, termcrit, 0, 0.001);
         cv::calcOpticalFlowPyrLK(_pyramid, _prevPyramid, flowResultPoints, trackablePointsWarpedResult, statusSecondPass, err, winSize, 3, termcrit, 0, 0.001);
         
-        int killed1 =0;
+        int killed1 = 0;
         std::vector<cv::Point2f> filteredTrackablePoints, filteredTrackedPoints;
         for (auto j = 0; j != flowResultPoints.size(); ++j) {
             if (!statusFirstPass[j] || !statusSecondPass[j]) {
