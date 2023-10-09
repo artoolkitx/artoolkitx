@@ -43,7 +43,7 @@
 #include "videoAndroidPrivate.h"
 #include <sys/time.h>
 #include <ARX/ARVideo/videoRGBA.h>
-#include <ARX/ARUtil/android.h> // PROP_VALUE_MAX
+#include <ARX/ARUtil/system.h>
 #include "../cparamSearch.h"
 
 #include "camera_utils.h"
@@ -477,16 +477,7 @@ AR2VideoParamAndroidT *ar2VideoOpenAsyncAndroid(const char *config, void (*callb
 
     // In lieu of identifying the actual camera, we use manufacturer/model/board to identify a device,
     // and assume that identical devices have identical cameras.
-    // Handset ID, via <sys/system_properties.h>.
-    vid->device_id = (char *)calloc(1, PROP_VALUE_MAX*3+2); // From <sys/system_properties.h>. 3 properties plus separators.
-    int len;
-    len = android_system_property_get(ANDROID_OS_BUILD_MANUFACTURER, vid->device_id); // len = (int)strlen(device_id).
-    vid->device_id[len] = '/';
-    len++;
-    len += android_system_property_get(ANDROID_OS_BUILD_MODEL, vid->device_id + len);
-    vid->device_id[len] = '/';
-    len++;
-    len += android_system_property_get(ANDROID_OS_BUILD_BOARD, vid->device_id + len);
+    vid->device_id = arUtilGetDeviceID();
 
 	pthread_mutex_init(&(vid->frameLock), NULL);
 

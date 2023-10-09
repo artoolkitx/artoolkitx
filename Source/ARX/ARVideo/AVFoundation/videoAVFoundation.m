@@ -54,6 +54,7 @@
 #  import <UIKit/UIKit.h> // UIDevice
 #endif
 
+#include <ARX/ARUtil/system.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/sysctl.h>
@@ -565,15 +566,10 @@ AR2VideoParamAVFoundationT *ar2VideoOpenAsyncAVFoundation(const char *config, vo
     // Set the device_id.
     vid->name = strdup([vid->cameraVideo.captureDeviceIDName UTF8String]);
 #if TARGET_OS_IOS
-    NSString *deviceType = [UIDevice currentDevice].model;
-    char *machine = NULL;
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    arMalloc(machine, char, size);
-    sysctlbyname("hw.machine", machine, &size, NULL, 0);
-    asprintf(&vid->device_id, "apple/%s/%s", [deviceType UTF8String], machine);
-    free(machine);
+    // On iOS, assume camera is same for all devices of same model.
+    vid->device_id = arUtilGetDeviceID();
 #else
+    // On mac OS, query the actual device.
     asprintf(&vid->device_id, "%s/%s/", [vid->cameraVideo.captureDeviceIDManufacturer UTF8String], [vid->cameraVideo.captureDeviceIDModel UTF8String]);
 #endif
 

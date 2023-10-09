@@ -42,11 +42,10 @@
 #include <string.h> // memset()
 #include <pthread.h>
 #include <ARX/ARUtil/time.h>
+#include <ARX/ARUtil/system.h>
 #include <ARX/ARVideo/videoRGBA.h>
 #include "../cparamSearch.h"
-#if ARX_TARGET_PLATFORM_ANDROID
-#  include <ARX/ARUtil/android.h>
-#endif
+#include <ARX/ARUtil/system.h>
 
 typedef enum {
     ARVideoExternalIncomingPixelFormat_UNKNOWN,
@@ -94,6 +93,7 @@ int ar2VideoDispOptionExternal( void )
     ARPRINT(" -format=[0|RGBA].\n");
     ARPRINT("    Specifies the pixel format for output images.\n");
     ARPRINT("    0=use system default. RGBA=output RGBA, including conversion if necessary.\n");
+    ARPRINT(" -prefer=(any|exact|closestsameaspect|closestpixelcount|sameaspect|\n");
     ARPRINT(" -cachedir=/path/to/cparam_cache.db\n");
     ARPRINT("    Specifies the path in which to look for/store camera parameter cache files.\n");
     ARPRINT("    Default is app's cache directory, or on Android a folder 'cparam_cache' in the current working directory.\n");
@@ -280,19 +280,10 @@ AR2VideoParamExternalT *ar2VideoOpenAsyncExternal(const char *config, void (*cal
     vid->callback = callback;
     vid->userdata = userdata;
 
-#if ARX_TARGET_PLATFORM_ANDROID
-    vid->device_id = (char *)calloc(1, PROP_VALUE_MAX*3+2); // From <sys/system_properties.h>. 3 properties plus separators.
+#if ARX_TARGET_PLATFORM_ANDROID || ARX_TARGET_PLATFORM_IOS
     // In lieu of identifying the actual camera, we use manufacturer/model/board to identify a device,
     // and assume that identical devices have identical cameras.
-    // Handset ID, via <sys/system_properties.h>.
-    int len;
-    len = android_system_property_get(ANDROID_OS_BUILD_MANUFACTURER, vid->device_id); // len = (int)strlen(device_id).
-    vid->device_id[len] = '/';
-    len++;
-    len += android_system_property_get(ANDROID_OS_BUILD_MODEL, vid->device_id + len);
-    vid->device_id[len] = '/';
-    len++;
-    len += android_system_property_get(ANDROID_OS_BUILD_BOARD, vid->device_id + len);
+    vid->device_id = arUtilGetDeviceID();
 #else
     vid->device_id = NULL;
 #endif
