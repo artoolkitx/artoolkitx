@@ -98,6 +98,22 @@ ARUTIL_EXTERN char *arUtilGetCPUName(void);
  */
 ARUTIL_EXTERN char *arUtilGetModulePath(void);
 
+/*!
+ @brief   Get an identifier for the device on which we are running.
+ @details
+    Gets an identifier for the device on which we are running, consisting of
+    three fields, separated by the forward-slash ('/') character. The first field is the
+    device manufacturer, the second set a device model (e.g. on Android, the
+    phone or tablet model name, or for Apple devices something like "iPhone", "iPad",
+    or "Mac", and the third field is a unique identifier for the specific device. On
+    Android, this will be a board ID, on Apple devicest the hardware model. e.g.
+    "iPhone1,1", "iPad1,1" or "MacBookPro1,1".
+ @result
+    Returns A null-terminated string with the identifier. The returned value
+    is malloc()ed internally and must be free()d by the caller. NULL in case of error.
+ */
+ARUTIL_EXTERN char *arUtilGetDeviceID();
+
 #ifdef __cplusplus
 }
 #endif
