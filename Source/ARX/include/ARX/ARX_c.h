@@ -266,10 +266,11 @@ extern "C" {
     // ----------------------------------------------------------------------------------------------------
     ARX_EXTERN int arwVideoPushInit(int videoSourceIndex, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition);
     ARX_EXTERN int arwVideoPush(int videoSourceIndex,
-                               uint8_t *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
-                               uint8_t *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
-                               uint8_t *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
-                               uint8_t *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride);
+                                uint8_t *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
+                                uint8_t *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
+                                uint8_t *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
+                                uint8_t *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
+                                PFN_VIDEOPUSHRELEASECALLBACK releaseCallback, void *releaseCallbackUserdata);
     ARX_EXTERN int arwVideoPushFinal(int videoSourceIndex);
 
     // ----------------------------------------------------------------------------------------------------

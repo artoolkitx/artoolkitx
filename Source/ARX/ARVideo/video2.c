@@ -1440,12 +1440,13 @@ int ar2VideoPush(AR2VideoParamT *vid,
                  ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
                  ARUint8 *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
                  ARUint8 *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
-                 ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride)
+                 ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
+                 void (*releaseCallback)(void *), void *releaseCallbackUserdata)
 {
     if (!vid) return -1;
 #ifdef ARVIDEO_INPUT_EXTERNAL
     if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
-        return ar2VideoPushExternal((AR2VideoParamExternalT *)vid->moduleParam, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
+        return ar2VideoPushExternal((AR2VideoParamExternalT *)vid->moduleParam, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride, releaseCallback, releaseCallbackUserdata);
     }
 #endif
     return (-1);

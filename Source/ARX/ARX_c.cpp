@@ -340,11 +340,12 @@ int arwVideoPush(int videoSourceIndex,
                 uint8_t *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
                 uint8_t *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
                 uint8_t *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
-                uint8_t *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride)
+                uint8_t *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
+                PFN_VIDEOPUSHRELEASECALLBACK releaseCallback, void *releaseCallbackUserdata)
 {
     if (!gARTK) return -1;
 
-    return (gARTK->videoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride));
+    return (gARTK->videoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride, releaseCallback, releaseCallbackUserdata));
 }
 
 int arwVideoPushFinal(int videoSourceIndex)

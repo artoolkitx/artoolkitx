@@ -611,7 +611,8 @@ ARVIDEO_EXTERN int ar2VideoPush(AR2VideoParamT *vid,
                                 ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
                                 ARUint8 *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
                                 ARUint8 *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
-                                ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride);
+                                ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
+                                void (*releaseCallback)(void *), void *releaseCallbackUserdata);
 ARVIDEO_EXTERN int ar2VideoPushFinal(AR2VideoParamT *vid);
 
 #ifdef  __cplusplus
