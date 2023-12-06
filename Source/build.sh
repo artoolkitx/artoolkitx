@@ -57,7 +57,7 @@ do
         cmake) CMAKE_GENERATOR="$2"
             shift
             ;;
-        --android-ndk-version) ANDROID_NDK_VERSION="$2"
+        --android-ndk-version) ANDROID_NDK_VERSION_NUMBER="$2"
             shift
             ;;
         --*) echo "bad option $1"
@@ -233,7 +233,7 @@ if [ -z "$ANDROID_HOME" ] ; then
     Skipping ARXJ build.
     *****"
 else
-	ANDROID_NDK_VERSION_DEFAULT=26.1.10909125
+	ANDROID_NDK_VERSION_NUMBER_DEFAULT=26.1.10909125
     ABIS="armeabi-v7a arm64-v8a x86 x86_64"
     for abi in $ABIS; do
         if [ ! -d "$abi" ] ; then
@@ -244,7 +244,7 @@ else
 	        rm -f CMakeCache.txt
 	        # Android 5.0 is API level 21. Android 7.0 (needed for native camera access) is API level 24.
 	        cmake ../.. \
-                -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROID_HOME/ndk/${ANDROID_NDK_VERSION-${ANDROID_NDK_VERSION_DEFAULT}}/build/cmake/android.toolchain.cmake \
+                -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROID_HOME/ndk/${ANDROID_NDK_VERSION_NUMBER-${ANDROID_NDK_VERSION_NUMBER_DEFAULT}}/build/cmake/android.toolchain.cmake \
                 -DANDROID_PLATFORM=android-24 \
                 -DANDROID_ABI=$abi \
                 -DANDROID_ARM_MODE=arm \
