@@ -65,6 +65,9 @@ int                     ar2VideoSetParamdExternal      (AR2VideoParamExternalT *
 int                     ar2VideoGetParamsExternal      (AR2VideoParamExternalT *vid, const int paramName, char **value);
 int                     ar2VideoSetParamsExternal      (AR2VideoParamExternalT *vid, const int paramName, const char  *value);
 
+#if USE_CPARAM_SEARCH
+int ar2VideoGetCParamAsyncExternal(AR2VideoParamExternalT *vid, void (*callback)(const ARParam *, void *), void *userdata);
+#endif
 int ar2VideoPushInitExternal(AR2VideoParamExternalT *vid, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition);
 int ar2VideoPushExternal(AR2VideoParamExternalT *vid,
                          ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,

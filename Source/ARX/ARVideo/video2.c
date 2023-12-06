@@ -1421,6 +1421,11 @@ int ar2VideoGetCParamAsync(AR2VideoParamT *vid, void (*callback)(const ARParam *
         return ar2VideoGetCParamAsyncAndroid((AR2VideoParamAndroidT *)vid->moduleParam, callback, userdata);
     }
 #endif
+#ifdef ARVIDEO_INPUT_EXTERNAL
+    if (vid->module == AR_VIDEO_MODULE_EXTERNAL) {
+        return ar2VideoGetCParamAsyncExternal((AR2VideoParamExternalT *)vid->moduleParam, callback, userdata);
+    }
+#endif
 #endif // USE_CPARAM_SEARCH
     return (-1);
 }

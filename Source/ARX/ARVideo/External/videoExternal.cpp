@@ -106,13 +106,14 @@ int ar2VideoDispOptionExternal( void )
     ARPRINT(" -nocopy\n");
     ARPRINT("    Don't copy frames, but instead hold a reference to the frame data. The caller\n");
     ARPRINT("    must keep the frame data valid until the release callback is called, or capture is stopped.\n");
-    ARPRINT(" -prefer=(any|exact|closestsameaspect|closestpixelcount|sameaspect|\n");
     ARPRINT(" -cachedir=/path/to/cparam_cache.db\n");
     ARPRINT("    Specifies the path in which to look for/store camera parameter cache files.\n");
     ARPRINT("    Default is app's cache directory, or on Android a folder 'cparam_cache' in the current working directory.\n");
     ARPRINT(" -cacheinitdir=/path/to/cparam_cache_init.db\n");
     ARPRINT("    Specifies the path in which to look for/store initial camera parameter cache file.\n");
     ARPRINT("    Default is app's bundle directory, or on Android a folder 'cparam_cache' in the current working directory.\n");
+    ARPRINT(" -deviceid=string (or -deviceid=\"string with whitespace\") Override device ID used for.\n");
+    ARPRINT("    camera parameters search, on platforms where cparamSearch is available.\n");
     ARPRINT("\n");
 
     return 0;
@@ -248,6 +249,29 @@ AR2VideoParamExternalT *ar2VideoOpenAsyncExternal(const char *config, void (*cal
                 } else {
                     csat = strdup(line);
                 }
+            } else if (strncmp(a, "-deviceid=", 10) == 0) {
+                // Attempt to read in authentication token, allowing for quoting of whitespace.
+                a += 10; // Skip "-deviceid=" characters.
+                if (*a == '"') {
+                    a++;
+                    // Read all characters up to next '"'.
+                    i = 0;
+                    while (i < (sizeof(line) - 1) && *a != '\0') {
+                        line[i] = *a;
+                        a++;
+                        if (line[i] == '"') break;
+                        i++;
+                    }
+                    line[i] = '\0';
+                } else {
+                    sscanf(a, "%s", line);
+                }
+                free(vid->device_id);
+                if (!strlen(line)) {
+                    vid->device_id = NULL;
+                } else {
+                    vid->device_id = strdup(line);
+                }
             } else {
                  err_i = 1;
             }
@@ -302,11 +326,11 @@ AR2VideoParamExternalT *ar2VideoOpenAsyncExternal(const char *config, void (*cal
     vid->copyUVWarning = false;
 
 #if ARX_TARGET_PLATFORM_ANDROID || ARX_TARGET_PLATFORM_IOS
-    // In lieu of identifying the actual camera, we use manufacturer/model/board to identify a device,
-    // and assume that identical devices have identical cameras.
-    vid->device_id = arUtilGetDeviceID();
-#else
-    vid->device_id = NULL;
+    if (!vid->device_id) {
+        // In lieu of identifying the actual camera, we use manufacturer/model/board to identify a device,
+        // and assume that identical devices have identical cameras.
+        vid->device_id = arUtilGetDeviceID();
+    }
 #endif
 
     pthread_mutex_init(&(vid->frameLock), NULL);
@@ -679,7 +703,7 @@ static void cparamSeachCallback(CPARAM_SEARCH_STATE state, float progress, const
     }
 }
 
-int ar2VideoGetCParamAsyncAndroid(AR2VideoParamExternalT *vid, void (*callback)(const ARParam *, void *), void *userdata)
+int ar2VideoGetCParamAsyncExternal(AR2VideoParamExternalT *vid, void (*callback)(const ARParam *, void *), void *userdata)
 {
     if (!vid) return (-1); // Sanity check.
     if (!callback) {
@@ -806,6 +830,8 @@ int ar2VideoPushInitExternal(AR2VideoParamExternalT *vid, int width, int height,
 
 done:
     pthread_mutex_unlock(&(vid->frameLock));
+    // Signal that pushInit has been called. This will unblock the openAsync thread and
+    // the callback from that thread.
     if ((err = pthread_cond_signal(&(vid->pushInitedCond))) != 0) {
         ARLOGe("ar2VideoPushInitAndroid(): pthread_cond_signal error %s (%d).\n", strerror(err), err);
     }
@@ -820,8 +846,8 @@ int ar2VideoPushExternal(AR2VideoParamExternalT *vid,
                          ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
                          void (*releaseCallback)(void *), void *releaseCallbackUserdata)
 {
-    int ret = -1;
     if (!vid) return -1; // Sanity check.
+    int ret = -1;
 
     //ARLOGd("ar2VideoPushExternal(buf0p=%p, buf0Size=%d, buf0PixelStride=%d, buf0RowStride=%d, buf1p=%p, buf1Size=%d, buf1PixelStride=%d, buf1RowStride=%d, buf2p=%p, buf2Size=%d, buf2PixelStride=%d, buf2RowStride=%d, buf3p=%p, buf3Size=%d, buf3PixelStride=%d, buf3RowStride=%d)\n", buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
 
@@ -830,12 +856,21 @@ int ar2VideoPushExternal(AR2VideoParamExternalT *vid,
     int bufferIndex = 0;
     AR2VideoBufferT *buffer = NULL;
 
-    if (!vid->pushInited || !vid->capturing) goto done; // Both ar2VideoPushInitExternal AND ar2VideoCapStartExternal must have been called.
+    if (!vid->pushInited) goto done; // Failure to call ar2VideoPushInitExternal is an error.
+    if (!vid->capturing) {
+        // If ar2VideoCapStartExternal has not been called, it's not an error, but we shouldn't do anything. Throw the frame away.
+        if (releaseCallback) (*releaseCallback)(releaseCallbackUserdata);
+        ret = 0;
+        goto done;
+    }
     if (!buf0p || buf0Size <= 0) {
         ARLOGe("ar2VideoPushExternal: NULL buffer.\n");
         goto done;
     }
 
+    // If not copying, need to select destination buffer from our double-buffer set. First time around,
+    // vid->bufferCheckoutState will be -1, so defaults to 0 in this case. Otherwise, the buffer not currently checked out.
+    // If copying, use default buffer 0 (which will have been allocated in arVideoPushInit()).
     if (!vid->copy) bufferIndex = vid->bufferCheckoutState == 0 ? 1 : 0;
     buffer = &vid->buffers[bufferIndex];
 
@@ -983,6 +1018,7 @@ done:
     
     if (vid->copy && releaseCallback) {
         // If we've copied the data and user wanted a callback to release, invoke it now.
+        // (This is probably not a commonly used path, but here for sake of completeness).
         (*releaseCallback)(releaseCallbackUserdata);
     }
 
