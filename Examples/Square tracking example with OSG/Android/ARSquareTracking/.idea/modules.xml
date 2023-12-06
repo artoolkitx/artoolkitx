@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ARSquareTracking.iml" filepath="$PROJECT_DIR$/.idea/modules/ARSquareTracking.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ARSquareTrackingExample/ARSquareTracking.ARSquareTrackingExample.iml" filepath="$PROJECT_DIR$/.idea/modules/ARSquareTrackingExample/ARSquareTracking.ARSquareTrackingExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ARSquareTrackingExample/ARSquareTracking.ARSquareTrackingExample.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/ARSquareTrackingExample/ARSquareTracking.ARSquareTrackingExample.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ARSquareTrackingExample/ARSquareTracking.ARSquareTrackingExample.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ARSquareTrackingExample/ARSquareTracking.ARSquareTrackingExample.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ARSquareTrackingExample/ARSquareTracking.ARSquareTrackingExample.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/ARSquareTrackingExample/ARSquareTracking.ARSquareTrackingExample.unitTest.iml" />
     </modules>

@@ -38,7 +38,7 @@
 * To rebuild the SDK and examples for Linux, in a terminal navigate to `Source` and execute the command `./build.sh linux examples`
 
 ## Android
-* Android Studio 2021 or later with NDK release 21 or later, and an Android device running Android 7.0 or later is required.
+* Android Studio 2021 or later with NDK release 21 or later, and an Android device running Android 7.0 or later is required. Defaults to looking for NDK release 26.
 * Open `Examples` for prebuilt .apks. These may be installed on your device via `adb install *example name*.apk` where EXAMPLE is the example name.
 * An Android Studio project for each example is in `Examples/*example name*/Android`.
 * To rebuild the SDK and examples for Android, in a terminal navigate to `Source` and execute the command `./build.sh android examples`
