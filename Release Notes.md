@@ -1,6 +1,14 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.17
+### 2023-12-06
+ 
+ * When video is being supplied external to artoolkitX, a new option allows for optimised no-copy handling. See https://github.com/artoolkitx/artoolkitx/wiki/artoolkitX-video-module-configuration-reference#ar_video_module_external.
+ * Android: Adds support for fetching camera parameters remotely by default when using videoExternal module.
+ * iOS: Updated minimum supported iOS release to iOS 12, as this is the lowest version supported by the iOS 17 SDK.
+ * Android: Update Android build for JDK 17 and NDK release 26 by default.
+
 ## Version 1.1.16
 ### 2023-10-11
  
