@@ -53,34 +53,44 @@ typedef enum {
     ARVideoExternalIncomingPixelFormat_NV12,
     ARVideoExternalIncomingPixelFormat_RGBA,
     ARVideoExternalIncomingPixelFormat_RGB_565,
-    ARVideoExternalIncomingPixelFormat_YUV_420_888,
-    ARVideoExternalIncomingPixelFormat_MONO // Not official Android.
+    ARVideoExternalIncomingPixelFormat_YUV_420_888, // In Android, frames with this format are actually NV21.
+    ARVideoExternalIncomingPixelFormat_MONO
 } ARVideoExternalIncomingPixelFormat;
 
 struct _AR2VideoParamExternalT {
-    int                width;
-    int                height;
-    AR_PIXEL_FORMAT    pixelFormat;
-    int                bufWidth;
-    int                bufHeight;
+    // Frame-related.
+    int                width; // Width of incoming frames, set in pushInit.
+    int                height; // height of incoming frames, set in pushInit.
+    ARVideoExternalIncomingPixelFormat incomingPixelFormat; // Format of incoming frames, set in pushInit.
+    AR_PIXEL_FORMAT    pixelFormat; // ARToolKit equivalent format of incoming frames, set in pushInit.
     int                convertToRGBA;
+    // cparamSearch-related.
     float              focal_length; // metres.
     int                cameraIndex; // 0 = first camera, 1 = second etc.
     int                cameraPosition; // enum AR_VIDEO_POSITION_*
     char              *device_id;
     void             (*cparamSearchCallback)(const ARParam *, void *);
     void              *cparamSearchUserdata;
-    AR2VideoBufferT    buffer;
-    bool               native;
-    bool               capturing; // Between capStart and capStop.
-    pthread_mutex_t    frameLock;  // Protects: capturing, pushInited, pushNewFrameReady.
-    void             (*callback)(void *);
-    void              *userdata;
-    bool               pushInited; // videoPushInit called.
+    // Opening-related.
+    void             (*openAsyncCallback)(void *);
+    void              *openAsyncUserdata;
     bool               openingAsync; // true when openAsync is active. If set to false, indicates video closed and it will cleanup.
-    pthread_cond_t     pushInitedCond; // At least one frame received.
+    //
+    pthread_mutex_t    frameLock;  // Protects: capturing, pushInited, pushNewFrameReady.
+    pthread_cond_t     pushInitedCond; // Condition variable used to block openAsync from returning until least one frame received (or close is called).
+    bool               pushInited; // videoPushInit called.
+    bool               capturing; // Between capStart and capStop.
     bool               pushNewFrameReady; // New frame ready since last arVideoGetImage.
-    ARVideoExternalIncomingPixelFormat incomingPixelFormat;
+    AR2VideoBufferT    buffers[2];
+    bool               copy;
+    // Only valid when copy is true.
+    bool               copyYWarning;
+    bool               copyUVWarning;
+    // Only valid when copy is false.
+    int                bufferCheckoutState; // Only valid when copy is false; <0=no buffers checked out. 0=buffers[0] checked out, 1=buffers[1] checked out.
+    void             (*releaseCallbacks[2])(void *);
+    void              *releaseCallbacksUserdata[2];
+    // Others.
 };
 
 static void cleanupVid(AR2VideoParamExternalT *vid);
@@ -93,13 +103,17 @@ int ar2VideoDispOptionExternal( void )
     ARPRINT(" -format=[0|RGBA].\n");
     ARPRINT("    Specifies the pixel format for output images.\n");
     ARPRINT("    0=use system default. RGBA=output RGBA, including conversion if necessary.\n");
-    ARPRINT(" -prefer=(any|exact|closestsameaspect|closestpixelcount|sameaspect|\n");
+    ARPRINT(" -nocopy\n");
+    ARPRINT("    Don't copy frames, but instead hold a reference to the frame data. The caller\n");
+    ARPRINT("    must keep the frame data valid until the release callback is called, or capture is stopped.\n");
     ARPRINT(" -cachedir=/path/to/cparam_cache.db\n");
     ARPRINT("    Specifies the path in which to look for/store camera parameter cache files.\n");
     ARPRINT("    Default is app's cache directory, or on Android a folder 'cparam_cache' in the current working directory.\n");
     ARPRINT(" -cacheinitdir=/path/to/cparam_cache_init.db\n");
     ARPRINT("    Specifies the path in which to look for/store initial camera parameter cache file.\n");
     ARPRINT("    Default is app's bundle directory, or on Android a folder 'cparam_cache' in the current working directory.\n");
+    ARPRINT(" -deviceid=string (or -deviceid=\"string with whitespace\") Override device ID used for.\n");
+    ARPRINT("    camera parameters search, on platforms where cparamSearch is available.\n");
     ARPRINT("\n");
 
     return 0;
@@ -118,6 +132,7 @@ AR2VideoParamExternalT *ar2VideoOpenAsyncExternal(const char *config, void (*cal
     int i;
     int width = 0, height = 0;
     int convertToRGBA = 0;
+    bool copy = true;
 
     arMallocClear(vid, AR2VideoParamExternalT, 1);
 
@@ -129,6 +144,10 @@ AR2VideoParamExternalT *ar2VideoOpenAsyncExternal(const char *config, void (*cal
 
             if (sscanf(a, "%s", line) == 0) break;
             if (strcmp(line, "-module=External") == 0) {
+            } else if (strcmp(line, "-copy") == 0) {
+                copy = true;
+            } else if (strcmp(line, "-nocopy") == 0) {
+                copy = false;
             } else if (strncmp(line, "-width=", 7) == 0) {
                 if (sscanf(&line[7], "%d", &width) == 0) {
                     ARLOGe("Error: Configuration option '-width=' must be followed by width in integer pixels.\n");
@@ -230,6 +249,29 @@ AR2VideoParamExternalT *ar2VideoOpenAsyncExternal(const char *config, void (*cal
                 } else {
                     csat = strdup(line);
                 }
+            } else if (strncmp(a, "-deviceid=", 10) == 0) {
+                // Attempt to read in authentication token, allowing for quoting of whitespace.
+                a += 10; // Skip "-deviceid=" characters.
+                if (*a == '"') {
+                    a++;
+                    // Read all characters up to next '"'.
+                    i = 0;
+                    while (i < (sizeof(line) - 1) && *a != '\0') {
+                        line[i] = *a;
+                        a++;
+                        if (line[i] == '"') break;
+                        i++;
+                    }
+                    line[i] = '\0';
+                } else {
+                    sscanf(a, "%s", line);
+                }
+                free(vid->device_id);
+                if (!strlen(line)) {
+                    vid->device_id = NULL;
+                } else {
+                    vid->device_id = strdup(line);
+                }
             } else {
                  err_i = 1;
             }
@@ -277,15 +319,18 @@ AR2VideoParamExternalT *ar2VideoOpenAsyncExternal(const char *config, void (*cal
     vid->pushNewFrameReady = false;
     vid->cameraIndex = -1;
     vid->cameraPosition = AR_VIDEO_POSITION_UNKNOWN;
-    vid->callback = callback;
-    vid->userdata = userdata;
+    vid->openAsyncCallback = callback;
+    vid->openAsyncUserdata = userdata;
+    vid->copy = copy;
+    vid->copyYWarning = false;
+    vid->copyUVWarning = false;
 
 #if ARX_TARGET_PLATFORM_ANDROID || ARX_TARGET_PLATFORM_IOS
-    // In lieu of identifying the actual camera, we use manufacturer/model/board to identify a device,
-    // and assume that identical devices have identical cameras.
-    vid->device_id = arUtilGetDeviceID();
-#else
-    vid->device_id = NULL;
+    if (!vid->device_id) {
+        // In lieu of identifying the actual camera, we use manufacturer/model/board to identify a device,
+        // and assume that identical devices have identical cameras.
+        vid->device_id = arUtilGetDeviceID();
+    }
 #endif
 
     pthread_mutex_init(&(vid->frameLock), NULL);
@@ -335,7 +380,7 @@ static void *openAsyncThread(void *arg)
     AR2VideoParamExternalT *vid = (AR2VideoParamExternalT *)arg; // Cast the thread start arg to the correct type.
 
     pthread_mutex_lock(&(vid->frameLock));
-    while (!vid->pushInited && vid->openingAsync) {
+    while (!vid->pushInited && vid->openingAsync) { // Exit the wait if EITHER a frame is pushed OR videoCloseExternal is called.
         // Android "Bionic" libc doesn't implement cancelation, so need to let wait expire somewhat regularly.
         uint64_t sec;
         uint32_t usec;
@@ -352,10 +397,11 @@ static void *openAsyncThread(void *arg)
     pthread_mutex_unlock(&(vid->frameLock));
 
     if (!vid->openingAsync) {
+        // videoCloseExternal was called before any frames were pushed. Just cleanup and exit.
         cleanupVid(vid);
     } else {
         vid->openingAsync = false;
-        (vid->callback)(vid->userdata);
+        (vid->openAsyncCallback)(vid->openAsyncUserdata);
     }
 
     return (NULL);
@@ -415,6 +461,15 @@ done:
     return (ret);
 }
 
+static void releaseAndUpdate(AR2VideoParamExternalT *vid, int bufferIndex, void (*updatedReleaseCallback)(void *), void *updatedReleaseCallbackUserdata)
+{
+    if (vid->releaseCallbacks[bufferIndex]) {
+        (*vid->releaseCallbacks[bufferIndex])(vid->releaseCallbacksUserdata[bufferIndex]);
+    }
+    vid->releaseCallbacks[bufferIndex] = updatedReleaseCallback;
+    vid->releaseCallbacksUserdata[bufferIndex] = updatedReleaseCallbackUserdata;
+}
+
 int ar2VideoCapStopExternal( AR2VideoParamExternalT *vid )
 {
     int ret = -1;
@@ -425,7 +480,11 @@ int ar2VideoCapStopExternal( AR2VideoParamExternalT *vid )
     if (!vid->capturing) goto done; // Not capturing.
     vid->capturing = false;
     vid->pushNewFrameReady = false;
-
+    if (!vid->copy) {
+        releaseAndUpdate(vid, 0, NULL, NULL);
+        releaseAndUpdate(vid, 1, NULL, NULL);
+        vid->bufferCheckoutState = -1;
+    }
     ret = 0;
 done:
     pthread_mutex_unlock(&(vid->frameLock));
@@ -440,8 +499,20 @@ AR2VideoBufferT *ar2VideoGetImageExternal( AR2VideoParamExternalT *vid )
 
     pthread_mutex_lock(&(vid->frameLock));
     if (vid->pushInited && vid->pushNewFrameReady) {
+        if (!vid->copy) {
+            // If we have a buffer checked out, we're OK to release it now.
+            if (vid->bufferCheckoutState >= 0) {
+                releaseAndUpdate(vid, vid->bufferCheckoutState, NULL, NULL);
+            }
+            // Work out which buffer we'll be checking out. For the very first frame, it'll be
+            // buffer 0, otherwise it'll be the buffer that's NOT already checked out.
+            int newBufIndex = vid->bufferCheckoutState == 0 ? 1 : 0;
+            vid->bufferCheckoutState = newBufIndex;
+            ret = &vid->buffers[newBufIndex];
+        } else {
+            ret = &vid->buffers[0];
+        }
         vid->pushNewFrameReady = false;
-        ret = &vid->buffer;
     }
     pthread_mutex_unlock(&(vid->frameLock));
     return (ret);
@@ -632,7 +703,7 @@ static void cparamSeachCallback(CPARAM_SEARCH_STATE state, float progress, const
     }
 }
 
-int ar2VideoGetCParamAsyncAndroid(AR2VideoParamExternalT *vid, void (*callback)(const ARParam *, void *), void *userdata)
+int ar2VideoGetCParamAsyncExternal(AR2VideoParamExternalT *vid, void (*callback)(const ARParam *, void *), void *userdata)
 {
     if (!vid) return (-1); // Sanity check.
     if (!callback) {
@@ -711,35 +782,44 @@ int ar2VideoPushInitExternal(AR2VideoParamExternalT *vid, int width, int height,
     }
 
     // Prepare the vid->buffer structure.
-    if (vid->pixelFormat == AR_PIXEL_FORMAT_NV21 || vid->pixelFormat == AR_PIXEL_FORMAT_420f) {
-        vid->buffer.bufPlaneCount = 2;
-        vid->buffer.bufPlanes = (ARUint8 **)calloc(vid->buffer.bufPlaneCount, sizeof(ARUint8 *));
-        vid->buffer.bufPlanes[0] = (ARUint8 *)malloc(width * height);
-        vid->buffer.buffLuma = vid->buffer.bufPlanes[0];
-        vid->buffer.bufPlanes[1] = (ARUint8 *)malloc(2 * (width / 2 * height / 2));
-        if (vid->convertToRGBA) {
-            vid->buffer.buff = (ARUint8 *)malloc(width * height * 4);
-        } else {
-            vid->buffer.buff = vid->buffer.bufPlanes[0];
+    if (!vid->copy) {
+        for (int i = 0; i < 2; i++) {
+            if (vid->pixelFormat == AR_PIXEL_FORMAT_NV21 || vid->pixelFormat == AR_PIXEL_FORMAT_420f) {
+                vid->buffers[i].bufPlaneCount = 2;
+                vid->buffers[i].bufPlanes = (ARUint8 **)calloc(vid->buffers[i].bufPlaneCount, sizeof(ARUint8 *));
+                if (vid->convertToRGBA) vid->buffers[i].buff = (ARUint8 *)malloc(width * height * 4);
+            } else {
+                vid->buffers[i].bufPlaneCount = 0;
+                vid->buffers[i].bufPlanes = NULL;
+            }
+            vid->buffers[i].buff = NULL;
+            vid->buffers[i].buffLuma = NULL;
         }
-    } else if (vid->pixelFormat == AR_PIXEL_FORMAT_RGBA) {
-        vid->buffer.buff = (ARUint8 *)malloc(width * height * 4);
-        vid->buffer.bufPlaneCount = 0;
-        vid->buffer.bufPlanes = NULL;
-        vid->buffer.buffLuma = NULL;
-    } else if (vid->pixelFormat == AR_PIXEL_FORMAT_RGB_565) {
-        vid->buffer.buff = (ARUint8 *)malloc(width * height * 2);
-        vid->buffer.bufPlaneCount = 0;
-        vid->buffer.bufPlanes = NULL;
-        vid->buffer.buffLuma = NULL;
-    } else if (vid->pixelFormat == AR_PIXEL_FORMAT_MONO) {
-        vid->buffer.buff = (ARUint8 *)malloc(width * height);
-        vid->buffer.bufPlaneCount = 0;
-        vid->buffer.bufPlanes = NULL;
-        vid->buffer.buffLuma = vid->buffer.buff;
+        vid->bufferCheckoutState = -1;
     } else {
-        ARLOGe("Error: unsupported video format %s (%d).\n", arVideoUtilGetPixelFormatName(vid->pixelFormat), vid->pixelFormat);
-        goto done;
+        if (vid->pixelFormat == AR_PIXEL_FORMAT_NV21 || vid->pixelFormat == AR_PIXEL_FORMAT_420f) {
+            vid->buffers[0].bufPlaneCount = 2;
+            vid->buffers[0].bufPlanes = (ARUint8 **)calloc(vid->buffers[0].bufPlaneCount, sizeof(ARUint8 *));
+            vid->buffers[0].bufPlanes[0] = (ARUint8 *)malloc(width * height);
+            vid->buffers[0].bufPlanes[1] = (ARUint8 *)malloc(2 * (width / 2 * height / 2));
+            vid->buffers[0].buffLuma = vid->buffers[0].bufPlanes[0];
+            if (vid->convertToRGBA) {
+                vid->buffers[0].buff = (ARUint8 *)malloc(width * height * 4);
+            } else {
+                vid->buffers[0].buff = vid->buffers[0].bufPlanes[0];
+            }
+        } else {
+            vid->buffers[0].bufPlaneCount = 0;
+            vid->buffers[0].bufPlanes = NULL;
+            if (vid->pixelFormat == AR_PIXEL_FORMAT_RGBA) {
+                vid->buffers[0].buff = (ARUint8 *)malloc(width * height * 4);
+            } else if (vid->pixelFormat == AR_PIXEL_FORMAT_RGB_565) {
+                vid->buffers[0].buff = (ARUint8 *)malloc(width * height * 2);
+            } else if (vid->pixelFormat == AR_PIXEL_FORMAT_MONO) {
+                vid->buffers[0].buff = (ARUint8 *)malloc(width * height);
+            }
+            vid->buffers[0].buffLuma = NULL;
+        }
     }
     vid->width = width;
     vid->height = height;
@@ -750,6 +830,8 @@ int ar2VideoPushInitExternal(AR2VideoParamExternalT *vid, int width, int height,
 
 done:
     pthread_mutex_unlock(&(vid->frameLock));
+    // Signal that pushInit has been called. This will unblock the openAsync thread and
+    // the callback from that thread.
     if ((err = pthread_cond_signal(&(vid->pushInitedCond))) != 0) {
         ARLOGe("ar2VideoPushInitAndroid(): pthread_cond_signal error %s (%d).\n", strerror(err), err);
     }
@@ -761,25 +843,47 @@ int ar2VideoPushExternal(AR2VideoParamExternalT *vid,
                          ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
                          ARUint8 *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
                          ARUint8 *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
-                         ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride)
+                         ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
+                         void (*releaseCallback)(void *), void *releaseCallbackUserdata)
 {
-    int ret = -1;
     if (!vid) return -1; // Sanity check.
+    int ret = -1;
 
     //ARLOGd("ar2VideoPushExternal(buf0p=%p, buf0Size=%d, buf0PixelStride=%d, buf0RowStride=%d, buf1p=%p, buf1Size=%d, buf1PixelStride=%d, buf1RowStride=%d, buf2p=%p, buf2Size=%d, buf2PixelStride=%d, buf2RowStride=%d, buf3p=%p, buf3Size=%d, buf3PixelStride=%d, buf3RowStride=%d)\n", buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
 
     pthread_mutex_lock(&(vid->frameLock));
-    if (!vid->pushInited || !vid->capturing) goto done; // Both ar2VideoPushInitExternal AND ar2VideoCapStartExternal must have been called.
+
+    int bufferIndex = 0;
+    AR2VideoBufferT *buffer = NULL;
+
+    if (!vid->pushInited) goto done; // Failure to call ar2VideoPushInitExternal is an error.
+    if (!vid->capturing) {
+        // If ar2VideoCapStartExternal has not been called, it's not an error, but we shouldn't do anything. Throw the frame away.
+        if (releaseCallback) (*releaseCallback)(releaseCallbackUserdata);
+        ret = 0;
+        goto done;
+    }
     if (!buf0p || buf0Size <= 0) {
         ARLOGe("ar2VideoPushExternal: NULL buffer.\n");
         goto done;
     }
 
-    // Get time of capture as early as possible.
-    arUtilTimeSinceEpoch(&vid->buffer.time.sec, &vid->buffer.time.usec);
-    vid->buffer.fillFlag = 1;
+    // If not copying, need to select destination buffer from our double-buffer set. First time around,
+    // vid->bufferCheckoutState will be -1, so defaults to 0 in this case. Otherwise, the buffer not currently checked out.
+    // If copying, use default buffer 0 (which will have been allocated in arVideoPushInit()).
+    if (!vid->copy) bufferIndex = vid->bufferCheckoutState == 0 ? 1 : 0;
+    buffer = &vid->buffers[bufferIndex];
 
-    // Copy the incoming frame.
+    // Get time of capture as early as possible.
+    arUtilTimeSinceEpoch(&buffer->time.sec, &buffer->time.usec);
+
+    if (!vid->copy) {
+        // If not copying, we need to release any callback saved for any previous frame pushed which hasn't yet
+        // been used by videoGetImage. Release previous incoming frame, and save release details for this frame.
+        releaseAndUpdate(vid, bufferIndex, releaseCallback, releaseCallbackUserdata);
+    }
+
+    // Grab the incoming frame.
     if (vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_NV21 || vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_NV12) {
         if (!buf1p || buf1Size <= 0) {
             ARLOGe("ar2VideoPushExternal: Error: insufficient buffers for format NV21/NV12.\n");
@@ -789,12 +893,21 @@ int ar2VideoPushExternal(AR2VideoParamExternalT *vid,
             ARLOGe("ar2VideoPushExternal: Error: unexpected buffer sizes (%d, %d) for format NV21/NV12.\n", buf0Size, buf1Size);
             goto done;
         }
-        memcpy(vid->buffer.bufPlanes[0], buf0p, buf0Size);
-        memcpy(vid->buffer.bufPlanes[1], buf1p, buf1Size);
+        if (!vid->copy) {
+            buffer->bufPlanes[0] = buf0p;
+            buffer->bufPlanes[1] = buf1p;
+        } else {
+            memcpy(buffer->bufPlanes[0], buf0p, buf0Size);
+            memcpy(buffer->bufPlanes[1], buf1p, buf1Size);
+        }
         // Convert if the user requested RGBA.
         if (vid->convertToRGBA) {
-            videoRGBA((uint32_t *)&vid->buffer.buff, &(vid->buffer), vid->width, vid->height, vid->pixelFormat);
+            videoRGBA((uint32_t *)&buffer->buff, buffer, vid->width, vid->height, vid->pixelFormat);
+        } else {
+            buffer->buff = buffer->bufPlanes[0];
         }
+        buffer->buffLuma = buffer->bufPlanes[0];
+
     } else if (vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_YUV_420_888) {
         if (!buf1p || buf1Size <= 0 || !buf2p || buf2Size <= 0) {
             ARLOGe("ar2VideoPushExternal: Error: insufficient buffers for format YUV_420_888.\n");
@@ -806,65 +919,108 @@ int ar2VideoPushExternal(AR2VideoParamExternalT *vid,
             goto done;
         }
 
-        // Massage into NV21 format.
-        // Y plane first. Note that YUV_420_888 guarantees buf0PixelStride == 1.
-        if (buf0RowStride == vid->width) {
-            memcpy(vid->buffer.bufPlanes[0], buf0p, buf0Size);
-        } else {
-            unsigned char *p = vid->buffer.bufPlanes[0], *p0 = buf0p;
-            for (int i = 0; i < vid->height; i++) {
-                memcpy(p, p0, vid->width);
-                p += vid->width;
-                p0 += buf0RowStride;
+        if (!vid->copy) {
+            // Make sure it's actually NV21.
+            if (buf0RowStride != vid->width || buf1PixelStride != 2 || buf2PixelStride != 2 || buf1RowStride != vid->width || buf2RowStride != vid->width || ((buf1p - 1) != buf2p)) {
+                ARLOGe("ar2VideoPushExternal: Error: in nocopy mode, can't handle YUV_420_888 unless it's actually NV21.\n");
+                goto done;
             }
-        }
-        // Next, U (Cb) and V (Cr) planes.
-        if ((buf1PixelStride == 2 && buf2PixelStride == 2) && (buf1RowStride == vid->width && buf2RowStride == vid->width) && ((buf1p - 1) == buf2p)) {
-            // U and V planes both have pixelstride of 2, rowstride of pixelstride * vid->width/2, and are interleaved by 1 byte, so it's already NV21 and we can do a direct copy.
-            memcpy(vid->buffer.bufPlanes[1], buf2p, 2*vid->width/2*vid->height/2);
+            buffer->bufPlanes[0] = buf0p;
+            buffer->bufPlanes[1] = buf2p;
         } else {
-            // Tedious conversion to NV21.
-            unsigned char *p = vid->buffer.bufPlanes[1], *p1 = buf1p, *p2 = buf2p;
-            for (int i = 0; i < vid->height / 2; i++) {
-                for (int j = 0; j < vid->width / 2; j++) {
-                    *p++ = p2[j * buf1PixelStride]; // Cr
-                    *p++ = p1[j * buf2PixelStride]; // Cb
+            // Massage into NV21 format.
+            // Y plane first. Note that YUV_420_888 guarantees buf0PixelStride == 1.
+            if (buf0RowStride == vid->width) {
+                memcpy(buffer->bufPlanes[0], buf0p, buf0Size);
+            } else {
+                if (!vid->copyYWarning) {
+                    ARLOGw("ar2VideoPushExternal: Warning: caller sent YUV_420_888 with padded rows. Slower Y copy will occur.\n");
+                    vid->copyYWarning = true;
                 }
-                p1 += buf1RowStride;
-                p2 += buf2RowStride;
+                unsigned char *p = buffer->bufPlanes[0], *p0 = buf0p;
+                for (int i = 0; i < vid->height; i++) {
+                    memcpy(p, p0, vid->width);
+                    p += vid->width;
+                    p0 += buf0RowStride;
+                }
+            }
+            // Next, U (Cb) and V (Cr) planes.
+            if ((buf1PixelStride == 2 && buf2PixelStride == 2) && (buf1RowStride == vid->width && buf2RowStride == vid->width) && ((buf1p - 1) == buf2p)) {
+                // U and V planes both have pixelstride of 2, rowstride of pixelstride * vid->width/2, and are interleaved by 1 byte, so it's already NV21 and we can do a direct copy.
+                memcpy(buffer->bufPlanes[1], buf2p, 2*vid->width/2*vid->height/2);
+            } else {
+                // Tedious conversion to NV21.
+                if (!vid->copyUVWarning) {
+                    ARLOGw("ar2VideoPushExternal: Warning: caller sent YUV_420_888 with non-interleaved UV. Slow conversion will occur.\n");
+                    vid->copyUVWarning = true;
+                }
+                unsigned char *p = buffer->bufPlanes[1], *p1 = buf1p, *p2 = buf2p;
+                for (int i = 0; i < vid->height / 2; i++) {
+                    for (int j = 0; j < vid->width / 2; j++) {
+                        *p++ = p2[j * buf1PixelStride]; // Cr
+                        *p++ = p1[j * buf2PixelStride]; // Cb
+                    }
+                    p1 += buf1RowStride;
+                    p2 += buf2RowStride;
+                }
             }
         }
 
         // Convert if the user requested RGBA.
         if (vid->convertToRGBA) {
-            videoRGBA((uint32_t *)&vid->buffer.buff, &(vid->buffer), vid->width, vid->height, vid->pixelFormat);
+            videoRGBA((uint32_t *)&buffer->buff, buffer, vid->width, vid->height, vid->pixelFormat);
+        } else {
+            buffer->buff = buffer->bufPlanes[0];
         }
+        buffer->buffLuma = buffer->bufPlanes[0];
 
     } else if (vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_RGBA) {
         if ((vid->width * vid->height * 4) != buf0Size) {
             ARLOGe("ar2VideoPushExternal: Error: unexpected buffer size (%d) for format RGBA.\n", buf0Size);
             goto done;
         }
-        memcpy(vid->buffer.buff, buf0p, buf0Size);
+        if (!vid->copy) {
+            buffer->buff = buf0p;
+        } else {
+            memcpy(buffer->buff, buf0p, buf0Size);
+        }
+        buffer->buffLuma = NULL;
     } else if (vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_RGB_565) {
         if ((vid->width * vid->height * 2) != buf0Size) {
             ARLOGe("ar2VideoPushExternal: Error: unexpected buffer size (%d) for format RGB_565.\n", buf0Size);
             goto done;
         }
-        memcpy(vid->buffer.buff, buf0p, buf0Size);
+        if (!vid->copy) {
+            buffer->buff = buf0p;
+        } else {
+            memcpy(buffer->buff, buf0p, buf0Size);
+        }
+        buffer->buffLuma = NULL;
     } else if (vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_MONO) {
         if ((vid->width * vid->height) != buf0Size) {
             ARLOGe("ar2VideoPushExternal: Error: unexpected buffer size (%d) for format MONO.\n", buf0Size);
             goto done;
         }
-        memcpy(vid->buffer.buff, buf0p, buf0Size);
+        if (!vid->copy) {
+            buffer->buff = buf0p;
+        } else {
+            memcpy(buffer->buff, buf0p, buf0Size);
+        }
+        buffer->buffLuma = buffer->buff;
     }
 
     ret = 0;
+    buffer->fillFlag = 1;
     vid->pushNewFrameReady = true;
 
 done:
     pthread_mutex_unlock(&(vid->frameLock));
+    
+    if (vid->copy && releaseCallback) {
+        // If we've copied the data and user wanted a callback to release, invoke it now.
+        // (This is probably not a commonly used path, but here for sake of completeness).
+        (*releaseCallback)(releaseCallbackUserdata);
+    }
 
     return (ret);
 
@@ -882,19 +1038,40 @@ int ar2VideoPushFinalExternal(AR2VideoParamExternalT *vid)
 
     if (!vid->pushInited) goto done;
 
-    if (vid->buffer.bufPlaneCount > 0) {
-        for (int i = 0; i < vid->buffer.bufPlaneCount; i++) {
-            free(vid->buffer.bufPlanes[i]);
-            vid->buffer.bufPlanes[i] = NULL;
+    if (!vid->copy) {
+        for (int i = 0; i < 2; i++) {
+            if (vid->pixelFormat == AR_PIXEL_FORMAT_NV21 || vid->pixelFormat == AR_PIXEL_FORMAT_420f) {
+                free(vid->buffers[i].bufPlanes);
+                vid->buffers[i].bufPlanes = NULL;
+                vid->buffers[i].bufPlaneCount = 0;
+                if (vid->convertToRGBA) {
+                    free(vid->buffers[i].buff);
+                }
+            }
+            vid->buffers[i].buff = NULL;
+            vid->buffers[i].buffLuma = NULL;
         }
-        free(vid->buffer.bufPlanes);
-        vid->buffer.bufPlanes = NULL;
-        vid->buffer.bufPlaneCount = 0;
+        releaseAndUpdate(vid, 0, NULL, NULL);
+        releaseAndUpdate(vid, 1, NULL, NULL);
+        vid->bufferCheckoutState = -1;
+    } else {
+        if (vid->buffers[0].bufPlaneCount > 0) {
+            for (int i = 0; i < vid->buffers[0].bufPlaneCount; i++) {
+                free(vid->buffers[0].bufPlanes[i]);
+                vid->buffers[0].bufPlanes[i] = NULL;
+            }
+            free(vid->buffers[0].bufPlanes);
+            vid->buffers[0].bufPlanes = NULL;
+            vid->buffers[0].bufPlaneCount = 0;
+            if (vid->convertToRGBA) {
+                free(vid->buffers[0].buff);
+            }
+        } else {
+            free(vid->buffers[0].buff);
+        }
+        vid->buffers[0].buff = NULL;
+        vid->buffers[0].buffLuma = NULL;
     }
-    if (vid->convertToRGBA) {
-        free(vid->buffer.buff);
-    }
-    vid->buffer.buff = NULL;
     vid->width = vid->height = 0;
     vid->incomingPixelFormat = ARVideoExternalIncomingPixelFormat_UNKNOWN;
     vid->pushInited = false;

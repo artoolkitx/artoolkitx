@@ -654,13 +654,17 @@ public class ARX_jni {
      * @param buf3			For planar formats consisting of 4 planes, reference to a byte buffer holding plane 3 of the frame.
 	 * @param buf3PixelStride The number of bytes between pixels in adjacent columns in buf3
 	 * @param buf3RowStride The number of bytes between pixels in adjacent rows in buf3
+	 * @param releaseCallbackClassInstance Normally null, but if -nocopy was passed in vconf to arwStartRunning, then an instance of the class holding the method to callback to when the buffer is to be released. A reference to this instance will be held internally until after the callback has completed.
+	 * @param releaseCallbackMethodName Normally null, but if -nocopy was passed in vconf to arwStartRunning, then the full path name of the method in the class to callback to when the buffer is to be released. E.g. for a method named `func` in a class named `cls` in a package named `org.myorg`, this would be `org/myorg/cls/func`. The method must have void return type and accept a single parameter of type Object, e.g. `public void func(Object userData)` (where func matches the name passed in this parameter), i.e. type signature `(Ljava/lang/Object;)V`.
+	 * @param releaseCallbackUserdata Normally null, but if -nocopy was passed in vconf to arwStartRunning, then an object reference to pass to the callback when the buffer is to be released. A reference to this object will be held internally until after the callback has completed.
      * @return				0 if no error occurred, otherwise an error value less than 0.
      */
     public static native int arwVideoPush(int videoSourceIndex,
 										  ByteBuffer buf0, int buf0PixelStride, int buf0RowStride,
 										  ByteBuffer buf1, int buf1PixelStride, int buf1RowStride,
 										  ByteBuffer buf2, int buf2PixelStride, int buf2RowStride,
-										  ByteBuffer buf3, int buf3PixelStride, int buf3RowStride);
+										  ByteBuffer buf3, int buf3PixelStride, int buf3RowStride,
+										  Object releaseCallbackClassInstance, String releaseCallbackMethodName, Object releaseCallbackUserdata);
 
     /**
      * Tells the native library that no further frames will be pushed.

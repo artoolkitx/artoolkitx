@@ -13,7 +13,7 @@ artoolkitX is free to use! The SDK is licensed under the GNU Lesser General Publ
 
 Complete source is provided, and we encourage users to favourite the project on GitHub at https://github.com/artoolkitx/artoolkitx and log issues and read the documentation provided there, and to join the artoolkitX community via our homepage at http://www.artoolkitx.org.
 
-artoolkitX's development is currently unsponsored. The open source project is administered by long-term developers of ARToolKit and from and the open-source community.
+artoolkitX's development is currently generously sponsored by Ethar, Inc. https://ethar.com. The open source project is administered by long-term developers of ARToolKit and from and the open-source community.
 
 For experienced developers wanting to quickly make use of the SDK, please read the file [Quick start](Quick%20start.md). To read about the changes in this release, please read the file [Release notes](Release%20Notes.md).
 

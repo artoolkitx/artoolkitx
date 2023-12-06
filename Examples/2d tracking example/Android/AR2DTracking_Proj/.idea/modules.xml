@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AR2DTracking_Proj.iml" filepath="$PROJECT_DIR$/.idea/modules/AR2DTracking_Proj.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AR2DTrackingExample/AR2DTracking_Proj.AR2DTrackingExample.iml" filepath="$PROJECT_DIR$/.idea/modules/AR2DTrackingExample/AR2DTracking_Proj.AR2DTrackingExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AR2DTrackingExample/AR2DTracking_Proj.AR2DTrackingExample.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/AR2DTrackingExample/AR2DTracking_Proj.AR2DTrackingExample.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AR2DTrackingExample/AR2DTracking_Proj.AR2DTrackingExample.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AR2DTrackingExample/AR2DTracking_Proj.AR2DTrackingExample.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AR2DTrackingExample/AR2DTracking_Proj.AR2DTrackingExample.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/AR2DTrackingExample/AR2DTracking_Proj.AR2DTrackingExample.unitTest.iml" />
     </modules>

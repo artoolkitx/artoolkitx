@@ -866,7 +866,8 @@ int ARController::videoPush(int videoSourceIndex,
                             ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
                             ARUint8 *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
                             ARUint8 *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
-                            ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride)
+                            ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
+                            PFN_VIDEOPUSHRELEASECALLBACK releaseCallback, void *releaseCallbackUserdata)
 {
     if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
 
@@ -877,7 +878,7 @@ int ARController::videoPush(int videoSourceIndex,
         ARLOGe("ARController::videoPush: no ARVideoSource.\n");
     } else {
         if (vs->isOpen()) {
-            ret = vs->videoPush(buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
+            ret = vs->videoPush(buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride, releaseCallback, releaseCallbackUserdata);
         } else {
             ARLOGe("ARController::videoPush: ARVideoSource is not running.\n");
         }

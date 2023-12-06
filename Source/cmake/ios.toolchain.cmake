@@ -18,7 +18,7 @@ else()
     set(CMAKE_SYSTEM_NAME iOS)
 endif()
 
-set(CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "11.0" CACHE STRING "Code will load on this and later versions of iOS.")
+set(CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "12.0" CACHE STRING "Code will load on this and later versions of iOS.")
 # Target architectures must be set before Project() command.
 # iOS 11.0 and later support only 64-bit archs.
 #set(CMAKE_OSX_ARCHITECTURES "armv7;armv7s;arm64" CACHE STRING "A semicolon-separated list of the architectures for which the product will be built.")

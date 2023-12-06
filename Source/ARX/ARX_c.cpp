@@ -340,11 +340,12 @@ int arwVideoPush(int videoSourceIndex,
                 uint8_t *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
                 uint8_t *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
                 uint8_t *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
-                uint8_t *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride)
+                uint8_t *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
+                PFN_VIDEOPUSHRELEASECALLBACK releaseCallback, void *releaseCallbackUserdata)
 {
     if (!gARTK) return -1;
 
-    return (gARTK->videoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride));
+    return (gARTK->videoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride, releaseCallback, releaseCallbackUserdata));
 }
 
 int arwVideoPushFinal(int videoSourceIndex)
@@ -1120,7 +1121,8 @@ extern "C" {
                                        jobject buf0, jint buf0PixelStride, jint buf0RowStride,
                                        jobject buf1, jint buf1PixelStride, jint buf1RowStride,
                                        jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                                       jobject buf3, jint buf3PixelStride, jint buf3RowStride));
+                                       jobject buf3, jint buf3PixelStride, jint buf3RowStride,
+                                       jobject releaseCallbackClassInstance, jstring releaseCallbackMethodName, jobject releaseCallbackUserdata));
     JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex));
 
     JNIEXPORT jint JNICALL JNIFUNCTION(arwCreateVideoSourceInfoList(JNIEnv *env, jobject obj, jstring config));
@@ -1462,11 +1464,55 @@ JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushInit(JNIEnv *env, jobject obj, ji
     return ret;
 }
 
+typedef struct {
+    JavaVM* jvm;
+    jclass callbackObjectInstanceGlobalRef;
+    jmethodID callbackMethod;
+    jobject callbackUserdataGlobalRef;
+} arwVideoPushJNICallbackStubData;
+
+static void arwVideoPushJNICallbackStub(void *userData)
+{
+    if (!userData) return;
+    arwVideoPushJNICallbackStubData *data = (arwVideoPushJNICallbackStubData *)userData;
+
+    // To begin, get a reference to the env and attach to it.
+    JNIEnv *env;
+    int isAttached = 0;
+    if ((data->jvm->GetEnv((void**)&env, JNI_VERSION_1_6)) < 0) {
+        // Couldn't get JNI environment, so this thread is native.
+        if ((data->jvm->AttachCurrentThread(&env, NULL)) < 0) {
+            ARLOGe("Error: Couldn't attach to Java VM.\n");
+            return;
+        }
+        isAttached = 1;
+    }
+
+    env->CallObjectMethod(data->callbackObjectInstanceGlobalRef, data->callbackMethod, data->callbackUserdataGlobalRef);
+    
+    // Handle and cleanup any exception.
+    jthrowable exception = env->ExceptionOccurred();
+    if (exception) {
+        env->ExceptionDescribe();
+        env->ExceptionClear();
+    }
+
+    // Free the references.
+    env->DeleteGlobalRef(data->callbackObjectInstanceGlobalRef);
+    env->DeleteGlobalRef(data->callbackUserdataGlobalRef);
+
+    // If we attached a native thread, need to detach it.
+    if (isAttached) data->jvm->DetachCurrentThread();
+
+    free(userData);
+}
+
 JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPush(JNIEnv *env, jobject obj, jint videoSourceIndex,
                                                 jobject buf0, jint buf0PixelStride, jint buf0RowStride,
                                                 jobject buf1, jint buf1PixelStride, jint buf1RowStride,
                                                 jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                                                jobject buf3, jint buf3PixelStride, jint buf3RowStride))
+                                                jobject buf3, jint buf3PixelStride, jint buf3RowStride,
+                                                jobject releaseCallbackClassInstance, jstring releaseCallbackMethodName, jobject releaseCallbackUserdata))
 {
     if (!gARTK) {
         return -1;
@@ -1490,7 +1536,39 @@ JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPush(JNIEnv *env, jobject obj, jint v
         buf3Size = (int)env->GetDirectBufferCapacity(buf3);
     }
 
-    return gARTK->videoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride);
+    // Handle release callback if caller requested it.
+    if (releaseCallbackClassInstance && releaseCallbackMethodName) {
+        JavaVM *jvm = NULL;
+        env->GetJavaVM(&jvm);
+        if (jvm) {
+            jclass classOfReleaseCallbackObjectInstance = env->GetObjectClass(releaseCallbackClassInstance);
+            if (classOfReleaseCallbackObjectInstance) {
+                jclass callbackObjectInstanceGlobalRef = (jclass)env->NewGlobalRef(classOfReleaseCallbackObjectInstance);
+                if (callbackObjectInstanceGlobalRef) {
+                    const char *releaseCallbackMethodNameC = env->GetStringUTFChars(releaseCallbackMethodName, NULL);
+                    if (releaseCallbackMethodNameC) {
+                        jmethodID callbackMethod = env->GetMethodID(classOfReleaseCallbackObjectInstance, releaseCallbackMethodNameC, "(Ljava/lang/Object;)V"); // public void func(Object userData);
+                        env->ReleaseStringUTFChars(releaseCallbackMethodName, releaseCallbackMethodNameC);
+                        if (!callbackMethod) {
+                            env->DeleteGlobalRef(callbackObjectInstanceGlobalRef);
+                        } else {
+                            jobject callbackUserdataGlobalRef = NULL;
+                            if (!releaseCallbackUserdata || ((callbackUserdataGlobalRef = env->NewGlobalRef(releaseCallbackUserdata)) != NULL)) {
+                                arwVideoPushJNICallbackStubData *data = (arwVideoPushJNICallbackStubData *)malloc(sizeof(arwVideoPushJNICallbackStubData));
+                                data->jvm = jvm;
+                                data->callbackObjectInstanceGlobalRef = callbackObjectInstanceGlobalRef;
+                                data->callbackMethod = callbackMethod;
+                                data->callbackUserdataGlobalRef = callbackUserdataGlobalRef;
+                                return gARTK->videoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride, arwVideoPushJNICallbackStub, data);
+                            }
+                        }                    
+                    }
+                }
+            }
+        }
+    }
+
+    return gARTK->videoPush(videoSourceIndex, buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride, NULL, NULL);
 }
 
 JNIEXPORT jint JNICALL JNIFUNCTION(arwVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex))
