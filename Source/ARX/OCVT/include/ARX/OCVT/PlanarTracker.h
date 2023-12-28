@@ -88,8 +88,14 @@ public:
     std::vector<int> GetImageIds();
     TrackedImageInfo GetTrackableImageInfo(int trackableId);
     
-    void SetFeatureDetector(int detectorType);
-    int GetFeatureDetector(void);
+    enum class FeatureDetectorType {
+        Akaze,
+        ORB,
+        Brisk,
+        Kaze
+    };
+    void SetFeatureDetector(FeatureDetectorType detectorType);
+    FeatureDetectorType GetFeatureDetector(void);
 
     void SetMaximumNumberOfMarkersToTrack(int maximumNumberOfMarkersToTrack);
     int GetMaximumNumberOfMarkersToTrack(void);

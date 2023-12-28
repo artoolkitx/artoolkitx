@@ -42,11 +42,11 @@ int maxLevel = 3; ///< Maximum number of levels in optical flow image pyramid.
 const cv::Size subPixWinSize(10,10);
 const cv::Size winSize(31,31);
 cv::TermCriteria termcrit(cv::TermCriteria::COUNT|cv::TermCriteria::EPS,20,0.03);
-const int MAX_COUNT = 300;
+const int featureDetectMaxFeatures = 300;
 int searchRadius = 15;
 int match_method = cv::TM_SQDIFF_NORMED;
 int featureDetectPyramidLevel = 2; ///> Scale factor applied to image pyramid to determine image to perform feature matching upon.
-int defaultDetectorType = 0;
+PlanarTracker::FeatureDetectorType defaultDetectorType = PlanarTracker::FeatureDetectorType::Akaze;
 const double nn_match_ratio = 0.8f; ///< Nearest-neighbour matching ratio
 const double ransac_thresh = 2.5f; ///< RANSAC inlier threshold
 cv::RNG rng( 0xFFFFFFFF );

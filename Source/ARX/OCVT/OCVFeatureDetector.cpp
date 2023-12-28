@@ -42,20 +42,20 @@ OCVFeatureDetector::OCVFeatureDetector()
 {
 }
 
-void OCVFeatureDetector::SetFeatureDetector(int detectorType)
+void OCVFeatureDetector::SetFeatureDetector(PlanarTracker::FeatureDetectorType detectorType)
 {
     switch (detectorType) {
-        case 1:
+        case PlanarTracker::FeatureDetectorType::Akaze:
+            CreateAkazeFeatureDetector();
+            break;
+        case PlanarTracker::FeatureDetectorType::ORB:
             CreateORBFeatureDetector();
             break;
-        case 2:
+        case PlanarTracker::FeatureDetectorType::Brisk:
             CreateBriskFeatureDetector();
             break;
-        case 3:
+        case PlanarTracker::FeatureDetectorType::Kaze:
             CreateKazeFeatureDetector();
-            break;
-        default:
-            CreateAkazeFeatureDetector();
             break;
     }
 }
@@ -86,7 +86,7 @@ void OCVFeatureDetector::CreateORBFeatureDetector()
 
 bool OCVFeatureDetector::AddDescriptorsToDictionary(int id, cv::Mat descriptors)
 {
-    if ( _visualDictionary.find(id) == _visualDictionary.end() ) {
+    if (_visualDictionary.find(id) == _visualDictionary.end()) {
         _visualDictionary.insert(std::pair<int,cv::Mat>(id, descriptors));
         return true;
     }

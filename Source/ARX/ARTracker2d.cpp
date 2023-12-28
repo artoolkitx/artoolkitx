@@ -416,14 +416,14 @@ bool ARTracker2d::saveImageDatabase(std::string filename)
     return m_2DTracker->SaveTrackableDatabase(filename);
 }
 
-void ARTracker2d::setDetectorType(int detectorType)
+void ARTracker2d::setDetectorType(PlanarTracker::FeatureDetectorType detectorType)
 {
     if (unloadTwoDData()) {
         m_2DTracker->SetFeatureDetector(detectorType);
     }
 }
 
-int ARTracker2d::getDetectorType(void)
+PlanarTracker::FeatureDetectorType ARTracker2d::getDetectorType(void)
 {
     return m_2DTracker->GetFeatureDetector();
 }

@@ -66,7 +66,7 @@ private:
     cv::Mat _K;
     cv::Mat _distortionCoeff;
 
-    int _selectedFeatureDetectorType;
+    FeatureDetectorType _selectedFeatureDetectorType;
 public:
     PlanarTrackerImpl()
     {
@@ -494,7 +494,7 @@ public:
             try {
                 int totalTrackables = (int)_trackables.size();
                 fs << "totalTrackables" << totalTrackables;
-                fs << "featureType" << _selectedFeatureDetectorType;
+                fs << "featureType" << (int)_selectedFeatureDetectorType;
                 for (int i = 0; i <_trackables.size(); i++) {
                     std::string index = std::to_string(i);
                     fs << "trackableId" + index << _trackables[i]._id;
@@ -530,8 +530,10 @@ public:
         {
             try {
                 int numberOfTrackables = (int) fs["totalTrackables"];
-                int featureType = defaultDetectorType;
-                fs["featureType"] >> featureType;
+                FeatureDetectorType featureType = defaultDetectorType;
+                int featureTypeInt;
+                fs["featureType"] >> featureTypeInt;
+                featureType = (FeatureDetectorType)featureTypeInt;
                 SetFeatureDetector(featureType);
                 for(int i=0;i<numberOfTrackables; i++) {
                     TrackableInfo newTrackable;
@@ -680,13 +682,13 @@ public:
         return info;
     }
     
-    void SetFeatureDetector(int detectorType)
+    void SetFeatureDetector(FeatureDetectorType detectorType)
     {
         _selectedFeatureDetectorType = detectorType;
         _featureDetector.SetFeatureDetector(detectorType);
     }
 
-    int GetFeatureDetector(void)
+    FeatureDetectorType GetFeatureDetector(void)
     {
         return _selectedFeatureDetectorType;
     }
@@ -765,12 +767,12 @@ TrackedImageInfo PlanarTracker::GetTrackableImageInfo(int trackableId)
     return _trackerImpl->GetTrackableImageInfo(trackableId);
 }
 
-void PlanarTracker::SetFeatureDetector(int detectorType)
+void PlanarTracker::SetFeatureDetector(FeatureDetectorType detectorType)
 {
     _trackerImpl->SetFeatureDetector(detectorType);
 }
 
-int PlanarTracker::GetFeatureDetector(void)
+PlanarTracker::FeatureDetectorType PlanarTracker::GetFeatureDetector(void)
 {
     return _trackerImpl->GetFeatureDetector();
 }

@@ -89,8 +89,8 @@ public:
     bool loadImageDatabase(std::string filename);
     bool saveImageDatabase(std::string filename);
     
-    void setDetectorType(int detectorType);
-    int getDetectorType(void);
+    void setDetectorType(PlanarTracker::FeatureDetectorType detectorType);
+    PlanarTracker::FeatureDetectorType getDetectorType(void);
 
     bool threaded(void) const;
     void setThreaded(bool threaded);

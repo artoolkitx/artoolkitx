@@ -433,8 +433,15 @@ void arwSetTrackerOptionInt(int option, int value)
         gARTK->getSquareTracker()->setPatternCountMax(value);
     } else if (option == ARW_TRACKER_OPTION_2D_TRACKER_FEATURE_TYPE) {
 #if HAVE_2D
-        if (value < 0 || value > 3) return;
-        gARTK->get2dTracker()->setDetectorType(value);
+        PlanarTracker::FeatureDetectorType type;
+        switch (value) {
+            case 0: type = PlanarTracker::FeatureDetectorType::Akaze; break;
+            case 1: type = PlanarTracker::FeatureDetectorType::ORB; break;
+            case 2: type = PlanarTracker::FeatureDetectorType::Brisk; break;
+            case 3: type = PlanarTracker::FeatureDetectorType::Kaze; break;
+            default: return;
+        }
+        gARTK->get2dTracker()->setDetectorType(type);
 #endif
     } else if (option == ARW_TRACKER_OPTION_2D_MAXIMUM_MARKERS_TO_TRACK) {
 #if HAVE_2D
@@ -498,7 +505,14 @@ int arwGetTrackerOptionInt(int option)
         return gARTK->getSquareTracker()->patternCountMax();
     } else if (option == ARW_TRACKER_OPTION_2D_TRACKER_FEATURE_TYPE) {
 #if HAVE_2D
-        return gARTK->get2dTracker()->getDetectorType();
+        PlanarTracker::FeatureDetectorType type = gARTK->get2dTracker()->getDetectorType();
+        switch (type) {
+            case PlanarTracker::FeatureDetectorType::Akaze: return 0;
+            case PlanarTracker::FeatureDetectorType::ORB: return 1;
+            case PlanarTracker::FeatureDetectorType::Brisk: return 2;
+            case PlanarTracker::FeatureDetectorType::Kaze: return 3;
+            default: return -1;
+        }
 #endif
     } else if (option == ARW_TRACKER_OPTION_2D_MAXIMUM_MARKERS_TO_TRACK) {
 #if HAVE_2D

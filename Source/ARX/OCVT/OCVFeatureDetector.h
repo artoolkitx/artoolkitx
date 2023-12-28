@@ -56,7 +56,7 @@ public:
     
     std::vector< std::vector<cv::DMatch> >  MatchFeatures(cv::Mat first_desc, cv::Mat desc);
     
-    OCV_EXTERN void SetFeatureDetector(int detectorType);
+    OCV_EXTERN void SetFeatureDetector(PlanarTracker::FeatureDetectorType detectorType);
     
 private:
     void CreateAkazeFeatureDetector();

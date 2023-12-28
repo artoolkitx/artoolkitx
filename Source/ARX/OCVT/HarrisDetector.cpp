@@ -52,7 +52,7 @@ std::vector<cv::Point2f> HarrisDetector::FindCorners(cv::Mat gray)
     maskRoi.setTo(cv::Scalar(255));
 
     std::vector<cv::Point2f> trackablePointsWarped;
-    goodFeaturesToTrack(gray, trackablePointsWarped, MAX_COUNT, 0.1, 10, mask, 3, false, 0.04);
+    goodFeaturesToTrack(gray, trackablePointsWarped, featureDetectMaxFeatures, 0.1, 10, mask, 3, false, 0.04);
 
     mask.release();
 
