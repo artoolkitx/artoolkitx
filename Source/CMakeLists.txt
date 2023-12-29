@@ -123,12 +123,6 @@ if (ARX_TARGET_PLATFORM_IOS OR ARX_TARGET_PLATFORM_MACOS)
     else()
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
     endif()
-    if (ARX_TARGET_PLATFORM_MACOS)
-        # enable @rpath in the install name for any shared library being built
-        set(CMAKE_MACOSX_RPATH 1)
-        # use, i.e. don't skip the full RPATH for the build tree
-        SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
-    endif()
 endif()
 
 # For gcc < 5, ensure C99 compliance. (As of gcc v5, gnu11 is the default.)
@@ -175,11 +169,18 @@ if (ARX_TARGET_PLATFORM_IOS)
 
 elseif(ARX_TARGET_PLATFORM_MACOS)
 
+	# enable @rpath in the install name for any shared library being built
+	set(CMAKE_MACOSX_RPATH 1)
+	# use, i.e. don't skip the full RPATH for the build tree
+	SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
     set(USE_CPARAM_SEARCH 1)
     set(MACOSX_BUNDLE_GUI_IDENTIFIER CACHE STRING "org.artoolkitx.\${PRODUCT_NAME:identifier}")
     set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${ARX_VERSION_STRING}")
     set(MACOSX_BUNDLE_VERSION "${ARX_VERSION_NUMBER}")
     set(VENDOR_DIR ${CMAKE_SOURCE_DIR}/vendor)
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-ld_classic")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-ld_classic")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-ld_classic")
 
 elseif(ARX_TARGET_PLATFORM_ANDROID)
 
