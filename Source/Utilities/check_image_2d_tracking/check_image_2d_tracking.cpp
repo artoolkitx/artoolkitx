@@ -79,7 +79,6 @@
 
 #define FONT_SIZE 18.0f
 
-
 enum {
     E_NO_ERROR = 0,
     E_BAD_PARAMETER = 64,
@@ -96,9 +95,9 @@ enum {
 // ============================================================================
 
 // Preferences.
-static int              display_templates = 0;
-static int              display_features = 0;
-static int              display_bins = 0;
+static int              display_templates = 1;
+static int              display_features = 1;
+static int              display_bins = 1;
 static char            *inputFilePath = NULL;
 
 // Input.
@@ -113,10 +112,10 @@ static double                   imageZoom = 1.0f;
 
 // Drawing.
 // Window and GL context.
-static SDL_GLContext gSDLContext = NULL;
-static int contextWidth = 0;
-static int contextHeight = 0;
-static SDL_Window* gSDLWindow = NULL;
+static SDL_GLContext gSDLImageContext = NULL;
+static int gImageContextWidth = 0;
+static int gImageContextHeight = 0;
+static SDL_Window* gSDLImageWindow = NULL;
 static ARGL_CONTEXT_SETTINGS_REF gArglContextSettings = NULL;
 static int gShowHelp = 1;
 static int gShowMode = 1;
@@ -129,13 +128,15 @@ static char             exitcode = -1;
 // ============================================================================
 
 static void loadImage(void);
+static void getImageFeature();
 static void setImagePage(int page_in);
 static void quit(int rc);
-static void reshape(int w, int h);
+static float calcZoomToFit(int sourceSizeX, int sourceSizeY, int destSizeX, int destSizeY);
+static void reshapeImageWindow(int w, int h);
 static void keyboard(SDL_Keycode key);
 static void processCommandLineOptions(int argc, char *argv[]);
 static void usage(char *com);
-static void drawView(void);
+static void drawImageView(void);
 static void drawBackground(const float width, const float height, const float x, const float y);
 static void printHelpKeys(void);
 static void printMode(void);
@@ -155,13 +156,21 @@ int main(int argc, char *argv[])
     // Preferences.
     processCommandLineOptions(argc, argv);
     
-    // Create a window.
-    gSDLWindow = SDL_CreateWindow(argv[0],
+    SDL_DisplayMode dm;
+    SDL_GetCurrentDisplayMode(0, &dm);
+    int screenWidth = dm.w;
+    int screenHeight = dm.h;
+
+    loadImage();
+    float imageZoom = calcZoomToFit(refImageX, refImageY, screenWidth - 200, screenHeight - 200);
+
+    // Create a window to display the image.
+    gSDLImageWindow = SDL_CreateWindow(argv[0],
                                   SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                  1280, 720,
+                                  (int)(refImageX * imageZoom), (int)(refImageY * imageZoom),
                                   SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI
                                   );
-    if (!gSDLWindow) {
+    if (!gSDLImageWindow) {
         ARLOGe("Error creating window: %s.\n", SDL_GetError());
         quit(-1);
     }
@@ -172,20 +181,20 @@ int main(int argc, char *argv[])
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); // This is the default.
     SDL_GL_SetSwapInterval(1);
-    gSDLContext = SDL_GL_CreateContext(gSDLWindow);
-    if (!gSDLContext) {
+    gSDLImageContext = SDL_GL_CreateContext(gSDLImageWindow);
+    if (!gSDLImageContext) {
         ARLOGe("Error creating OpenGL context: %s.\n", SDL_GetError());
         return -1;
     }
     int w, h;
-    SDL_GL_GetDrawableSize(SDL_GL_GetCurrentWindow(), &w, &h);
-    reshape(w, h);
+    SDL_GL_GetDrawableSize(gSDLImageWindow, &w, &h);
+    reshapeImageWindow(w, h);
     
     EdenGLFontInit(1); // contextsActiveCount=1
     EdenGLFontSetFont(EDEN_GL_FONT_ID_Stroke_Roman);
     EdenGLFontSetSize(FONT_SIZE);
     
-    loadImage();
+    getImageFeature();
     
     // Main loop.
     bool done = false;
@@ -198,12 +207,12 @@ int main(int argc, char *argv[])
                 break;
             } else if (ev.type == SDL_WINDOWEVENT) {
                 //ARLOGd("Window event %d.\n", ev.window.event);
-                if (ev.window.event == SDL_WINDOWEVENT_RESIZED && ev.window.windowID == SDL_GetWindowID(gSDLWindow)) {
+                if (ev.window.event == SDL_WINDOWEVENT_RESIZED && ev.window.windowID == SDL_GetWindowID(gSDLImageWindow)) {
                     //int32_t w = ev.window.data1;
                     //int32_t h = ev.window.data2;
                     int w, h;
-                    SDL_GL_GetDrawableSize(gSDLWindow, &w, &h);
-                    reshape(w, h);
+                    SDL_GL_GetDrawableSize(gSDLImageWindow, &w, &h);
+                    reshapeImageWindow(w, h);
                 }
             } else if (ev.type == SDL_KEYDOWN) {
                 keyboard(ev.key.keysym.sym);
@@ -215,12 +224,12 @@ int main(int argc, char *argv[])
     quit(0);
 }
 
-static void reshape(int w, int h)
+static void reshapeImageWindow(int w, int h)
 {
-    contextWidth = w;
-    contextHeight = h;
+    gImageContextWidth = w;
+    gImageContextHeight = h;
     ARLOGd("Resized to %dx%d.\n", w, h);
-    drawView();
+    drawImageView();
 }
 
 static void quit(int rc)
@@ -249,7 +258,10 @@ static void loadImage(void)
         exit(0);
     }
     ARPRINT("  end.\n");
-    
+}
+
+static void getImageFeature()
+{
     if (display_templates || display_features) {
         cv::Mat _image = cv::Mat(refImageY, refImageX, CV_8UC1, refImage.get());
         if (display_templates) {
@@ -287,7 +299,7 @@ static void setImagePage(int page_in)
     gArglContextSettings = arglSetupForCurrentContext(&cparam, AR_PIXEL_FORMAT_MONO);
     arglDistortionCompensationSet(gArglContextSettings, FALSE);
     arglPixelBufferDataUpload(gArglContextSettings, refImage.get());
-    drawView();
+    drawImageView();
 }
 
 static void processCommandLineOptions(int argc, char *argv[])
@@ -325,23 +337,17 @@ static void processCommandLineOptions(int argc, char *argv[])
                 else if (strcmp(&(argv[i][10]), "ERROR") == 0) arLogLevel = AR_LOG_LEVEL_ERROR;
                 else usage(argv[0]);
             } else if (strcmp(argv[i], "-templates") == 0) {
-                display_defaults = 0;
                 display_templates = 1;
             } else if (strcmp(argv[i], "-notemplates") == 0) {
-                display_defaults = 0;
                 display_templates = 0;
             } else if (strcmp(argv[i], "-features") == 0) {
-                display_defaults = 0;
                 display_features = 1;
             } else if (strcmp(argv[i], "-nofeatures") == 0) {
-                display_defaults = 0;
                 display_features = 0;
             } else if( strcmp(argv[i], "-bins") == 0 ) {
-                display_defaults = 0;
-                display_bins = 0;
-            } else if( strcmp(argv[i], "-nobins") == 0 ) {
-                display_defaults = 0;
                 display_bins = 1;
+            } else if( strcmp(argv[i], "-nobins") == 0 ) {
+                display_bins = 0;
             } else {
                 if (!inputFilePath) inputFilePath = strdup(argv[i]);
                 else usage(argv[0]);
@@ -350,7 +356,6 @@ static void processCommandLineOptions(int argc, char *argv[])
         i++;
     }
     if (!inputFilePath) usage(argv[0]);
-    if (display_defaults) display_features = display_templates = display_bins = 1;
 }
 
 static void usage( char *com )
@@ -395,27 +400,32 @@ static void keyboard(SDL_Keycode key)
             break;
     }
     if (redraw) {
-        drawView();
+        drawImageView();
     }
+}
+
+static float calcZoomToFit(int sourceSizeX, int sourceSizeY, int destSizeX, int destSizeY)
+{
+    float xzoom, yzoom;
+    xzoom = (float)destSizeX / (float)sourceSizeX;
+    yzoom = (float)destSizeY / (float)sourceSizeY;
+    return (xzoom > yzoom ? yzoom : xzoom);
 }
 
 //
 // This function is called when the window needs redrawing.
 //
-static void drawView(void)
+static void drawImageView(void)
 {
     int i;
     int viewport[4];
     
     if (!refImage || !gArglContextSettings) return;
     
-    SDL_GL_MakeCurrent(gSDLWindow, gSDLContext);
+    SDL_GL_MakeCurrent(gSDLImageWindow, gSDLImageContext);
     
-    float xzoom, yzoom;
-    xzoom = (float)contextWidth / (float)refImageX;
-    yzoom = (float)contextHeight / (float)refImageY;
-    imageZoom = (xzoom > yzoom ? yzoom : xzoom);
-    ARPRINT("%dx%d input image will display in %dx%d window at %.1f%% size\n", refImageX, refImageY, contextWidth, contextHeight, imageZoom*100.0f);
+    imageZoom = calcZoomToFit(refImageX, refImageY, gImageContextWidth, gImageContextHeight);
+    ARPRINT("%dx%d input image will display in %dx%d window at %.1f%% size\n", refImageX, refImageY, gImageContextWidth, gImageContextHeight, imageZoom*100.0f);
     
     viewport[0] = 0;
     viewport[1] = 0;
@@ -535,14 +545,14 @@ static void drawView(void)
     }
     
     // 2D overlays in context space.
-    glViewport(0, 0, contextWidth, contextHeight);
+    glViewport(0, 0, gImageContextWidth, gImageContextHeight);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(0, (GLdouble)contextWidth, 0, (GLdouble)contextHeight, -1.0, 1.0);
+    glOrtho(0, (GLdouble)gImageContextWidth, 0, (GLdouble)gImageContextHeight, -1.0, 1.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    EdenGLFontSetViewSize(contextWidth, contextHeight);
+    EdenGLFontSetViewSize(gImageContextWidth, gImageContextHeight);
     glLineWidth(1.0f);
     float white[4] = {1.0f, 1.0f, 1.0f, 1.0f};
     EdenGLFontSetColor(white);
@@ -558,7 +568,7 @@ static void drawView(void)
         }
     }
     
-    SDL_GL_SwapWindow(gSDLWindow);
+    SDL_GL_SwapWindow(gSDLImageWindow);
 }
 
 //
@@ -638,7 +648,7 @@ static void printMode()
     }
 */
     // Window size.
-    snprintf(text, sizeof(text), "Drawing into %dx%d window", contextWidth, contextHeight);
+    snprintf(text, sizeof(text), "Drawing into %dx%d window", gImageContextWidth, gImageContextHeight);
     EdenGLFontDrawLine(0, NULL, (unsigned char *)text, 2.0f,  (line - 1)*FONT_SIZE + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_TEXT_TOP_TO_VIEW_TOP);
     line++;
 
