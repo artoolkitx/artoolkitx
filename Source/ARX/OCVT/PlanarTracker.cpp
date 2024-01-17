@@ -63,10 +63,12 @@ private:
     int _frameCount;
     int _frameSizeX;
     int _frameSizeY;
+    int _featureDetectPyrLevel; ///> Pyramid level used in downsampling incoming image for feature matching. 0 = no size change, 1 = half width/height, 2 = quarter width/heigh etc.
+    cv::Vec2f _featureDetectScaleFactor; ///> Scale factor applied to images used for feature matching. Will be 2^_featureDetectPyrLevel,
     cv::Mat _K;
     cv::Mat _distortionCoeff;
 
-    int _selectedFeatureDetectorType;
+    FeatureDetectorType _selectedFeatureDetectorType;
 public:
     PlanarTrackerImpl()
     {
@@ -79,6 +81,8 @@ public:
         _resetCount = 30;
         _frameSizeX = 0;
         _frameSizeY = 0;
+        _featureDetectPyrLevel = 0;
+        _featureDetectScaleFactor = cv::Vec2f(1.0f, 1.0f);
         _K = cv::Mat();
         _distortionCoeff = cv::Mat();
     }
@@ -87,6 +91,21 @@ public:
     {
         _frameSizeX = cParam.xsize;
         _frameSizeY = cParam.ysize;
+        
+        // Calculate image downsamping factor. 0 = no size change, 1 = half width and height, 2 = quarter width and height etc.
+        double xmin_log2 = std::log2(static_cast<double>(featureImageMinSize.width));
+        double ymin_log2 = std::log2(static_cast<double>(featureImageMinSize.height));
+        _featureDetectPyrLevel = std::min(std::floor(std::log2(static_cast<double>(_frameSizeX)) - xmin_log2), std::floor(std::log2(static_cast<double>(_frameSizeY)) - ymin_log2));
+        
+        // Calculate the exact scale factor using the same calculation pyrDown uses.
+        int xScaled = _frameSizeX;
+        int yScaled = _frameSizeY;
+        for (int i = 1; i <= _featureDetectPyrLevel; i++) {
+            xScaled = (xScaled + 1) / 2;
+            yScaled = (yScaled + 1) / 2;
+            _featureDetectScaleFactor = cv::Vec2f((float)_frameSizeX / (float)xScaled, (float)_frameSizeY / (float)yScaled);
+        }
+
         _K = cv::Mat(3,3, CV_64FC1);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -106,8 +125,13 @@ public:
         } else {
             ARLOGw("Unsupported camera parameters.\n");
         }
+        
+        _pyramid.clear();
+        _prevPyramid.clear();
     }
     
+    /// Creates a mask image where the areas occupied by all currently tracked markers are 0, and all areas
+    /// outside the markers are 1.
     cv::Mat CreateFeatureMask(cv::Mat frame)
     {
         cv::Mat featureMask;
@@ -119,22 +143,12 @@ public:
                 }
                 std::vector<std::vector<cv::Point> > contours(1);
                 for (int j = 0; j < 4; j++) {
-                    contours[0].push_back(cv::Point(_trackables[i]._bBoxTransformed[j].x/featureDetectPyramidLevel,_trackables[i]._bBoxTransformed[j].y/featureDetectPyramidLevel));
+                    contours[0].push_back(cv::Point(_trackables[i]._bBoxTransformed[j].x/_featureDetectScaleFactor[0],_trackables[i]._bBoxTransformed[j].y/_featureDetectScaleFactor[1]));
                 }
-                drawContours(featureMask, contours, 0, cv::Scalar(0), -1, 8);
+                drawContours(featureMask, contours, 0, cv::Scalar(0), cv::LineTypes::FILLED, cv::LineTypes::LINE_8);
             }
         }
         return featureMask;
-    }
-    
-    bool CanDetectNewFeatures()
-    {
-        return (_currentlyTrackedMarkers < _maxNumberOfMarkersToTrack);
-    }
-    
-    bool CanMatchNewFeatures(int detectedFeaturesSize)
-    {
-        return (detectedFeaturesSize > minRequiredDetectedFeatures);
     }
     
     void MatchFeatures(std::vector<cv::KeyPoint> newFrameFeatures, cv::Mat newFrameDescriptors)
@@ -172,8 +186,8 @@ public:
         
         if (maxMatches > 0) {
             for (int i = 0; i < finalMatched1.size(); i++) {
-                finalMatched1[i].pt.x *=featureDetectPyramidLevel;
-                finalMatched1[i].pt.y *=featureDetectPyramidLevel;
+                finalMatched1[i].pt.x *= _featureDetectScaleFactor[0];
+                finalMatched1[i].pt.y *= _featureDetectScaleFactor[1];
             }
             
             HomographyInfo homoInfo = GetHomographyInliers(Points(finalMatched2), Points(finalMatched1));
@@ -207,6 +221,7 @@ public:
         std::vector<uchar> statusFirstPass, statusSecondPass;
         std::vector<float> err;
         cv::calcOpticalFlowPyrLK(_prevPyramid, _pyramid, trackablePointsWarped, flowResultPoints, statusFirstPass, err, winSize, 3, termcrit, 0, 0.001);
+        // By using bi-directional optical flow, we improve quality of detected points.
         cv::calcOpticalFlowPyrLK(_pyramid, _prevPyramid, flowResultPoints, trackablePointsWarpedResult, statusSecondPass, err, winSize, 3, termcrit, 0, 0.001);
         
         int killed1 = 0;
@@ -408,61 +423,60 @@ public:
         }
     }
     
-    void BuildImagePyramid(cv::Mat frame)
-    {
-        cv::buildOpticalFlowPyramid(frame, _pyramid, winSize, maxLevel);
-    }
-    
-    void SwapImagePyramid()
-    {
-        _pyramid.swap(_prevPyramid);
-    }
-    
+    /// Wrap raw frame data in `frame` with a cv::Mat structure, then process it for tracking.
+    /// As the data is not copied,`frame` must remain valid for the duration of the call.
     void ProcessFrameData(unsigned char * frame)
     {
-        // Just wraps `frame` rather than copying it, i.e. `frame` must remain valid
-        // for the duration of the call.
-        cv::Mat newFrame(_frameSizeY, _frameSizeX, CV_8UC1, frame);
+        cv::Mat newFrame(_frameSizeY, _frameSizeX, CV_8UC1, frame); // cv::Mat(int rows, int cols, int type, void* data, size_t step=AUTO_STEP);
         ProcessFrame(newFrame);
         newFrame.release();
     }
     
     void ProcessFrame(cv::Mat frame)
     {
-        //std::cout << "Building pyramid" << std::endl;
-        BuildImagePyramid(frame);
-        //std::cout << "Drawing detected markers to mask" << std::endl;
-        if (CanDetectNewFeatures()) {
-            //std::cout << "Detecting new features" << std::endl;
+        //std::cout << "Building optical flow pyramid" << std::endl;
+        cv::buildOpticalFlowPyramid(frame, _pyramid, winSize, maxLevel);
+        
+        // Don't do feature matching if we're already tracking the max number of markers.
+        if (_currentlyTrackedMarkers < _maxNumberOfMarkersToTrack) {
             cv::Mat detectionFrame;
-            cv::pyrDown(frame, detectionFrame, cv::Size(frame.cols/featureDetectPyramidLevel, frame.rows/featureDetectPyramidLevel));
+            if (_featureDetectPyrLevel < 1) {
+                detectionFrame = frame;
+            } else {
+                cv::Mat srcFrame = frame;
+                for (int pyrLevel = 1; pyrLevel <= _featureDetectPyrLevel; pyrLevel++) {
+                    cv::pyrDown(srcFrame, detectionFrame, cv::Size(0, 0));
+                    srcFrame = detectionFrame;
+                }
+            }
+            //std::cout << "Drawing detected markers to mask" << std::endl;
             cv::Mat featureMask = CreateFeatureMask(detectionFrame);
+            //std::cout << "Detecting new features" << std::endl;
             std::vector<cv::KeyPoint> newFrameFeatures = _featureDetector.DetectFeatures(detectionFrame, featureMask);
             
-            if (CanMatchNewFeatures(static_cast<int>(newFrameFeatures.size()))) {
+            if (static_cast<int>(newFrameFeatures.size()) > minRequiredDetectedFeatures) {
                 //std::cout << "Matching new features" << std::endl;
                 cv::Mat newFrameDescriptors = _featureDetector.CalcDescriptors(detectionFrame, newFrameFeatures);
                 MatchFeatures(newFrameFeatures, newFrameDescriptors);
             }
         }
-        if (_frameCount>0)
-        {
-            if ((_currentlyTrackedMarkers>0) && (_prevPyramid.size()>0)) {
-                //std::cout << "Begin tracking phase" << std::endl;
-                for (int i = 0; i <_trackables.size(); i++) {
-                    if (_trackables[i]._isDetected) {
-                        std::vector<cv::Point2f> trackablePoints = SelectTrackablePoints(i);
-                        std::vector<cv::Point2f> trackablePointsWarped = _trackables[i]._trackSelection.GetSelectedFeaturesWarped();
-                        //std::cout << "Starting Optical Flow" << std::endl;
-                        RunOpticalFlow(i, trackablePoints, trackablePointsWarped);
-                        if (_trackables[i]._isTracking) {
-                            //Refine optical flow with template match.
-                            RunTemplateMatching(frame, i);
-                        }
+        
+        if (_frameCount > 0 && (_currentlyTrackedMarkers > 0) && (_prevPyramid.size() > 0)) {
+            //std::cout << "Begin tracking phase" << std::endl;
+            for (int i = 0; i <_trackables.size(); i++) {
+                if (_trackables[i]._isDetected) {
+                    std::vector<cv::Point2f> trackablePoints = SelectTrackablePoints(i);
+                    std::vector<cv::Point2f> trackablePointsWarped = _trackables[i]._trackSelection.GetSelectedFeaturesWarped();
+                    //std::cout << "Starting Optical Flow" << std::endl;
+                    RunOpticalFlow(i, trackablePoints, trackablePointsWarped);
+                    if (_trackables[i]._isTracking) {
+                        //Refine optical flow with template match.
+                        RunTemplateMatching(frame, i);
                     }
                 }
             }
         }
+
         for (auto&& t : _trackables) {
             if (t._isDetected || t._isTracking) {
                 
@@ -472,7 +486,9 @@ public:
                 CameraPoseFromPoints(t._pose, objPoints, imgPoints);
             }
         }
-        SwapImagePyramid();
+        
+        // Done processing. Stash pyramid for optical flow for next frame.
+        _pyramid.swap(_prevPyramid);
         _frameCount++;
     }
     
@@ -494,7 +510,7 @@ public:
             try {
                 int totalTrackables = (int)_trackables.size();
                 fs << "totalTrackables" << totalTrackables;
-                fs << "featureType" << _selectedFeatureDetectorType;
+                fs << "featureType" << (int)_selectedFeatureDetectorType;
                 for (int i = 0; i <_trackables.size(); i++) {
                     std::string index = std::to_string(i);
                     fs << "trackableId" + index << _trackables[i]._id;
@@ -530,8 +546,10 @@ public:
         {
             try {
                 int numberOfTrackables = (int) fs["totalTrackables"];
-                int featureType = defaultDetectorType;
-                fs["featureType"] >> featureType;
+                FeatureDetectorType featureType = defaultDetectorType;
+                int featureTypeInt;
+                fs["featureType"] >> featureTypeInt;
+                featureType = (FeatureDetectorType)featureTypeInt;
                 SetFeatureDetector(featureType);
                 for(int i=0;i<numberOfTrackables; i++) {
                     TrackableInfo newTrackable;
@@ -680,13 +698,13 @@ public:
         return info;
     }
     
-    void SetFeatureDetector(int detectorType)
+    void SetFeatureDetector(FeatureDetectorType detectorType)
     {
         _selectedFeatureDetectorType = detectorType;
         _featureDetector.SetFeatureDetector(detectorType);
     }
 
-    int GetFeatureDetector(void)
+    FeatureDetectorType GetFeatureDetector(void)
     {
         return _selectedFeatureDetectorType;
     }
@@ -765,12 +783,12 @@ TrackedImageInfo PlanarTracker::GetTrackableImageInfo(int trackableId)
     return _trackerImpl->GetTrackableImageInfo(trackableId);
 }
 
-void PlanarTracker::SetFeatureDetector(int detectorType)
+void PlanarTracker::SetFeatureDetector(FeatureDetectorType detectorType)
 {
     _trackerImpl->SetFeatureDetector(detectorType);
 }
 
-int PlanarTracker::GetFeatureDetector(void)
+PlanarTracker::FeatureDetectorType PlanarTracker::GetFeatureDetector(void)
 {
     return _trackerImpl->GetFeatureDetector();
 }

@@ -63,6 +63,10 @@ public:
     PlanarTracker(PlanarTracker&&);
     PlanarTracker& operator = (PlanarTracker&&);
     
+    /// Initialise the tracker with the supplied camera parameters.
+    /// The supplied camera parameters will be used as the source for the size of video frames submitted
+    /// to ProcessFrameData, and also the source for the camera lens intrinsics and distortion parameters.
+    /// These values are copied from the supplied ARParam.
     void Initialise(ARParam cParam);
 
     /// Perform tracking on a single frame of video.
@@ -88,8 +92,14 @@ public:
     std::vector<int> GetImageIds();
     TrackedImageInfo GetTrackableImageInfo(int trackableId);
     
-    void SetFeatureDetector(int detectorType);
-    int GetFeatureDetector(void);
+    enum class FeatureDetectorType {
+        Akaze,
+        ORB,
+        Brisk,
+        Kaze
+    };
+    void SetFeatureDetector(FeatureDetectorType detectorType);
+    FeatureDetectorType GetFeatureDetector(void);
 
     void SetMaximumNumberOfMarkersToTrack(int maximumNumberOfMarkersToTrack);
     int GetMaximumNumberOfMarkersToTrack(void);
