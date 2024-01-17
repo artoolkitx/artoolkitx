@@ -70,7 +70,7 @@ OCV_EXTERN extern cv::TermCriteria termcrit;
 OCV_EXTERN extern const int featureDetectMaxFeatures;
 OCV_EXTERN extern int searchRadius;
 OCV_EXTERN extern int match_method;
-OCV_EXTERN extern int featureDetectPyramidLevel; ///> Scale factor applied to image pyramid to determine image to perform feature matching upon.
+OCV_EXTERN extern const cv::Size featureImageMinSize; ///< Minimum size when downscaling incoming images used for feature tracking.
 OCV_EXTERN extern PlanarTracker::FeatureDetectorType defaultDetectorType;
 OCV_EXTERN extern const double nn_match_ratio; ///< Nearest-neighbour matching ratio
 OCV_EXTERN extern const double ransac_thresh; ///< RANSAC inlier threshold

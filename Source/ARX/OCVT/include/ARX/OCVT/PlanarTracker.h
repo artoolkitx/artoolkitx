@@ -63,6 +63,10 @@ public:
     PlanarTracker(PlanarTracker&&);
     PlanarTracker& operator = (PlanarTracker&&);
     
+    /// Initialise the tracker with the supplied camera parameters.
+    /// The supplied camera parameters will be used as the source for the size of video frames submitted
+    /// to ProcessFrameData, and also the source for the camera lens intrinsics and distortion parameters.
+    /// These values are copied from the supplied ARParam.
     void Initialise(ARParam cParam);
 
     /// Perform tracking on a single frame of video.
