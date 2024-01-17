@@ -1,6 +1,12 @@
 # artoolkitX Release Notes
 --------------------------
 
+## Version 1.1.18
+### 2024-01-17
+ 
+ * mac OS: use ld_classic for backwards compatibility.
+ * In the 2D image tracker, incoming images will only be downsampled for the feature tracking stage if they meet a minimum image size. This will help tracking when the source image stream is low resolution.
+
 ## Version 1.1.17
 ### 2023-12-06
  
