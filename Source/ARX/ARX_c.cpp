@@ -863,8 +863,12 @@ float arwGetTrackableOptionFloat(int trackableUID, int option)
             else return (NAN);
             break;
         case ARW_TRACKABLE_OPTION_2D_SCALE:
+#if HAVE_2D
             if (trackable->type == ARTrackable::TwoD) return std::static_pointer_cast<ARTrackable2d>(trackable)->TwoDScale();
             else return (NAN);
+#else
+            return (NAN);
+#endif
             break;
         default:
             ARLOGe("arwGetTrackableOptionFloat(): Unrecognised option %d.\n", option);
@@ -911,7 +915,9 @@ void arwSetTrackableOptionFloat(int trackableUID, int option, float value)
             if (trackable->type == ARTrackable::SINGLE) std::static_pointer_cast<ARTrackableSquare>(trackable)->setWidth(value);
             break;
         case ARW_TRACKABLE_OPTION_2D_SCALE:
+#if HAVE_2D
             if (trackable->type == ARTrackable::TwoD) std::static_pointer_cast<ARTrackable2d>(trackable)->setTwoDScale(value);
+#endif
             break;
         default:
             ARLOGe("arwSetTrackableOptionFloat(): Unrecognised option %d.\n", option);
