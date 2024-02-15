@@ -216,7 +216,7 @@ if [ "$OS" = "Linux" ] ; then
 fi
 
 if [ ! -d "depends/android/include/opencv2" ] ; then
-    curl --location "https://github.com/artoolkitx/opencv/releases/download/4.6.0/opencv-4.6.0-dev-artoolkitx-android.tgz" -o opencv2.tgz
+    curl --location "https://github.com/artoolkitx/opencv/releases/download/4.7.0-dev-artoolkitx/opencv-4.7.0-dev-artoolkitx-android.tgz" -o opencv2.tgz
     tar xzf opencv2.tgz --strip-components=1 -C depends/android
     rm opencv2.tgz
 fi
@@ -250,6 +250,7 @@ else
                 -DANDROID_ARM_MODE=arm \
                 -DANDROID_ARM_NEON=TRUE \
                 -DANDROID_STL=c++_shared \
+                -DANDROID_CPP_FEATURES="rtti exceptions" \
                 -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
         fi
 	    cmake --build . --target install${DEBUG-/strip}
