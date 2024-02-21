@@ -206,6 +206,11 @@ CPARAM_SEARCH_STATE cparamSearch(const char *device_id, int camera_index, int ca
 {
     struct _CPARAM_SEARCH_DATA *searchData;
     struct _CPARAM_SEARCH_DATA *tail;
+    
+    if (!device_id || !device_id[0]) {
+        ARLOGe("cparamSearch called without device_id.\n");
+        return (CPARAM_SEARCH_STATE_FAILED_ERROR);
+    }
 
     // Create a new search request.
     searchData = (struct _CPARAM_SEARCH_DATA *)calloc(1, sizeof(struct _CPARAM_SEARCH_DATA));
