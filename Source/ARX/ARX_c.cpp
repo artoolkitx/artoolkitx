@@ -439,6 +439,7 @@ void arwSetTrackerOptionInt(int option, int value)
             case 1: type = PlanarTracker::FeatureDetectorType::ORB; break;
             case 2: type = PlanarTracker::FeatureDetectorType::Brisk; break;
             case 3: type = PlanarTracker::FeatureDetectorType::Kaze; break;
+            case 4: type = PlanarTracker::FeatureDetectorType::SIFT; break;
             default: return;
         }
         gARTK->get2dTracker()->setDetectorType(type);
@@ -511,6 +512,7 @@ int arwGetTrackerOptionInt(int option)
             case PlanarTracker::FeatureDetectorType::ORB: return 1;
             case PlanarTracker::FeatureDetectorType::Brisk: return 2;
             case PlanarTracker::FeatureDetectorType::Kaze: return 3;
+            case PlanarTracker::FeatureDetectorType::SIFT: return 4;
             default: return -1;
         }
 #endif

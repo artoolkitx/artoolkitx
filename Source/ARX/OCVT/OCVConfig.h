@@ -61,7 +61,7 @@
 #include <opencv2/calib3d.hpp>
 #include <ARX/OCVT/PlanarTracker.h>
 
-OCV_EXTERN extern int minRequiredDetectedFeatures;
+OCV_EXTERN extern int minRequiredDetectedFeatures; ///< Minimum number of detected features required to consider a target matched.
 OCV_EXTERN extern int markerTemplateWidth;
 OCV_EXTERN extern int maxLevel;  ///< Maximum number of levels in optical flow image pyramid.
 OCV_EXTERN extern const cv::Size subPixWinSize;

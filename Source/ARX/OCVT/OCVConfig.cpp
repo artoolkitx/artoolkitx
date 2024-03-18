@@ -36,7 +36,7 @@
 
 #include "OCVConfig.h"
 
-int minRequiredDetectedFeatures = 50;
+int minRequiredDetectedFeatures = 50; ///< Minimum number of detected features required to consider a target matched.
 int markerTemplateWidth = 15;
 int maxLevel = 3; ///< Maximum number of levels in optical flow image pyramid.
 const cv::Size subPixWinSize(10,10);

@@ -92,11 +92,13 @@ public:
     std::vector<int> GetImageIds();
     TrackedImageInfo GetTrackableImageInfo(int trackableId);
     
+    /// Defaults to `defaultDetectorType`.
     enum class FeatureDetectorType {
         Akaze,
         ORB,
         Brisk,
-        Kaze
+        Kaze,
+        SIFT
     };
     void SetFeatureDetector(FeatureDetectorType detectorType);
     FeatureDetectorType GetFeatureDetector(void);

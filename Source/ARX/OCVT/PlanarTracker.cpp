@@ -159,12 +159,12 @@ public:
         for (int i = 0; i < _trackables.size(); i++) {
             if (!_trackables[i]._isDetected) {
                 std::vector< std::vector<cv::DMatch> >  matches = _featureDetector.MatchFeatures(newFrameDescriptors, _trackables[i]._descriptors);
-                if (matches.size()>minRequiredDetectedFeatures) {
+                if (matches.size() > minRequiredDetectedFeatures) {
                     std::vector<cv::KeyPoint> matched1, matched2;
                     std::vector<uchar> status;
                     int totalGoodMatches = 0;
                     for (unsigned int j = 0; j < matches.size(); j++) {
-                        //Ratio Test for outlier removal, removes ambiguous matches.
+                        // Ratio Test for outlier removal, removes ambiguous matches.
                         if (matches[j][0].distance < nn_match_ratio * matches[j][1].distance) {
                             matched1.push_back(newFrameFeatures[matches[j][0].queryIdx]);
                             matched2.push_back(_trackables[i]._featurePoints[matches[j][0].trainIdx]);

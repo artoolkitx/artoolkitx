@@ -57,6 +57,9 @@ void OCVFeatureDetector::SetFeatureDetector(PlanarTracker::FeatureDetectorType d
         case PlanarTracker::FeatureDetectorType::Kaze:
             CreateKazeFeatureDetector();
             break;
+        case PlanarTracker::FeatureDetectorType::SIFT:
+            CreateSIFTFeatureDetector();
+            break;
     }
 }
 
@@ -81,6 +84,12 @@ void OCVFeatureDetector::CreateKazeFeatureDetector()
 void OCVFeatureDetector::CreateORBFeatureDetector()
 {
     _featureDetector = cv::ORB::create();
+    _matcher = cv::BFMatcher::create();
+}
+
+void OCVFeatureDetector::CreateSIFTFeatureDetector()
+{
+    _featureDetector = cv::SIFT::create();
     _matcher = cv::BFMatcher::create();
 }
 
