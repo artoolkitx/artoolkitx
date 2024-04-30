@@ -793,6 +793,26 @@ PlanarTracker::FeatureDetectorType PlanarTracker::GetFeatureDetector(void)
     return _trackerImpl->GetFeatureDetector();
 }
 
+void PlanarTracker::SetMinRequiredDetectedFeatures(int num)
+{
+    minRequiredDetectedFeatures = num; // OCVConfig
+}
+
+int PlanarTracker::GetMinRequiredDetectedFeatures(void)
+{
+    return minRequiredDetectedFeatures; // OCVConfig
+}
+
+void PlanarTracker::SetHomographyEstimationRANSACThreshold(double thresh)
+{
+    ransac_thresh = thresh; // OCVConfig
+}
+
+double PlanarTracker::GetHomographyEstimationRANSACThreshold(void)
+{
+    return ransac_thresh; // OCVConfig
+}
+
 void PlanarTracker::SetMaximumNumberOfMarkersToTrack(int maximumNumberOfMarkersToTrack)
 {
     _trackerImpl->SetMaximumNumberOfMarkersToTrack(maximumNumberOfMarkersToTrack);

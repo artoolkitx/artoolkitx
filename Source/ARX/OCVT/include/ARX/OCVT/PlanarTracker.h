@@ -102,6 +102,10 @@ public:
     };
     void SetFeatureDetector(FeatureDetectorType detectorType);
     FeatureDetectorType GetFeatureDetector(void);
+    void SetMinRequiredDetectedFeatures(int num);
+    int GetMinRequiredDetectedFeatures(void);
+    void SetHomographyEstimationRANSACThreshold(double thresh);
+    double GetHomographyEstimationRANSACThreshold(void);
 
     void SetMaximumNumberOfMarkersToTrack(int maximumNumberOfMarkersToTrack);
     int GetMaximumNumberOfMarkersToTrack(void);

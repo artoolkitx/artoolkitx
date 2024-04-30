@@ -428,5 +428,25 @@ PlanarTracker::FeatureDetectorType ARTracker2d::getDetectorType(void)
     return m_2DTracker->GetFeatureDetector();
 }
 
+void ARTracker2d::setMinRequiredDetectedFeatures(int num)
+{
+    m_2DTracker->SetMinRequiredDetectedFeatures(num);
+}
+
+int ARTracker2d::getMinRequiredDetectedFeatures(void)
+{
+    return m_2DTracker->GetMinRequiredDetectedFeatures();
+}
+
+void ARTracker2d::setHomographyEstimationRANSACThreshold(double thresh)
+{
+    m_2DTracker->SetHomographyEstimationRANSACThreshold(thresh);
+}
+
+double ARTracker2d::getHomographyEstimationRANSACThreshold(void)
+{
+    return m_2DTracker->GetHomographyEstimationRANSACThreshold();
+}
+
 #endif // HAVE_2D
 

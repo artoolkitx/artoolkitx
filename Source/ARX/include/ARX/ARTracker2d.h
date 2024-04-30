@@ -91,6 +91,10 @@ public:
     
     void setDetectorType(PlanarTracker::FeatureDetectorType detectorType);
     PlanarTracker::FeatureDetectorType getDetectorType(void);
+    void setMinRequiredDetectedFeatures(int num);
+    int getMinRequiredDetectedFeatures(void);
+    void setHomographyEstimationRANSACThreshold(double thresh);
+    double getHomographyEstimationRANSACThreshold(void);
 
     bool threaded(void) const;
     /// \brief Enable or disable running the 2D tracking task in a separate thread. See caveats in detailed description.
