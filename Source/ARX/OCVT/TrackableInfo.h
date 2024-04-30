@@ -56,9 +56,10 @@ public:
     cv::Mat _descriptors;
     std::vector<cv::Point2f> _cornerPoints;
     
-    std::vector<cv::Point2f> _bBox;
-    std::vector<cv::Point2f> _bBoxTransformed;
-    bool _isTracking, _isDetected, _resetTracks;
+    std::vector<cv::Point2f> _bBox; ///< The four points defining the bounding-box of the trackable's source image, where 1 unit = 1 pixel of the source image.
+    std::vector<cv::Point2f> _bBoxTransformed; ///< The four points defining the bound-box of a detected trackable in the video frame.
+    bool _isTracking, _isDetected;
+    bool _resetTracks; ///< If set to true, TrackSelection.SelectTracks will be invoked in SelectTrackablePoints.
     
     TrackingPointSelector _trackSelection;
     

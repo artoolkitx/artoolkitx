@@ -67,7 +67,7 @@ OCV_EXTERN extern const int maxLevel;  ///< Maximum number of levels in optical 
 OCV_EXTERN extern const cv::Size subPixWinSize;
 OCV_EXTERN extern const cv::Size winSize; ///< Window size to use in optical flow search.
 OCV_EXTERN extern cv::TermCriteria termcrit;
-OCV_EXTERN extern const int featureDetectMaxFeatures;
+OCV_EXTERN extern const int markerTemplateCountMax; ///< Maximum number of Harris corners to use as template locations.  If <= 0, no limit on the maximum is set and all detected corners will be used.
 OCV_EXTERN extern const int searchRadius;
 OCV_EXTERN extern const int match_method;
 OCV_EXTERN extern const cv::Size featureImageMinSize; ///< Minimum size when downscaling incoming images used for feature tracking.

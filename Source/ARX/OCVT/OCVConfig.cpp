@@ -42,7 +42,7 @@ const int maxLevel = 3; ///< Maximum number of levels in optical flow image pyra
 const cv::Size subPixWinSize(10,10);
 const cv::Size winSize(31,31); ///< Window size to use in optical flow search.
 cv::TermCriteria termcrit(cv::TermCriteria::COUNT|cv::TermCriteria::EPS,20,0.03);
-const int featureDetectMaxFeatures = 300;
+const int markerTemplateCountMax = 300; ///< Maximum number of Harris corners to use as template locations.  If <= 0, no limit on the maximum is set and all detected corners will be used.
 const int searchRadius = 15;
 const int match_method = cv::TM_SQDIFF_NORMED;
 const cv::Size featureImageMinSize(640, 480); ///< Minimum size when downscaling incoming images used for feature tracking.

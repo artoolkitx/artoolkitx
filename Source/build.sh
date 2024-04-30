@@ -91,7 +91,7 @@ then
 elif [ "$OS" = "Darwin" ]
 then
     CPUS=`/usr/sbin/sysctl -n hw.ncpu`
-    if [ -z $VERBOSE -a -x "$(command -v xcbeautify)" ]; then
+    if [ -z "$VERBOSE" -a -x "$(command -v xcbeautify)" ]; then
         XCBEAUTIFY=xcbeautify
     else
         XCBEAUTIFY=cat

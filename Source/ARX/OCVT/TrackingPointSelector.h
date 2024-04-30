@@ -43,6 +43,9 @@
 #include "OCVConfig.h"
 #include "TrackedPoint.h"
 
+/**
+    @brief Class used to manage selection of tracking points based on image templates (i.e. unique pixel patches).</brief>
+ */
 class TrackingPointSelector
 {
 public:
@@ -65,9 +68,9 @@ public:
     
     std::vector<cv::Point2f> GetTrackedFeatures();
     
-    std::vector<cv::Point3f> GetSelectedFeatures3d();
+    std::vector<cv::Point3f> GetTrackedFeatures3d();
     
-    std::vector<cv::Point2f> GetSelectedFeaturesWarped();
+    std::vector<cv::Point2f> GetTrackedFeaturesWarped();
 
     /// Get all points from all bins that are candidates for selection.
     OCV_EXTERN std::vector<cv::Point2f> GetAllFeatures();
@@ -78,7 +81,7 @@ private:
     std::vector<TrackedPoint> _selectedPts;
     std::vector<cv::Point2f> _pts;
     std::map<int, std::vector<TrackedPoint> > trackingPointBin;
-    cv::Mat homography;
+    cv::Mat _homography;
 
 };
 #endif //TRACKINGPOINTSELECTOR
