@@ -193,6 +193,13 @@ static unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
         jpeg_destroy_decompress(&cinfo);
         return NULL;
     }
+    if (cinfo.num_components < 1 || cinfo.num_components > 4 ||
+        cinfo.image_width < 0 || cinfo.image_width > 32767 ||
+        cinfo.image_height < 0 || cinfo.image_height > 32767) {
+        ARLOGe("Error: Improbable values in JPEG header.");
+        jpeg_destroy_decompress(&cinfo);
+        return NULL;
+    }
 
     /* Start decompressor */
     (void) jpeg_start_decompress(&cinfo);
