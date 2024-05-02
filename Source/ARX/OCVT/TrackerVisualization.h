@@ -1,5 +1,5 @@
 /*
- *  TrackableInfo.h
+ *  TrackerVisualization.h
  *  artoolkitX
  *
  *  This file is part of artoolkitX.
@@ -28,54 +28,37 @@
  *  are not obligated to do so. If you do not wish to do so, delete this exception
  *  statement from your version.
  *
- *  Copyright 2018 Realmax, Inc.
- *  Copyright 2015 Daqri, LLC.
- *  Copyright 2010-2015 ARToolworks, Inc.
+ *  Copyright 2024 Eden Networks Ltd.
  *
- *  Author(s): Philip Lamb, Daniel Bell.
+ *  Author(s): Philip Lamb.
  *
  */
 
-#ifndef TRACKABLE_INFO_H
-#define TRACKABLE_INFO_H
-#include "TrackingPointSelector.h"
-class TrackableInfo
+#ifndef TRACKER_VISUALIZATION_H
+#define TRACKER_VISUALIZATION_H
+
+#include <opencv2/core.hpp>
+
+class TrackerVisualization
 {
 public:
-    int _id;
-    float _scale;
-    std::shared_ptr<unsigned char> _imageBuff;
-    cv::Mat _image;
-    std::vector<cv::Point2f> _points;
-    int _width;
-    int _height;
-    std::string _fileName;
-    
-    cv::Mat _pose;
-    std::vector<cv::KeyPoint> _featurePoints;
-    cv::Mat _descriptors;
-
-    /// The four points defining the bounding-box of the trackable's source image, where 1 unit = 1 pixel of the source image.
-    std::vector<cv::Point2f> _bBox;
-    /// The four points defining the bound-box of a detected trackable in the video frame.
-    std::vector<cv::Point2f> _bBoxTransformed;
-    bool _isTracking, _isDetected;
-    /// If set to true, TrackSelection.SelectPoints will be invoked in SelectTrackablePoints, selecting new points and resetting their tracking status.
-    bool _resetTracks;
-    
-    std::vector<cv::Point2f> _cornerPoints;
-    TrackingPointSelector _trackSelection;
-    
-    void CleanUp()
-    {
-        _descriptors.release();
-        _pose.release();
-        _featurePoints.clear();
-        _trackSelection.CleanUp();
-        _cornerPoints.clear();
-        _image.release();
-        _imageBuff.reset();
-    }
+    int id;
+    float bounds[4][2];
+    std::vector<cv::Point2f> opticalFlowTrackablePoints;
+    std::vector<cv::Point2f> opticalFlowTrackedPoints;
+    bool opticalFlowOK;
+    struct templateMatching {
+        int templateMatchingCandidateCount;
+        int failedBoundsTestCount;
+        int failedROIInFrameTestCount;
+        int failedGotHomogTestCount;
+        int failedSearchROIInFrameTestCount;
+        int failedTemplateBigEnoughTestCount;
+        int failedTemplateMatchCount;
+        int failedTemplateMinimumCorrelationCount;
+        bool templateMatchingOK;
+    };
+    templateMatching templateMatching;
 };
 
-#endif //TRACKABLE_INFO
+#endif  // TRACKER_VISUALIZATION_H

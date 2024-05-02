@@ -90,7 +90,8 @@ void TrackingPointSelector::SetHomography(cv::Mat newHomography)
 {
     _homography = newHomography;
 }
-    
+
+/// @return 3x3 cv::Mat (of type CV_64FC1, i.e. double) containing the homography.
 cv::Mat TrackingPointSelector::GetHomography()
 {
     return _homography;
@@ -122,7 +123,7 @@ void TrackingPointSelector::SelectPoints()
     }
     
     for (auto &bin : trackingPointBin) {
-        int pointCount = bin.second.size();
+        size_t pointCount = bin.second.size();
         if (pointCount > 0) { // If there are points in the bin.
             // Select a random point from the bin.
             int tIndex = pointCount > 1 ? rng.uniform(0, static_cast<int>(bin.second.size())) : 0;

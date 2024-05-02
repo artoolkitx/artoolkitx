@@ -203,7 +203,7 @@ public:
 	 * Reports width, height and pixel format of a video source.
      * To retrieve the size (in bytes) of each pixel, use arUtilGetPixelSize(*pixelFormat);
      * To get a C-string with the name of the pixel format, use arUtilGetPixelFormatName(*pixelFormat);
-	 * @param videoSourceIndex Index into an array of video sources, specifying which source should be queried.
+	 * @param videoSourceIndex 0-based index into an array of video sources, specifying which source should be queried.
      * @param width Pointer to an int which will be filled with the width (in pixels) of the video frame, or NULL if this information is not required.
      * @param height Pointer to an int which will be filled with the height (in pixels) of the video frame, or NULL if this information is not required.
      * @param pixelFormat Pointer to an AR_PIXEL_FORMAT which will be filled with the pixel format of the video frame, or NULL if this information is not required.
@@ -257,12 +257,40 @@ public:
      */
     bool projectionForViewportSizeAndFittingMode(const int videoSourceIndex, const ARVideoSource::Size viewportSize, const ARVideoSource::ScalingMode scalingMode, const ARdouble projectionNearPlane, const ARdouble projectionFarPlane, ARdouble proj[16]);
 
+    /**
+     * Initialise an ARVideoView for drawing a video source's frame. Requires a current graphics context.
+     * @param videoSourceIndex The 0-based index of the video source.
+     * @return true if successful, false in case of error.
+    */
     bool drawVideoInit(const int videoSourceIndex);
 
+    /**
+     * Sets drawing parameters for an ARVideoView for drawing a video source's frame into a graphics buffer of specified size using specified position and mode, and returns the viewport required in graphics context units. Requires a current graphics context.
+     * @param videoSourceIndex The 0-based index of the video source.
+     * @param width width of the graphics context into which the frame will be drawn, in pixels.
+     * @param height height of the graphics context into which the frame will be drawn, in pixels.
+     * @param rotate90 If true, rotate the video frame anticlockwise by 90 degrees,
+     * @param flipH If true, flip the video frame horizontally (i.e. mirror about the vertical axis).
+     * @param hAlign Whether to left-align, centre, or right-align the video frame.
+     * @param vAlign Whether to top-align, centre, or bottom-align the video frame.
+     * @param scalingMode Whether to fit, fill or draw unscaled. In fit mode, undrawn regions may appear above and below or left and right of the frame if it has a dfferent aspect ratio to the graphics context. In fill mode, the graphics context will be entirely filled, but some of the video frame may be cropped top and bottom or left and right if it has a dfferent aspect ratio to the graphics context.
+     * @param viewport (Output). If the resulting viewport is required, set this to a pointer to an array of 4 int32, which will be filled with the origin lower-left x and y coordinates, and the width and height of the viewport, all in pixels. Note that the viewport origin x or y values may be negative depending on alignment and positioning of the video frame.
+     * @return true if the settings were successfully set, false in case of error.
+     */
     bool drawVideoSettings(const int videoSourceIndex, const int width, const int height, const bool rotate90, const bool flipH, const bool flipV, const ARVideoView::HorizontalAlignment hAlign, const ARVideoView::VerticalAlignment vAlign, const ARVideoView::ScalingMode scalingMode, int32_t viewport[4]);
 
+    /**
+     * Use an ARVideoView to draw a video source's frame into the graphics buffer. Requires a current graphics context.
+     * @param videoSourceIndex The 0-based index of the video source.
+     * @return true if successful, false in case of error.
+    */
     bool drawVideo(const int videoSourceIndex);
 
+    /**
+     * Finalise an ARVideoView. Requires a current graphics context.
+     * @param videoSourceIndex The 0-based index of the video source.
+     * @return true if successful, false in case of error.
+    */
     bool drawVideoFinal(const int videoSourceIndex);
 
 	/**
@@ -313,9 +341,12 @@ public:
     std::vector<std::shared_ptr<ARTrackable>> getAllTrackables();
 
     /**
-     * Searches the collection of trackables for the given ID.
+     * Searches the collection of trackables for the given ID. Once the trackable has been found,
+     * its parameters such as whether it is currently tracked and its pose can be queried, or configuration
+     * of the trackable can be changed.
      * @param UID             The UID of the trackable to find
      * @return                The found trackable, or null pointer if no matching UID was found.
+     * @see ARTrackable.
      */
     std::shared_ptr<ARTrackable> findTrackable(int UID);
 

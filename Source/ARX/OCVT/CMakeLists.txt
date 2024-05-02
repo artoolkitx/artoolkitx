@@ -11,6 +11,7 @@ set(SOURCE
     TrackableInfo.h
     TrackedPoint.h
     TrackingPointSelector.h
+    TrackerVisualization.h
     OCVConfig.cpp
     HarrisDetector.cpp
     OCVFeatureDetector.cpp

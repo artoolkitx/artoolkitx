@@ -110,6 +110,8 @@ public:
     void SetMaximumNumberOfMarkersToTrack(int maximumNumberOfMarkersToTrack);
     int GetMaximumNumberOfMarkersToTrack(void);
 
+    void SetTrackerVisualizationActive(bool active);
+    void *GetTrackerVisualization(void);
 
 private:
     class PlanarTrackerImpl;

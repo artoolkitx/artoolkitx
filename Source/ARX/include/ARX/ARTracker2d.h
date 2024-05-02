@@ -106,6 +106,9 @@ public:
     /// the processing has finished. This adds at minimum at least one frame of latency to the tracking, and the memory and CPU load of an
     /// additional copy of each frame submitted.
     void setThreaded(bool threaded);
+    
+    void setTrackerVisualizationActive(bool active);
+    void *getTrackerVisualization(void);
 
 private:
 

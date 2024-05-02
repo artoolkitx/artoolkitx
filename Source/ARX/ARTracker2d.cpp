@@ -448,5 +448,15 @@ double ARTracker2d::getHomographyEstimationRANSACThreshold(void)
     return m_2DTracker->GetHomographyEstimationRANSACThreshold();
 }
 
+void ARTracker2d::setTrackerVisualizationActive(bool active)
+{
+    m_2DTracker->SetTrackerVisualizationActive(active);
+}
+
+void *ARTracker2d::getTrackerVisualization(void)
+{
+    return m_2DTracker->GetTrackerVisualization();
+}
+
 #endif // HAVE_2D
 

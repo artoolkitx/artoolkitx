@@ -44,6 +44,7 @@
 #include "TrackableInfo.h"
 #include "HomographyInfo.h"
 #include "OCVUtils.h"
+#include "TrackerVisualization.h"
 #include <opencv2/video.hpp>
 #include <iostream>
 #include <algorithm>
@@ -63,28 +64,37 @@ private:
     int _frameCount;
     int _frameSizeX;
     int _frameSizeY;
-    int _featureDetectPyrLevel; ///> Pyramid level used in downsampling incoming image for feature matching. 0 = no size change, 1 = half width/height, 2 = quarter width/heigh etc.
-    cv::Vec2f _featureDetectScaleFactor; ///> Scale factor applied to images used for feature matching. Will be 2^_featureDetectPyrLevel,
+    /// Pyramid level used in downsampling incoming image for feature matching. 0 = no size change, 1 = half width/height, 2 = quarter width/heigh etc.
+    int _featureDetectPyrLevel;
+    /// Scale factor applied to images used for feature matching. Will be 2^_featureDetectPyrLevel.
+    cv::Vec2f _featureDetectScaleFactor;
     cv::Mat _K;
     cv::Mat _distortionCoeff;
 
     FeatureDetectorType _selectedFeatureDetectorType;
+    
+    
 public:
-    PlanarTrackerImpl()
+    bool _trackVizActive;
+    TrackerVisualization _trackViz;
+
+    PlanarTrackerImpl() :
+        _maxNumberOfMarkersToTrack(1),
+        _featureDetector(OCVFeatureDetector()),
+        _harrisDetector(HarrisDetector()),
+        _currentlyTrackedMarkers(0),
+        _frameCount(0),
+        _resetCount(30),
+        _frameSizeX(0),
+        _frameSizeY(0),
+        _featureDetectPyrLevel(0),
+        _featureDetectScaleFactor(cv::Vec2f(1.0f, 1.0f)),
+        _K(cv::Mat()),
+        _distortionCoeff(cv::Mat()),
+        _trackVizActive(false),
+        _trackViz(TrackerVisualization())
     {
-        _maxNumberOfMarkersToTrack = 1;
-        _featureDetector = OCVFeatureDetector();
         SetFeatureDetector(defaultDetectorType);
-        _harrisDetector = HarrisDetector();
-        _currentlyTrackedMarkers = 0;
-        _frameCount = 0;
-        _resetCount = 30;
-        _frameSizeX = 0;
-        _frameSizeY = 0;
-        _featureDetectPyrLevel = 0;
-        _featureDetectScaleFactor = cv::Vec2f(1.0f, 1.0f);
-        _K = cv::Mat();
-        _distortionCoeff = cv::Mat();
     }
     
     void Initialise(ARParam cParam)
@@ -152,7 +162,7 @@ public:
         return featureMask;
     }
     
-    void MatchFeatures(std::vector<cv::KeyPoint> newFrameFeatures, cv::Mat newFrameDescriptors)
+    void MatchFeatures(const std::vector<cv::KeyPoint>& newFrameFeatures, cv::Mat newFrameDescriptors)
     {
         int maxMatches = 0;
         int bestMatchIndex = -1;
@@ -203,7 +213,15 @@ public:
                 _trackables[bestMatchIndex]._resetTracks = true;
                 _trackables[bestMatchIndex]._trackSelection.SetHomography(homoInfo.homography);
                 
+                // Use the homography to form the initial estimate of the bounding box.
+                // This will be refined by the optical flow pass.
                 perspectiveTransform(_trackables[bestMatchIndex]._bBox, _trackables[bestMatchIndex]._bBoxTransformed, homoInfo.homography);
+                if (_trackVizActive) {
+                    for (int i = 0; i < 4; i++) {
+                        _trackViz.bounds[i][0] = _trackables[bestMatchIndex]._bBoxTransformed[i].x;
+                        _trackViz.bounds[i][1] = _trackables[bestMatchIndex]._bBoxTransformed[i].y;
+                    }
+                }
                 _currentlyTrackedMarkers++;
             }
         }
@@ -220,15 +238,16 @@ public:
         }
     }
     
-    void RunOpticalFlow(int trackableId, std::vector<cv::Point2f> trackablePoints, std::vector<cv::Point2f> trackablePointsWarped)
+    bool RunOpticalFlow(int trackableId, const std::vector<cv::Point2f>& trackablePoints, const std::vector<cv::Point2f>& trackablePointsWarped)
     {
         std::vector<cv::Point2f> flowResultPoints, trackablePointsWarpedResult;
         std::vector<uchar> statusFirstPass, statusSecondPass;
         std::vector<float> err;
-        cv::calcOpticalFlowPyrLK(_prevPyramid, _pyramid, trackablePointsWarped, flowResultPoints, statusFirstPass, err, winSize, maxLevel, termcrit, 0, 0.001);
+        cv::calcOpticalFlowPyrLK(_prevPyramid, _pyramid, trackablePointsWarped, flowResultPoints, statusFirstPass, err, winSize, k_OCVTOpticalFlowMaxPyrLevel, termcrit, 0, 0.001);
         // By using bi-directional optical flow, we improve quality of detected points.
-        cv::calcOpticalFlowPyrLK(_pyramid, _prevPyramid, flowResultPoints, trackablePointsWarpedResult, statusSecondPass, err, winSize, maxLevel, termcrit, 0, 0.001);
+        cv::calcOpticalFlowPyrLK(_pyramid, _prevPyramid, flowResultPoints, trackablePointsWarpedResult, statusSecondPass, err, winSize, k_OCVTOpticalFlowMaxPyrLevel, termcrit, 0, 0.001);
         
+        // Keep only the points for which flow was found in both temporal directions.
         int killed1 = 0;
         std::vector<cv::Point2f> filteredTrackablePoints, filteredTrackedPoints;
         for (auto j = 0; j != flowResultPoints.size(); ++j) {
@@ -240,23 +259,38 @@ public:
             filteredTrackablePoints.push_back(trackablePoints[j]);
             filteredTrackedPoints.push_back(flowResultPoints[j]);
         }
-        if (UpdateTrackableHomography(trackableId, filteredTrackablePoints, filteredTrackedPoints)) {
-            _trackables[trackableId]._isTracking = true;
-        } else {
+        if (_trackVizActive) {
+            _trackViz.opticalFlowTrackablePoints = filteredTrackablePoints;
+            _trackViz.opticalFlowTrackedPoints = filteredTrackedPoints;
+        }
+        //std::cout << "Optical flow discarded " << killed1 << " of " << flowResultPoints.size() << " points" << std::endl;
+
+        if (!UpdateTrackableHomography(trackableId, filteredTrackablePoints, filteredTrackedPoints)) {
             _trackables[trackableId]._isDetected = false;
             _trackables[trackableId]._isTracking = false;
             _currentlyTrackedMarkers--;
+            return false;
         }
+
+        _trackables[trackableId]._isTracking = true;
+        return true;
     }
     
-    bool UpdateTrackableHomography(int trackableId, std::vector<cv::Point2f> matchedPoints1, std::vector<cv::Point2f> matchedPoints2)
+    bool UpdateTrackableHomography(int trackableId, const std::vector<cv::Point2f>& matchedPoints1, const std::vector<cv::Point2f>& matchedPoints2)
     {
         if (matchedPoints1.size() > 4) {
             HomographyInfo homoInfo = GetHomographyInliers(matchedPoints1, matchedPoints2);
             if (homoInfo.validHomography) {
                 _trackables[trackableId]._trackSelection.UpdatePointStatus(homoInfo.status);
                 _trackables[trackableId]._trackSelection.SetHomography(homoInfo.homography);
+                // Update the bounding box.
                 perspectiveTransform(_trackables[trackableId]._bBox, _trackables[trackableId]._bBoxTransformed, homoInfo.homography);
+                if (_trackVizActive) {
+                    for (int i = 0; i < 4; i++) {
+                        _trackViz.bounds[i][0] = _trackables[trackableId]._bBoxTransformed[i].x;
+                        _trackViz.bounds[i][1] = _trackables[trackableId]._bBoxTransformed[i].y;
+                    }
+                }
                 if (_frameCount > 1) {
                     _trackables[trackableId]._resetTracks = true;
                 }
@@ -306,7 +340,7 @@ public:
         return newRoi;
     }
     
-    std::vector<cv::Point2f> FloorVertexPoints(std::vector<cv::Point2f> vertexPoints)
+    std::vector<cv::Point2f> FloorVertexPoints(const std::vector<cv::Point2f>& vertexPoints)
     {
         std::vector<cv::Point2f> testVertexPoints = vertexPoints;
         float minX = std::numeric_limits<float>::max();
@@ -349,7 +383,7 @@ public:
         }
     }
     
-    void RunTemplateMatching(cv::Mat frame, int trackableId)
+    bool RunTemplateMatching(cv::Mat frame, int trackableId)
     {
         //std::cout << "Starting template match" << std::endl;
         std::vector<cv::Point2f> finalTemplatePoints, finalTemplateMatchPoints;
@@ -358,9 +392,15 @@ public:
         std::vector<cv::Point2f> trackablePointsWarped = _trackables[trackableId]._trackSelection.GetTrackedFeaturesWarped();
         //Create an empty result image - May be able to pre-initialize this container
         
-        for(int j=0; j<trackablePointsWarped.size();j++) {
+        int n = (int)trackablePointsWarped.size();
+        if (_trackVizActive) {
+            _trackViz.templateMatching = {};
+            _trackViz.templateMatching.templateMatchingCandidateCount = n;
+        }
+        
+        for (int j = 0; j < n; j++) {
             auto pt = trackablePointsWarped[j];
-            if (cv::pointPolygonTest( _trackables[trackableId]._bBoxTransformed, trackablePointsWarped[j], true )>0) {
+            if (cv::pointPolygonTest(_trackables[trackableId]._bBoxTransformed, trackablePointsWarped[j], true) > 0) {
                 auto ptOrig = trackablePoints[j];
                 
                 cv::Rect templateRoi = GetTemplateRoi(pt);
@@ -407,25 +447,38 @@ public:
                                         matchLoc.y+=searchROI.y + (warpedTemplate.rows/2);
                                         finalTemplatePoints.push_back(ptOrig);
                                         finalTemplateMatchPoints.push_back(matchLoc);
+                                    } else {
+                                        if (_trackVizActive) _trackViz.templateMatching.failedTemplateMinimumCorrelationCount++;
                                     }
+                                } else {
+                                    if (_trackVizActive) _trackViz.templateMatching.failedTemplateMatchCount++;
                                 }
+                            } else {
+                                if (_trackVizActive) _trackViz.templateMatching.failedTemplateBigEnoughTestCount++;
                             }
-                            else {
-                                //std::cout << "ROIs not good" << std::endl;
-                            }
+                        } else {
+                            if (_trackVizActive) _trackViz.templateMatching.failedSearchROIInFrameTestCount++;
                         }
+                    } else {
+                        if (_trackVizActive) _trackViz.templateMatching.failedGotHomogTestCount++;
                     }
-                    else {
-                        //std::cout << "Empty homography" << std::endl;
-                    }
+                } else {
+                    if (_trackVizActive) _trackViz.templateMatching.failedROIInFrameTestCount++;
                 }
+            } else {
+                if (_trackVizActive) _trackViz.templateMatching.failedBoundsTestCount++;
             }
         }
-        if (!UpdateTrackableHomography(trackableId, finalTemplatePoints, finalTemplateMatchPoints)) {
+        bool gotHomography = UpdateTrackableHomography(trackableId, finalTemplatePoints, finalTemplateMatchPoints);
+        if (!gotHomography) {
             _trackables[trackableId]._isTracking = false;
             _trackables[trackableId]._isDetected = false;
             _currentlyTrackedMarkers--;
         }
+        if (_trackVizActive) {
+            _trackViz.templateMatching.templateMatchingOK = gotHomography;
+        }
+        return gotHomography;
     }
     
     /// Wrap raw frame data in `frame` with a cv::Mat structure, then process it for tracking.
@@ -440,7 +493,14 @@ public:
     void ProcessFrame(cv::Mat frame)
     {
         //std::cout << "Building optical flow pyramid" << std::endl;
-        cv::buildOpticalFlowPyramid(frame, _pyramid, winSize, maxLevel);
+        cv::buildOpticalFlowPyramid(frame, _pyramid, winSize, k_OCVTOpticalFlowMaxPyrLevel);
+        
+        if (_trackVizActive) {
+            memset(_trackViz.bounds, 0, 8*sizeof(float));
+            _trackViz.opticalFlowTrackablePoints.clear();
+            _trackViz.opticalFlowTrackedPoints.clear();
+            _trackViz.opticalFlowOK = false;
+        }
         
         // Feature matching. Only do this phase if we're not already tracking the desired number of markers.
         if (_currentlyTrackedMarkers < _maxNumberOfMarkersToTrack) {
@@ -460,7 +520,7 @@ public:
             std::vector<cv::KeyPoint> newFrameFeatures = _featureDetector.DetectFeatures(detectionFrame, featureMask);
             
             if (static_cast<int>(newFrameFeatures.size()) > minRequiredDetectedFeatures) {
-                std::cout << "Matching " << newFrameFeatures.size() << " new features" << std::endl;
+                //std::cout << "Matching " << newFrameFeatures.size() << " new features" << std::endl;
                 cv::Mat newFrameDescriptors = _featureDetector.CalcDescriptors(detectionFrame, newFrameFeatures);
                 MatchFeatures(newFrameFeatures, newFrameDescriptors);
             }
@@ -468,17 +528,29 @@ public:
         
         // Optical flow and template matching. Only do this phase if something to track and we're not on the
         // very first frame.
-        if (_currentlyTrackedMarkers > 0 && _frameCount > 0 && _prevPyramid.size() > 0) {
+        if (_currentlyTrackedMarkers > 0) {
             //std::cout << "Begin tracking phase" << std::endl;
             for (int i = 0; i <_trackables.size(); i++) {
                 if (_trackables[i]._isDetected) {
+                    //int templatePyrLevel = (int)log2f(1.0f / sqrtf((float)cv::determinant(_trackables[i]._trackSelection.GetHomography())));
+                    //if (templatePyrLevel < 0) templatePyrLevel = 0; // Negative levels indicate a higher-res image would have been more appropriate.
+                    //float templateScaleFactor = (float)(1 << templatePyrLevel);
+                    //std::cout << "templatePyrLevel=" << templatePyrLevel << ", templateScaleFactor=" << templateScaleFactor << "." << std::endl;
+
                     std::vector<cv::Point2f> trackablePoints = SelectTrackablePoints(i);
                     std::vector<cv::Point2f> trackablePointsWarped = _trackables[i]._trackSelection.GetTrackedFeaturesWarped();
-                    //std::cout << "Starting Optical Flow" << std::endl;
-                    RunOpticalFlow(i, trackablePoints, trackablePointsWarped);
-                    if (_trackables[i]._isTracking) {
-                        //Refine optical flow with template match.
-                        RunTemplateMatching(frame, i);
+                    
+                    if (_frameCount > 0 && _prevPyramid.size() > 0) {
+                        //std::cout << "Starting Optical Flow" << std::endl;
+                        if (!RunOpticalFlow(i, trackablePoints, trackablePointsWarped)) {
+                            //std::cout << "Optical flow failed." << std::endl;
+                        } else {
+                            if (_trackVizActive) _trackViz.opticalFlowOK = true;
+                            // Refine optical flow with template match.
+                            if (!RunTemplateMatching(frame, i)) {
+                                //std::cout << "Template matching failed." << std::endl;
+                            }
+                        }
                     }
                 }
             }
@@ -624,6 +696,8 @@ public:
 
     bool GetTrackablePose(int trackableId, float transMat[3][4])
     {
+        if (!transMat) return false;
+    
         auto t = std::find_if(_trackables.begin(), _trackables.end(), [&](const TrackableInfo& e) { return e._id == trackableId; });
         if (t != _trackables.end()) {
             if (t->_isDetected || t->_isTracking) {
@@ -646,7 +720,7 @@ public:
         return false;
     }
     
-    void CameraPoseFromPoints(cv::Mat& pose, std::vector<cv::Point3f> objPts, std::vector<cv::Point2f> imgPts)
+    void CameraPoseFromPoints(cv::Mat& pose, const std::vector<cv::Point3f>& objPts, const std::vector<cv::Point2f>& imgPts)
     {
         cv::Mat rvec = cv::Mat::zeros(3, 1, CV_64FC1);          // output rotation vector
         cv::Mat tvec = cv::Mat::zeros(3, 1, CV_64FC1);          // output translation vector
@@ -687,7 +761,7 @@ public:
         return imageIds;
     }
 
-    TrackedImageInfo GetTrackableImageInfo(int trackableId)
+    TrackedImageInfo GetTrackableImageInfo(int trackableId) const
     {
         TrackedImageInfo info;
         auto t = std::find_if(_trackables.begin(), _trackables.end(), [&](const TrackableInfo& e) { return e._id == trackableId; });
@@ -698,7 +772,7 @@ public:
             // Copy the image data and use a shared_ptr to refer to it.
             unsigned char *data = (unsigned char *)malloc(t->_width * t->_height);
             memcpy(data, t->_image.ptr(), t->_width * t->_height);
-            info.imageData.reset(data, free);
+            info.imageData.reset(data, free); // Since we use malloc, pass `free` as the deallocator.
             info.width = t->_width;
             info.height = t->_height;
             info.fileName = t->_fileName;
@@ -712,7 +786,7 @@ public:
         _featureDetector.SetFeatureDetector(detectorType);
     }
 
-    FeatureDetectorType GetFeatureDetector(void)
+    FeatureDetectorType GetFeatureDetector(void) const
     {
         return _selectedFeatureDetectorType;
     }
@@ -724,7 +798,7 @@ public:
         }
     }
 
-    int GetMaximumNumberOfMarkersToTrack(void)
+    int GetMaximumNumberOfMarkersToTrack(void) const
     {
         return _maxNumberOfMarkersToTrack;
     }
@@ -833,4 +907,14 @@ void PlanarTracker::SetMaximumNumberOfMarkersToTrack(int maximumNumberOfMarkersT
 int PlanarTracker::GetMaximumNumberOfMarkersToTrack(void)
 {
     return _trackerImpl->GetMaximumNumberOfMarkersToTrack();
+}
+
+void PlanarTracker::SetTrackerVisualizationActive(bool active)
+{
+    _trackerImpl->_trackVizActive = active;
+}
+
+void *PlanarTracker::GetTrackerVisualization(void)
+{
+    return (void *)&_trackerImpl->_trackViz;
 }
