@@ -60,8 +60,6 @@ public:
     /// The four points defining the bound-box of a detected trackable in the video frame.
     std::vector<cv::Point2f> _bBoxTransformed;
     bool _isTracking, _isDetected;
-    /// If set to true, TrackSelection.SelectPoints will be invoked in SelectTrackablePoints, selecting new points and resetting their tracking status.
-    bool _resetTracks;
     
     std::vector<cv::Point2f> _cornerPoints;
     TrackingPointSelector _trackSelection;

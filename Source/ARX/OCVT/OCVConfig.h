@@ -61,9 +61,13 @@
 #include <opencv2/calib3d.hpp>
 #include <ARX/OCVT/PlanarTracker.h>
 
+/** @file */
+
+/// @def k_OCVTOpticalFlowMaxPyrLevel Maximum number of levels in optical flow image pyramid (0 = base level only).
+#define k_OCVTOpticalFlowMaxPyrLevel 3
+
 OCV_EXTERN extern int minRequiredDetectedFeatures; ///< Minimum number of detected features required to consider a target matched.
 OCV_EXTERN extern const int markerTemplateWidth; ///< Width in pixels of image patches used in template matching.
-OCV_EXTERN extern const int k_OCVTOpticalFlowMaxPyrLevel; ///< Maximum number of levels in optical flow image pyramid (0 = base level only).
 OCV_EXTERN extern const cv::Size subPixWinSize;
 OCV_EXTERN extern const cv::Size winSize; ///< Window size to use in optical flow search.
 OCV_EXTERN extern cv::TermCriteria termcrit;

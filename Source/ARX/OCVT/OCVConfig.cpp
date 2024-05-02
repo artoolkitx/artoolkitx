@@ -38,7 +38,6 @@
 
 int minRequiredDetectedFeatures = 50; ///< Minimum number of detected features required to consider a target matched.
 const int markerTemplateWidth = 15; ///< Width in pixels of image patches used in template matching.
-const int k_OCVTOpticalFlowMaxPyrLevel = 3; ///< Maximum number of levels in optical flow image pyramid (0 = base level only).
 const cv::Size subPixWinSize(10,10);
 const cv::Size winSize(31,31); ///< Window size to use in optical flow search.
 cv::TermCriteria termcrit(cv::TermCriteria::COUNT|cv::TermCriteria::EPS,20,0.03);

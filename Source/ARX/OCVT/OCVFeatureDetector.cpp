@@ -89,7 +89,12 @@ void OCVFeatureDetector::CreateORBFeatureDetector()
 
 void OCVFeatureDetector::CreateSIFTFeatureDetector()
 {
+#if CV_VERSION_MAJOR > 4 || (CV_VERSION_MAJOR == 4 && CV_VERSION_MINOR >= 4)
     _featureDetector = cv::SIFT::create();
+#else
+    // For versions without SIFT, BRISK is best alternative.
+    _featureDetector = cv::BRISK::create();
+#endif
     _matcher = cv::BFMatcher::create();
 }
 

@@ -133,7 +133,7 @@ static int jpegRead(FILE *fp, unsigned char *buf, int bufWidth, int bufHeight, A
         cinfo.image_height < 0 || cinfo.image_height > 32767) {
         ARLOGe("JPEG image size too large.");
         jpeg_destroy_decompress(&cinfo);
-        return NULL;
+        return (FALSE);
     }
 
     if (pixFormat != bufPixFormat) { // Pixel format conversion required?

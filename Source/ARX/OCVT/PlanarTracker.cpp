@@ -209,8 +209,8 @@ public:
                 //std::cout << "New marker detected" << std::endl;
                 _trackables[bestMatchIndex]._isDetected = true;
                 // Since we've just detected the marker, make sure next invocation of
-                // SelectTrackablePoints() for this marker resets the selection.
-                _trackables[bestMatchIndex]._resetTracks = true;
+                // GetInitialFeatures() for this marker makes a new selection.
+                _trackables[bestMatchIndex]._trackSelection.ResetSelection();
                 _trackables[bestMatchIndex]._trackSelection.SetHomography(homoInfo.homography);
                 
                 // Use the homography to form the initial estimate of the bounding box.
@@ -224,17 +224,6 @@ public:
                 }
                 _currentlyTrackedMarkers++;
             }
-        }
-    }
-    
-    std::vector<cv::Point2f> SelectTrackablePoints(int trackableIndex)
-    {
-        if (_trackables[trackableIndex]._resetTracks) {
-            _trackables[trackableIndex]._trackSelection.SelectPoints();
-            _trackables[trackableIndex]._resetTracks = false;
-            return _trackables[trackableIndex]._trackSelection.GetSelectedFeatures();
-        } else {
-            return _trackables[trackableIndex]._trackSelection.GetTrackedFeatures();
         }
     }
     
@@ -292,7 +281,7 @@ public:
                     }
                 }
                 if (_frameCount > 1) {
-                    _trackables[trackableId]._resetTracks = true;
+                    _trackables[trackableId]._trackSelection.ResetSelection();
                 }
                 return true;
             }
@@ -537,7 +526,7 @@ public:
                     //float templateScaleFactor = (float)(1 << templatePyrLevel);
                     //std::cout << "templatePyrLevel=" << templatePyrLevel << ", templateScaleFactor=" << templateScaleFactor << "." << std::endl;
 
-                    std::vector<cv::Point2f> trackablePoints = SelectTrackablePoints(i);
+                    std::vector<cv::Point2f> trackablePoints = _trackables[i]._trackSelection.GetInitialFeatures();
                     std::vector<cv::Point2f> trackablePointsWarped = _trackables[i]._trackSelection.GetTrackedFeaturesWarped();
                     
                     if (_frameCount > 0 && _prevPyramid.size() > 0) {
@@ -648,7 +637,6 @@ public:
                     newTrackable._bBox.push_back(cv::Point2f(0, newTrackable._height));
                     newTrackable._isTracking = false;
                     newTrackable._isDetected = false;
-                    newTrackable._resetTracks = false;
                     newTrackable._trackSelection = TrackingPointSelector(newTrackable._cornerPoints, newTrackable._width, newTrackable._height, markerTemplateWidth);
                     _trackables.push_back(newTrackable);
                 }
@@ -686,7 +674,6 @@ public:
             newTrackable._bBox.push_back(cv::Point2f(0, newTrackable._height));
             newTrackable._isTracking = false;
             newTrackable._isDetected = false;
-            newTrackable._resetTracks = false;
             newTrackable._trackSelection = TrackingPointSelector(newTrackable._cornerPoints, newTrackable._width, newTrackable._height, markerTemplateWidth);
             
             _trackables.push_back(newTrackable);

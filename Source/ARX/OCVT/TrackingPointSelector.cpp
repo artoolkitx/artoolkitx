@@ -40,12 +40,12 @@
 
 TrackingPointSelector::TrackingPointSelector()
 {
-    
 }
 
-TrackingPointSelector::TrackingPointSelector(std::vector<cv::Point2f> pts, int width, int height, int markerTemplateWidth)
+TrackingPointSelector::TrackingPointSelector(std::vector<cv::Point2f> pts, int width, int height, int markerTemplateWidth) :
+    _reset(false),
+    _pts(pts)
 {
-    _pts = pts;
     DistributeBins(width, height, markerTemplateWidth);
 }
 
@@ -107,12 +107,16 @@ void TrackingPointSelector::UpdatePointStatus(std::vector<uchar> status)
     }
 }
 
-/**
- @brief Selects a random template from each bin for tracking.
-    Should be called when either a marker has just been detected.
- */
-void TrackingPointSelector::SelectPoints()
+void TrackingPointSelector::ResetSelection()
 {
+    _reset = true;
+}
+
+std::vector<cv::Point2f> TrackingPointSelector::GetInitialFeatures()
+{
+    if (!_reset) return GetTrackedFeatures();
+    _reset = false;
+    
     // Reset state of all points to not selected and not tracking.
     _selectedPts.clear();
     for (auto &bin : trackingPointBin) {
@@ -122,6 +126,8 @@ void TrackingPointSelector::SelectPoints()
         }
     }
     
+    // Selects a random template from each bin for tracking.
+    std::vector<cv::Point2f> ret;
     for (auto &bin : trackingPointBin) {
         size_t pointCount = bin.second.size();
         if (pointCount > 0) { // If there are points in the bin.
@@ -130,19 +136,11 @@ void TrackingPointSelector::SelectPoints()
             bin.second[tIndex].SetSelected(true);
             bin.second[tIndex].SetTracking(true);
             _selectedPts.push_back(bin.second[tIndex]);
+            
+            ret.push_back(bin.second[tIndex].pt);
         }
     }
-}
-    
-std::vector<cv::Point2f> TrackingPointSelector::GetSelectedFeatures()
-{
-    std::vector<cv::Point2f> selectedPoints;
-    for (std::vector<TrackedPoint>::iterator it = _selectedPts.begin(); it != _selectedPts.end(); ++it) {
-        if (it->IsSelected()) {
-            selectedPoints.push_back(it->pt);
-        }
-    }
-    return selectedPoints;
+    return ret;
 }
     
 std::vector<cv::Point2f> TrackingPointSelector::GetTrackedFeatures()
