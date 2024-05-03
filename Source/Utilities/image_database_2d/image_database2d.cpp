@@ -127,6 +127,7 @@ int main(int argc, char *argv[])
         ARPRINT("Could not initialise 2D tracker.\n");
     }
     quit(0);
+    return 0;
 }
 
 std::vector<std::string> getFiles(const char *nameIn, bool want_path)

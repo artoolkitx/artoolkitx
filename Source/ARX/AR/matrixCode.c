@@ -115,7 +115,7 @@ int encodeMatrixCode(const AR_MATRIX_CODE_TYPE matrixCodeType, uint64_t in, uint
         int barcode_dimensions = matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK;
         int length = barcode_dimensions*barcode_dimensions - 3;
         if (length > 63) return 0;
-        uint64_t codeCount = 1u << length;
+        uint64_t codeCount = 1ull << length;
         if (in >= codeCount) return 0;
         *out_bits_p = (uint8_t *)malloc(length);
         return (unpack_number(in, length, *out_bits_p));

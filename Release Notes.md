@@ -1,9 +1,22 @@
 # artoolkitX Release Notes
 --------------------------
 
+
+## Version 1.1.19
+### 2024-05-03
+
+ * 2D tracker updates:
+    - Added new utility check_live_2d_tracking to display 2D tracker features during live tracking session.
+    - Added support for SIFT feature type.
+    - Allow control of minimum required features and RANSAC threshold in feature detector.
+    - Other minor code and documentation improvements.
+    - Fix for case where no 2D tracker supported (thanks to Frederic Alinhac).
+ * Android: Update to artoolkitx-built opencv-4.7.0. Ensure consistency between manual build and gradle-initiated build by specifying ndk version.
+ * Fix: added jepg read buffer overflow protection.
+
 ## Version 1.1.18
 ### 2024-01-17
- 
+
  * mac OS: use ld_classic for backwards compatibility.
  * In the 2D image tracker, incoming images will only be downsampled for the feature tracking stage if they meet a minimum image size. This will help tracking when the source image stream is low resolution.
 

@@ -161,7 +161,7 @@ static void processCommandLineOptions(int argc, char *argv[]);
 static void usage(char *com);
 static void drawQuadLoop(float vertices[4][2], float color[4]);
 static void drawQuadLoop3D(float vertices[4][3], float color[4]);
-static void drawCorrespondences(std::vector<cv::Point2f> imagePoints, std::vector<cv::Point2f> videoPoints, float color[4]);
+static void drawCorrespondences(const std::vector<cv::Point2f>& imagePoints, const std::vector<cv::Point2f>& videoPoints, const float color[4]);
 static void drawImageView(void);
 static void drawBackground(const float width, const float height, const float x, const float y);
 static void printHelpKeys(void);
@@ -425,6 +425,7 @@ int main(int argc, char *argv[])
     } // !done
     
     quit(0);
+    return 0;
 }
 
 static void reshape(int w, int h)
@@ -636,20 +637,22 @@ static void drawQuadLoop3D(float vertices[4][3], float color[4])
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-static void drawCorrespondences(std::vector<cv::Point2f> imagePoints, std::vector<cv::Point2f> videoPoints, float color[4])
+static void drawCorrespondences(const std::vector<cv::Point2f>& imagePoints, const std::vector<cv::Point2f>& videoPoints, const float color[4])
 {
     glColor4fv(color);
-    GLfloat vertices[imagePoints.size()*2][2];
+    GLfloat *vertices;
+    arMalloc(vertices, GLfloat, imagePoints.size()*2*2);
     for (int i = 0; i < imagePoints.size() && i < videoPoints.size(); i++) {
-        vertices[i*2][0] = (float)(gContextWidth / 2) + imagePoints[i].x * imageZoom;
-        vertices[i*2][1] = (float)gContextHeight - imagePoints[i].y * imageZoom;
-        vertices[i*2 + 1][0] = videoPoints[i].x * videoZoom;
-        vertices[i*2 + 1][1] = (float)gContextHeight - videoPoints[i].y * videoZoom;
+        vertices[i*4] = (float)(gContextWidth / 2) + imagePoints[i].x * imageZoom;
+        vertices[i*4 + 1] = (float)gContextHeight - imagePoints[i].y * imageZoom;
+        vertices[i*4 + 2] = videoPoints[i].x * videoZoom;
+        vertices[i*4 + 3] = (float)gContextHeight - videoPoints[i].y * videoZoom;
     }
     glVertexPointer(2, GL_FLOAT, 0, vertices);
     glEnableClientState(GL_VERTEX_ARRAY);
     glDrawArrays(GL_LINES, 0, (int)imagePoints.size()*2);
     glDisableClientState(GL_VERTEX_ARRAY);
+    free(vertices);
 }
 
 static void drawImageView(void)

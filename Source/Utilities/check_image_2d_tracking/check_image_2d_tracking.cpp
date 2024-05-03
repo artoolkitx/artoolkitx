@@ -222,6 +222,7 @@ int main(int argc, char *argv[])
     } // !done
     
     quit(0);
+    return 0;
 }
 
 static void reshapeImageWindow(int w, int h)
