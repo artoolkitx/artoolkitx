@@ -63,11 +63,11 @@ private:
     void CreateORBFeatureDetector();
     void CreateKazeFeatureDetector();
     void CreateBriskFeatureDetector();
-    
+    void CreateSIFTFeatureDetector();
+
     std::map<int, cv::Mat> _visualDictionary;
     cv::Ptr<cv::DescriptorMatcher> _matcher;
     cv::Ptr<cv::Feature2D> _featureDetector;
-    float _akaze_thresh;
 };
 
 #endif //OCVFEATUREDETECTOR

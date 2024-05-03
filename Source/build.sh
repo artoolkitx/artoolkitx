@@ -14,7 +14,7 @@
 OURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function usage {
-    echo "Usage: $(basename $0) [--debug] [--no-config] [--android-ndk-version version-string](macos | windows | ios | linux | android | linux-raspbian | emscripten | docs)... [tests] [examples] [cmake \"<generator>\"]"
+    echo "Usage: $(basename $0) [--debug] [-v|--verbose] [--no-config] [--android-ndk-version version-string](macos | windows | ios | linux | android | linux-raspbian | emscripten | docs)... [tests] [examples] [cmake \"<generator>\"]"
     exit 1
 }
 
@@ -49,6 +49,10 @@ do
 		examples) BUILD_EXAMPLES=1
 		    ;;
         docs) BUILD_DOCS=1
+            ;;
+        --verbose) VERBOSE=
+            ;;
+        -v) VERBOSE=
             ;;
         --debug) DEBUG=
             ;;
@@ -87,10 +91,10 @@ then
 elif [ "$OS" = "Darwin" ]
 then
     CPUS=`/usr/sbin/sysctl -n hw.ncpu`
-    if [ -x "$(command -v xcbeautify)" ]; then
+    if [ -z "$VERBOSE" -a -x "$(command -v xcbeautify)" ]; then
         XCBEAUTIFY=xcbeautify
     else
-        XCBEAUTIFY=true
+        XCBEAUTIFY=cat
     fi
 elif [[ "$OS" == "CYGWIN_NT-"* ]]
 then

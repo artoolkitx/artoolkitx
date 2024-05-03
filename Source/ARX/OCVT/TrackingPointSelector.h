@@ -43,6 +43,9 @@
 #include "OCVConfig.h"
 #include "TrackedPoint.h"
 
+/**
+    @brief Class used to manage selection of tracking points based on image templates (i.e. unique pixel patches).</brief>
+ */
 class TrackingPointSelector
 {
 public:
@@ -58,16 +61,22 @@ public:
     
     void UpdatePointStatus(std::vector<uchar> status);
 
-    /// Reset selected points and then randomly select one point from each bin.
-    void SelectPoints();
+    /**
+     @brief Signal that the next call to GetInitialFeatures should return a new selection.
+     */
+    void ResetSelection();
     
-    std::vector<cv::Point2f> GetSelectedFeatures();
+    /**
+     @brief If reset, then selects an initial random template from each bin for tracking,
+        and returns this set. If not reset then returns the same set as GetTrackedFeatures.
+     */
+    std::vector<cv::Point2f> GetInitialFeatures();
     
     std::vector<cv::Point2f> GetTrackedFeatures();
     
-    std::vector<cv::Point3f> GetSelectedFeatures3d();
+    std::vector<cv::Point3f> GetTrackedFeatures3d();
     
-    std::vector<cv::Point2f> GetSelectedFeaturesWarped();
+    std::vector<cv::Point2f> GetTrackedFeaturesWarped();
 
     /// Get all points from all bins that are candidates for selection.
     OCV_EXTERN std::vector<cv::Point2f> GetAllFeatures();
@@ -75,10 +84,10 @@ public:
     OCV_EXTERN void CleanUp();
 
 private:
-    std::vector<TrackedPoint> _selectedPts;
+    bool _reset;
     std::vector<cv::Point2f> _pts;
     std::map<int, std::vector<TrackedPoint> > trackingPointBin;
-    cv::Mat homography;
-
+    cv::Mat _homography;
+    std::vector<TrackedPoint> _selectedPts;
 };
 #endif //TRACKINGPOINTSELECTOR

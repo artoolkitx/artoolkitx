@@ -92,18 +92,26 @@ public:
     std::vector<int> GetImageIds();
     TrackedImageInfo GetTrackableImageInfo(int trackableId);
     
+    /// Defaults to `defaultDetectorType`.
     enum class FeatureDetectorType {
         Akaze,
         ORB,
         Brisk,
-        Kaze
+        Kaze,
+        SIFT
     };
     void SetFeatureDetector(FeatureDetectorType detectorType);
     FeatureDetectorType GetFeatureDetector(void);
+    void SetMinRequiredDetectedFeatures(int num);
+    int GetMinRequiredDetectedFeatures(void);
+    void SetHomographyEstimationRANSACThreshold(double thresh);
+    double GetHomographyEstimationRANSACThreshold(void);
 
     void SetMaximumNumberOfMarkersToTrack(int maximumNumberOfMarkersToTrack);
     int GetMaximumNumberOfMarkersToTrack(void);
 
+    void SetTrackerVisualizationActive(bool active);
+    void *GetTrackerVisualization(void);
 
 private:
     class PlanarTrackerImpl;

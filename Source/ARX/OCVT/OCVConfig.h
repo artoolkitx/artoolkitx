@@ -61,20 +61,24 @@
 #include <opencv2/calib3d.hpp>
 #include <ARX/OCVT/PlanarTracker.h>
 
-OCV_EXTERN extern int minRequiredDetectedFeatures;
-OCV_EXTERN extern int markerTemplateWidth;
-OCV_EXTERN extern int maxLevel;  ///< Maximum number of levels in optical flow image pyramid.
+/** @file */
+
+/// @def k_OCVTOpticalFlowMaxPyrLevel Maximum number of levels in optical flow image pyramid (0 = base level only).
+#define k_OCVTOpticalFlowMaxPyrLevel 3
+
+OCV_EXTERN extern int minRequiredDetectedFeatures; ///< Minimum number of detected features required to consider a target matched.
+OCV_EXTERN extern const int markerTemplateWidth; ///< Width in pixels of image patches used in template matching.
 OCV_EXTERN extern const cv::Size subPixWinSize;
-OCV_EXTERN extern const cv::Size winSize;
+OCV_EXTERN extern const cv::Size winSize; ///< Window size to use in optical flow search.
 OCV_EXTERN extern cv::TermCriteria termcrit;
-OCV_EXTERN extern const int featureDetectMaxFeatures;
-OCV_EXTERN extern int searchRadius;
-OCV_EXTERN extern int match_method;
+OCV_EXTERN extern const int markerTemplateCountMax; ///< Maximum number of Harris corners to use as template locations.  If <= 0, no limit on the maximum is set and all detected corners will be used.
+OCV_EXTERN extern const int searchRadius;
+OCV_EXTERN extern const int match_method;
 OCV_EXTERN extern const cv::Size featureImageMinSize; ///< Minimum size when downscaling incoming images used for feature tracking.
 OCV_EXTERN extern PlanarTracker::FeatureDetectorType defaultDetectorType;
 OCV_EXTERN extern const double nn_match_ratio; ///< Nearest-neighbour matching ratio
-OCV_EXTERN extern const double ransac_thresh; ///< RANSAC inlier threshold
+OCV_EXTERN extern double ransac_thresh; ///< RANSAC inlier threshold
 OCV_EXTERN extern cv::RNG rng;
-OCV_EXTERN extern int harrisBorder; ///< Harris corners within this many pixels of the border of the image will be ignored.
+OCV_EXTERN extern const int harrisBorder; ///< Harris corners within this many pixels of the border of the image will be ignored.
 
 #endif // OCV_CONFIG_H

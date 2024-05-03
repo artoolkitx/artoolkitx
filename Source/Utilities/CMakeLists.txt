@@ -10,5 +10,6 @@ if(ARX_TARGET_PLATFORM_MACOS OR (ARX_TARGET_PLATFORM_LINUX AND NOT "${ARX_TARGET
     if(HAVE_2D)
         add_subdirectory("image_database_2d")
         add_subdirectory("check_image_2d_tracking")
+        add_subdirectory("check_live_2d_tracking")
     endif()
 endif()

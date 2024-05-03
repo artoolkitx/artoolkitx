@@ -36,18 +36,17 @@
 
 #include "OCVConfig.h"
 
-int minRequiredDetectedFeatures = 50;
-int markerTemplateWidth = 15;
-int maxLevel = 3; ///< Maximum number of levels in optical flow image pyramid.
+int minRequiredDetectedFeatures = 50; ///< Minimum number of detected features required to consider a target matched.
+const int markerTemplateWidth = 15; ///< Width in pixels of image patches used in template matching.
 const cv::Size subPixWinSize(10,10);
 const cv::Size winSize(31,31); ///< Window size to use in optical flow search.
 cv::TermCriteria termcrit(cv::TermCriteria::COUNT|cv::TermCriteria::EPS,20,0.03);
-const int featureDetectMaxFeatures = 300;
-int searchRadius = 15;
-int match_method = cv::TM_SQDIFF_NORMED;
+const int markerTemplateCountMax = 300; ///< Maximum number of Harris corners to use as template locations.  If <= 0, no limit on the maximum is set and all detected corners will be used.
+const int searchRadius = 15;
+const int match_method = cv::TM_SQDIFF_NORMED;
 const cv::Size featureImageMinSize(640, 480); ///< Minimum size when downscaling incoming images used for feature tracking.
 PlanarTracker::FeatureDetectorType defaultDetectorType = PlanarTracker::FeatureDetectorType::Akaze;
 const double nn_match_ratio = 0.8f; ///< Nearest-neighbour matching ratio
-const double ransac_thresh = 2.5f; ///< RANSAC inlier threshold
+double ransac_thresh = 2.5f; ///< RANSAC inlier threshold
 cv::RNG rng( 0xFFFFFFFF );
-int harrisBorder = 10;
+const int harrisBorder = 10; ///< Harris corners within this many pixels of the border of the image will be ignored.

@@ -57,6 +57,9 @@ void OCVFeatureDetector::SetFeatureDetector(PlanarTracker::FeatureDetectorType d
         case PlanarTracker::FeatureDetectorType::Kaze:
             CreateKazeFeatureDetector();
             break;
+        case PlanarTracker::FeatureDetectorType::SIFT:
+            CreateSIFTFeatureDetector();
+            break;
     }
 }
 
@@ -81,6 +84,17 @@ void OCVFeatureDetector::CreateKazeFeatureDetector()
 void OCVFeatureDetector::CreateORBFeatureDetector()
 {
     _featureDetector = cv::ORB::create();
+    _matcher = cv::BFMatcher::create();
+}
+
+void OCVFeatureDetector::CreateSIFTFeatureDetector()
+{
+#if CV_VERSION_MAJOR > 4 || (CV_VERSION_MAJOR == 4 && CV_VERSION_MINOR >= 4)
+    _featureDetector = cv::SIFT::create();
+#else
+    // For versions without SIFT, BRISK is best alternative.
+    _featureDetector = cv::BRISK::create();
+#endif
     _matcher = cv::BFMatcher::create();
 }
 

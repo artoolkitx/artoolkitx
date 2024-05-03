@@ -91,9 +91,24 @@ public:
     
     void setDetectorType(PlanarTracker::FeatureDetectorType detectorType);
     PlanarTracker::FeatureDetectorType getDetectorType(void);
+    void setMinRequiredDetectedFeatures(int num);
+    int getMinRequiredDetectedFeatures(void);
+    void setHomographyEstimationRANSACThreshold(double thresh);
+    double getHomographyEstimationRANSACThreshold(void);
 
     bool threaded(void) const;
+    /// \brief Enable or disable running the 2D tracking task in a separate thread. See caveats in detailed description.
+    ///
+    /// Tracking may be offloaded to a secondary thread by setting this to true.
+    /// When running threaded, tracking updates are not processed synchronously, but the frame data is copied and processed
+    /// independently on a dedicated secondary thread. This can help avoid doing too much work on the calling thread. The
+    /// drawback of threaded tracking is that the results (if any) of the tracking will not be available until the next call to `update()` AFTER
+    /// the processing has finished. This adds at minimum at least one frame of latency to the tracking, and the memory and CPU load of an
+    /// additional copy of each frame submitted.
     void setThreaded(bool threaded);
+    
+    void setTrackerVisualizationActive(bool active);
+    void *getTrackerVisualization(void);
 
 private:
 

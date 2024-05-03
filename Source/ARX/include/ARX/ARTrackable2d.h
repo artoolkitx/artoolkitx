@@ -53,8 +53,10 @@ class ARTrackable2d : public ARTrackable {
 private:
     bool m_loaded;
     float m_twoDScale;
-    bool robustFlag;                                    ///< Flag specifying which pose estimation approach to use
-    int pageNo;                                         ///< "Page number" (first page is page 0), or -1 if 2D data not yet loaded into tracker. Not strictly necessary for 2D tracker, but useful when multiple 2D trackables are loaded.
+    /// Flag specifying which pose estimation approach to use.
+    bool robustFlag;
+    /// "Page number" (first page is page 0), or -1 if 2D data not yet loaded into tracker. Not strictly necessary for 2D tracker, but useful when multiple 2D trackables are loaded.
+    int pageNo;
     char *datasetPathname;
     int m_refImageX, m_refImageY;
     std::shared_ptr<unsigned char> m_refImage;

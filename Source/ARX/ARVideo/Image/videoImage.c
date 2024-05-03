@@ -129,6 +129,13 @@ static int jpegRead(FILE *fp, unsigned char *buf, int bufWidth, int bufHeight, A
         jpeg_destroy_decompress(&cinfo);
         return (FALSE);
     }
+    if (cinfo.image_width < 0 || cinfo.image_width > 32767 ||
+        cinfo.image_height < 0 || cinfo.image_height > 32767) {
+        ARLOGe("JPEG image size too large.");
+        jpeg_destroy_decompress(&cinfo);
+        return (FALSE);
+    }
+
     if (pixFormat != bufPixFormat) { // Pixel format conversion required?
         if (bufPixFormat == AR_PIXEL_FORMAT_MONO) { // If converting to mono, let libjpeg handle it.
             cinfo.out_color_space = JCS_GRAYSCALE;
