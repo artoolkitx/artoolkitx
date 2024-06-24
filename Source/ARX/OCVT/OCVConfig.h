@@ -65,6 +65,8 @@
 
 /// @def k_OCVTOpticalFlowMaxPyrLevel Maximum number of levels in optical flow image pyramid (0 = base level only).
 #define k_OCVTOpticalFlowMaxPyrLevel 3
+/// @def k_OCVTTemplateMatchingMaxPyrLevel Maximum number of levels in template matching image pyramid (0 = base level only).
+#define k_OCVTTemplateMatchingMaxPyrLevel 2
 
 OCV_EXTERN extern int minRequiredDetectedFeatures; ///< Minimum number of detected features required to consider a target matched.
 OCV_EXTERN extern const int markerTemplateWidth; ///< Width in pixels of image patches used in template matching.

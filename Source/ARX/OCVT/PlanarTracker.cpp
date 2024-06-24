@@ -162,6 +162,17 @@ public:
         return featureMask;
     }
     
+    void UpdateTrackableBBox(const int index, const cv::Mat& homography)
+    {
+        perspectiveTransform(_trackables[index]._bBox, _trackables[index]._bBoxTransformed, homography);
+        if (_trackVizActive) {
+            for (int i = 0; i < 4; i++) {
+                _trackViz.bounds[i][0] = _trackables[index]._bBoxTransformed[i].x;
+                _trackViz.bounds[i][1] = _trackables[index]._bBoxTransformed[i].y;
+            }
+        }
+    }
+    
     void MatchFeatures(const std::vector<cv::KeyPoint>& newFrameFeatures, cv::Mat newFrameDescriptors)
     {
         int maxMatches = 0;
@@ -208,20 +219,14 @@ public:
             if (homoInfo.validHomography) {
                 //std::cout << "New marker detected" << std::endl;
                 _trackables[bestMatchIndex]._isDetected = true;
+                _trackables[bestMatchIndex]._resetTracks = true;
                 // Since we've just detected the marker, make sure next invocation of
                 // GetInitialFeatures() for this marker makes a new selection.
                 _trackables[bestMatchIndex]._trackSelection.ResetSelection();
                 _trackables[bestMatchIndex]._trackSelection.SetHomography(homoInfo.homography);
                 
-                // Use the homography to form the initial estimate of the bounding box.
-                // This will be refined by the optical flow pass.
-                perspectiveTransform(_trackables[bestMatchIndex]._bBox, _trackables[bestMatchIndex]._bBoxTransformed, homoInfo.homography);
-                if (_trackVizActive) {
-                    for (int i = 0; i < 4; i++) {
-                        _trackViz.bounds[i][0] = _trackables[bestMatchIndex]._bBoxTransformed[i].x;
-                        _trackViz.bounds[i][1] = _trackables[bestMatchIndex]._bBoxTransformed[i].y;
-                    }
-                }
+                UpdateTrackableBBox(bestMatchIndex, homoInfo.homography); // Initial estimate of the bounding box, which will be refined by the optical flow pass.
+
                 _currentlyTrackedMarkers++;
             }
         }
@@ -272,14 +277,7 @@ public:
             if (homoInfo.validHomography) {
                 _trackables[trackableId]._trackSelection.UpdatePointStatus(homoInfo.status);
                 _trackables[trackableId]._trackSelection.SetHomography(homoInfo.homography);
-                // Update the bounding box.
-                perspectiveTransform(_trackables[trackableId]._bBox, _trackables[trackableId]._bBoxTransformed, homoInfo.homography);
-                if (_trackVizActive) {
-                    for (int i = 0; i < 4; i++) {
-                        _trackViz.bounds[i][0] = _trackables[trackableId]._bBoxTransformed[i].x;
-                        _trackViz.bounds[i][1] = _trackables[trackableId]._bBoxTransformed[i].y;
-                    }
-                }
+                UpdateTrackableBBox(trackableId, homoInfo.homography);
                 if (_frameCount > 1) {
                     _trackables[trackableId]._trackSelection.ResetSelection();
                 }
@@ -584,12 +582,12 @@ public:
                     fs << "trackableId" + index << _trackables[i]._id;
                     fs << "trackableFileName" + index << _trackables[i]._fileName;
                     fs << "trackableScale" + index << _trackables[i]._scale;
-                    fs << "trackableImage" + index << _trackables[i]._image;
+                    fs << "trackableImage" + index << _trackables[i]._image[0];
                     fs << "trackableWidth" + index << _trackables[i]._width;
                     fs << "trackableHeight" + index << _trackables[i]._height;
                     fs << "trackableDescriptors" + index << _trackables[i]._descriptors;
                     fs << "trackableFeaturePoints" + index << _trackables[i]._featurePoints;
-                    fs << "trackableCornerPoints" + index << _trackables[i]._cornerPoints;
+                    fs << "trackableCornerPoints" + index << _trackables[i]._cornerPoints[0];
                 }
                 success = true;
             } catch (std::exception e) {
@@ -625,19 +623,28 @@ public:
                     fs["trackableId" + index] >> newTrackable._id;
                     fs["trackableFileName" + index] >> newTrackable._fileName;
                     fs["trackableScale" + index] >> newTrackable._scale;
-                    fs["trackableImage" + index] >> newTrackable._image;
+                    fs["trackableImage" + index] >> newTrackable._image[0];
                     fs["trackableWidth" + index] >> newTrackable._width;
                     fs["trackableHeight" + index] >> newTrackable._height;
                     fs["trackableDescriptors" + index] >> newTrackable._descriptors;
                     fs["trackableFeaturePoints" + index] >> newTrackable._featurePoints;
-                    fs["trackableCornerPoints" + index] >> newTrackable._cornerPoints;
+                    fs["trackableCornerPoints" + index] >> newTrackable._cornerPoints[0];
                     newTrackable._bBox.push_back(cv::Point2f(0,0));
                     newTrackable._bBox.push_back(cv::Point2f(newTrackable._width, 0));
                     newTrackable._bBox.push_back(cv::Point2f(newTrackable._width, newTrackable._height));
                     newTrackable._bBox.push_back(cv::Point2f(0, newTrackable._height));
                     newTrackable._isTracking = false;
                     newTrackable._isDetected = false;
-                    newTrackable._trackSelection = TrackingPointSelector(newTrackable._cornerPoints, newTrackable._width, newTrackable._height, markerTemplateWidth);
+                    newTrackable._resetTracks = false;
+                    for (int i = 0; i <= k_OCVTTemplateMatchingMaxPyrLevel; i++) {
+                        if (i > 0) {
+                            // For the base pyramid level, the image and Harris corners are read from the file.
+                            // For other levels we need to generate them on the fly.
+                            cv::pyrDown(newTrackable._image[i - 1], newTrackable._image[i]);
+                            newTrackable._cornerPoints[i] = _harrisDetector.FindCorners(newTrackable._image[i]);
+                        }
+                        newTrackable._trackSelection[i] = TrackingPointSelector(newTrackable._cornerPoints[i], newTrackable._image[i].cols, newTrackable._image[i].rows, markerTemplateWidth);
+                    }
                     _trackables.push_back(newTrackable);
                 }
                 success = true;
@@ -658,23 +665,28 @@ public:
         TrackableInfo newTrackable;
         // cv::Mat() wraps `buff` rather than copying it, but this is OK as we share ownership with caller via the shared_ptr.
         newTrackable._imageBuff = buff;
-        newTrackable._image = cv::Mat(height, width, CV_8UC1, buff.get());
-        if (!newTrackable._image.empty()) {
+        newTrackable._image[0] = cv::Mat(height, width, CV_8UC1, buff.get());
+        if (!newTrackable._image[0].empty()) {
             newTrackable._id = uid;
             newTrackable._fileName = fileName;
             newTrackable._scale = scale;
-            newTrackable._width = newTrackable._image.cols;
-            newTrackable._height = newTrackable._image.rows;
-            newTrackable._featurePoints = _featureDetector.DetectFeatures(newTrackable._image, cv::Mat());
-            newTrackable._descriptors = _featureDetector.CalcDescriptors(newTrackable._image, newTrackable._featurePoints);
-            newTrackable._cornerPoints = _harrisDetector.FindCorners(newTrackable._image);
+            newTrackable._width = newTrackable._image[0].cols;
+            newTrackable._height = newTrackable._image[0].rows;
+            newTrackable._featurePoints = _featureDetector.DetectFeatures(newTrackable._image[0], cv::Mat());
+            newTrackable._descriptors = _featureDetector.CalcDescriptors(newTrackable._image[0], newTrackable._featurePoints);
             newTrackable._bBox.push_back(cv::Point2f(0,0));
             newTrackable._bBox.push_back(cv::Point2f(newTrackable._width, 0));
             newTrackable._bBox.push_back(cv::Point2f(newTrackable._width, newTrackable._height));
             newTrackable._bBox.push_back(cv::Point2f(0, newTrackable._height));
             newTrackable._isTracking = false;
             newTrackable._isDetected = false;
-            newTrackable._trackSelection = TrackingPointSelector(newTrackable._cornerPoints, newTrackable._width, newTrackable._height, markerTemplateWidth);
+            newTrackable._resetTracks = false;
+            for (int i = 0; i <= k_OCVTTemplateMatchingMaxPyrLevel; i++) {
+                // We already have the image for the base pyramid level. Generate the others.
+                if (i > 0) cv::pyrDown(newTrackable._image[i - 1], newTrackable._image[i]);
+                newTrackable._cornerPoints[i] = _harrisDetector.FindCorners(newTrackable._image[i]);
+                newTrackable._trackSelection[i] = TrackingPointSelector(newTrackable._cornerPoints[i], newTrackable._image[i].cols, newTrackable._image[i].rows, markerTemplateWidth);
+            }
             
             _trackables.push_back(newTrackable);
             ARLOGi("2D marker added.\n");
