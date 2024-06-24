@@ -222,13 +222,20 @@ public:
                 _trackables[bestMatchIndex]._resetTracks = true;
                 // Since we've just detected the marker, make sure next invocation of
                 // GetInitialFeatures() for this marker makes a new selection.
-                _trackables[bestMatchIndex]._trackSelection.ResetSelection();
+                ResetAllTrackingPointSelectorsForTrackable(bestMatchIndex);
                 _trackables[bestMatchIndex]._trackSelection.SetHomography(homoInfo.homography);
                 
                 UpdateTrackableBBox(bestMatchIndex, homoInfo.homography); // Initial estimate of the bounding box, which will be refined by the optical flow pass.
 
                 _currentlyTrackedMarkers++;
             }
+        }
+    }
+    
+    bool ResetAllTrackingPointSelectorsForTrackable(int trackableIndex)
+    {
+        for (int i = 0; i <= k_OCVTTemplateMatchingMaxPyrLevel; i++) {
+            _trackables[trackableIndex]._trackSelection[i].ResetSelection();
         }
     }
     
@@ -279,7 +286,7 @@ public:
                 _trackables[trackableId]._trackSelection.SetHomography(homoInfo.homography);
                 UpdateTrackableBBox(trackableId, homoInfo.homography);
                 if (_frameCount > 1) {
-                    _trackables[trackableId]._trackSelection.ResetSelection();
+                    ResetAllTrackingPointSelectorsForTrackable(trackableId);
                 }
                 return true;
             }
