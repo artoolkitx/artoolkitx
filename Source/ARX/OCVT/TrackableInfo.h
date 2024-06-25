@@ -52,6 +52,8 @@ public:
     int _height;
     std::string _fileName;
     
+    /// @brief 3x3 cv::Mat (of type CV_64FC1, i.e. double) containing the homography.
+    cv::Mat _homography;
     cv::Mat _pose;
     std::vector<cv::KeyPoint> _featurePoints;
     cv::Mat _descriptors;
@@ -70,6 +72,7 @@ public:
     {
         _descriptors.release();
         _pose.release();
+        _homography.release();
         _featurePoints.clear();
         for (int i = 0; i <= k_OCVTTemplateMatchingMaxPyrLevel; i++) {
             _trackSelection[i].CleanUp();

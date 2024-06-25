@@ -72,8 +72,7 @@ private:
     cv::Mat _distortionCoeff;
 
     FeatureDetectorType _selectedFeatureDetectorType;
-    
-    
+        
 public:
     bool _trackVizActive;
     TrackerVisualization _trackViz;
@@ -106,15 +105,7 @@ public:
         double xmin_log2 = std::log2(static_cast<double>(featureImageMinSize.width));
         double ymin_log2 = std::log2(static_cast<double>(featureImageMinSize.height));
         _featureDetectPyrLevel = std::min(std::floor(std::log2(static_cast<double>(_frameSizeX)) - xmin_log2), std::floor(std::log2(static_cast<double>(_frameSizeY)) - ymin_log2));
-        
-        // Calculate the exact scale factor using the same calculation pyrDown uses.
-        int xScaled = _frameSizeX;
-        int yScaled = _frameSizeY;
-        for (int i = 1; i <= _featureDetectPyrLevel; i++) {
-            xScaled = (xScaled + 1) / 2;
-            yScaled = (yScaled + 1) / 2;
-            _featureDetectScaleFactor = cv::Vec2f((float)_frameSizeX / (float)xScaled, (float)_frameSizeY / (float)yScaled);
-        }
+        _featureDetectScaleFactor = CalcPyrDownScaleFactor(_featureDetectPyrLevel, _frameSizeX, _frameSizeY);
 
         _K = cv::Mat(3,3, CV_64FC1);
         for (int i = 0; i < 3; i++) {
@@ -141,6 +132,20 @@ public:
         _currentlyTrackedMarkers = 0;
     }
     
+    /// Calculate the exact scale factor using the same calculation pyrDown uses.
+    cv::Vec2f CalcPyrDownScaleFactor(int pyrLevel, int x, int y)
+    {
+        cv::Vec2f ret = cv::Vec2f(1.0f, 1.0f);
+        int xScaled = x;
+        int yScaled = y;
+        for (int i = 1; i <= pyrLevel; i++) {
+            xScaled = (xScaled + 1) / 2;
+            yScaled = (yScaled + 1) / 2;
+            ret = cv::Vec2f((float)x / (float)xScaled, (float)y / (float)yScaled);
+        }
+        return ret;
+    }
+
     /// Creates a mask image where the areas occupied by all currently tracked markers are 0, and all areas
     /// outside the markers are 1.
     cv::Mat CreateFeatureMask(cv::Mat frame)
@@ -223,7 +228,7 @@ public:
                 // Since we've just detected the marker, make sure next invocation of
                 // GetInitialFeatures() for this marker makes a new selection.
                 ResetAllTrackingPointSelectorsForTrackable(bestMatchIndex);
-                _trackables[bestMatchIndex]._trackSelection.SetHomography(homoInfo.homography);
+                _trackables[bestMatchIndex]._homography = homoInfo.homography;
                 
                 UpdateTrackableBBox(bestMatchIndex, homoInfo.homography); // Initial estimate of the bounding box, which will be refined by the optical flow pass.
 
@@ -232,13 +237,13 @@ public:
         }
     }
     
-    bool ResetAllTrackingPointSelectorsForTrackable(int trackableIndex)
+    void ResetAllTrackingPointSelectorsForTrackable(int trackableIndex)
     {
         for (int i = 0; i <= k_OCVTTemplateMatchingMaxPyrLevel; i++) {
             _trackables[trackableIndex]._trackSelection[i].ResetSelection();
         }
     }
-    
+        
     bool RunOpticalFlow(int trackableId, const std::vector<cv::Point2f>& trackablePoints, const std::vector<cv::Point2f>& trackablePointsWarped)
     {
         std::vector<cv::Point2f> flowResultPoints, trackablePointsWarpedResult;
@@ -282,8 +287,8 @@ public:
         if (matchedPoints1.size() > 4) {
             HomographyInfo homoInfo = GetHomographyInliers(matchedPoints1, matchedPoints2);
             if (homoInfo.validHomography) {
-                _trackables[trackableId]._trackSelection.UpdatePointStatus(homoInfo.status);
-                _trackables[trackableId]._trackSelection.SetHomography(homoInfo.homography);
+                _trackables[trackableId]._trackSelection[_trackables[trackableId]._templatePyrLevel].UpdatePointStatus(homoInfo.status);
+                _trackables[trackableId]._homography = homoInfo.homography;
                 UpdateTrackableBBox(trackableId, homoInfo.homography);
                 if (_frameCount > 1) {
                     ResetAllTrackingPointSelectorsForTrackable(trackableId);
@@ -294,7 +299,8 @@ public:
         return false;
     }
     
-    std::vector<cv::Point2f> GetVerticesFromPoint(cv::Point ptOrig, int width = markerTemplateWidth, int height = markerTemplateWidth)
+    /// @brief Calculates vertices of a rect centered on ptOrig.
+    std::vector<cv::Point2f> GetVerticesFromPoint(cv::Point ptOrig, int width, int height)
     {
         std::vector<cv::Point2f> vertexPoints;
         vertexPoints.push_back(cv::Point2f(ptOrig.x - width/2, ptOrig.y - height/2));
@@ -304,6 +310,7 @@ public:
         return vertexPoints;
     }
     
+    /// @brief Calculates vertices of a rect with its top corner located at (x, y).
     std::vector<cv::Point2f> GetVerticesFromTopCorner(int x, int y, int width, int height)
     {
         std::vector<cv::Point2f> vertexPoints;
@@ -324,7 +331,9 @@ public:
         return (roi & frameRoi) == roi;
     }
     
-    cv::Rect InflateRoi(cv::Rect roi, int inflationFactor)
+    /// @brief Inflate the region of interest bounds by inflationFactor on each side.
+    /// @return The inflated bounds.
+    cv::Rect InflateRoi(const cv::Rect& roi, int inflationFactor)
     {
         cv::Rect newRoi = roi;
         newRoi.x -= inflationFactor;
@@ -334,6 +343,9 @@ public:
         return newRoi;
     }
     
+    /// @brief Transform all vertices by the same amount such that the point with the lowest x value moves to x=0
+    /// and the point with the lowest y value moves to y=0.
+    /// @return The transformed points.
     std::vector<cv::Point2f> FloorVertexPoints(const std::vector<cv::Point2f>& vertexPoints)
     {
         std::vector<cv::Point2f> testVertexPoints = vertexPoints;
@@ -341,10 +353,10 @@ public:
         float minY = std::numeric_limits<float>::max();
         for (int k = 0; k < testVertexPoints.size(); k++) {
             if (testVertexPoints[k].x < minX) {
-                minX=testVertexPoints[k].x;
+                minX = testVertexPoints[k].x;
             }
             if (testVertexPoints[k].y < minY) {
-                minY=testVertexPoints[k].y;
+                minY = testVertexPoints[k].y;
             }
         }
         for(int k = 0; k < testVertexPoints.size(); k++) {
@@ -379,11 +391,15 @@ public:
     
     bool RunTemplateMatching(cv::Mat frame, int trackableId)
     {
+        int templatePyrLevel = _trackables[trackableId]._templatePyrLevel;
+        float scalefx = (float)_trackables[trackableId]._width / (float)_trackables[trackableId]._image[templatePyrLevel].cols;
+        float scalefy = (float)_trackables[trackableId]._height / (float)_trackables[trackableId]._image[templatePyrLevel].rows;
+
         //std::cout << "Starting template match" << std::endl;
         std::vector<cv::Point2f> finalTemplatePoints, finalTemplateMatchPoints;
         //Get a handle on the corresponding points from current image and the marker
-        std::vector<cv::Point2f> trackablePoints = _trackables[trackableId]._trackSelection.GetTrackedFeatures();
-        std::vector<cv::Point2f> trackablePointsWarped = _trackables[trackableId]._trackSelection.GetTrackedFeaturesWarped();
+        std::vector<cv::Point2f> trackablePoints = _trackables[trackableId]._trackSelection[templatePyrLevel].GetTrackedFeatures();
+        std::vector<cv::Point2f> trackablePointsWarped = _trackables[trackableId]._trackSelection[templatePyrLevel].GetTrackedFeaturesWarped(_trackables[trackableId]._homography);
         //Create an empty result image - May be able to pre-initialize this container
         
         int n = (int)trackablePointsWarped.size();
@@ -393,39 +409,51 @@ public:
         }
         
         for (int j = 0; j < n; j++) {
-            auto pt = trackablePointsWarped[j];
+            auto pt = trackablePointsWarped[j]; // In frame dimensions.
             if (cv::pointPolygonTest(_trackables[trackableId]._bBoxTransformed, trackablePointsWarped[j], true) > 0) {
-                auto ptOrig = trackablePoints[j];
+                auto ptOrig = trackablePoints[j]; // In marker level 0 dimensions.
                 
-                cv::Rect templateRoi = GetTemplateRoi(pt);
+                cv::Rect templateSearchRoi = GetTemplateRoi(pt); // Where we are going to center our search for the template, in frame dimensions.
                 cv::Rect frameROI(0, 0, frame.cols, frame.rows);
-                if (IsRoiValidForFrame(frameROI, templateRoi)) {
-                    cv::Rect markerRoi(0, 0, _trackables[trackableId]._image.cols, _trackables[trackableId]._image.rows);
+                if (IsRoiValidForFrame(frameROI, templateSearchRoi)) {
                     
-                    std::vector<cv::Point2f> vertexPoints = GetVerticesFromPoint(ptOrig);
+                    // Calculate an upright rect region in the frame that minimally bounds the warped image of template we're searching for.
+                    std::vector<cv::Point2f> vertexPoints = GetVerticesFromPoint(ptOrig, markerTemplateWidth << templatePyrLevel, markerTemplateWidth << templatePyrLevel); // In marker level 0 dimensions.
                     std::vector<cv::Point2f> vertexPointsResults;
-                    perspectiveTransform(vertexPoints, vertexPointsResults, _trackables[trackableId]._trackSelection.GetHomography());
-                    
+                    perspectiveTransform(vertexPoints, vertexPointsResults, _trackables[trackableId]._homography);
                     cv::Rect srcBoundingBox = cv::boundingRect(cv::Mat(vertexPointsResults));
                     
+                    // Now project that back into the marker level 0 image dimensions.
+                    // Note that the projected vertices will contain at least the template, but typically
+                    // also some back-projected area of the rect fitted around the warped template.
                     vertexPoints.clear();
                     vertexPoints = GetVerticesFromTopCorner(srcBoundingBox.x, srcBoundingBox.y, srcBoundingBox.width, srcBoundingBox.height);
-                    perspectiveTransform(vertexPoints, vertexPointsResults, _trackables[trackableId]._trackSelection.GetHomography().inv());
+                    perspectiveTransform(vertexPoints, vertexPointsResults, _trackables[trackableId]._homography.inv());
                     
-                    std::vector<cv::Point2f> testVertexPoints = FloorVertexPoints(vertexPointsResults);
-                    std::vector<cv::Point2f> finalWarpPoints = GetVerticesFromTopCorner(0, 0, srcBoundingBox.width, srcBoundingBox.height);
-                    cv::Mat templateHomography = findHomography(testVertexPoints, finalWarpPoints, cv::RANSAC, ransac_thresh);
+                    // Work out the same vertices, but in the current pyramid level, rather than level 0.
+                    std::vector<cv::Point2f> vertexPointsResultsTemplatePyrLevel;
+                    for (auto& p : vertexPointsResults) {
+                        vertexPointsResultsTemplatePyrLevel.push_back(cv::Point2f(p.x/ scalefx, p.y/ scalefy));
+                    }
+                    
+                    // Find an homography that maps from the template to the search area in the image.
+                    cv::Mat templateHomography;
+                    {
+                        std::vector<cv::Point2f> testVertexPoints = FloorVertexPoints(vertexPointsResultsTemplatePyrLevel); // In marker level templatePyrLevel dimensions.
+                        std::vector<cv::Point2f> finalWarpPoints = GetVerticesFromTopCorner(0, 0, srcBoundingBox.width, srcBoundingBox.height); // In frame dimensions.
+                        templateHomography = findHomography(testVertexPoints, finalWarpPoints, cv::RANSAC, ransac_thresh);
+                    }
                     
                     if (!templateHomography.empty()) {
-                        cv::Rect templateBoundingBox = cv::boundingRect(cv::Mat(vertexPointsResults));
-                        cv::Rect searchROI = InflateRoi(templateRoi, searchRadius);
-                        if (IsRoiValidForFrame(frameROI, searchROI)) {
-                            searchROI = searchROI & frameROI;
+                        cv::Rect templateBoundingBox = cv::boundingRect(cv::Mat(vertexPointsResultsTemplatePyrLevel)); // In marker level templatePyrLevel dimensions.
+                        cv::Rect searchROI = InflateRoi(templateSearchRoi, searchRadius);
+                        if (IsRoiValidForFrame(frameROI, searchROI)) { // Make sure our search area falls within the frame.
+                            cv::Rect markerRoi(0, 0, _trackables[trackableId]._image[templatePyrLevel].cols, _trackables[trackableId]._image[templatePyrLevel].rows);
                             templateBoundingBox = templateBoundingBox & markerRoi;
                             
                             if (templateBoundingBox.area() > 0 && searchROI.area() > templateBoundingBox.area()) {
                                 cv::Mat searchImage = frame(searchROI);
-                                cv::Mat templateImage = _trackables[trackableId]._image(templateBoundingBox);
+                                cv::Mat templateImage = _trackables[trackableId]._image[templatePyrLevel](templateBoundingBox);
                                 cv::Mat warpedTemplate;
                                 
                                 warpPerspective(templateImage, warpedTemplate, templateHomography, srcBoundingBox.size());
@@ -437,8 +465,8 @@ public:
                                     minMaxLoc( matchResult, &minVal, &maxVal, &minLoc, &maxLoc, cv::Mat() );
                                     if (minVal < 0.5) {
                                         matchLoc = minLoc;
-                                        matchLoc.x+=searchROI.x + (warpedTemplate.cols/2);
-                                        matchLoc.y+=searchROI.y + (warpedTemplate.rows/2);
+                                        matchLoc.x += searchROI.x + (warpedTemplate.cols/2);
+                                        matchLoc.y += searchROI.y + (warpedTemplate.rows/2);
                                         finalTemplatePoints.push_back(ptOrig);
                                         finalTemplateMatchPoints.push_back(matchLoc);
                                     } else {
@@ -471,6 +499,17 @@ public:
         }
         if (_trackVizActive) {
             _trackViz.templateMatching.templateMatchingOK = gotHomography;
+            _trackViz.templateTrackablePoints = finalTemplatePoints;
+            _trackViz.templateTrackedPoints = finalTemplateMatchPoints;
+            //std::cout << "Template " << (gotHomography ? "PASS" : "FAIL") << ", candidates=" << _trackViz.templateMatching.templateMatchingCandidateCount
+            //    << ", failedBoundsTest=" << _trackViz.templateMatching.failedBoundsTestCount
+            //<< ", failedROIInFrameTest=" << _trackViz.templateMatching.failedROIInFrameTestCount
+            //<< ", failedGotHomogTest=" << _trackViz.templateMatching.failedGotHomogTestCount
+            //<< ", failedSearchROIInFrameTest=" << _trackViz.templateMatching.failedSearchROIInFrameTestCount
+            //<< ", failedTemplateBigEnoughTest=" << _trackViz.templateMatching.failedTemplateBigEnoughTestCount
+            //<< ", failedTemplateMatcht=" << _trackViz.templateMatching.failedTemplateMatchCount
+            //<< ", failedTemplateMinimumCorrelation=" << _trackViz.templateMatching.failedTemplateMinimumCorrelationCount
+            //<< std::endl;
         }
         return gotHomography;
     }
@@ -526,13 +565,18 @@ public:
             //std::cout << "Begin tracking phase" << std::endl;
             for (int i = 0; i <_trackables.size(); i++) {
                 if (_trackables[i]._isDetected) {
-                    //int templatePyrLevel = (int)log2f(1.0f / sqrtf((float)cv::determinant(_trackables[i]._trackSelection.GetHomography())));
-                    //if (templatePyrLevel < 0) templatePyrLevel = 0; // Negative levels indicate a higher-res image would have been more appropriate.
-                    //float templateScaleFactor = (float)(1 << templatePyrLevel);
-                    //std::cout << "templatePyrLevel=" << templatePyrLevel << ", templateScaleFactor=" << templateScaleFactor << "." << std::endl;
-
-                    std::vector<cv::Point2f> trackablePoints = _trackables[i]._trackSelection.GetInitialFeatures();
-                    std::vector<cv::Point2f> trackablePointsWarped = _trackables[i]._trackSelection.GetTrackedFeaturesWarped();
+                    
+                    // Calculate the ideal level in the pyramid at which to do template matching.
+                    int templatePyrLevel = (int)log2f(1.0f / sqrtf((float)cv::determinant(_trackables[i]._homography)));
+                    //std::cout << "templatePyrLevel=" << templatePyrLevel << " (scaleFactor=" << (1 << templatePyrLevel) << ")" << std::endl;
+                    // Bound it by the levels we actually have available. Negative levels indicate a higher-res image would have been more appropriate.
+                    if (templatePyrLevel < 0) templatePyrLevel = 0;
+                    else if (templatePyrLevel > k_OCVTTemplateMatchingMaxPyrLevel) templatePyrLevel = k_OCVTTemplateMatchingMaxPyrLevel;
+                    _trackables[i]._templatePyrLevel = templatePyrLevel;
+                    if (_trackVizActive) _trackViz.templatePyrLevel = templatePyrLevel;
+                    
+                    std::vector<cv::Point2f> trackablePoints = _trackables[i]._trackSelection[templatePyrLevel].GetInitialFeatures();
+                    std::vector<cv::Point2f> trackablePointsWarped = _trackables[i]._trackSelection[templatePyrLevel].GetTrackedFeaturesWarped(_trackables[i]._homography);
                     
                     if (_frameCount > 0 && _prevPyramid.size() > 0) {
                         //std::cout << "Starting Optical Flow" << std::endl;
@@ -553,8 +597,8 @@ public:
         for (auto&& t : _trackables) {
             if (t._isDetected || t._isTracking) {
                 
-                std::vector<cv::Point2f> imgPoints = t._trackSelection.GetTrackedFeaturesWarped();
-                std::vector<cv::Point3f> objPoints = t._trackSelection.GetTrackedFeatures3d();
+                std::vector<cv::Point2f> imgPoints = t._trackSelection[t._templatePyrLevel].GetTrackedFeaturesWarped(t._homography);
+                std::vector<cv::Point3f> objPoints = t._trackSelection[t._templatePyrLevel].GetTrackedFeatures3d();
                 
                 CameraPoseFromPoints(t._pose, objPoints, imgPoints);
             }
@@ -650,7 +694,7 @@ public:
                             cv::pyrDown(newTrackable._image[i - 1], newTrackable._image[i]);
                             newTrackable._cornerPoints[i] = _harrisDetector.FindCorners(newTrackable._image[i]);
                         }
-                        newTrackable._trackSelection[i] = TrackingPointSelector(newTrackable._cornerPoints[i], newTrackable._image[i].cols, newTrackable._image[i].rows, markerTemplateWidth);
+                        newTrackable._trackSelection[i] = TrackingPointSelector(newTrackable._cornerPoints[i], newTrackable._image[i].cols, newTrackable._image[i].rows, markerTemplateWidth, newTrackable._width, newTrackable._height);
                     }
                     _trackables.push_back(newTrackable);
                 }
@@ -692,7 +736,7 @@ public:
                 // We already have the image for the base pyramid level. Generate the others.
                 if (i > 0) cv::pyrDown(newTrackable._image[i - 1], newTrackable._image[i]);
                 newTrackable._cornerPoints[i] = _harrisDetector.FindCorners(newTrackable._image[i]);
-                newTrackable._trackSelection[i] = TrackingPointSelector(newTrackable._cornerPoints[i], newTrackable._image[i].cols, newTrackable._image[i].rows, markerTemplateWidth);
+                newTrackable._trackSelection[i] = TrackingPointSelector(newTrackable._cornerPoints[i], newTrackable._image[i].cols, newTrackable._image[i].rows, markerTemplateWidth, newTrackable._width, newTrackable._height);
             }
             
             _trackables.push_back(newTrackable);
@@ -777,7 +821,7 @@ public:
             info.fileName = t->_fileName;
             // Copy the image data and use a shared_ptr to refer to it.
             unsigned char *data = (unsigned char *)malloc(t->_width * t->_height);
-            memcpy(data, t->_image.ptr(), t->_width * t->_height);
+            memcpy(data, t->_image[0].ptr(), t->_width * t->_height);
             info.imageData.reset(data, free); // Since we use malloc, pass `free` as the deallocator.
             info.width = t->_width;
             info.height = t->_height;

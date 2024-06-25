@@ -104,9 +104,9 @@ static char            *inputFilePath = NULL;
 static std::shared_ptr<unsigned char> refImage;
 static int refImageX, refImageY;
 static std::vector<cv::KeyPoint> _featurePoints;
-static std::vector<cv::Point2f> _templatePoints;
-static TrackingPointSelector _trackSelection;
-static int                      page = 0;
+static std::vector<cv::Point2f> _templatePoints[k_OCVTTemplateMatchingMaxPyrLevel + 1];
+static TrackingPointSelector _trackSelection[k_OCVTTemplateMatchingMaxPyrLevel + 1];
+static int                      _templatePyrLevel = 0;
 static double                   imageZoom = 1.0f;
 
 
@@ -129,7 +129,7 @@ static char             exitcode = -1;
 
 static void loadImage(void);
 static void getImageFeature();
-static void setImagePage(int page_in);
+static void setTemplatePyrLevel(int templatePyrLevel);
 static void quit(int rc);
 static float calcZoomToFit(int sourceSizeX, int sourceSizeY, int destSizeX, int destSizeY);
 static void reshapeImageWindow(int w, int h);
@@ -264,31 +264,32 @@ static void loadImage(void)
 static void getImageFeature()
 {
     if (display_templates || display_features) {
-        cv::Mat _image = cv::Mat(refImageY, refImageX, CV_8UC1, refImage.get());
-        if (display_templates) {
-            ARPRINT("Generating template features.\n");
-            HarrisDetector _harrisDetector = HarrisDetector();
-            std::vector<cv::Point2f> _cornerPoints = _harrisDetector.FindCorners(_image);
-            _trackSelection = TrackingPointSelector(_cornerPoints, refImageX, refImageY, markerTemplateWidth);
-            _templatePoints = _trackSelection.GetAllFeatures();
-            ARPRINT("  end.\n");
-        }
+        cv::Mat image = cv::Mat(refImageY, refImageX, CV_8UC1, refImage.get());
         if (display_features) {
-            ARPRINT("Generating features.\n");
+            ARPRINT("Generating features...\n");
             OCVFeatureDetector _featureDetector = OCVFeatureDetector();
             _featureDetector.SetFeatureDetector(defaultDetectorType);
-            _featurePoints = _featureDetector.DetectFeatures(_image, cv::Mat());
-            ARPRINT("  end.\n");
-            ARPRINT("num = %zu\n", _featurePoints.size());
+            _featurePoints = _featureDetector.DetectFeatures(image, cv::Mat());
+            ARPRINT("Number of features = %zu.\n", _featurePoints.size());
+        }
+        if (display_templates) {
+            ARPRINT("Generating templates...\n");
+            HarrisDetector _harrisDetector = HarrisDetector();
+            for (int i = 0; i <= k_OCVTTemplateMatchingMaxPyrLevel; i++) {
+                if (i > 0) cv::pyrDown(image, image);
+                std::vector<cv::Point2f> _cornerPoints = _harrisDetector.FindCorners(image);
+                _trackSelection[i] = TrackingPointSelector(_cornerPoints, image.cols, image.rows, markerTemplateWidth, refImageX, refImageY);
+                _templatePoints[i] = _trackSelection[i].GetAllFeatures();
+                ARPRINT("Number of templates (level %d, image size %dx%d) = %zu.\n", i, image.cols, image.rows, _templatePoints[i].size());
+            }
         }
     }
-    setImagePage(0);
+    setTemplatePyrLevel(0);
 }
 
-static void setImagePage(int page_in)
+static void setTemplatePyrLevel(int templatePyrLevel)
 {
-    page = page_in;
-    //page = page % (imageSet->num);
+    _templatePyrLevel = templatePyrLevel % (k_OCVTTemplateMatchingMaxPyrLevel + 1);
 
     // Update the image to be drawn.
     if (gArglContextSettings) {
@@ -384,7 +385,7 @@ static void keyboard(SDL_Keycode key)
             quit(0);
             break;
         case ' ':
-            setImagePage(page + 1);
+            setTemplatePyrLevel(_templatePyrLevel + 1);
             break;
         case '?':
         case '/':
@@ -458,11 +459,11 @@ static void drawImageView(void)
         glColor4fv(red);
         EdenGLFontSetColor(red);
 
-        float templateRadius = markerTemplateWidth/2.0f;
+        float templateRadius = (markerTemplateWidth << _templatePyrLevel)/2.0f;
         
-        for (i = 0; i < _templatePoints.size(); i++) {
-            int x = _templatePoints[i].x;
-            int y = refImageY - _templatePoints[i].y; // OpenGL y-origin is at bottom, tracker y origin is at top.
+        for (i = 0; i < _templatePoints[_templatePyrLevel].size(); i++) {
+            int x = _templatePoints[_templatePyrLevel][i].x;
+            int y = refImageY - _templatePoints[_templatePyrLevel][i].y; // OpenGL y-origin is at bottom, tracker y origin is at top.
             
             GLfloat vertices[4][2];
             vertices[0][0] = x - templateRadius;
@@ -477,6 +478,7 @@ static void drawImageView(void)
             glEnableClientState(GL_VERTEX_ARRAY);
             glDrawArrays(GL_LINE_LOOP, 0, 4);
 
+            // Individually number templates onscreen.
             //glLineWidth(1.0f);
             //char text[16];
             //snprintf(text, sizeof(text), "%d", i);
@@ -484,7 +486,6 @@ static void drawImageView(void)
             
             glDisableClientState(GL_VERTEX_ARRAY);
         }
-        ARPRINT("fset:  Num of template features: %zu\n", _templatePoints.size());
     }
     
     if (display_bins) {
@@ -534,15 +535,6 @@ static void drawImageView(void)
             glDrawArrays(GL_LINES, 0, 4);
             glDisableClientState(GL_VERTEX_ARRAY);
         }
-#if 0
-        for (i = 0; i < refDataSet->pageNum; i++) {
-            for (j = 0; j < refDataSet->pageInfo[i].imageNum; j++) {
-                if (refDataSet->pageInfo[i].imageInfo[j].imageNo == page) {
-                    ARPRINT("fset3: Image size: %dx%d\n", refDataSet->pageInfo[i].imageInfo[j].width, refDataSet->pageInfo[i].imageInfo[j].height);
-                }
-            }
-        }
-#endif
     }
     
     // 2D overlays in context space.
@@ -605,7 +597,7 @@ static void printHelpKeys()
         "Keys:\n",
         " ? or /        Show/hide this help.",
         " q or [esc]    Quit program.",
-        " [space]       Page through all texture data resolutions."
+        " [space]       Page through all template resolutions."
     };
 #define helpTextLineCount (sizeof(helpText)/sizeof(char *))
     
@@ -630,24 +622,19 @@ static void printMode()
              refImageY);
     EdenGLFontDrawLine(0, NULL, (unsigned char *)text, 2.0f,  (line - 1)*FONT_SIZE + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_TEXT_TOP_TO_VIEW_TOP);
     line++;
-/*
+
+    if (display_features) {
+        snprintf(text, sizeof(text), "Num of feature points: %ld\n", _featurePoints.size());
+        EdenGLFontDrawLine(0, NULL, (unsigned char *)text, 2.0f,  (line - 1)*FONT_SIZE + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_TEXT_TOP_TO_VIEW_TOP);
+        line++;
+    }
+
     if (display_templates) {
-        snprintf(text, sizeof(text), "fset:  Num of templates selected: %d\n", featureSet->list[page].num);
+        snprintf(text, sizeof(text), "Number of templates (at level %d): %ld\n", _templatePyrLevel, _templatePoints[_templatePyrLevel].size());
         EdenGLFontDrawLine(0, NULL, (unsigned char *)text, 2.0f,  (line - 1)*FONT_SIZE + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_TEXT_TOP_TO_VIEW_TOP);
         line++;
     }
     
-    if (display_features) {
-        
-        // Count fset3 feature points that belong to current page.
-        int co = 0;
-        for (int i = 0; i < refDataSet->num; i++) if (refDataSet->refPoint[i].refImageNo == page) co++;
-
-        snprintf(text, sizeof(text), "fset3: Num of feature points: %d\n", co);
-        EdenGLFontDrawLine(0, NULL, (unsigned char *)text, 2.0f,  (line - 1)*FONT_SIZE + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_TEXT_TOP_TO_VIEW_TOP);
-        line++;
-    }
-*/
     // Window size.
     snprintf(text, sizeof(text), "Drawing into %dx%d window", gImageContextWidth, gImageContextHeight);
     EdenGLFontDrawLine(0, NULL, (unsigned char *)text, 2.0f,  (line - 1)*FONT_SIZE + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_TEXT_TOP_TO_VIEW_TOP);

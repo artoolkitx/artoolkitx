@@ -42,25 +42,29 @@ TrackingPointSelector::TrackingPointSelector()
 {
 }
 
-TrackingPointSelector::TrackingPointSelector(std::vector<cv::Point2f> pts, int width, int height, int markerTemplateWidth) :
+TrackingPointSelector::TrackingPointSelector(std::vector<cv::Point2f> pts, int width, int height, int markerTemplateWidth, int width0, int height0) :
     _reset(false),
-    _pts(pts)
+    _pts(pts),
+    _width(width),
+    _height(height),
+    _scalef(cv::Vec2f((float)width0/(float)width, (float)height0/(float)height))
 {
-    DistributeBins(width, height, markerTemplateWidth);
+    DistributeBins(markerTemplateWidth);
 }
 
 /**
-    @brief Iterates over \_pts and for each one, provided it doesn't intersect the image border,
-    creates a TrackedPoint representing a template () with a serially-increasing id from 0, and puts
-    it into the trackingPointsBin structure (a vector of pairs of (binIndex, trackingPoint).
+    @brief Iterates over \_pts, the location of Harris corners in the image, and for each one,
+    provided it doesn't intersect the image border, creates a TrackedPoint representing a template
+    with a serially-increasing id from 0, and put it into the trackingPointsBin structure
+    (a vector of pairs of (binIndex, trackingPoint)).
  */
-void TrackingPointSelector::DistributeBins(int width, int height, int markerTemplateWidth)
+void TrackingPointSelector::DistributeBins(int markerTemplateWidth)
 {
     int numberOfBins = 10;
 
     // Split width and height dimensions into 10 bins each, for total of 100 bins.
-    int totalXBins = width/numberOfBins;
-    int totalYBins = height/numberOfBins;
+    int totalXBins = _width/numberOfBins;
+    int totalYBins = _height/numberOfBins;
     // Init empty bins.
     for (int i = 0; i < (numberOfBins * numberOfBins); i++) {
         trackingPointBin.insert(std::pair<int, std::vector<TrackedPoint> >(i, std::vector<TrackedPoint>()));
@@ -73,7 +77,7 @@ void TrackingPointSelector::DistributeBins(int width, int height, int markerTemp
         int index = bx + (by * numberOfBins);
         
         cv::Rect templateRoi = cv::Rect(_pts[i].x - markerTemplateWidth, _pts[i].y - markerTemplateWidth, markerTemplateWidth*2, markerTemplateWidth*2);
-        bool is_inside = (templateRoi & cv::Rect(0, 0, width, height)) == templateRoi; // templateRoi must not intersect image boundary.
+        bool is_inside = (templateRoi & cv::Rect(0, 0, _width, _height)) == templateRoi; // templateRoi must not intersect image boundary.
         if (is_inside) {
             TrackedPoint newPt;
             newPt.id = id;
@@ -84,17 +88,6 @@ void TrackingPointSelector::DistributeBins(int width, int height, int markerTemp
             id++;
         }
     }
-}
-    
-void TrackingPointSelector::SetHomography(cv::Mat newHomography)
-{
-    _homography = newHomography;
-}
-
-/// @return 3x3 cv::Mat (of type CV_64FC1, i.e. double) containing the homography.
-cv::Mat TrackingPointSelector::GetHomography()
-{
-    return _homography;
 }
     
 void TrackingPointSelector::UpdatePointStatus(std::vector<uchar> status)
@@ -110,6 +103,24 @@ void TrackingPointSelector::UpdatePointStatus(std::vector<uchar> status)
 void TrackingPointSelector::ResetSelection()
 {
     _reset = true;
+}
+
+void TrackingPointSelector::ScaleFeatures(std::vector<cv::Point2f>& features)
+{
+    if (_scalef[0] == 1.0f && _scalef[1] == 1.0f) return;
+    for (auto &f : features) {
+        f.x *= _scalef[0];
+        f.y *= _scalef[1];
+    }
+}
+
+void TrackingPointSelector::ScaleFeatures3d(std::vector<cv::Point3f>& features3d)
+{
+    if (_scalef[0] == 1.0f && _scalef[1] == 1.0f) return;
+    for (auto &f : features3d) {
+        f.x *= _scalef[0];
+        f.y *= _scalef[1];
+    }
 }
 
 std::vector<cv::Point2f> TrackingPointSelector::GetInitialFeatures()
@@ -140,6 +151,8 @@ std::vector<cv::Point2f> TrackingPointSelector::GetInitialFeatures()
             ret.push_back(bin.second[tIndex].pt);
         }
     }
+    
+    ScaleFeatures(ret);
     return ret;
 }
     
@@ -151,6 +164,7 @@ std::vector<cv::Point2f> TrackingPointSelector::GetTrackedFeatures()
             selectedPoints.push_back(it->pt);
         }
     }
+    ScaleFeatures(selectedPoints);
     return selectedPoints;
 }
     
@@ -162,14 +176,15 @@ std::vector<cv::Point3f> TrackingPointSelector::GetTrackedFeatures3d()
             selectedPoints.push_back(it->pt3d);
         }
     }
+    ScaleFeatures3d(selectedPoints);
     return selectedPoints;
 }
     
-std::vector<cv::Point2f> TrackingPointSelector::GetTrackedFeaturesWarped()
+std::vector<cv::Point2f> TrackingPointSelector::GetTrackedFeaturesWarped(const cv::Mat& homography)
 {
     std::vector<cv::Point2f> selectedPoints = GetTrackedFeatures();
     std::vector<cv::Point2f> warpedPoints;
-    perspectiveTransform(selectedPoints, warpedPoints, _homography);
+    perspectiveTransform(selectedPoints, warpedPoints, homography);
     return warpedPoints;
 }
     
@@ -181,6 +196,7 @@ std::vector<cv::Point2f> TrackingPointSelector::GetAllFeatures()
             allBinnedPoints.push_back(trackPt.pt);
         }
     }
+    ScaleFeatures(allBinnedPoints);
     return allBinnedPoints;
 }
 
@@ -189,5 +205,4 @@ void TrackingPointSelector::CleanUp()
     _selectedPts.clear();
     _pts.clear();
     trackingPointBin.clear();
-    _homography.release();
 }

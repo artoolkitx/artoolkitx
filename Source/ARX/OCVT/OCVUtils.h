@@ -62,26 +62,31 @@ HomographyInfo GetHomographyInliers(std::vector<cv::Point2f> pts1, std::vector<c
     homography = findHomography(pts1, pts2, cv::RANSAC, ransac_thresh, inlier_mask);
     if (homography.empty()) {
         // Failed to find a homography.
+        //std::cout << "findHomography failed" << std::endl;
         return HomographyInfo();
     }
     
     const double det = homography.at<double>(0, 0) * homography.at<double>(1, 1) - homography.at<double>(1, 0) * homography.at<double>(0, 1);
     if (det < 0) {
+        //std::cout << "homography det=" << det << std::endl;
         return HomographyInfo();
     }
     
     const double N1 = sqrt(homography.at<double>(0, 0) * homography.at<double>(0, 0) + homography.at<double>(1, 0) * homography.at<double>(1, 0));
     if (N1 > 4 || N1 < 0.1) {
+        //std::cout << "homography N1=" << N1 << " (>4||<0.1) " << std::endl;
         return HomographyInfo();
     }
     
     const double N2 = sqrt(homography.at<double>(0, 1) * homography.at<double>(0, 1) + homography.at<double>(1, 1) * homography.at<double>(1, 1));
     if (N2 > 4 || N2 < 0.1) {
+        //std::cout << "homography N2=" << N2 << " (>4||<0.1)" << std::endl;
         return HomographyInfo();
     }
     
     const double N3 = sqrt(homography.at<double>(2, 0) * homography.at<double>(2, 0) + homography.at<double>(2, 1) * homography.at<double>(2, 1));
     if (N3 > 0.002) {
+        //std::cout << "hmography N3=" << N3 << " (>0.002)" << std::endl;
         return HomographyInfo();
     }
 
