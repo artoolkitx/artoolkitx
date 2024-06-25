@@ -2,6 +2,15 @@
 --------------------------
 
 
+## Version 1.1.20
+### 2024-06-25
+
+New features: 
+ * Added support for multi-resolution template tracking in the 2D tracker. This greatly improves tracking of small and/or distant textures.
+
+Known issues:
+ * Some of the utilities are not displaying correctly on recent versions of Windows. This will be fixed in a subsequent release.
+
 ## Version 1.1.19
 ### 2024-05-03
 

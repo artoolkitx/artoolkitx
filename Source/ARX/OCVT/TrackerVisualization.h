@@ -44,6 +44,7 @@ class TrackerVisualization
 public:
     int id;
     float bounds[4][2];
+    int templatePyrLevel;
     std::vector<cv::Point2f> opticalFlowTrackablePoints;
     std::vector<cv::Point2f> opticalFlowTrackedPoints;
     bool opticalFlowOK;
@@ -59,6 +60,8 @@ public:
         bool templateMatchingOK;
     };
     templateMatching templateMatching;
+    std::vector<cv::Point2f> templateTrackablePoints;
+    std::vector<cv::Point2f> templateTrackedPoints;
 };
 
 #endif  // TRACKER_VISUALIZATION_H

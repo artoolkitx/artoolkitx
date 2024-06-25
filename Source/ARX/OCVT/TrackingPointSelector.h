@@ -51,13 +51,14 @@ class TrackingPointSelector
 public:
     OCV_EXTERN TrackingPointSelector();
     
-    OCV_EXTERN TrackingPointSelector(std::vector<cv::Point2f> pts, int width, int height, int markerTemplateWidth);
+    /// @param pts Location of Harris corners in the image.
+    /// @param width Width of the image in which pts are measured.
+    /// @param height Height of the image in which pts are measured.
+    /// @param width0 Width of the image at level 0 of the image pyramid. If larger than width (i.e. width does not represent level 0), the output of all Get*Features*() functions will be scaled to level 0 image dimensions.
+    /// @param height0 Height of the image at level 0 of the image pyramid. If larger than height (i.e. height does not represent level 0, the output of all Get*Features*() functions will be scaled to level 0 image dimensions.
+    OCV_EXTERN TrackingPointSelector(std::vector<cv::Point2f> pts, int width, int height, int markerTemplateWidth, int width0, int height0);
     
-    void DistributeBins(int width, int height, int markerTemplateWidth);
-    
-    void SetHomography(cv::Mat newHomography);
-    
-    cv::Mat GetHomography();
+    void DistributeBins(int markerTemplateWidth);
     
     void UpdatePointStatus(std::vector<uchar> status);
 
@@ -76,7 +77,8 @@ public:
     
     std::vector<cv::Point3f> GetTrackedFeatures3d();
     
-    std::vector<cv::Point2f> GetTrackedFeaturesWarped();
+    /// @param 3x3 cv::Mat (of type CV_64FC1, i.e. double) containing the homography.
+    std::vector<cv::Point2f> GetTrackedFeaturesWarped(const cv::Mat& homography);
 
     /// Get all points from all bins that are candidates for selection.
     OCV_EXTERN std::vector<cv::Point2f> GetAllFeatures();
@@ -85,9 +87,14 @@ public:
 
 private:
     bool _reset;
+    int _width;
+    int _height;
     std::vector<cv::Point2f> _pts;
     std::map<int, std::vector<TrackedPoint> > trackingPointBin;
-    cv::Mat _homography;
     std::vector<TrackedPoint> _selectedPts;
+    cv::Vec2f _scalef;
+    
+    void ScaleFeatures(std::vector<cv::Point2f>& features);
+    void ScaleFeatures3d(std::vector<cv::Point3f>& features3d);
 };
 #endif //TRACKINGPOINTSELECTOR

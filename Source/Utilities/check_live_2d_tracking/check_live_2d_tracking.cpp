@@ -109,8 +109,8 @@ static std::shared_ptr<unsigned char> refImage;
 static int refImageX, refImageY;
 static float refImageAspect = 1.0f;
 static std::vector<cv::KeyPoint> _featurePoints;
-static std::vector<cv::Point2f> _templatePoints;
-static TrackingPointSelector _trackSelection;
+static std::vector<cv::Point2f> _templatePoints[k_OCVTTemplateMatchingMaxPyrLevel + 1];
+static TrackingPointSelector _trackSelection[k_OCVTTemplateMatchingMaxPyrLevel + 1];
 static double imageZoom = 1.0f;
 
 #if ARX_TARGET_PLATFORM_WINDOWS
@@ -162,7 +162,7 @@ static void usage(char *com);
 static void drawQuadLoop(float vertices[4][2], float color[4]);
 static void drawQuadLoop3D(float vertices[4][3], float color[4]);
 static void drawCorrespondences(const std::vector<cv::Point2f>& imagePoints, const std::vector<cv::Point2f>& videoPoints, const float color[4]);
-static void drawImageView(void);
+static void drawImageView(int templatePyrLevel);
 static void drawBackground(const float width, const float height, const float x, const float y);
 static void printHelpKeys(void);
 static void printMode(void);
@@ -381,7 +381,7 @@ int main(int argc, char *argv[])
             }
             
             // Draw the image.
-            drawImageView();
+            drawImageView(trackerViz->templatePyrLevel);
             
             // 2D overlays in context space.
             glViewport(0, 0, gContextWidth, gContextHeight);
@@ -399,7 +399,8 @@ int main(int argc, char *argv[])
                 drawCorrespondences(trackerViz->opticalFlowTrackablePoints, trackerViz->opticalFlowTrackedPoints, orange);
             }
             if (gDrawCorrespondencesMode & DRAW_CORRESPONDENCES_MODE_TEMPLATES_BIT) {
-                
+                float purple[4] = {0.5f, 0.0f, 1.0f, 1.0f};
+                drawCorrespondences(trackerViz->templateTrackablePoints, trackerViz->templateTrackedPoints, purple);
             }
 
             EdenGLFontSetViewSize(gContextWidth, gContextHeight);
@@ -468,23 +469,24 @@ static void loadImage(void)
 static void getImageFeature()
 {
     if (display_templates || display_features) {
-        cv::Mat _image = cv::Mat(refImageY, refImageX, CV_8UC1, refImage.get());
-        if (display_templates) {
-            ARPRINT("Generating templates...\n");
-            HarrisDetector _harrisDetector = HarrisDetector();
-            std::vector<cv::Point2f> _cornerPoints = _harrisDetector.FindCorners(_image);
-            _trackSelection = TrackingPointSelector(_cornerPoints, refImageX, refImageY, markerTemplateWidth);
-            _templatePoints = _trackSelection.GetAllFeatures();
-            ARPRINT("  end.\n");
-            ARPRINT("Number of templates = %zu.\n", _templatePoints.size());
-        }
+        cv::Mat image = cv::Mat(refImageY, refImageX, CV_8UC1, refImage.get());
         if (display_features) {
             ARPRINT("Generating features...\n");
             OCVFeatureDetector _featureDetector = OCVFeatureDetector();
             _featureDetector.SetFeatureDetector(defaultDetectorType);
-            _featurePoints = _featureDetector.DetectFeatures(_image, cv::Mat());
-            ARPRINT("  end.\n");
+            _featurePoints = _featureDetector.DetectFeatures(image, cv::Mat());
             ARPRINT("Number of features = %zu.\n", _featurePoints.size());
+        }
+        if (display_templates) {
+            ARPRINT("Generating templates...\n");
+            HarrisDetector _harrisDetector = HarrisDetector();
+            for (int i = 0; i <= k_OCVTTemplateMatchingMaxPyrLevel; i++) {
+                if (i > 0) cv::pyrDown(image, image);
+                std::vector<cv::Point2f> _cornerPoints = _harrisDetector.FindCorners(image);
+                _trackSelection[i] = TrackingPointSelector(_cornerPoints, image.cols, image.rows, markerTemplateWidth, refImageX, refImageY);
+                _templatePoints[i] = _trackSelection[i].GetAllFeatures();
+                ARPRINT("Number of templates (level %d, image size %dx%d) = %zu.\n", i, image.cols, image.rows, _templatePoints[i].size());
+            }
         }
     }
 }
@@ -567,8 +569,6 @@ static void usage( char *com )
 
 static void keyboard(SDL_Keycode key)
 {
-    bool redraw = false;
-    
     switch (key) {
         case 0x1B:						// Quit.
         case 'Q':
@@ -579,12 +579,10 @@ static void keyboard(SDL_Keycode key)
         case '/':
             gShowHelp++;
             if (gShowHelp > 1) gShowHelp = 0;
-            redraw = true;
             break;
         case 'm':
         case 'M':
             gShowMode = !gShowMode;
-            redraw = true;
             break;
         case ' ':
             gDrawCorrespondencesMode++;
@@ -603,9 +601,6 @@ static void keyboard(SDL_Keycode key)
             break;
        default:
             break;
-    }
-    if (redraw) {
-        drawImageView();
     }
 }
 
@@ -655,7 +650,7 @@ static void drawCorrespondences(const std::vector<cv::Point2f>& imagePoints, con
     free(vertices);
 }
 
-static void drawImageView(void)
+static void drawImageView(int templatePyrLevel)
 {
     int i;
     int viewport[4];
@@ -691,11 +686,11 @@ static void drawImageView(void)
         glColor4fv(darkred);
         EdenGLFontSetColor(darkred);
 
-        float templateRadius = markerTemplateWidth/2.0f;
+        float templateRadius = (markerTemplateWidth << templatePyrLevel) / 2.0f;
         
-        for (i = 0; i < _templatePoints.size(); i++) {
-            int x = _templatePoints[i].x;
-            int y = refImageY - _templatePoints[i].y; // OpenGL y-origin is at bottom, tracker y origin is at top.
+        for (i = 0; i < _templatePoints[templatePyrLevel].size(); i++) {
+            int x = _templatePoints[templatePyrLevel][i].x;
+            int y = refImageY - _templatePoints[templatePyrLevel][i].y; // OpenGL y-origin is at bottom, tracker y origin is at top.
             
             GLfloat vertices[4][2];
             vertices[0][0] = x - templateRadius;
