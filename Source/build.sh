@@ -14,7 +14,7 @@
 OURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function usage {
-    echo "Usage: $(basename $0) [--debug] [-v|--verbose] [--no-config] [--android-ndk-version version-string](macos | windows | ios | linux | android | linux-raspbian | emscripten | docs)... [tests] [examples] [cmake \"<generator>\"]"
+    echo "Usage: $(basename $0) [--debug] [-v|--verbose] [--no-config] [--android-ndk-version version-string] [--install-depends] (macos | windows | ios | linux | android | linux-raspbian | emscripten | docs)... [tests] [examples] [cmake \"<generator>\"]"
     exit 1
 }
 
@@ -26,7 +26,7 @@ fi
 set -e
 
 # -x = debug
-set -x
+#set -x
 
 # Parse parameters
 while test $# -gt 0
@@ -64,6 +64,8 @@ do
         --android-ndk-version) ANDROID_NDK_VERSION_NUMBER="$2"
             shift
             ;;
+        --install-depends) INSTALL_DEPENDS=1
+        	;;
         --*) echo "bad option $1"
             usage
             ;;
@@ -122,12 +124,22 @@ function check_package {
 	# Variant for distros that use debian packaging.
 	if (type dpkg-query >/dev/null 2>&1) ; then
 		if ! $(dpkg-query -W -f='${Status}' $1 | grep -q '^install ok installed$') ; then
-			echo "Warning: required package '$1' does not appear to be installed. To install it use 'sudo apt-get install $1'."
+			if [ $INSTALL_DEPENDS ] ; then
+			    echo "Required package '$1' does not appear to be installed, attempting install now."
+			    sudo apt-get install $1
+			else
+			    echo "Warning: required package '$1' does not appear to be installed. To install it use 'sudo apt-get install $1', or pass --install-depends flag."
+			fi
 		fi
 	# Variant for distros that use rpm packaging.
 	elif (type rpm >/dev/null 2>&1) ; then
 		if ! $(rpm -qa | grep -q $1) ; then
-			echo "Warning: required package '$1' does not appear to be installed. To install it use 'sudo dnf install $1'."
+			if [ $INSTALL_DEPENDS ] ; then
+			    echo "Required package '$1' does not appear to be installed, attempting install now."
+			    sudo dnf install $1
+			else
+			    echo "Warning: required package '$1' does not appear to be installed. To install it use 'sudo dnf install $1', or pass --install-depends flag."
+			fi
 		fi
 	fi
 }
@@ -414,10 +426,10 @@ if [ $BUILD_LINUX ] ; then
     fi
 
 
-	if [ ! -d "build-linux-x86_64" ] ; then
-		mkdir build-linux-x86_64
+	if [ ! -d "build-linux-${ARCH}" ] ; then
+		mkdir build-linux-${ARCH}
 	fi
-	cd build-linux-x86_64
+	cd build-linux-${ARCH}
     if [ ! $NO_CONFIG ] ; then
 	    rm -f CMakeCache.txt
 	    cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
