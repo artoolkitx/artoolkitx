@@ -54,7 +54,9 @@ typedef enum {
     ARVideoExternalIncomingPixelFormat_RGBA,
     ARVideoExternalIncomingPixelFormat_RGB_565,
     ARVideoExternalIncomingPixelFormat_YUV_420_888, // In Android, frames with this format are actually NV21.
-    ARVideoExternalIncomingPixelFormat_MONO
+    ARVideoExternalIncomingPixelFormat_MONO,
+    ARVideoExternalIncomingPixelFormat_RGBA_5551,
+    ARVideoExternalIncomingPixelFormat_RGBA_4444
 } ARVideoExternalIncomingPixelFormat;
 
 struct _AR2VideoParamExternalT {
@@ -753,7 +755,7 @@ int ar2VideoPushInitExternal(AR2VideoParamExternalT *vid, int width, int height,
     pthread_mutex_lock(&(vid->frameLock));
 
     if (vid->pushInited) {
-        ARLOGe("ar2VideoPushInitAndroid: Error: called while already inited.\n");
+        ARLOGe("ar2VideoPushInitExternal: Error: called while already inited.\n");
         goto done;
     }
 
@@ -770,14 +772,20 @@ int ar2VideoPushInitExternal(AR2VideoParamExternalT *vid, int width, int height,
     } else if (strcmp(pixelFormat, "RGBA") == 0)  {
         vid->incomingPixelFormat = ARVideoExternalIncomingPixelFormat_RGBA;
         vid->pixelFormat = AR_PIXEL_FORMAT_RGBA;
-    } else if (strcmp(pixelFormat, "RGB_565") == 0)  {
-        vid->incomingPixelFormat = ARVideoExternalIncomingPixelFormat_RGB_565;
-        vid->pixelFormat = AR_PIXEL_FORMAT_RGB_565;
     } else if (strcmp(pixelFormat, "MONO") == 0)  {
         vid->incomingPixelFormat = ARVideoExternalIncomingPixelFormat_MONO;
         vid->pixelFormat = AR_PIXEL_FORMAT_MONO;
+    } else if (strcmp(pixelFormat, "RGB_565") == 0)  {
+        vid->incomingPixelFormat = ARVideoExternalIncomingPixelFormat_RGB_565;
+        vid->pixelFormat = AR_PIXEL_FORMAT_RGB_565;
+    } else if (strcmp(pixelFormat, "RGBA_5551") == 0)  {
+        vid->incomingPixelFormat = ARVideoExternalIncomingPixelFormat_RGBA_5551;
+        vid->pixelFormat = AR_PIXEL_FORMAT_RGBA_5551;
+    } else if (strcmp(pixelFormat, "RGBA_4444") == 0)  {
+        vid->incomingPixelFormat = ARVideoExternalIncomingPixelFormat_RGBA_4444;
+        vid->pixelFormat = AR_PIXEL_FORMAT_RGBA_4444;
     } else {
-        ARLOGe("ar2VideoPushInitAndroid: Error: frames arriving in unsupported pixel format '%s'.\n", pixelFormat);
+        ARLOGe("ar2VideoPushInitExternal: Error: frames arriving in unsupported pixel format '%s'.\n", pixelFormat);
         goto done;
     }
 
@@ -813,7 +821,7 @@ int ar2VideoPushInitExternal(AR2VideoParamExternalT *vid, int width, int height,
             vid->buffers[0].bufPlanes = NULL;
             if (vid->pixelFormat == AR_PIXEL_FORMAT_RGBA) {
                 vid->buffers[0].buff = (ARUint8 *)malloc(width * height * 4);
-            } else if (vid->pixelFormat == AR_PIXEL_FORMAT_RGB_565) {
+            } else if (vid->pixelFormat == AR_PIXEL_FORMAT_RGB_565 || vid->pixelFormat == AR_PIXEL_FORMAT_RGBA_5551 || vid->pixelFormat == AR_PIXEL_FORMAT_RGBA_4444) {
                 vid->buffers[0].buff = (ARUint8 *)malloc(width * height * 2);
             } else if (vid->pixelFormat == AR_PIXEL_FORMAT_MONO) {
                 vid->buffers[0].buff = (ARUint8 *)malloc(width * height);
@@ -833,7 +841,7 @@ done:
     // Signal that pushInit has been called. This will unblock the openAsync thread and
     // the callback from that thread.
     if ((err = pthread_cond_signal(&(vid->pushInitedCond))) != 0) {
-        ARLOGe("ar2VideoPushInitAndroid(): pthread_cond_signal error %s (%d).\n", strerror(err), err);
+        ARLOGe("ar2VideoPushInitExternal(): pthread_cond_signal error %s (%d).\n", strerror(err), err);
     }
     return (ret);
 
@@ -985,17 +993,6 @@ int ar2VideoPushExternal(AR2VideoParamExternalT *vid,
             memcpy(buffer->buff, buf0p, buf0Size);
         }
         buffer->buffLuma = NULL;
-    } else if (vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_RGB_565) {
-        if ((vid->width * vid->height * 2) != buf0Size) {
-            ARLOGe("ar2VideoPushExternal: Error: unexpected buffer size (%d) for format RGB_565.\n", buf0Size);
-            goto done;
-        }
-        if (!vid->copy) {
-            buffer->buff = buf0p;
-        } else {
-            memcpy(buffer->buff, buf0p, buf0Size);
-        }
-        buffer->buffLuma = NULL;
     } else if (vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_MONO) {
         if ((vid->width * vid->height) != buf0Size) {
             ARLOGe("ar2VideoPushExternal: Error: unexpected buffer size (%d) for format MONO.\n", buf0Size);
@@ -1007,6 +1004,17 @@ int ar2VideoPushExternal(AR2VideoParamExternalT *vid,
             memcpy(buffer->buff, buf0p, buf0Size);
         }
         buffer->buffLuma = buffer->buff;
+    } else if (vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_RGB_565 || vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_RGBA_5551 || vid->incomingPixelFormat == ARVideoExternalIncomingPixelFormat_RGBA_4444) {
+        if ((vid->width * vid->height * 2) != buf0Size) {
+            ARLOGe("ar2VideoPushExternal: Error: unexpected buffer size (%d) for format RGB_565/RGBA_5551/RGBA_4444.\n", buf0Size);
+            goto done;
+        }
+        if (!vid->copy) {
+            buffer->buff = buf0p;
+        } else {
+            memcpy(buffer->buff, buf0p, buf0Size);
+        }
+        buffer->buffLuma = NULL;
     }
 
     ret = 0;

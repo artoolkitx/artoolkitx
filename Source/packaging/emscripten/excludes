@@ -1,0 +1,62 @@
+# Exclusion list for artoolkitX packaging.
+# One pattern match per line.
+
+Source/build-*
+*/build/
+
+#### OS-generated caches and resources
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+### git merge conflict files
+*.orig
+
+#### Intermediate build products
+*.o
+
+#### Intermediate Language products
+*.dex
+*.class
+
+#### Caches
+# Visual C++
+ipch/
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+
+#### IDE user-config.
+# Android Studio
+local.properties
+*.iml
+**/.gradle/
+**/.idea/workspace.xml
+**/.idea/libraries
+**/captures/
+**/.externalNativeBuild/
+
+# MonoDevelop/Xamarin Studio
+*.userprefs
+
+# Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Xcode
+xcuserdata/
+*.mode1*
+*.pbxuser
+*.xccheckout
+*.xcscmblueprint
+
+#### Other VCS
+.svn/

@@ -14,7 +14,7 @@ set -e -x
 OURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function usage {
-    echo "Usage: $(basename $0) (macos | ios | linux | android)... [rpm] [deb]"
+    echo "Usage: $(basename $0) (macos | ios | linux | android | windows | emscripten)... [rpm] [deb]"
     exit 1
 }
 
@@ -47,6 +47,8 @@ do
         linux) PACKAGE_LINUX=1
             ;;
         windows) PACKAGE_WINDOWS=1
+            ;;
+        emscripten) PACKAGE_EMSCRIPTEN=1
             ;;
         rpm) verifyPackageType $1
             ;;
@@ -182,6 +184,33 @@ if [ "$OS" = "Darwin" ] || [ "$OS" = "Linux" ] ; then
         export PACKAGE_NAME
     fi
     # /Android
+
+	if [ $PACKAGE_EMSCRIPTEN ] ; then
+	
+        # Get version from header `SDK/include/ARX/AR/config.h`
+        VERSION=$(sed -En -e 's/.*AR_HEADER_VERSION_STRING[[:space:]]+"([0-9]+\.[0-9]+(\.[0-9]+)*)".*/\1/p' "${ARTOOLKITX_HOME}/Source/build-emscripten/ARX/AR/include/ARX/AR/config.h")
+        # If the tiny version number is 0, drop it.
+        VERSION=$(echo -n "${VERSION}" | sed -E -e 's/([0-9]+\.[0-9]+)\.0/\1/')
+        VERSION_DEV=$(sed -En -e 's/#define AR_HEADER_VERSION_DEV[[:space:]]+([0-9]+).*/\1/p' "${ARTOOLKITX_HOME}/Source/build-emscripten/ARX/AR/include/ARX/AR/config.h")
+        if [ "${VERSION_DEV}" = "0" ] ; then unset VERSION_DEV ; fi
+
+        TARGET_DIR="${OURDIR}/emscripten/package/artoolkitX"
+        if [ -d ${TARGET_DIR} ] ; then
+            rm -rf ${TARGET_DIR}
+        fi
+
+        rsync -ar --files-from=${OURDIR}/emscripten/bom --exclude-from=${OURDIR}/emscripten/excludes ${ARTOOLKITX_HOME} ${TARGET_DIR}
+
+        #Package all into a zip file
+        cd ${OURDIR}/emscripten/package/
+        zip --filesync -r "artoolkitx-${VERSION}${VERSION_DEV+-dev}-Emscripten.zip" ./artoolkitX/
+        PACKAGE_NAME="artoolkitx-${VERSION}${VERSION_DEV+-dev}-Emscripten.zip"
+        #Clean up
+        cd $OURDIR
+        rm -rf ${TARGET_DIR}
+        export PACKAGE_NAME
+	fi
+	# /PACKAGE_EMSCRIPTEN
 fi
 # /"$OS" = "Darwin" || "$OS" = "Linux"
 
