@@ -1,23 +1,25 @@
-if(NOT ARX_TARGET_PLATFORM_WINDOWS)
-    find_package(ZLIB REQUIRED)
-else()
-    FIND_PATH( ZLIB_INCLUDE_DIRS
-            NAMES zlib.h zconf.h
-            PATHS ${PROJECT_SOURCE_DIR}/depends/windows/include
-            DOC "The directory where zlib.h resides"
-            )
-
-    FIND_PATH( PTHREAD_INCLUDE_DIRS
-            NAMES pthread.h sched.h semaphore.h
-            PATHS ${PROJECT_SOURCE_DIR}/depends/windows/include
-            DOC "The directory where pthread headers resides"
-            )
-
-    FIND_LIBRARY( ZLIB_LIBRARIES
-                NAMES zlib
-                PATHS ${PROJECT_SOURCE_DIR}/depends/windows/lib/x64
-                DOC "The directory where zlib.lib static library resides"
+if(NOT ARX_NO_BUILTIN_MINIZIP)
+    if(NOT ARX_TARGET_PLATFORM_WINDOWS)
+        find_package(ZLIB REQUIRED)
+    else()
+        FIND_PATH( ZLIB_INCLUDE_DIRS
+                NAMES zlib.h zconf.h
+                PATHS ${PROJECT_SOURCE_DIR}/depends/windows/include
+                DOC "The directory where zlib.h resides"
                 )
+
+        FIND_PATH( PTHREAD_INCLUDE_DIRS
+                NAMES pthread.h sched.h semaphore.h
+                PATHS ${PROJECT_SOURCE_DIR}/depends/windows/include
+                DOC "The directory where pthread headers resides"
+                )
+
+        FIND_LIBRARY( ZLIB_LIBRARIES
+                    NAMES zlib
+                    PATHS ${PROJECT_SOURCE_DIR}/depends/windows/lib/x64
+                    DOC "The directory where zlib.lib static library resides"
+                    )
+    endif()
 endif()
 
 if(NOT ARX_TARGET_PLATFORM_WINDOWS AND NOT ARX_TARGET_PLATFORM_ANDROID AND NOT ARX_TARGET_PLATFORM_EMSCRIPTEN)
@@ -57,17 +59,23 @@ set(SOURCE
     time.c
     file_utils.c
     image_utils.cpp
-    crypt.h
-    crypt.c
-    ioapi.h
-    ioapi.c
-    unzip.h
-    unzip.c
-    zip.h
-    zip.c
     uuid/uuid_sha1.h
     uuid/uuid_sha1.c
 )
+
+
+if(NOT ARX_NO_BUILTIN_MINIZIP)
+    set(SOURCE ${SOURCE}
+        crypt.h
+        crypt.c
+        ioapi.h
+        ioapi.c
+        unzip.h
+        unzip.c
+        zip.h
+        zip.c
+    )
+endif()
 
 if (ARX_TARGET_PLATFORM_ANDROID)
     set(SOURCE ${SOURCE}
@@ -93,11 +101,15 @@ endif()
 target_include_directories(ARUtil
     PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     PRIVATE ${STB_INCLUDE_DIR}
-    PRIVATE ${ZLIB_INCLUDE_DIRS} 
     PRIVATE ${PTHREAD_INCLUDE_DIRS}
 )
 
-target_link_libraries(ARUtil ${ZLIB_LIBRARIES})
+if(NOT ARX_NO_BUILTIN_MINIZIP)
+    target_include_directories(ARUtil
+        PRIVATE ${ZLIB_INCLUDE_DIRS}
+    )
+    target_link_libraries(ARUtil ${ZLIB_LIBRARIES})
+endif()
 
 # Pass on headers to parent.
 string(REGEX REPLACE "([^;]+)" "ARUtil/\\1" hprefixed "${PUBLIC_HEADERS}")

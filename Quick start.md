@@ -49,6 +49,9 @@
 * Visual Studio project for each example is in `Examples/*example name*/Windows`. 
 * To rebuild the SDK and examples for Windows, using a bash shell provided by either git-bash, Windows Subsystem for Linux, or Cygwin, navigate to `Source` and execute the command `./build.sh windows examples`
 
+## Emscripten
+* Emscripten v3.1.38 (same version as Unity 2023 Web Player and later.)
+
 ## Next steps
 
 For more documentation, see the wiki at <https://github.com/artoolkitx/artoolkitx/wiki>.

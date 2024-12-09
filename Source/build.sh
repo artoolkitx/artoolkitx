@@ -298,7 +298,7 @@ if [ $BUILD_EMSCRIPTEN ] ; then
     fi
 
     if [ ! -d "depends/emscripten/include/opencv2" ] ; then
-        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.4.0-dev-artoolkitx/opencv-4.4.0-dev-artoolkitx-wasm.tgz" -o opencv2.tgz
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.10.0-dev-artoolkitx/opencv-4.10.0-dev-artoolkitx-wasm+unity2023.tgz" -o opencv2.tgz
         tar xzf opencv2.tgz --strip-components=1 -C depends/emscripten
         rm opencv2.tgz
     fi
@@ -308,8 +308,10 @@ if [ $BUILD_EMSCRIPTEN ] ; then
     fi
     cd build-emscripten
     rm -f CMakeCache.txt
+    # To also clear ports cache:
+    #emcc --clear-cache
 
-    SETTINGS="-s USE_ZLIB=1 -s USE_LIBJPEG=1 -s USE_PTHREADS=1"
+    SETTINGS="-s USE_ZLIB=1 -s USE_LIBJPEG=1 -s USE_PTHREADS=1 -msimd128 -fwasm-exceptions -mbulk-memory -mnontrapping-fptoint -msse4.2 -sWASM_BIGINT -sSUPPORT_LONGJMP=wasm"
     export CFLAGS="${SETTINGS}"
     export CXXFLAGS="${SETTINGS}"
     export LDFLAGS="${SETTINGS}"
@@ -319,14 +321,15 @@ if [ $BUILD_EMSCRIPTEN ] ; then
     -DCMAKE_TOOLCHAIN_FILE=${EMSDK}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake \
     -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release} \
     -DARX_GL_PREFER_EMBEDDED:BOOL=ON \
-    -DZLIB_INCLUDE_DIR:PATH="~/.emscripten_cache/wasm-obj/include" \
-    -DZLIB_LIBRARY:PATH="~/.emscripten_cache/wasm-obj/libz.a" \
-    -DJPEG_INCLUDE_DIR:PATH="~/.emscripten_cache/wasm-obj/include" \
-    -DJPEG_LIBRARY:PATH="~/.emscripten_cache/wasm-obj/libjpeg.a" \
+    -DARX_NO_BUILTIN_MINIZIP:BOOL=ON \
+    -DZLIB_INCLUDE_DIR:PATH="${EMSDK}/upstream/emscripten/cache/sysroot/include" \
+    -DZLIB_LIBRARY:PATH="${EMSDK}/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a" \
+    -DJPEG_INCLUDE_DIR:PATH="${EMSDK}/upstream/emscripten/cache/sysroot/include" \
+    -DJPEG_LIBRARY:PATH="${EMSDK}/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libjpeg.a" \
 
     # Build.
-    emmake make -j ${CPUS}
-    emmake make install
+    emmake make ${VERBOSE+VERBOSE=1} -j ${CPUS}
+    emmake make ${VERBOSE+VERBOSE=1} install
 fi
 # /BUILD_EMSCRIPTEN
 

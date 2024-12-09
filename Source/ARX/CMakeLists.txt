@@ -208,10 +208,10 @@ if(USE_GTSAM)
     target_include_directories(ARX PRIVATE ${GTSAM_INCLUDE_DIR})
 endif()
 
-if(ARX_TARGET_PLATFORM_WINDOWS) 
-    target_link_libraries(ARX 
+if(ARX_TARGET_PLATFORM_WINDOWS)
+    target_link_libraries(ARX
         PUBLIC ${PTHREAD_LIBRARIES}
-        PRIVATE "-WHOLEARCHIVE:$<TARGET_FILE:AR>" 
+        PRIVATE "-WHOLEARCHIVE:$<TARGET_FILE:AR>"
         PRIVATE "-WHOLEARCHIVE:$<TARGET_FILE:ARUtil>" 
         PRIVATE "-WHOLEARCHIVE:$<TARGET_FILE:ARVideo>" 
         PRIVATE "-WHOLEARCHIVE:$<TARGET_FILE:ARG>" 
@@ -230,17 +230,26 @@ if(ARX_TARGET_PLATFORM_WINDOWS)
 endif()
 
 if (${ARX_LIBRARY_STYLE} STREQUAL "STATIC")
-    # Hide internal symbols in a static library composed of other static libraries. See http://stackoverflow.com/a/18949281/316487
-    set_target_properties(ARX PROPERTIES
-        XCODE_ATTRIBUTE_GENERATE_MASTER_OBJECT_FILE "YES"
-        XCODE_ATTRIBUTE_PRELINK_LIBS "$<TARGET_FILE:AR> $<TARGET_FILE:ARUtil> $<TARGET_FILE:ARVideo> $<TARGET_FILE:ARG> $<$<BOOL:${HAVE_NFT}>:$<TARGET_FILE:AR2>> $<$<BOOL:${HAVE_NFT}>:$<TARGET_FILE:KPM>> $<$<BOOL:${HAVE_2D}>:$<TARGET_FILE:OCVT>> ${JPEG_LIBRARIES} $<$<BOOL:${HAVE_OPENCV}>:${OpenCV_LIBS}/opencv2> $<$<BOOL:${USE_CPARAM_SEARCH}>:${CURL_LIBRARIES}>"
-        XCODE_ATTRIBUTE_PRELINK_FLAGS "-unexported_symbols_list platform/ios/arx-ios-symbols-force-nonglobal.txt"
-        XCODE_ATTRIBUTE_DEPLOYMENT_POSTPROCESSING "YES"
-        XCODE_ATTRIBUTE_SEPARATE_STRIP "YES"
-        XCODE_ATTRIBUTE_STRIP_STYLE "non-global"
-        XCODE_ATTRIBUTE_COPY_PHASE_STRIP[variant=Debug] "NO"
-        XCODE_ATTRIBUTE_STRIP_INSTALLED_PRODUCT[variant=Debug] "NO"
-    )
+    if(ARX_TARGET_PLATFORM_IOS OR ARX_TARGET_PLATFORM_MACOS)
+        # Hide internal symbols in a static library composed of other static libraries. See http://stackoverflow.com/a/18949281/316487
+        set_target_properties(ARX PROPERTIES
+            XCODE_ATTRIBUTE_GENERATE_MASTER_OBJECT_FILE "YES"
+            XCODE_ATTRIBUTE_PRELINK_LIBS "$<TARGET_FILE:AR> $<TARGET_FILE:ARUtil> $<TARGET_FILE:ARVideo> $<TARGET_FILE:ARG> $<$<BOOL:${HAVE_NFT}>:$<TARGET_FILE:AR2>> $<$<BOOL:${HAVE_NFT}>:$<TARGET_FILE:KPM>> $<$<BOOL:${HAVE_2D}>:$<TARGET_FILE:OCVT>> ${JPEG_LIBRARIES} $<$<BOOL:${HAVE_OPENCV}>:${OpenCV_LIBS}/opencv2> $<$<BOOL:${USE_CPARAM_SEARCH}>:${CURL_LIBRARIES}>"
+            XCODE_ATTRIBUTE_PRELINK_FLAGS "-unexported_symbols_list platform/ios/arx-ios-symbols-force-nonglobal.txt"
+            XCODE_ATTRIBUTE_DEPLOYMENT_POSTPROCESSING "YES"
+            XCODE_ATTRIBUTE_SEPARATE_STRIP "YES"
+            XCODE_ATTRIBUTE_STRIP_STYLE "non-global"
+            XCODE_ATTRIBUTE_COPY_PHASE_STRIP[variant=Debug] "NO"
+            XCODE_ATTRIBUTE_STRIP_INSTALLED_PRODUCT[variant=Debug] "NO"
+        )
+    elseif(ARX_TARGET_PLATFORM_EMSCRIPTEN)
+        # Do a single-object prelink.
+        # First run emcc in link mode and combine object files into a "single object", then remove libARX.a and re-create from the single-object.
+        add_custom_command(TARGET ARX POST_BUILD
+            COMMAND emcc -r -Wl,--whole-archive -o ARX-singleobject.o $<TARGET_FILE:ARX> $<TARGET_FILE:AR> $<TARGET_FILE:ARUtil> $<TARGET_FILE:ARVideo> $<TARGET_FILE:ARG> $<$<BOOL:${HAVE_NFT}>:$<TARGET_FILE:AR2>> $<$<BOOL:${HAVE_NFT}>:$<TARGET_FILE:KPM>> $<$<BOOL:${HAVE_2D}>:$<TARGET_FILE:OCVT>> "$<$<BOOL:${HAVE_OPENCV}>:${OpenCV_LIBS}>" && rm $<TARGET_FILE:ARX> && emar cr $<TARGET_FILE:ARX> ARX-singleobject.o
+            COMMAND_EXPAND_LISTS
+        )
+    endif()
 endif()
 
 if (ARX_FRAMEWORK)
@@ -284,6 +293,11 @@ if (ARX_TARGET_PLATFORM_ANDROID AND "${ANDROID_STL}" STREQUAL "c++_shared")
     if (${CMAKE_BUILD_TYPE} MATCHES "Release")
         install(CODE "execute_process(COMMAND ${CMAKE_STRIP} \"${CMAKE_INSTALL_PREFIX}/${ARX_INSTALL_LIBRARY_DIR}/libc++_shared.so\")")
     endif()
+endif()
+
+# If using Emscripten, also install libjpeg and libz from ports.
+if (ARX_TARGET_PLATFORM_EMSCRIPTEN)
+    install(FILES ${ZLIB_LIBRARY} ${JPEG_LIBRARY} DESTINATION ${ARX_INSTALL_LIBRARY_DIR})
 endif()
 
 if (ARX_BUILD_PLUGIN)
