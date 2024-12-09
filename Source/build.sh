@@ -453,7 +453,7 @@ if [ $BUILD_LINUX_RASPBIAN ] ; then
             check_package libraspberrypi-dev
             check_package libudev-dev
             check_package libv4l-dev
-            check_package libdc1394-22-dev
+            check_package libdc1394-dev
             check_package libsqlite3-dev
             check_package libcurl4-openssl-dev
         elif (type rpm >/dev/null 2>&1) ; then
