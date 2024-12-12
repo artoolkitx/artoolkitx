@@ -93,6 +93,40 @@ enum {
     E_GENERIC_ERROR = 255
 };
 
+static const float black[4] = {0.0f, 0.0f, 0.0f, 1.0f};
+static const float black50a[4] = {0.0f, 0.0f, 0.0f, 0.5f};
+static const float white[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+static const float blue[4] =  {0.0f, 0.0f, 1.0f, 1.0f};
+static const float darkgreen[4] = {0.0f, 0.5f, 0.0f, 1.0f};
+static const float darkred[4] =  {0.5f, 0.0f, 0.0f, 1.0f};
+static const float darkyellow[4] = {0.5f, 0.5f, 0.0f, 1.0f};
+static const float yellow[4] = {1.0f, 1.0f, 0.0f, 1.0f};
+static const float orange[4] = {1.0f, 0.5f, 0.0f, 1.0f};
+static const float purple[4] = {0.5f, 0.0f, 1.0f, 1.0f};
+
+
+enum class colorKeyNames {
+    bins,
+    features,
+    templates,
+    boundsRaw,
+    bounds,
+    opticalFlowCorrespondences,
+    templateCorrespondences
+};
+
+typedef std::map<const colorKeyNames, std::tuple<const float*, const char*>> colorKeyMap;
+
+const static colorKeyMap colorKeys = {
+    {colorKeyNames::bins, {blue, "Image bins"}},
+    {colorKeyNames::features, {darkgreen, "Features"}},
+    {colorKeyNames::templates, {darkred, "Templates"}},
+    {colorKeyNames::boundsRaw, {darkyellow, "Bounds of tracked image"}},
+    {colorKeyNames::bounds, {yellow, "Tracked marker"}},
+    {colorKeyNames::opticalFlowCorrespondences, {orange, "Correspondences from optical flow"}},
+    {colorKeyNames::templateCorrespondences, {purple, "Correspondences from template matching"}},
+};
+
 // ============================================================================
 //    Global variables
 // ============================================================================
@@ -158,13 +192,14 @@ static float calcZoomToFit(int sourceSizeX, int sourceSizeY, int destSizeX, int 
 static void reshape(int w, int h);
 static void keyboard(SDL_Keycode key);
 static void processCommandLineOptions(int argc, char *argv[]);
-static void usage(char *com);
-static void drawQuadLoop(float vertices[4][2], float color[4]);
-static void drawQuadLoop3D(float vertices[4][3], float color[4]);
+static void usage(const char *com);
+static void drawQuadLoop(const float vertices[4][2], const float color[4]);
+static void drawQuadLoop3D(const float vertices[4][3], const float color[4]);
 static void drawCorrespondences(const std::vector<cv::Point2f>& imagePoints, const std::vector<cv::Point2f>& videoPoints, const float color[4]);
-static void drawImageView(int templatePyrLevel);
+static void drawImageView(const int templatePyrLevel);
 static void drawBackground(const float width, const float height, const float x, const float y);
 static void printHelpKeys(void);
+static void printColorKeys(void);
 static void printMode(void);
 
 int main(int argc, char *argv[])
@@ -353,8 +388,7 @@ int main(int argc, char *argv[])
             // Draw yellow box around tracked marker.
             for (int i = 0; i < 4; i++) {
                 if (trackerViz->bounds[i][0] != 0.0f || trackerViz->bounds[i][0] != 0.0) {
-                    float darkyellow[4] = {0.5f, 0.5f, 0.0f, 1.0f};
-                    drawQuadLoop(trackerViz->bounds, darkyellow);
+                    drawQuadLoop(trackerViz->bounds, std::get<0>(colorKeys.at(colorKeyNames::boundsRaw)));
                     break;
                 }
             }
@@ -370,14 +404,13 @@ int main(int argc, char *argv[])
                 glLoadMatrixf(projection);
                 glMatrixMode(GL_MODELVIEW);
                 glLoadMatrixf(view);
-                float yellow[4] = {1.0f, 1.0f, 0.0f, 1.0f};
                 float vertices[4][3] = {
                     0.0f, 0.0f, 0.0f,
                     inputFileWidth, 0.0f, 0.0f,
                     inputFileWidth, -inputFileWidth / refImageAspect, 0.0f,
                     0.0f, -inputFileWidth / refImageAspect, 0.0f,
                 };
-                drawQuadLoop3D(vertices, yellow);
+                drawQuadLoop3D(vertices, std::get<0>(colorKeys.at(colorKeyNames::bounds)));
             }
             
             // Draw the image.
@@ -395,17 +428,14 @@ int main(int argc, char *argv[])
                 
             }
             if (gDrawCorrespondencesMode & DRAW_CORRESPONDENCES_MODE_OPTICAL_FLOW_BIT) {
-                float orange[4] = {1.0f, 0.5f, 0.0f, 1.0f};
-                drawCorrespondences(trackerViz->opticalFlowTrackablePoints, trackerViz->opticalFlowTrackedPoints, orange);
+                drawCorrespondences(trackerViz->opticalFlowTrackablePoints, trackerViz->opticalFlowTrackedPoints, std::get<0>(colorKeys.at(colorKeyNames::opticalFlowCorrespondences)));
             }
             if (gDrawCorrespondencesMode & DRAW_CORRESPONDENCES_MODE_TEMPLATES_BIT) {
-                float purple[4] = {0.5f, 0.0f, 1.0f, 1.0f};
-                drawCorrespondences(trackerViz->templateTrackablePoints, trackerViz->templateTrackedPoints, purple);
+                drawCorrespondences(trackerViz->templateTrackablePoints, trackerViz->templateTrackedPoints, std::get<0>(colorKeys.at(colorKeyNames::templateCorrespondences)));
             }
 
             EdenGLFontSetViewSize(gContextWidth, gContextHeight);
             glLineWidth(1.0f);
-            float white[4] = {1.0f, 1.0f, 1.0f, 1.0f};
             EdenGLFontSetColor(white);
             EdenGLFontSetSize(FONT_SIZE);
 
@@ -413,9 +443,12 @@ int main(int argc, char *argv[])
             if (gShowMode) {
                 printMode();
             }
+            
             if (gShowHelp) {
                 if (gShowHelp == 1) {
                     printHelpKeys();
+                } else if (gShowHelp == 2) {
+                    printColorKeys();
                 }
             }
 
@@ -550,7 +583,7 @@ static void processCommandLineOptions(int argc, char *argv[])
     if (!inputFilePath) usage(argv[0]);
 }
 
-static void usage( char *com )
+static void usage( const char *com )
 {
     ARPRINT("Usage: %s [options] <filename> <width in millimetres>\n\n", com);
     ARPRINT("Where <filename> is path to a JPEG or PNG file,\n");
@@ -578,7 +611,7 @@ static void keyboard(SDL_Keycode key)
         case '?':
         case '/':
             gShowHelp++;
-            if (gShowHelp > 1) gShowHelp = 0;
+            if (gShowHelp > 2) gShowHelp = 0;
             break;
         case 'm':
         case 'M':
@@ -612,7 +645,7 @@ static float calcZoomToFit(int sourceSizeX, int sourceSizeY, int destSizeX, int 
     return (xzoom > yzoom ? yzoom : xzoom);
 }
 
-static void drawQuadLoop(float vertices[4][2], float color[4])
+static void drawQuadLoop(const float vertices[4][2], const float color[4])
 {
     glLineWidth(2.0f);
     glColor4fv(color);
@@ -622,7 +655,7 @@ static void drawQuadLoop(float vertices[4][2], float color[4])
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-static void drawQuadLoop3D(float vertices[4][3], float color[4])
+static void drawQuadLoop3D(const float vertices[4][3], const float color[4])
 {
     glLineWidth(2.0f);
     glColor4fv(color);
@@ -682,9 +715,8 @@ static void drawImageView(int templatePyrLevel)
 
         // Draw red boxes around template features, and number.
         glLineWidth(2.0f);
-        float darkred[4] = {0.5f, 0.0f, 0.0f, 1.0f};
-        glColor4fv(darkred);
-        EdenGLFontSetColor(darkred);
+        glColor4fv(std::get<0>(colorKeys.at(colorKeyNames::templates)));
+        EdenGLFontSetColor(std::get<0>(colorKeys.at(colorKeyNames::templates)));
 
         float templateRadius = (markerTemplateWidth << templatePyrLevel) / 2.0f;
         
@@ -730,8 +762,7 @@ static void drawImageView(int templatePyrLevel)
             vertices[i * 4 + 3][1] = refImageY * i / (float)numBins;
         }        
         glLineWidth(1.0f);
-        float blue[4] = {0.0f, 0.0f, 1.0f, 1.0f};
-        glColor4fv(blue);
+        glColor4fv(std::get<0>(colorKeys.at(colorKeyNames::bins)));
         glVertexPointer(2, GL_FLOAT, 0, vertices);
         glEnableClientState(GL_VERTEX_ARRAY);
         glDrawArrays(GL_LINES, 0, (numBins + 1)*4);
@@ -741,8 +772,7 @@ static void drawImageView(int templatePyrLevel)
         
         // Draw green crosses on features.
         glLineWidth(2.0f);
-        float darkgreen[4] = {0.0f, 0.5f, 0.0f, 1.0f};
-        glColor4fv(darkgreen);
+        glColor4fv(std::get<0>(colorKeys.at(colorKeyNames::features)));
         
         for (int i = 0; i < _featurePoints.size(); i++) {
             int x = _featurePoints[i].pt.x;
@@ -782,9 +812,9 @@ static void drawBackground(const float width, const float height, const float x,
     glEnable(GL_BLEND);
     glVertexPointer(2, GL_FLOAT, 0, vertices);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glColor4f(0.0f, 0.0f, 0.0f, 0.5f);	// 50% transparent black.
+    glColor4fv(black50a);	// 50% transparent black.
     glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-    glColor4f(1.0f, 1.0f, 1.0f, 1.0f); // Opaque white.
+    glColor4fv(white); // Opaque white.
     //glLineWidth(1.0f);
     //glDrawArrays(GL_LINE_LOOP, 0, 4);
     glDisableClientState(GL_VERTEX_ARRAY);
@@ -796,17 +826,48 @@ static void printHelpKeys()
     GLfloat bw, bh;
     const char *helpText[] = {
         "Keys:\n",
-        " ? or /        Show/hide this help.",
+        " ? or /        Show/hide this help / live tracking info key.",
         " q or [esc]    Quit program.",
         " [space]       Page through all combinations of correspondence modes."
     };
 #define helpTextLineCount (sizeof(helpText)/sizeof(char *))
     
     bw = EdenGLFontGetBlockWidth((const unsigned char **)helpText, helpTextLineCount);
-    bh = EdenGLFontGetBlockHeight((const unsigned char **)helpText, helpTextLineCount);
+    bh = EdenGLFontGetBlockHeight(helpTextLineCount);
     drawBackground(bw, bh, 2.0f, 2.0f);
     glDisable(GL_BLEND);
     EdenGLFontDrawBlock(0, NULL, (const unsigned char **)helpText, helpTextLineCount, 2.0f, 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE);
+}
+
+static void printColorKeys()
+{
+    GLfloat bw = 0.0f;
+    for (auto colorKey : colorKeys) {
+        float width = EdenGLFontGetLineWidth((const unsigned char *)std::get<1>(colorKey.second));
+        if (width > bw) bw = width;
+    }
+    bw += 12.0f; // Space for color block.
+    GLfloat bh = EdenGLFontGetBlockHeight((unsigned int)colorKeys.size());
+    GLfloat lineh = EdenGLFontGetSize() * EdenGLFontGetLineSpacing();
+    drawBackground(bw, bh, 2.0f, 2.0f);
+    glDisable(GL_BLEND);
+    
+    // Draw the colour block and text, line by line.
+    int i = 0;
+    for (auto colorKey : colorKeys) {
+        GLubyte pixels[300];
+        for (int j = 0; j < 300; j += 3) {
+            pixels[j    ] = std::get<0>(colorKey.second)[0]*255;
+            pixels[j + 1] = std::get<0>(colorKey.second)[1]*255;
+            pixels[j + 2] = std::get<0>(colorKey.second)[2]*255;
+        }
+        glRasterPos2f(2.0f, (colorKeys.size() - 1 - i) * lineh + 2.0f);
+        glPixelZoom(1.0f, 1.0f);
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        glDrawPixels(10, 10, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+        EdenGLFontDrawLine(0, NULL, (unsigned char *)std::get<1>(colorKey.second), 14.0f,  (colorKeys.size() - 1 - i)*lineh + 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE);
+        i++;
+    }
 }
 
 static void printMode()
@@ -814,7 +875,7 @@ static void printMode()
     int line;
     char text[256];
     
-    glColor3ub(255, 255, 255);
+    glColor4fv(white);
     line = 1;
     
     // Feature set resolution.

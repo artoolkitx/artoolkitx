@@ -753,7 +753,7 @@ static void printHelpKeys()
 #define helpTextLineCount (sizeof(helpText)/sizeof(char *))
     
     bw = EdenGLFontGetBlockWidth((const unsigned char **)helpText, helpTextLineCount);
-    bh = EdenGLFontGetBlockHeight((const unsigned char **)helpText, helpTextLineCount);
+    bh = EdenGLFontGetBlockHeight(helpTextLineCount);
     drawBackground(bw, bh, 2.0f, 2.0f);
     glDisable(GL_BLEND);
     EdenGLFontDrawBlock(0, NULL, (const unsigned char **)helpText, helpTextLineCount, 2.0f, 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE);

@@ -232,7 +232,7 @@ static void boxSetText(boxSettings_t *settings, const unsigned char *text)
         } while (!done);
     }
     
-    settings->boxHeight = EdenGLFontGetBlockHeight((const unsigned char **)settings->lines, settings->lineCount) + 2.0f*settings->boxPaddingV;
+    settings->boxHeight = EdenGLFontGetBlockHeight(settings->lineCount) + 2.0f*settings->boxPaddingV;
 
     pthread_mutex_unlock(&settings->lock);
 }

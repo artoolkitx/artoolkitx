@@ -932,7 +932,7 @@ static void drawView(void)
         } else if (gShowHelp == 2) {
             GLfloat bw = EdenGLFontGetBlockWidth((const unsigned char **)arMarkerInfoCutoffPhaseDescriptions, AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT);
             bw += 12.0f; // Space for color block.
-            GLfloat bh = EdenGLFontGetBlockHeight((const unsigned char **)arMarkerInfoCutoffPhaseDescriptions, AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT);
+            GLfloat bh = EdenGLFontGetBlockHeight(AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT);
             GLfloat lineh = EdenGLFontGetSize() * EdenGLFontGetLineSpacing();
             drawBackground(bw, bh, 2.0f, 2.0f);
             glDisable(GL_BLEND);
@@ -948,8 +948,8 @@ static void drawView(void)
                 glPixelZoom(1.0f, 1.0f);
                 glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
                 glDrawPixels(10, 10, GL_RGB, GL_UNSIGNED_BYTE, pixels);
-                EdenGLFontDrawBlock(0, NULL, (const unsigned char **)arMarkerInfoCutoffPhaseDescriptions, AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT, 14.0f, 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE);
-             }
+            }
+            EdenGLFontDrawBlock(0, NULL, (const unsigned char **)arMarkerInfoCutoffPhaseDescriptions, AR_MARKER_INFO_CUTOFF_PHASE_DESCRIPTION_COUNT, 14.0f, 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE);
         }
     }
     
@@ -1002,7 +1002,7 @@ static void printHelpKeys()
 #define helpTextLineCount (sizeof(helpText)/sizeof(char *))
     
     bw = EdenGLFontGetBlockWidth((const unsigned char **)helpText, helpTextLineCount);
-    bh = EdenGLFontGetBlockHeight((const unsigned char **)helpText, helpTextLineCount);
+    bh = EdenGLFontGetBlockHeight(helpTextLineCount);
     drawBackground(bw, bh, 2.0f, 2.0f);
     glDisable(GL_BLEND);
     EdenGLFontDrawBlock(0, NULL, (const unsigned char **)helpText, helpTextLineCount, 2.0f, 2.0f, H_OFFSET_VIEW_LEFT_EDGE_TO_TEXT_LEFT_EDGE, V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE);
