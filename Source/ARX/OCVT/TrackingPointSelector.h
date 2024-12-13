@@ -77,6 +77,8 @@ public:
     
     std::vector<cv::Point3f> GetTrackedFeatures3d();
     
+    /// @brief Gets the projected location in the video frame of the currently tracked features,
+    /// when projected via the supplied homography.
     /// @param 3x3 cv::Mat (of type CV_64FC1, i.e. double) containing the homography.
     std::vector<cv::Point2f> GetTrackedFeaturesWarped(const cv::Mat& homography);
 

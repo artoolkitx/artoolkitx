@@ -317,11 +317,10 @@ float EdenGLFontGetBlockWidth(const unsigned char **lines, const unsigned int li
     @brief Calculate the height of a block of text in pixels.
     @details
         Includes effects of line spacing greater than 1.0.
-    @param lines An array of C strings (i.e. an array of (char *)). Each item in the array points to a null-terminated C string.
     @param lineCount Number of strings in array 'lines'.
     @result Height in pixels.
  */
-float EdenGLFontGetBlockHeight(const unsigned char **lines, const unsigned int lineCount);  // Returns height in pixels, taking into account font, font size, display resolution, and line spacing.
+float EdenGLFontGetBlockHeight(const unsigned int lineCount);  // Returns height in pixels, taking into account font, font size, display resolution, and line spacing.
 
 /*!
     @brief 

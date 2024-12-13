@@ -423,9 +423,9 @@ float EdenGLFontGetBlockWidth(const unsigned char **lines, const unsigned int li
     return (maxWidth);
 }
 
-float EdenGLFontGetBlockHeight(const unsigned char **lines, const unsigned int lineCount)
+float EdenGLFontGetBlockHeight(const unsigned int lineCount)
 {
-    if (!lineCount || !lines) return (0.0f);
+    if (!lineCount) return (0.0f);
 
     return ((lineCount + (lineCount - 1)*(gFormattingSettings.lineSpacing - 1.0f)) * gFontSettings.size/72.0f * gViewSettings.pixelsPerInch);
 }
@@ -753,7 +753,7 @@ void EdenGLFontDrawBlock(const int contextIndex, const float viewProjection[16],
     }
     if (vOffsetType == V_OFFSET_VIEW_BOTTOM_TO_TEXT_BASELINE) y = vOffset;
     else {
-    	float textHeight = EdenGLFontGetBlockHeight(lines, lineCount);
+    	float textHeight = EdenGLFontGetBlockHeight(lineCount);
     	if (vOffsetType == V_OFFSET_TEXT_TOP_TO_VIEW_TOP) y = gViewSettings.height - hOffset - textHeight;
     	else /* V_OFFSET_VIEW_CENTER_TO_TEXT_CENTER */ y = (gViewSettings.height - textHeight)/2.0f + hOffset;
     }

@@ -62,6 +62,13 @@ public:
     templateMatching templateMatching;
     std::vector<cv::Point2f> templateTrackablePoints;
     std::vector<cv::Point2f> templateTrackedPoints;
+    
+    void reset() {
+        memset(bounds, 0, 8*sizeof(float));
+        opticalFlowTrackablePoints.clear();
+        opticalFlowTrackedPoints.clear();
+        opticalFlowOK = false;
+    }
 };
 
 #endif  // TRACKER_VISUALIZATION_H
