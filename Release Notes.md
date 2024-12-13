@@ -2,6 +2,13 @@
 --------------------------
 
 
+## Version 1.1.22
+### 2024-12-13
+
+Bug fixes:
+ * Correct scaling issue with 2D tracker.
+ * Fix Mac OS packaging issue (missed SDL framework).
+
 ## Version 1.1.21
 ### 2024-12-09
 

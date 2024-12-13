@@ -155,6 +155,7 @@ if [ $BUILD_MACOS ] ; then
     fi
     set -o pipefail && xcodebuild -target ALL_BUILD -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
     set -o pipefail && xcodebuild -target install -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
+    ln -s ../../Source/depends/macos/Frameworks/SDL2.framework ../../SDK/Frameworks/SDL2.framework
     cd $OURDIR
 
 	if [ $BUILD_EXAMPLES ] ; then

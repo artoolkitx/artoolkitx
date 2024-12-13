@@ -385,9 +385,9 @@ int main(int argc, char *argv[])
             glDisable(GL_LIGHTING);
             glDisable(GL_DEPTH_TEST);
             
-            // Draw yellow box around tracked marker.
+            // Draw dark yellow box around tracked marker bounds.
             for (int i = 0; i < 4; i++) {
-                if (trackerViz->bounds[i][0] != 0.0f || trackerViz->bounds[i][0] != 0.0) {
+                if (trackerViz->bounds[i][0] != 0.0f || trackerViz->bounds[i][0] != 0.0f) {
                     drawQuadLoop(trackerViz->bounds, std::get<0>(colorKeys.at(colorKeyNames::boundsRaw)));
                     break;
                 }

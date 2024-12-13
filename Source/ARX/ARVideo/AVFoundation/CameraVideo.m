@@ -411,7 +411,7 @@ typedef struct {
     } else {
         NSLog(@"Unsupported capture preset %@.\n", captureSessionPreset);
         goto bail3;
-     }
+    }
     
     //
     // A second output, for still images (if needed).

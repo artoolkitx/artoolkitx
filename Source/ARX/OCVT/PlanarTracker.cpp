@@ -528,13 +528,6 @@ public:
         //std::cout << "Building optical flow pyramid" << std::endl;
         cv::buildOpticalFlowPyramid(frame, _pyramid, winSize, k_OCVTOpticalFlowMaxPyrLevel);
         
-        if (_trackVizActive) {
-            memset(_trackViz.bounds, 0, 8*sizeof(float));
-            _trackViz.opticalFlowTrackablePoints.clear();
-            _trackViz.opticalFlowTrackedPoints.clear();
-            _trackViz.opticalFlowOK = false;
-        }
-        
         // Feature matching. Only do this phase if we're not already tracking the desired number of markers.
         if (_currentlyTrackedMarkers < _maxNumberOfMarkersToTrack) {
             cv::Mat detectionFrame;
@@ -561,6 +554,11 @@ public:
         
         // Optical flow and template matching. Only do this phase if something to track and we're not on the
         // very first frame.
+        if (_trackVizActive) {
+            _trackViz.opticalFlowTrackablePoints.clear();
+            _trackViz.opticalFlowTrackedPoints.clear();
+            _trackViz.opticalFlowOK = false;
+        }
         if (_currentlyTrackedMarkers > 0) {
             //std::cout << "Begin tracking phase" << std::endl;
             for (int i = 0; i <_trackables.size(); i++) {
@@ -592,6 +590,8 @@ public:
                     }
                 }
             }
+        } else if (_trackVizActive) {
+            memset(_trackViz.bounds, 0, 8*sizeof(float));
         }
 
         for (auto&& t : _trackables) {
@@ -962,6 +962,9 @@ int PlanarTracker::GetMaximumNumberOfMarkersToTrack(void)
 void PlanarTracker::SetTrackerVisualizationActive(bool active)
 {
     _trackerImpl->_trackVizActive = active;
+    if (active) {
+        _trackerImpl->_trackViz.reset();
+    }
 }
 
 void *PlanarTracker::GetTrackerVisualization(void)
