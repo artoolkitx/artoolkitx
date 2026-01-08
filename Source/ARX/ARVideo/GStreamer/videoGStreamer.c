@@ -95,6 +95,7 @@ static gboolean cb_have_data(GstPad *pad, GstPadProbeInfo *info, gpointer u_data
 		memcpy(vid->videoBuffer, (void *)info->data, info->size);
 		gst_buffer_unmap(buffer, info);
 		/* buffer is not used anymore */
+		gst_buffer_remove_all_memory(buffer);
 	} else {
 		g_print("ARVideo error! Buffer not readable\n");
 	}
