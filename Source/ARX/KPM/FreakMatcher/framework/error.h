@@ -65,5 +65,12 @@
 
 //#define isnan(x) ((x) != (x))
 //#define isinf(x) (!isnan(x) && isnan(x - x))
+
+// Since C++11, isnan is part of std namespace.
+#if (__cplusplus >= 201103L)
+#define ASSERT_NAN(x) ASSERT(!(std::isnan(x)), "NaN")
+#define ASSERT_INF(x) ASSERT(!(std::isinf(x)), "INF")
+#else // (__cplusplus >= 201103L)
 #define ASSERT_NAN(x) ASSERT(!isnan(x), "NaN")
 #define ASSERT_INF(x) ASSERT(!isinf(x), "INF")
+#endif // (__cplusplus >= 201103L)
