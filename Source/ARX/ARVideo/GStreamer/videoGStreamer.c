@@ -72,8 +72,22 @@ struct _AR2VideoParamGStreamerT {
 
 };
 
+#if (GST_VERSION_MAJOR >= 1) && (GST_VERSION_MINOR >= 22)
 
-static gboolean cb_have_data(GstPad *pad, GstPadProbeInfo *info, gpointer u_data)
+typedef GstPadProbeReturn arx_GstPadProbeReturn;
+#define ARX_GST_CALLBACK_SUCCESS (GST_PAD_PROBE_OK)
+#define ARX_GST_CALLBACK_FAILED (GST_PAD_PROBE_DROP)
+
+#else // (GST_VERSION_MAJOR >= 1) && (GST_VERSION_MINOR >= 22)
+
+typedef gboolean arx_GstPadProbeReturn;
+#define ARX_GST_CALLBACK_SUCCESS (TRUE)
+#define ARX_GST_CALLBACK_FAILED (FALSE)
+
+#endif // (GST_VERSION_MAJOR >= 1) && (GST_VERSION_MINOR >= 22)
+
+
+static arx_GstPadProbeReturn cb_have_data(GstPad *pad, GstPadProbeInfo *info, gpointer u_data)
 {
 	GstBuffer *buffer = GST_PAD_PROBE_INFO_BUFFER (info);
 	const GstCaps *caps;
@@ -84,20 +98,32 @@ static gboolean cb_have_data(GstPad *pad, GstPadProbeInfo *info, gpointer u_data
 	
 	AR2VideoParamGStreamerT *vid = (AR2VideoParamGStreamerT *)u_data;
 
-	if (vid == NULL) return FALSE;
+	if (vid == NULL) return ARX_GST_CALLBACK_FAILED;
 
 	/* only do initialy for the buffer */
 	if (vid->videoBuffer == NULL && buffer) {
 		g_print("ARVideo error! Buffer not allocated\n");
 	}
 
-	if (gst_buffer_map(buffer, info, GST_MAP_READ)) {
-		memcpy(vid->videoBuffer, (void *)info->data, info->size);
-		gst_buffer_unmap(buffer, info);
+#if (GST_VERSION_MAJOR >= 1) && (GST_VERSION_MINOR >= 22)
+
+	GstMapInfo map_info;
+    GstMapInfo* info_ptr = &map_info;
+
+#else // (GST_VERSION_MAJOR >= 1) && (GST_VERSION_MINOR >= 22)
+
+    GstPadProbeInfo* info_ptr = info;
+
+#endif // (GST_VERSION_MAJOR >= 1) && (GST_VERSION_MINOR >= 22)
+
+	if (gst_buffer_map(buffer, info_ptr, GST_MAP_READ)) {
+        memcpy(vid->videoBuffer, (void *)info_ptr->data, info_ptr->size);
+		gst_buffer_unmap(buffer, info_ptr);
+		/* buffer is not used anymore */
 	} else {
 		g_print("ARVideo error! Buffer not readable\n");
 	}
-	return TRUE;
+	return ARX_GST_CALLBACK_SUCCESS;
 }
 
 int ar2VideoDispOptionGStreamer( void )
@@ -192,7 +218,7 @@ AR2VideoParamGStreamerT *ar2VideoOpenGStreamer(const char *config_in)
     peerpad = gst_pad_get_peer(pad);
 
     /* install the probe callback for capturing */
-    gst_pad_add_probe(pad, GST_PAD_PROBE_TYPE_BUFFER, cb_have_data, vid, NULL);
+    gst_pad_add_probe(pad, GST_PAD_PROBE_TYPE_BUFFER, (GstPadProbeCallback)cb_have_data, vid, NULL);
 
     g_signal_connect(pad, "notify::caps", G_CALLBACK(video_caps_notify), vid);
 
