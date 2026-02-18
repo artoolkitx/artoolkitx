@@ -120,6 +120,7 @@ static arx_GstPadProbeReturn cb_have_data(GstPad *pad, GstPadProbeInfo *info, gp
         memcpy(vid->videoBuffer, (void *)info_ptr->data, info_ptr->size);
 		gst_buffer_unmap(buffer, info_ptr);
 		/* buffer is not used anymore */
+		gst_buffer_remove_all_memory(buffer);
 	} else {
 		g_print("ARVideo error! Buffer not readable\n");
 	}
