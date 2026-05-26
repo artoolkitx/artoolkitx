@@ -34,7 +34,7 @@
  *
  */
 
-package org.artoolkitx.arx.arsquaretracking;
+package org.artoolkitx.arx.arsquaretrackingosg;
 
 import android.os.Bundle;
 import android.widget.FrameLayout;

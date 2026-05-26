@@ -34,7 +34,7 @@
  *
  */
 
-package org.artoolkitx.arx.arsquaretracking;
+package org.artoolkitx.arx.arsquaretrackingosg;
 
 import android.opengl.GLES20;
 

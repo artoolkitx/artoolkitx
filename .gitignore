@@ -6,6 +6,8 @@ Examples/*.exe
 
 ### Packaging
 Source/packaging/linux/cpack/
+Source/packaging/linux/package/
+Source/packaging/emscripten/package/
 *.deb
 *.dmg
 
@@ -70,3 +72,8 @@ xcuserdata/
 
 #### Other VCS
 .svn/
+
+# Coding agents.
+.claude/settings.local.json
+
+### Other files to ignore

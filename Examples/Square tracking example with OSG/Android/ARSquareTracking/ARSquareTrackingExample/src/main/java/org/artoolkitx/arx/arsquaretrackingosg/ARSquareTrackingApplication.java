@@ -38,7 +38,7 @@
 // This class provides a subclass of Application to enable app-wide behavior.
 //
 
-package org.artoolkitx.arx.arsquaretracking;
+package org.artoolkitx.arx.arsquaretrackingosg;
 
 import android.app.Application;
 import android.content.Context;

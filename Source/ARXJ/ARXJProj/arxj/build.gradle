@@ -1,22 +1,23 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdk 33
+    namespace 'org.artoolkitx.arx.arxj'
+    compileSdk 35
     defaultConfig {
         minSdk 24
-        targetSdk 33
+        targetSdk 35
         ndkVersion "26.1.10909125"
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
                 // See https://developer.android.com/ndk/guides/cmake.html
                 arguments "-DANDROID_STL=c++_shared", "-DANDROID_CPP_FEATURES=rtti exceptions"
-                //cFlags "-DFOO=BAR"
-                //cppFlags "-DFOO=BAR"
             }
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     buildTypes {
         release {
@@ -36,5 +37,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.annotation:annotation:1.9.1'
+    implementation 'androidx.core:core:1.13.1'
 }
