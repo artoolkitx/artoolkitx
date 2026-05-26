@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":arxj" external.linked.project.path="$MODULE_DIR$/../../../arxj" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="ARXJProj" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module version="4">
   <component name="FacetManager">
     <facet type="native-android-gradle" name="Native-Android-Gradle">
       <configuration>
@@ -31,16 +31,5 @@
         <option name="PROJECT_TYPE" value="1" />
       </configuration>
     </facet>
-  </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/../../../arxj/build/intermediates/javac/release/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../arxj/build/intermediates/javac/releaseUnitTest/classes" />
-    <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../arxj">
-      <excludeFolder url="file://$MODULE_DIR$/../../../arxj/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/../../../arxj/build" />
-    </content>
-    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
-    <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

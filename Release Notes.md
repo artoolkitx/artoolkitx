@@ -2,6 +2,25 @@
 --------------------------
 
 
+## Version 1.1.23
+### 2026-05-26
+
+Bug fixes:
+ * Fixes GStreamer compatibility, GStreamer video module memory leak, and C++ compatibility, thanks to `gottardi`.
+ * Preliminary support for Linux on ARM.
+
+Improvements:
+ * Android: Update build toolchain.
+    - Bumped Android Gradle Plugin to 8.7.3, Gradle to 8.9, compileSdk/targetSdk to 35; JDK 17.
+    - Migrated the ARXJ library from `com.android.support` to AndroidX (`appcompat` 1.7.0, `annotation` 1.9.1, `core` 1.13.1).
+    - Moved `package=` from each Android manifest to `namespace` in `build.gradle` per AGP 8 requirements.
+    - Replaced the `mergeDebugAssets`/`mergeReleaseAssets` copy hook in each example with `sourceSets.main.assets.srcDirs`.
+    - Constrained `kotlin-stdlib-jdk7`/`-jdk8` to 1.8.22 to resolve duplicate-class clash with `kotlin-stdlib` 1.8.
+    - Replaced `jcenter()` with `mavenCentral()` everywhere.
+ * Android: Renamed the square-tracking-with-OSG example to `org.artoolkitx.arx.arsquaretrackingosg` so it can coexist with the non-OSG square-tracking example on a device.
+ * Windows: Default CMake generator is now Visual Studio 17 2022.
+ * Added `Source/packaging/android/sign-apks.sh` for signing APKs via an env-configured keystore (defaults to `~/.android/debug.keystore`).
+
 ## Version 1.1.22
 ### 2024-12-13
 

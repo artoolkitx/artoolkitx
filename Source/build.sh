@@ -115,7 +115,7 @@ fi
 # Set default CMake generator for Windows.
 echo "$CMAKE_GENERATOR"
 if [ $OS = "Windows" ]  && test -z "$CMAKE_GENERATOR"; then
-    CMAKE_GENERATOR="Visual Studio 16 2019"
+    CMAKE_GENERATOR="Visual Studio 17 2022"
     CMAKE_ARCH="x64"
 fi
 
@@ -250,6 +250,7 @@ if [ -z "$ANDROID_HOME" ] ; then
     Skipping ARXJ build.
     *****"
 else
+    # Updating this also requires a corresponding update to the default version in the ARXJ build.gradle file.
 	ANDROID_NDK_VERSION_NUMBER_DEFAULT=26.1.10909125
     ABIS="armeabi-v7a arm64-v8a x86 x86_64"
     for abi in $ABIS; do

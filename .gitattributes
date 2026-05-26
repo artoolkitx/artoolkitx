@@ -16,6 +16,10 @@
 *.gz binary
 *.bz2 binary
 *.db binary
+*.jar binary
+*.aar binary
+*.apk binary
+*.idsig binary
 
 # Images.
 *.jpg binary
