@@ -1,6 +1,10 @@
 <map id="arUtilChangeToResourcesDirectory" name="arUtilChangeToResourcesDirectory">
-<area shape="rect" id="node1" title="Change to the resources directory using the specified behavior." alt="" coords="5,31,233,56"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#a69fc2402cb882ae30aedafabd1227ba9" title="Get the path to the resources directory using the specified behavior." alt="" coords="281,31,497,56"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="545,5,763,31"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="561,55,747,80"/>
+<area shape="rect" id="Node000001" title="Change to the resources directory using the specified behavior." alt="" coords="5,31,233,56"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#a69fc2402cb882ae30aedafabd1227ba9" title="Get the path to the resources directory using the specified behavior." alt="" coords="281,31,497,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,41,267,43,262,44,233,46"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="345,29,337,22,342,12,359,6,389,4,422,7,439,17,434,16,420,12,389,9,361,11,345,16,342,21,350,31"/>
+<area shape="rect" id="Node000003" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="545,5,763,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="497,31,527,30,532,30,498,36"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="561,55,747,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="497,51,548,58,543,58,497,56"/>
 </map>

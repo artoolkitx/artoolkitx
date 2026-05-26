@@ -1,26 +1,41 @@
 <map id="PlanarTracker::PlanarTrackerImpl::ProcessFrame" name="PlanarTracker::PlanarTrackerImpl::ProcessFrame">
-<area shape="rect" id="node1" title=" " alt="" coords="5,365,197,406"/>
-<area shape="rect" id="node2" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a4173952f654e68af1a1eabe4b0c8e3dd" title=" " alt="" coords="248,5,439,46"/>
-<area shape="rect" id="node3" href="$class_o_c_v_feature_detector.html#a85c838ba02e1d9666e3498cdd2273814" title=" " alt="" coords="271,71,416,111"/>
-<area shape="rect" id="node4" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a91c57fbfdcd85bd68d4140447c08b9fc" title=" " alt="" coords="245,136,442,177"/>
-<area shape="rect" id="node5" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a80f0f662ac09c6c807020f3a69f7e31f" title=" " alt="" coords="246,201,441,242"/>
-<area shape="rect" id="node6" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a7a63a98ccbcd5352adf4bd3bdef58fa9" title=" " alt="" coords="247,267,440,307"/>
-<area shape="rect" id="node7" href="$class_planar_tracker_1_1_planar_tracker_impl.html#aa42703f5b2d24776ba4e30c4b22df5d3" title=" " alt="" coords="248,332,439,373"/>
-<area shape="rect" id="node8" href="$class_o_c_v_feature_detector.html#ac02fa1aef24f302f4a7f93e0840bd37d" title=" " alt="" coords="271,397,416,438"/>
-<area shape="rect" id="node9" href="$class_planar_tracker_1_1_planar_tracker_impl.html#aaa362b7b5e5749514365b91bb1f4177e" title=" " alt="" coords="248,463,439,503"/>
-<area shape="rect" id="node13" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a47d9c7350acfa5c446bee541105b193c" title=" " alt="" coords="248,528,439,569"/>
-<area shape="rect" id="node15" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a222b528facf0da27e39f26572df9ba00" title=" " alt="" coords="248,651,439,691"/>
-<area shape="rect" id="node23" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a6cb1faa1f8fe7fa77f55d18dca4de225" title=" " alt="" coords="248,716,439,757"/>
-<area shape="rect" id="node24" href="$class_planar_tracker_1_1_planar_tracker_impl.html#ad9fafde4e80b0c15a74879e50c54c03c" title=" " alt="" coords="248,781,439,822"/>
-<area shape="rect" id="node10" href="$_o_c_v_utils_8h.html#a7fe5bf75dbdbdb3b864fd17f80e8129f" title=" " alt="" coords="765,442,917,468"/>
-<area shape="rect" id="node11" href="$class_o_c_v_feature_detector.html#ac868b4b67deb841ebb050993250fda2b" title=" " alt="" coords="532,405,676,446"/>
-<area shape="rect" id="node12" href="$_o_c_v_utils_8h.html#ae0578b8b2c51f5555f86b17854eb6d88" title=" " alt="" coords="575,470,633,496"/>
-<area shape="rect" id="node14" href="$class_planar_tracker_1_1_planar_tracker_impl.html#ab33c6c9dfe6b1c7d06478328d20c6905" title=" " alt="" coords="490,520,717,561"/>
-<area shape="rect" id="node16" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a3925e818c3b90e8917eefb9a0360c1b7" title=" " alt="" coords="508,585,699,626"/>
-<area shape="rect" id="node17" href="$class_planar_tracker_1_1_planar_tracker_impl.html#aace5e63679577c60230fd0829ac39720" title=" " alt="" coords="508,651,699,691"/>
-<area shape="rect" id="node18" href="$class_planar_tracker_1_1_planar_tracker_impl.html#ae3b724a97d4eb5bb851cfee5eeb379e8" title=" " alt="" coords="508,716,699,757"/>
-<area shape="rect" id="node19" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a03ff176f2a4ce679bdf4fa44f5790332" title=" " alt="" coords="497,781,710,822"/>
-<area shape="rect" id="node20" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a08ef0ac5b1da5887bc48f06eeb67ca16" title=" " alt="" coords="508,847,699,887"/>
-<area shape="rect" id="node21" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a3fda737b66dff42b043010a8183fc792" title=" " alt="" coords="508,912,699,953"/>
-<area shape="rect" id="node22" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a78f2548808b2dbc02523d5b8bf20dc76" title=" " alt="" coords="507,977,700,1018"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,128,197,169"/>
+<area shape="rect" id="Node000002" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a08d4b0a57447464829e82725f6dd34e6" title=" " alt="" coords="245,5,442,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="129,126,182,91,243,57,262,50,258,54,246,61,184,96,133,129"/>
+<area shape="rect" id="Node000003" href="$class_planar_tracker_1_1_planar_tracker_impl.html#aa42703f5b2d24776ba4e30c4b22df5d3" title="Creates a mask image where the areas occupied by all currently tracked markers are 0,..." alt="" coords="248,71,439,111"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="188,125,242,114,238,117,192,129"/>
+<area shape="rect" id="Node000004" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a13d521f0d70e62d5248231a5a5d64e79" title=" " alt="" coords="508,120,699,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="196,144,494,140,491,144,198,149"/>
+<area shape="rect" id="Node000009" href="$class_planar_tracker_1_1_planar_tracker_impl.html#abc94c754010c75df9566e8ee7e8590c8" title=" " alt="" coords="248,185,439,226"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="189,167,242,180,238,183,191,172"/>
+<area shape="rect" id="Node000011" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a13d73aa0303b158c68f209ea75e863cf" title=" " alt="" coords="248,381,439,422"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="123,167,314,369,310,371,121,172"/>
+<area shape="rect" id="Node000005" href="$_o_c_v_utils_8h.html#a7fe5bf75dbdbdb3b864fd17f80e8129f" title="Method for calculating and validating a homography matrix from a set of corresponding points." alt="" coords="809,250,961,276"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="695,159,719,172,735,188,743,205,751,221,767,235,797,251,792,251,764,240,747,224,739,207,731,191,716,176,695,164"/>
+<area shape="rect" id="Node000006" href="$_o_c_v_utils_8h.html#ae0578b8b2c51f5555f86b17854eb6d88" title=" " alt="" coords="856,56,914,81"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="672,117,765,91,843,76,838,78,766,96,674,122"/>
+<area shape="rect" id="Node000007" href="$class_planar_tracker_1_1_planar_tracker_impl.html#ad3b05a88662b2f9fc9cf6cfc77655397" title=" " alt="" coords="765,106,1005,162"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="699,136,753,136,748,138,701,141"/>
+<area shape="rect" id="Node000008" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a49d46520b714b7e7319ccc7f8c16a3cd" title=" " alt="" coords="789,185,981,226"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="694,159,782,181,777,182,695,164"/>
+<area shape="rect" id="Node000010" href="$class_planar_tracker_1_1_planar_tracker_impl.html#af039d01334b7edadae6e7488757fa724" title=" " alt="" coords="490,185,717,226"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="439,203,476,205,472,207,441,208"/>
+<area shape="poly" id="edge10_Node000010_Node000005" title=" " alt="" coords="706,224,806,246,801,247,707,229"/>
+<area shape="poly" id="edge11_Node000010_Node000007" title=" " alt="" coords="685,182,761,165,756,167,687,187"/>
+<area shape="poly" id="edge12_Node000010_Node000008" title=" " alt="" coords="717,203,776,205,771,206,719,208"/>
+<area shape="poly" id="edge21_Node000011_Node000010" title=" " alt="" coords="356,379,408,309,445,270,489,237,503,231,499,234,491,241,449,274,412,313,360,383"/>
+<area shape="rect" id="Node000012" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a66343430f45435bfdfdfcc7cc2668c27" title="Transform all vertices by the same amount such that the point with the lowest x value moves to x=0 an..." alt="" coords="508,643,699,683"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="353,420,373,465,402,521,442,578,465,605,492,628,500,635,495,634,488,632,462,608,437,582,397,523,368,467,351,425"/>
+<area shape="rect" id="Node000013" href="$class_planar_tracker_1_1_planar_tracker_impl.html#aace5e63679577c60230fd0829ac39720" title=" " alt="" coords="508,251,699,291"/>
+<area shape="poly" id="edge15_Node000011_Node000013" title=" " alt="" coords="369,379,423,340,489,302,509,296,504,299,491,307,425,345,372,383"/>
+<area shape="rect" id="Node000014" href="$class_planar_tracker_1_1_planar_tracker_impl.html#ae6e6eeb049e5a54a7eeb14890e463c57" title="Calculates vertices of a rect centered on ptOrig." alt="" coords="508,316,699,357"/>
+<area shape="poly" id="edge16_Node000011_Node000014" title=" " alt="" coords="426,378,507,360,503,362,428,383"/>
+<area shape="rect" id="Node000015" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a03ff176f2a4ce679bdf4fa44f5790332" title="Calculates vertices of a rect with its top corner located at (x, y)." alt="" coords="497,381,710,422"/>
+<area shape="poly" id="edge17_Node000011_Node000015" title=" " alt="" coords="439,399,484,401,479,402,440,404"/>
+<area shape="rect" id="Node000016" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a0a18c3af22efe0a47e7821aae94b5d5c" title="Inflate the region of interest bounds by inflationFactor on each side." alt="" coords="508,447,699,487"/>
+<area shape="poly" id="edge18_Node000011_Node000016" title=" " alt="" coords="427,420,508,442,502,443,427,425"/>
+<area shape="rect" id="Node000017" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a3fda737b66dff42b043010a8183fc792" title=" " alt="" coords="508,512,699,553"/>
+<area shape="poly" id="edge19_Node000011_Node000017" title=" " alt="" coords="371,420,425,459,491,497,509,506,504,506,489,501,423,463,370,425"/>
+<area shape="rect" id="Node000018" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a78f2548808b2dbc02523d5b8bf20dc76" title=" " alt="" coords="507,577,700,618"/>
+<area shape="poly" id="edge20_Node000011_Node000018" title=" " alt="" coords="358,420,412,490,449,529,491,562,503,571,498,570,489,567,445,533,408,494,357,425"/>
 </map>

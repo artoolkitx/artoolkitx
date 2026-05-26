@@ -1,4 +1,5 @@
 <map id="ar3DStereoChangeLoopBreakThresh" name="ar3DStereoChangeLoopBreakThresh">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,200,46"/>
-<area shape="rect" id="node2" href="$icp_stereo_handle_8c.html#abb6e2ba17a256554c83d4238e90cfc96" title=" " alt="" coords="248,5,434,46"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,200,46"/>
+<area shape="rect" id="Node000002" href="$icp_stereo_handle_8c.html#abb6e2ba17a256554c83d4238e90cfc96" title=" " alt="" coords="248,5,434,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,23,235,26,229,26,200,28"/>
 </map>

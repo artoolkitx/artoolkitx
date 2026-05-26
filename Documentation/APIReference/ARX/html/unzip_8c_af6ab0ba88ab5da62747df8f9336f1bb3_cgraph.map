@@ -1,4 +1,5 @@
 <map id="unzClose" name="unzClose">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,82,31"/>
-<area shape="rect" id="node2" href="$unzip_8c.html#ac48279e5325cfdabbc67a312b1d32700" title=" " alt="" coords="130,5,270,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,82,31"/>
+<area shape="rect" id="Node000002" href="$unzip_8c.html#ac48279e5325cfdabbc67a312b1d32700" title=" " alt="" coords="130,5,270,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,16,117,18,111,19,82,21"/>
 </map>

@@ -1,8 +1,13 @@
 <map id="ARController::updateTextureRGBA32" name="ARController::updateTextureRGBA32">
-<area shape="rect" id="node1" title="Asks the video source to push the most recent frame into the passed&#45;in buffer." alt="" coords="5,55,192,96"/>
-<area shape="rect" id="node2" href="$class_a_r_video_source.html#a65ebb92f31e3124222c04848ab118995" title="Populates the provided color buffer with the current video frame." alt="" coords="240,55,460,96"/>
-<area shape="rect" id="node3" href="$class_a_r_video_source.html#a3d4b14784d083ae76f43c8942cb9076b" title="Checkin a locked video frame." alt="" coords="512,5,716,31"/>
-<area shape="rect" id="node4" href="$class_a_r_video_source.html#a0870e3e3099fe2bede89980bc89c5e70" title="Checkout a locked video frame if the frame&#39;s timestamp is newer than &#39;time&#39;." alt="" coords="508,55,720,96"/>
-<area shape="rect" id="node5" href="$video_r_g_b_a_8c.html#a44cdba1bda6acc12b6705a03fae865b2" title=" " alt="" coords="569,120,659,146"/>
-<area shape="rect" id="node6" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="768,120,897,146"/>
+<area shape="rect" id="Node000001" title="Asks the video source to push the most recent frame into the passed&#45;in buffer." alt="" coords="5,55,192,96"/>
+<area shape="rect" id="Node000002" href="$class_a_r_video_source.html#a65ebb92f31e3124222c04848ab118995" title="Populates the provided color buffer with the current video frame." alt="" coords="240,55,460,96"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,73,227,75,221,76,192,78"/>
+<area shape="rect" id="Node000003" href="$class_a_r_video_source.html#a3d4b14784d083ae76f43c8942cb9076b" title="Checkin a locked video frame." alt="" coords="512,5,716,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="446,52,534,35,539,34,447,57"/>
+<area shape="rect" id="Node000004" href="$class_a_r_video_source.html#a0870e3e3099fe2bede89980bc89c5e70" title="Checkout a locked video frame if the frame&#39;s timestamp is newer than &#39;time&#39;." alt="" coords="508,55,720,96"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="460,73,495,75,490,76,461,78"/>
+<area shape="rect" id="Node000005" href="$video_r_g_b_a_8c.html#a44cdba1bda6acc12b6705a03fae865b2" title=" " alt="" coords="569,120,659,146"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="447,94,556,120,551,120,446,99"/>
+<area shape="rect" id="Node000006" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="768,120,897,146"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="660,130,755,133,750,133,660,135"/>
 </map>

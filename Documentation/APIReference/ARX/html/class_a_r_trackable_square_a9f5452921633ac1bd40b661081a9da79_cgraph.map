@@ -1,4 +1,5 @@
 <map id="ARTrackableSquare::unload" name="ARTrackableSquare::unload">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,152,46"/>
-<area shape="rect" id="node2" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="200,13,282,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,152,46"/>
+<area shape="rect" id="Node000002" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="200,13,282,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,23,187,25,182,26,152,28"/>
 </map>

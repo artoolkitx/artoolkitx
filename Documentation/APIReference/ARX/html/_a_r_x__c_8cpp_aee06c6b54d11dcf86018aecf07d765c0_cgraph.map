@@ -1,4 +1,0 @@
-<map id="arwQueryTrackableVisibilityAndTransformationStereo" name="arwQueryTrackableVisibilityAndTransformationStereo">
-<area shape="rect" id="node1" title="Returns the visibility and stereo pose of the specified trackable." alt="" coords="5,5,189,46"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#aff42fd017881ce2601c53f830ae7d021" title="Searches the collection of trackables for the given ID." alt="" coords="237,13,419,39"/>
-</map>

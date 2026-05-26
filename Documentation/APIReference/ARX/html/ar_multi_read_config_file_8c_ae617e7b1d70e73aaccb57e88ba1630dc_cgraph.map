@@ -1,13 +1,23 @@
 <map id="arMultiReadConfigFile" name="arMultiReadConfigFile">
-<area shape="rect" id="node1" title="Creates a new multi&#45;marker configuration and fills it with the config from the multi&#45;marker config fi..." alt="" coords="5,80,156,106"/>
-<area shape="rect" id="node2" href="$ar_multi_edit_config_8c.html#ad1fc20004885bcb4b4cb3ee0931df634" title="Creates a new empty multi&#45;marker configuration." alt="" coords="249,5,377,31"/>
-<area shape="rect" id="node3" href="$ar_multi_edit_config_8c.html#a7a45fb2f0acb56ddee63efcdaaf654a1" title=" " alt="" coords="215,55,411,80"/>
-<area shape="rect" id="node8" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="271,104,355,130"/>
-<area shape="rect" id="node11" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="204,153,422,179"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title=" " alt="" coords="499,55,591,80"/>
-<area shape="rect" id="node5" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="673,5,771,31"/>
-<area shape="rect" id="node6" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="675,55,769,80"/>
-<area shape="rect" id="node7" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="667,104,777,130"/>
-<area shape="rect" id="node9" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="470,104,619,130"/>
-<area shape="rect" id="node10" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="525,153,564,179"/>
+<area shape="rect" id="Node000001" title="Creates a new multi&#45;marker configuration and fills it with the config from the multi&#45;marker config fi..." alt="" coords="5,80,156,106"/>
+<area shape="rect" id="Node000002" href="$ar_multi_edit_config_8c.html#ad1fc20004885bcb4b4cb3ee0931df634" title="Creates a new empty multi&#45;marker configuration." alt="" coords="249,5,376,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,77,203,40,236,33,232,35,205,45,111,82"/>
+<area shape="rect" id="Node000003" href="$ar_multi_edit_config_8c.html#a7a45fb2f0acb56ddee63efcdaaf654a1" title=" " alt="" coords="215,55,410,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,82,202,79,197,81,156,87"/>
+<area shape="rect" id="Node000008" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="271,104,355,130"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="156,98,258,110,253,112,156,103"/>
+<area shape="rect" id="Node000011" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="204,153,422,179"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="111,104,205,140,231,149,226,149,203,145,110,109"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title=" " alt="" coords="498,55,591,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="410,65,486,67,481,68,411,70"/>
+<area shape="rect" id="Node000005" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="673,5,771,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="591,52,656,36,661,35,592,57"/>
+<area shape="rect" id="Node000006" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="675,55,769,80"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="591,65,662,67,657,68,592,70"/>
+<area shape="rect" id="Node000007" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="667,104,777,130"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="592,78,662,99,656,99,591,83"/>
+<area shape="rect" id="Node000009" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="470,104,619,130"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="355,114,457,117,452,117,355,119"/>
+<area shape="rect" id="Node000010" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="525,153,564,179"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="355,123,512,159,507,159,355,128"/>
 </map>

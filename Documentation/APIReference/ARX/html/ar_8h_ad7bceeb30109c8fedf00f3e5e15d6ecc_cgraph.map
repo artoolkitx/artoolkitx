@@ -1,4 +1,5 @@
 <map id="ar3DChangeLoopBreakThreshRatio" name="ar3DChangeLoopBreakThreshRatio">
-<area shape="rect" id="node1" title="(description)" alt="" coords="5,5,202,46"/>
-<area shape="rect" id="node2" href="$icp_handle_8c.html#ab19a98950bfaa5b413e8e34c9b7b0ad4" title=" " alt="" coords="250,5,429,46"/>
+<area shape="rect" id="Node000001" title="(description)" alt="" coords="5,5,202,46"/>
+<area shape="rect" id="Node000002" href="$icp_handle_8c.html#ab19a98950bfaa5b413e8e34c9b7b0ad4" title=" " alt="" coords="250,5,429,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,23,236,26,231,26,202,28"/>
 </map>

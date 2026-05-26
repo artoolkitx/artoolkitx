@@ -1,9 +1,15 @@
 <map id="ar2Tracking" name="ar2Tracking">
-<area shape="rect" id="node1" title=" " alt="" coords="5,129,95,155"/>
-<area shape="rect" id="node2" href="$select_template_8c.html#a23a99aae5fb2bcdedff44cb9988f78be" title=" " alt="" coords="152,5,281,31"/>
-<area shape="rect" id="node3" href="$param_distortion_8c.html#af6fab5b34071af3f7fb01d484a75a333" title="Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero&#45;..." alt="" coords="143,55,290,80"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#a2b0bb26c88fe8dfa3957aeb9e8ce2dae" title=" " alt="" coords="167,104,266,130"/>
-<area shape="rect" id="node5" href="$icp_handle_8c.html#a9515de22165e8248a8742e1f5b9e4bef" title=" " alt="" coords="143,153,290,179"/>
-<area shape="rect" id="node6" href="$thread__sub_8c.html#afedcd01faf8f4e79fa17952ac71ca839" title=" " alt="" coords="163,203,270,228"/>
-<area shape="rect" id="node7" href="$thread__sub_8c.html#adf5b0c3a61be2511f7a2d0d563d3f29b" title=" " alt="" coords="156,252,277,278"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,129,95,155"/>
+<area shape="rect" id="Node000002" href="$select_template_8c.html#a23a99aae5fb2bcdedff44cb9988f78be" title=" " alt="" coords="152,5,281,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,127,91,85,115,61,141,40,152,36,148,40,144,44,118,65,95,88,62,130"/>
+<area shape="rect" id="Node000003" href="$param_distortion_8c.html#af6fab5b34071af3f7fb01d484a75a333" title="Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero&#45;..." alt="" coords="143,55,290,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="71,127,142,89,158,84,154,88,144,94,75,131"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#a2b0bb26c88fe8dfa3957aeb9e8ce2dae" title=" " alt="" coords="167,104,266,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="94,133,154,125,150,128,96,138"/>
+<area shape="rect" id="Node000005" href="$icp_handle_8c.html#a9515de22165e8248a8742e1f5b9e4bef" title=" " alt="" coords="143,153,290,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="95,146,130,152,125,155,96,151"/>
+<area shape="rect" id="Node000006" href="$thread__sub_8c.html#afedcd01faf8f4e79fa17952ac71ca839" title="Client&#45;side, communication. Wait for thread to end processing." alt="" coords="163,203,270,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="74,153,144,189,159,197,154,197,142,194,73,158"/>
+<area shape="rect" id="Node000007" href="$thread__sub_8c.html#adf5b0c3a61be2511f7a2d0d563d3f29b" title="Client&#45;side, communication. Send the worker thread the &quot;start processing&quot; request." alt="" coords="156,252,277,278"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="61,153,95,195,118,219,144,239,153,246,148,245,141,243,115,223,91,199,59,158"/>
 </map>

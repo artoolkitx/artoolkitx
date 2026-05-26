@@ -1,4 +1,5 @@
 <map id="Source/ARX/ARVideo/Video4Linux2/videoV4L2.h" name="Source/ARX/ARVideo/Video4Linux2/videoV4L2.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,185,46"/>
-<area shape="rect" id="node2" href="$video_v4_l2_8c.html" title=" " alt="" coords="5,94,185,135"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,185,46"/>
+<area shape="rect" id="Node000002" href="$video_v4_l2_8c.html" title=" " alt="" coords="5,94,185,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,60,98,94,92,93,93,64"/>
 </map>

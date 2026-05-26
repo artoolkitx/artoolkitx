@@ -1,7 +1,7 @@
 var searchData=
 [
   ['mapper_0',['Mapper',['../classarx__mapper_1_1_mapper.html#a5edabbe8b2ba12ae67243b5af14349b3',1,'arx_mapper::Mapper']]],
-  ['matchfeatures_1',['MatchFeatures',['../class_o_c_v_feature_detector.html#ac868b4b67deb841ebb050993250fda2b',1,'OCVFeatureDetector::MatchFeatures()'],['../class_planar_tracker_1_1_planar_tracker_impl.html#aaa362b7b5e5749514365b91bb1f4177e',1,'PlanarTracker::PlanarTrackerImpl::MatchFeatures(std::vector&lt; cv::KeyPoint &gt; newFrameFeatures, cv::Mat newFrameDescriptors)']]],
+  ['matchfeatures_1',['MatchFeatures',['../class_o_c_v_feature_detector.html#ac868b4b67deb841ebb050993250fda2b',1,'OCVFeatureDetector::MatchFeatures()'],['../class_planar_tracker_1_1_planar_tracker_impl.html#a13d521f0d70e62d5248231a5a5d64e79',1,'PlanarTracker::PlanarTrackerImpl::MatchFeatures(const std::vector&lt; cv::KeyPoint &gt; &amp;newFrameFeatures, cv::Mat newFrameDescriptors)']]],
   ['matchtemplatetoimage_2',['MatchTemplateToImage',['../class_planar_tracker_1_1_planar_tracker_impl.html#a78f2548808b2dbc02523d5b8bf20dc76',1,'PlanarTracker::PlanarTrackerImpl']]],
   ['matrixcodetype_3',['matrixCodeType',['../class_a_r_tracker_square.html#a8756d7f0fc4779c1e3398ee2e6ccdda8',1,'ARTrackerSquare']]],
   ['matrixmodeautocreatenewtrackables_4',['matrixModeAutoCreateNewTrackables',['../class_a_r_tracker_square.html#a2150f145002505d701fbc7763a76bac1',1,'ARTrackerSquare']]],

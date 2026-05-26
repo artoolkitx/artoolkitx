@@ -9,7 +9,7 @@ var searchData=
   ['devicelocation_6',['deviceLocation',['../class_windows_media_capture.html#a1ec98409f01bc4d3f95e0a4dbd81669f',1,'WindowsMediaCapture']]],
   ['devicename_7',['deviceName',['../class_windows_media_capture.html#a405fd47c50a5bacfc843519a5b82ac24',1,'WindowsMediaCapture']]],
   ['distortioncompensation_8',['distortionCompensation',['../class_a_r_video_view.html#a87149ab69c11ebf63ad7dd8fa18e86dd',1,'ARVideoView']]],
-  ['distributebins_9',['DistributeBins',['../class_tracking_point_selector.html#a8be316e440b76efa3b3a7d2c06555cea',1,'TrackingPointSelector']]],
+  ['distributebins_9',['DistributeBins',['../class_tracking_point_selector.html#af447fbedc3500b387de896d293fcf0c7',1,'TrackingPointSelector']]],
   ['draw_10',['draw',['../class_a_r_video_view.html#a6bb7a8fb1d3f71a384917c5fd3be55fe',1,'ARVideoView']]],
   ['drawdebugimage_11',['drawDebugImage',['../class_a_r_video_view.html#a716ecd06abcbd3f84ffe1fa71c32040b',1,'ARVideoView']]],
   ['drawvideo_12',['drawVideo',['../class_a_r_controller.html#aa73f350bc030eedde0674c58c39785a9',1,'ARController']]],

@@ -1,6 +1,9 @@
 <map id="ARController::videoParameters" name="ARController::videoParameters">
-<area shape="rect" id="node1" title="Reports width, height and pixel format of a video source." alt="" coords="5,55,208,80"/>
-<area shape="rect" id="node2" href="$class_a_r_video_source.html#a4328e4435cfcff995216fb77ddb93619" title="Returns the pixel format of the video." alt="" coords="256,5,467,31"/>
-<area shape="rect" id="node3" href="$class_a_r_video_source.html#adb306d10f6994abd0d03e1fae66a816a" title="Returns the height of the video in pixels." alt="" coords="256,55,467,80"/>
-<area shape="rect" id="node4" href="$class_a_r_video_source.html#adaa6982dd82839f798c878a923be461c" title="Returns the width of the video in pixels." alt="" coords="258,104,465,130"/>
+<area shape="rect" id="Node000001" title="Reports width, height and pixel format of a video source." alt="" coords="5,55,208,80"/>
+<area shape="rect" id="Node000002" href="$class_a_r_video_source.html#a4328e4435cfcff995216fb77ddb93619" title="Returns the pixel format of the video." alt="" coords="256,5,466,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,51,279,33,274,36,177,57"/>
+<area shape="rect" id="Node000003" href="$class_a_r_video_source.html#adb306d10f6994abd0d03e1fae66a816a" title="Returns the height of the video in pixels." alt="" coords="256,55,467,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,65,243,67,238,68,209,70"/>
+<area shape="rect" id="Node000004" href="$class_a_r_video_source.html#adaa6982dd82839f798c878a923be461c" title="Returns the width of the video in pixels." alt="" coords="258,104,465,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="177,78,279,100,274,101,177,84"/>
 </map>

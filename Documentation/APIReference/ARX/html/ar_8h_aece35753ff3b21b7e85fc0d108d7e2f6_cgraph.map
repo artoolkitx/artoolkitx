@@ -1,8 +1,13 @@
 <map id="arCreateHandle" name="arCreateHandle">
-<area shape="rect" id="node1" title="Create a handle to hold settings for an artoolkitX tracker instance." alt="" coords="5,55,118,80"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#a01258051f513f5c2760136479c9a2052" title="Enable or disable artoolkitX&#39;s debug mode." alt="" coords="204,5,327,31"/>
-<area shape="rect" id="node3" href="$ar_create_handle_8c.html#aec6c548f3619e700e40764cd1c685fc6" title="Set the labeling threshold mode (auto/manual)." alt="" coords="179,55,352,80"/>
-<area shape="rect" id="node6" href="$ar_create_handle_8c.html#a86e2d00dfb41243650b1e18c55dcf031" title="Set the number of frames between auto&#45;threshold calculations." alt="" coords="166,105,365,145"/>
-<area shape="rect" id="node4" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="413,31,536,56"/>
-<area shape="rect" id="node5" href="$ar_image_proc_8c.html#ab17100ae9f8d3a2b881830f135bfffa8" title="Initialise image processing." alt="" coords="418,80,531,106"/>
+<area shape="rect" id="Node000001" title="Create a handle to hold settings for an artoolkitX tracker instance." alt="" coords="5,55,118,80"/>
+<area shape="rect" id="Node000002" href="$ar_create_handle_8c.html#a01258051f513f5c2760136479c9a2052" title="Enable or disable artoolkitX&#39;s debug mode." alt="" coords="204,5,326,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,52,165,40,196,34,192,36,166,45,118,57"/>
+<area shape="rect" id="Node000003" href="$ar_create_handle_8c.html#aec6c548f3619e700e40764cd1c685fc6" title="Set the labeling threshold mode (auto/manual)." alt="" coords="179,55,352,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="117,65,166,66,161,69,118,70"/>
+<area shape="rect" id="Node000006" href="$ar_create_handle_8c.html#a86e2d00dfb41243650b1e18c55dcf031" title="Set the number of frames between auto&#45;threshold calculations." alt="" coords="166,104,365,145"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="110,78,178,99,173,101,110,84"/>
+<area shape="rect" id="Node000004" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="413,31,536,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="351,55,400,52,395,53,352,60"/>
+<area shape="rect" id="Node000005" href="$ar_image_proc_8c.html#ab17100ae9f8d3a2b881830f135bfffa8" title="Initialise image processing." alt="" coords="418,80,531,106"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="352,75,405,84,400,84,352,81"/>
 </map>

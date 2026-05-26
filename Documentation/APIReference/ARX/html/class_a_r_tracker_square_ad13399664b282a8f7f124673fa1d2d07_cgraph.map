@@ -1,4 +1,5 @@
 <map id="ARTrackerSquare::setPatternDetectionMode" name="ARTrackerSquare::setPatternDetectionMode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,199,46"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#aa36c31f7d892653d73647e545ab3b3c9" title="Set the pattern detection mode." alt="" coords="247,13,429,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,199,46"/>
+<area shape="rect" id="Node000002" href="$ar_create_handle_8c.html#aa36c31f7d892653d73647e545ab3b3c9" title="Set the pattern detection mode." alt="" coords="247,13,429,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,23,234,26,229,26,199,28"/>
 </map>

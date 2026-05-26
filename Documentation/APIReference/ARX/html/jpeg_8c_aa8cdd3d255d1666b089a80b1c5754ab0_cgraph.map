@@ -1,4 +1,5 @@
 <map id="ar2ReadJpegImage" name="ar2ReadJpegImage">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,140,31"/>
-<area shape="rect" id="node2" href="$jpeg_8c.html#a8264ceee0c52d60f156ecf71ad1cf045" title=" " alt="" coords="188,5,329,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,140,31"/>
+<area shape="rect" id="Node000002" href="$jpeg_8c.html#a8264ceee0c52d60f156ecf71ad1cf045" title=" " alt="" coords="188,5,329,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,16,175,18,169,18,140,21"/>
 </map>

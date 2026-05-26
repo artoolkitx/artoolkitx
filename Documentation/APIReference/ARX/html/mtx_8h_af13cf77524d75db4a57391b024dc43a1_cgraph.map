@@ -1,4 +1,5 @@
 <map id="mtxOrthof" name="mtxOrthof">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,85,31"/>
-<area shape="rect" id="node2" href="$mtx_8c.html#af377adb88126f1b018b6be776c49cf35" title=" " alt="" coords="133,5,241,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,85,31"/>
+<area shape="rect" id="Node000002" href="$mtx_8c.html#af377adb88126f1b018b6be776c49cf35" title=" " alt="" coords="133,5,241,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,16,120,18,115,19,85,21"/>
 </map>

@@ -1,0 +1,15 @@
+<map id="arwCreateVideoSourceInfoList" name="arwCreateVideoSourceInfoList">
+<area shape="rect" id="Node000001" title="Create a video source info list using the supplied video configuration string." alt="" coords="5,137,204,162"/>
+<area shape="rect" id="Node000002" href="$video2_8c.html#ac94c744772e0618f0fad84b029dffab6" title=" " alt="" coords="252,112,447,137"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,137,239,135,234,137,205,142"/>
+<area shape="rect" id="Node000007" href="$video2_8c.html#af0a346cf3be43f60f4f06133361f8869" title=" " alt="" coords="252,161,446,186"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="204,157,239,162,234,163,205,162"/>
+<area shape="rect" id="Node000003" href="$video_android_8h.html#a422085996b835e1481b6a2bc57bf43dc" title=" " alt="" coords="495,5,669,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="378,108,494,57,509,53,514,51,496,61,380,113"/>
+<area shape="rect" id="Node000004" href="$video_a_v_foundation_8h.html#af3394630910b71fc3a30fd8c8a1a024c" title=" " alt="" coords="495,71,669,111"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="443,108,482,105,477,106,444,113"/>
+<area shape="rect" id="Node000005" href="$video_v4_l2_8h.html#ade3e3908d829323423c59c50eac04f81" title=" " alt="" coords="495,136,669,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="448,135,482,142,477,142,448,140"/>
+<area shape="rect" id="Node000006" href="$video_windows_media_foundation_8h.html#adc4ec32713e179b569aab4a204523ea2" title=" " alt="" coords="495,201,669,242"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="421,135,448,146,463,156,473,166,497,186,508,195,503,194,493,191,469,170,460,160,446,151,420,140"/>
+</map>

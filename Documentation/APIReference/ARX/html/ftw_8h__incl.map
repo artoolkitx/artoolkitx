@@ -1,5 +1,7 @@
 <map id="Source/ARX/ARUtil/ftw.h" name="Source/ARX/ARUtil/ftw.h">
-<area shape="rect" id="node1" title=" " alt="" coords="19,5,188,31"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,79,95,105"/>
-<area shape="rect" id="node3" title=" " alt="" coords="118,79,198,105"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="19,5,188,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,95,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,30,70,68,66,64,92,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="118,79,198,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="114,29,142,67,137,67,111,34"/>
 </map>

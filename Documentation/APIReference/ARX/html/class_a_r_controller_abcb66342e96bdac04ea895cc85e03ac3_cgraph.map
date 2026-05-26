@@ -1,8 +1,13 @@
 <map id="ARController::projectionMatrix" name="ARController::projectionMatrix">
-<area shape="rect" id="node1" title="Populates the provided array with the ARToolKit projection matrix." alt="" coords="5,85,166,125"/>
-<area shape="rect" id="node2" href="$param_g_l_8c.html#a47cc5a7056c5638682a07acee44df9f4" title="Create an OpenGL perspective projection matrix." alt="" coords="229,5,385,31"/>
-<area shape="rect" id="node4" href="$class_a_r_video_source.html#a5feeb630d5706513ba1d48ba7dcd2c31" title="Returns the camera parameters for the video source." alt="" coords="214,55,400,96"/>
-<area shape="rect" id="node5" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="225,120,389,146"/>
-<area shape="rect" id="node6" href="$class_a_r_video_source.html#adcdfb6d6fcf844c7578bec2b3f978108" title="Returns true if the video source is open and ready to be queried." alt="" coords="217,169,397,195"/>
-<area shape="rect" id="node3" href="$param_decomp_8c.html#af8d8284f4489d90d4408f7514866dca1" title=" " alt="" coords="448,5,589,31"/>
+<area shape="rect" id="Node000001" title="Populates the provided array with the ARToolKit projection matrix." alt="" coords="5,84,166,125"/>
+<area shape="rect" id="Node000002" href="$param_g_l_8c.html#a47cc5a7056c5638682a07acee44df9f4" title="Create an OpenGL perspective projection matrix." alt="" coords="229,5,385,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,82,213,41,238,35,234,37,215,46,127,86"/>
+<area shape="rect" id="Node000004" href="$class_a_r_video_source.html#a5feeb630d5706513ba1d48ba7dcd2c31" title="Returns the camera parameters for the video source." alt="" coords="214,55,400,96"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,92,201,89,196,91,167,97"/>
+<area shape="rect" id="Node000005" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="225,120,388,146"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="166,112,212,120,207,121,166,118"/>
+<area shape="rect" id="Node000006" href="$class_a_r_video_source.html#adcdfb6d6fcf844c7578bec2b3f978108" title="Returns true if the video source is open and ready to be queried." alt="" coords="217,169,397,195"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="133,123,215,156,237,165,232,165,213,161,132,128"/>
+<area shape="rect" id="Node000003" href="$param_decomp_8c.html#af8d8284f4489d90d4408f7514866dca1" title=" " alt="" coords="448,5,589,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="385,16,435,18,430,19,386,21"/>
 </map>

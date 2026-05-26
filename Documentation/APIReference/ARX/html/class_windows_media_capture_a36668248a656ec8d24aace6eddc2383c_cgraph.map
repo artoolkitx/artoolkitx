@@ -1,4 +1,5 @@
 <map id="WindowsMediaCapture::StopCapture" name="WindowsMediaCapture::StopCapture">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,162,46"/>
-<area shape="rect" id="node2" href="$_windows_media_capture_8cpp.html#a5d2988854fd247304b4976371023a76b" title=" " alt="" coords="210,13,319,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,162,46"/>
+<area shape="rect" id="Node000002" href="$_windows_media_capture_8cpp.html#a5d2988854fd247304b4976371023a76b" title=" " alt="" coords="210,13,319,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,23,197,25,192,26,162,28"/>
 </map>

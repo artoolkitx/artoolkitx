@@ -1,4 +1,5 @@
 <map id="unzGetFilePos" name="unzGetFilePos">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,113,31"/>
-<area shape="rect" id="node2" href="$unzip_8c.html#a455a15e23936251eb614675b2e7bae64" title=" " alt="" coords="161,5,282,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,113,31"/>
+<area shape="rect" id="Node000002" href="$unzip_8c.html#a455a15e23936251eb614675b2e7bae64" title=" " alt="" coords="161,5,282,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,16,148,18,142,18,113,21"/>
 </map>

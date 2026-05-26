@@ -1,4 +1,5 @@
 <map id="ARTrackerSquare::setImageProcMode" name="ARTrackerSquare::setImageProcMode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,193,46"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#a292c6689bec483177a50f45a5960590a" title="Set the image processing mode." alt="" coords="241,13,388,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,193,46"/>
+<area shape="rect" id="Node000002" href="$ar_create_handle_8c.html#a292c6689bec483177a50f45a5960590a" title="Set the image processing mode." alt="" coords="241,13,388,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,23,228,25,222,26,193,28"/>
 </map>

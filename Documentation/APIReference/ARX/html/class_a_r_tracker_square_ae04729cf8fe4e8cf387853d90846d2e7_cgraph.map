@@ -1,7 +1,11 @@
 <map id="ARTrackerSquare::setPatternCountMax" name="ARTrackerSquare::setPatternCountMax">
-<area shape="rect" id="node1" title=" " alt="" coords="5,47,199,88"/>
-<area shape="rect" id="node2" href="$ar_patt_create_handle_8c.html#a49c652399d917276b7a560df39f03138" title="Allocate a pattern handle and set pattern template size and maximum number of patterns loadable." alt="" coords="262,5,405,31"/>
-<area shape="rect" id="node3" href="$ar_patt_create_handle_8c.html#a4cc694c73a326767ba1614e97fcd00cb" title="Free all loaded patterns and pattern handle." alt="" coords="266,55,401,80"/>
-<area shape="rect" id="node5" href="$class_a_r_tracker_square.html#ae108203df8d09de4f08cbe7601250a26" title=" " alt="" coords="247,105,420,145"/>
-<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="468,55,550,80"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,47,199,88"/>
+<area shape="rect" id="Node000002" href="$ar_patt_create_handle_8c.html#a49c652399d917276b7a560df39f03138" title="Allocate a pattern handle and set pattern template size and maximum number of patterns loadable." alt="" coords="262,5,405,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,44,257,34,252,36,200,49"/>
+<area shape="rect" id="Node000003" href="$ar_patt_create_handle_8c.html#a4cc694c73a326767ba1614e97fcd00cb" title="Free all loaded patterns and pattern handle." alt="" coords="266,55,401,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,65,253,67,248,68,199,70"/>
+<area shape="rect" id="Node000005" href="$class_a_r_tracker_square.html#ae108203df8d09de4f08cbe7601250a26" title=" " alt="" coords="247,104,420,145"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="187,86,236,100,231,100,186,91"/>
+<area shape="rect" id="Node000004" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="468,55,550,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="401,65,455,67,450,68,402,70"/>
 </map>

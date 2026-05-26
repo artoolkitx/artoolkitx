@@ -1,4 +1,5 @@
 <map id="arPattCreateHandle" name="arPattCreateHandle">
-<area shape="rect" id="node1" title="Allocate a pattern handle." alt="" coords="5,5,142,31"/>
-<area shape="rect" id="node2" href="$ar_patt_create_handle_8c.html#a49c652399d917276b7a560df39f03138" title="Allocate a pattern handle and set pattern template size and maximum number of patterns loadable." alt="" coords="190,5,333,31"/>
+<area shape="rect" id="Node000001" title="Allocate a pattern handle." alt="" coords="5,5,142,31"/>
+<area shape="rect" id="Node000002" href="$ar_patt_create_handle_8c.html#a49c652399d917276b7a560df39f03138" title="Allocate a pattern handle and set pattern template size and maximum number of patterns loadable." alt="" coords="190,5,333,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,16,177,18,172,18,142,21"/>
 </map>

@@ -1,7 +1,11 @@
 <map id="Source/ARX/ARUtil/ioapi.h" name="Source/ARX/ARUtil/ioapi.h">
-<area shape="rect" id="node1" title=" " alt="" coords="75,5,255,31"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,79,66,105"/>
-<area shape="rect" id="node3" title=" " alt="" coords="89,79,153,105"/>
-<area shape="rect" id="node4" title=" " alt="" coords="177,79,241,105"/>
-<area shape="rect" id="node5" title=" " alt="" coords="265,79,318,105"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="75,5,254,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,66,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,34,72,73,70,69,141,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="89,79,152,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="160,30,138,67,134,64,155,33"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="177,79,241,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="173,29,196,66,191,65,171,34"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="265,79,318,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="187,29,259,71,254,71,186,34"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="Source/ARX/AR2/include/ARX/AR2/searchPoint.h" name="Source/ARX/AR2/include/ARX/AR2/searchPoint.h">
-<area shape="rect" id="node1" title=" " alt="" coords="138,5,308,46"/>
-<area shape="rect" id="node2" href="$search_point_8c.html" title=" " alt="" coords="5,94,214,120"/>
-<area shape="rect" id="node3" href="$tracking2d_8c.html" title=" " alt="" coords="238,94,437,120"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="138,5,308,46"/>
+<area shape="rect" id="Node000002" href="$search_point_8c.html" title=" " alt="" coords="5,94,214,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,55,128,96,126,91,180,56"/>
+<area shape="rect" id="Node000003" href="$tracking2d_8c.html" title=" " alt="" coords="238,94,437,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,52,322,94,317,93,263,57"/>
 </map>

@@ -1,10 +1,17 @@
 <map id="Source/ARX/AR2/include/ARX/AR2/tracking.h" name="Source/ARX/AR2/include/ARX/AR2/tracking.h">
-<area shape="rect" id="node1" title=" " alt="" coords="653,5,823,46"/>
-<area shape="rect" id="node2" href="$handle_8c.html" title=" " alt="" coords="5,94,183,120"/>
-<area shape="rect" id="node3" href="$matching_8c.html" title=" " alt="" coords="207,94,400,120"/>
-<area shape="rect" id="node4" href="$matching2_8c.html" title=" " alt="" coords="424,94,623,120"/>
-<area shape="rect" id="node5" href="$surface_8c.html" title=" " alt="" coords="647,94,829,120"/>
-<area shape="rect" id="node6" href="$template_8c.html" title=" " alt="" coords="853,94,1042,120"/>
-<area shape="rect" id="node7" href="$tracking_8c.html" title=" " alt="" coords="1067,94,1252,120"/>
-<area shape="rect" id="node8" href="$tracking2d_8c.html" title=" " alt="" coords="1276,94,1475,120"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="653,5,823,46"/>
+<area shape="rect" id="Node000002" href="$handle_8c.html" title=" " alt="" coords="5,94,183,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="638,42,184,97,183,92,638,37"/>
+<area shape="rect" id="Node000003" href="$matching_8c.html" title=" " alt="" coords="207,94,400,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="641,45,371,96,370,91,636,45"/>
+<area shape="rect" id="Node000004" href="$matching2_8c.html" title=" " alt="" coords="424,94,623,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="673,51,557,96,556,91,668,52"/>
+<area shape="rect" id="Node000005" href="$surface_8c.html" title=" " alt="" coords="647,94,829,120"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="740,60,740,95,736,92,736,64"/>
+<area shape="rect" id="Node000006" href="$template_8c.html" title=" " alt="" coords="853,94,1042,120"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="805,49,918,94,913,93,804,55"/>
+<area shape="rect" id="Node000007" href="$tracking_8c.html" title=" " alt="" coords="1067,94,1252,120"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="838,43,1097,93,1092,93,838,48"/>
+<area shape="rect" id="Node000008" href="$tracking2d_8c.html" title=" " alt="" coords="1276,94,1475,120"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="838,37,1280,93,1274,94,838,42"/>
 </map>

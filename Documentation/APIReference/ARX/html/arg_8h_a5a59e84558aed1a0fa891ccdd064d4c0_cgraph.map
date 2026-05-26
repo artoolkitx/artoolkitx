@@ -1,4 +1,5 @@
 <map id="arglGLCapabilityCheck" name="arglGLCapabilityCheck">
-<area shape="rect" id="node1" title="Checks for the presence of an OpenGL capability by version or extension." alt="" coords="5,5,161,31"/>
-<area shape="rect" id="node2" href="$arg_8c.html#a70f432550d41765bc7b7b13a53e6015d" title=" " alt="" coords="209,5,342,31"/>
+<area shape="rect" id="Node000001" title="Checks for the presence of an OpenGL capability by version or extension." alt="" coords="5,5,161,31"/>
+<area shape="rect" id="Node000002" href="$arg_8c.html#a70f432550d41765bc7b7b13a53e6015d" title=" " alt="" coords="209,5,342,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,16,195,18,190,18,161,21"/>
 </map>

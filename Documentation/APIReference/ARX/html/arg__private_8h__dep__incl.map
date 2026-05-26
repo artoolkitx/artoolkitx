@@ -1,10 +1,19 @@
 <map id="Source/ARX/ARG/arg_private.h" name="Source/ARX/ARG/arg_private.h">
-<area shape="rect" id="node1" title=" " alt="" coords="271,5,420,46"/>
-<area shape="rect" id="node2" href="$arg__gl_8h.html" title=" " alt="" coords="445,102,622,127"/>
-<area shape="rect" id="node5" href="$arg__gl3_8h.html" title=" " alt="" coords="97,94,247,135"/>
-<area shape="rect" id="node7" href="$arg__gles2_8h.html" title=" " alt="" coords="271,94,420,135"/>
-<area shape="rect" id="node3" href="$arg_8c.html" title=" " alt="" coords="179,190,339,216"/>
-<area shape="rect" id="node4" href="$arg__gl_8c.html" title=" " alt="" coords="537,190,714,216"/>
-<area shape="rect" id="node6" href="$arg__gl3_8c.html" title=" " alt="" coords="5,183,155,223"/>
-<area shape="rect" id="node8" href="$arg__gles2_8c.html" title=" " alt="" coords="363,183,512,223"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="271,5,420,46"/>
+<area shape="rect" id="Node000002" href="$arg__gl_8h.html" title=" " alt="" coords="445,102,622,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="402,50,510,101,504,101,401,56"/>
+<area shape="rect" id="Node000005" href="$arg__gl3_8h.html" title=" " alt="" coords="97,94,247,135"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="290,55,212,96,210,91,295,52"/>
+<area shape="rect" id="Node000007" href="$arg__gles2_8h.html" title=" " alt="" coords="271,94,420,135"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="347,59,348,95,343,92,344,64"/>
+<area shape="rect" id="Node000003" href="$arg_8c.html" title=" " alt="" coords="178,190,339,216"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="483,132,298,192,297,187,478,132"/>
+<area shape="rect" id="Node000004" href="$arg__gl_8c.html" title=" " alt="" coords="537,190,714,216"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="558,136,615,190,610,189,556,141"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="203,143,249,190,244,190,201,148"/>
+<area shape="rect" id="Node000006" href="$arg__gl3_8c.html" title=" " alt="" coords="5,183,155,223"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="143,144,102,184,99,180,138,146"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="318,145,272,192,269,188,313,147"/>
+<area shape="rect" id="Node000008" href="$arg__gles2_8c.html" title=" " alt="" coords="363,183,512,223"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="378,143,419,183,414,182,376,148"/>
 </map>

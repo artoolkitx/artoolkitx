@@ -1,8 +1,14 @@
 <map id="zip64_internal" name="zip64_internal">
-<area shape="rect" id="node1" title=" " alt="" coords="185,228,286,253"/>
-<area shape="rect" id="node2" href="$structzlib__filefunc64__32__def__s.html" title=" " alt="" coords="24,124,149,165"/>
-<area shape="rect" id="node3" href="$structzlib__filefunc64__def__s.html" title=" " alt="" coords="5,13,149,39"/>
-<area shape="rect" id="node4" href="$structlinkedlist__data__s.html" title=" " alt="" coords="177,132,295,157"/>
-<area shape="rect" id="node5" href="$structlinkedlist__datablock__internal__s.html" title=" " alt="" coords="173,5,309,46"/>
-<area shape="rect" id="node6" href="$structcurfile64__info.html" title=" " alt="" coords="319,132,417,157"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="185,249,286,275"/>
+<area shape="rect" id="Node000002" href="$structzlib__filefunc64__32__def__s.html" title=" " alt="" coords="24,137,149,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,186,168,223,212,248,206,249,165,227,118,191"/>
+<area shape="rect" id="Node000003" href="$structzlib__filefunc64__def__s.html" title=" " alt="" coords="5,13,149,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="80,52,88,137,82,137,78,56"/>
+<area shape="rect" id="Node000004" href="$structlinkedlist__data__s.html" title=" " alt="" coords="176,145,295,170"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="238,184,238,250,233,247,234,188"/>
+<area shape="rect" id="Node000005" href="$structlinkedlist__datablock__internal__s.html" title=" " alt="" coords="173,5,309,46"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="241,60,239,145,234,143,238,64"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="324,14,332,19,335,26,327,36,310,40,308,35,325,31,330,25,328,22,324,19"/>
+<area shape="rect" id="Node000006" href="$structcurfile64__info.html" title=" " alt="" coords="318,145,417,170"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="353,182,333,206,311,227,268,251,267,246,307,223,330,203,348,184"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="ar2VideoGetCParam" name="ar2VideoGetCParam">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,147,31"/>
-<area shape="rect" id="node2" href="$video_a_v_foundation_8h.html#af847fed8b22958a375c09e15a2850c79" title=" " alt="" coords="195,5,416,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,147,31"/>
+<area shape="rect" id="Node000002" href="$video_a_v_foundation_8h.html#af847fed8b22958a375c09e15a2850c79" title=" " alt="" coords="195,5,416,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,16,182,18,177,18,147,21"/>
 </map>

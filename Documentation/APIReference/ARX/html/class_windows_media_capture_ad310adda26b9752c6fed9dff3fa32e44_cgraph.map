@@ -1,5 +1,8 @@
 <map id="WindowsMediaCapture::~WindowsMediaCapture" name="WindowsMediaCapture::~WindowsMediaCapture">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,178,46"/>
-<area shape="rect" id="node2" href="$_windows_media_capture_8cpp.html#a5d2988854fd247304b4976371023a76b" title=" " alt="" coords="430,13,539,39"/>
-<area shape="rect" id="node3" href="$class_windows_media_capture.html#a36668248a656ec8d24aace6eddc2383c" title=" " alt="" coords="226,33,382,74"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,178,46"/>
+<area shape="rect" id="Node000002" href="$_windows_media_capture_8cpp.html#a5d2988854fd247304b4976371023a76b" title=" " alt="" coords="430,13,539,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,20,226,19,382,19,417,22,412,23,382,24,226,24,179,25"/>
+<area shape="rect" id="Node000003" href="$class_windows_media_capture.html#a36668248a656ec8d24aace6eddc2383c" title=" " alt="" coords="226,33,382,74"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="178,34,213,41,207,42,178,40"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="382,39,412,37,417,36,383,44"/>
 </map>

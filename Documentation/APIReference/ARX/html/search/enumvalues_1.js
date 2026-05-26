@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['geodetic_0',['GEODETIC',['../_a_r_tracker_8h.html#a8bf0a7083fdde8719dc5151b228b6965a53b9f12fe9d0429d316ba81183b696c8',1,'ARTracker.h']]]
+  ['brisk_0',['Brisk',['../class_planar_tracker.html#a5e56e0f4d7c141f377fee970d668061dafc0b4c2a537de7fc6b788a4396137e81',1,'PlanarTracker']]]
 ];

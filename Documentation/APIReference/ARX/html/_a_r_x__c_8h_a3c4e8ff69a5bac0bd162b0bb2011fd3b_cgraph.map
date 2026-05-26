@@ -1,4 +1,0 @@
-<map id="arwIsInited" name="arwIsInited">
-<area shape="rect" id="node1" title="Returns true if artoolkitX is initialized and read for adding trackables." alt="" coords="5,5,91,31"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#a90d60be654e735ff2c5718af543dc8e9" title="Report whether artoolkit was initialized and a trackable can be added." alt="" coords="139,5,285,31"/>
-</map>

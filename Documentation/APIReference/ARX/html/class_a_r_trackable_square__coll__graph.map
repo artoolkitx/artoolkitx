@@ -1,6 +1,9 @@
 <map id="ARTrackableSquare" name="ARTrackableSquare">
-<area shape="rect" id="node1" title="Single marker type of ARTrackable." alt="" coords="92,183,230,208"/>
-<area shape="rect" id="node2" href="$class_a_r_trackable.html" title="Base class for supported trackable types." alt="" coords="19,94,116,120"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,130,31"/>
-<area shape="rect" id="node4" href="$struct_a_r_patt_handle.html" title="A structure which holds descriptions of trained patterns for template matching." alt="" coords="140,94,246,120"/>
+<area shape="rect" id="Node000001" title="Single marker type of ARTrackable." alt="" coords="92,199,230,224"/>
+<area shape="rect" id="Node000002" href="$class_a_r_trackable.html" title="Base class for supported trackable types." alt="" coords="19,102,116,128"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,136,151,197,146,199,89,141"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,130,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="68,44,70,102,65,101,67,49"/>
+<area shape="rect" id="Node000004" href="$struct_a_r_patt_handle.html" title="A structure which holds descriptions of trained patterns for template matching." alt="" coords="140,102,246,128"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="186,141,167,200,163,196,182,144"/>
 </map>

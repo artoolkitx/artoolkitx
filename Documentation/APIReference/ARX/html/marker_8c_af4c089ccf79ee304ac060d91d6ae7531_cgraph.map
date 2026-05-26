@@ -1,6 +1,9 @@
 <map id="ar2ReadMarkerSet" name="ar2ReadMarkerSet">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,136,56"/>
-<area shape="rect" id="node2" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="184,31,268,56"/>
-<area shape="rect" id="node3" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="316,5,465,31"/>
-<area shape="rect" id="node4" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="371,55,410,80"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,136,56"/>
+<area shape="rect" id="Node000002" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="184,31,268,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,41,171,43,165,44,136,46"/>
+<area shape="rect" id="Node000003" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="316,5,465,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="268,34,304,32,298,32,269,40"/>
+<area shape="rect" id="Node000004" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="371,55,410,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="269,47,358,62,353,63,268,52"/>
 </map>

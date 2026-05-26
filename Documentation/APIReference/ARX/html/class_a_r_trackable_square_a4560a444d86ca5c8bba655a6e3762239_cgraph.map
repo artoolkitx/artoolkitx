@@ -1,7 +1,11 @@
 <map id="ARTrackableSquare::initWithPatternFromBuffer" name="ARTrackableSquare::initWithPatternFromBuffer">
-<area shape="rect" id="node1" title=" " alt="" coords="5,55,178,96"/>
-<area shape="rect" id="node2" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="226,5,375,31"/>
-<area shape="rect" id="node3" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="227,55,374,96"/>
-<area shape="rect" id="node5" href="$class_a_r_trackable_square.html#af38499ff1ed1065ccb0be6f4cb431058" title=" " alt="" coords="227,121,374,161"/>
-<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="423,63,505,88"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,178,96"/>
+<area shape="rect" id="Node000002" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="226,5,375,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,52,239,34,234,37,169,57"/>
+<area shape="rect" id="Node000003" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="227,55,374,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="177,73,214,75,209,76,178,78"/>
+<area shape="rect" id="Node000005" href="$class_a_r_trackable_square.html#af38499ff1ed1065ccb0be6f4cb431058" title=" " alt="" coords="227,120,374,161"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="159,94,221,115,216,116,158,99"/>
+<area shape="rect" id="Node000004" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="423,63,505,88"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="374,73,410,75,405,76,374,78"/>
 </map>

@@ -1,9 +1,0 @@
-<map id="arwUpdateTexture32" name="arwUpdateTexture32">
-<area shape="rect" id="node1" title="Asks the video source to push the most recent frame into the passed&#45;in buffer." alt="" coords="5,63,147,88"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#ab05b850883a1f6cf4296c2430cff225f" title="Asks the video source to push the most recent frame into the passed&#45;in buffer." alt="" coords="195,55,381,96"/>
-<area shape="rect" id="node3" href="$class_a_r_video_source.html#a65ebb92f31e3124222c04848ab118995" title="Populates the provided color buffer with the current video frame." alt="" coords="429,55,649,96"/>
-<area shape="rect" id="node4" href="$class_a_r_video_source.html#a3d4b14784d083ae76f43c8942cb9076b" title="Checkin a locked video frame." alt="" coords="701,5,906,31"/>
-<area shape="rect" id="node5" href="$class_a_r_video_source.html#a0870e3e3099fe2bede89980bc89c5e70" title="Checkout a locked video frame if the frame&#39;s timestamp is newer than &#39;time&#39;." alt="" coords="697,55,910,96"/>
-<area shape="rect" id="node6" href="$video_r_g_b_a_8c.html#a44cdba1bda6acc12b6705a03fae865b2" title=" " alt="" coords="758,120,849,146"/>
-<area shape="rect" id="node7" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="958,120,1086,146"/>
-</map>

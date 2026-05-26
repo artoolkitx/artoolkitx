@@ -1,5 +1,7 @@
 <map id="arImageProcLumaHistAndCDFAndPercentile" name="arImageProcLumaHistAndCDFAndPercentile">
-<area shape="rect" id="node1" title="Calculate image histogram, cumulative density function, and luminance value at a given histogram perc..." alt="" coords="5,5,231,46"/>
-<area shape="rect" id="node2" href="$ar_image_proc_8c.html#afb1e9977532aec222fb1895c3d66b5f3" title="Calculate image histogram and cumulative density function." alt="" coords="279,13,481,39"/>
-<area shape="rect" id="node3" href="$ar_image_proc_8c.html#a9bddf2e229ba8ea9a61ea1f2d5a61b2a" title="Calculate luminance histogram." alt="" coords="529,13,680,39"/>
+<area shape="rect" id="Node000001" title="Calculate image histogram, cumulative density function, and luminance value at a given histogram perc..." alt="" coords="5,5,231,46"/>
+<area shape="rect" id="Node000002" href="$ar_image_proc_8c.html#afb1e9977532aec222fb1895c3d66b5f3" title="Calculate image histogram and cumulative density function." alt="" coords="279,13,481,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,23,265,26,260,26,231,28"/>
+<area shape="rect" id="Node000003" href="$ar_image_proc_8c.html#a9bddf2e229ba8ea9a61ea1f2d5a61b2a" title="Calculate luminance histogram." alt="" coords="529,13,680,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="481,23,516,26,511,26,481,28"/>
 </map>

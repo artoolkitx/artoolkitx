@@ -1,4 +1,5 @@
 <map id="ARTrackable" name="ARTrackable">
-<area shape="rect" id="node1" title="Base class for supported trackable types." alt="" coords="19,94,116,120"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,130,31"/>
+<area shape="rect" id="Node000001" title="Base class for supported trackable types." alt="" coords="19,102,116,128"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,130,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,45,70,102,65,101,65,48"/>
 </map>

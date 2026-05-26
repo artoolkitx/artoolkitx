@@ -1,7 +1,11 @@
 <map id="KpmRefDataSet" name="KpmRefDataSet">
-<area shape="rect" id="node1" title=" " alt="" coords="62,198,179,223"/>
-<area shape="rect" id="node2" href="$struct___kpm_ref_data.html" title=" " alt="" coords="5,109,110,135"/>
-<area shape="rect" id="node3" href="$struct_kpm_coord2_d.html" title=" " alt="" coords="6,5,106,31"/>
-<area shape="rect" id="node4" href="$struct_kpm_page_info.html" title=" " alt="" coords="134,109,234,135"/>
-<area shape="rect" id="node5" href="$struct_kpm_image_info.html" title=" " alt="" coords="131,5,237,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="62,219,179,245"/>
+<area shape="rect" id="Node000002" href="$struct___kpm_ref_data.html" title=" " alt="" coords="5,122,110,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="72,159,93,193,112,219,107,218,89,197,70,164"/>
+<area shape="rect" id="Node000003" href="$struct_kpm_coord2_d.html" title=" " alt="" coords="6,5,106,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="58,44,60,122,55,122,55,49"/>
+<area shape="rect" id="Node000004" href="$struct_kpm_page_info.html" title=" " alt="" coords="134,122,234,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="170,160,130,220,127,217,165,162"/>
+<area shape="rect" id="Node000005" href="$struct_kpm_image_info.html" title=" " alt="" coords="131,5,237,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="186,44,187,123,182,121,183,49"/>
 </map>

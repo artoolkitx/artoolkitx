@@ -1,7 +1,11 @@
 <map id="arVideoOpenAsync" name="arVideoOpenAsync">
-<area shape="rect" id="node1" title="Open a video input module, invoking a callback once opening is complete." alt="" coords="5,55,139,80"/>
-<area shape="rect" id="node2" href="$video2_8c.html#a3827b2271419905797e3326a91255794" title="Open a video input module, and return control object, invoking a callback once opening is complete." alt="" coords="187,55,327,80"/>
-<area shape="rect" id="node3" href="$video_android_8h.html#a1d6e964f2d94fca2f61cd36f1bcaf8a5" title=" " alt="" coords="393,5,577,31"/>
-<area shape="rect" id="node4" href="$video_a_v_foundation_8h.html#adb1121aa31efbd7a52a0a09f1c287064" title=" " alt="" coords="375,55,595,80"/>
-<area shape="rect" id="node5" href="$video_external_8h.html#a6688bc62f5be5535ce19a0fd80c23ab4" title=" " alt="" coords="391,104,579,130"/>
+<area shape="rect" id="Node000001" title="Open a video input module, invoking a callback once opening is complete." alt="" coords="5,55,139,80"/>
+<area shape="rect" id="Node000002" href="$video2_8c.html#a3827b2271419905797e3326a91255794" title="Open a video input module, and return control object, invoking a callback once opening is complete." alt="" coords="187,55,327,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,65,174,67,169,68,140,70"/>
+<area shape="rect" id="Node000003" href="$video_android_8h.html#a1d6e964f2d94fca2f61cd36f1bcaf8a5" title=" " alt="" coords="393,5,577,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="319,51,410,34,405,36,320,57"/>
+<area shape="rect" id="Node000004" href="$video_a_v_foundation_8h.html#adb1121aa31efbd7a52a0a09f1c287064" title=" " alt="" coords="375,55,595,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="327,65,362,67,357,68,327,70"/>
+<area shape="rect" id="Node000005" href="$video_external_8h.html#a6688bc62f5be5535ce19a0fd80c23ab4" title=" " alt="" coords="391,104,579,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="320,78,410,100,405,100,320,84"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="ARController::getARToolKitVersion" name="ARController::getARToolKitVersion">
-<area shape="rect" id="node1" title="Returns a string containing the artoolkitX version, such as &quot;10.0.0&quot;." alt="" coords="5,5,187,46"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#a5f6a6f78cfce8c8dfc80479b47232eb4" title="Get the artoolkitX version information in numberic and string format." alt="" coords="235,13,332,39"/>
+<area shape="rect" id="Node000001" title="Returns a string containing the artoolkitX version, such as &quot;10.0.0&quot;." alt="" coords="5,5,187,46"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#a5f6a6f78cfce8c8dfc80479b47232eb4" title="Get the artoolkitX version information in numberic and string format." alt="" coords="235,13,332,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,23,222,25,216,26,187,28"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="arwDeleteVideoSourceInfoList" name="arwDeleteVideoSourceInfoList">
-<area shape="rect" id="node1" title="Delete a video source info list." alt="" coords="5,5,203,31"/>
-<area shape="rect" id="node2" href="$video2_8c.html#af0a346cf3be43f60f4f06133361f8869" title=" " alt="" coords="251,5,445,31"/>
+<area shape="rect" id="Node000001" title="Delete a video source info list." alt="" coords="5,5,203,31"/>
+<area shape="rect" id="Node000002" href="$video2_8c.html#af0a346cf3be43f60f4f06133361f8869" title=" " alt="" coords="251,5,445,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,16,238,18,232,18,203,21"/>
 </map>

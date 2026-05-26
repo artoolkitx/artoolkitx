@@ -1,5 +1,7 @@
 <map id="arVideoCapStartAsync" name="arVideoCapStartAsync">
-<area shape="rect" id="node1" title="Start video capture with asynchronous notification of new frame arrival." alt="" coords="5,5,160,31"/>
-<area shape="rect" id="node2" href="$video2_8c.html#a1bcc3f0ca319b75ea0a11472550a0710" title=" " alt="" coords="208,5,369,31"/>
-<area shape="rect" id="node3" href="$video_a_v_foundation_8h.html#af324da7339353b0dafb4e77db3d0c207" title=" " alt="" coords="417,5,658,31"/>
+<area shape="rect" id="Node000001" title="Start video capture with asynchronous notification of new frame arrival." alt="" coords="5,5,160,31"/>
+<area shape="rect" id="Node000002" href="$video2_8c.html#a1bcc3f0ca319b75ea0a11472550a0710" title=" " alt="" coords="208,5,369,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,16,195,18,190,18,160,21"/>
+<area shape="rect" id="Node000003" href="$video_a_v_foundation_8h.html#af324da7339353b0dafb4e77db3d0c207" title=" " alt="" coords="417,5,658,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="369,16,404,18,398,18,369,21"/>
 </map>

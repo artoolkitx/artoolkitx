@@ -1,4 +1,5 @@
 <map id="ARTrackerSquare::updateDebugTextureRGBA32" name="ARTrackerSquare::updateDebugTextureRGBA32">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,216,46"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#af44eb56d65bfac884dd0270dab218936" title="Get the image processing mode." alt="" coords="264,13,412,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,216,46"/>
+<area shape="rect" id="Node000002" href="$ar_create_handle_8c.html#af44eb56d65bfac884dd0270dab218936" title="Get the image processing mode." alt="" coords="264,13,412,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,23,251,26,245,26,216,28"/>
 </map>

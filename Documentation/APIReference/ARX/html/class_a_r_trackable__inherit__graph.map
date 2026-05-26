@@ -1,6 +1,9 @@
 <map id="ARTrackable" name="ARTrackable">
-<area shape="rect" id="node1" title="Base class for supported trackable types." alt="" coords="244,5,341,31"/>
-<area shape="rect" id="node2" href="$class_a_r_trackable_multi_square.html" title="Multiple marker type of ARTrackable." alt="" coords="5,79,172,105"/>
-<area shape="rect" id="node3" href="$class_a_r_trackable_multi_square_auto.html" title="An ARTrackable that auto&#45;builds a map of matrix (2D barcode) markers." alt="" coords="196,79,389,105"/>
-<area shape="rect" id="node4" href="$class_a_r_trackable_square.html" title="Single marker type of ARTrackable." alt="" coords="413,79,551,105"/>
+<area shape="rect" id="Node000001" title="Base class for supported trackable types." alt="" coords="244,5,341,31"/>
+<area shape="rect" id="Node000002" href="$class_a_r_trackable_multi_square.html" title="Multiple marker type of ARTrackable." alt="" coords="5,79,172,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="246,38,124,81,122,76,242,35"/>
+<area shape="rect" id="Node000003" href="$class_a_r_trackable_multi_square_auto.html" title="An ARTrackable that auto&#45;builds a map of matrix (2D barcode) markers." alt="" coords="196,79,389,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="294,45,295,80,290,77,291,48"/>
+<area shape="rect" id="Node000004" href="$class_a_r_trackable_square.html" title="Single marker type of ARTrackable." alt="" coords="413,79,551,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="339,34,452,78,447,79,338,39"/>
 </map>

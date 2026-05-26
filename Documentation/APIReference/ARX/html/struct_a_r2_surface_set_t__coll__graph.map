@@ -1,12 +1,21 @@
 <map id="AR2SurfaceSetT" name="AR2SurfaceSetT">
-<area shape="rect" id="node1" title=" " alt="" coords="220,360,340,386"/>
-<area shape="rect" id="node2" href="$struct_a_r2_surface_t.html" title=" " alt="" coords="151,271,251,297"/>
-<area shape="rect" id="node3" href="$struct_a_r2_image_set_t.html" title=" " alt="" coords="5,183,117,208"/>
-<area shape="rect" id="node4" href="$struct_a_r2_image_t.html" title=" " alt="" coords="15,94,107,120"/>
-<area shape="rect" id="node5" href="$struct_a_r2_feature_set_t.html" title=" " alt="" coords="141,183,261,208"/>
-<area shape="rect" id="node6" href="$struct_a_r2_feature_points_t.html" title=" " alt="" coords="133,94,269,120"/>
-<area shape="rect" id="node7" href="$struct_a_r2_feature_coord_t.html" title=" " alt="" coords="134,5,268,31"/>
-<area shape="rect" id="node8" href="$struct_a_r2_marker_set_t.html" title=" " alt="" coords="285,183,400,208"/>
-<area shape="rect" id="node9" href="$struct_a_r2_marker_t.html" title=" " alt="" coords="295,94,390,120"/>
-<area shape="rect" id="node10" href="$struct_a_r2_template_candidate_t.html" title=" " alt="" coords="275,271,442,297"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="220,392,340,418"/>
+<area shape="rect" id="Node000002" href="$struct_a_r2_surface_t.html" title=" " alt="" coords="151,295,251,321"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="222,331,272,392,267,391,219,335"/>
+<area shape="rect" id="Node000003" href="$struct_a_r2_image_set_t.html" title=" " alt="" coords="5,199,117,224"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,232,134,269,178,294,172,296,131,274,85,237"/>
+<area shape="rect" id="Node000004" href="$struct_a_r2_image_t.html" title=" " alt="" coords="15,102,107,128"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="61,140,64,198,58,198,61,146"/>
+<area shape="rect" id="Node000005" href="$struct_a_r2_feature_set_t.html" title=" " alt="" coords="141,199,261,224"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="203,237,204,296,198,294,199,242"/>
+<area shape="rect" id="Node000006" href="$struct_a_r2_feature_points_t.html" title=" " alt="" coords="133,102,269,128"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="202,141,204,199,198,197,200,145"/>
+<area shape="rect" id="Node000007" href="$struct_a_r2_feature_coord_t.html" title=" " alt="" coords="134,5,268,31"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="202,44,204,102,198,101,200,49"/>
+<area shape="rect" id="Node000008" href="$struct_a_r2_marker_set_t.html" title=" " alt="" coords="285,199,400,224"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="322,233,276,274,232,297,229,292,273,269,317,236"/>
+<area shape="rect" id="Node000009" href="$struct_a_r2_marker_t.html" title=" " alt="" coords="295,102,390,128"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="344,141,345,199,340,197,341,145"/>
+<area shape="rect" id="Node000010" href="$struct_a_r2_template_candidate_t.html" title=" " alt="" coords="275,295,442,321"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="341,332,291,394,288,389,336,334"/>
 </map>

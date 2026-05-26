@@ -1,0 +1,6 @@
+<map id="ARTrackable::operator=" name="ARTrackable::operator=">
+<area shape="rect" id="Node000001" title="Copy assignment is undefined." alt="" coords="5,29,166,55"/>
+<area shape="rect" id="Node000002" href="$class_a_r_trackable.html#a6d67b94586d43663e48de08dda27456c" title="Constructor takes the type of this trackable." alt="" coords="214,29,395,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,40,201,42,195,42,166,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="268,28,261,21,265,11,280,5,304,3,331,5,346,15,341,14,330,10,304,8,281,10,269,15,266,20,273,30"/>
+</map>

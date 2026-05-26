@@ -1,4 +1,5 @@
 <map id="ar2GetResolution2" name="ar2GetResolution2">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,135,31"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="183,5,293,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,135,31"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="183,5,293,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,16,170,18,165,18,135,21"/>
 </map>

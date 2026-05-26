@@ -1,7 +1,12 @@
 <map id="arwChangeToResourcesDir" name="arwChangeToResourcesDir">
-<area shape="rect" id="node1" title="Changes the working directory to the resources directory used by artoolkitX." alt="" coords="5,31,187,56"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#acd9f679696c2c26b378e434f6d78ae7d" title="Change to the resources directory using the specified behavior." alt="" coords="235,31,462,56"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#a69fc2402cb882ae30aedafabd1227ba9" title="Get the path to the resources directory using the specified behavior." alt="" coords="510,31,726,56"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="774,5,993,31"/>
-<area shape="rect" id="node5" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="790,55,977,80"/>
+<area shape="rect" id="Node000001" title="Changes the working directory to the resources directory used by artoolkitX." alt="" coords="5,31,187,56"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#acd9f679696c2c26b378e434f6d78ae7d" title="Change to the resources directory using the specified behavior." alt="" coords="235,31,462,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,41,222,43,216,44,187,46"/>
+<area shape="rect" id="Node000003" href="$ar_util_8c.html#a69fc2402cb882ae30aedafabd1227ba9" title="Get the path to the resources directory using the specified behavior." alt="" coords="510,31,726,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="462,41,497,43,491,44,463,46"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="574,29,566,22,571,12,589,6,618,4,651,7,669,17,664,16,650,12,618,9,590,11,574,16,571,21,579,31"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="774,5,993,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="726,31,756,30,762,30,727,36"/>
+<area shape="rect" id="Node000005" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="790,55,977,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="727,51,778,58,772,58,727,56"/>
 </map>

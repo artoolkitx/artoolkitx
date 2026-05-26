@@ -1,16 +1,29 @@
 <map id="ARTrackableMultiSquare::load" name="ARTrackableMultiSquare::load">
-<area shape="rect" id="node1" title=" " alt="" coords="5,146,172,187"/>
-<area shape="rect" id="node2" href="$ar_multi_read_config_file_8c.html#ae617e7b1d70e73aaccb57e88ba1630dc" title="Creates a new multi&#45;marker configuration and fills it with the config from the multi&#45;marker config fi..." alt="" coords="228,104,378,130"/>
-<area shape="rect" id="node13" href="$class_a_r_trackable_multi_square.html#a57881bb2ce7acf1852db2ee6665cd0f4" title=" " alt="" coords="220,174,386,215"/>
-<area shape="rect" id="node3" href="$ar_multi_edit_config_8c.html#ad1fc20004885bcb4b4cb3ee0931df634" title="Creates a new empty multi&#45;marker configuration." alt="" coords="480,5,607,31"/>
-<area shape="rect" id="node4" href="$ar_multi_edit_config_8c.html#a7a45fb2f0acb56ddee63efcdaaf654a1" title=" " alt="" coords="446,55,641,80"/>
-<area shape="rect" id="node9" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="501,104,585,130"/>
-<area shape="rect" id="node12" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="434,153,652,179"/>
-<area shape="rect" id="node5" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title=" " alt="" coords="729,55,821,80"/>
-<area shape="rect" id="node6" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="904,5,1001,31"/>
-<area shape="rect" id="node7" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="905,55,1000,80"/>
-<area shape="rect" id="node8" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="898,104,1007,130"/>
-<area shape="rect" id="node10" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="700,104,850,130"/>
-<area shape="rect" id="node11" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="755,153,795,179"/>
-<area shape="rect" id="node14" href="$ar_multi_free_config_8c.html#a0f33d2031514e1b5af6ba4dfa152633f" title="Frees the multi&#45;marker configuration passed in." alt="" coords="481,203,605,228"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,146,172,186"/>
+<area shape="rect" id="Node000002" href="$ar_multi_read_config_file_8c.html#ae617e7b1d70e73aaccb57e88ba1630dc" title="Creates a new multi&#45;marker configuration and fills it with the config from the multi&#45;marker config fi..." alt="" coords="228,104,378,130"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,144,231,133,226,135,173,150"/>
+<area shape="rect" id="Node000013" href="$class_a_r_trackable_multi_square.html#a57881bb2ce7acf1852db2ee6665cd0f4" title=" " alt="" coords="220,174,386,214"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="172,174,207,181,202,182,172,180"/>
+<area shape="rect" id="Node000003" href="$ar_multi_edit_config_8c.html#ad1fc20004885bcb4b4cb3ee0931df634" title="Creates a new empty multi&#45;marker configuration." alt="" coords="480,5,607,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="322,101,371,70,433,40,467,31,462,33,435,45,373,75,324,106"/>
+<area shape="rect" id="Node000004" href="$ar_multi_edit_config_8c.html#a7a45fb2f0acb56ddee63efcdaaf654a1" title=" " alt="" coords="446,55,641,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="368,101,465,83,459,85,370,106"/>
+<area shape="rect" id="Node000009" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="501,104,585,130"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="378,114,488,116,483,117,378,119"/>
+<area shape="rect" id="Node000012" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="434,153,652,179"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="369,128,465,149,459,150,369,133"/>
+<area shape="rect" id="Node000005" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title=" " alt="" coords="729,55,821,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="641,65,716,67,711,68,641,70"/>
+<area shape="rect" id="Node000006" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="904,5,1001,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="821,52,887,36,892,35,822,57"/>
+<area shape="rect" id="Node000007" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="905,55,1000,80"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="822,65,892,67,887,68,822,70"/>
+<area shape="rect" id="Node000008" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="898,104,1007,130"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="822,78,892,99,887,99,822,83"/>
+<area shape="rect" id="Node000010" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="700,104,850,130"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="585,114,687,117,682,117,586,119"/>
+<area shape="rect" id="Node000011" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="755,153,795,179"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="586,123,743,159,737,159,585,128"/>
+<area shape="rect" id="Node000014" href="$ar_multi_free_config_8c.html#a0f33d2031514e1b5af6ba4dfa152633f" title="Frees the multi&#45;marker configuration passed in." alt="" coords="481,203,605,228"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="387,199,468,209,463,209,387,204"/>
 </map>

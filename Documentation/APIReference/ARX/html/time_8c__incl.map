@@ -1,7 +1,11 @@
 <map id="Source/ARX/ARUtil/time.c" name="Source/ARX/ARUtil/time.c">
-<area shape="rect" id="node1" title=" " alt="" coords="77,5,254,31"/>
-<area shape="rect" id="node2" href="$time_8h.html" title=" " alt="" coords="34,79,166,105"/>
-<area shape="rect" id="node5" title=" " alt="" coords="191,79,273,105"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,153,70,178"/>
-<area shape="rect" id="node4" href="$types_8h.html" title=" " alt="" coords="93,153,233,178"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="77,5,254,31"/>
+<area shape="rect" id="Node000002" href="$time_8h.html" title=" " alt="" coords="34,79,166,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,29,123,69,119,66,153,33"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="191,79,273,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="177,29,213,67,208,68,176,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,70,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,104,60,143,56,139,87,106"/>
+<area shape="rect" id="Node000004" href="$types_8h.html" title=" " alt="" coords="93,153,232,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="112,102,145,141,139,141,109,107"/>
 </map>

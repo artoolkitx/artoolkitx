@@ -1,6 +1,9 @@
 <map id="ARTrackable::setFiltered" name="ARTrackable::setFiltered">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,172,56"/>
-<area shape="rect" id="node2" href="$ar_filter_trans_mat_8c.html#a52813489717ce82b433e44adfd3bc3dd" title="Finalise a filter." alt="" coords="220,5,364,31"/>
-<area shape="rect" id="node3" href="$ar_filter_trans_mat_8c.html#a9c87432e371ffb1716e4ee6712a5c0ba" title="Initialise a filter for a single transformation matrix (pose estimate)." alt="" coords="225,55,359,80"/>
-<area shape="rect" id="node4" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="412,55,593,80"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,172,56"/>
+<area shape="rect" id="Node000002" href="$ar_filter_trans_mat_8c.html#a52813489717ce82b433e44adfd3bc3dd" title="Finalise a filter." alt="" coords="220,5,364,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,30,207,28,202,30,173,36"/>
+<area shape="rect" id="Node000003" href="$ar_filter_trans_mat_8c.html#a9c87432e371ffb1716e4ee6712a5c0ba" title="Initialise a filter for a single transformation matrix (pose estimate)." alt="" coords="225,55,359,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,51,212,58,206,58,172,56"/>
+<area shape="rect" id="Node000004" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="412,55,593,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="360,65,399,67,394,68,360,70"/>
 </map>

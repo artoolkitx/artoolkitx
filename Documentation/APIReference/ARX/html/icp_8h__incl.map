@@ -1,5 +1,7 @@
 <map id="Source/ARX/AR/include/ARX/AR/icp.h" name="Source/ARX/AR/include/ARX/AR/icp.h">
-<area shape="rect" id="node1" title=" " alt="" coords="14,5,177,46"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,94,66,120"/>
-<area shape="rect" id="node3" href="$icp_core_8h.html" title=" " alt="" coords="89,94,222,120"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="14,5,177,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,94,66,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,45,56,83,52,80,78,48"/>
+<area shape="rect" id="Node000003" href="$icp_core_8h.html" title=" " alt="" coords="89,94,222,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="111,44,140,81,134,81,109,49"/>
 </map>

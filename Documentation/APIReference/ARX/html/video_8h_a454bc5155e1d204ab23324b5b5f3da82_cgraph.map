@@ -1,8 +1,13 @@
 <map id="arVideoSetBufferSize" name="arVideoSetBufferSize">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,152,106"/>
-<area shape="rect" id="node2" href="$video2_8c.html#a4f56d80c89d1d3eeb4d092141509691d" title=" " alt="" coords="200,80,353,106"/>
-<area shape="rect" id="node3" href="$video_a_v_foundation_8h.html#a0f8863cc17bf63401e511e86dd40e2e1" title=" " alt="" coords="401,5,634,31"/>
-<area shape="rect" id="node4" href="$video_dummy_8h.html#a66a963881236aceb48c465bcc8d6db29" title=" " alt="" coords="418,55,617,80"/>
-<area shape="rect" id="node5" href="$video_emscripten_8h.html#a32d5e94a2b2d239499d5c0a2b024504e" title=" " alt="" coords="408,104,627,130"/>
-<area shape="rect" id="node6" href="$video_image_8h.html#a0002a65050de3abc821343f6b23762cf" title=" " alt="" coords="423,153,612,179"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,152,106"/>
+<area shape="rect" id="Node000002" href="$video2_8c.html#a4f56d80c89d1d3eeb4d092141509691d" title=" " alt="" coords="200,80,353,106"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,90,187,92,182,94,152,95"/>
+<area shape="rect" id="Node000003" href="$video_a_v_foundation_8h.html#a0f8863cc17bf63401e511e86dd40e2e1" title=" " alt="" coords="401,5,634,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="305,77,349,58,400,40,429,34,424,36,402,45,351,63,307,82"/>
+<area shape="rect" id="Node000004" href="$video_dummy_8h.html#a66a963881236aceb48c465bcc8d6db29" title=" " alt="" coords="418,55,617,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="353,82,406,79,400,80,354,87"/>
+<area shape="rect" id="Node000005" href="$video_emscripten_8h.html#a32d5e94a2b2d239499d5c0a2b024504e" title=" " alt="" coords="408,104,627,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="353,98,395,104,390,105,353,103"/>
+<area shape="rect" id="Node000006" href="$video_image_8h.html#a0002a65050de3abc821343f6b23762cf" title=" " alt="" coords="423,153,612,179"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="308,104,402,140,430,149,424,149,400,145,307,109"/>
 </map>

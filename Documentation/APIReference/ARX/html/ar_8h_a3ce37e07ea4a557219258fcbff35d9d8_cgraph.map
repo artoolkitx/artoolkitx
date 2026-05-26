@@ -1,4 +1,5 @@
 <map id="arPattGetID" name="arPattGetID">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,97,31"/>
-<area shape="rect" id="node2" href="$ar_patt_get_i_d_8c.html#a0ae2fd72446f376a5e2fcb57f8b929a9" title=" " alt="" coords="145,5,258,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,97,31"/>
+<area shape="rect" id="Node000002" href="$ar_patt_get_i_d_8c.html#a0ae2fd72446f376a5e2fcb57f8b929a9" title=" " alt="" coords="145,5,258,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,16,132,18,127,18,97,21"/>
 </map>

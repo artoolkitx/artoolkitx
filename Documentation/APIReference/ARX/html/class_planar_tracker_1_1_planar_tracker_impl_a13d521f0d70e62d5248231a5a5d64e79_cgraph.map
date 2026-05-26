@@ -1,0 +1,11 @@
+<map id="PlanarTracker::PlanarTrackerImpl::MatchFeatures" name="PlanarTracker::PlanarTrackerImpl::MatchFeatures">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,197,121"/>
+<area shape="rect" id="Node000002" href="$_o_c_v_utils_8h.html#a7fe5bf75dbdbdb3b864fd17f80e8129f" title="Method for calculating and validating a homography matrix from a set of corresponding points." alt="" coords="289,5,440,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,78,244,40,276,33,271,36,245,45,148,82"/>
+<area shape="rect" id="Node000003" href="$_o_c_v_utils_8h.html#ae0578b8b2c51f5555f86b17854eb6d88" title=" " alt="" coords="335,55,394,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,86,322,72,318,74,198,91"/>
+<area shape="rect" id="Node000004" href="$class_planar_tracker_1_1_planar_tracker_impl.html#ad3b05a88662b2f9fc9cf6cfc77655397" title=" " alt="" coords="245,105,484,161"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="197,110,232,116,226,117,198,115"/>
+<area shape="rect" id="Node000005" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a49d46520b714b7e7319ccc7f8c16a3cd" title=" " alt="" coords="269,184,460,225"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="139,119,189,145,246,170,266,180,261,179,244,175,187,150,138,124"/>
+</map>

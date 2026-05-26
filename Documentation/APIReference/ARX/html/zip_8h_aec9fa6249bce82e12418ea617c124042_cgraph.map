@@ -1,6 +1,9 @@
 <map id="zipOpen64" name="zipOpen64">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,89,31"/>
-<area shape="rect" id="node2" href="$zip_8c.html#af60d984780f6e1f739eccc40d0a63755" title=" " alt="" coords="137,5,234,31"/>
-<area shape="rect" id="node3" href="$zip_8c.html#addcccf3eebcef825f7f46a5a5cdda18a" title=" " alt="" coords="282,5,358,31"/>
-<area shape="rect" id="node4" href="$ioapi_8c.html#aa67e4de04de04bf2d1694febd74bd16f" title=" " alt="" coords="406,5,543,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,89,31"/>
+<area shape="rect" id="Node000002" href="$zip_8c.html#af60d984780f6e1f739eccc40d0a63755" title=" " alt="" coords="137,5,234,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,16,124,18,118,18,89,21"/>
+<area shape="rect" id="Node000003" href="$zip_8c.html#addcccf3eebcef825f7f46a5a5cdda18a" title=" " alt="" coords="282,5,358,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="234,16,269,18,264,18,234,21"/>
+<area shape="rect" id="Node000004" href="$ioapi_8c.html#aa67e4de04de04bf2d1694febd74bd16f" title=" " alt="" coords="406,5,543,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="359,16,393,18,388,18,359,21"/>
 </map>

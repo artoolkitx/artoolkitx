@@ -1,4 +1,0 @@
-<map id="arwGetTrackableOptionBool" name="arwGetTrackableOptionBool">
-<area shape="rect" id="node1" title="Get boolean options associated with a trackable." alt="" coords="5,5,190,31"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#aff42fd017881ce2601c53f830ae7d021" title="Searches the collection of trackables for the given ID." alt="" coords="238,5,420,31"/>
-</map>

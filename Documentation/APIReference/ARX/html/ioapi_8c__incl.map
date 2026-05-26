@@ -1,9 +1,16 @@
 <map id="Source/ARX/ARUtil/ioapi.c" name="Source/ARX/ARUtil/ioapi.c">
-<area shape="rect" id="node1" title=" " alt="" coords="17,5,196,31"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,153,69,178"/>
-<area shape="rect" id="node3" title=" " alt="" coords="74,79,139,105"/>
-<area shape="rect" id="node4" href="$ioapi_8h.html" title=" " alt="" coords="162,79,221,105"/>
-<area shape="rect" id="node5" title=" " alt="" coords="92,153,153,178"/>
-<area shape="rect" id="node6" title=" " alt="" coords="177,153,241,178"/>
-<area shape="rect" id="node7" title=" " alt="" coords="266,153,318,178"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="17,5,196,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,153,69,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,34,81,54,65,80,53,110,45,139,40,137,48,108,60,78,76,51,97,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="74,79,138,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,29,109,64,104,63,105,34"/>
+<area shape="rect" id="Node000004" href="$ioapi_8h.html" title=" " alt="" coords="162,79,221,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="121,29,169,68,163,70,120,34"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="167,108,78,148,76,143,164,103"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="92,153,152,178"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="183,104,146,144,143,139,178,106"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="177,153,241,178"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="196,103,205,139,200,137,193,107"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="266,153,318,178"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="209,103,265,143,260,143,208,108"/>
 </map>

@@ -1,5 +1,0 @@
-<map id="arwGetARToolKitVersion" name="arwGetARToolKitVersion">
-<area shape="rect" id="node1" title="Gets the artoolkitX version as a string, such as &quot;10.0.0&quot;." alt="" coords="5,13,172,39"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#ac9def91f09d79a2f0e8a5aed2e4756f4" title="Returns a string containing the artoolkitX version, such as &quot;10.0.0&quot;." alt="" coords="220,5,401,46"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#a5f6a6f78cfce8c8dfc80479b47232eb4" title="Get the artoolkitX version information in numberic and string format." alt="" coords="449,13,546,39"/>
-</map>

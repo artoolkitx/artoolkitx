@@ -1,4 +1,8 @@
 <map id="ARTrackableMultiSquareAuto::ARTrackableMultiSquareAuto" name="ARTrackableMultiSquareAuto::ARTrackableMultiSquareAuto">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,207,46"/>
-<area shape="rect" id="node2" href="$ar_multi_edit_config_8c.html#ad1fc20004885bcb4b4cb3ee0931df634" title="Creates a new empty multi&#45;marker configuration." alt="" coords="255,13,382,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,35,207,76"/>
+<area shape="rect" id="Node000002" href="$ar_multi_edit_config_8c.html#ad1fc20004885bcb4b4cb3ee0931df634" title="Creates a new empty multi&#45;marker configuration." alt="" coords="282,5,409,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,37,269,30,264,31,208,42"/>
+<area shape="rect" id="Node000003" href="$class_a_r_trackable.html#a6d67b94586d43663e48de08dda27456c" title="Constructor takes the type of this trackable." alt="" coords="255,79,436,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,68,243,76,238,76,207,73"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="305,77,298,70,303,60,319,54,345,52,375,55,391,65,386,64,374,60,345,57,320,59,306,64,303,69,310,79"/>
 </map>

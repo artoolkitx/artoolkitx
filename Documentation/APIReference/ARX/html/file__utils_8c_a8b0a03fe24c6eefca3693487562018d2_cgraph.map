@@ -1,4 +1,5 @@
 <map id="rm_rf" name="rm_rf">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,57,31"/>
-<area shape="rect" id="node2" href="$ftw_8h.html#a42066b415d9db174f2c040f5b739346b" title=" " alt="" coords="105,5,151,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,57,31"/>
+<area shape="rect" id="Node000002" href="$ftw_8h.html#a42066b415d9db174f2c040f5b739346b" title=" " alt="" coords="105,5,151,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="57,16,92,17,87,19,57,21"/>
 </map>

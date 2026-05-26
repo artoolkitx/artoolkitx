@@ -1,5 +1,7 @@
 <map id="Source/ARX/ARUtil/thread_sub_winrt.h" name="Source/ARX/ARUtil/thread_sub_winrt.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,183,46"/>
-<area shape="rect" id="node2" href="$thread__sub_8h.html" title=" " alt="" coords="8,94,180,120"/>
-<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="24,168,164,193"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,183,46"/>
+<area shape="rect" id="Node000002" href="$thread__sub_8h.html" title=" " alt="" coords="8,94,180,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,44,97,79,91,78,93,49"/>
+<area shape="rect" id="Node000003" href="$types_8h.html" title=" " alt="" coords="24,168,164,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="96,118,97,153,91,151,92,122"/>
 </map>

@@ -1,5 +1,7 @@
 <map id="arParamLTCreate" name="arParamLTCreate">
-<area shape="rect" id="node1" title="Allocate and calculate a lookup&#45;table camera parameter from a standard camera parameter." alt="" coords="5,31,130,56"/>
-<area shape="rect" id="node2" href="$param_distortion_8c.html#aed2e4987f6864f95b2183562a360e19c" title="Use lens distortion parameters to convert idealised (zero&#45;distortion) window coordinates to observed ..." alt="" coords="178,5,325,31"/>
-<area shape="rect" id="node3" href="$param_distortion_8c.html#af6fab5b34071af3f7fb01d484a75a333" title="Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero&#45;..." alt="" coords="178,55,325,80"/>
+<area shape="rect" id="Node000001" title="Allocate and calculate a lookup&#45;table camera parameter from a standard camera parameter." alt="" coords="5,31,130,56"/>
+<area shape="rect" id="Node000002" href="$param_distortion_8c.html#aed2e4987f6864f95b2183562a360e19c" title="Use lens distortion parameters to convert idealised (zero&#45;distortion) window coordinates to observed ..." alt="" coords="178,5,325,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,32,165,30,160,31,131,38"/>
+<area shape="rect" id="Node000003" href="$param_distortion_8c.html#af6fab5b34071af3f7fb01d484a75a333" title="Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero&#45;..." alt="" coords="178,55,325,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="130,49,165,56,160,56,130,54"/>
 </map>

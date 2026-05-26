@@ -1,9 +1,15 @@
 <map id="TrackableInfo" name="TrackableInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="520,150,621,176"/>
-<area shape="rect" id="node2" title=" " alt="" coords="185,5,357,46"/>
-<area shape="rect" id="node3" title=" " alt="" coords="186,101,356,127"/>
-<area shape="rect" id="node4" title=" " alt="" coords="232,150,311,176"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,143,131,183"/>
-<area shape="rect" id="node6" title=" " alt="" coords="180,200,362,225"/>
-<area shape="rect" id="node7" href="$class_tracking_point_selector.html" title=" " alt="" coords="197,249,346,275"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="528,185,629,211"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="185,10,357,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="372,24,441,35,475,47,506,64,534,92,555,125,569,158,576,186,572,184,564,160,550,128,530,95,503,68,473,52,440,40,373,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="186,132,356,158"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="372,150,438,159,505,172,544,185,538,185,504,177,437,164,372,156"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="232,185,311,211"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="326,196,530,197,525,199,326,201"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="5,178,131,218"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="146,196,234,197,229,200,147,201"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="180,239,362,264"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="377,243,440,236,504,224,545,212,551,211,505,229,441,241,378,249"/>
+<area shape="rect" id="Node000007" href="$class_tracking_point_selector.html" title="Class used to manage selection of tracking points based on image templates (i.e." alt="" coords="196,292,346,318"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="361,304,433,294,469,285,503,271,523,258,541,242,566,213,571,210,545,245,526,262,506,276,471,290,434,300,361,309"/>
 </map>

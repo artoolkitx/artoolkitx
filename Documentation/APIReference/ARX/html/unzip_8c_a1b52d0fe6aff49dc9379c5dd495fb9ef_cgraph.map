@@ -1,4 +1,5 @@
 <map id="unzSeek" name="unzSeek">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,78,31"/>
-<area shape="rect" id="node2" href="$unzip_8c.html#afd83e3b1ed8b4657f98942fb01dce502" title=" " alt="" coords="126,5,212,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,78,31"/>
+<area shape="rect" id="Node000002" href="$unzip_8c.html#afd83e3b1ed8b4657f98942fb01dce502" title=" " alt="" coords="126,5,212,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,16,113,18,108,19,78,21"/>
 </map>
