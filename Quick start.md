@@ -7,13 +7,13 @@
 6. [Next Steps](#next-steps)
 
 ## macOS
-* For development, Xcode 14 on Mac OS 12.5 or later is required (destination Macs running mac OS 10.13 are supported).
+* For development, Xcode 14 on Mac OS 12.5 or later is required (destination Macs running macOS 12.0 or later are supported).
 * Open `Examples` for double-clickable example apps.
 * Xcode project for each example is in `Examples/*example name*/macOS`.
 * To rebuild the SDK and examples for macOS, in Terminal navigate to `Source` and execute the command `./build.sh macos examples`
 
 ## iOS 
-* For development, Xcode 14 on Mac OS 12.5 or later, and an iOS device running iOS 12.0 or later is required.
+* For development, Xcode 14 on Mac OS 12.5 or later, and an iOS device running iOS 15.0 or later is required.
 * Open `Examples`. Because apps must be signed for your iOS device, no prebuilt app is provided.
 * Xcode project for each example is in `Examples/*example name*/iOS`.
     1. Open the Xcode project.

@@ -2,6 +2,14 @@
 --------------------------
 
 
+## Version 1.2.0
+### 2026-10-28
+
+Changes:
+ * macOS: Minimum supported macOS release is now macOS 12.0, as this is the lowest deployment target supported by Xcode 27.
+ * iOS: Minimum supported iOS release is now iOS 15.0, as this is the lowest deployment target supported by Xcode 27.
+
+
 ## Version 1.1.23
 ### 2026-05-26
 
