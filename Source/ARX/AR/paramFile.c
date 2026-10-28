@@ -301,13 +301,26 @@ int arParamLoad( const char *filename, int num, ARParam *param, ...)
 	// Try to determine distortion function version number.
 	// Infer distortion function version number from file length.
 	// Assumes all ARParams in file are of same version.
-	for (i = 0; i < AR_DIST_FUNCTION_VERSION_MAX; i++) {
-		if (flen % arParamVersionInfo[i].ARParam_size == 0) {
-			dist_function_version = i + 1;
-			break;
+	// Prefer the requested record count when it disambiguates the file size.
+	dist_function_version = 0;
+	if (flen > 0 && flen % num == 0) {
+		long record_size = flen / num;
+		for (i = 0; i < AR_DIST_FUNCTION_VERSION_MAX; i++) {
+			if (record_size == arParamVersionInfo[i].ARParam_size) {
+				dist_function_version = i + 1;
+				break;
+			}
 		}
 	}
-	if (i == AR_DIST_FUNCTION_VERSION_MAX) {
+	if (dist_function_version == 0) {
+		for (i = 0; i < AR_DIST_FUNCTION_VERSION_MAX; i++) {
+			if (flen % arParamVersionInfo[i].ARParam_size == 0) {
+				dist_function_version = i + 1;
+				break;
+			}
+		}
+	}
+	if (dist_function_version == 0) {
 		ARLOGe("Error: supplied file does not appear to be an artoolkitX camera parameter file.\n");
         ret = -1;
         goto done;
