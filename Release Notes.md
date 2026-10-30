@@ -5,16 +5,21 @@
 ## Version 1.2.0
 ### 2026-10-28
 
-Changes:
+Bug fixes:
+ * Fix a memory leak in the GStreamer video module (GitHub issue #124). The module has been rewritten: it uses the proper GStreamer buffer-mapping types on all GStreamer 1.x versions, drops the GStreamer 1.22+ version checks and the workaround of stripping memory from in-flight buffers, frees everything on close, and reports pipeline errors instead of aborting the process.
+ * Fix loading of camera parameter files holding more than one record, where the record version was inferred from the file size alone and could be misidentified. The requested record count is now used to disambiguate, thanks to `dajiaohuang`.
+ * Linux: The example projects and Linux packaging projects now declare `cmake_minimum_required` 3.5, so they configure with CMake 4. Also applies to the Windows example projects.
+ * Linux: The example projects now build on aarch64.
+ * Linux: The library install directory can be set with `CMAKE_INSTALL_LIBDIR` or `LIB_SUFFIX`, for distributions that install to `lib64` (GitHub issue #127). The exported CMake targets file and the utilities' rpath follow it.
+ * Linux: pthreads, OpenSSL's libcrypto and sqlite3 are now located with `find_package` and pkg-config rather than named as bare libraries, so builds link on distributions that keep them outside the default linker search path (GitHub issue #128).
+
+Improvements:
+ * GStreamer video module now accepts BGR, RGBA, BGRA, ARGB, ABGR, GRAY8, UYVY, YUY2, NV12 and NV21 in addition to RGB, copies padded-stride frames correctly, timestamps frames, and only returns a frame from `arVideoGetImage` when a new one has arrived. `arVideoDispOption` documents the pipeline requirements.
+ * GStreamer video module now requires gstreamer-video-1.0 (Debian package `libgstreamer-plugins-base1.0-dev`, RPM package `gstreamer1-plugins-base-devel`) in addition to gstreamer-1.0.
+ * Linux: GLU is no longer required to build. The only reference was an unused include in Eden's `readtex.c`.
  * macOS: Minimum supported macOS release is now macOS 12.0, as this is the lowest deployment target supported by Xcode 27.
  * iOS: Minimum supported iOS release is now iOS 15.0, as this is the lowest deployment target supported by Xcode 27.
- * Linux: GStreamer video module rewritten. Fixes a memory leak (GitHub issue #124), removes the GStreamer 1.22+ version checks and the workaround of stripping memory from in-flight buffers, and no longer aborts the process on pipeline errors.
- * Linux: GStreamer video module now accepts BGR, RGBA, BGRA, ARGB, ABGR, GRAY8, UYVY, YUY2, NV12 and NV21 in addition to RGB, copies padded-stride frames correctly, timestamps frames, and only returns a frame from arVideoGetImage when a new one has arrived.
- * Linux: GStreamer video module now requires gstreamer-video-1.0 (Debian package libgstreamer-plugins-base1.0-dev, RPM package gstreamer1-plugins-base-devel).
- * Linux: GLU is no longer required to build. The only reference was an unused include in Eden's readtex.c.
- * Linux, Windows: The example projects and Linux packaging projects now declare cmake_minimum_required 3.5, so they configure with CMake 4.
- * Linux: The example projects now build on aarch64.
-
+ * Regenerated the API reference documentation with Doxygen 1.18.0.
 
 ## Version 1.1.23
 ### 2026-05-26
