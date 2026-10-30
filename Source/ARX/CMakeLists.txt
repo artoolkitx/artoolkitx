@@ -182,6 +182,14 @@ target_include_directories(ARX
     PRIVATE ${PTHREAD_INCLUDE_DIRS}
 )
 
+if(ARX_TARGET_PLATFORM_LINUX)
+    # ARUtil and ARVideo use pthreads. Link the threads library explicitly rather than
+    # relying on another dependency to pull it in (GitHub issue #128).
+    set(THREADS_PREFER_PTHREAD_FLAG ON)
+    find_package(Threads REQUIRED)
+    target_link_libraries(ARX PUBLIC Threads::Threads)
+endif()
+
 if(HAVE_GL)
     target_link_libraries(ARX PUBLIC ${OPENGL_LIBRARIES})
     target_include_directories(ARX PRIVATE ${OPENGL_INCLUDE_DIR})
@@ -365,5 +373,5 @@ endif()
 
 # Install the .cmake file for others to import.
 if (NOT ${ARX_LIBRARY_STYLE} STREQUAL "STATIC")
-    install(EXPORT ARX DESTINATION lib/ARX)
+    install(EXPORT ARX DESTINATION ${ARX_INSTALL_CMAKE_DIR})
 endif()
