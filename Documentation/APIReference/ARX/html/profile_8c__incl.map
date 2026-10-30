@@ -1,7 +1,11 @@
 <map id="Source/ARX/ARUtil/profile.c" name="Source/ARX/ARUtil/profile.c">
-<area shape="rect" id="node1" title=" " alt="" coords="38,5,225,31"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,79,66,105"/>
-<area shape="rect" id="node3" title=" " alt="" coords="90,79,173,105"/>
-<area shape="rect" id="node4" href="$profile_8h.html" title=" " alt="" coords="196,79,339,105"/>
-<area shape="rect" id="node5" href="$types_8h.html" title=" " alt="" coords="198,153,337,178"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="38,5,225,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,66,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,34,65,72,62,68,117,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="90,79,173,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="133,29,134,64,129,62,130,34"/>
+<area shape="rect" id="Node000004" href="$profile_8h.html" title=" " alt="" coords="196,79,339,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="155,29,233,70,228,72,154,34"/>
+<area shape="rect" id="Node000005" href="$types_8h.html" title=" " alt="" coords="198,153,337,178"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="269,103,270,138,265,135,266,107"/>
 </map>

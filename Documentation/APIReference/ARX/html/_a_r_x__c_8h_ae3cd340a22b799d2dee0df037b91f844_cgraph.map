@@ -1,4 +1,4 @@
 <map id="arwIsRunning" name="arwIsRunning">
-<area shape="rect" id="node1" title="Returns true if artoolkitX is running, i.e." alt="" coords="5,5,107,31"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#a5f83904a7c899ebb9b178c183d413d23" title="Returns true if video capture and tracking is running." alt="" coords="155,5,317,31"/>
+<area shape="rect" id="Node000001" title="Returns true if artoolkitX is running, i.e." alt="" coords="5,29,107,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="37,29,34,21,36,11,44,5,56,3,69,5,77,14,71,14,67,10,56,8,46,10,41,14,40,20,43,29"/>
 </map>

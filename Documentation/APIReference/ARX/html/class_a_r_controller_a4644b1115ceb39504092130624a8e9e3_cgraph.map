@@ -1,7 +1,13 @@
 <map id="ARController::videoPushFinal" name="ARController::videoPushFinal">
-<area shape="rect" id="node1" title=" " alt="" coords="5,35,199,60"/>
-<area shape="rect" id="node2" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="257,5,420,31"/>
-<area shape="rect" id="node3" href="$class_a_r_video_source.html#a996911589ff5fd76c6d964a16fedd409" title=" " alt="" coords="247,55,430,96"/>
-<area shape="rect" id="node4" href="$video2_8c.html#a27f96e291c2bf447fff911e457f11613" title=" " alt="" coords="478,63,608,88"/>
-<area shape="rect" id="node5" href="$video_external_8h.html#acab01dd172d4489e5ccd7503908970c2" title=" " alt="" coords="656,63,835,88"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,35,199,60"/>
+<area shape="rect" id="Node000002" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="257,5,420,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,33,244,30,239,31,200,38"/>
+<area shape="rect" id="Node000003" href="$class_a_r_video_source.html#a996911589ff5fd76c6d964a16fedd409" title=" " alt="" coords="247,55,430,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,56,234,63,229,63,199,62"/>
+<area shape="rect" id="Node000004" href="$video2_8c.html#a27f96e291c2bf447fff911e457f11613" title=" " alt="" coords="478,63,608,88"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="430,73,465,75,460,76,430,78"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="509,61,503,54,507,44,521,38,543,36,568,39,582,48,577,47,566,44,543,41,522,43,510,48,508,53,514,63"/>
+<area shape="rect" id="Node000005" href="$video_external_8h.html#acab01dd172d4489e5ccd7503908970c2" title=" " alt="" coords="656,63,835,88"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="609,73,643,75,638,76,609,78"/>
+<area shape="poly" id="edge6_Node000005_Node000005" title=" " alt="" coords="711,61,705,54,709,44,723,38,746,36,770,39,784,48,779,47,769,44,745,41,724,43,713,48,710,53,716,63"/>
 </map>

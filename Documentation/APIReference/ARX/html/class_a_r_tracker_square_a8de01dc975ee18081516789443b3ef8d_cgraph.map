@@ -1,5 +1,8 @@
 <map id="ARTrackerSquare::setMatrixCodeType" name="ARTrackerSquare::setMatrixCodeType">
-<area shape="rect" id="node1" title=" " alt="" coords="5,23,193,64"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#a76631fc86b9d0fa0b10b7de01533ae32" title="Set the size and ECC algorithm to be used for matrix code (2D barcode) marker detection." alt="" coords="246,5,394,31"/>
-<area shape="rect" id="node3" href="$class_a_r_tracker_square.html#ad3c606a03347b7d2ce52f961284b43e6" title=" " alt="" coords="241,55,399,80"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,47,193,88"/>
+<area shape="rect" id="Node000002" href="$ar_create_handle_8c.html#a76631fc86b9d0fa0b10b7de01533ae32" title="Set the size and ECC algorithm to be used for matrix code (2D barcode) marker detection." alt="" coords="246,29,394,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,54,233,52,228,53,193,59"/>
+<area shape="rect" id="Node000003" href="$class_a_r_tracker_square.html#ad3c606a03347b7d2ce52f961284b43e6" title=" " alt="" coords="241,79,399,104"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="193,75,228,81,223,81,193,80"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="283,28,276,21,280,11,295,5,320,3,347,5,362,15,357,14,345,10,320,8,296,10,284,15,281,20,288,30"/>
 </map>

@@ -1,0 +1,4 @@
+<map id="arPattActivate" name="arPattActivate">
+<area shape="rect" id="Node000001" title="Activate a previously deactivated pattern." alt="" coords="5,29,110,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="39,29,35,21,37,11,45,5,58,3,71,5,79,14,73,14,68,10,57,8,47,10,42,14,41,20,44,29"/>
+</map>

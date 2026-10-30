@@ -1,8 +1,15 @@
 <map id="ARController::videoPushInit" name="ARController::videoPushInit">
-<area shape="rect" id="node1" title=" " alt="" coords="5,55,189,80"/>
-<area shape="rect" id="node2" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="256,5,419,31"/>
-<area shape="rect" id="node3" href="$class_a_r_video_source.html#adcdfb6d6fcf844c7578bec2b3f978108" title="Returns true if the video source is open and ready to be queried." alt="" coords="247,55,428,80"/>
-<area shape="rect" id="node4" href="$class_a_r_video_source.html#ad981e98e75a09df982713b0e831c73da" title=" " alt="" coords="237,104,438,130"/>
-<area shape="rect" id="node5" href="$video2_8c.html#a00a29693a1f0da771f14f68a08f21611" title=" " alt="" coords="486,104,606,130"/>
-<area shape="rect" id="node6" href="$video_external_8h.html#a819766df60c97c841325cba5208397f0" title=" " alt="" coords="654,104,823,130"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,189,80"/>
+<area shape="rect" id="Node000002" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="256,5,419,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,51,259,34,254,36,164,57"/>
+<area shape="rect" id="Node000003" href="$class_a_r_video_source.html#adcdfb6d6fcf844c7578bec2b3f978108" title="Returns true if the video source is open and ready to be queried." alt="" coords="247,55,428,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="189,65,234,67,229,68,190,70"/>
+<area shape="rect" id="Node000004" href="$class_a_r_video_source.html#ad981e98e75a09df982713b0e831c73da" title=" " alt="" coords="237,104,438,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="164,78,259,99,254,101,163,84"/>
+<area shape="rect" id="Node000005" href="$video2_8c.html#a00a29693a1f0da771f14f68a08f21611" title=" " alt="" coords="486,104,606,130"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="438,114,473,117,468,117,438,119"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="514,102,508,95,511,86,525,80,546,77,570,80,583,90,578,89,568,85,546,83,526,85,515,89,513,95,518,105"/>
+<area shape="rect" id="Node000006" href="$video_external_8h.html#a819766df60c97c841325cba5208397f0" title=" " alt="" coords="654,104,823,130"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="607,114,641,117,636,117,607,119"/>
+<area shape="poly" id="edge7_Node000006_Node000006" title=" " alt="" coords="706,102,700,95,704,86,717,80,739,77,762,80,776,90,770,89,761,85,738,83,718,85,708,89,705,95,711,105"/>
 </map>

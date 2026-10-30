@@ -1,4 +1,7 @@
 <map id="unzGetOffset" name="unzGetOffset">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,105,31"/>
-<area shape="rect" id="node2" href="$unzip_8c.html#ae81142f1a2894e298e8da64f58c01436" title=" " alt="" coords="153,5,266,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,105,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="28,29,23,21,27,11,37,5,55,3,74,5,85,14,80,14,72,10,55,8,39,10,31,15,29,20,33,29"/>
+<area shape="rect" id="Node000002" href="$unzip_8c.html#ae81142f1a2894e298e8da64f58c01436" title=" " alt="" coords="153,29,266,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="105,40,140,42,135,42,105,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="183,28,178,21,181,11,192,5,209,3,228,5,239,15,234,14,226,10,209,8,193,10,185,15,183,20,188,30"/>
 </map>

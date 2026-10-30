@@ -1,9 +1,10 @@
 <map id="arwGetVideoParamsStereo" name="arwGetVideoParamsStereo">
-<area shape="rect" id="node1" title="Returns the parameters of the video source frames." alt="" coords="5,55,185,80"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#a621c2339f3f8434417ae6d9dc4de6a2b" title="Get a string holding a descriptive name for a given pixel format enumeration." alt="" coords="245,5,423,31"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="270,55,398,80"/>
-<area shape="rect" id="node4" href="$class_a_r_controller.html#ae504ee5e5ac8dea6f044f7f96f472cdb" title="Reports width, height and pixel format of a video source." alt="" coords="233,104,435,130"/>
-<area shape="rect" id="node5" href="$class_a_r_video_source.html#a4328e4435cfcff995216fb77ddb93619" title="Returns the pixel format of the video." alt="" coords="484,55,694,80"/>
-<area shape="rect" id="node6" href="$class_a_r_video_source.html#adb306d10f6994abd0d03e1fae66a816a" title="Returns the height of the video in pixels." alt="" coords="483,104,694,130"/>
-<area shape="rect" id="node7" href="$class_a_r_video_source.html#adaa6982dd82839f798c878a923be461c" title="Returns the width of the video in pixels." alt="" coords="485,153,692,179"/>
+<area shape="rect" id="Node000001" title="Returns the parameters of the video source frames." alt="" coords="5,67,185,92"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="57,67,50,58,54,48,70,42,95,40,123,43,138,52,133,52,121,48,95,45,71,47,58,52,55,57,62,66"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#a621c2339f3f8434417ae6d9dc4de6a2b" title="Get a string holding a descriptive name for a given pixel format enumeration." alt="" coords="233,29,411,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,63,227,57,222,59,178,69"/>
+<area shape="rect" id="Node000003" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="258,103,386,128"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="180,90,245,103,240,103,180,96"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="284,28,277,21,281,11,297,5,322,3,350,5,365,15,360,14,348,10,322,8,298,10,285,15,282,20,289,30"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="284,101,277,94,281,84,297,78,322,76,350,79,365,88,360,88,348,84,322,81,298,83,285,88,282,93,289,103"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="ARMarkerInfo" name="ARMarkerInfo">
-<area shape="rect" id="node1" title="Describes a detected trapezoidal area (a candidate for a marker match)." alt="" coords="9,94,111,120"/>
-<area shape="rect" id="node2" href="$struct_a_r_marker_info2.html" title="Captures detail of a trapezoidal region which is a candidate for marker detection." alt="" coords="5,5,115,31"/>
+<area shape="rect" id="Node000001" title="Describes a detected trapezoidal area (a candidate for a marker match)." alt="" coords="9,102,111,128"/>
+<area shape="rect" id="Node000002" href="$struct_a_r_marker_info2.html" title="Captures detail of a trapezoidal region which is a candidate for marker detection." alt="" coords="5,5,115,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="62,45,63,102,57,101,58,48"/>
 </map>

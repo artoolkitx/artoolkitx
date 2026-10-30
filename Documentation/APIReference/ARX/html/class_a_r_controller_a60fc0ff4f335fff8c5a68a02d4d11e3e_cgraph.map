@@ -1,0 +1,25 @@
+<map id="ARController::countTrackables" name="ARController::countTrackables">
+<area shape="rect" id="Node000001" title="Returns the number of currently loaded trackables of the specified type." alt="" coords="5,104,206,130"/>
+<area shape="rect" id="Node000002" href="$class_a_r_controller.html#ac26f04fb95670b8d2023f52f69df55ac" title="Requests the capture of a new frame from the video source(s)." alt="" coords="281,5,428,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,101,183,71,253,40,275,34,271,37,255,45,186,75,131,106"/>
+<area shape="rect" id="Node000003" href="$class_a_r_controller.html#aff42fd017881ce2601c53f830ae7d021" title="Searches the collection of trackables for the given ID." alt="" coords="263,55,446,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,101,273,82,269,86,175,106"/>
+<area shape="rect" id="Node000004" href="$class_a_r_controller.html#a559e2d43091985293771f945f84fc2c2" title="Returns all trackables." alt="" coords="254,104,455,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="205,114,241,116,236,118,207,119"/>
+<area shape="rect" id="Node000005" href="$class_a_r_controller.html#ac726b34aac45206f4608e9a15875db82" title="Performs tracking and updates all trackables." alt="" coords="283,153,426,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="174,128,274,148,269,151,174,133"/>
+<area shape="rect" id="Node000006" href="$class_a_r_controller.html#ab05b850883a1f6cf4296c2430cff225f" title="Asks the video source to push the most recent frame into the passed&#45;in buffer." alt="" coords="261,203,448,244"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="130,128,187,157,255,189,271,197,266,198,253,194,185,162,130,133"/>
+<area shape="rect" id="Node000007" href="$class_a_r_video_source.html#a65ebb92f31e3124222c04848ab118995" title="Populates the provided color buffer with the current video frame." alt="" coords="503,203,723,244"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="448,221,490,223,485,224,448,226"/>
+<area shape="rect" id="Node000008" href="$class_a_r_video_source.html#a3d4b14784d083ae76f43c8942cb9076b" title="Checkin a locked video frame." alt="" coords="775,153,980,179"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="710,200,797,183,803,182,711,205"/>
+<area shape="rect" id="Node000009" href="$class_a_r_video_source.html#a0870e3e3099fe2bede89980bc89c5e70" title="Checkout a locked video frame if the frame&#39;s timestamp is newer than &#39;time&#39;." alt="" coords="771,203,984,244"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="724,221,758,223,753,224,724,226"/>
+<area shape="rect" id="Node000010" href="$video_r_g_b_a_8c.html#a44cdba1bda6acc12b6705a03fae865b2" title=" " alt="" coords="832,292,923,318"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="682,242,821,287,816,287,681,247"/>
+<area shape="poly" id="edge12_Node000010_Node000010" title=" " alt="" coords="841,291,834,283,838,274,853,267,878,265,904,268,919,278,914,277,903,273,877,271,854,273,842,277,839,283,846,293"/>
+<area shape="rect" id="Node000011" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="1032,292,1160,318"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="923,302,1019,305,1013,305,923,307"/>
+<area shape="poly" id="edge11_Node000011_Node000011" title=" " alt="" coords="1059,290,1052,283,1057,274,1071,267,1096,265,1123,268,1138,278,1132,277,1121,273,1096,271,1073,273,1060,277,1058,283,1064,293"/>
+</map>

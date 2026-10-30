@@ -1,12 +1,27 @@
 <map id="Source/ARX/AR2/include/ARX/AR2/template.h" name="Source/ARX/AR2/include/ARX/AR2/template.h">
-<area shape="rect" id="node1" title=" " alt="" coords="717,5,886,46"/>
-<area shape="rect" id="node2" href="$tracking_8h.html" title=" " alt="" coords="656,94,825,135"/>
-<area shape="rect" id="node4" href="$matching_8c.html" title=" " alt="" coords="5,183,198,208"/>
-<area shape="rect" id="node5" href="$matching2_8c.html" title=" " alt="" coords="222,183,421,208"/>
-<area shape="rect" id="node6" href="$surface_8c.html" title=" " alt="" coords="445,183,627,208"/>
-<area shape="rect" id="node7" href="$template_8c.html" title=" " alt="" coords="854,183,1043,208"/>
-<area shape="rect" id="node8" href="$tracking_8c.html" title=" " alt="" coords="1068,183,1253,208"/>
-<area shape="rect" id="node9" href="$tracking2d_8c.html" title=" " alt="" coords="1277,183,1476,208"/>
-<area shape="rect" id="node10" href="$select_template_8c.html" title=" " alt="" coords="1001,102,1229,127"/>
-<area shape="rect" id="node3" href="$handle_8c.html" title=" " alt="" coords="652,183,829,208"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="717,5,886,46"/>
+<area shape="rect" id="Node000002" href="$tracking_8h.html" title=" " alt="" coords="656,94,825,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="781,58,756,96,753,91,776,60"/>
+<area shape="rect" id="Node000004" href="$matching_8c.html" title=" " alt="" coords="5,183,198,208"/>
+<area shape="poly" id="edge9_Node000001_Node000004" title=" " alt="" coords="699,46,473,97,289,144,144,185,142,179,287,139,472,91,704,45"/>
+<area shape="rect" id="Node000005" href="$matching2_8c.html" title=" " alt="" coords="222,183,421,208"/>
+<area shape="poly" id="edge10_Node000001_Node000005" title=" " alt="" coords="724,50,589,97,353,185,351,179,587,91,719,52"/>
+<area shape="rect" id="Node000006" href="$surface_8c.html" title=" " alt="" coords="445,183,627,208"/>
+<area shape="poly" id="edge12_Node000001_Node000006" title=" " alt="" coords="731,51,687,73,646,96,589,142,548,185,545,180,585,138,643,92,684,68,726,53"/>
+<area shape="rect" id="Node000007" href="$template_8c.html" title=" " alt="" coords="854,183,1043,208"/>
+<area shape="poly" id="edge13_Node000001_Node000007" title=" " alt="" coords="829,55,897,133,940,183,935,181,893,136,827,60"/>
+<area shape="rect" id="Node000008" href="$tracking_8c.html" title=" " alt="" coords="1068,183,1253,208"/>
+<area shape="poly" id="edge14_Node000001_Node000008" title=" " alt="" coords="842,53,897,92,921,114,947,132,1019,161,1092,182,1087,182,1017,166,944,137,917,118,893,96,841,58"/>
+<area shape="rect" id="Node000009" href="$tracking2d_8c.html" title=" " alt="" coords="1276,183,1476,208"/>
+<area shape="poly" id="edge15_Node000001_Node000009" title=" " alt="" coords="863,50,940,92,965,114,975,123,991,132,1032,142,1105,155,1283,182,1278,182,1105,160,1031,148,988,137,972,128,962,118,937,96,861,56"/>
+<area shape="rect" id="Node000010" href="$select_template_8c.html" title=" " alt="" coords="1001,102,1228,127"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="888,48,1073,101,1068,101,887,53"/>
+<area shape="rect" id="Node000003" href="$handle_8c.html" title=" " alt="" coords="652,183,829,208"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="742,148,742,184,738,180,738,152"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="641,131,198,185,198,180,640,125"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="643,134,387,185,386,179,637,134"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="678,140,568,185,567,180,673,141"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="807,138,919,182,914,182,806,143"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="840,132,1098,182,1093,182,840,137"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="840,125,1281,182,1275,182,840,131"/>
 </map>

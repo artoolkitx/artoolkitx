@@ -1,4 +1,7 @@
 <map id="arPattGetImage2" name="arPattGetImage2">
-<area shape="rect" id="node1" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="5,5,126,31"/>
-<area shape="rect" id="node2" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="174,5,340,31"/>
+<area shape="rect" id="Node000001" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="5,29,126,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="33,29,27,21,31,11,44,5,66,3,89,5,102,14,97,14,87,10,65,8,45,10,35,15,32,20,38,29"/>
+<area shape="rect" id="Node000002" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="174,29,340,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,40,160,42,155,42,126,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="224,28,218,21,222,11,235,5,257,3,280,5,293,15,288,14,278,10,257,8,237,10,226,15,224,20,229,30"/>
 </map>

@@ -1,9 +1,16 @@
 <map id="Source/ARX/ARUtil/ioapi.h" name="Source/ARX/ARUtil/ioapi.h">
-<area shape="rect" id="node1" title=" " alt="" coords="211,5,390,31"/>
-<area shape="rect" id="node2" href="$ioapi_8c.html" title=" " alt="" coords="5,79,185,105"/>
-<area shape="rect" id="node3" href="$unzip_8h.html" title=" " alt="" coords="209,79,392,105"/>
-<area shape="rect" id="node6" href="$zip_8h.html" title=" " alt="" coords="416,79,585,105"/>
-<area shape="rect" id="node4" href="$file__utils_8c.html" title=" " alt="" coords="324,153,482,193"/>
-<area shape="rect" id="node5" href="$unzip_8c.html" title=" " alt="" coords="117,160,300,186"/>
-<area shape="rect" id="node7" href="$zip_8c.html" title=" " alt="" coords="506,160,676,186"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="211,5,390,31"/>
+<area shape="rect" id="Node000002" href="$ioapi_8c.html" title=" " alt="" coords="5,79,185,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,39,131,81,129,76,253,34"/>
+<area shape="rect" id="Node000003" href="$unzip_8h.html" title=" " alt="" coords="209,79,392,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="302,44,303,80,298,77,299,49"/>
+<area shape="rect" id="Node000006" href="$zip_8h.html" title=" " alt="" coords="416,79,585,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="349,34,469,78,464,79,348,39"/>
+<area shape="rect" id="Node000004" href="$file__utils_8c.html" title=" " alt="" coords="324,153,482,193"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="329,112,380,153,375,152,327,117"/>
+<area shape="rect" id="Node000005" href="$unzip_8c.html" title=" " alt="" coords="117,160,300,186"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="278,114,224,162,221,157,273,116"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="476,114,428,155,426,150,471,115"/>
+<area shape="rect" id="Node000007" href="$zip_8c.html" title=" " alt="" coords="506,160,676,186"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="526,112,580,160,575,159,524,117"/>
 </map>

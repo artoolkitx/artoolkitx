@@ -1,12 +1,26 @@
 <map id="ARVideoView::initWithVideoSource" name="ARVideoView::initWithVideoSource">
-<area shape="rect" id="node1" title=" " alt="" coords="5,154,193,195"/>
-<area shape="rect" id="node2" href="$arg_8c.html#a85f626e83b50240007e8b8cc349f1ddf" title="Free memory used by arg associated with the specified context." alt="" coords="301,5,392,31"/>
-<area shape="rect" id="node3" href="$arg_8c.html#ad95c0c2dafc0b081fde74cb34f8cf7ce" title="Initialise the arg library for the current OpenGL context." alt="" coords="254,55,439,80"/>
-<area shape="rect" id="node5" href="$param_clear_8c.html#a408e5586069334fc2ae229b1924f132c" title="Create a camera parameter structure representing an idealised lens." alt="" coords="296,104,397,130"/>
-<area shape="rect" id="node7" href="$class_a_r_video_source.html#a5feeb630d5706513ba1d48ba7dcd2c31" title="Returns the camera parameters for the video source." alt="" coords="253,154,440,195"/>
-<area shape="rect" id="node8" href="$class_a_r_video_source.html#a4328e4435cfcff995216fb77ddb93619" title="Returns the pixel format of the video." alt="" coords="241,219,452,244"/>
-<area shape="rect" id="node9" href="$class_a_r_video_source.html#adb306d10f6994abd0d03e1fae66a816a" title="Returns the height of the video in pixels." alt="" coords="241,268,452,294"/>
-<area shape="rect" id="node10" href="$class_a_r_video_source.html#adaa6982dd82839f798c878a923be461c" title="Returns the width of the video in pixels." alt="" coords="243,317,450,343"/>
-<area shape="rect" id="node4" href="$arg_8c.html#a70f432550d41765bc7b7b13a53e6015d" title=" " alt="" coords="515,55,648,80"/>
-<area shape="rect" id="node6" href="$param_clear_8c.html#a3a67c8e9b71679e2f01173cfdb2b950a" title=" " alt="" coords="500,104,662,130"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,226,193,266"/>
+<area shape="rect" id="Node000002" href="$arg_8c.html#a85f626e83b50240007e8b8cc349f1ddf" title="Free memory used by arg associated with the specified context." alt="" coords="301,29,392,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,224,128,189,157,145,194,101,239,64,262,53,288,47,284,50,264,58,242,68,198,105,161,149,132,192,113,227"/>
+<area shape="rect" id="Node000003" href="$arg_8c.html#ad95c0c2dafc0b081fde74cb34f8cf7ce" title="Initialise the arg library for the current OpenGL context." alt="" coords="254,103,438,128"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="120,223,172,179,205,156,240,137,257,132,252,135,242,142,207,161,175,184,124,227"/>
+<area shape="rect" id="Node000005" href="$param_clear_8c.html#a408e5586069334fc2ae229b1924f132c" title="Create a camera parameter structure representing an idealised lens." alt="" coords="296,176,397,202"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="189,223,283,202,278,206,191,228"/>
+<area shape="rect" id="Node000007" href="$class_a_r_video_source.html#a5feeb630d5706513ba1d48ba7dcd2c31" title="Returns the camera parameters for the video source." alt="" coords="253,226,440,266"/>
+<area shape="poly" id="edge11_Node000001_Node000007" title=" " alt="" coords="192,244,240,245,235,247,194,249"/>
+<area shape="rect" id="Node000008" href="$class_a_r_video_source.html#a4328e4435cfcff995216fb77ddb93619" title="Returns the pixel format of the video." alt="" coords="241,291,452,316"/>
+<area shape="poly" id="edge12_Node000001_Node000008" title=" " alt="" coords="190,264,275,286,270,288,190,270"/>
+<area shape="rect" id="Node000009" href="$class_a_r_video_source.html#adb306d10f6994abd0d03e1fae66a816a" title="Returns the height of the video in pixels." alt="" coords="241,340,452,366"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="130,264,181,297,242,326,261,335,256,335,240,331,179,301,129,270"/>
+<area shape="rect" id="Node000010" href="$class_a_r_video_source.html#adaa6982dd82839f798c878a923be461c" title="Returns the width of the video in pixels." alt="" coords="243,389,450,415"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="117,265,170,321,204,351,242,376,254,384,249,383,239,380,201,355,166,325,116,270"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="307,29,300,21,304,11,320,5,346,3,375,5,391,14,386,15,374,11,346,8,321,10,308,15,305,20,312,29"/>
+<area shape="poly" id="edge6_Node000003_Node000003" title=" " alt="" coords="307,102,300,94,304,84,320,78,346,76,375,79,391,87,386,88,374,84,346,81,321,83,308,88,305,93,312,102"/>
+<area shape="rect" id="Node000004" href="$arg_8c.html#a70f432550d41765bc7b7b13a53e6015d" title=" " alt="" coords="514,103,648,128"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="438,113,501,115,496,116,439,118"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="542,102,535,94,539,84,555,78,581,76,610,79,626,88,621,88,608,84,581,81,556,83,543,88,540,93,547,103"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="307,175,300,167,304,158,320,151,346,149,375,152,391,161,386,162,374,157,346,155,321,157,308,161,305,167,312,176"/>
+<area shape="rect" id="Node000006" href="$param_clear_8c.html#a3a67c8e9b71679e2f01173cfdb2b950a" title=" " alt="" coords="500,176,662,202"/>
+<area shape="poly" id="edge9_Node000005_Node000006" title=" " alt="" coords="397,186,487,188,482,190,398,191"/>
+<area shape="poly" id="edge10_Node000006_Node000006" title=" " alt="" coords="542,175,535,167,539,158,555,151,581,149,610,152,626,161,621,161,608,157,581,155,556,157,543,161,540,167,547,176"/>
 </map>

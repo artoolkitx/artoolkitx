@@ -1,5 +1,9 @@
 <map id="ARTrackableSquare::getPatternImage" name="ARTrackableSquare::getPatternImage">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,152,46"/>
-<area shape="rect" id="node2" href="$matrix_code_8c.html#a800bd65ee93a299111b1ba0dc41a8b66" title="Caller must free out_bits_p; Returns length of *out_bits_p" alt="" coords="200,13,330,39"/>
-<area shape="rect" id="node3" href="$matrix_code_8c.html#a6c69b5425bcf511d62e5bb36fc399a1c" title="Caller must free out_bits_p; Returns length of *out_bits_p" alt="" coords="378,13,469,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,22,152,62"/>
+<area shape="rect" id="Node000002" href="$matrix_code_8c.html#a800bd65ee93a299111b1ba0dc41a8b66" title="Caller must free out_bits_p; Returns length of *out_bits_p." alt="" coords="200,29,330,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,40,187,42,182,42,152,45"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="238,28,232,21,236,11,247,5,265,3,284,5,296,15,290,14,282,10,265,8,248,10,240,15,238,20,242,30"/>
+<area shape="rect" id="Node000003" href="$matrix_code_8c.html#a6c69b5425bcf511d62e5bb36fc399a1c" title="Caller must free out_bits_p; Returns length of *out_bits_p." alt="" coords="378,29,469,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="331,40,365,42,360,42,331,45"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="396,28,391,21,394,11,406,5,424,3,443,5,454,15,449,14,441,10,424,8,407,10,399,15,397,20,401,30"/>
 </map>

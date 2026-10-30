@@ -1,7 +1,16 @@
 <map id="kpmSetRefDataSetFile" name="kpmSetRefDataSetFile">
-<area shape="rect" id="node1" title="Loads a reference data set from a file into the KPM tracker." alt="" coords="5,55,162,80"/>
-<area shape="rect" id="node2" href="$kpm_ref_data_set_8cpp.html#ae2afc1e3f2fce6618bf611b5043a9f30" title="Dispose of a reference data set and its allocated memory." alt="" coords="210,5,363,31"/>
-<area shape="rect" id="node3" href="$kpm_ref_data_set_8cpp.html#a0e26702b107339fecdf43377b9cca8bf" title="Load a reference data set from the filesystem into memory." alt="" coords="215,55,358,80"/>
-<area shape="rect" id="node5" href="$kpm_matching_8cpp.html#a3f1f8e46753ddee2fa11ea757dcd01ca" title="Load a reference data set into the key point matcher for tracking." alt="" coords="219,104,354,130"/>
-<area shape="rect" id="node4" href="$kpm_fopen_8c.html#a3183ffcaddce8bab8621315f7e5567fc" title=" " alt="" coords="411,55,493,80"/>
+<area shape="rect" id="Node000001" title="Loads a reference data set from a file into the KPM tracker." alt="" coords="5,103,162,128"/>
+<area shape="poly" id="edge9_Node000001_Node000001" title=" " alt="" coords="49,103,43,94,47,84,61,78,84,76,108,79,122,87,117,89,107,84,83,81,62,83,51,88,48,93,54,102"/>
+<area shape="rect" id="Node000002" href="$kpm_ref_data_set_8cpp.html#ae2afc1e3f2fce6618bf611b5043a9f30" title="Dispose of a reference data set and its allocated memory." alt="" coords="210,29,363,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,100,209,64,229,59,224,61,211,69,118,105"/>
+<area shape="rect" id="Node000003" href="$kpm_ref_data_set_8cpp.html#a0e26702b107339fecdf43377b9cca8bf" title="Load a reference data set from the filesystem into memory." alt="" coords="215,103,358,128"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="162,113,202,115,197,116,163,118"/>
+<area shape="rect" id="Node000005" href="$kpm_matching_8cpp.html#a3f1f8e46753ddee2fa11ea757dcd01ca" title="Load a reference data set into the key point matcher for tracking." alt="" coords="219,176,354,202"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="122,126,236,169,232,172,121,132"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="258,28,253,21,256,11,268,5,286,3,307,5,318,14,313,14,305,10,286,8,269,10,260,15,258,20,263,29"/>
+<area shape="poly" id="edge6_Node000003_Node000003" title=" " alt="" coords="258,102,253,94,256,84,268,78,286,76,307,79,318,88,313,87,305,84,286,81,269,83,260,88,258,93,263,103"/>
+<area shape="rect" id="Node000004" href="$kpm_fopen_8c.html#a3183ffcaddce8bab8621315f7e5567fc" title=" " alt="" coords="411,103,493,128"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="358,113,398,115,393,116,359,118"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="424,101,419,94,422,84,433,78,452,76,472,79,484,88,479,87,471,84,452,81,435,83,426,88,424,93,429,103"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="258,175,253,167,256,158,268,152,286,149,307,152,318,161,313,160,305,157,286,155,269,157,260,161,258,167,263,177"/>
 </map>

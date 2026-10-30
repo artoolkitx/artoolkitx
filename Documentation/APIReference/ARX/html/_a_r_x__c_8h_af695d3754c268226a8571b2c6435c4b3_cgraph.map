@@ -1,5 +1,4 @@
 <map id="arwRemoveTrackable" name="arwRemoveTrackable">
-<area shape="rect" id="node1" title="Removes the trackable with the given unique identifier (UID)." alt="" coords="5,5,154,31"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#af875d8273cfc0ea38471299d60db414f" title="Removes the trackable with the given ID." alt="" coords="202,5,406,31"/>
-<area shape="rect" id="node3" href="$class_a_r_controller.html#ac2961fa58ba3a2e10dbde637571efb91" title="Returns the number of currently loaded trackables." alt="" coords="454,5,654,31"/>
+<area shape="rect" id="Node000001" title="Removes the trackable with the given unique identifier (UID)." alt="" coords="5,29,154,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="54,29,49,21,52,11,63,5,80,3,98,5,108,14,103,14,96,10,79,8,64,10,56,14,54,20,59,29"/>
 </map>

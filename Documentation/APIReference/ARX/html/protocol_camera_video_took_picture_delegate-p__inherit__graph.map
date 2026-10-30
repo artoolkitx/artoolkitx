@@ -1,5 +1,7 @@
 <map id="&lt;CameraVideoTookPictureDelegate&gt;" name="&lt;CameraVideoTookPictureDelegate&gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,79,243,105"/>
-<area shape="rect" id="node3" href="$interfacevideo_a_v_foundation_camera_video_took_picture_delegate.html" title=" " alt="" coords="18,153,230,193"/>
-<area shape="rect" id="node2" title=" " alt="" coords="77,5,171,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,243,105"/>
+<area shape="rect" id="Node000003" href="$interfacevideo_a_v_foundation_camera_video_took_picture_delegate.html" title=" " alt="" coords="18,153,230,193"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="126,118,126,153,122,151,122,122"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="77,5,171,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,44,127,79,121,78,123,49"/>
 </map>

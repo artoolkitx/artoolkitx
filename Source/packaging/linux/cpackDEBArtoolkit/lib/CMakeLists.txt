@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.5)
  
 PROJECT(artoolkitx-lib)
 
@@ -6,7 +6,7 @@ include(../../cpackConfiguration.cmake)
 include(../cpackDebConfiguration.cmake)
 include(../../cpackArtoolkit-libConfiguration.cmake)
 
-set(DEPENDENCIES "libjpeg-dev,libgstreamer1.0-dev,libv4l-dev,libdc1394-dev,libgl1-mesa-dev,freeglut3-dev,libopenscenegraph-dev,libopencv-dev,libc6,libcurl4,libsqlite3-0,zlib1g,libudev-dev")
+set(DEPENDENCIES "libjpeg-dev,libgstreamer1.0-dev,libgstreamer-plugins-base1.0-dev,libv4l-dev,libdc1394-dev,libgl1-mesa-dev,freeglut3-dev,libopenscenegraph-dev,libopencv-dev,libc6,libcurl4,libsqlite3-0,zlib1g,libudev-dev")
 
 #Include the cmake configuration into the package
 INSTALL(DIRECTORY ${BUILD_ARTEFACTS_DIR}/ARX DESTINATION /usr/lib DIRECTORY_PERMISSIONS

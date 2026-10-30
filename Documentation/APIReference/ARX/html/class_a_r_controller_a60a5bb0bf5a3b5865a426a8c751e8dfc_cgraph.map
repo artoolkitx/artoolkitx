@@ -1,10 +1,20 @@
 <map id="ARController::projectionForViewportSizeAndFittingMode" name="ARController::projectionForViewportSizeAndFittingMode">
-<area shape="rect" id="node1" title="Populates the provided array with the ARToolKit projection matrix, so that the projection maps to the..." alt="" coords="5,129,214,169"/>
-<area shape="rect" id="node2" href="$param_g_l_8c.html#a47cc5a7056c5638682a07acee44df9f4" title="Create an OpenGL perspective projection matrix." alt="" coords="300,5,456,31"/>
-<area shape="rect" id="node4" href="$class_a_r_video_source.html#a7f1590c1740fcc1a15e5b3c3d5277353" title="Adjust camera parameters to fit an output viewport of given size, using fitting and alignment." alt="" coords="274,56,482,111"/>
-<area shape="rect" id="node6" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="296,136,460,162"/>
-<area shape="rect" id="node7" href="$class_a_r_video_source.html#adcdfb6d6fcf844c7578bec2b3f978108" title="Returns true if the video source is open and ready to be queried." alt="" coords="288,185,468,211"/>
-<area shape="rect" id="node8" href="$class_a_r_video_source.html#a0cbb8805bc426c30af2311a9e225f34b" title=" " alt="" coords="262,235,494,260"/>
-<area shape="rect" id="node3" href="$param_decomp_8c.html#af8d8284f4489d90d4408f7514866dca1" title=" " alt="" coords="572,5,713,31"/>
-<area shape="rect" id="node5" href="$param_change_size_8c.html#a52ca3c9c652eee8efb9e968360cc4493" title=" " alt="" coords="542,71,743,96"/>
+<area shape="rect" id="Node000001" title="Populates the provided array with the ARToolKit projection matrix, so that the projection maps to the..." alt="" coords="5,158,214,198"/>
+<area shape="rect" id="Node000002" href="$param_g_l_8c.html#a47cc5a7056c5638682a07acee44df9f4" title="Create an OpenGL perspective projection matrix." alt="" coords="300,31,456,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,155,189,112,224,90,261,70,295,60,290,63,263,75,227,94,192,117,136,159"/>
+<area shape="rect" id="Node000004" href="$class_a_r_video_source.html#a7f1590c1740fcc1a15e5b3c3d5277353" title="Adjust camera parameters to fit an output viewport of given size, using fitting and alignment." alt="" coords="274,85,482,141"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="195,155,261,140,257,143,197,160"/>
+<area shape="rect" id="Node000006" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="296,165,460,191"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="214,176,283,177,278,179,215,181"/>
+<area shape="rect" id="Node000007" href="$class_a_r_video_source.html#adcdfb6d6fcf844c7578bec2b3f978108" title="Returns true if the video source is open and ready to be queried." alt="" coords="288,215,468,240"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="214,195,292,211,287,212,214,200"/>
+<area shape="rect" id="Node000008" href="$class_a_r_video_source.html#a0cbb8805bc426c30af2311a9e225f34b" title=" " alt="" coords="262,264,494,290"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="147,196,201,224,263,250,287,260,281,259,261,255,199,229,146,202"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="334,30,326,22,331,12,349,6,378,4,411,7,428,16,423,17,409,12,378,9,350,11,334,16,331,21,339,30"/>
+<area shape="rect" id="Node000003" href="$param_decomp_8c.html#af8d8284f4489d90d4408f7514866dca1" title=" " alt="" coords="572,29,713,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="456,40,559,42,554,43,457,46"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="599,28,591,21,596,11,613,5,643,3,675,5,693,15,688,15,674,11,643,8,614,10,599,15,596,20,604,29"/>
+<area shape="rect" id="Node000005" href="$param_change_size_8c.html#a52ca3c9c652eee8efb9e968360cc4493" title=" " alt="" coords="542,103,743,128"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="482,111,529,114,524,115,482,117"/>
+<area shape="poly" id="edge7_Node000005_Node000005" title=" " alt="" coords="599,102,591,94,596,84,613,78,643,76,675,79,693,88,688,88,674,84,643,81,614,83,599,88,596,93,604,103"/>
 </map>

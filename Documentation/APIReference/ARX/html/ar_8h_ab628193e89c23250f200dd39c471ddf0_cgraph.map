@@ -1,6 +1,13 @@
 <map id="arUtilChangeToResourcesDirectory" name="arUtilChangeToResourcesDirectory">
-<area shape="rect" id="node1" title="Change to the resources directory using the specified behavior." alt="" coords="5,31,233,56"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#a69fc2402cb882ae30aedafabd1227ba9" title="Get the path to the resources directory using the specified behavior." alt="" coords="281,31,497,56"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="545,5,763,31"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="561,55,747,80"/>
+<area shape="rect" id="Node000001" title="Change to the resources directory using the specified behavior." alt="" coords="5,67,233,92"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="74,66,66,58,71,48,89,42,119,40,153,43,171,53,166,53,152,48,119,45,90,47,75,52,71,57,79,66"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#a69fc2402cb882ae30aedafabd1227ba9" title="Get the path to the resources directory using the specified behavior." alt="" coords="281,67,497,92"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="233,77,267,79,262,80,233,82"/>
+<area shape="poly" id="edge7_Node000002_Node000002" title=" " alt="" coords="345,66,337,58,342,48,359,42,389,40,422,43,439,53,434,52,420,48,389,45,361,47,345,52,342,57,350,67"/>
+<area shape="rect" id="Node000003" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="545,29,763,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="485,63,541,58,546,57,485,69"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="561,103,747,128"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="488,90,548,101,543,101,488,96"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="610,28,602,21,607,11,625,5,654,3,687,5,705,15,700,15,686,11,654,8,626,10,610,15,607,20,615,30"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="610,101,602,94,607,84,625,78,654,76,687,79,705,89,700,88,686,84,654,81,626,83,610,88,607,93,615,103"/>
 </map>

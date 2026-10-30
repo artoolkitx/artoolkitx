@@ -1,4 +1,7 @@
 <map id="ar3DStereoCreateHandle2" name="ar3DStereoCreateHandle2">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,180,31"/>
-<area shape="rect" id="node2" href="$icp_stereo_handle_8c.html#a5436b1a52e81fa715d70decffa023354" title=" " alt="" coords="228,5,384,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,180,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="56,29,50,21,54,11,69,5,93,3,119,5,133,15,128,15,117,10,92,8,70,10,58,15,55,20,62,29"/>
+<area shape="rect" id="Node000002" href="$icp_stereo_handle_8c.html#a5436b1a52e81fa715d70decffa023354" title=" " alt="" coords="228,29,384,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="180,40,215,42,209,42,180,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="270,28,263,21,268,11,282,5,306,3,332,5,347,15,341,14,330,10,306,8,283,10,271,15,269,20,275,30"/>
 </map>

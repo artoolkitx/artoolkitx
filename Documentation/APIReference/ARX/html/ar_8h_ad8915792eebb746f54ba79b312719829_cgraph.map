@@ -1,4 +1,7 @@
 <map id="arSetPixelFormat" name="arSetPixelFormat">
-<area shape="rect" id="node1" title="Set the expected pixel format for video frames being passed to arDetectMarker." alt="" coords="5,5,128,31"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="176,5,304,31"/>
+<area shape="rect" id="Node000001" title="Set the expected pixel format for video frames being passed to arDetectMarker." alt="" coords="5,29,128,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="37,29,31,21,35,11,47,5,67,3,88,5,100,14,95,14,86,10,66,8,48,10,39,15,37,20,42,29"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="176,29,304,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="128,40,163,42,158,42,128,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="210,28,205,21,208,11,220,5,240,3,261,5,273,15,268,14,259,10,240,8,222,10,212,15,210,20,215,30"/>
 </map>

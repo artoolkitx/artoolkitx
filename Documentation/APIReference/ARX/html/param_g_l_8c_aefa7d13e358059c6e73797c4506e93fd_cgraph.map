@@ -1,4 +1,7 @@
 <map id="arglCameraFrustumRHf" name="arglCameraFrustumRHf">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,166,31"/>
-<area shape="rect" id="node2" href="$param_decomp_8c.html#a0d78ff05ea130e916d0812019e6a3d29" title=" " alt="" coords="214,5,359,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,166,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="51,29,45,21,49,11,63,5,86,3,110,5,124,15,119,15,109,10,85,8,64,10,53,15,51,20,57,29"/>
+<area shape="rect" id="Node000002" href="$param_decomp_8c.html#a0d78ff05ea130e916d0812019e6a3d29" title=" " alt="" coords="214,29,359,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="166,40,201,42,195,42,166,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="252,28,246,21,250,11,264,5,286,3,311,5,325,15,320,14,309,10,286,8,265,10,254,15,251,20,257,30"/>
 </map>

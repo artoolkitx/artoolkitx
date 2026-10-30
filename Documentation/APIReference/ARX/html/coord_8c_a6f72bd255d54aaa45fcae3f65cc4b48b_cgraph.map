@@ -1,6 +1,13 @@
 <map id="ar2MarkerCoord2ScreenCoord2" name="ar2MarkerCoord2ScreenCoord2">
-<area shape="rect" id="node1" title=" " alt="" coords="5,55,210,80"/>
-<area shape="rect" id="node2" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="258,5,424,31"/>
-<area shape="rect" id="node3" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="258,55,424,80"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="286,104,396,130"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,103,210,128"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="68,103,61,94,66,84,82,78,108,76,136,79,152,87,147,88,135,84,107,81,83,83,69,88,67,93,74,102"/>
+<area shape="rect" id="Node000002" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="258,29,424,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="147,100,257,64,281,59,276,61,258,69,149,105"/>
+<area shape="rect" id="Node000003" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="258,103,424,128"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="210,113,244,115,239,116,210,118"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="286,176,396,202"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="152,126,285,169,280,172,151,132"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="302,29,295,21,299,11,315,5,341,3,369,5,385,14,380,15,368,11,341,8,316,10,303,15,300,20,307,29"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="302,102,295,94,299,84,315,78,341,76,369,79,385,88,380,88,368,84,341,81,316,83,303,88,300,93,307,103"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="302,175,295,167,299,158,315,151,341,149,369,152,385,162,380,161,368,157,341,155,316,157,303,161,300,167,307,177"/>
 </map>

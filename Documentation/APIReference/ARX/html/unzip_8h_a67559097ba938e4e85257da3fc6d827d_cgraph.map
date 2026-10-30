@@ -1,4 +1,7 @@
 <map id="unzGoToFilePos" name="unzGoToFilePos">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,123,31"/>
-<area shape="rect" id="node2" href="$unzip_8c.html#a667afaf715015b8195e2f6f22390202d" title=" " alt="" coords="171,5,302,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,123,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="34,29,29,21,33,11,45,5,64,3,85,5,97,14,92,14,83,10,64,8,46,10,37,15,34,20,40,29"/>
+<area shape="rect" id="Node000002" href="$unzip_8c.html#a667afaf715015b8195e2f6f22390202d" title=" " alt="" coords="171,29,302,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="123,40,158,42,153,42,123,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="207,28,201,21,205,11,217,5,236,3,257,5,270,15,264,14,256,10,236,8,218,10,209,15,207,20,212,30"/>
 </map>

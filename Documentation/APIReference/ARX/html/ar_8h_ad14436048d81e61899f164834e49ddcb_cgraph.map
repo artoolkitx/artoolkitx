@@ -1,5 +1,10 @@
 <map id="arPattSave" name="arPattSave">
-<area shape="rect" id="node1" title="Save a pattern to a pattern file." alt="" coords="5,5,92,31"/>
-<area shape="rect" id="node2" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="140,5,260,31"/>
-<area shape="rect" id="node3" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="308,5,474,31"/>
+<area shape="rect" id="Node000001" title="Save a pattern to a pattern file." alt="" coords="5,29,92,55"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="22,29,18,21,21,11,31,5,49,3,67,5,78,14,73,14,65,10,48,8,33,10,25,15,23,20,27,29"/>
+<area shape="rect" id="Node000002" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="140,29,260,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,40,127,42,122,42,92,45"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="174,28,169,21,172,11,183,5,200,3,218,5,229,15,224,14,216,10,200,8,184,10,176,15,174,20,179,30"/>
+<area shape="rect" id="Node000003" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="308,29,474,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="260,40,295,42,289,42,260,45"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="359,28,353,21,357,11,370,5,391,3,414,5,428,15,423,14,413,10,391,8,371,10,360,15,358,20,364,30"/>
 </map>

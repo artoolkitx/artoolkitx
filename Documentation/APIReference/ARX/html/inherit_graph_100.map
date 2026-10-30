@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structmy__error__mgr.html" title=" " alt="" coords="5,5,107,31"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,5,210,31"/>
+<area shape="rect" id="Node000001" href="$class_media_1_1_wrl_sealed.html" title=" " alt="" coords="258,31,381,56"/>
+<area shape="poly" id="edge12_Node000000_Node000001" title=" " alt="" coords="225,30,260,36,255,36,225,35"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="36,55,179,80"/>
+<area shape="poly" id="edge13_Node000002_Node000001" title=" " alt="" coords="194,55,260,50,254,51,194,60"/>
 </map>

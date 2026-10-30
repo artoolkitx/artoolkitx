@@ -1,4 +1,10 @@
 <map id="PrintRequestMetadata" name="PrintRequestMetadata">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,157,31"/>
-<area shape="rect" id="node2" href="$camera__utils_8cpp.html#a45c72b22f103e8870ddf8cce3501dbd0" title=" " alt="" coords="205,5,285,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,157,55"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="53,29,48,21,51,11,62,5,81,3,101,5,113,14,107,14,99,10,81,8,64,10,55,15,53,20,58,29"/>
+<area shape="rect" id="Node000002" href="$camera__utils_8cpp.html#a45c72b22f103e8870ddf8cce3501dbd0" title=" " alt="" coords="205,29,285,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,40,192,42,187,42,157,45"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="222,28,218,21,221,11,230,5,245,3,261,5,270,15,265,14,259,10,245,8,232,10,225,14,223,20,227,30"/>
+<area shape="rect" id="Node000003" href="$camera__utils_8cpp.html#a415065650f41baf260f94db35cb13270" title=" " alt="" coords="333,29,415,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="286,40,320,42,315,42,286,45"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="352,28,347,21,350,11,359,5,374,3,390,5,400,15,395,13,388,10,374,8,361,10,354,14,353,20,356,30"/>
 </map>

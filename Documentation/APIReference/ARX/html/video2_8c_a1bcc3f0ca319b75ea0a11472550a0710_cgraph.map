@@ -1,4 +1,7 @@
 <map id="ar2VideoCapStartAsync" name="ar2VideoCapStartAsync">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,167,31"/>
-<area shape="rect" id="node2" href="$video_a_v_foundation_8h.html#af324da7339353b0dafb4e77db3d0c207" title=" " alt="" coords="215,5,456,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,167,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="44,29,37,21,42,11,58,5,86,3,117,5,134,15,128,15,116,11,86,8,59,10,45,15,42,20,50,29"/>
+<area shape="rect" id="Node000002" href="$video_a_v_foundation_8h.html#af324da7339353b0dafb4e77db3d0c207" title=" " alt="" coords="215,29,456,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="167,40,201,42,196,42,167,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="294,28,286,21,291,11,308,5,335,3,366,5,383,15,378,15,365,11,335,8,309,10,294,15,291,20,299,30"/>
 </map>

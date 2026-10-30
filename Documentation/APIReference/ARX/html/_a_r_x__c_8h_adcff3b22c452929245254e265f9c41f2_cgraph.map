@@ -1,4 +1,7 @@
 <map id="arwRegisterLogCallback" name="arwRegisterLogCallback">
-<area shape="rect" id="node1" title="Registers a callback function to use when a message is logged." alt="" coords="5,5,169,31"/>
-<area shape="rect" id="node2" href="$log_8c.html#ab1e38465002fb8494da7282109cb5ddb" title="Divert logging to a callback, or revert to default logging." alt="" coords="217,5,329,31"/>
+<area shape="rect" id="Node000001" title="Registers a callback function to use when a message is logged." alt="" coords="5,29,169,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="55,29,50,21,53,11,66,5,87,3,109,5,123,14,117,14,108,10,87,8,68,10,57,15,55,20,61,29"/>
+<area shape="rect" id="Node000002" href="$log_8c.html#ab1e38465002fb8494da7282109cb5ddb" title="Divert logging to a callback, or revert to default logging." alt="" coords="217,29,329,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,40,204,42,199,42,169,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="241,28,235,21,239,11,252,5,273,3,295,5,308,15,303,14,294,10,273,8,253,10,243,15,241,20,246,30"/>
 </map>

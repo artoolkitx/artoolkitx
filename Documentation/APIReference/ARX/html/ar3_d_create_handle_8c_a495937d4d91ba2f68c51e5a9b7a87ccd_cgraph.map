@@ -1,4 +1,7 @@
 <map id="ar3DDeleteHandle" name="ar3DDeleteHandle">
-<area shape="rect" id="node1" title="Delete handle used for 3D calculation." alt="" coords="5,5,134,31"/>
-<area shape="rect" id="node2" href="$icp_handle_8c.html#a510dee7e69010b7aa075d90f27a8e9da" title=" " alt="" coords="182,5,299,31"/>
+<area shape="rect" id="Node000001" title="Delete handle used for 3D calculation." alt="" coords="5,29,134,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="40,29,35,21,38,11,50,5,70,3,90,5,102,14,97,14,89,10,69,8,52,10,42,15,40,20,45,29"/>
+<area shape="rect" id="Node000002" href="$icp_handle_8c.html#a510dee7e69010b7aa075d90f27a8e9da" title=" " alt="" coords="182,29,299,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="134,40,168,42,163,42,134,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="211,28,206,21,209,11,221,5,240,3,261,5,273,15,268,14,259,10,240,8,223,10,213,15,211,20,216,30"/>
 </map>

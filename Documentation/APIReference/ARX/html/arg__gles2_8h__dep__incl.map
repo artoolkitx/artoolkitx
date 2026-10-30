@@ -1,5 +1,7 @@
 <map id="Source/ARX/ARG/arg_gles2.h" name="Source/ARX/ARG/arg_gles2.h">
-<area shape="rect" id="node1" title=" " alt="" coords="100,5,250,46"/>
-<area shape="rect" id="node2" href="$arg_8c.html" title=" " alt="" coords="5,102,166,127"/>
-<area shape="rect" id="node3" href="$arg__gles2_8c.html" title=" " alt="" coords="190,94,339,135"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="100,5,250,46"/>
+<area shape="rect" id="Node000002" href="$arg_8c.html" title=" " alt="" coords="5,102,166,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,56,99,103,96,99,141,58"/>
+<area shape="rect" id="Node000003" href="$arg__gles2_8c.html" title=" " alt="" coords="190,94,339,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,55,247,94,241,93,205,60"/>
 </map>

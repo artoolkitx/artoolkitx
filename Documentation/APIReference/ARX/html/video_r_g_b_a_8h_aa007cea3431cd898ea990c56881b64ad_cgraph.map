@@ -1,4 +1,7 @@
 <map id="videoBGRA" name="videoBGRA">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,96,31"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="144,5,272,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,96,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="23,29,18,21,22,11,33,5,51,3,70,5,81,14,76,14,68,10,50,8,34,10,26,15,24,20,29,29"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="144,29,272,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,40,130,42,125,42,96,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="181,28,176,21,179,11,190,5,208,3,227,5,238,15,233,14,225,10,208,8,192,10,183,15,181,20,186,30"/>
 </map>

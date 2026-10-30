@@ -1,8 +1,15 @@
 <map id="Source/ARX/ARVideo/WindowsMediaCapture/CaptureFrameGrabber/MFIncludes.h" name="Source/ARX/ARVideo/WindowsMediaCapture/CaptureFrameGrabber/MFIncludes.h">
-<area shape="rect" id="node1" title=" " alt="" coords="286,5,446,76"/>
-<area shape="rect" id="node2" href="$_capture_frame_grabber_8h.html" title=" " alt="" coords="97,124,261,195"/>
-<area shape="rect" id="node5" href="$_media_stream_sink_8cpp.html" title=" " alt="" coords="403,243,563,313"/>
-<area shape="rect" id="node6" href="$_media_stream_sink_8h.html" title=" " alt="" coords="286,124,446,195"/>
-<area shape="rect" id="node3" href="$_capture_frame_grabber_8cpp.html" title=" " alt="" coords="201,243,379,313"/>
-<area shape="rect" id="node4" href="$_windows_media_capture_8h.html" title=" " alt="" coords="5,250,177,306"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="286,5,446,76"/>
+<area shape="rect" id="Node000002" href="$_capture_frame_grabber_8h.html" title=" " alt="" coords="97,124,261,195"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="295,86,236,126,233,121,300,83"/>
+<area shape="rect" id="Node000005" href="$_media_stream_sink_8cpp.html" title=" " alt="" coords="403,243,563,313"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="428,84,446,103,460,123,473,153,481,184,486,244,481,241,475,185,468,154,455,125,442,106,427,89"/>
+<area shape="rect" id="Node000006" href="$_media_stream_sink_8h.html" title=" " alt="" coords="286,124,446,195"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="367,89,368,125,363,122,364,93"/>
+<area shape="rect" id="Node000003" href="$_capture_frame_grabber_8cpp.html" title=" " alt="" coords="200,243,379,313"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="223,203,260,243,254,242,221,208"/>
+<area shape="rect" id="Node000004" href="$_windows_media_capture_8h.html" title=" " alt="" coords="5,250,177,306"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="146,205,113,252,109,248,142,208"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="337,206,314,244,310,240,333,209"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="412,203,451,243,446,242,410,208"/>
 </map>

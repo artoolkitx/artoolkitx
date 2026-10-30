@@ -1,4 +1,7 @@
 <map id="ar3DStereoDeleteHandle" name="ar3DStereoDeleteHandle">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,172,31"/>
-<area shape="rect" id="node2" href="$icp_stereo_handle_8c.html#af6e27da4185576f1dd236e3a4f718e6e" title=" " alt="" coords="220,5,375,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,172,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="53,29,47,21,51,11,65,5,89,3,114,5,129,15,123,15,113,10,88,8,66,10,55,15,52,20,58,29"/>
+<area shape="rect" id="Node000002" href="$icp_stereo_handle_8c.html#af6e27da4185576f1dd236e3a4f718e6e" title=" " alt="" coords="220,29,375,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="172,40,207,42,202,42,172,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="262,28,256,21,260,11,274,5,297,3,323,5,337,15,332,14,321,10,297,8,275,10,263,15,261,20,267,30"/>
 </map>

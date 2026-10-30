@@ -1,4 +1,7 @@
 <map id="zipCloseFileInZipRaw" name="zipCloseFileInZipRaw">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,155,31"/>
-<area shape="rect" id="node2" href="$zip_8c.html#abed3466e1d5d1e4af5c0fdb68fec9fd2" title=" " alt="" coords="203,5,366,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,155,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="45,29,39,21,43,11,57,5,80,3,105,5,119,14,114,15,104,10,80,8,58,10,47,15,44,20,51,29"/>
+<area shape="rect" id="Node000002" href="$zip_8c.html#abed3466e1d5d1e4af5c0fdb68fec9fd2" title=" " alt="" coords="203,29,366,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="155,40,190,42,185,42,155,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="250,28,243,21,248,11,261,5,284,3,309,5,324,15,318,14,308,10,284,8,263,10,251,15,249,20,255,30"/>
 </map>

@@ -1,4 +1,6 @@
 <map id="ARTrackerSquare::setDebugMode" name="ARTrackerSquare::setDebugMode">
-<area shape="rect" id="node1" title="Enables or disables debug mode in the tracker." alt="" coords="5,5,227,31"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#a01258051f513f5c2760136479c9a2052" title="Enable or disable artoolkitX&#39;s debug mode." alt="" coords="275,5,397,31"/>
+<area shape="rect" id="Node000001" title="Enables or disables debug mode in the tracker." alt="" coords="5,29,227,55"/>
+<area shape="rect" id="Node000002" href="$ar_create_handle_8c.html#a01258051f513f5c2760136479c9a2052" title="Enable or disable artoolkitX&#39;s debug mode." alt="" coords="275,29,397,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,40,262,42,256,42,227,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="299,28,292,21,296,11,311,5,336,3,363,5,378,15,373,14,361,10,336,8,313,10,300,15,297,20,304,30"/>
 </map>

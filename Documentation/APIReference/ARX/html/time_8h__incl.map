@@ -1,5 +1,7 @@
 <map id="Source/ARX/ARUtil/include/ARX/ARUtil/time.h" name="Source/ARX/ARUtil/include/ARX/ARUtil/time.h">
-<area shape="rect" id="node1" title=" " alt="" coords="9,5,191,46"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,94,70,120"/>
-<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="93,94,233,120"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="9,5,191,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,94,70,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,45,58,84,54,80,82,48"/>
+<area shape="rect" id="Node000003" href="$types_8h.html" title=" " alt="" coords="93,94,232,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="117,44,147,82,141,82,115,49"/>
 </map>

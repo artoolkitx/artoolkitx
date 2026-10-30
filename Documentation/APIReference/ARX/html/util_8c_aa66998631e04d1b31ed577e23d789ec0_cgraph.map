@@ -1,4 +1,7 @@
 <map id="ar2UtilRemoveExt" name="ar2UtilRemoveExt">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,134,31"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#a47064e5535ae919defcc0bd8bc6029b4" title=" " alt="" coords="182,5,303,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,134,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="40,29,35,21,38,11,50,5,70,3,90,5,103,14,98,14,89,10,69,8,51,10,42,15,40,20,45,29"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#a47064e5535ae919defcc0bd8bc6029b4" title=" " alt="" coords="182,29,303,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="134,40,169,42,164,42,134,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="213,28,207,21,211,11,223,5,242,3,263,5,276,15,270,14,262,10,242,8,224,10,215,15,213,20,218,30"/>
 </map>

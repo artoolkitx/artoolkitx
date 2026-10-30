@@ -1,0 +1,15 @@
+<map id="PlanarTracker::PlanarTrackerImpl::MatchFeatures" name="PlanarTracker::PlanarTrackerImpl::MatchFeatures">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,128,197,169"/>
+<area shape="rect" id="Node000002" href="$_o_c_v_utils_8h.html#a7fe5bf75dbdbdb3b864fd17f80e8129f" title="Method for calculating and validating a homography matrix from a set of corresponding points." alt="" coords="289,29,440,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,126,182,94,244,64,276,56,271,58,246,69,184,98,133,130"/>
+<area shape="rect" id="Node000004" href="$_o_c_v_utils_8h.html#ae0578b8b2c51f5555f86b17854eb6d88" title=" " alt="" coords="335,103,394,128"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="197,134,322,120,318,122,198,139"/>
+<area shape="rect" id="Node000005" href="$class_planar_tracker_1_1_planar_tracker_impl.html#ad3b05a88662b2f9fc9cf6cfc77655397" title=" " alt="" coords="245,153,484,209"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="197,158,232,164,226,165,198,163"/>
+<area shape="rect" id="Node000006" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a49d46520b714b7e7319ccc7f8c16a3cd" title=" " alt="" coords="269,232,460,273"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="139,167,189,193,246,218,266,228,261,227,244,223,187,198,138,172"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="320,29,312,21,318,11,335,5,364,3,397,5,415,15,409,15,396,11,364,8,336,10,321,15,318,20,326,29"/>
+<area shape="rect" id="Node000003" href="$class_homography_info.html#a07d465b05b1248a05553440c6e984964" title=" " alt="" coords="532,29,753,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="440,40,519,41,514,43,441,45"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="332,108,316,100,312,93,315,87,332,79,364,76,393,78,410,83,416,93,409,103,406,99,411,93,407,88,392,83,364,81,333,84,319,90,318,93,319,96,337,108"/>
+</map>

@@ -1,7 +1,13 @@
 <map id="ARVideoSource::getFrameTextureRGBA32" name="ARVideoSource::getFrameTextureRGBA32">
-<area shape="rect" id="node1" title="Populates the provided color buffer with the current video frame." alt="" coords="5,55,226,96"/>
-<area shape="rect" id="node2" href="$class_a_r_video_source.html#a3d4b14784d083ae76f43c8942cb9076b" title="Checkin a locked video frame." alt="" coords="278,5,482,31"/>
-<area shape="rect" id="node3" href="$class_a_r_video_source.html#a0870e3e3099fe2bede89980bc89c5e70" title="Checkout a locked video frame if the frame&#39;s timestamp is newer than &#39;time&#39;." alt="" coords="274,55,486,96"/>
-<area shape="rect" id="node4" href="$video_r_g_b_a_8c.html#a44cdba1bda6acc12b6705a03fae865b2" title=" " alt="" coords="335,120,425,146"/>
-<area shape="rect" id="node5" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="534,120,662,146"/>
+<area shape="rect" id="Node000001" title="Populates the provided color buffer with the current video frame." alt="" coords="5,55,226,96"/>
+<area shape="rect" id="Node000002" href="$class_a_r_video_source.html#a3d4b14784d083ae76f43c8942cb9076b" title="Checkin a locked video frame." alt="" coords="278,5,482,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,52,305,34,300,36,213,57"/>
+<area shape="rect" id="Node000003" href="$class_a_r_video_source.html#a0870e3e3099fe2bede89980bc89c5e70" title="Checkout a locked video frame if the frame&#39;s timestamp is newer than &#39;time&#39;." alt="" coords="274,55,486,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,73,261,75,255,76,227,78"/>
+<area shape="rect" id="Node000004" href="$video_r_g_b_a_8c.html#a44cdba1bda6acc12b6705a03fae865b2" title=" " alt="" coords="335,144,425,170"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="185,94,323,138,319,140,184,99"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="343,143,336,135,341,126,355,119,380,117,407,120,422,130,416,129,405,125,380,123,357,125,344,129,342,135,348,145"/>
+<area shape="rect" id="Node000005" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="534,144,662,170"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="425,154,521,157,516,157,425,159"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="562,143,555,135,559,126,574,119,598,117,625,120,640,130,635,129,623,125,598,123,575,125,563,129,560,135,566,145"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="Source/ARX/ARVideo/Dummy/videoDummy.h" name="Source/ARX/ARVideo/Dummy/videoDummy.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,167,46"/>
-<area shape="rect" id="node2" href="$video_dummy_8c.html" title=" " alt="" coords="5,94,167,135"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,167,46"/>
+<area shape="rect" id="Node000002" href="$video_dummy_8c.html" title=" " alt="" coords="5,94,167,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,60,89,94,83,93,84,64"/>
 </map>

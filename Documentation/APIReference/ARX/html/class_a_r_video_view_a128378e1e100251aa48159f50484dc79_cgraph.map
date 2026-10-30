@@ -1,4 +1,5 @@
 <map id="ARVideoView::setFlipH" name="ARVideoView::setFlipH">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,165,31"/>
-<area shape="rect" id="node2" href="$class_a_r_video_view.html#a34d5b337ce0eec2744d73169b2e26211" title="‍Defaults to false." alt="" coords="213,5,350,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,165,31"/>
+<area shape="rect" id="Node000002" href="$class_a_r_video_view.html#a34d5b337ce0eec2744d73169b2e26211" title=" " alt="" coords="213,5,350,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,16,200,18,194,18,165,21"/>
 </map>

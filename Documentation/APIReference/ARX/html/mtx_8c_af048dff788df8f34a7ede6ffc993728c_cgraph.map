@@ -1,4 +1,7 @@
 <map id="mtxOrthod" name="mtxOrthod">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,88,31"/>
-<area shape="rect" id="node2" href="$mtx_8c.html#a46f08e4d7a5d5cc03290d3a166b723d0" title=" " alt="" coords="136,5,247,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,88,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="21,29,17,21,20,11,30,5,47,3,64,5,75,14,70,14,62,10,46,8,32,10,24,14,22,20,26,29"/>
+<area shape="rect" id="Node000002" href="$mtx_8c.html#a46f08e4d7a5d5cc03290d3a166b723d0" title=" " alt="" coords="136,29,247,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,40,123,42,117,42,88,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="166,28,162,21,164,11,175,5,191,3,209,5,220,15,214,14,207,10,191,8,176,10,169,14,167,20,171,30"/>
 </map>

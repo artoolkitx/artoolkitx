@@ -1,6 +1,9 @@
 <map id="videoAVFoundationCameraVideoTookPictureDelegate" name="videoAVFoundationCameraVideoTookPictureDelegate">
-<area shape="rect" id="node1" title=" " alt="" coords="30,153,241,193"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,79,84,105"/>
-<area shape="rect" id="node3" href="$protocol_camera_video_took_picture_delegate-p.html" title=" " alt="" coords="107,79,345,105"/>
-<area shape="rect" id="node4" title=" " alt="" coords="179,5,273,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="30,153,241,193"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,84,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,112,115,151,110,153,69,117"/>
+<area shape="rect" id="Node000003" href="$protocol_camera_video_took_picture_delegate-p.html" title=" " alt="" coords="107,79,344,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,114,159,155,156,150,198,116"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="179,5,273,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="227,44,228,80,223,77,224,49"/>
 </map>

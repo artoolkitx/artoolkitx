@@ -381,6 +381,7 @@ if [ $BUILD_LINUX ] ; then
 		check_package libv4l-dev
 		check_package libdc1394-dev
 		check_package libgstreamer1.0-dev
+		check_package libgstreamer-plugins-base1.0-dev
 		check_package libsqlite3-dev
 		check_package libcurl4-openssl-dev
 		check_package libssl-dev
@@ -391,12 +392,12 @@ if [ $BUILD_LINUX ] ; then
 		check_package cmake
 		check_package libjpeg-turbo-devel
 		check_package mesa-libGL-devel
-		check_package mesa-libGLU-devel
 		check_package SDL2-devel
 		check_package systemd-devel
 		check_package libv4l-devel
 		check_package libdc1394-devel
 		check_package gstreamer1-devel
+		check_package gstreamer1-plugins-base-devel
 		check_package libsqlite3x-devel
 		check_package libcurl-devel
 		check_package openssl-devel

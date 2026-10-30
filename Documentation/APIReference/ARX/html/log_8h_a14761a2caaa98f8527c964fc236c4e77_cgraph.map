@@ -1,4 +1,7 @@
 <map id="arLog" name="arLog">
-<area shape="rect" id="node1" title="Write a string to the current logging facility." alt="" coords="5,5,59,31"/>
-<area shape="rect" id="node2" href="$log_8c.html#a9024dde046e20e128ae2b88c9542b253" title=" " alt="" coords="107,5,167,31"/>
+<area shape="rect" id="Node000001" title="Write a string to the current logging facility." alt="" coords="5,29,59,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="13,29,10,21,12,11,19,5,32,3,45,5,53,14,48,14,43,10,32,8,22,10,16,14,15,20,18,29"/>
+<area shape="rect" id="Node000002" href="$log_8c.html#a9024dde046e20e128ae2b88c9542b253" title=" " alt="" coords="107,29,167,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="59,40,94,41,89,43,59,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="118,28,115,21,117,11,124,5,137,3,150,5,158,15,153,14,148,10,137,8,127,10,121,14,120,20,123,30"/>
 </map>

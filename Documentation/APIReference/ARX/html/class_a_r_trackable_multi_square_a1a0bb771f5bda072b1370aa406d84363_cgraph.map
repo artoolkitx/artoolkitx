@@ -1,5 +1,8 @@
 <map id="ARTrackableMultiSquare::~ARTrackableMultiSquare" name="ARTrackableMultiSquare::~ARTrackableMultiSquare">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,188,46"/>
-<area shape="rect" id="node2" href="$class_a_r_trackable_multi_square.html#a57881bb2ce7acf1852db2ee6665cd0f4" title=" " alt="" coords="236,5,402,46"/>
-<area shape="rect" id="node3" href="$ar_multi_free_config_8c.html#a0f33d2031514e1b5af6ba4dfa152633f" title="Frees the multi&#45;marker configuration passed in." alt="" coords="450,13,574,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,22,188,62"/>
+<area shape="rect" id="Node000002" href="$class_a_r_trackable_multi_square.html#a57881bb2ce7acf1852db2ee6665cd0f4" title=" " alt="" coords="236,22,402,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,40,223,42,217,42,188,45"/>
+<area shape="rect" id="Node000003" href="$ar_multi_free_config_8c.html#a0f33d2031514e1b5af6ba4dfa152633f" title="Frees the multi&#45;marker configuration passed in." alt="" coords="450,29,574,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="402,40,437,42,432,42,402,45"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="479,28,473,21,477,11,490,5,512,3,536,5,549,15,544,14,534,10,512,8,492,10,481,15,479,20,484,30"/>
 </map>

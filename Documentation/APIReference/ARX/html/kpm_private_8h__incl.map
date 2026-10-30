@@ -1,4 +1,5 @@
 <map id="Source/ARX/KPM/kpmPrivate.h" name="Source/ARX/KPM/kpmPrivate.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,214,31"/>
-<area shape="rect" id="node2" title=" " alt="" coords="38,79,181,105"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,214,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="38,79,181,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,29,112,64,107,62,108,33"/>
 </map>

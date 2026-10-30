@@ -1,6 +1,13 @@
 <map id="arFilterTransMat" name="arFilterTransMat">
-<area shape="rect" id="node1" title="Filters the supplied pose estimate transformation matrix in&#45;place." alt="" coords="5,55,122,80"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#adb4a9f8d233d3b954fd85bbb3deda173" title=" " alt="" coords="170,5,302,31"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#aa543b10d8b401ccf5626aba7dfa12e09" title=" " alt="" coords="180,55,292,80"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#a016bf9cc45eee7cd9eae471cecc68e9a" title=" " alt="" coords="170,104,302,130"/>
+<area shape="rect" id="Node000001" title="Filters the supplied pose estimate transformation matrix in&#45;place." alt="" coords="5,103,122,128"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="34,103,29,94,32,84,44,78,64,76,84,79,97,87,92,88,83,84,63,81,46,83,36,88,34,93,39,102"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#adb4a9f8d233d3b954fd85bbb3deda173" title=" " alt="" coords="170,29,302,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="90,100,169,64,185,60,180,62,171,69,93,104"/>
+<area shape="rect" id="Node000003" href="$ar_util_8c.html#aa543b10d8b401ccf5626aba7dfa12e09" title=" " alt="" coords="180,103,292,128"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="122,113,167,114,162,117,123,118"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#a016bf9cc45eee7cd9eae471cecc68e9a" title=" " alt="" coords="170,176,302,202"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="97,126,192,168,188,171,95,132"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="206,29,201,21,204,11,216,5,236,3,257,5,269,14,264,14,255,10,236,8,218,10,208,15,206,20,212,29"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="206,102,201,94,204,84,216,78,236,76,257,79,269,88,264,87,255,84,236,81,218,83,208,88,206,93,211,103"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="206,175,201,167,204,158,216,152,236,149,257,152,269,161,264,160,255,157,236,155,218,157,208,161,206,167,211,177"/>
 </map>

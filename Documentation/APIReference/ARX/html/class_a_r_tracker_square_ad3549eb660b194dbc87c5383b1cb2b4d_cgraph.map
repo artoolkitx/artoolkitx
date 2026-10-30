@@ -1,4 +1,6 @@
 <map id="ARTrackerSquare::setPattRatio" name="ARTrackerSquare::setPattRatio">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,181,46"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#a811149d4e03ad3acc4c6b22a385033e4" title="Set the width/height of the marker pattern space, as a proportion of marker width/height." alt="" coords="229,13,336,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,22,181,62"/>
+<area shape="rect" id="Node000002" href="$ar_create_handle_8c.html#a811149d4e03ad3acc4c6b22a385033e4" title="Set the width/height of the marker pattern space, as a proportion of marker width/height." alt="" coords="229,29,336,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,40,216,42,211,42,181,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="250,28,244,21,248,11,261,5,282,3,305,5,319,15,313,14,304,10,282,8,262,10,252,15,250,20,255,30"/>
 </map>

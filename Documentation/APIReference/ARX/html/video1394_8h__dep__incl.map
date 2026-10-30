@@ -1,6 +1,9 @@
 <map id="Source/ARX/ARVideo/libdc1394/video1394.h" name="Source/ARX/ARVideo/libdc1394/video1394.h">
-<area shape="rect" id="node1" title=" " alt="" coords="204,5,358,46"/>
-<area shape="rect" id="node2" href="$video1394_8c.html" title=" " alt="" coords="5,94,160,135"/>
-<area shape="rect" id="node3" href="$video1394_private_8h.html" title=" " alt="" coords="184,94,379,135"/>
-<area shape="rect" id="node4" href="$video1394_setting_8c.html" title=" " alt="" coords="404,94,599,135"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="204,5,358,46"/>
+<area shape="rect" id="Node000002" href="$video1394_8c.html" title=" " alt="" coords="5,94,160,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,52,129,96,127,91,220,53"/>
+<area shape="rect" id="Node000003" href="$video1394_private_8h.html" title=" " alt="" coords="184,94,379,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="283,60,283,95,279,92,279,64"/>
+<area shape="rect" id="Node000004" href="$video1394_setting_8c.html" title=" " alt="" coords="404,94,599,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="346,49,454,93,448,94,345,55"/>
 </map>

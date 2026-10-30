@@ -1,4 +1,7 @@
 <map id="arParamChangeSize" name="arParamChangeSize">
-<area shape="rect" id="node1" title="Adjust the size of a camera parameter&#39;s viewing plane, e.g. to match a renderer frustum size." alt="" coords="5,5,147,31"/>
-<area shape="rect" id="node2" href="$param_change_size_8c.html#a52ca3c9c652eee8efb9e968360cc4493" title=" " alt="" coords="195,5,396,31"/>
+<area shape="rect" id="Node000001" title="Adjust the size of a camera parameter&#39;s viewing plane, e.g. to match a renderer frustum size." alt="" coords="5,29,147,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="39,29,32,21,37,11,52,5,76,3,103,5,118,14,113,15,101,10,76,8,53,10,40,15,38,20,44,29"/>
+<area shape="rect" id="Node000002" href="$param_change_size_8c.html#a52ca3c9c652eee8efb9e968360cc4493" title=" " alt="" coords="195,29,396,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="147,40,181,42,176,42,147,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="259,28,252,21,256,11,271,5,295,3,322,5,337,15,332,14,321,10,295,8,272,10,260,15,257,20,263,30"/>
 </map>

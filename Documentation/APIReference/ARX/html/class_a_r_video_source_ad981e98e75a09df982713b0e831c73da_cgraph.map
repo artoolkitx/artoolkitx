@@ -1,5 +1,9 @@
 <map id="ARVideoSource::videoPushInit" name="ARVideoSource::videoPushInit">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,207,31"/>
-<area shape="rect" id="node2" href="$video2_8c.html#a00a29693a1f0da771f14f68a08f21611" title=" " alt="" coords="255,5,375,31"/>
-<area shape="rect" id="node3" href="$video_external_8h.html#a819766df60c97c841325cba5208397f0" title=" " alt="" coords="423,5,591,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,207,55"/>
+<area shape="rect" id="Node000002" href="$video2_8c.html#a00a29693a1f0da771f14f68a08f21611" title=" " alt="" coords="255,29,375,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="207,40,242,42,237,42,207,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="282,28,276,21,280,11,293,5,315,3,339,5,352,15,347,14,337,10,315,8,295,10,284,15,282,20,287,30"/>
+<area shape="rect" id="Node000003" href="$video_external_8h.html#a819766df60c97c841325cba5208397f0" title=" " alt="" coords="423,29,591,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="376,40,410,42,405,42,376,45"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="475,28,469,21,472,11,486,5,507,3,531,5,544,15,539,14,529,10,507,8,487,10,476,15,474,20,479,30"/>
 </map>

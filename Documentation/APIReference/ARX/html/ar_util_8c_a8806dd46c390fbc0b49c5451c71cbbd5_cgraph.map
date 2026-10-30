@@ -1,8 +1,19 @@
 <map id="arUtilGetAndCreateResourcesDirectoryPath" name="arUtilGetAndCreateResourcesDirectoryPath">
-<area shape="rect" id="node1" title="Get the path to the resources directory using the specified behavior, creating the path if it doesn&#39;t..." alt="" coords="5,71,204,112"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#a69fc2402cb882ae30aedafabd1227ba9" title="Get the path to the resources directory using the specified behavior." alt="" coords="252,29,468,55"/>
-<area shape="rect" id="node5" href="$file__utils_8c.html#a6d0adb35b2ec47f5a5d3d9c2e424532a" title=" " alt="" coords="326,79,394,104"/>
-<area shape="rect" id="node6" href="$file__utils_8c.html#a9ea670a576a1537cb0a8d35778c0bbbc" title=" " alt="" coords="331,128,389,154"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="516,5,734,31"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="532,55,718,80"/>
+<area shape="rect" id="Node000001" title="Get the path to the resources directory using the specified behavior, creating the path if it doesn&#39;t..." alt="" coords="5,131,204,172"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="57,130,54,121,62,112,79,106,105,105,132,107,150,115,145,116,131,112,104,110,80,112,65,117,59,122,62,131"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#a69fc2402cb882ae30aedafabd1227ba9" title="Get the path to the resources directory using the specified behavior." alt="" coords="252,65,468,91"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="162,128,251,100,281,94,276,96,252,105,164,133"/>
+<area shape="rect" id="Node000005" href="$file__utils_8c.html#a6d0adb35b2ec47f5a5d3d9c2e424532a" title=" " alt="" coords="326,139,394,164"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="204,149,313,151,308,152,205,154"/>
+<area shape="rect" id="Node000006" href="$file__utils_8c.html#a9ea670a576a1537cb0a8d35778c0bbbc" title=" " alt="" coords="331,212,388,238"/>
+<area shape="poly" id="edge10_Node000001_Node000006" title=" " alt="" coords="178,170,319,211,314,214,177,175"/>
+<area shape="poly" id="edge7_Node000002_Node000002" title=" " alt="" coords="317,65,309,57,314,47,332,41,360,39,392,41,409,51,403,51,390,47,360,44,333,46,318,51,315,56,323,65"/>
+<area shape="rect" id="Node000003" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="516,29,734,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="459,62,513,57,508,58,460,67"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="532,103,718,128"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="456,89,519,100,514,101,456,94"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="581,28,573,21,578,11,596,5,625,3,658,5,676,15,671,15,657,11,625,8,597,10,581,15,578,20,586,30"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="581,102,573,94,578,84,596,78,625,76,658,79,676,89,671,88,657,84,625,81,597,83,581,88,578,93,586,103"/>
+<area shape="poly" id="edge9_Node000005_Node000005" title=" " alt="" coords="323,141,311,133,312,122,329,115,360,112,401,118,410,125,408,134,404,131,405,127,399,123,360,117,331,120,317,125,316,131,329,142"/>
+<area shape="poly" id="edge11_Node000006_Node000006" title=" " alt="" coords="328,216,312,208,311,196,328,188,360,185,387,187,404,193,410,202,404,212,401,208,405,202,401,197,386,192,360,191,330,193,316,199,317,206,333,217"/>
 </map>

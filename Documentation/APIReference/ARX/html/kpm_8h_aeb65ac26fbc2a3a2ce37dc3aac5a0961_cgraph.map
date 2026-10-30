@@ -1,4 +1,7 @@
 <map id="kpmMergeRefDataSet" name="kpmMergeRefDataSet">
-<area shape="rect" id="node1" title="Merge a second KPM dataset into the first, and dispose of second." alt="" coords="5,5,157,31"/>
-<area shape="rect" id="node2" href="$kpm_ref_data_set_8cpp.html#ae2afc1e3f2fce6618bf611b5043a9f30" title="Dispose of a reference data set and its allocated memory." alt="" coords="205,5,358,31"/>
+<area shape="rect" id="Node000001" title="Merge a second KPM dataset into the first, and dispose of second." alt="" coords="5,29,157,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="47,29,41,21,45,11,59,5,81,3,106,5,120,15,114,15,104,10,81,8,60,10,49,15,46,20,52,29"/>
+<area shape="rect" id="Node000002" href="$kpm_ref_data_set_8cpp.html#ae2afc1e3f2fce6618bf611b5043a9f30" title="Dispose of a reference data set and its allocated memory." alt="" coords="205,29,358,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,40,192,42,187,42,157,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="247,28,241,21,245,11,259,5,281,3,306,5,320,15,315,14,304,10,281,8,260,10,249,15,247,20,252,30"/>
 </map>

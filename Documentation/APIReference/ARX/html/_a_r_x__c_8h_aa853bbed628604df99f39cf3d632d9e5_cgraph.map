@@ -1,7 +1,16 @@
 <map id="arwChangeToResourcesDir" name="arwChangeToResourcesDir">
-<area shape="rect" id="node1" title="Changes the working directory to the resources directory used by artoolkitX." alt="" coords="5,31,187,56"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#acd9f679696c2c26b378e434f6d78ae7d" title="Change to the resources directory using the specified behavior." alt="" coords="235,31,462,56"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#a69fc2402cb882ae30aedafabd1227ba9" title="Get the path to the resources directory using the specified behavior." alt="" coords="510,31,726,56"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="774,5,993,31"/>
-<area shape="rect" id="node5" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="790,55,977,80"/>
+<area shape="rect" id="Node000001" title="Changes the working directory to the resources directory used by artoolkitX." alt="" coords="5,67,187,92"/>
+<area shape="poly" id="edge9_Node000001_Node000001" title=" " alt="" coords="54,67,46,58,51,48,68,42,96,40,127,43,144,52,139,53,126,48,96,45,69,47,55,52,51,57,59,66"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#acd9f679696c2c26b378e434f6d78ae7d" title="Change to the resources directory using the specified behavior." alt="" coords="235,67,462,92"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,77,222,79,216,80,187,82"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="306,66,299,58,303,48,320,42,348,40,380,43,397,53,391,52,378,48,348,45,321,47,307,52,304,57,311,67"/>
+<area shape="rect" id="Node000003" href="$ar_util_8c.html#a69fc2402cb882ae30aedafabd1227ba9" title="Get the path to the resources directory using the specified behavior." alt="" coords="510,67,726,92"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="462,77,497,79,491,80,463,82"/>
+<area shape="poly" id="edge8_Node000003_Node000003" title=" " alt="" coords="574,65,566,58,571,48,589,42,618,40,651,43,669,53,664,52,650,48,618,45,590,47,574,52,571,57,579,67"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="774,29,993,55"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="714,63,770,58,775,57,715,69"/>
+<area shape="rect" id="Node000005" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="790,103,977,128"/>
+<area shape="poly" id="edge6_Node000003_Node000005" title=" " alt="" coords="718,90,777,101,772,101,718,96"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="839,28,831,21,836,11,854,5,884,3,916,5,934,15,929,15,915,11,883,8,855,10,840,15,837,20,844,30"/>
+<area shape="poly" id="edge7_Node000005_Node000005" title=" " alt="" coords="839,101,831,94,836,84,854,78,884,76,916,79,934,89,929,88,915,84,883,81,855,83,840,88,837,93,844,103"/>
 </map>

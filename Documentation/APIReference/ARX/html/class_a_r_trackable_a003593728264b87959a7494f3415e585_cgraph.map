@@ -1,4 +1,6 @@
 <map id="ARTrackable::setFilterSampleRate" name="ARTrackable::setFilterSampleRate">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,230,31"/>
-<area shape="rect" id="node2" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="278,5,459,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,230,55"/>
+<area shape="rect" id="Node000002" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="278,29,459,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,40,265,42,259,42,230,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="327,28,319,21,324,11,341,5,368,3,399,5,416,15,411,15,398,11,368,8,342,10,327,15,324,20,332,30"/>
 </map>

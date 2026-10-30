@@ -1,4 +1,7 @@
 <map id="ar2VideoPushInit" name="ar2VideoPushInit">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,126,31"/>
-<area shape="rect" id="node2" href="$video_external_8h.html#a819766df60c97c841325cba5208397f0" title=" " alt="" coords="174,5,342,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,126,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="33,29,27,21,31,11,44,5,66,3,89,5,103,14,97,15,88,10,65,8,45,10,35,15,32,20,38,29"/>
+<area shape="rect" id="Node000002" href="$video_external_8h.html#a819766df60c97c841325cba5208397f0" title=" " alt="" coords="174,29,342,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="126,40,161,42,155,42,126,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="225,28,219,21,223,11,236,5,258,3,282,5,295,15,290,14,280,10,258,8,238,10,227,15,225,20,230,30"/>
 </map>

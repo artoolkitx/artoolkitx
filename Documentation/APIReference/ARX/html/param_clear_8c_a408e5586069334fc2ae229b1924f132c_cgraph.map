@@ -1,4 +1,7 @@
 <map id="arParamClear" name="arParamClear">
-<area shape="rect" id="node1" title="Create a camera parameter structure representing an idealised lens." alt="" coords="5,5,107,31"/>
-<area shape="rect" id="node2" href="$param_clear_8c.html#a3a67c8e9b71679e2f01173cfdb2b950a" title=" " alt="" coords="155,5,317,31"/>
+<area shape="rect" id="Node000001" title="Create a camera parameter structure representing an idealised lens." alt="" coords="5,29,107,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="25,29,20,21,23,11,36,5,56,3,78,5,91,14,85,14,76,10,56,8,37,10,27,15,25,20,30,29"/>
+<area shape="rect" id="Node000002" href="$param_clear_8c.html#a3a67c8e9b71679e2f01173cfdb2b950a" title=" " alt="" coords="155,29,317,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="107,40,142,42,136,42,107,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="205,28,200,21,203,11,216,5,236,3,258,5,270,15,265,14,256,10,236,8,217,10,207,15,205,20,210,30"/>
 </map>

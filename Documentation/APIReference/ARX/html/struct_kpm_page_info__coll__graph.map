@@ -1,4 +1,5 @@
 <map id="KpmPageInfo" name="KpmPageInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="8,94,109,120"/>
-<area shape="rect" id="node2" href="$struct_kpm_image_info.html" title=" " alt="" coords="5,5,112,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="8,102,109,128"/>
+<area shape="rect" id="Node000002" href="$struct_kpm_image_info.html" title=" " alt="" coords="5,5,112,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,45,61,102,56,101,56,48"/>
 </map>

@@ -1,4 +1,6 @@
 <map id="ARTrackable::setFilterCutoffFrequency" name="ARTrackable::setFilterCutoffFrequency">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,194,46"/>
-<area shape="rect" id="node2" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="242,13,423,39"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,22,194,62"/>
+<area shape="rect" id="Node000002" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="242,29,423,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,40,229,42,223,42,194,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="293,28,286,21,291,11,306,5,332,3,361,5,377,15,371,14,359,11,332,8,308,10,294,15,291,20,298,30"/>
 </map>

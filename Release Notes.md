@@ -8,6 +8,12 @@
 Changes:
  * macOS: Minimum supported macOS release is now macOS 12.0, as this is the lowest deployment target supported by Xcode 27.
  * iOS: Minimum supported iOS release is now iOS 15.0, as this is the lowest deployment target supported by Xcode 27.
+ * Linux: GStreamer video module rewritten. Fixes a memory leak (GitHub issue #124), removes the GStreamer 1.22+ version checks and the workaround of stripping memory from in-flight buffers, and no longer aborts the process on pipeline errors.
+ * Linux: GStreamer video module now accepts BGR, RGBA, BGRA, ARGB, ABGR, GRAY8, UYVY, YUY2, NV12 and NV21 in addition to RGB, copies padded-stride frames correctly, timestamps frames, and only returns a frame from arVideoGetImage when a new one has arrived.
+ * Linux: GStreamer video module now requires gstreamer-video-1.0 (Debian package libgstreamer-plugins-base1.0-dev, RPM package gstreamer1-plugins-base-devel).
+ * Linux: GLU is no longer required to build. The only reference was an unused include in Eden's readtex.c.
+ * Linux, Windows: The example projects and Linux packaging projects now declare cmake_minimum_required 3.5, so they configure with CMake 4.
+ * Linux: The example projects now build on aarch64.
 
 
 ## Version 1.1.23

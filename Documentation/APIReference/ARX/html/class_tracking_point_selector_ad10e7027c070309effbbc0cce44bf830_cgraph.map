@@ -1,0 +1,5 @@
+<map id="TrackingPointSelector::TrackingPointSelector" name="TrackingPointSelector::TrackingPointSelector">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,163,46"/>
+<area shape="rect" id="Node000002" href="$class_tracking_point_selector.html#af447fbedc3500b387de896d293fcf0c7" title="Iterates over _pts, the location of Harris corners in the image, and for each one,..." alt="" coords="211,5,360,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,23,198,25,192,26,163,28"/>
+</map>

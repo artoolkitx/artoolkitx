@@ -17,6 +17,7 @@ var searchData=
   ['_5fmatchpoint_14',['_MatchPoint',['../struct___match_point.html',1,'']]],
   ['_5fpoint2f_15',['_Point2f',['../struct___point2f.html',1,'']]],
   ['_5fpoint2i_16',['_Point2i',['../struct___point2i.html',1,'']]],
-  ['_5fsurffeature_17',['_SurfFeature',['../struct___surf_feature.html',1,'']]],
-  ['_5fthread_5fhandle_5ft_18',['_THREAD_HANDLE_T',['../struct___t_h_r_e_a_d___h_a_n_d_l_e___t.html',1,'']]]
+  ['_5fsize_17',['_size',['../struct__size.html',1,'']]],
+  ['_5fsurffeature_18',['_SurfFeature',['../struct___surf_feature.html',1,'']]],
+  ['_5fthread_5fhandle_5ft_19',['_THREAD_HANDLE_T',['../struct___t_h_r_e_a_d___h_a_n_d_l_e___t.html',1,'']]]
 ];

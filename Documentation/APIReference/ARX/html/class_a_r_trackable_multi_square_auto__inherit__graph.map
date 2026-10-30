@@ -1,4 +1,5 @@
 <map id="ARTrackableMultiSquareAuto" name="ARTrackableMultiSquareAuto">
-<area shape="rect" id="node1" title="An ARTrackable that auto&#45;builds a map of matrix (2D barcode) markers." alt="" coords="5,79,199,105"/>
-<area shape="rect" id="node2" href="$class_a_r_trackable.html" title="Base class for supported trackable types." alt="" coords="53,5,151,31"/>
+<area shape="rect" id="Node000001" title="An ARTrackable that auto&#45;builds a map of matrix (2D barcode) markers." alt="" coords="5,79,199,105"/>
+<area shape="rect" id="Node000002" href="$class_a_r_trackable.html" title="Base class for supported trackable types." alt="" coords="53,5,151,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,45,104,80,100,77,100,48"/>
 </map>

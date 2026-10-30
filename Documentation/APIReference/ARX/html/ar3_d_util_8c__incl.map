@@ -1,20 +1,47 @@
 <map id="Source/ARX/AR/ar3DUtil.c" name="Source/ARX/AR/ar3DUtil.c">
-<area shape="rect" id="node1" title=" " alt="" coords="337,5,517,31"/>
-<area shape="rect" id="node2" title=" " alt="" coords="575,226,638,252"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,226,67,252"/>
-<area shape="rect" id="node4" href="$ar_8h.html" title="artoolkitX core routines." alt="" coords="670,79,767,105"/>
-<area shape="rect" id="node15" href="$icp_8h.html" title=" " alt="" coords="1155,153,1259,178"/>
-<area shape="rect" id="node5" title=" " alt="" coords="1118,226,1178,252"/>
-<area shape="rect" id="node6" title=" " alt="" coords="221,153,286,178"/>
-<area shape="rect" id="node7" title=" " alt="" coords="1029,226,1094,252"/>
-<area shape="rect" id="node8" title=" " alt="" coords="379,226,501,252"/>
-<area shape="rect" id="node9" href="$ar_config_8h.html" title=" " alt="" coords="496,153,632,178"/>
-<area shape="rect" id="node10" href="$log_8h.html" title="Logging utilities." alt="" coords="905,153,1029,178"/>
-<area shape="rect" id="node14" href="$matrix_8h.html" title=" " alt="" coords="24,153,147,178"/>
-<area shape="rect" id="node17" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters." alt="" coords="706,153,830,178"/>
-<area shape="rect" id="node18" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing." alt="" coords="310,153,471,178"/>
-<area shape="rect" id="node11" title=" " alt="" coords="937,226,1005,252"/>
-<area shape="rect" id="node12" title=" " alt="" coords="662,226,749,252"/>
-<area shape="rect" id="node13" href="$types_8h.html" title=" " alt="" coords="773,226,912,252"/>
-<area shape="rect" id="node16" href="$icp_core_8h.html" title=" " alt="" coords="1202,226,1334,252"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="336,5,517,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="575,226,638,252"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="379,33,314,57,245,91,219,110,203,131,199,153,211,176,252,185,348,200,562,231,557,232,347,205,251,190,208,180,194,154,198,129,215,106,242,86,312,52,384,30"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,226,67,252"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="354,33,263,54,160,81,69,115,35,134,14,154,9,168,9,182,21,212,16,213,4,183,4,167,10,151,32,130,66,110,158,76,262,48,359,30"/>
+<area shape="rect" id="Node000004" href="$ar_8h.html" title="artoolkitX core routines." alt="" coords="670,79,767,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="476,29,657,74,652,76,476,34"/>
+<area shape="rect" id="Node000015" href="$icp_8h.html" title=" " alt="" coords="1154,153,1259,178"/>
+<area shape="poly" id="edge27_Node000001_Node000015" title=" " alt="" coords="503,29,780,76,1142,150,1136,150,780,82,503,34"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="765,103,801,115,831,132,843,142,849,154,850,167,844,180,824,200,804,213,783,220,761,223,713,223,654,229,654,223,713,218,761,218,782,215,802,208,821,196,839,177,845,166,844,156,838,146,828,137,798,120,765,108"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="1118,226,1178,252"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="768,89,831,92,908,101,990,119,1030,133,1068,150,1106,179,1134,215,1129,213,1102,183,1065,155,1028,138,988,124,907,106,830,97,768,95"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="221,153,286,178"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="667,99,511,121,301,155,300,150,510,116,672,98"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="1029,226,1094,252"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="768,93,839,99,921,110,994,126,1023,138,1043,151,1053,164,1060,180,1064,213,1060,210,1055,181,1049,167,1040,155,1021,142,993,132,920,115,839,104,768,98"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="376,226,498,252"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="714,104,687,143,668,163,645,181,614,198,580,211,514,229,513,224,579,206,612,193,643,176,664,159,683,140,709,106"/>
+<area shape="rect" id="Node000009" href="$ar_config_8h.html" title=" " alt="" coords="496,153,632,178"/>
+<area shape="poly" id="edge9_Node000004_Node000009" title=" " alt="" coords="695,104,605,148,603,143,690,106"/>
+<area shape="rect" id="Node000010" href="$log_8h.html" title="Logging utilities." alt="" coords="904,153,1029,178"/>
+<area shape="poly" id="edge10_Node000004_Node000010" title=" " alt="" coords="761,103,912,148,907,148,760,108"/>
+<area shape="rect" id="Node000014" href="$matrix_8h.html" title=" " alt="" coords="24,153,147,178"/>
+<area shape="poly" id="edge17_Node000004_Node000014" title=" " alt="" coords="669,101,163,158,162,153,669,96"/>
+<area shape="poly" id="edge19_Node000004_Node000015" title=" " alt="" coords="768,97,1136,150,1142,153,1137,153,1136,155,767,102"/>
+<area shape="rect" id="Node000017" href="$param_8h.html" title="artoolkitX functions for handling calibrated camera parameters." alt="" coords="706,153,830,178"/>
+<area shape="poly" id="edge22_Node000004_Node000017" title=" " alt="" coords="721,102,746,142,741,140,719,107"/>
+<area shape="rect" id="Node000018" href="$ar_image_proc_8h.html" title="artoolkitX functions for 2D luminance image processing." alt="" coords="310,153,471,178"/>
+<area shape="poly" id="edge24_Node000004_Node000018" title=" " alt="" coords="667,103,455,151,454,146,672,102"/>
+<area shape="poly" id="edge12_Node000010_Node000002" title=" " alt="" coords="907,177,654,229,653,223,901,177"/>
+<area shape="poly" id="edge11_Node000010_Node000005" title=" " alt="" coords="998,176,1106,221,1101,220,997,181"/>
+<area shape="poly" id="edge13_Node000010_Node000007" title=" " alt="" coords="984,176,1036,217,1031,216,982,181"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="936,226,1005,252"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="969,177,971,213,967,209,966,181"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="662,226,748,252"/>
+<area shape="poly" id="edge15_Node000010_Node000012" title=" " alt="" coords="925,179,764,225,763,219,920,179"/>
+<area shape="rect" id="Node000013" href="$types_8h.html" title=" " alt="" coords="773,226,912,252"/>
+<area shape="poly" id="edge16_Node000010_Node000013" title=" " alt="" coords="948,178,877,221,876,216,943,180"/>
+<area shape="poly" id="edge18_Node000014_Node000003" title=" " alt="" coords="79,177,55,215,51,212,75,180"/>
+<area shape="poly" id="edge20_Node000015_Node000005" title=" " alt="" coords="1199,177,1169,217,1166,212,1195,180"/>
+<area shape="rect" id="Node000016" href="$icp_core_8h.html" title=" " alt="" coords="1202,226,1334,252"/>
+<area shape="poly" id="edge21_Node000015_Node000016" title=" " alt="" coords="1218,176,1250,215,1245,213,1216,181"/>
+<area shape="poly" id="edge23_Node000017_Node000004" title=" " alt="" coords="764,151,742,119,744,114,769,153"/>
+<area shape="poly" id="edge26_Node000018_Node000004" title=" " alt="" coords="453,149,657,108,652,109,454,155"/>
+<area shape="poly" id="edge25_Node000018_Node000008" title=" " alt="" coords="400,176,424,214,419,212,397,181"/>
 </map>

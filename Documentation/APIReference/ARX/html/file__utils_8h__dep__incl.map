@@ -1,6 +1,9 @@
 <map id="Source/ARX/ARUtil/include/ARX/ARUtil/file_utils.h" name="Source/ARX/ARUtil/include/ARX/ARUtil/file_utils.h">
-<area shape="rect" id="node1" title=" " alt="" coords="216,5,398,46"/>
-<area shape="rect" id="node2" href="$ar_patt_load_8c.html" title=" " alt="" coords="5,102,201,127"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html" title=" " alt="" coords="225,102,389,127"/>
-<area shape="rect" id="node4" href="$file__utils_8c.html" title=" " alt="" coords="413,94,572,135"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="216,5,398,46"/>
+<area shape="rect" id="Node000002" href="$ar_patt_load_8c.html" title=" " alt="" coords="5,102,201,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,53,132,103,131,99,244,52"/>
+<area shape="rect" id="Node000003" href="$ar_util_8c.html" title=" " alt="" coords="225,102,389,127"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="309,60,309,103,305,100,305,63"/>
+<area shape="rect" id="Node000004" href="$file__utils_8c.html" title=" " alt="" coords="413,94,572,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="363,50,453,94,448,94,362,55"/>
 </map>

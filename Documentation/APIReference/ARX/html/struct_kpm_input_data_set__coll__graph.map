@@ -1,4 +1,5 @@
 <map id="KpmInputDataSet" name="KpmInputDataSet">
-<area shape="rect" id="node1" title=" " alt="" coords="5,94,131,120"/>
-<area shape="rect" id="node2" href="$struct_kpm_coord2_d.html" title=" " alt="" coords="18,5,118,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,102,131,128"/>
+<area shape="rect" id="Node000002" href="$struct_kpm_coord2_d.html" title=" " alt="" coords="18,5,118,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,45,71,102,65,101,66,48"/>
 </map>

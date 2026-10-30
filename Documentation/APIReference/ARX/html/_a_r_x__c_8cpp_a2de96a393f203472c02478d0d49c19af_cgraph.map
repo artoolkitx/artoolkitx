@@ -1,4 +1,4 @@
 <map id="arwGetTrackerOptionInt" name="arwGetTrackerOptionInt">
-<area shape="rect" id="node1" title="Get integer options associated with a tracker." alt="" coords="5,5,166,31"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#aa96bf62693cbf574b08d89b1db12d3a3" title=" " alt="" coords="214,5,421,31"/>
+<area shape="rect" id="Node000001" title="Get integer options associated with a tracker." alt="" coords="5,29,166,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="58,29,53,21,56,11,67,5,86,3,105,5,117,14,111,14,103,10,85,8,69,10,60,15,58,20,63,29"/>
 </map>

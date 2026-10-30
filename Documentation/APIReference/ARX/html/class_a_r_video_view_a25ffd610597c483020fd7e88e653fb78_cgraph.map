@@ -1,4 +1,5 @@
 <map id="ARVideoView::setRotate90" name="ARVideoView::setRotate90">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,187,31"/>
-<area shape="rect" id="node2" href="$class_a_r_video_view.html#a1fd2ef182b3414370cafb069885c92c7" title="‍Defaults to true." alt="" coords="235,5,392,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,187,31"/>
+<area shape="rect" id="Node000002" href="$class_a_r_video_view.html#a1fd2ef182b3414370cafb069885c92c7" title=" " alt="" coords="235,5,392,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,16,222,18,216,18,187,21"/>
 </map>

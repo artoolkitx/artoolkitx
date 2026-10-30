@@ -1,4 +1,7 @@
 <map id="ar2VideoLoadParam" name="ar2VideoLoadParam">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,144,31"/>
-<area shape="rect" id="node2" href="$video1394_8h.html#abe4b4a7741dd6630962015bd2b9eb96b" title=" " alt="" coords="192,5,358,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,144,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="40,29,34,21,38,11,52,5,75,3,99,5,113,14,108,15,98,10,74,8,53,10,42,15,40,20,46,29"/>
+<area shape="rect" id="Node000002" href="$video1394_8h.html#abe4b4a7741dd6630962015bd2b9eb96b" title=" " alt="" coords="192,29,358,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="144,40,178,42,173,42,144,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="241,28,235,21,239,11,252,5,275,3,299,5,313,15,308,14,298,10,275,8,254,10,242,15,240,20,246,30"/>
 </map>

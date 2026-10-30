@@ -1,4 +1,5 @@
 <map id="ARVideoSourceInfoListT" name="ARVideoSourceInfoListT">
-<area shape="rect" id="node1" title="Values describing a list of video sources." alt="" coords="5,94,171,120"/>
-<area shape="rect" id="node2" href="$struct_a_r_video_source_info_t.html" title="Values describing a video source." alt="" coords="16,5,160,31"/>
+<area shape="rect" id="Node000001" title="Values describing a list of video sources." alt="" coords="5,102,171,128"/>
+<area shape="rect" id="Node000002" href="$struct_a_r_video_source_info_t.html" title="Values describing a video source." alt="" coords="16,5,160,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,45,91,102,85,101,86,48"/>
 </map>

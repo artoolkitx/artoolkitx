@@ -1,6 +1,12 @@
 <map id="ARTrackerSquare::setThresholdMode" name="ARTrackerSquare::setThresholdMode">
-<area shape="rect" id="node1" title="Sets the thresholding mode to use." alt="" coords="5,31,246,56"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#aec6c548f3619e700e40764cd1c685fc6" title="Set the labeling threshold mode (auto/manual)." alt="" coords="294,31,466,56"/>
-<area shape="rect" id="node3" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="514,5,637,31"/>
-<area shape="rect" id="node4" href="$ar_image_proc_8c.html#ab17100ae9f8d3a2b881830f135bfffa8" title="Initialise image processing." alt="" coords="519,55,632,80"/>
+<area shape="rect" id="Node000001" title="Sets the thresholding mode to use." alt="" coords="5,67,246,92"/>
+<area shape="rect" id="Node000002" href="$ar_create_handle_8c.html#aec6c548f3619e700e40764cd1c685fc6" title="Set the labeling threshold mode (auto/manual)." alt="" coords="294,67,466,92"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="246,77,281,79,275,80,246,82"/>
+<area shape="poly" id="edge6_Node000002_Node000002" title=" " alt="" coords="347,65,341,58,344,48,358,42,380,40,404,43,418,52,412,52,402,48,380,45,359,47,348,52,346,57,352,67"/>
+<area shape="rect" id="Node000003" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="514,29,637,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="450,63,496,57,501,56,451,69"/>
+<area shape="rect" id="Node000004" href="$ar_image_proc_8c.html#ab17100ae9f8d3a2b881830f135bfffa8" title="Initialise image processing." alt="" coords="519,103,632,128"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="453,90,507,102,501,102,453,96"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="543,28,536,21,540,11,554,5,576,3,600,5,613,15,608,14,598,10,576,8,555,10,544,15,542,20,547,30"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="543,101,536,94,540,84,554,78,576,76,600,79,613,88,608,87,598,84,576,81,555,83,544,88,542,93,547,103"/>
 </map>
