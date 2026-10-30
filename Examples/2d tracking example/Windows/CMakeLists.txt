@@ -8,7 +8,7 @@
 # Author(s): Philip Lamb <phil@artoolkitx.org>
 #
 
-cmake_minimum_required( VERSION 3.2 )
+cmake_minimum_required( VERSION 3.5 )
 
 # Any directives that must go before the project command.
 project("artoolkitx_2d_tracking_example"
