@@ -1,4 +1,7 @@
 <map id="force_undefined" name="force_undefined">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,119,31"/>
-<area shape="rect" id="node2" href="$video_save_image_8c.html#a3361b7a8bf380395f21bce45f6d6c825" title=" " alt="" coords="167,5,333,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,119,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="30,29,24,21,28,11,41,5,62,3,85,5,98,14,93,14,83,10,62,8,42,10,32,15,30,20,35,29"/>
+<area shape="rect" id="Node000002" href="$video_save_image_8c.html#a3361b7a8bf380395f21bce45f6d6c825" title=" " alt="" coords="167,29,333,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,40,154,42,149,42,119,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="218,28,212,21,216,11,229,5,250,3,273,5,286,15,281,14,271,10,250,8,230,10,220,15,217,20,223,30"/>
 </map>

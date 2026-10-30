@@ -1,5 +1,10 @@
 <map id="arImageProcLumaHistAndCDFAndLevels" name="arImageProcLumaHistAndCDFAndLevels">
-<area shape="rect" id="node1" title="Calculate image histogram, cumulative density function, and minimum and maximum luminance values." alt="" coords="5,5,231,46"/>
-<area shape="rect" id="node2" href="$ar_image_proc_8c.html#afb1e9977532aec222fb1895c3d66b5f3" title="Calculate image histogram and cumulative density function." alt="" coords="279,13,481,39"/>
-<area shape="rect" id="node3" href="$ar_image_proc_8c.html#a9bddf2e229ba8ea9a61ea1f2d5a61b2a" title="Calculate luminance histogram." alt="" coords="529,13,680,39"/>
+<area shape="rect" id="Node000001" title="Calculate image histogram, cumulative density function, and minimum and maximum luminance values." alt="" coords="5,29,231,70"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="69,28,67,19,75,10,92,5,118,3,146,5,165,14,159,14,145,10,118,8,93,10,78,15,72,21,74,29"/>
+<area shape="rect" id="Node000002" href="$ar_image_proc_8c.html#afb1e9977532aec222fb1895c3d66b5f3" title="Calculate image histogram and cumulative density function." alt="" coords="279,37,481,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,47,265,50,260,50,231,52"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="342,35,335,28,340,18,355,12,380,10,407,13,423,22,418,22,406,18,380,15,356,18,343,22,340,28,347,37"/>
+<area shape="rect" id="Node000003" href="$ar_image_proc_8c.html#a9bddf2e229ba8ea9a61ea1f2d5a61b2a" title="Calculate luminance histogram." alt="" coords="529,37,680,62"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="481,47,516,50,511,50,481,52"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="567,35,560,28,564,18,580,12,605,10,632,13,648,23,642,22,631,18,605,15,581,18,568,22,565,28,572,37"/>
 </map>

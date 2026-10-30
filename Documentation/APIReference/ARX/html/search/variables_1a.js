@@ -1,9 +1,9 @@
 var searchData=
 [
   ['z_0',['z',['../struct_i_c_p3_d_coord_t.html#a4edb6166dfdcf9d9ed44ea3fad6b63d7',1,'ICP3DCoordT']]],
-  ['z_5ffilefunc_1',['z_filefunc',['../structfile__in__zip64__read__info__s.html#a8f70bfdfd43b9e896a0a250fea64cbba',1,'file_in_zip64_read_info_s::z_filefunc()'],['../structunz64__internal.html#aa499d69570a888f0fdcb41e477b42210',1,'unz64_internal::z_filefunc()'],['../structzip64__internal.html#ac4ccb50738cbefbd40e075b297c65548',1,'zip64_internal::z_filefunc()']]],
-  ['zclose_5ffile_2',['zclose_file',['../structzlib__filefunc__def__s.html#ac46ac7ec0540dce117dab3f210d26763',1,'zlib_filefunc_def_s::zclose_file()'],['../structzlib__filefunc64__def__s.html#aaf7d9825e2afc16c93cec9956c4f1a10',1,'zlib_filefunc64_def_s::zclose_file()']]],
-  ['zerror_5ffile_3',['zerror_file',['../structzlib__filefunc__def__s.html#a94367937a542f5d50d3ac979ef61edcf',1,'zlib_filefunc_def_s::zerror_file()'],['../structzlib__filefunc64__def__s.html#a35d06e87a7d0be9d0a7a3f9a09a4f6a5',1,'zlib_filefunc64_def_s::zerror_file()']]],
+  ['z_5ffilefunc_1',['z_filefunc',['../structfile__in__zip64__read__info__s.html#a8f70bfdfd43b9e896a0a250fea64cbba',1,'file_in_zip64_read_info_s::z_filefunc'],['../structunz64__internal.html#aa499d69570a888f0fdcb41e477b42210',1,'unz64_internal::z_filefunc'],['../structzip64__internal.html#ac4ccb50738cbefbd40e075b297c65548',1,'zip64_internal::z_filefunc']]],
+  ['zclose_5ffile_2',['zclose_file',['../structzlib__filefunc__def__s.html#ac46ac7ec0540dce117dab3f210d26763',1,'zlib_filefunc_def_s::zclose_file'],['../structzlib__filefunc64__def__s.html#aaf7d9825e2afc16c93cec9956c4f1a10',1,'zlib_filefunc64_def_s::zclose_file']]],
+  ['zerror_5ffile_3',['zerror_file',['../structzlib__filefunc__def__s.html#a94367937a542f5d50d3ac979ef61edcf',1,'zlib_filefunc_def_s::zerror_file'],['../structzlib__filefunc64__def__s.html#a35d06e87a7d0be9d0a7a3f9a09a4f6a5',1,'zlib_filefunc64_def_s::zerror_file']]],
   ['zfile_5ffunc64_4',['zfile_func64',['../structzlib__filefunc64__32__def__s.html#a5b05687723a1a8cd310a73ab62fc31f5',1,'zlib_filefunc64_32_def_s']]],
   ['zip64_5',['zip64',['../structcurfile64__info.html#ad8f4cd023ee61e46aac147d266be0538',1,'curfile64_info']]],
   ['zip_5fcopyright_6',['zip_copyright',['../zip_8c.html#a2f04ce339195ade34f75dcba39524570',1,'zip.c']]],
@@ -14,12 +14,12 @@ var searchData=
   ['zopendisk32_5ffile_11',['zopendisk32_file',['../structzlib__filefunc64__32__def__s.html#acf4c70fc762fdccee2ce7bca37996937',1,'zlib_filefunc64_32_def_s']]],
   ['zopendisk64_5ffile_12',['zopendisk64_file',['../structzlib__filefunc64__def__s.html#a42d6f4d988510f51b74ac74019eb191c',1,'zlib_filefunc64_def_s']]],
   ['zopendisk_5ffile_13',['zopendisk_file',['../structzlib__filefunc__def__s.html#a1f1f58ad043ed584284294646be0a8c7',1,'zlib_filefunc_def_s']]],
-  ['zread_5ffile_14',['zread_file',['../structzlib__filefunc__def__s.html#ab14f748de7516525e5d2b78c47aca92e',1,'zlib_filefunc_def_s::zread_file()'],['../structzlib__filefunc64__def__s.html#a5fd1cd36c741000649328d0db54523c5',1,'zlib_filefunc64_def_s::zread_file()']]],
+  ['zread_5ffile_14',['zread_file',['../structzlib__filefunc__def__s.html#ab14f748de7516525e5d2b78c47aca92e',1,'zlib_filefunc_def_s::zread_file'],['../structzlib__filefunc64__def__s.html#a5fd1cd36c741000649328d0db54523c5',1,'zlib_filefunc64_def_s::zread_file']]],
   ['zseek32_5ffile_15',['zseek32_file',['../structzlib__filefunc64__32__def__s.html#a2c6e18405ec9c8b2d482055e9bf06766',1,'zlib_filefunc64_32_def_s']]],
   ['zseek64_5ffile_16',['zseek64_file',['../structzlib__filefunc64__def__s.html#ab03b3242d363b748ea6e60b7b9e5e6d1',1,'zlib_filefunc64_def_s']]],
   ['zseek_5ffile_17',['zseek_file',['../structzlib__filefunc__def__s.html#a4747bdf97a3f44fe4b958114c11e1dcf',1,'zlib_filefunc_def_s']]],
   ['ztell32_5ffile_18',['ztell32_file',['../structzlib__filefunc64__32__def__s.html#a8ef46da9e69697b4f13cd611523761a8',1,'zlib_filefunc64_32_def_s']]],
   ['ztell64_5ffile_19',['ztell64_file',['../structzlib__filefunc64__def__s.html#a88b8bd0d697c49e384915fcab765b5b3',1,'zlib_filefunc64_def_s']]],
   ['ztell_5ffile_20',['ztell_file',['../structzlib__filefunc__def__s.html#ac8b933601443cdd83f8cc02004c77d0d',1,'zlib_filefunc_def_s']]],
-  ['zwrite_5ffile_21',['zwrite_file',['../structzlib__filefunc__def__s.html#a710b490fec793486ef5bedd9f2e1136d',1,'zlib_filefunc_def_s::zwrite_file()'],['../structzlib__filefunc64__def__s.html#a04f5366c9e7e48343357bb88b46998f9',1,'zlib_filefunc64_def_s::zwrite_file()']]]
+  ['zwrite_5ffile_21',['zwrite_file',['../structzlib__filefunc__def__s.html#a710b490fec793486ef5bedd9f2e1136d',1,'zlib_filefunc_def_s::zwrite_file'],['../structzlib__filefunc64__def__s.html#a04f5366c9e7e48343357bb88b46998f9',1,'zlib_filefunc64_def_s::zwrite_file']]]
 ];

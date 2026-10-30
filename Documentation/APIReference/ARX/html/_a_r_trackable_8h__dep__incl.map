@@ -1,23 +1,54 @@
 <map id="Source/ARX/include/ARX/ARTrackable.h" name="Source/ARX/include/ARX/ARTrackable.h">
-<area shape="rect" id="node1" title=" " alt="" coords="691,5,835,46"/>
-<area shape="rect" id="node2" href="$_a_r_trackable_8cpp.html" title=" " alt="" coords="50,471,249,497"/>
-<area shape="rect" id="node3" href="$_a_r_controller_8h.html" title=" " alt="" coords="893,375,1035,416"/>
-<area shape="rect" id="node9" href="$_a_r_trackable2d_8h.html" title=" " alt="" coords="346,102,505,142"/>
-<area shape="rect" id="node11" href="$_a_r_trackable_multi_square_8h.html" title=" " alt="" coords="43,198,256,238"/>
-<area shape="rect" id="node14" href="$_a_r_trackable_multi_square_auto_8h.html" title=" " alt="" coords="887,94,1089,150"/>
-<area shape="rect" id="node16" href="$_a_r_trackable_n_f_t_8h.html" title=" " alt="" coords="569,102,738,142"/>
-<area shape="rect" id="node18" href="$_a_r_trackable_square_8h.html" title=" " alt="" coords="765,198,950,238"/>
-<area shape="rect" id="node19" href="$_a_r_tracker_8h.html" title=" " alt="" coords="1274,102,1414,142"/>
-<area shape="rect" id="node4" href="$_a_r_controller_8cpp.html" title=" " alt="" coords="764,471,961,497"/>
-<area shape="rect" id="node5" href="$_a_r_trackable_multi_square_8cpp.html" title=" " alt="" coords="274,464,476,504"/>
-<area shape="rect" id="node6" href="$_a_r_trackable_square_8cpp.html" title=" " alt="" coords="500,471,740,497"/>
-<area shape="rect" id="node7" href="$_a_r_video_source_8cpp.html" title=" " alt="" coords="985,471,1202,497"/>
-<area shape="rect" id="node8" href="$_a_r_x__c_8cpp.html" title=" " alt="" coords="1225,471,1391,497"/>
-<area shape="rect" id="node10" href="$_a_r_trackable2d_8cpp.html" title=" " alt="" coords="280,205,493,231"/>
-<area shape="rect" id="node12" href="$_a_r_tracker_square_8cpp.html" title=" " alt="" coords="641,383,868,408"/>
-<area shape="rect" id="node13" href="$_a_r_tracker_square_8h.html" title=" " alt="" coords="778,286,950,327"/>
-<area shape="rect" id="node15" href="$_a_r_trackable_multi_square_auto_8cpp.html" title=" " alt="" coords="1026,198,1228,238"/>
-<area shape="rect" id="node17" href="$_a_r_trackable_n_f_t_8cpp.html" title=" " alt="" coords="518,205,741,231"/>
-<area shape="rect" id="node20" href="$_a_r_tracker_8cpp.html" title=" " alt="" coords="1251,205,1437,231"/>
-<area shape="rect" id="node21" href="$_a_r_tracker_video_8h.html" title=" " alt="" coords="1461,198,1625,238"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="690,5,835,46"/>
+<area shape="rect" id="Node000002" href="$_a_r_trackable_8cpp.html" title=" " alt="" coords="50,471,249,497"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="673,32,487,47,376,61,266,79,165,103,83,134,52,152,28,172,13,193,8,217,8,308,12,335,21,361,36,385,54,407,94,443,131,470,126,471,91,448,50,411,32,388,17,363,6,337,3,308,3,216,8,191,24,168,49,147,81,129,164,98,265,74,375,55,486,42,677,29"/>
+<area shape="rect" id="Node000003" href="$_a_r_controller_8h.html" title=" " alt="" coords="893,375,1035,416"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="850,26,1048,37,1168,47,1290,63,1406,85,1509,114,1553,131,1590,150,1619,172,1640,196,1648,218,1640,240,1622,257,1598,274,1535,302,1456,326,1368,346,1186,375,1036,391,1035,386,1185,370,1367,341,1455,321,1533,297,1595,269,1618,253,1635,237,1642,218,1635,199,1615,176,1587,155,1550,136,1507,119,1405,90,1289,68,1167,53,1048,42,851,31"/>
+<area shape="rect" id="Node000009" href="$_a_r_trackable2d_8h.html" title=" " alt="" coords="346,102,504,142"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="675,52,497,103,495,98,680,49"/>
+<area shape="rect" id="Node000011" href="$_a_r_trackable_multi_square_8h.html" title=" " alt="" coords="43,198,256,238"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="673,31,601,39,514,50,424,69,336,96,288,119,243,147,173,199,170,195,240,142,285,114,334,92,422,64,514,45,600,33,678,29"/>
+<area shape="rect" id="Node000014" href="$_a_r_trackable_multi_square_auto_8h.html" title=" " alt="" coords="887,94,1089,150"/>
+<area shape="poly" id="edge18_Node000001_Node000014" title=" " alt="" coords="824,50,926,93,920,94,824,55"/>
+<area shape="rect" id="Node000016" href="$_a_r_trackable_n_f_t_8h.html" title=" " alt="" coords="569,102,738,142"/>
+<area shape="poly" id="edge21_Node000001_Node000016" title=" " alt="" coords="731,54,678,103,674,99,727,58"/>
+<area shape="rect" id="Node000018" href="$_a_r_trackable_square_8h.html" title=" " alt="" coords="765,198,950,238"/>
+<area shape="poly" id="edge23_Node000001_Node000018" title=" " alt="" coords="780,58,850,198,845,197,778,62"/>
+<area shape="rect" id="Node000019" href="$_a_r_tracker_8h.html" title=" " alt="" coords="1274,102,1414,142"/>
+<area shape="poly" id="edge28_Node000001_Node000019" title=" " alt="" coords="850,38,1276,108,1271,110,850,44"/>
+<area shape="poly" id="edge4_Node000003_Node000002" title=" " alt="" coords="880,416,704,438,568,445,433,450,262,466,215,473,215,468,261,461,433,445,568,440,704,433,875,416"/>
+<area shape="rect" id="Node000004" href="$_a_r_controller_8cpp.html" title=" " alt="" coords="764,471,961,497"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="932,425,878,473,875,468,927,427"/>
+<area shape="rect" id="Node000005" href="$_a_r_trackable_multi_square_8cpp.html" title=" " alt="" coords="274,464,476,504"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="880,416,768,435,682,444,488,466,476,468,476,463,488,461,681,439,767,430,875,416"/>
+<area shape="rect" id="Node000006" href="$_a_r_trackable_square_8cpp.html" title=" " alt="" coords="500,471,740,497"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="880,418,669,473,668,468,875,419"/>
+<area shape="rect" id="Node000007" href="$_a_r_video_source_8cpp.html" title=" " alt="" coords="985,471,1202,497"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="1007,422,1078,471,1073,470,1005,427"/>
+<area shape="rect" id="Node000008" href="$_a_r_x__c_8cpp.html" title=" " alt="" coords="1225,471,1391,497"/>
+<area shape="poly" id="edge8_Node000003_Node000008" title=" " alt="" coords="1051,416,1262,471,1257,470,1050,421"/>
+<area shape="rect" id="Node000010" href="$_a_r_trackable2d_8cpp.html" title=" " alt="" coords="280,205,493,231"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="413,154,394,207,389,203,410,159"/>
+<area shape="poly" id="edge12_Node000011_Node000002" title=" " alt="" coords="152,253,152,471,147,471,147,255"/>
+<area shape="poly" id="edge13_Node000011_Node000005" title=" " alt="" coords="177,248,361,462,356,464,174,252"/>
+<area shape="rect" id="Node000012" href="$_a_r_tracker_square_8cpp.html" title=" " alt="" coords="641,382,868,408"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="232,240,714,380,711,384,231,246"/>
+<area shape="rect" id="Node000013" href="$_a_r_tracker_square_8h.html" title=" " alt="" coords="778,286,950,327"/>
+<area shape="poly" id="edge15_Node000011_Node000013" title=" " alt="" coords="271,236,553,270,780,296,775,298,552,276,271,241"/>
+<area shape="poly" id="edge17_Node000013_Node000003" title=" " alt="" coords="899,335,944,375,939,374,897,340"/>
+<area shape="poly" id="edge16_Node000013_Node000012" title=" " alt="" coords="830,336,771,385,768,380,825,338"/>
+<area shape="poly" id="edge20_Node000014_Node000012" title=" " alt="" coords="996,163,1000,203,997,246,987,290,965,329,941,346,903,361,817,384,815,379,902,356,938,341,961,325,982,288,992,245,995,203,993,167"/>
+<area shape="rect" id="Node000015" href="$_a_r_trackable_multi_square_auto_8cpp.html" title=" " alt="" coords="1026,198,1228,238"/>
+<area shape="poly" id="edge19_Node000014_Node000015" title=" " alt="" coords="1041,156,1100,197,1095,197,1040,161"/>
+<area shape="rect" id="Node000017" href="$_a_r_trackable_n_f_t_8cpp.html" title=" " alt="" coords="518,205,741,231"/>
+<area shape="poly" id="edge22_Node000016_Node000017" title=" " alt="" coords="646,155,634,207,630,203,643,159"/>
+<area shape="poly" id="edge24_Node000018_Node000002" title=" " alt="" coords="787,243,664,289,383,394,181,473,179,468,381,389,662,284,782,245"/>
+<area shape="poly" id="edge25_Node000018_Node000006" title=" " alt="" coords="793,244,749,269,704,298,664,333,632,376,622,401,619,427,620,473,616,469,613,427,617,400,627,374,660,330,701,293,746,264,788,246"/>
+<area shape="poly" id="edge26_Node000018_Node000012" title=" " alt="" coords="806,246,784,266,768,288,758,312,754,338,755,384,751,381,749,338,753,311,763,285,781,263,802,248"/>
+<area shape="poly" id="edge27_Node000018_Node000013" title=" " alt="" coords="862,252,865,287,860,284,858,256"/>
+<area shape="rect" id="Node000020" href="$_a_r_tracker_8cpp.html" title=" " alt="" coords="1251,205,1437,231"/>
+<area shape="poly" id="edge29_Node000019_Node000020" title=" " alt="" coords="1346,155,1346,207,1342,203,1342,160"/>
+<area shape="rect" id="Node000021" href="$_a_r_tracker_video_8h.html" title=" " alt="" coords="1460,198,1625,238"/>
+<area shape="poly" id="edge30_Node000019_Node000021" title=" " alt="" coords="1400,147,1504,197,1498,197,1399,152"/>
+<area shape="poly" id="edge31_Node000021_Node000013" title=" " alt="" coords="1443,239,1171,278,951,300,950,295,1171,273,1448,238"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="Source/ARX/ARUtil/include/ARX/ARUtil/android.h" name="Source/ARX/ARUtil/include/ARX/ARUtil/android.h">
-<area shape="rect" id="node1" title=" " alt="" coords="6,5,188,46"/>
-<area shape="rect" id="node2" href="$android__system__property__get_8c.html" title=" " alt="" coords="5,94,189,135"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="6,5,188,46"/>
+<area shape="rect" id="Node000002" href="$android__system__property__get_8c.html" title=" " alt="" coords="5,94,189,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,60,99,94,95,93,95,64"/>
 </map>

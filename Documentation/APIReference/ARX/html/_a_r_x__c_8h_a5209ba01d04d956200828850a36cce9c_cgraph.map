@@ -1,4 +1,4 @@
 <map id="arwGetTrackableOptionFloat" name="arwGetTrackableOptionFloat">
-<area shape="rect" id="node1" title="Get floating&#45;point options associated with a trackable." alt="" coords="5,5,193,31"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#aff42fd017881ce2601c53f830ae7d021" title="Searches the collection of trackables for the given ID." alt="" coords="241,5,423,31"/>
+<area shape="rect" id="Node000001" title="Get floating&#45;point options associated with a trackable." alt="" coords="5,29,193,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="67,29,61,21,65,11,78,5,99,3,122,5,135,14,130,14,120,10,99,8,79,10,69,15,67,20,72,29"/>
 </map>

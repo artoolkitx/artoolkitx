@@ -1,15 +1,40 @@
 <map id="arVideoGetParami" name="arVideoGetParami">
-<area shape="rect" id="node1" title="Get value of an integer parameter from active video module." alt="" coords="5,252,133,278"/>
-<area shape="rect" id="node2" href="$video2_8c.html#af67fa1b2fa58610d22a5ba68801259e0" title=" " alt="" coords="181,252,315,278"/>
-<area shape="rect" id="node3" href="$video1394_8h.html#ac6133ea036896d9e6171da008299f853" title=" " alt="" coords="389,5,551,31"/>
-<area shape="rect" id="node4" href="$video_android_8h.html#a8e1c2a91e405805bba46fa18b15191b5" title=" " alt="" coords="381,55,559,80"/>
-<area shape="rect" id="node5" href="$video_a_v_foundation_8h.html#ae243debe2c8a0473ab60d57ac6cfc59b" title=" " alt="" coords="363,104,577,130"/>
-<area shape="rect" id="node6" href="$video_dummy_8h.html#a21cfdfc1d4f7a374258b894b99a8a4d9" title=" " alt="" coords="380,153,560,179"/>
-<area shape="rect" id="node7" href="$video_emscripten_8h.html#abe048926e5905db5d2c3f7cd09d4cc5a" title=" " alt="" coords="370,203,570,228"/>
-<area shape="rect" id="node8" href="$video_external_8h.html#a452a6730ddaa806cb7ef78c9ef5efab7" title=" " alt="" coords="379,252,561,278"/>
-<area shape="rect" id="node9" href="$video_g_streamer_8h.html#a06215850227491cca2079bd515353c58" title=" " alt="" coords="372,301,569,327"/>
-<area shape="rect" id="node10" href="$video_image_8h.html#a643853f81e1fd04fccdd8fb8ed778cdb" title=" " alt="" coords="385,351,555,376"/>
-<area shape="rect" id="node11" href="$video_v4_l2_8h.html#a20ec6276fa613171b650569206194a32" title=" " alt="" coords="388,400,552,426"/>
-<area shape="rect" id="node12" href="$video_windows_media_capture_8h.html#a0a27a8d36731b9932418d3e5e80d596b" title=" " alt="" coords="381,449,559,475"/>
-<area shape="rect" id="node13" href="$video_windows_media_foundation_8h.html#af3beb23787c689b81516088f4349c8a4" title=" " alt="" coords="382,499,558,524"/>
+<area shape="rect" id="Node000001" title="Get value of an integer parameter from active video module." alt="" coords="5,396,133,422"/>
+<area shape="poly" id="edge25_Node000001_Node000001" title=" " alt="" coords="38,396,33,387,36,378,49,372,69,369,91,372,103,380,98,382,89,377,69,375,50,377,40,381,38,387,44,395"/>
+<area shape="rect" id="Node000002" href="$video2_8c.html#af67fa1b2fa58610d22a5ba68801259e0" title=" " alt="" coords="181,396,315,422"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,407,167,407,163,410,134,411"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="217,396,212,387,215,378,228,372,248,369,270,372,282,380,277,381,268,377,248,375,229,377,219,381,217,387,222,395"/>
+<area shape="rect" id="Node000003" href="$video1394_8h.html#ac6133ea036896d9e6171da008299f853" title=" " alt="" coords="389,29,551,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="247,395,250,335,266,246,280,197,300,148,327,103,361,64,377,55,373,59,365,68,331,106,305,151,285,198,271,247,256,336,252,396"/>
+<area shape="rect" id="Node000004" href="$video_android_8h.html#a8e1c2a91e405805bba46fa18b15191b5" title=" " alt="" coords="381,103,559,128"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="248,395,256,346,275,277,290,239,309,202,332,167,361,138,369,134,366,138,365,141,336,171,313,204,294,241,280,278,261,348,253,397"/>
+<area shape="rect" id="Node000005" href="$video_a_v_foundation_8h.html#ae243debe2c8a0473ab60d57ac6cfc59b" title=" " alt="" coords="363,176,577,202"/>
+<area shape="poly" id="edge7_Node000002_Node000005" title=" " alt="" coords="250,394,263,358,285,307,317,255,338,231,361,211,370,207,367,211,365,215,342,235,322,258,290,310,268,359,255,396"/>
+<area shape="rect" id="Node000006" href="$video_dummy_8h.html#a21cfdfc1d4f7a374258b894b99a8a4d9" title=" " alt="" coords="380,249,560,275"/>
+<area shape="poly" id="edge9_Node000002_Node000006" title=" " alt="" coords="255,394,296,340,326,310,362,284,375,279,371,283,364,288,330,314,300,344,260,397"/>
+<area shape="rect" id="Node000007" href="$video_emscripten_8h.html#abe048926e5905db5d2c3f7cd09d4cc5a" title=" " alt="" coords="370,323,570,348"/>
+<area shape="poly" id="edge11_Node000002_Node000007" title=" " alt="" coords="275,393,362,357,389,351,384,354,364,362,278,398"/>
+<area shape="rect" id="Node000008" href="$video_external_8h.html#a452a6730ddaa806cb7ef78c9ef5efab7" title=" " alt="" coords="379,396,561,422"/>
+<area shape="poly" id="edge13_Node000002_Node000008" title=" " alt="" coords="314,406,366,408,361,410,316,411"/>
+<area shape="rect" id="Node000009" href="$video_g_streamer_8h.html#a06215850227491cca2079bd515353c58" title=" " alt="" coords="372,469,569,495"/>
+<area shape="poly" id="edge15_Node000002_Node000009" title=" " alt="" coords="289,420,417,463,412,465,290,425"/>
+<area shape="rect" id="Node000010" href="$video_image_8h.html#a643853f81e1fd04fccdd8fb8ed778cdb" title=" " alt="" coords="385,543,555,568"/>
+<area shape="poly" id="edge17_Node000002_Node000010" title=" " alt="" coords="262,419,307,461,364,505,421,536,416,537,362,510,303,465,262,425"/>
+<area shape="rect" id="Node000011" href="$video_v4_l2_8h.html#a20ec6276fa613171b650569206194a32" title=" " alt="" coords="388,616,552,642"/>
+<area shape="poly" id="edge19_Node000002_Node000011" title=" " alt="" coords="256,420,296,494,327,539,365,579,388,595,414,610,409,610,385,599,361,583,323,542,291,497,254,425"/>
+<area shape="rect" id="Node000012" href="$video_windows_media_capture_8h.html#a0a27a8d36731b9932418d3e5e80d596b" title=" " alt="" coords="381,689,559,715"/>
+<area shape="poly" id="edge21_Node000002_Node000012" title=" " alt="" coords="253,419,266,464,287,526,319,593,340,624,365,652,385,668,410,683,405,683,382,673,361,656,336,627,315,595,282,528,260,466,251,424"/>
+<area shape="rect" id="Node000013" href="$video_windows_media_foundation_8h.html#af3beb23787c689b81516088f4349c8a4" title=" " alt="" coords="382,763,558,788"/>
+<area shape="poly" id="edge23_Node000002_Node000013" title=" " alt="" coords="251,420,260,476,279,557,293,601,312,646,336,688,365,726,384,742,408,757,402,756,381,746,361,729,331,691,307,648,288,603,273,558,255,477,249,425"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="433,29,426,21,430,11,445,5,470,3,497,5,513,14,507,15,496,10,470,8,447,10,434,15,431,20,438,29"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="433,102,426,94,430,84,445,78,470,76,497,79,513,87,507,89,496,84,470,81,447,83,434,88,431,93,438,102"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="433,176,426,167,430,158,445,151,470,149,497,152,513,161,507,162,496,157,470,155,447,157,434,161,431,167,438,176"/>
+<area shape="poly" id="edge10_Node000006_Node000006" title=" " alt="" coords="433,249,426,241,430,231,445,225,470,223,497,225,513,234,507,235,496,230,470,228,447,230,434,235,431,240,438,249"/>
+<area shape="poly" id="edge12_Node000007_Node000007" title=" " alt="" coords="433,322,426,314,430,304,445,298,470,296,497,299,513,307,507,308,496,304,470,301,447,303,434,308,431,313,438,322"/>
+<area shape="poly" id="edge14_Node000008_Node000008" title=" " alt="" coords="433,395,426,387,430,378,445,371,470,369,497,372,513,381,507,382,496,377,470,375,447,377,434,381,431,387,438,396"/>
+<area shape="poly" id="edge16_Node000009_Node000009" title=" " alt="" coords="433,469,426,461,430,451,445,445,470,443,497,445,513,454,507,455,496,450,470,448,447,450,434,455,431,460,438,469"/>
+<area shape="poly" id="edge18_Node000010_Node000010" title=" " alt="" coords="433,542,426,534,430,524,445,518,470,516,497,519,513,528,507,528,496,524,470,521,447,523,434,528,431,533,438,543"/>
+<area shape="poly" id="edge20_Node000011_Node000011" title=" " alt="" coords="433,615,426,607,430,598,445,591,470,589,497,592,513,601,507,601,496,597,470,595,447,597,434,601,431,607,438,616"/>
+<area shape="poly" id="edge22_Node000012_Node000012" title=" " alt="" coords="433,688,426,681,430,671,445,665,470,663,497,665,513,675,507,674,496,670,470,668,447,670,434,675,431,680,438,690"/>
+<area shape="poly" id="edge24_Node000013_Node000013" title=" " alt="" coords="433,761,426,754,430,744,445,738,470,736,497,739,513,748,507,747,496,744,470,741,447,743,434,748,431,753,438,763"/>
 </map>

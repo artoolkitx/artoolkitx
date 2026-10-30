@@ -1,8 +1,18 @@
 <map id="ARVideoView::drawDebugImage" name="ARVideoView::drawDebugImage">
-<area shape="rect" id="node1" title=" " alt="" coords="5,120,218,146"/>
-<area shape="rect" id="node2" href="$arg_8c.html#afdd586c0ba2cc7df1347cc0522c6777b" title="Display an ARVideo image, by drawing it using OpenGL." alt="" coords="301,5,406,31"/>
-<area shape="rect" id="node3" href="$arg_8c.html#a25cc1097132fc11d1acb6b37694b5d2a" title="Upload a buffer of pixel data to an OpenGL texture for later use by arglDispImage()." alt="" coords="266,55,441,96"/>
-<area shape="rect" id="node4" href="$arg_8c.html#a6b7919e1a7ade7c23394eeb964be17f6" title="Specify a desired pixel buffer size larger than the camera image size." alt="" coords="277,120,430,146"/>
-<area shape="rect" id="node5" href="$arg_8c.html#aab881f83622055d786e2f42086220b94" title="Set the format of pixel data which will be passed to arglDispImage*()" alt="" coords="287,169,420,195"/>
-<area shape="rect" id="node6" href="$arg_8c.html#a60f8657d50e21a7d8213a628bda888a9" title="Set the current video image drawing scalefactor." alt="" coords="291,219,416,244"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,192,218,218"/>
+<area shape="rect" id="Node000002" href="$arg_8c.html#afdd586c0ba2cc7df1347cc0522c6777b" title="Display an ARVideo image, by drawing it using OpenGL." alt="" coords="301,29,406,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,190,179,130,219,95,264,65,288,57,284,60,267,70,223,99,183,134,126,193"/>
+<area shape="rect" id="Node000003" href="$arg_8c.html#a25cc1097132fc11d1acb6b37694b5d2a" title="Upload a buffer of pixel data to an OpenGL texture for later use by arglDispImage()." alt="" coords="266,103,441,144"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="151,189,278,147,275,151,153,194"/>
+<area shape="rect" id="Node000004" href="$arg_8c.html#a6b7919e1a7ade7c23394eeb964be17f6" title="Specify a desired pixel buffer size larger than the camera image size." alt="" coords="277,192,430,218"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="217,202,264,204,259,206,219,207"/>
+<area shape="rect" id="Node000005" href="$arg_8c.html#aab881f83622055d786e2f42086220b94" title="Set the format of pixel data which will be passed to arglDispImage*()." alt="" coords="287,265,420,291"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="157,216,296,259,291,262,156,221"/>
+<area shape="rect" id="Node000006" href="$arg_8c.html#a60f8657d50e21a7d8213a628bda888a9" title="Set the current video image drawing scalefactor." alt="" coords="291,339,416,364"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="133,215,267,301,316,331,311,331,264,306,132,221"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="313,29,305,21,310,11,326,5,353,3,383,5,400,15,394,15,382,11,353,8,328,10,314,15,311,20,318,29"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="308,102,306,93,313,84,329,79,353,77,379,79,397,87,391,88,378,84,353,82,330,84,316,89,311,94,313,103"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="313,191,305,183,310,174,326,167,353,165,383,168,400,178,394,178,382,173,353,171,328,173,314,178,311,183,318,192"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="313,264,305,257,310,247,326,241,353,239,383,241,400,251,394,251,382,247,353,244,328,246,314,251,311,256,318,266"/>
+<area shape="poly" id="edge10_Node000006_Node000006" title=" " alt="" coords="313,337,305,330,310,320,326,314,353,312,383,315,400,325,394,324,382,320,353,317,328,319,314,324,311,329,318,339"/>
 </map>

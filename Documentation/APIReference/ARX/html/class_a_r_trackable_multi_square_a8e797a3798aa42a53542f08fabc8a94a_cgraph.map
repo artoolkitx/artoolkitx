@@ -1,13 +1,32 @@
 <map id="ARTrackableMultiSquare::updateWithDetectedMarkersStereo" name="ARTrackableMultiSquare::updateWithDetectedMarkersStereo">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,239,111"/>
-<area shape="rect" id="node2" href="$ar_multi_get_trans_mat_stereo_8c.html#adc78591a44b6245d34a62cc4190c4e23" title=" " alt="" coords="287,5,464,46"/>
-<area shape="rect" id="node3" href="$ar_multi_get_trans_mat_stereo_8c.html#a3c7f3daa5f4c73421e0cff3d654b954d" title=" " alt="" coords="287,71,464,111"/>
-<area shape="rect" id="node4" href="$class_a_r_trackable.html#a445a8894d99c98bc966ebff530d58278" title="Completes an update begun in the parent class, performing filtering, generating OpenGL view matrix an..." alt="" coords="303,136,448,161"/>
-<area shape="rect" id="node5" href="$ar_filter_trans_mat_8c.html#a575d29079692c1af23b19f0477ee2123" title="Filters the supplied pose estimate transformation matrix in&#45;place." alt="" coords="525,61,641,87"/>
-<area shape="rect" id="node9" href="$param_g_l_8c.html#a21250f8dd05058fe653e4a0116e7f592" title="Create an OpenGL viewing transformation matrix." alt="" coords="514,110,651,136"/>
-<area shape="rect" id="node10" href="$param_g_l_8c.html#a069eee4b7a32208a45b8c438283e9a7f" title=" " alt="" coords="512,160,653,185"/>
-<area shape="rect" id="node11" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title=" " alt="" coords="535,209,630,235"/>
-<area shape="rect" id="node6" href="$ar_util_8c.html#adb4a9f8d233d3b954fd85bbb3deda173" title=" " alt="" coords="701,12,834,37"/>
-<area shape="rect" id="node7" href="$ar_util_8c.html#aa543b10d8b401ccf5626aba7dfa12e09" title=" " alt="" coords="711,61,824,87"/>
-<area shape="rect" id="node8" href="$ar_util_8c.html#a016bf9cc45eee7cd9eae471cecc68e9a" title=" " alt="" coords="701,110,834,136"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,148,239,189"/>
+<area shape="rect" id="Node000002" href="$ar_multi_get_trans_mat_stereo_8c.html#adc78591a44b6245d34a62cc4190c4e23" title=" " alt="" coords="287,59,464,100"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,146,303,104,299,107,183,150"/>
+<area shape="rect" id="Node000003" href="$ar_multi_get_trans_mat_stereo_8c.html#a3c7f3daa5f4c73421e0cff3d654b954d" title=" " alt="" coords="287,148,464,189"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="238,166,273,168,268,170,240,171"/>
+<area shape="rect" id="Node000004" href="$class_a_r_trackable.html#a445a8894d99c98bc966ebff530d58278" title="Completes an update begun in the parent class, performing filtering, generating OpenGL view matrix an..." alt="" coords="303,213,448,239"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="215,187,303,208,298,210,215,192"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="336,58,334,49,341,40,354,35,375,33,398,35,413,43,407,44,396,40,375,38,356,40,344,44,339,50,341,59"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="336,147,334,139,341,130,354,124,375,122,398,124,413,133,407,133,396,129,375,127,356,129,344,134,339,140,341,149"/>
+<area shape="rect" id="Node000005" href="$ar_filter_trans_mat_8c.html#a575d29079692c1af23b19f0477ee2123" title="Filters the supplied pose estimate transformation matrix in&#45;place." alt="" coords="524,103,641,128"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="439,210,462,199,478,184,486,169,495,153,510,137,515,137,520,135,514,142,499,156,491,172,482,188,466,203,441,215"/>
+<area shape="rect" id="Node000009" href="$param_g_l_8c.html#a21250f8dd05058fe653e4a0116e7f592" title="Create an OpenGL viewing transformation matrix." alt="" coords="514,176,651,202"/>
+<area shape="poly" id="edge14_Node000004_Node000009" title=" " alt="" coords="447,211,501,203,496,205,448,216"/>
+<area shape="rect" id="Node000010" href="$param_g_l_8c.html#a069eee4b7a32208a45b8c438283e9a7f" title=" " alt="" coords="512,249,653,275"/>
+<area shape="poly" id="edge16_Node000004_Node000010" title=" " alt="" coords="448,236,499,247,494,247,448,241"/>
+<area shape="rect" id="Node000011" href="$ar_util_8c.html#ae28eeba3e16224a7d77b46bd34b8f4fe" title=" " alt="" coords="535,323,630,348"/>
+<area shape="poly" id="edge18_Node000004_Node000011" title=" " alt="" coords="402,237,546,315,541,316,401,242"/>
+<area shape="poly" id="edge7_Node000005_Node000005" title=" " alt="" coords="551,102,545,94,549,84,562,78,583,76,605,79,618,88,613,87,603,84,583,81,563,83,553,88,551,93,556,103"/>
+<area shape="rect" id="Node000006" href="$ar_util_8c.html#adb4a9f8d233d3b954fd85bbb3deda173" title=" " alt="" coords="701,29,834,55"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="614,100,700,64,717,60,712,62,702,69,616,105"/>
+<area shape="rect" id="Node000007" href="$ar_util_8c.html#aa543b10d8b401ccf5626aba7dfa12e09" title=" " alt="" coords="711,103,824,128"/>
+<area shape="poly" id="edge10_Node000005_Node000007" title=" " alt="" coords="641,113,699,115,694,116,642,118"/>
+<area shape="rect" id="Node000008" href="$ar_util_8c.html#a016bf9cc45eee7cd9eae471cecc68e9a" title=" " alt="" coords="701,176,834,202"/>
+<area shape="poly" id="edge12_Node000005_Node000008" title=" " alt="" coords="625,126,654,137,726,169,721,169,652,142,624,132"/>
+<area shape="poly" id="edge9_Node000006_Node000006" title=" " alt="" coords="736,28,730,21,734,11,747,5,768,3,790,5,803,14,798,14,788,10,767,8,748,10,738,15,736,20,741,30"/>
+<area shape="poly" id="edge11_Node000007_Node000007" title=" " alt="" coords="736,101,730,94,734,84,747,78,768,76,790,79,803,88,798,87,788,84,767,81,748,83,738,88,736,93,741,103"/>
+<area shape="poly" id="edge13_Node000008_Node000008" title=" " alt="" coords="736,175,730,167,734,158,747,152,768,149,790,152,803,161,798,160,788,157,767,155,748,157,738,161,736,167,741,177"/>
+<area shape="poly" id="edge15_Node000009_Node000009" title=" " alt="" coords="551,175,545,167,549,158,562,152,583,149,605,152,618,161,613,161,603,157,583,155,563,157,553,161,551,167,556,176"/>
+<area shape="poly" id="edge17_Node000010_Node000010" title=" " alt="" coords="551,248,545,241,549,231,562,225,583,223,605,225,618,235,613,234,603,230,583,228,563,230,553,235,551,240,556,250"/>
+<area shape="poly" id="edge19_Node000011_Node000011" title=" " alt="" coords="551,321,545,314,549,304,562,298,583,296,605,299,618,308,613,307,603,304,583,301,563,303,553,308,551,313,556,323"/>
 </map>

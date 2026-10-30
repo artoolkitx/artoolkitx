@@ -1,4 +1,6 @@
 <map id="ARTrackerSquare::setLabelingMode" name="ARTrackerSquare::setLabelingMode">
-<area shape="rect" id="node1" title="Sets the labeling mode to use." alt="" coords="5,5,237,31"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#ac64374d047a7137ff9261bf0b001c454" title="Select between detection of black markers and white markers." alt="" coords="285,5,417,31"/>
+<area shape="rect" id="Node000001" title="Sets the labeling mode to use." alt="" coords="5,29,237,55"/>
+<area shape="rect" id="Node000002" href="$ar_create_handle_8c.html#ac64374d047a7137ff9261bf0b001c454" title="Select between detection of black markers and white markers." alt="" coords="285,29,417,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="237,40,271,42,266,42,237,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="312,28,305,21,310,11,325,5,351,3,379,5,395,15,389,14,377,10,351,8,326,10,313,15,311,20,317,30"/>
 </map>

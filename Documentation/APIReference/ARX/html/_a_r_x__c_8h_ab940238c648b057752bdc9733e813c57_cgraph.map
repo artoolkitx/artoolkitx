@@ -1,4 +1,4 @@
 <map id="arwGetTrackableCount" name="arwGetTrackableCount">
-<area shape="rect" id="node1" title="Gets current number of trackables." alt="" coords="5,5,161,31"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#ac2961fa58ba3a2e10dbde637571efb91" title="Returns the number of currently loaded trackables." alt="" coords="209,5,409,31"/>
+<area shape="rect" id="Node000001" title="Gets current number of trackables." alt="" coords="5,29,161,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="56,29,51,21,54,11,65,5,83,3,102,5,113,14,108,14,100,10,83,8,67,10,59,15,57,20,61,29"/>
 </map>

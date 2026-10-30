@@ -1,5 +1,7 @@
 <map id="Source/ARX/ARUtil/crypt.h" name="Source/ARX/ARUtil/crypt.h">
-<area shape="rect" id="node1" title=" " alt="" coords="108,5,289,31"/>
-<area shape="rect" id="node2" href="$crypt_8c.html" title=" " alt="" coords="5,79,187,105"/>
-<area shape="rect" id="node3" href="$unzip_8c.html" title=" " alt="" coords="211,79,394,105"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="108,5,289,31"/>
+<area shape="rect" id="Node000002" href="$crypt_8c.html" title=" " alt="" coords="5,79,187,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,39,115,81,112,76,166,40"/>
+<area shape="rect" id="Node000003" href="$unzip_8c.html" title=" " alt="" coords="211,79,394,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="229,37,288,78,282,78,228,42"/>
 </map>

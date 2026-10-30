@@ -1,5 +1,11 @@
 <map id="arVecTridiagonalize" name="arVecTridiagonalize">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,141,56"/>
-<area shape="rect" id="node2" href="$v_house_8c.html#a22c1accf34e23812321b7f9e844fbbb8" title=" " alt="" coords="189,5,306,31"/>
-<area shape="rect" id="node3" href="$v_inner_p_8c.html#ad8f6d1df45e917e283188c5b1a40e4ff" title=" " alt="" coords="354,31,481,56"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,141,80"/>
+<area shape="poly" id="edge6_Node000001_Node000001" title=" " alt="" coords="43,54,38,46,41,36,53,30,73,28,94,31,107,39,101,40,92,36,73,33,55,35,45,40,43,45,48,54"/>
+<area shape="rect" id="Node000002" href="$v_house_8c.html#a22c1accf34e23812321b7f9e844fbbb8" title=" " alt="" coords="189,29,306,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,55,176,52,171,53,142,60"/>
+<area shape="rect" id="Node000003" href="$v_inner_p_8c.html#ad8f6d1df45e917e283188c5b1a40e4ff" title=" " alt="" coords="354,55,481,80"/>
+<area shape="poly" id="edge5_Node000001_Node000003" title=" " alt="" coords="141,65,339,65,338,70,141,70"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="218,28,213,21,216,11,228,5,247,3,268,5,280,14,275,14,266,10,247,8,230,10,220,15,218,20,223,30"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="306,48,341,56,336,56,306,54"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="389,53,383,46,387,36,398,30,418,28,438,31,451,40,445,39,437,36,418,33,400,35,391,40,388,45,393,55"/>
 </map>

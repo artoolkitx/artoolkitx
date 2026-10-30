@@ -1,5 +1,7 @@
 <map id="AR2VideoBuffer1394T" name="AR2VideoBuffer1394T">
-<area shape="rect" id="node1" title=" " alt="" coords="6,213,158,238"/>
-<area shape="rect" id="node2" href="$struct_a_r2_video_buffer_t.html" title="A structure which carries information about a video frame retrieved by the video library." alt="" coords="20,94,144,120"/>
-<area shape="rect" id="node3" href="$struct_a_r2_video_timestamp_t.html" title="A structure to hold a timestamp in seconds and microseconds, with arbitrary epoch." alt="" coords="5,5,159,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="6,239,158,265"/>
+<area shape="rect" id="Node000002" href="$struct_a_r2_video_buffer_t.html" title="A structure which carries information about a video frame retrieved by the video library." alt="" coords="20,102,144,128"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,142,85,239,79,238,80,144"/>
+<area shape="rect" id="Node000003" href="$struct_a_r2_video_timestamp_t.html" title="A structure to hold a timestamp in seconds and microseconds, with arbitrary epoch." alt="" coords="5,5,159,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="83,44,85,102,79,101,81,49"/>
 </map>

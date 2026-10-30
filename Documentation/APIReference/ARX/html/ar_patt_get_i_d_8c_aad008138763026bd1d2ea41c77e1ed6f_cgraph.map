@@ -1,6 +1,13 @@
 <map id="arPattGetID2" name="arPattGetID2">
-<area shape="rect" id="node1" title="Match the interior of a detected square against known patterns." alt="" coords="5,5,104,31"/>
-<area shape="rect" id="node2" href="$ar_patt_get_i_d_8c.html#acce963b8d7e85cedfcb4d33ece5f20db" title="Match the interior of a detected square against known patterns with variable border width." alt="" coords="152,5,280,31"/>
-<area shape="rect" id="node3" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="328,5,448,31"/>
-<area shape="rect" id="node4" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="496,5,663,31"/>
+<area shape="rect" id="Node000001" title="Match the interior of a detected square against known patterns." alt="" coords="5,29,104,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="27,29,22,21,25,11,36,5,55,3,74,5,86,14,80,14,72,10,54,8,38,10,29,15,27,20,32,29"/>
+<area shape="rect" id="Node000002" href="$ar_patt_get_i_d_8c.html#acce963b8d7e85cedfcb4d33ece5f20db" title="Match the interior of a detected square against known patterns with variable border width." alt="" coords="152,29,280,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="104,40,139,42,133,42,104,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="188,28,183,21,186,11,197,5,216,3,236,5,247,15,242,14,234,10,216,8,199,10,190,15,188,20,193,30"/>
+<area shape="rect" id="Node000003" href="$ar_patt_get_i_d_8c.html#a85629f26a05cd8cb8644c5e95e581d4d" title="Extract the image (i.e. locate and unwarp) of the pattern&#45;space portion of a detected square." alt="" coords="328,29,448,55"/>
+<area shape="poly" id="edge4_Node000002_Node000003" title=" " alt="" coords="280,40,315,42,310,42,280,45"/>
+<area shape="poly" id="edge7_Node000003_Node000003" title=" " alt="" coords="359,28,353,21,357,11,369,5,388,3,409,5,421,15,416,14,407,10,388,8,370,10,361,15,359,20,364,30"/>
+<area shape="rect" id="Node000004" href="$param_l_t_8c.html#af28ec15693678c1e60242cf44e1c1a3f" title="Use a lookup&#45;table camera parameter to convert idealised (zero&#45;distortion) window coordinates to obse..." alt="" coords="496,29,663,55"/>
+<area shape="poly" id="edge5_Node000003_Node000004" title=" " alt="" coords="449,40,483,42,478,42,449,45"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="547,28,541,21,545,11,558,5,580,3,603,5,616,15,611,14,601,10,579,8,559,10,549,15,546,20,552,30"/>
 </map>

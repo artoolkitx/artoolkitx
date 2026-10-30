@@ -1,5 +1,7 @@
 <map id="Source/ARX/include/ARX/ARTrackableMultiSquareAuto.h" name="Source/ARX/include/ARX/ARTrackableMultiSquareAuto.h">
-<area shape="rect" id="node1" title=" " alt="" coords="124,5,326,61"/>
-<area shape="rect" id="node2" href="$_a_r_trackable_multi_square_auto_8cpp.html" title=" " alt="" coords="5,109,208,150"/>
-<area shape="rect" id="node3" href="$_a_r_tracker_square_8cpp.html" title=" " alt="" coords="232,117,459,142"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="124,5,326,61"/>
+<area shape="rect" id="Node000002" href="$_a_r_trackable_multi_square_auto_8cpp.html" title=" " alt="" coords="5,109,208,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,70,133,111,130,106,176,72"/>
+<area shape="rect" id="Node000003" href="$_a_r_tracker_square_8cpp.html" title=" " alt="" coords="232,116,459,142"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="273,68,333,116,327,116,271,73"/>
 </map>

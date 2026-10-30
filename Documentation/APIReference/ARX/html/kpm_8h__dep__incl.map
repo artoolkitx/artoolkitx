@@ -1,9 +1,15 @@
 <map id="Source/ARX/KPM/include/ARX/KPM/kpm.h" name="Source/ARX/KPM/include/ARX/KPM/kpm.h">
-<area shape="rect" id="node1" title=" " alt="" coords="632,5,804,46"/>
-<area shape="rect" id="node2" href="$kpm_fopen_8c.html" title=" " alt="" coords="5,102,209,127"/>
-<area shape="rect" id="node3" href="$kpm_handle_8cpp.html" title=" " alt="" coords="233,102,456,127"/>
-<area shape="rect" id="node4" href="$kpm_matching_8cpp.html" title=" " alt="" coords="479,102,714,127"/>
-<area shape="rect" id="node5" href="$kpm_ref_data_set_8cpp.html" title=" " alt="" coords="738,94,943,135"/>
-<area shape="rect" id="node6" href="$kpm_result_8cpp.html" title=" " alt="" coords="967,102,1186,127"/>
-<area shape="rect" id="node7" href="$kpm_util_8cpp.html" title=" " alt="" coords="1210,102,1412,127"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="632,5,804,46"/>
+<area shape="rect" id="Node000002" href="$kpm_fopen_8c.html" title=" " alt="" coords="5,102,209,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="616,42,222,97,178,104,177,98,221,91,616,37"/>
+<area shape="rect" id="Node000003" href="$kpm_handle_8cpp.html" title=" " alt="" coords="233,102,456,127"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="620,50,397,104,396,98,615,50"/>
+<area shape="rect" id="Node000004" href="$kpm_matching_8cpp.html" title=" " alt="" coords="479,102,714,127"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="680,54,614,103,612,99,675,56"/>
+<area shape="rect" id="Node000005" href="$kpm_ref_data_set_8cpp.html" title=" " alt="" coords="738,94,943,135"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="759,53,815,94,810,93,757,58"/>
+<area shape="rect" id="Node000006" href="$kpm_result_8cpp.html" title=" " alt="" coords="967,102,1186,127"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="814,47,1029,101,1023,101,814,53"/>
+<area shape="rect" id="Node000007" href="$kpm_util_8cpp.html" title=" " alt="" coords="1210,102,1412,127"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="820,38,1198,91,1243,101,1238,101,1197,97,819,43"/>
 </map>

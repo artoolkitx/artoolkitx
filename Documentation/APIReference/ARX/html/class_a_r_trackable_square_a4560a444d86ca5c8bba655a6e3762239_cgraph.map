@@ -1,7 +1,13 @@
 <map id="ARTrackableSquare::initWithPatternFromBuffer" name="ARTrackableSquare::initWithPatternFromBuffer">
-<area shape="rect" id="node1" title=" " alt="" coords="5,55,178,96"/>
-<area shape="rect" id="node2" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="226,5,375,31"/>
-<area shape="rect" id="node3" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="227,55,374,96"/>
-<area shape="rect" id="node5" href="$class_a_r_trackable_square.html#af38499ff1ed1065ccb0be6f4cb431058" title=" " alt="" coords="227,121,374,161"/>
-<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="423,63,505,88"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,178,120"/>
+<area shape="rect" id="Node000002" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="226,29,375,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,76,239,58,234,61,169,81"/>
+<area shape="rect" id="Node000003" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="227,79,374,120"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="177,97,214,99,209,100,178,102"/>
+<area shape="rect" id="Node000005" href="$class_a_r_trackable_square.html#af38499ff1ed1065ccb0be6f4cb431058" title=" " alt="" coords="227,144,374,185"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="159,118,221,139,216,140,158,123"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="272,28,267,21,270,11,282,5,300,3,320,5,332,14,327,14,319,10,300,8,283,10,274,15,272,20,277,30"/>
+<area shape="rect" id="Node000004" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="423,87,505,112"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="374,97,410,99,405,100,374,102"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="436,85,431,78,434,68,446,62,464,60,484,63,496,72,491,71,482,68,464,65,447,67,438,72,436,77,441,87"/>
 </map>

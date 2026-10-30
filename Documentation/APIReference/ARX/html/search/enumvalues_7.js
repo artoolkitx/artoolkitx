@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['preview_0',['Preview',['../namespace_media.html#aaed7ad0c8e3f575dc00125a9677a5c72a31fde7b05ac8952dacf4af8a704074ec',1,'Media']]]
+  ['nft_0',['NFT',['../class_a_r_trackable.html#af9b4dc1a6a3e77f1f1cf27f1664fa218abb6f86cd2f64d035c16af29cc060af8a',1,'ARTrackable']]]
 ];

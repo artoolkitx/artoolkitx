@@ -1,10 +1,24 @@
 <map id="ARTrackerSquare::stop" name="ARTrackerSquare::stop">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,164,106"/>
-<area shape="rect" id="node2" href="$ar3_d_create_handle_8c.html#a495937d4d91ba2f68c51e5a9b7a87ccd" title="Delete handle used for 3D calculation." alt="" coords="231,5,359,31"/>
-<area shape="rect" id="node4" href="$ar3_d_create_handle_8c.html#afaaeefd020123a3c3758bd039f06b1ea" title=" " alt="" coords="212,55,378,80"/>
-<area shape="rect" id="node6" href="$ar_create_handle_8c.html#ac044da75a479ba275db558f8e3b1d6fd" title="Delete a handle which holds settings for an artoolkitX tracker instance." alt="" coords="239,104,351,130"/>
-<area shape="rect" id="node8" href="$ar_patt_attach_8c.html#ae9eebe71b3b73edf6f674d847fbab6bc" title="Reset an ARHandle to no pattern association." alt="" coords="246,153,344,179"/>
-<area shape="rect" id="node3" href="$icp_handle_8c.html#a510dee7e69010b7aa075d90f27a8e9da" title=" " alt="" coords="445,5,562,31"/>
-<area shape="rect" id="node5" href="$icp_stereo_handle_8c.html#af6e27da4185576f1dd236e3a4f718e6e" title=" " alt="" coords="426,55,581,80"/>
-<area shape="rect" id="node7" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="442,104,565,130"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,140,164,166"/>
+<area shape="rect" id="Node000002" href="$ar3_d_create_handle_8c.html#a495937d4d91ba2f68c51e5a9b7a87ccd" title="Delete handle used for 3D calculation." alt="" coords="231,29,359,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,138,148,101,210,64,227,59,222,62,213,69,151,106,103,142"/>
+<area shape="rect" id="Node000004" href="$ar3_d_create_handle_8c.html#afaaeefd020123a3c3758bd039f06b1ea" title=" " alt="" coords="212,103,378,128"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="160,137,206,130,202,133,162,142"/>
+<area shape="rect" id="Node000006" href="$ar_create_handle_8c.html#ac044da75a479ba275db558f8e3b1d6fd" title="Delete a handle which holds settings for an artoolkitX tracker instance." alt="" coords="239,176,350,202"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="163,164,227,176,222,178,163,169"/>
+<area shape="rect" id="Node000008" href="$ar_patt_attach_8c.html#ae9eebe71b3b73edf6f674d847fbab6bc" title="Reset an ARHandle to no pattern association." alt="" coords="246,249,344,275"/>
+<area shape="poly" id="edge13_Node000001_Node000008" title=" " alt="" coords="112,164,257,240,253,244,111,169"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="259,29,253,21,257,11,271,5,295,3,320,5,335,14,330,15,319,10,295,8,273,10,261,15,258,20,265,29"/>
+<area shape="rect" id="Node000003" href="$icp_handle_8c.html#a510dee7e69010b7aa075d90f27a8e9da" title=" " alt="" coords="445,29,562,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="359,40,432,41,427,43,360,45"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="468,28,462,21,466,11,480,5,504,3,529,5,544,15,538,15,528,10,504,8,482,10,470,15,467,20,474,29"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="259,102,253,94,257,84,271,78,295,76,320,79,335,88,330,88,319,84,295,81,273,83,261,88,258,93,265,103"/>
+<area shape="rect" id="Node000005" href="$icp_stereo_handle_8c.html#af6e27da4185576f1dd236e3a4f718e6e" title=" " alt="" coords="426,103,581,128"/>
+<area shape="poly" id="edge7_Node000004_Node000005" title=" " alt="" coords="378,113,413,115,408,116,379,118"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="468,102,462,94,466,84,480,78,504,76,529,79,544,88,538,88,528,84,504,81,482,83,470,88,467,93,474,103"/>
+<area shape="poly" id="edge10_Node000006_Node000006" title=" " alt="" coords="260,175,253,167,257,158,271,151,295,149,320,152,335,161,330,161,319,157,295,155,273,157,261,161,258,167,265,176"/>
+<area shape="rect" id="Node000007" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="442,176,565,202"/>
+<area shape="poly" id="edge11_Node000006_Node000007" title=" " alt="" coords="351,186,429,188,424,189,351,191"/>
+<area shape="poly" id="edge12_Node000007_Node000007" title=" " alt="" coords="468,175,462,167,466,158,480,151,504,149,529,152,544,162,538,161,528,157,504,155,482,157,470,161,467,167,473,177"/>
+<area shape="poly" id="edge14_Node000008_Node000008" title=" " alt="" coords="260,248,253,241,257,231,271,225,295,223,320,225,335,235,330,234,319,230,295,228,273,230,261,235,258,240,265,250"/>
 </map>

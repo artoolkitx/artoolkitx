@@ -1,4 +1,7 @@
 <map id="arFilterTransMatInit" name="arFilterTransMatInit">
-<area shape="rect" id="node1" title="Initialise a filter for a single transformation matrix (pose estimate)." alt="" coords="5,5,140,31"/>
-<area shape="rect" id="node2" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="188,5,369,31"/>
+<area shape="rect" id="Node000001" title="Initialise a filter for a single transformation matrix (pose estimate)." alt="" coords="5,29,140,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="38,29,31,21,35,11,49,5,73,3,98,5,112,14,107,15,96,10,72,8,51,10,39,15,37,20,43,29"/>
+<area shape="rect" id="Node000002" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="188,29,369,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="140,40,175,42,170,42,140,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="244,28,237,21,241,11,255,5,278,3,304,5,318,15,313,14,302,10,278,8,257,10,245,15,243,20,249,30"/>
 </map>

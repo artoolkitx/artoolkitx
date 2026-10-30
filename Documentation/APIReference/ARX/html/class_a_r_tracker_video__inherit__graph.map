@@ -1,5 +1,7 @@
 <map id="ARTrackerVideo" name="ARTrackerVideo">
-<area shape="rect" id="node1" title=" " alt="" coords="9,79,127,105"/>
-<area shape="rect" id="node3" href="$class_a_r_tracker_square.html" title=" " alt="" coords="5,153,131,178"/>
-<area shape="rect" id="node2" href="$class_a_r_tracker.html" title=" " alt="" coords="26,5,110,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="9,79,127,105"/>
+<area shape="rect" id="Node000003" href="$class_a_r_tracker_square.html" title=" " alt="" coords="5,153,131,178"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="70,118,71,153,65,151,66,122"/>
+<area shape="rect" id="Node000002" href="$class_a_r_tracker.html" title=" " alt="" coords="26,5,110,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,44,71,79,65,78,67,49"/>
 </map>

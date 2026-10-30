@@ -1,6 +1,10 @@
 <map id="ARTrackableSquare::initWithBarcode" name="ARTrackableSquare::initWithBarcode">
-<area shape="rect" id="node1" title="Init the trackable as a barcode." alt="" coords="5,39,152,79"/>
-<area shape="rect" id="node2" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="200,5,346,46"/>
-<area shape="rect" id="node4" href="$class_a_r_trackable_square.html#af38499ff1ed1065ccb0be6f4cb431058" title=" " alt="" coords="200,71,346,111"/>
-<area shape="rect" id="node3" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="394,13,476,39"/>
+<area shape="rect" id="Node000001" title="Init the trackable as a barcode." alt="" coords="5,55,152,96"/>
+<area shape="rect" id="Node000002" href="$class_a_r_trackable_square.html#a9f5452921633ac1bd40b661081a9da79" title=" " alt="" coords="200,22,346,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,60,187,56,182,58,153,65"/>
+<area shape="rect" id="Node000004" href="$class_a_r_trackable_square.html#af38499ff1ed1065ccb0be6f4cb431058" title=" " alt="" coords="200,87,346,128"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="152,85,187,93,182,93,152,90"/>
+<area shape="rect" id="Node000003" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="394,29,476,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="346,40,381,42,376,43,347,45"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="407,28,402,21,405,11,417,5,435,3,455,5,467,15,461,14,453,10,435,8,418,10,409,15,407,20,412,30"/>
 </map>

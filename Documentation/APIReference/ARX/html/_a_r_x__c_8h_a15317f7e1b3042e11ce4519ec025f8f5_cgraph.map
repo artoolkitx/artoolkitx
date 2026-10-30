@@ -1,4 +1,4 @@
 <map id="arwGetError" name="arwGetError">
-<area shape="rect" id="node1" title="Return error information Returns the value of the error flag." alt="" coords="5,5,97,31"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#ae3eef04a6533f0eb8b44e906cc2acb7b" title=" " alt="" coords="145,5,295,31"/>
+<area shape="rect" id="Node000001" title="Return error information Returns the value of the error flag." alt="" coords="5,29,97,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="34,29,31,21,33,12,40,5,51,3,63,6,70,14,65,14,60,10,51,8,42,10,38,14,37,20,39,29"/>
 </map>

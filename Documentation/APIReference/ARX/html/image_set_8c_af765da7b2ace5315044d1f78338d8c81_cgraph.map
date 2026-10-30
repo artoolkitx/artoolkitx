@@ -1,4 +1,7 @@
 <map id="ar2WriteImageSet" name="ar2WriteImageSet">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,131,31"/>
-<area shape="rect" id="node2" href="$jpeg_8c.html#ad618d876e500c3e5259dff2e9f1342d8" title=" " alt="" coords="179,5,319,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,131,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="37,29,32,21,35,11,48,5,68,3,90,5,103,14,97,14,88,10,68,8,49,10,39,15,37,20,42,29"/>
+<area shape="rect" id="Node000002" href="$jpeg_8c.html#ad618d876e500c3e5259dff2e9f1342d8" title=" " alt="" coords="179,29,319,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="131,40,166,42,161,42,131,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="218,28,212,21,216,11,228,5,249,3,271,5,284,15,278,14,269,10,249,8,230,10,220,15,218,20,223,30"/>
 </map>

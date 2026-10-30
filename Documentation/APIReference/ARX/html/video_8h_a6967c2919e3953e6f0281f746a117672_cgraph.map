@@ -1,12 +1,31 @@
 <map id="ar2VideoOpen" name="ar2VideoOpen">
-<area shape="rect" id="node1" title="Open a video input module and return control object." alt="" coords="5,203,109,228"/>
-<area shape="rect" id="node2" href="$video1394_8h.html#a5e135a088763d0bbeb2d95f8c92704b1" title=" " alt="" coords="183,5,314,31"/>
-<area shape="rect" id="node3" href="$video_a_v_foundation_8h.html#aefeea555e04e4d04eb17b4adea17013d" title=" " alt="" coords="157,55,340,80"/>
-<area shape="rect" id="node4" href="$video_dummy_8h.html#a72835c795b3b4f9ec13d7c3bfe482476" title=" " alt="" coords="174,104,323,130"/>
-<area shape="rect" id="node5" href="$video_emscripten_8h.html#a29074bdca28d3b80a8e89895087646b5" title=" " alt="" coords="164,153,333,179"/>
-<area shape="rect" id="node6" href="$video_g_streamer_8h.html#a39ad73e9efc5e41fb011b58ec8262958" title=" " alt="" coords="165,203,332,228"/>
-<area shape="rect" id="node7" href="$video_image_8h.html#a73390fddad6f8e51c827515ba754986b" title=" " alt="" coords="179,252,318,278"/>
-<area shape="rect" id="node8" href="$video_v4_l2_8h.html#abfb2b883b0d8a1b97aece447925d9fbb" title=" " alt="" coords="182,301,315,327"/>
-<area shape="rect" id="node9" href="$video_windows_media_capture_8h.html#a61863b436e12e617a68415854ef8873a" title=" " alt="" coords="175,351,322,376"/>
-<area shape="rect" id="node10" href="$video_windows_media_foundation_8h.html#a0fd1e3b5895e22598a81e24f86820168" title=" " alt="" coords="176,400,321,426"/>
+<area shape="rect" id="Node000001" title="Open a video input module and return control object." alt="" coords="5,323,109,348"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="24,323,19,314,22,304,36,298,57,296,80,299,93,306,89,309,78,304,57,301,37,303,26,308,24,313,30,322"/>
+<area shape="rect" id="Node000002" href="$video1394_8h.html#a5e135a088763d0bbeb2d95f8c92704b1" title=" " alt="" coords="183,29,314,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="56,322,62,274,77,204,89,167,106,129,128,95,155,64,170,55,167,60,158,68,132,98,111,132,94,169,82,206,67,275,62,323"/>
+<area shape="rect" id="Node000003" href="$video_a_v_foundation_8h.html#aefeea555e04e4d04eb17b4adea17013d" title=" " alt="" coords="157,103,340,128"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="58,322,68,285,86,235,115,183,133,158,155,137,162,134,159,139,158,142,137,162,119,185,91,237,73,286,64,323"/>
+<area shape="rect" id="Node000004" href="$video_dummy_8h.html#a72835c795b3b4f9ec13d7c3bfe482476" title=" " alt="" coords="174,176,323,202"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="63,321,97,267,124,237,155,211,166,206,163,210,158,215,128,240,102,270,68,323"/>
+<area shape="rect" id="Node000005" href="$video_emscripten_8h.html#a29074bdca28d3b80a8e89895087646b5" title=" " alt="" coords="164,249,333,275"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="80,320,156,284,177,278,173,282,158,289,83,324"/>
+<area shape="rect" id="Node000006" href="$video_g_streamer_8h.html#a39ad73e9efc5e41fb011b58ec8262958" title=" " alt="" coords="165,323,332,348"/>
+<area shape="poly" id="edge10_Node000001_Node000006" title=" " alt="" coords="108,333,151,334,147,337,110,338"/>
+<area shape="rect" id="Node000007" href="$video_image_8h.html#a73390fddad6f8e51c827515ba754986b" title=" " alt="" coords="179,396,318,422"/>
+<area shape="poly" id="edge12_Node000001_Node000007" title=" " alt="" coords="93,346,201,388,197,392,93,352"/>
+<area shape="rect" id="Node000008" href="$video_v4_l2_8h.html#abfb2b883b0d8a1b97aece447925d9fbb" title=" " alt="" coords="182,469,315,495"/>
+<area shape="poly" id="edge14_Node000001_Node000008" title=" " alt="" coords="69,346,108,387,158,432,205,461,200,463,155,436,104,391,70,352"/>
+<area shape="rect" id="Node000009" href="$video_windows_media_capture_8h.html#a61863b436e12e617a68415854ef8873a" title=" " alt="" coords="175,543,322,568"/>
+<area shape="poly" id="edge16_Node000001_Node000009" title=" " alt="" coords="63,346,98,420,125,465,159,506,178,521,200,535,195,536,175,525,155,509,120,468,93,423,63,351"/>
+<area shape="rect" id="Node000010" href="$video_windows_media_foundation_8h.html#a0fd1e3b5895e22598a81e24f86820168" title=" " alt="" coords="176,616,321,642"/>
+<area shape="poly" id="edge18_Node000001_Node000010" title=" " alt="" coords="61,346,72,391,89,452,118,519,136,550,159,579,176,594,197,609,192,609,173,599,155,583,132,553,113,521,84,454,67,392,60,352"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="216,29,210,21,214,11,227,5,248,3,271,5,285,13,280,15,270,10,248,8,228,10,218,15,215,20,221,29"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="216,103,210,94,214,84,227,78,248,76,271,79,285,87,280,88,270,84,248,81,228,83,218,88,215,93,221,102"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="216,176,210,167,214,158,227,152,248,149,271,152,285,160,280,162,270,157,248,155,228,157,218,161,215,167,221,175"/>
+<area shape="poly" id="edge9_Node000005_Node000005" title=" " alt="" coords="216,249,210,241,214,231,227,225,248,223,271,225,285,233,280,235,270,230,248,228,228,230,218,235,215,240,221,249"/>
+<area shape="poly" id="edge11_Node000006_Node000006" title=" " alt="" coords="216,322,210,314,214,304,227,298,248,296,271,299,285,307,280,308,270,304,248,301,228,303,218,308,215,313,221,322"/>
+<area shape="poly" id="edge13_Node000007_Node000007" title=" " alt="" coords="216,396,210,387,214,378,227,372,248,369,271,372,285,380,280,381,270,377,248,375,228,377,218,381,215,387,221,396"/>
+<area shape="poly" id="edge15_Node000008_Node000008" title=" " alt="" coords="216,469,210,461,214,451,227,445,248,443,271,445,285,454,280,454,270,450,248,448,228,450,218,455,215,460,221,469"/>
+<area shape="poly" id="edge17_Node000009_Node000009" title=" " alt="" coords="216,542,210,534,214,524,227,518,248,516,271,519,285,528,280,527,270,524,248,521,228,523,218,528,215,533,221,543"/>
+<area shape="poly" id="edge19_Node000010_Node000010" title=" " alt="" coords="216,615,210,607,214,598,227,592,248,589,271,592,285,601,280,600,270,597,248,595,228,597,218,601,215,607,221,617"/>
 </map>

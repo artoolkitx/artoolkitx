@@ -1,6 +1,13 @@
 <map id="ar2ReadMarkerSet" name="ar2ReadMarkerSet">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,136,56"/>
-<area shape="rect" id="node2" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="184,31,268,56"/>
-<area shape="rect" id="node3" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="316,5,465,31"/>
-<area shape="rect" id="node4" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="371,55,410,80"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,67,136,92"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="44,66,39,58,42,48,53,42,71,40,90,43,101,51,95,52,88,48,70,45,54,47,46,52,44,57,49,66"/>
+<area shape="rect" id="Node000002" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="184,67,268,92"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="136,77,171,79,165,80,136,82"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="199,65,194,58,197,48,208,42,226,40,245,43,256,52,251,51,243,48,226,45,210,47,201,52,199,57,204,67"/>
+<area shape="rect" id="Node000003" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="316,29,465,55"/>
+<area shape="poly" id="edge4_Node000002_Node000003" title=" " alt="" coords="268,67,314,60,319,58,269,73"/>
+<area shape="rect" id="Node000004" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="371,103,410,128"/>
+<area shape="poly" id="edge6_Node000002_Node000004" title=" " alt="" coords="269,86,358,108,353,108,268,91"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="362,28,357,21,360,11,372,5,391,3,411,5,423,14,417,14,409,10,391,8,374,10,365,15,363,20,367,30"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="368,106,358,98,359,87,370,79,391,76,417,82,423,88,423,98,419,94,418,90,415,86,391,81,372,84,363,89,363,96,373,108"/>
 </map>

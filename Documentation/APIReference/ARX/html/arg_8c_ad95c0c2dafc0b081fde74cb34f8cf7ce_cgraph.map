@@ -1,4 +1,7 @@
 <map id="arglSetupForCurrentContext" name="arglSetupForCurrentContext">
-<area shape="rect" id="node1" title="Initialise the arg library for the current OpenGL context." alt="" coords="5,5,190,31"/>
-<area shape="rect" id="node2" href="$arg_8c.html#a70f432550d41765bc7b7b13a53e6015d" title=" " alt="" coords="238,5,371,31"/>
+<area shape="rect" id="Node000001" title="Initialise the arg library for the current OpenGL context." alt="" coords="5,29,190,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="62,29,56,21,60,11,74,5,98,3,123,5,137,15,132,15,121,10,97,8,76,10,64,15,61,20,68,29"/>
+<area shape="rect" id="Node000002" href="$arg_8c.html#a70f432550d41765bc7b7b13a53e6015d" title=" " alt="" coords="238,29,371,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,40,225,42,220,42,190,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="269,28,263,21,267,11,281,5,304,3,330,5,344,15,339,14,328,10,304,8,283,10,271,15,268,20,274,30"/>
 </map>

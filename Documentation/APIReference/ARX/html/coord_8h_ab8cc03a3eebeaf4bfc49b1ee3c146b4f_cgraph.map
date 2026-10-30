@@ -1,6 +1,13 @@
 <map id="ar2GetImageValue" name="ar2GetImageValue">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,134,56"/>
-<area shape="rect" id="node2" href="$coord_8c.html#a5baabf3b8320ed39189b4e1143395d56" title=" " alt="" coords="182,31,379,56"/>
-<area shape="rect" id="node3" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="427,5,593,31"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="455,55,565,80"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,67,134,92"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="34,67,27,58,32,48,46,42,70,40,95,43,110,51,105,52,94,48,69,45,47,47,35,52,33,57,39,66"/>
+<area shape="rect" id="Node000002" href="$coord_8c.html#a5baabf3b8320ed39189b4e1143395d56" title=" " alt="" coords="182,67,379,92"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="134,77,169,79,164,80,134,82"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="245,66,238,58,242,48,257,42,280,40,306,43,321,52,315,52,305,48,280,45,258,47,246,52,244,57,250,67"/>
+<area shape="rect" id="Node000003" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="427,29,593,55"/>
+<area shape="poly" id="edge4_Node000002_Node000003" title=" " alt="" coords="363,63,415,58,410,58,364,69"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#a6233399e2a35a97e62b18e41c3cbc204" title=" " alt="" coords="455,103,565,128"/>
+<area shape="poly" id="edge6_Node000002_Node000004" title=" " alt="" coords="366,90,442,105,437,105,366,96"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="472,28,465,21,469,11,485,5,510,3,538,5,554,15,549,14,537,10,510,8,486,10,473,15,470,20,477,30"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="472,101,465,94,469,84,485,78,510,76,538,79,554,88,549,87,537,84,510,81,486,83,473,88,470,93,477,103"/>
 </map>

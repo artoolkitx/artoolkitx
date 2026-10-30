@@ -1,8 +1,19 @@
 <map id="arMultiAddOrUpdateSubmarker" name="arMultiAddOrUpdateSubmarker">
-<area shape="rect" id="node1" title=" " alt="" coords="5,55,208,80"/>
-<area shape="rect" id="node2" href="$ar_multi_edit_config_8c.html#a7a45fb2f0acb56ddee63efcdaaf654a1" title=" " alt="" coords="256,55,451,80"/>
-<area shape="rect" id="node3" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title=" " alt="" coords="499,55,591,80"/>
-<area shape="rect" id="node4" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="645,5,743,31"/>
-<area shape="rect" id="node5" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="647,55,741,80"/>
-<area shape="rect" id="node6" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="639,104,749,130"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,103,208,128"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="65,103,58,94,63,84,79,78,107,76,137,79,154,88,149,89,136,84,106,81,80,83,66,88,63,93,70,102"/>
+<area shape="rect" id="Node000002" href="$ar_multi_edit_config_8c.html#a7a45fb2f0acb56ddee63efcdaaf654a1" title=" " alt="" coords="256,103,451,128"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="208,113,242,115,237,116,209,118"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="321,101,315,94,319,84,332,78,353,76,377,79,390,88,385,88,375,84,353,81,333,83,322,88,320,93,326,103"/>
+<area shape="rect" id="Node000003" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title=" " alt="" coords="499,103,591,128"/>
+<area shape="poly" id="edge4_Node000002_Node000003" title=" " alt="" coords="451,113,486,115,481,116,452,118"/>
+<area shape="poly" id="edge11_Node000003_Node000003" title=" " alt="" coords="519,101,515,94,518,85,528,78,545,76,563,79,574,88,569,87,562,84,545,81,530,83,522,88,520,94,524,103"/>
+<area shape="rect" id="Node000004" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="645,29,743,55"/>
+<area shape="poly" id="edge5_Node000003_Node000004" title=" " alt="" coords="570,100,638,64,646,63,651,61,641,69,572,105"/>
+<area shape="rect" id="Node000005" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="647,103,741,128"/>
+<area shape="poly" id="edge7_Node000003_Node000005" title=" " alt="" coords="592,113,634,115,628,116,592,118"/>
+<area shape="rect" id="Node000006" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="639,176,749,202"/>
+<area shape="poly" id="edge9_Node000003_Node000006" title=" " alt="" coords="574,126,655,169,650,168,573,132"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="668,28,664,21,666,11,677,5,694,3,712,5,723,15,718,14,710,10,694,8,679,10,671,14,669,20,673,30"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="668,101,664,94,666,85,677,78,694,76,712,79,723,88,718,87,710,84,694,81,679,83,671,88,669,94,673,103"/>
+<area shape="poly" id="edge10_Node000006_Node000006" title=" " alt="" coords="668,174,664,167,666,158,677,152,694,149,712,152,723,161,718,160,710,157,694,155,679,157,671,161,669,167,673,177"/>
 </map>

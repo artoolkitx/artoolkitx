@@ -1,11 +1,19 @@
 <map id="Source/ARX/ARUtil/log.c" name="Source/ARX/ARUtil/log.c">
-<area shape="rect" id="node1" title=" " alt="" coords="231,5,400,31"/>
-<area shape="rect" id="node2" href="$log_8h.html" title="Logging utilities." alt="" coords="192,79,316,105"/>
-<area shape="rect" id="node9" title=" " alt="" coords="341,79,416,105"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,153,66,178"/>
-<area shape="rect" id="node4" title=" " alt="" coords="89,153,153,178"/>
-<area shape="rect" id="node5" title=" " alt="" coords="177,153,241,178"/>
-<area shape="rect" id="node6" title=" " alt="" coords="265,153,334,178"/>
-<area shape="rect" id="node7" title=" " alt="" coords="358,153,444,178"/>
-<area shape="rect" id="node8" href="$types_8h.html" title=" " alt="" coords="469,153,608,178"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="231,5,400,31"/>
+<area shape="rect" id="Node000002" href="$log_8h.html" title="Logging utilities." alt="" coords="192,79,316,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="308,30,276,69,273,65,303,33"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="340,79,416,105"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="327,29,360,67,355,67,325,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,66,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="218,108,81,152,80,147,216,103"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="89,153,152,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="234,105,158,147,156,142,229,106"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="177,153,241,178"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="249,104,226,142,223,138,244,106"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="265,153,334,178"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="263,103,286,140,281,139,260,107"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="358,153,444,178"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="280,103,365,145,359,146,278,108"/>
+<area shape="rect" id="Node000008" href="$types_8h.html" title=" " alt="" coords="468,153,608,178"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="303,103,478,148,472,149,302,108"/>
 </map>

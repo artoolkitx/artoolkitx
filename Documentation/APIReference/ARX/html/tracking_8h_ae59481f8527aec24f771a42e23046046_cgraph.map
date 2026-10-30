@@ -1,6 +1,13 @@
 <map id="ar2FreeSurfaceSet" name="ar2FreeSurfaceSet">
-<area shape="rect" id="node1" title=" " alt="" coords="5,55,136,80"/>
-<area shape="rect" id="node2" href="$feature_set_8c.html#ac71690e7330ed1408ab329c34a378ff2" title=" " alt="" coords="184,5,313,31"/>
-<area shape="rect" id="node3" href="$image_set_8c.html#a556112a99d1a97361054d49718ab23c7" title=" " alt="" coords="188,55,309,80"/>
-<area shape="rect" id="node4" href="$marker_8c.html#a45af9784ccd96715f23070c74cda0bbe" title=" " alt="" coords="186,104,311,130"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,103,136,128"/>
+<area shape="poly" id="edge7_Node000001_Node000001" title=" " alt="" coords="40,103,35,94,38,84,50,78,71,76,92,79,105,87,99,88,90,84,70,81,52,83,42,88,40,93,45,102"/>
+<area shape="rect" id="Node000002" href="$feature_set_8c.html#ac71690e7330ed1408ab329c34a378ff2" title=" " alt="" coords="184,29,313,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,100,183,64,199,60,194,62,185,69,102,104"/>
+<area shape="rect" id="Node000003" href="$image_set_8c.html#a556112a99d1a97361054d49718ab23c7" title=" " alt="" coords="188,103,309,128"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="136,113,175,115,170,116,137,118"/>
+<area shape="rect" id="Node000004" href="$marker_8c.html#a45af9784ccd96715f23070c74cda0bbe" title=" " alt="" coords="186,176,311,202"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="105,126,204,168,199,171,103,132"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="218,29,212,21,216,11,228,5,248,3,270,5,283,14,277,14,268,10,248,8,230,10,220,15,218,20,223,29"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="218,102,212,94,216,84,228,78,248,76,270,79,283,88,277,87,268,84,248,81,230,83,220,88,218,93,223,103"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="218,175,212,167,216,158,228,152,248,149,270,152,283,161,277,160,268,157,248,155,230,157,220,161,218,167,223,177"/>
 </map>

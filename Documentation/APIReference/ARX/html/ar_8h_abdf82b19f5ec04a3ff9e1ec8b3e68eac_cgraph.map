@@ -1,5 +1,10 @@
 <map id="arPattLoad" name="arPattLoad">
-<area shape="rect" id="node1" title="Load a pattern file into a pattern handle." alt="" coords="5,31,90,56"/>
-<area shape="rect" id="node2" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="138,5,287,31"/>
-<area shape="rect" id="node3" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="193,55,232,80"/>
+<area shape="rect" id="Node000001" title="Load a pattern file into a pattern handle." alt="" coords="5,67,90,92"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="19,67,14,58,17,48,29,42,48,40,68,43,79,51,74,52,66,48,47,45,30,47,21,52,19,57,24,66"/>
+<area shape="rect" id="Node000002" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="138,29,287,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="89,67,140,58,136,60,91,73"/>
+<area shape="rect" id="Node000003" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="193,103,232,128"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="90,86,180,106,175,110,90,91"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="184,28,179,21,182,11,194,5,212,3,232,5,244,14,239,14,231,10,212,8,195,10,186,15,184,20,189,30"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="190,106,180,98,180,87,192,79,212,76,239,82,245,88,245,98,241,94,240,90,236,86,212,81,194,84,185,89,185,96,195,108"/>
 </map>

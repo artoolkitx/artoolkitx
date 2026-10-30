@@ -1,4 +1,7 @@
 <map id="kpmUtilGetCorner" name="kpmUtilGetCorner">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,132,31"/>
-<area shape="rect" id="node2" href="$kpm_util_8cpp.html#a0a8b7d2275bb90bc5c935956be08f35b" title=" " alt="" coords="180,5,323,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,132,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="37,29,32,21,35,11,48,5,69,3,91,5,104,14,98,14,89,10,68,8,49,10,39,15,37,20,43,29"/>
+<area shape="rect" id="Node000002" href="$kpm_util_8cpp.html#a0a8b7d2275bb90bc5c935956be08f35b" title=" " alt="" coords="180,29,323,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="132,40,167,42,161,42,132,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="220,28,215,21,218,11,231,5,251,3,273,5,286,15,281,14,272,10,251,8,232,10,222,15,220,20,225,30"/>
 </map>

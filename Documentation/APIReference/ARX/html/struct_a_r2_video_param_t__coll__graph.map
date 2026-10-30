@@ -1,4 +1,5 @@
 <map id="AR2VideoParamT" name="AR2VideoParamT">
-<area shape="rect" id="node1" title=" " alt="" coords="9,94,136,120"/>
-<area shape="rect" id="node2" href="$struct___a_r_video_luma_info.html" title=" " alt="" coords="5,5,140,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="9,102,136,128"/>
+<area shape="rect" id="Node000002" href="$struct___a_r_video_luma_info.html" title=" " alt="" coords="5,5,140,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,45,75,102,70,101,70,48"/>
 </map>

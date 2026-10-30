@@ -1,0 +1,26 @@
+<map id="ARTrackable::getPatternImage" name="ARTrackable::getPatternImage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,145,207,170"/>
+<area shape="rect" id="Node000002" href="$class_a_r_trackable.html#ac91098b6554abbc648a9d9150818ec8d" title=" " alt="" coords="273,5,439,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,142,178,100,253,55,269,51,265,54,256,60,181,105,125,146"/>
+<area shape="rect" id="Node000003" href="$class_a_r_trackable.html#a9ec9f17396cbd209b42c82f2f2b7c59e" title=" " alt="" coords="255,70,457,96"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="142,142,254,104,282,99,278,101,255,110,145,147"/>
+<area shape="rect" id="Node000004" href="$class_a_r_trackable.html#a72e447caace9aaf7248e7ed4860982a3" title=" " alt="" coords="277,120,435,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="206,145,263,141,259,143,208,150"/>
+<area shape="rect" id="Node000005" href="$class_a_r_trackable.html#ad395b7942a14c6862bcbe80891dfcd39" title=" " alt="" coords="523,113,711,154"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="206,159,327,160,457,155,510,152,505,153,457,160,327,165,207,164"/>
+<area shape="rect" id="Node000007" href="$class_a_r_trackable.html#a28ba769c267933335c7000c2aac66a74" title=" " alt="" coords="273,221,439,246"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="151,168,299,214,294,217,151,174"/>
+<area shape="rect" id="Node000010" href="$class_a_r_trackable.html#a003593728264b87959a7494f3415e585" title=" " alt="" coords="505,325,729,350"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="123,168,180,212,217,236,256,257,314,278,374,296,492,322,487,323,373,301,312,283,254,261,214,241,177,217,122,174"/>
+<area shape="rect" id="Node000006" href="$ar_filter_trans_mat_8c.html#ae82377e0d7286e5808b319a38c13c02c" title="Set the filter parameters." alt="" coords="777,276,959,301"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="706,152,731,163,765,186,797,212,848,264,843,263,794,216,762,190,728,168,705,157"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="826,274,818,267,823,257,840,251,868,249,899,252,916,262,911,261,898,257,868,254,841,256,827,261,824,266,831,276"/>
+<area shape="rect" id="Node000008" href="$ar_filter_trans_mat_8c.html#a52813489717ce82b433e44adfd3bc3dd" title="Finalise a filter." alt="" coords="545,202,689,228"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="439,225,532,221,527,222,440,230"/>
+<area shape="rect" id="Node000009" href="$ar_filter_trans_mat_8c.html#a9c87432e371ffb1716e4ee6712a5c0ba" title="Initialise a filter for a single transformation matrix (pose estimate)." alt="" coords="550,276,684,301"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="421,244,540,272,535,272,420,250"/>
+<area shape="poly" id="edge9_Node000008_Node000008" title=" " alt="" coords="575,201,568,194,573,184,589,178,617,176,648,178,665,188,660,188,647,183,617,181,590,183,576,188,573,193,580,203"/>
+<area shape="poly" id="edge12_Node000009_Node000006" title=" " alt="" coords="684,286,764,288,759,288,684,291"/>
+<area shape="poly" id="edge11_Node000009_Node000009" title=" " alt="" coords="575,274,568,267,573,257,589,251,617,249,648,252,665,262,660,261,647,257,617,254,590,256,576,261,573,266,580,276"/>
+<area shape="poly" id="edge14_Node000010_Node000006" title=" " alt="" coords="686,322,782,305,787,304,687,327"/>
+</map>

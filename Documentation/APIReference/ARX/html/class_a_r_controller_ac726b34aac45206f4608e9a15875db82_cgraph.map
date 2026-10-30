@@ -1,9 +1,0 @@
-<map id="ARController::update" name="ARController::update">
-<area shape="rect" id="node1" title="Performs tracking and updates all trackables." alt="" coords="5,157,149,183"/>
-<area shape="rect" id="node2" href="$class_a_r_video_source.html#a3d4b14784d083ae76f43c8942cb9076b" title="Checkin a locked video frame." alt="" coords="201,5,405,31"/>
-<area shape="rect" id="node3" href="$class_a_r_video_source.html#a0870e3e3099fe2bede89980bc89c5e70" title="Checkout a locked video frame if the frame&#39;s timestamp is newer than &#39;time&#39;." alt="" coords="197,55,409,96"/>
-<area shape="rect" id="node4" href="$class_a_r_video_source.html#a5feeb630d5706513ba1d48ba7dcd2c31" title="Returns the camera parameters for the video source." alt="" coords="210,121,396,161"/>
-<area shape="rect" id="node5" href="$class_a_r_video_source.html#a4328e4435cfcff995216fb77ddb93619" title="Returns the pixel format of the video." alt="" coords="198,185,408,211"/>
-<area shape="rect" id="node6" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="221,235,385,260"/>
-<area shape="rect" id="node7" href="$class_a_r_video_source.html#adcdfb6d6fcf844c7578bec2b3f978108" title="Returns true if the video source is open and ready to be queried." alt="" coords="213,284,393,310"/>
-</map>

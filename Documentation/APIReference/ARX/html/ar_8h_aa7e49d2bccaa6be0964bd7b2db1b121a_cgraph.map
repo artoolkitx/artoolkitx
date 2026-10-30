@@ -1,5 +1,10 @@
 <map id="arSetLabelingThreshMode" name="arSetLabelingThreshMode">
-<area shape="rect" id="node1" title="Set the labeling threshold mode (auto/manual)." alt="" coords="5,31,178,56"/>
-<area shape="rect" id="node2" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="226,5,349,31"/>
-<area shape="rect" id="node3" href="$ar_image_proc_8c.html#ab17100ae9f8d3a2b881830f135bfffa8" title="Initialise image processing." alt="" coords="231,55,344,80"/>
+<area shape="rect" id="Node000001" title="Set the labeling threshold mode (auto/manual)." alt="" coords="5,67,178,92"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="58,66,52,58,56,48,70,42,92,40,116,43,129,52,124,52,114,48,91,45,71,47,60,52,58,57,64,66"/>
+<area shape="rect" id="Node000002" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="226,29,349,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,63,213,56,208,58,163,69"/>
+<area shape="rect" id="Node000003" href="$ar_image_proc_8c.html#ab17100ae9f8d3a2b881830f135bfffa8" title="Initialise image processing." alt="" coords="231,103,344,128"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="165,90,218,102,213,103,165,96"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="254,28,248,21,252,11,265,5,287,3,311,5,325,15,320,14,310,10,287,8,267,10,256,15,253,20,259,30"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="254,101,248,94,252,84,265,78,287,76,311,79,325,88,320,87,310,84,287,81,267,83,256,88,253,93,259,103"/>
 </map>

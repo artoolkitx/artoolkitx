@@ -1,0 +1,4 @@
+<map id="arglDistortionCompensationSet" name="arglDistortionCompensationSet">
+<area shape="rect" id="Node000001" title="Set compensation for camera lens distortion in arglDispImage to off or on." alt="" coords="5,29,208,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="72,29,66,21,70,11,84,5,107,3,131,5,145,15,140,15,130,10,106,8,85,10,74,15,71,20,77,29"/>
+</map>

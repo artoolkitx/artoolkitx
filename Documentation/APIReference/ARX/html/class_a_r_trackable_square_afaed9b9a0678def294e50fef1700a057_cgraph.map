@@ -1,0 +1,6 @@
+<map id="ARTrackableSquare::ARTrackableSquare" name="ARTrackableSquare::ARTrackableSquare">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,22,152,62"/>
+<area shape="rect" id="Node000002" href="$class_a_r_trackable.html#a6d67b94586d43663e48de08dda27456c" title="Constructor takes the type of this trackable." alt="" coords="200,29,381,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,40,187,42,181,42,152,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="255,28,248,21,252,11,267,5,290,3,316,5,331,15,326,14,315,10,290,8,268,10,256,15,253,20,260,30"/>
+</map>

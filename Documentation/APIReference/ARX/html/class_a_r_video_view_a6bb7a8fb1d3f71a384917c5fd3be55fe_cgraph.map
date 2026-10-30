@@ -1,11 +1,24 @@
 <map id="ARVideoView::draw" name="ARVideoView::draw">
-<area shape="rect" id="node1" title=" " alt="" coords="5,195,144,220"/>
-<area shape="rect" id="node2" href="$arg_8c.html#afdd586c0ba2cc7df1347cc0522c6777b" title="Display an ARVideo image, by drawing it using OpenGL." alt="" coords="245,5,351,31"/>
-<area shape="rect" id="node3" href="$arg_8c.html#a25cc1097132fc11d1acb6b37694b5d2a" title="Upload a buffer of pixel data to an OpenGL texture for later use by arglDispImage()." alt="" coords="210,55,386,96"/>
-<area shape="rect" id="node4" href="$arg_8c.html#a6b7919e1a7ade7c23394eeb964be17f6" title="Specify a desired pixel buffer size larger than the camera image size." alt="" coords="222,120,374,146"/>
-<area shape="rect" id="node5" href="$arg_8c.html#aab881f83622055d786e2f42086220b94" title="Set the format of pixel data which will be passed to arglDispImage*()" alt="" coords="232,169,364,195"/>
-<area shape="rect" id="node6" href="$arg_8c.html#a60f8657d50e21a7d8213a628bda888a9" title="Set the current video image drawing scalefactor." alt="" coords="236,219,360,244"/>
-<area shape="rect" id="node7" href="$class_a_r_video_source.html#a3d4b14784d083ae76f43c8942cb9076b" title="Checkin a locked video frame." alt="" coords="196,268,400,294"/>
-<area shape="rect" id="node8" href="$class_a_r_video_source.html#a0870e3e3099fe2bede89980bc89c5e70" title="Checkout a locked video frame if the frame&#39;s timestamp is newer than &#39;time&#39;." alt="" coords="192,318,404,359"/>
-<area shape="rect" id="node9" href="$class_a_r_video_source.html#a4328e4435cfcff995216fb77ddb93619" title="Returns the pixel format of the video." alt="" coords="193,383,403,408"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,303,144,328"/>
+<area shape="rect" id="Node000002" href="$arg_8c.html#afdd586c0ba2cc7df1347cc0522c6777b" title="Display an ARVideo image, by drawing it using OpenGL." alt="" coords="245,29,350,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,302,85,256,106,192,140,124,163,93,190,65,209,54,232,47,228,51,211,59,193,70,167,96,144,127,111,194,90,258,80,303"/>
+<area shape="rect" id="Node000003" href="$arg_8c.html#a25cc1097132fc11d1acb6b37694b5d2a" title="Upload a buffer of pixel data to an OpenGL texture for later use by arglDispImage()." alt="" coords="210,103,386,144"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="79,301,119,231,151,189,190,153,199,150,196,154,193,158,155,193,123,234,84,303"/>
+<area shape="rect" id="Node000004" href="$arg_8c.html#a6b7919e1a7ade7c23394eeb964be17f6" title="Specify a desired pixel buffer size larger than the camera image size." alt="" coords="222,192,374,218"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="88,300,131,263,160,243,191,226,209,221,205,224,193,231,163,248,135,268,92,304"/>
+<area shape="rect" id="Node000005" href="$arg_8c.html#aab881f83622055d786e2f42086220b94" title="Set the format of pixel data which will be passed to arglDispImage*()." alt="" coords="232,265,364,291"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="143,302,218,290,214,293,145,306"/>
+<area shape="rect" id="Node000006" href="$arg_8c.html#a60f8657d50e21a7d8213a628bda888a9" title="Set the current video image drawing scalefactor." alt="" coords="236,339,360,364"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="143,324,222,338,218,340,144,329"/>
+<area shape="rect" id="Node000007" href="$class_a_r_video_source.html#a3d4b14784d083ae76f43c8942cb9076b" title="Checkin a locked video frame." alt="" coords="196,388,400,414"/>
+<area shape="poly" id="edge11_Node000001_Node000007" title=" " alt="" coords="97,326,141,351,193,374,215,383,209,384,191,379,138,356,97,331"/>
+<area shape="rect" id="Node000008" href="$class_a_r_video_source.html#a0870e3e3099fe2bede89980bc89c5e70" title="Checkout a locked video frame if the frame&#39;s timestamp is newer than &#39;time&#39;." alt="" coords="192,438,404,478"/>
+<area shape="poly" id="edge12_Node000001_Node000008" title=" " alt="" coords="87,326,131,374,160,401,193,424,204,431,198,431,190,428,157,405,127,378,86,331"/>
+<area shape="rect" id="Node000009" href="$class_a_r_video_source.html#a4328e4435cfcff995216fb77ddb93619" title="Returns the pixel format of the video." alt="" coords="193,503,403,528"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="81,326,97,361,120,405,152,450,193,488,203,496,198,495,190,492,148,453,116,407,92,363,80,332"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="260,29,253,21,258,11,273,5,298,3,325,5,340,14,335,15,324,10,298,8,274,10,261,15,259,20,266,29"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="256,102,254,93,261,84,275,79,298,77,322,79,338,87,333,88,321,84,298,82,277,84,264,88,259,94,261,103"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="260,192,253,183,258,174,273,167,298,165,325,168,340,177,335,178,324,173,298,171,274,173,261,177,259,183,266,192"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="260,265,253,257,258,247,273,241,298,239,325,241,341,250,335,251,324,246,298,244,274,246,261,251,259,256,266,265"/>
+<area shape="poly" id="edge10_Node000006_Node000006" title=" " alt="" coords="260,338,253,330,258,320,273,314,298,312,325,315,341,324,335,324,324,320,298,317,274,319,261,324,259,329,266,339"/>
 </map>

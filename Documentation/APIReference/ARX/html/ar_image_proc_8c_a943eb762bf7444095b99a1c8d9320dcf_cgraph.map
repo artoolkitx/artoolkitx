@@ -1,4 +1,7 @@
 <map id="arImageProcLumaHistAndOtsu" name="arImageProcLumaHistAndOtsu">
-<area shape="rect" id="node1" title="Calculate image histogram, and binarize image using Otsu&#39;s method for foreground/background separatio..." alt="" coords="5,5,208,31"/>
-<area shape="rect" id="node2" href="$ar_image_proc_8c.html#a9bddf2e229ba8ea9a61ea1f2d5a61b2a" title="Calculate luminance histogram." alt="" coords="256,5,407,31"/>
+<area shape="rect" id="Node000001" title="Calculate image histogram, and binarize image using Otsu&#39;s method for foreground/background separatio..." alt="" coords="5,29,208,55"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="69,29,62,21,66,11,81,5,107,3,134,5,149,15,144,15,133,10,106,8,83,10,70,15,67,20,74,29"/>
+<area shape="rect" id="Node000002" href="$ar_image_proc_8c.html#a9bddf2e229ba8ea9a61ea1f2d5a61b2a" title="Calculate luminance histogram." alt="" coords="256,29,407,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,40,243,42,237,42,208,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="294,28,287,21,291,11,306,5,331,3,359,5,374,15,369,14,357,10,331,8,308,10,295,15,292,20,299,30"/>
 </map>

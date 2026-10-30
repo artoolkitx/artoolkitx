@@ -1,9 +1,15 @@
 <map id="Source/ARX/ARUtil/thread_sub.c" name="Source/ARX/ARUtil/thread_sub.c">
-<area shape="rect" id="node1" title=" " alt="" coords="124,5,301,46"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,94,73,120"/>
-<area shape="rect" id="node3" title=" " alt="" coords="97,94,157,120"/>
-<area shape="rect" id="node4" title=" " alt="" coords="181,94,244,120"/>
-<area shape="rect" id="node5" href="$thread__sub_8h.html" title=" " alt="" coords="268,94,439,120"/>
-<area shape="rect" id="node7" title=" " alt="" coords="464,94,539,120"/>
-<area shape="rect" id="node6" href="$types_8h.html" title=" " alt="" coords="284,168,423,193"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="124,5,301,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,94,73,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,49,81,89,78,85,170,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="97,94,157,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,45,153,85,149,81,189,48"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="181,94,244,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="214,44,215,80,210,77,211,49"/>
+<area shape="rect" id="Node000005" href="$thread__sub_8h.html" title=" " alt="" coords="268,94,439,120"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="248,44,321,86,316,87,247,49"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="464,94,539,120"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="285,44,451,90,446,92,284,49"/>
+<area shape="rect" id="Node000006" href="$types_8h.html" title=" " alt="" coords="284,168,423,193"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="356,118,356,153,352,150,352,122"/>
 </map>

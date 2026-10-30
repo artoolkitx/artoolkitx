@@ -1,16 +1,41 @@
 <map id="ARTrackableMultiSquare::load" name="ARTrackableMultiSquare::load">
-<area shape="rect" id="node1" title=" " alt="" coords="5,146,172,187"/>
-<area shape="rect" id="node2" href="$ar_multi_read_config_file_8c.html#ae617e7b1d70e73aaccb57e88ba1630dc" title="Creates a new multi&#45;marker configuration and fills it with the config from the multi&#45;marker config fi..." alt="" coords="228,104,378,130"/>
-<area shape="rect" id="node13" href="$class_a_r_trackable_multi_square.html#a57881bb2ce7acf1852db2ee6665cd0f4" title=" " alt="" coords="220,174,386,215"/>
-<area shape="rect" id="node3" href="$ar_multi_edit_config_8c.html#ad1fc20004885bcb4b4cb3ee0931df634" title="Creates a new empty multi&#45;marker configuration." alt="" coords="480,5,607,31"/>
-<area shape="rect" id="node4" href="$ar_multi_edit_config_8c.html#a7a45fb2f0acb56ddee63efcdaaf654a1" title=" " alt="" coords="446,55,641,80"/>
-<area shape="rect" id="node9" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="501,104,585,130"/>
-<area shape="rect" id="node12" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="434,153,652,179"/>
-<area shape="rect" id="node5" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title=" " alt="" coords="729,55,821,80"/>
-<area shape="rect" id="node6" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="904,5,1001,31"/>
-<area shape="rect" id="node7" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="905,55,1000,80"/>
-<area shape="rect" id="node8" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="898,104,1007,130"/>
-<area shape="rect" id="node10" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="700,104,850,130"/>
-<area shape="rect" id="node11" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="755,153,795,179"/>
-<area shape="rect" id="node14" href="$ar_multi_free_config_8c.html#a0f33d2031514e1b5af6ba4dfa152633f" title="Frees the multi&#45;marker configuration passed in." alt="" coords="481,203,605,228"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,242,172,282"/>
+<area shape="rect" id="Node000002" href="$ar_multi_read_config_file_8c.html#ae617e7b1d70e73aaccb57e88ba1630dc" title="Creates a new multi&#45;marker configuration and fills it with the config from the multi&#45;marker config fi..." alt="" coords="228,176,378,202"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,239,250,206,246,209,151,244"/>
+<area shape="rect" id="Node000013" href="$class_a_r_trackable_multi_square.html#a57881bb2ce7acf1852db2ee6665cd0f4" title=" " alt="" coords="220,270,386,310"/>
+<area shape="poly" id="edge23_Node000001_Node000013" title=" " alt="" coords="172,270,207,277,202,278,172,276"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="267,175,260,167,264,158,279,151,303,149,329,152,344,161,339,161,328,157,303,155,280,157,268,161,265,167,272,176"/>
+<area shape="rect" id="Node000003" href="$ar_multi_edit_config_8c.html#ad1fc20004885bcb4b4cb3ee0931df634" title="Creates a new empty multi&#45;marker configuration." alt="" coords="480,29,607,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="312,174,360,120,394,89,433,64,467,53,462,55,435,69,397,94,363,124,316,178"/>
+<area shape="rect" id="Node000004" href="$ar_multi_edit_config_8c.html#a7a45fb2f0acb56ddee63efcdaaf654a1" title=" " alt="" coords="446,103,641,128"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="335,173,433,137,462,132,457,133,435,142,337,178"/>
+<area shape="rect" id="Node000009" href="$ar_patt_load_8c.html#a6c3899cc1122ad7ae5bd93b4c00a64cf" title="Load a pattern file into a pattern handle." alt="" coords="501,176,585,202"/>
+<area shape="poly" id="edge15_Node000002_Node000009" title=" " alt="" coords="378,186,488,188,483,190,378,191"/>
+<area shape="rect" id="Node000012" href="$ar_util_8c.html#aadb50b241c9234d1a23317a1767a39be" title=" " alt="" coords="434,249,652,275"/>
+<area shape="poly" id="edge21_Node000002_Node000012" title=" " alt="" coords="348,200,486,244,481,245,347,205"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="504,29,497,21,502,11,517,5,543,3,571,5,587,14,582,15,570,11,543,8,519,10,505,15,502,20,510,29"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="504,102,497,94,502,84,517,78,543,76,571,79,587,88,582,88,570,84,543,81,519,83,505,88,502,93,509,103"/>
+<area shape="rect" id="Node000005" href="$ar_util_8c.html#a97c94e6c703a2e449272302c925944d1" title=" " alt="" coords="729,103,821,128"/>
+<area shape="poly" id="edge7_Node000004_Node000005" title=" " alt="" coords="641,113,716,115,711,116,641,118"/>
+<area shape="poly" id="edge14_Node000005_Node000005" title=" " alt="" coords="745,101,739,94,743,84,755,78,775,76,797,79,809,88,804,87,795,84,775,81,756,83,747,88,745,93,750,103"/>
+<area shape="rect" id="Node000006" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="904,29,1001,55"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="807,100,903,62,908,61,809,105"/>
+<area shape="rect" id="Node000007" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="905,103,1000,128"/>
+<area shape="poly" id="edge10_Node000005_Node000007" title=" " alt="" coords="821,113,892,115,887,116,822,118"/>
+<area shape="rect" id="Node000008" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="898,176,1007,202"/>
+<area shape="poly" id="edge12_Node000005_Node000008" title=" " alt="" coords="821,126,851,137,915,169,910,168,849,142,820,132"/>
+<area shape="poly" id="edge9_Node000006_Node000006" title=" " alt="" coords="922,28,917,21,920,11,932,5,952,3,974,5,986,14,981,14,972,10,952,8,934,10,924,15,922,20,927,30"/>
+<area shape="poly" id="edge11_Node000007_Node000007" title=" " alt="" coords="922,101,917,94,920,84,932,78,952,76,974,79,986,88,981,87,972,84,952,81,934,83,924,88,922,93,927,103"/>
+<area shape="poly" id="edge13_Node000008_Node000008" title=" " alt="" coords="922,175,917,167,920,158,932,152,952,149,974,152,986,161,981,160,972,157,952,155,934,157,924,161,922,167,927,177"/>
+<area shape="poly" id="edge16_Node000009_Node000009" title=" " alt="" coords="504,175,497,167,502,158,517,151,543,149,571,152,587,161,582,161,570,157,543,155,519,157,505,161,502,167,509,176"/>
+<area shape="rect" id="Node000010" href="$ar_patt_load_8c.html#a1eb242ab9531966ab8bd8a5379e78792" title=" " alt="" coords="700,176,850,202"/>
+<area shape="poly" id="edge17_Node000009_Node000010" title=" " alt="" coords="585,186,687,188,682,189,586,191"/>
+<area shape="rect" id="Node000011" href="$file__utils_8c.html#a21f1c9d5c1f0959f58653362849bd63f" title=" " alt="" coords="755,249,795,275"/>
+<area shape="poly" id="edge19_Node000009_Node000011" title=" " alt="" coords="586,194,653,210,743,247,738,247,652,215,586,199"/>
+<area shape="poly" id="edge18_Node000010_Node000010" title=" " alt="" coords="745,175,739,167,743,158,755,152,775,149,797,152,809,161,804,160,795,157,775,155,756,157,747,161,745,167,750,177"/>
+<area shape="poly" id="edge20_Node000011_Node000011" title=" " alt="" coords="752,253,741,246,741,234,753,226,775,223,793,224,805,229,811,237,809,246,805,242,805,238,802,233,792,230,775,228,754,231,745,236,746,243,757,255"/>
+<area shape="poly" id="edge22_Node000012_Node000012" title=" " alt="" coords="504,248,497,241,502,231,517,225,543,223,571,225,587,235,582,234,570,231,543,228,519,230,505,235,502,240,509,250"/>
+<area shape="rect" id="Node000014" href="$ar_multi_free_config_8c.html#a0f33d2031514e1b5af6ba4dfa152633f" title="Frees the multi&#45;marker configuration passed in." alt="" coords="481,323,605,348"/>
+<area shape="poly" id="edge24_Node000013_Node000014" title=" " alt="" coords="387,303,468,321,463,321,386,309"/>
+<area shape="poly" id="edge25_Node000014_Node000014" title=" " alt="" coords="504,321,497,314,502,304,517,298,543,296,571,299,587,308,582,307,570,304,543,301,519,303,505,308,502,313,509,323"/>
 </map>

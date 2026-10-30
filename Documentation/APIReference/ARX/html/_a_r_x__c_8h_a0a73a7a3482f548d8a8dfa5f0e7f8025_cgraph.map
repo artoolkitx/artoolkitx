@@ -1,4 +1,4 @@
 <map id="arwSetTrackerOptionBool" name="arwSetTrackerOptionBool">
-<area shape="rect" id="node1" title="Set boolean options associated with a tracker." alt="" coords="5,5,176,31"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#aa96bf62693cbf574b08d89b1db12d3a3" title=" " alt="" coords="224,5,431,31"/>
+<area shape="rect" id="Node000001" title="Set boolean options associated with a tracker." alt="" coords="5,29,176,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="61,29,56,21,59,11,71,5,91,3,111,5,123,14,118,14,109,10,90,8,73,10,63,15,61,20,66,29"/>
 </map>

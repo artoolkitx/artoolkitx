@@ -1,0 +1,13 @@
+<map id="ARController::videoPush" name="ARController::videoPush">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,171,56"/>
+<area shape="rect" id="Node000002" href="$class_a_r_video_source.html#a1e884eb3148cf3f996be7e7a0e79b546" title="Returns true if the video source is open." alt="" coords="229,5,392,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,31,216,29,211,30,172,37"/>
+<area shape="rect" id="Node000003" href="$class_a_r_video_source.html#a0627d33e53709df1c0e04d6364646097" title=" " alt="" coords="219,55,402,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,50,206,56,200,56,171,55"/>
+<area shape="rect" id="Node000004" href="$video2_8c.html#ae7f6d934a89d4e38bf5d489436eb3b4b" title=" " alt="" coords="450,55,552,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="402,65,437,67,432,68,402,70"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="471,53,466,46,469,36,481,30,501,28,522,31,535,40,530,39,521,36,501,33,483,35,473,40,471,45,476,55"/>
+<area shape="rect" id="Node000005" href="$video_external_8h.html#af7194a3575846a8eba61bf2ef92078a9" title=" " alt="" coords="600,55,751,80"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="553,65,588,67,582,68,553,70"/>
+<area shape="poly" id="edge6_Node000005_Node000005" title=" " alt="" coords="646,53,640,46,644,36,656,30,676,28,697,31,709,40,704,39,695,36,675,33,657,35,648,40,646,45,651,55"/>
+</map>

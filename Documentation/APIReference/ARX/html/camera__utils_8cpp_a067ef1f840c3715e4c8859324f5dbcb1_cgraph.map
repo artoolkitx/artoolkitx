@@ -1,4 +1,10 @@
 <map id="PrintCameraDeviceError" name="PrintCameraDeviceError">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,169,31"/>
-<area shape="rect" id="node2" href="$camera__utils_8cpp.html#aee554dac3efe7a8bab6bf0cf45d195d8" title=" " alt="" coords="217,5,391,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,169,55"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="50,29,44,21,48,11,63,5,87,3,114,5,129,15,123,15,112,10,87,8,64,10,52,15,49,20,56,29"/>
+<area shape="rect" id="Node000002" href="$camera__utils_8cpp.html#aee554dac3efe7a8bab6bf0cf45d195d8" title=" " alt="" coords="217,29,391,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,40,203,42,198,42,169,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="274,28,268,21,272,11,284,5,304,3,325,5,338,15,333,14,324,10,304,8,285,10,276,15,274,20,279,30"/>
+<area shape="rect" id="Node000003" href="$camera__utils_8cpp.html#a415065650f41baf260f94db35cb13270" title=" " alt="" coords="439,29,521,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="391,40,426,42,421,42,392,45"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="450,28,445,21,448,11,460,5,480,3,502,5,514,15,509,14,500,10,480,8,462,10,452,15,450,20,455,30"/>
 </map>

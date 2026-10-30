@@ -1,4 +1,7 @@
 <map id="arDetectMarker2" name="arDetectMarker2">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,124,31"/>
-<area shape="rect" id="node2" href="$ar_detect_marker2_8c.html#a274e403d1435733b05081af10ad416d3" title=" " alt="" coords="172,5,271,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,124,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="37,29,33,21,36,11,47,5,65,3,84,5,95,14,90,14,82,10,64,8,48,10,40,15,38,20,43,29"/>
+<area shape="rect" id="Node000002" href="$ar_detect_marker2_8c.html#a274e403d1435733b05081af10ad416d3" title=" " alt="" coords="172,29,271,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="124,40,159,42,153,42,124,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="194,28,189,21,192,11,203,5,221,3,241,5,252,15,247,14,239,10,221,8,205,10,197,15,195,20,199,30"/>
 </map>

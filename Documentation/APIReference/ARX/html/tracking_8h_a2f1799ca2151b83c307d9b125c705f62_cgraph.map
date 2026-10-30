@@ -1,9 +1,22 @@
 <map id="ar2Tracking" name="ar2Tracking">
-<area shape="rect" id="node1" title=" " alt="" coords="5,129,95,155"/>
-<area shape="rect" id="node2" href="$select_template_8c.html#a23a99aae5fb2bcdedff44cb9988f78be" title=" " alt="" coords="152,5,281,31"/>
-<area shape="rect" id="node3" href="$param_distortion_8c.html#af6fab5b34071af3f7fb01d484a75a333" title="Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero&#45;..." alt="" coords="143,55,290,80"/>
-<area shape="rect" id="node4" href="$ar_util_8c.html#a2b0bb26c88fe8dfa3957aeb9e8ce2dae" title=" " alt="" coords="167,104,266,130"/>
-<area shape="rect" id="node5" href="$icp_handle_8c.html#a9515de22165e8248a8742e1f5b9e4bef" title=" " alt="" coords="143,153,290,179"/>
-<area shape="rect" id="node6" href="$thread__sub_8c.html#afedcd01faf8f4e79fa17952ac71ca839" title=" " alt="" coords="163,203,270,228"/>
-<area shape="rect" id="node7" href="$thread__sub_8c.html#adf5b0c3a61be2511f7a2d0d563d3f29b" title=" " alt="" coords="156,252,277,278"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,213,95,239"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="21,214,16,205,20,195,31,189,50,187,70,189,82,197,77,199,68,194,50,192,33,194,24,199,22,204,27,212"/>
+<area shape="rect" id="Node000002" href="$select_template_8c.html#a23a99aae5fb2bcdedff44cb9988f78be" title=" " alt="" coords="152,29,281,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="53,212,64,182,82,142,107,100,141,64,148,61,145,65,144,68,112,104,86,145,69,184,58,214"/>
+<area shape="rect" id="Node000003" href="$param_distortion_8c.html#af6fab5b34071af3f7fb01d484a75a333" title="Use lens distortion parameters to convert observed (distorted) window coordinates to idealised (zero&#45;..." alt="" coords="143,103,290,128"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="60,212,94,175,141,137,153,133,149,137,144,142,97,179,64,215"/>
+<area shape="rect" id="Node000004" href="$ar_util_8c.html#a2b0bb26c88fe8dfa3957aeb9e8ce2dae" title=" " alt="" coords="167,176,266,202"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="94,214,153,201,150,205,97,218"/>
+<area shape="rect" id="Node000005" href="$icp_handle_8c.html#a9515de22165e8248a8742e1f5b9e4bef" title=" " alt="" coords="143,249,290,275"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="94,233,141,244,137,247,96,238"/>
+<area shape="rect" id="Node000006" href="$thread__sub_8c.html#afedcd01faf8f4e79fa17952ac71ca839" title="Client&#45;side, communication. Wait for thread to end processing." alt="" coords="163,323,270,348"/>
+<area shape="poly" id="edge10_Node000001_Node000006" title=" " alt="" coords="72,237,144,285,185,313,180,314,141,290,71,242"/>
+<area shape="rect" id="Node000007" href="$thread__sub_8c.html#adf5b0c3a61be2511f7a2d0d563d3f29b" title="Client&#45;side, communication. Send the worker thread the &quot;start processing&quot; request." alt="" coords="156,396,277,422"/>
+<area shape="poly" id="edge12_Node000001_Node000007" title=" " alt="" coords="59,237,93,294,117,328,144,359,180,388,174,388,141,363,113,331,89,297,57,242"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="188,29,183,21,186,11,197,5,216,3,237,5,248,13,243,15,235,10,216,8,199,10,190,15,188,20,193,29"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="188,102,183,94,186,84,197,78,216,76,237,79,248,87,243,88,235,84,216,81,199,83,190,88,188,93,193,102"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="188,176,183,167,186,158,197,152,216,149,237,152,248,160,243,161,235,157,216,155,199,157,190,161,188,167,193,176"/>
+<area shape="poly" id="edge9_Node000005_Node000005" title=" " alt="" coords="188,249,183,241,186,231,197,225,216,223,237,225,249,234,243,234,235,230,216,228,199,230,190,235,188,240,193,249"/>
+<area shape="poly" id="edge11_Node000006_Node000006" title=" " alt="" coords="188,322,183,314,186,304,197,298,216,296,237,299,249,308,243,307,235,304,216,301,199,303,190,308,188,313,193,323"/>
+<area shape="poly" id="edge13_Node000007_Node000007" title=" " alt="" coords="188,395,183,387,186,378,197,372,216,369,237,372,248,381,243,380,235,377,216,375,199,377,190,381,188,387,193,397"/>
 </map>

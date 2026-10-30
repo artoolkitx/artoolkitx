@@ -1,11 +1,31 @@
 <map id="arGetLine" name="arGetLine">
-<area shape="rect" id="node1" title=" " alt="" coords="5,181,83,207"/>
-<area shape="rect" id="node2" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="514,5,612,31"/>
-<area shape="rect" id="node3" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="516,105,610,131"/>
-<area shape="rect" id="node4" href="$m_p_c_a_8c.html#a04d062f49b83d57ac0dec5e906dfcd32" title=" " alt="" coords="166,105,262,131"/>
-<area shape="rect" id="node7" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="131,207,297,232"/>
-<area shape="rect" id="node8" href="$v_alloc_8c.html#a24a15cbbf606806e8a494f4943fb12fe" title=" " alt="" coords="172,256,256,282"/>
-<area shape="rect" id="node9" href="$v_free_8c.html#a08c0d02dd8ddfb8a05d07f3fb80db2c4" title=" " alt="" coords="173,305,255,331"/>
-<area shape="rect" id="node5" href="$m_alloc_dup_8c.html#ace5d8c6eb6524469fbc3770081658081" title=" " alt="" coords="345,55,466,80"/>
-<area shape="rect" id="node6" href="$m_dup_8c.html#a988e4c76394edccbf1e86005b97f725a" title=" " alt="" coords="517,55,609,80"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,241,83,267"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="15,242,10,233,13,223,25,217,44,215,65,217,77,225,72,227,63,222,44,220,26,222,17,227,15,232,20,240"/>
+<area shape="rect" id="Node000002" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="514,29,612,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="47,240,75,179,98,144,129,115,173,88,221,68,271,53,322,43,419,34,501,36,497,38,419,39,323,48,273,58,223,73,176,93,132,119,102,148,79,182,52,242"/>
+<area shape="rect" id="Node000003" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="516,176,610,202"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="82,246,130,240,502,193,500,199,131,245,84,251"/>
+<area shape="rect" id="Node000004" href="$m_p_c_a_8c.html#a04d062f49b83d57ac0dec5e906dfcd32" title=" " alt="" coords="166,153,262,179"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="61,239,129,196,161,183,158,187,132,201,65,243"/>
+<area shape="rect" id="Node000007" href="$param_l_t_8c.html#a7929844b3a3b321f49d5aca138bd3d0c" title="Use a lookup&#45;table camera parameter to convert observed (distorted) window coordinates to idealised (..." alt="" coords="131,279,297,304"/>
+<area shape="poly" id="edge15_Node000001_Node000007" title=" " alt="" coords="83,260,140,273,135,276,84,265"/>
+<area shape="rect" id="Node000008" href="$v_alloc_8c.html#a24a15cbbf606806e8a494f4943fb12fe" title=" " alt="" coords="172,352,256,378"/>
+<area shape="poly" id="edge17_Node000001_Node000008" title=" " alt="" coords="62,265,132,315,177,343,172,345,129,319,62,270"/>
+<area shape="rect" id="Node000009" href="$v_free_8c.html#a08c0d02dd8ddfb8a05d07f3fb80db2c4" title=" " alt="" coords="173,425,254,451"/>
+<area shape="poly" id="edge19_Node000001_Node000009" title=" " alt="" coords="52,265,83,323,106,357,132,388,171,417,166,418,129,392,101,360,78,326,50,270"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="536,28,531,21,534,11,545,5,563,3,582,5,594,14,588,14,580,10,563,8,547,10,538,15,536,20,541,29"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="536,175,531,167,534,158,545,152,563,149,582,152,594,161,588,161,580,157,563,155,547,157,538,161,536,167,541,176"/>
+<area shape="poly" id="edge13_Node000004_Node000003" title=" " alt="" coords="262,167,502,183,498,187,263,172"/>
+<area shape="poly" id="edge14_Node000004_Node000004" title=" " alt="" coords="185,153,179,145,183,135,195,129,214,127,234,129,247,138,241,139,233,134,214,132,196,134,187,139,185,144,190,153"/>
+<area shape="rect" id="Node000005" href="$m_alloc_dup_8c.html#ace5d8c6eb6524469fbc3770081658081" title=" " alt="" coords="345,103,466,128"/>
+<area shape="poly" id="edge7_Node000004_Node000005" title=" " alt="" coords="261,151,342,131,337,134,264,156"/>
+<area shape="poly" id="edge8_Node000005_Node000002" title=" " alt="" coords="434,100,522,61,518,63,437,104"/>
+<area shape="poly" id="edge12_Node000005_Node000003" title=" " alt="" coords="435,126,522,169,517,169,435,132"/>
+<area shape="poly" id="edge9_Node000005_Node000005" title=" " alt="" coords="378,102,374,94,377,84,388,78,406,76,425,79,436,87,431,88,423,84,406,81,389,83,381,88,379,93,384,103"/>
+<area shape="rect" id="Node000006" href="$m_dup_8c.html#a988e4c76394edccbf1e86005b97f725a" title=" " alt="" coords="517,103,609,128"/>
+<area shape="poly" id="edge10_Node000005_Node000006" title=" " alt="" coords="466,113,504,115,499,116,468,118"/>
+<area shape="poly" id="edge11_Node000006_Node000006" title=" " alt="" coords="536,102,531,94,534,84,545,78,563,76,582,79,594,87,588,87,580,84,563,81,547,83,538,88,536,93,541,103"/>
+<area shape="poly" id="edge16_Node000007_Node000007" title=" " alt="" coords="185,278,179,270,183,260,195,254,214,252,234,255,247,263,241,264,233,260,214,257,196,259,187,264,185,269,190,279"/>
+<area shape="poly" id="edge18_Node000008_Node000008" title=" " alt="" coords="185,351,179,343,183,334,195,328,214,325,234,328,247,337,241,337,233,333,214,331,196,333,187,337,185,343,190,352"/>
+<area shape="poly" id="edge20_Node000009_Node000009" title=" " alt="" coords="185,424,179,417,183,407,195,401,214,399,234,401,247,411,241,410,233,406,214,404,196,406,187,411,185,416,190,426"/>
 </map>

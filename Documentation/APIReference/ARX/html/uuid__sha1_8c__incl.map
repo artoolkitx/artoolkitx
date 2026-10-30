@@ -1,8 +1,13 @@
 <map id="Source/ARX/ARUtil/uuid/uuid_sha1.c" name="Source/ARX/ARUtil/uuid/uuid_sha1.c">
-<area shape="rect" id="node1" title=" " alt="" coords="86,5,252,46"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,94,69,120"/>
-<area shape="rect" id="node3" title=" " alt="" coords="93,94,157,120"/>
-<area shape="rect" id="node4" title=" " alt="" coords="181,94,245,120"/>
-<area shape="rect" id="node5" href="$uuid__sha1_8h.html" title=" " alt="" coords="269,94,360,120"/>
-<area shape="rect" id="node6" title=" " alt="" coords="280,168,349,193"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="86,5,252,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,94,69,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,49,72,88,69,84,137,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="93,94,157,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="160,44,141,82,137,79,156,48"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="181,94,245,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="181,44,202,81,196,80,179,49"/>
+<area shape="rect" id="Node000005" href="$uuid__sha1_8h.html" title=" " alt="" coords="269,94,360,120"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="206,44,282,86,276,87,205,49"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="280,168,348,193"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="316,118,317,153,312,150,312,122"/>
 </map>

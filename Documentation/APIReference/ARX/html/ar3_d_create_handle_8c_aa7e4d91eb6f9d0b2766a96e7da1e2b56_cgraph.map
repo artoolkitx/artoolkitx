@@ -1,4 +1,7 @@
 <map id="ar3DCreateHandle2" name="ar3DCreateHandle2">
-<area shape="rect" id="node1" title="Create handle used for 3D calculation from an intrinsic parameters matrix." alt="" coords="5,5,142,31"/>
-<area shape="rect" id="node2" href="$icp_handle_8c.html#acc980d46da2fee551179fe0eb8853587" title=" " alt="" coords="190,5,308,31"/>
+<area shape="rect" id="Node000001" title="Create handle used for 3D calculation from an intrinsic parameters matrix." alt="" coords="5,29,142,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="43,29,38,21,42,11,54,5,74,3,95,5,107,14,102,14,93,10,73,8,55,10,46,15,43,20,49,29"/>
+<area shape="rect" id="Node000002" href="$icp_handle_8c.html#acc980d46da2fee551179fe0eb8853587" title=" " alt="" coords="190,29,308,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="142,40,177,42,171,42,142,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="219,28,213,21,217,11,229,5,249,3,270,5,283,15,277,14,268,10,249,8,231,10,221,15,219,20,224,30"/>
 </map>

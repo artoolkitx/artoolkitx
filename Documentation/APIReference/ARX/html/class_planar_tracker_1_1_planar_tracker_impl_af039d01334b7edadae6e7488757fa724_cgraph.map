@@ -1,0 +1,12 @@
+<map id="PlanarTracker::PlanarTrackerImpl::UpdateTrackableHomography" name="PlanarTracker::PlanarTrackerImpl::UpdateTrackableHomography">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,87,233,128"/>
+<area shape="rect" id="Node000002" href="$_o_c_v_utils_8h.html#a7fe5bf75dbdbdb3b864fd17f80e8129f" title="Method for calculating and validating a homography matrix from a set of corresponding points." alt="" coords="325,29,476,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,84,280,65,322,58,317,60,281,70,203,89"/>
+<area shape="rect" id="Node000004" href="$class_planar_tracker_1_1_planar_tracker_impl.html#ad3b05a88662b2f9fc9cf6cfc77655397" title=" " alt="" coords="281,80,520,135"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="233,105,268,107,263,108,234,110"/>
+<area shape="rect" id="Node000005" href="$class_planar_tracker_1_1_planar_tracker_impl.html#a49d46520b714b7e7319ccc7f8c16a3cd" title=" " alt="" coords="305,159,496,200"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="202,126,306,154,301,156,201,131"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="354,29,346,21,351,11,370,5,400,3,435,6,454,15,448,16,434,11,400,8,371,10,354,15,351,20,359,29"/>
+<area shape="rect" id="Node000003" href="$class_homography_info.html#a07d465b05b1248a05553440c6e984964" title=" " alt="" coords="568,29,789,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="476,40,555,42,550,43,477,45"/>
+</map>

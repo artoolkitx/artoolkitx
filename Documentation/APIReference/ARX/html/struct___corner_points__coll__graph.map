@@ -1,4 +1,5 @@
 <map id="_CornerPoints" name="_CornerPoints">
-<area shape="rect" id="node1" title=" " alt="" coords="5,94,110,120"/>
-<area shape="rect" id="node2" href="$struct___point2i.html" title=" " alt="" coords="23,5,92,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,102,110,128"/>
+<area shape="rect" id="Node000002" href="$struct___point2i.html" title=" " alt="" coords="23,5,92,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,45,60,102,55,101,55,48"/>
 </map>

@@ -1,6 +1,13 @@
 <map id="ar2VideoOpenAsync" name="ar2VideoOpenAsync">
-<area shape="rect" id="node1" title="Open a video input module, and return control object, invoking a callback once opening is complete." alt="" coords="5,55,146,80"/>
-<area shape="rect" id="node2" href="$video_android_8h.html#a1d6e964f2d94fca2f61cd36f1bcaf8a5" title=" " alt="" coords="212,5,396,31"/>
-<area shape="rect" id="node3" href="$video_a_v_foundation_8h.html#adb1121aa31efbd7a52a0a09f1c287064" title=" " alt="" coords="194,55,414,80"/>
-<area shape="rect" id="node4" href="$video_external_8h.html#a6688bc62f5be5535ce19a0fd80c23ab4" title=" " alt="" coords="210,104,398,130"/>
+<area shape="rect" id="Node000001" title="Open a video input module, and return control object, invoking a callback once opening is complete." alt="" coords="5,103,146,128"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="37,103,30,94,35,84,50,78,76,76,103,79,119,87,114,89,102,84,75,81,51,83,38,88,35,93,42,102"/>
+<area shape="rect" id="Node000002" href="$video_android_8h.html#a1d6e964f2d94fca2f61cd36f1bcaf8a5" title=" " alt="" coords="212,29,396,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="103,100,193,64,220,58,215,61,195,69,106,104"/>
+<area shape="rect" id="Node000003" href="$video_a_v_foundation_8h.html#adb1121aa31efbd7a52a0a09f1c287064" title=" " alt="" coords="194,103,414,128"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="145,113,181,115,176,116,146,118"/>
+<area shape="rect" id="Node000004" href="$video_external_8h.html#a6688bc62f5be5535ce19a0fd80c23ab4" title=" " alt="" coords="210,176,398,202"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="119,126,248,169,244,172,118,132"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="265,29,259,21,263,11,278,5,304,3,332,5,347,14,342,15,330,10,304,8,280,10,267,15,264,20,271,29"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="265,102,259,94,263,84,278,78,304,76,332,79,347,88,342,88,330,84,304,81,280,83,267,88,264,93,271,103"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="266,175,259,167,263,158,278,151,304,149,332,152,347,162,342,161,330,157,304,155,280,157,267,161,264,167,271,177"/>
 </map>

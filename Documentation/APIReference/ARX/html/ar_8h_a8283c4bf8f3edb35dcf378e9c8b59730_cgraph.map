@@ -1,4 +1,7 @@
 <map id="arPattDeleteHandle" name="arPattDeleteHandle">
-<area shape="rect" id="node1" title="Free all loaded patterns and pattern handle." alt="" coords="5,5,141,31"/>
-<area shape="rect" id="node2" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="189,5,271,31"/>
+<area shape="rect" id="Node000001" title="Free all loaded patterns and pattern handle." alt="" coords="5,29,141,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="46,29,41,21,44,11,55,5,73,3,92,5,104,14,98,14,90,10,73,8,57,10,48,15,46,20,51,29"/>
+<area shape="rect" id="Node000002" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="189,29,271,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="141,40,176,42,170,42,141,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="203,28,198,21,201,11,212,5,230,3,249,5,260,15,255,14,247,10,230,8,214,10,205,15,203,20,208,30"/>
 </map>

@@ -1,5 +1,10 @@
 <map id="arVideoSaveParam" name="arVideoSaveParam">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,139,31"/>
-<area shape="rect" id="node2" href="$video2_8c.html#aea00aaf3347ee16e0913f7e20a364671" title=" " alt="" coords="187,5,327,31"/>
-<area shape="rect" id="node3" href="$video1394_8h.html#a3a16492f0d3092605e4939e67d3d97c8" title=" " alt="" coords="375,5,543,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,139,55"/>
+<area shape="poly" id="edge5_Node000001_Node000001" title=" " alt="" coords="40,29,35,21,38,11,51,5,72,3,94,5,107,14,102,14,93,10,72,8,53,10,42,15,40,20,46,29"/>
+<area shape="rect" id="Node000002" href="$video2_8c.html#aea00aaf3347ee16e0913f7e20a364671" title=" " alt="" coords="187,29,327,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,40,174,42,168,42,139,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="225,28,220,21,223,11,236,5,257,3,279,5,292,15,287,14,278,10,257,8,237,10,227,15,225,20,230,30"/>
+<area shape="rect" id="Node000003" href="$video1394_8h.html#a3a16492f0d3092605e4939e67d3d97c8" title=" " alt="" coords="375,29,543,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="327,40,362,42,357,42,327,45"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="425,28,419,21,423,11,437,5,459,3,484,5,498,15,493,14,482,10,459,8,438,10,426,15,424,20,430,30"/>
 </map>

@@ -1,4 +1,6 @@
 <map id="ARTrackerSquare::setThreshold" name="ARTrackerSquare::setThreshold">
-<area shape="rect" id="node1" title="Sets the threshold value used for image binarization." alt="" coords="5,5,214,31"/>
-<area shape="rect" id="node2" href="$ar_create_handle_8c.html#ac7e721a0e5f2143612c5269a1ec19976" title="Set the labeling threshhold." alt="" coords="262,5,402,31"/>
+<area shape="rect" id="Node000001" title="Sets the threshold value used for image binarization." alt="" coords="5,29,214,55"/>
+<area shape="rect" id="Node000002" href="$ar_create_handle_8c.html#ac7e721a0e5f2143612c5269a1ec19976" title="Set the labeling threshhold." alt="" coords="262,29,402,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,40,249,42,244,42,214,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="295,28,288,21,292,11,307,5,332,3,359,5,374,15,369,14,358,10,332,8,308,10,296,15,293,20,300,30"/>
 </map>

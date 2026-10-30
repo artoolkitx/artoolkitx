@@ -1,8 +1,19 @@
 <map id="arMatrixAllocInv" name="arMatrixAllocInv">
-<area shape="rect" id="node1" title=" " alt="" coords="5,55,121,80"/>
-<area shape="rect" id="node2" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="169,5,266,31"/>
-<area shape="rect" id="node3" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="170,55,265,80"/>
-<area shape="rect" id="node4" href="$m_inv_8c.html#abebae87acb77ccf8cd0c5da106238a86" title=" " alt="" coords="174,104,261,130"/>
-<area shape="rect" id="node5" href="$m_dup_8c.html#a988e4c76394edccbf1e86005b97f725a" title=" " alt="" coords="323,79,415,104"/>
-<area shape="rect" id="node6" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="314,128,423,154"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,103,121,128"/>
+<area shape="poly" id="edge3_Node000001_Node000001" title=" " alt="" coords="36,103,31,94,35,84,45,78,63,76,82,79,93,87,88,88,80,84,63,81,47,83,39,88,37,94,41,102"/>
+<area shape="rect" id="Node000002" href="$m_alloc_8c.html#a69c9a974dc5a3963148ebb2c4a80f969" title=" " alt="" coords="169,29,266,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,100,176,60,173,64,94,104"/>
+<area shape="rect" id="Node000003" href="$m_free_8c.html#ac4b7a714cce9fffda773d86363380454" title=" " alt="" coords="170,103,264,128"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="120,113,157,114,152,117,122,118"/>
+<area shape="rect" id="Node000004" href="$m_inv_8c.html#abebae87acb77ccf8cd0c5da106238a86" title=" " alt="" coords="174,176,260,202"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="93,126,177,167,172,170,92,132"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="191,29,186,21,189,11,200,5,217,3,236,5,247,14,242,14,234,10,217,8,202,10,194,15,192,20,196,29"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="191,102,186,94,189,84,200,78,217,76,236,79,247,87,242,88,234,84,217,81,202,83,194,88,192,94,196,103"/>
+<area shape="poly" id="edge9_Node000004_Node000004" title=" " alt="" coords="191,175,186,167,189,158,200,152,217,149,236,152,247,161,242,161,234,157,217,155,202,157,194,161,192,167,196,176"/>
+<area shape="rect" id="Node000005" href="$m_dup_8c.html#a988e4c76394edccbf1e86005b97f725a" title=" " alt="" coords="322,139,415,164"/>
+<area shape="poly" id="edge7_Node000004_Node000005" title=" " alt="" coords="260,176,305,167,310,166,262,181"/>
+<area shape="rect" id="Node000006" href="$m_self_inv_8c.html#a929738025b539a0c1bbd2f395ad4d981" title=" " alt="" coords="314,212,423,238"/>
+<area shape="poly" id="edge10_Node000004_Node000006" title=" " alt="" coords="261,196,302,208,297,208,261,202"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="342,137,338,130,341,120,351,114,369,112,387,115,398,124,393,123,385,120,369,117,353,119,345,124,343,130,347,139"/>
+<area shape="poly" id="edge11_Node000006_Node000006" title=" " alt="" coords="343,210,338,203,341,194,351,188,369,185,387,188,398,197,393,196,385,193,369,191,353,193,345,197,343,203,347,213"/>
 </map>

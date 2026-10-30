@@ -1,4 +1,4 @@
 <map id="arwQueryTrackableVisibilityAndTransformation" name="arwQueryTrackableVisibilityAndTransformation">
-<area shape="rect" id="node1" title="Returns the visibility and pose of the specified trackable." alt="" coords="5,5,189,46"/>
-<area shape="rect" id="node2" href="$class_a_r_controller.html#aff42fd017881ce2601c53f830ae7d021" title="Searches the collection of trackables for the given ID." alt="" coords="237,13,419,39"/>
+<area shape="rect" id="Node000001" title="Returns the visibility and pose of the specified trackable." alt="" coords="5,29,189,70"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="62,28,60,19,66,10,78,5,97,3,117,5,130,14,125,14,115,10,97,8,80,10,69,14,65,20,67,29"/>
 </map>

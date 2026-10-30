@@ -1,25 +1,72 @@
 <map id="ARTrackerSquare::start" name="ARTrackerSquare::start">
-<area shape="rect" id="node1" title=" " alt="" coords="5,337,165,363"/>
-<area shape="rect" id="node2" href="$ar3_d_create_handle_8c.html#a069422274c912080a50e49fb9ef75a7b" title="Create handle used for 3D calculation from calibrated camera parameters." alt="" coords="239,5,369,31"/>
-<area shape="rect" id="node5" href="$ar3_d_create_handle_8c.html#a52dff553e3bb96fb199cf50105c16218" title=" " alt="" coords="220,55,388,80"/>
-<area shape="rect" id="node8" href="$ar_create_handle_8c.html#affb342f5fad6b46ea09fd4c8befda607" title="Create a handle to hold settings for an artoolkitX tracker instance." alt="" coords="248,160,360,186"/>
-<area shape="rect" id="node9" href="$ar_create_handle_8c.html#a01258051f513f5c2760136479c9a2052" title="Enable or disable artoolkitX&#39;s debug mode." alt="" coords="482,104,604,130"/>
-<area shape="rect" id="node10" href="$ar_create_handle_8c.html#aec6c548f3619e700e40764cd1c685fc6" title="Set the labeling threshold mode (auto/manual)." alt="" coords="457,219,629,244"/>
-<area shape="rect" id="node14" href="$ar_create_handle_8c.html#ac044da75a479ba275db558f8e3b1d6fd" title="Delete a handle which holds settings for an artoolkitX tracker instance." alt="" coords="487,268,598,294"/>
-<area shape="rect" id="node15" href="$ar_patt_attach_8c.html#aa20f17a257b19a05281e80430301a8d5" title="Associate a set of patterns with an ARHandle." alt="" coords="257,312,351,338"/>
-<area shape="rect" id="node16" href="$ar_create_handle_8c.html#a292c6689bec483177a50f45a5960590a" title="Set the image processing mode." alt="" coords="230,361,378,387"/>
-<area shape="rect" id="node17" href="$ar_create_handle_8c.html#ac64374d047a7137ff9261bf0b001c454" title="Select between detection of black markers and white markers." alt="" coords="238,411,370,436"/>
-<area shape="rect" id="node18" href="$ar_create_handle_8c.html#ac7e721a0e5f2143612c5269a1ec19976" title="Set the labeling threshhold." alt="" coords="234,460,374,486"/>
-<area shape="rect" id="node19" href="$ar_create_handle_8c.html#a76631fc86b9d0fa0b10b7de01533ae32" title="Set the size and ECC algorithm to be used for matrix code (2D barcode) marker detection." alt="" coords="230,509,378,535"/>
-<area shape="rect" id="node20" href="$ar_create_handle_8c.html#aa36c31f7d892653d73647e545ab3b3c9" title="Set the pattern detection mode." alt="" coords="213,559,395,584"/>
-<area shape="rect" id="node21" href="$ar_create_handle_8c.html#a811149d4e03ad3acc4c6b22a385033e4" title="Set the width/height of the marker pattern space, as a proportion of marker width/height." alt="" coords="250,608,358,634"/>
-<area shape="rect" id="node22" href="$ar_create_handle_8c.html#ac4fa700cc90dd9314646127f08913d2c" title="Set the expected pixel format for video frames being passed to arDetectMarker." alt="" coords="243,657,365,683"/>
-<area shape="rect" id="node3" href="$ar3_d_create_handle_8c.html#aa7e4d91eb6f9d0b2766a96e7da1e2b56" title="Create handle used for 3D calculation from an intrinsic parameters matrix." alt="" coords="475,5,611,31"/>
-<area shape="rect" id="node4" href="$icp_handle_8c.html#acc980d46da2fee551179fe0eb8853587" title=" " alt="" coords="709,5,828,31"/>
-<area shape="rect" id="node6" href="$ar3_d_create_handle_8c.html#adc615d7ceff3996a765687d4c070a174" title=" " alt="" coords="456,55,630,80"/>
-<area shape="rect" id="node7" href="$icp_stereo_handle_8c.html#a5436b1a52e81fa715d70decffa023354" title=" " alt="" coords="690,55,847,80"/>
-<area shape="rect" id="node13" href="$ar_create_handle_8c.html#a86e2d00dfb41243650b1e18c55dcf031" title="Set the number of frames between auto&#45;threshold calculations." alt="" coords="443,154,642,195"/>
-<area shape="rect" id="node11" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="707,268,830,294"/>
-<area shape="rect" id="node12" href="$ar_image_proc_8c.html#ab17100ae9f8d3a2b881830f135bfffa8" title="Initialise image processing." alt="" coords="712,219,825,244"/>
-<area shape="rect" id="node23" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="479,657,607,683"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,468,165,494"/>
+<area shape="rect" id="Node000002" href="$ar3_d_create_handle_8c.html#a069422274c912080a50e49fb9ef75a7b" title="Create handle used for 3D calculation from calibrated camera parameters." alt="" coords="239,35,368,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,467,89,400,106,297,122,240,144,183,173,129,211,80,233,65,230,70,215,84,178,132,149,185,127,242,112,299,94,401,89,468"/>
+<area shape="rect" id="Node000005" href="$ar3_d_create_handle_8c.html#a52dff553e3bb96fb199cf50105c16218" title=" " alt="" coords="220,119,388,144"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="86,467,96,414,118,335,134,292,155,248,180,207,211,170,243,149,240,153,214,173,185,210,160,251,139,294,123,337,101,415,91,468"/>
+<area shape="rect" id="Node000008" href="$ar_create_handle_8c.html#affb342f5fad6b46ea09fd4c8befda607" title="Create a handle to hold settings for an artoolkitX tracker instance." alt="" coords="248,255,360,280"/>
+<area shape="poly" id="edge13_Node000001_Node000008" title=" " alt="" coords="89,467,106,433,132,388,168,340,211,297,236,285,232,289,214,302,172,343,137,391,111,436,94,469"/>
+<area shape="rect" id="Node000009" href="$ar_create_handle_8c.html#a01258051f513f5c2760136479c9a2052" title="Enable or disable artoolkitX&#39;s debug mode." alt="" coords="482,176,604,202"/>
+<area shape="poly" id="edge30_Node000001_Node000009" title=" " alt="" coords="86,467,95,418,117,349,133,311,154,276,180,243,211,216,241,199,273,186,340,172,407,169,469,174,464,177,407,174,341,177,274,191,243,204,214,220,184,247,159,279,138,314,122,350,100,419,91,468"/>
+<area shape="rect" id="Node000010" href="$ar_create_handle_8c.html#aec6c548f3619e700e40764cd1c685fc6" title="Set the labeling threshold mode (auto/manual)." alt="" coords="456,339,629,364"/>
+<area shape="poly" id="edge37_Node000001_Node000010" title=" " alt="" coords="94,466,140,415,174,388,212,366,269,349,328,339,387,336,443,339,438,341,387,341,329,345,270,354,214,371,177,392,144,419,99,469"/>
+<area shape="rect" id="Node000014" href="$ar_create_handle_8c.html#ac044da75a479ba275db558f8e3b1d6fd" title="Delete a handle which holds settings for an artoolkitX tracker instance." alt="" coords="487,412,598,438"/>
+<area shape="poly" id="edge25_Node000001_Node000014" title=" " alt="" coords="97,466,145,426,177,407,212,392,248,383,285,379,360,380,430,390,489,406,484,408,429,396,360,385,286,384,249,388,214,397,180,411,148,431,102,469"/>
+<area shape="rect" id="Node000015" href="$ar_patt_attach_8c.html#aa20f17a257b19a05281e80430301a8d5" title="Associate a set of patterns with an ARHandle." alt="" coords="257,431,351,456"/>
+<area shape="poly" id="edge28_Node000001_Node000015" title=" " alt="" coords="163,465,243,452,239,456,166,470"/>
+<area shape="rect" id="Node000016" href="$ar_create_handle_8c.html#a292c6689bec483177a50f45a5960590a" title="Set the image processing mode." alt="" coords="230,504,378,530"/>
+<area shape="poly" id="edge31_Node000001_Node000016" title=" " alt="" coords="164,492,217,501,213,504,166,496"/>
+<area shape="rect" id="Node000017" href="$ar_create_handle_8c.html#ac64374d047a7137ff9261bf0b001c454" title="Select between detection of black markers and white markers." alt="" coords="238,577,370,603"/>
+<area shape="poly" id="edge33_Node000001_Node000017" title=" " alt="" coords="113,492,265,569,261,572,113,497"/>
+<area shape="rect" id="Node000018" href="$ar_create_handle_8c.html#ac7e721a0e5f2143612c5269a1ec19976" title="Set the labeling threshhold." alt="" coords="234,651,374,676"/>
+<area shape="poly" id="edge35_Node000001_Node000018" title=" " alt="" coords="96,491,145,548,178,582,214,613,261,643,256,644,211,618,175,586,141,552,97,497"/>
+<area shape="rect" id="Node000019" href="$ar_create_handle_8c.html#a76631fc86b9d0fa0b10b7de01533ae32" title="Set the size and ECC algorithm to be used for matrix code (2D barcode) marker detection." alt="" coords="230,724,378,750"/>
+<area shape="poly" id="edge38_Node000001_Node000019" title=" " alt="" coords="91,492,110,530,136,581,171,636,214,687,256,716,251,717,211,691,167,640,131,584,105,532,92,497"/>
+<area shape="rect" id="Node000020" href="$ar_create_handle_8c.html#aa36c31f7d892653d73647e545ab3b3c9" title="Set the pattern detection mode." alt="" coords="213,797,395,823"/>
+<area shape="poly" id="edge40_Node000001_Node000020" title=" " alt="" coords="89,492,104,542,128,612,164,690,187,727,215,760,232,776,254,790,249,791,229,780,211,764,183,730,159,692,123,614,99,544,89,497"/>
+<area shape="rect" id="Node000021" href="$ar_create_handle_8c.html#a811149d4e03ad3acc4c6b22a385033e4" title="Set the width/height of the marker pattern space, as a proportion of marker width/height." alt="" coords="250,871,358,896"/>
+<area shape="poly" id="edge42_Node000001_Node000021" title=" " alt="" coords="88,491,99,553,120,642,136,692,157,742,183,790,215,834,232,849,253,864,247,864,228,853,211,837,178,793,152,745,131,694,115,644,94,554,87,497"/>
+<area shape="rect" id="Node000022" href="$ar_create_handle_8c.html#ac4fa700cc90dd9314646127f08913d2c" title="Set the expected pixel format for video frames being passed to arDetectMarker." alt="" coords="243,944,365,970"/>
+<area shape="poly" id="edge44_Node000001_Node000022" title=" " alt="" coords="87,491,95,564,112,672,128,733,150,795,178,854,215,907,231,922,251,937,246,936,227,927,211,911,174,856,145,797,123,735,107,673,89,564,86,497"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="267,35,260,26,265,16,279,10,304,8,331,11,346,19,341,21,329,16,304,13,281,15,268,20,266,25,272,34"/>
+<area shape="rect" id="Node000003" href="$ar3_d_create_handle_8c.html#aa7e4d91eb6f9d0b2766a96e7da1e2b56" title="Create handle used for 3D calculation from an intrinsic parameters matrix." alt="" coords="474,29,611,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="368,44,461,42,457,46,370,48"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="505,29,498,21,502,11,518,5,543,3,570,5,586,14,581,15,569,10,543,8,519,10,506,15,503,20,510,29"/>
+<area shape="rect" id="Node000004" href="$icp_handle_8c.html#acc980d46da2fee551179fe0eb8853587" title=" " alt="" coords="709,29,828,55"/>
+<area shape="poly" id="edge5_Node000003_Node000004" title=" " alt="" coords="610,40,696,41,691,44,612,45"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="730,29,724,21,728,11,743,5,769,3,796,5,812,14,806,15,795,10,768,8,745,10,732,15,729,20,736,29"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="267,119,260,110,265,100,279,94,304,92,331,95,346,103,341,105,329,100,304,97,281,99,268,104,266,109,272,118"/>
+<area shape="rect" id="Node000006" href="$ar3_d_create_handle_8c.html#adc615d7ceff3996a765687d4c070a174" title=" " alt="" coords="456,103,630,128"/>
+<area shape="poly" id="edge9_Node000005_Node000006" title=" " alt="" coords="386,124,442,121,438,124,389,128"/>
+<area shape="poly" id="edge10_Node000006_Node000006" title=" " alt="" coords="505,103,498,94,502,84,518,78,543,76,570,79,586,87,581,89,569,84,543,81,519,83,506,88,503,93,510,102"/>
+<area shape="rect" id="Node000007" href="$icp_stereo_handle_8c.html#a5436b1a52e81fa715d70decffa023354" title=" " alt="" coords="690,103,847,128"/>
+<area shape="poly" id="edge11_Node000006_Node000007" title=" " alt="" coords="629,113,677,114,672,117,631,118"/>
+<area shape="poly" id="edge12_Node000007_Node000007" title=" " alt="" coords="730,102,724,94,728,84,743,78,769,76,796,79,812,87,806,88,795,84,768,81,745,83,732,88,729,93,736,102"/>
+<area shape="poly" id="edge14_Node000008_Node000008" title=" " alt="" coords="267,255,260,246,265,236,279,230,304,228,331,231,346,239,341,241,329,236,304,233,281,235,268,240,266,245,272,254"/>
+<area shape="poly" id="edge15_Node000008_Node000009" title=" " alt="" coords="335,252,442,212,472,204,468,208,444,217,338,256"/>
+<area shape="poly" id="edge17_Node000008_Node000010" title=" " alt="" coords="343,278,492,332,487,334,344,284"/>
+<area shape="rect" id="Node000013" href="$ar_create_handle_8c.html#a86e2d00dfb41243650b1e18c55dcf031" title="Set the number of frames between auto&#45;threshold calculations." alt="" coords="443,250,642,290"/>
+<area shape="poly" id="edge23_Node000008_Node000013" title=" " alt="" coords="359,266,429,267,425,270,362,270"/>
+<area shape="poly" id="edge16_Node000009_Node000009" title=" " alt="" coords="505,176,498,167,502,158,518,151,543,149,570,152,586,161,581,162,569,157,543,155,519,157,506,161,503,167,510,175"/>
+<area shape="poly" id="edge22_Node000010_Node000010" title=" " alt="" coords="505,338,498,330,502,320,518,314,543,312,570,315,586,323,581,324,569,320,543,317,519,319,506,324,503,329,510,338"/>
+<area shape="rect" id="Node000011" href="$ar_image_proc_8c.html#a99a7b2bbb653be2ecc772ceed7159ce1" title="Finish image processing and free memory." alt="" coords="707,412,830,438"/>
+<area shape="poly" id="edge18_Node000010_Node000011" title=" " alt="" coords="604,362,643,373,726,405,720,406,642,378,605,368"/>
+<area shape="rect" id="Node000012" href="$ar_image_proc_8c.html#ab17100ae9f8d3a2b881830f135bfffa8" title="Initialise image processing." alt="" coords="712,339,825,364"/>
+<area shape="poly" id="edge20_Node000010_Node000012" title=" " alt="" coords="628,349,699,350,694,353,630,354"/>
+<area shape="poly" id="edge19_Node000011_Node000011" title=" " alt="" coords="730,411,724,403,728,394,743,387,769,385,796,388,812,397,806,398,795,393,768,391,745,393,732,397,729,403,736,412"/>
+<area shape="poly" id="edge21_Node000012_Node000012" title=" " alt="" coords="730,338,724,330,728,320,743,314,769,312,796,315,812,324,806,324,795,320,768,317,745,319,732,324,729,329,736,338"/>
+<area shape="poly" id="edge24_Node000013_Node000013" title=" " alt="" coords="500,249,498,240,505,231,520,225,543,223,567,226,583,234,578,235,566,231,543,228,521,230,508,235,503,241,505,250"/>
+<area shape="poly" id="edge27_Node000014_Node000011" title=" " alt="" coords="598,422,694,424,689,426,599,427"/>
+<area shape="poly" id="edge26_Node000014_Node000014" title=" " alt="" coords="505,412,498,403,502,394,518,387,543,385,570,388,586,397,581,398,569,393,543,391,519,393,506,397,503,403,510,412"/>
+<area shape="poly" id="edge29_Node000015_Node000015" title=" " alt="" coords="267,431,260,422,265,412,279,406,304,404,331,407,346,415,341,417,329,412,304,409,281,411,268,416,266,421,272,430"/>
+<area shape="poly" id="edge32_Node000016_Node000016" title=" " alt="" coords="267,504,260,495,265,486,279,479,304,477,331,480,346,489,341,490,329,485,304,483,281,485,268,489,266,495,272,503"/>
+<area shape="poly" id="edge34_Node000017_Node000017" title=" " alt="" coords="267,577,260,569,265,559,279,553,304,551,331,553,346,562,340,563,329,558,304,556,281,558,268,563,266,568,272,577"/>
+<area shape="poly" id="edge36_Node000018_Node000018" title=" " alt="" coords="267,650,260,642,265,632,279,626,304,624,331,627,346,635,340,636,329,632,304,629,281,631,268,636,266,641,272,650"/>
+<area shape="poly" id="edge39_Node000019_Node000019" title=" " alt="" coords="267,723,260,715,265,706,279,699,304,697,331,700,346,709,340,710,329,705,304,703,281,705,268,709,266,715,272,724"/>
+<area shape="poly" id="edge41_Node000020_Node000020" title=" " alt="" coords="267,797,260,789,265,779,279,773,304,771,331,773,346,782,340,783,329,778,304,776,281,778,268,783,266,788,272,797"/>
+<area shape="poly" id="edge43_Node000021_Node000021" title=" " alt="" coords="267,870,260,862,265,852,279,846,304,844,331,847,346,856,340,856,329,852,304,849,281,851,268,856,266,861,272,871"/>
+<area shape="poly" id="edge45_Node000022_Node000022" title=" " alt="" coords="267,943,260,935,265,926,279,919,304,917,331,920,346,930,340,929,329,925,304,923,281,925,268,929,266,935,272,945"/>
+<area shape="rect" id="Node000023" href="$ar_util_8c.html#a97d737ba2827a9edfd10deefb3ce03b4" title="Get the size in bytes of a single pixel for a given pixel format." alt="" coords="478,944,607,970"/>
+<area shape="poly" id="edge46_Node000022_Node000023" title=" " alt="" coords="365,954,465,957,460,957,365,959"/>
+<area shape="poly" id="edge47_Node000023_Node000023" title=" " alt="" coords="505,943,498,935,502,926,518,919,543,917,570,920,586,930,581,929,569,925,543,923,519,925,506,929,503,935,510,945"/>
 </map>

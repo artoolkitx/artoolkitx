@@ -1,7 +1,16 @@
 <map id="arVideoOpenAsync" name="arVideoOpenAsync">
-<area shape="rect" id="node1" title="Open a video input module, invoking a callback once opening is complete." alt="" coords="5,55,139,80"/>
-<area shape="rect" id="node2" href="$video2_8c.html#a3827b2271419905797e3326a91255794" title="Open a video input module, and return control object, invoking a callback once opening is complete." alt="" coords="187,55,327,80"/>
-<area shape="rect" id="node3" href="$video_android_8h.html#a1d6e964f2d94fca2f61cd36f1bcaf8a5" title=" " alt="" coords="393,5,577,31"/>
-<area shape="rect" id="node4" href="$video_a_v_foundation_8h.html#adb1121aa31efbd7a52a0a09f1c287064" title=" " alt="" coords="375,55,595,80"/>
-<area shape="rect" id="node5" href="$video_external_8h.html#a6688bc62f5be5535ce19a0fd80c23ab4" title=" " alt="" coords="391,104,579,130"/>
+<area shape="rect" id="Node000001" title="Open a video input module, invoking a callback once opening is complete." alt="" coords="5,103,139,128"/>
+<area shape="poly" id="edge9_Node000001_Node000001" title=" " alt="" coords="40,103,35,94,38,84,51,78,72,76,94,79,107,87,102,88,93,84,72,81,53,83,42,88,40,93,46,102"/>
+<area shape="rect" id="Node000002" href="$video2_8c.html#a3827b2271419905797e3326a91255794" title="Open a video input module, and return control object, invoking a callback once opening is complete." alt="" coords="187,103,327,128"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,113,174,115,169,116,140,118"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="225,102,220,94,223,84,236,78,257,76,279,79,292,88,287,87,278,84,257,81,237,83,227,88,225,93,230,103"/>
+<area shape="rect" id="Node000003" href="$video_android_8h.html#a1d6e964f2d94fca2f61cd36f1bcaf8a5" title=" " alt="" coords="393,29,577,55"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="285,100,374,64,402,58,396,60,376,69,287,105"/>
+<area shape="rect" id="Node000004" href="$video_a_v_foundation_8h.html#adb1121aa31efbd7a52a0a09f1c287064" title=" " alt="" coords="375,103,595,128"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="327,113,362,115,357,116,327,118"/>
+<area shape="rect" id="Node000005" href="$video_external_8h.html#a6688bc62f5be5535ce19a0fd80c23ab4" title=" " alt="" coords="391,176,579,202"/>
+<area shape="poly" id="edge7_Node000002_Node000005" title=" " alt="" coords="300,126,430,170,425,171,299,132"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="447,28,440,21,444,11,460,5,485,3,513,5,529,15,523,14,512,10,485,8,461,10,448,15,445,20,452,30"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="447,101,440,94,444,84,460,78,485,76,513,79,529,88,523,88,512,84,485,81,461,83,448,88,445,93,452,103"/>
+<area shape="poly" id="edge8_Node000005_Node000005" title=" " alt="" coords="447,175,440,167,444,158,460,151,485,149,513,152,529,162,523,161,512,157,485,155,461,157,448,161,445,167,452,177"/>
 </map>

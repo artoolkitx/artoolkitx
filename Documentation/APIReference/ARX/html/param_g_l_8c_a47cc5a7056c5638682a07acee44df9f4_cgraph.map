@@ -1,4 +1,7 @@
 <map id="arglCameraFrustumRH" name="arglCameraFrustumRH">
-<area shape="rect" id="node1" title="Create an OpenGL perspective projection matrix." alt="" coords="5,5,162,31"/>
-<area shape="rect" id="node2" href="$param_decomp_8c.html#af8d8284f4489d90d4408f7514866dca1" title=" " alt="" coords="210,5,351,31"/>
+<area shape="rect" id="Node000001" title="Create an OpenGL perspective projection matrix." alt="" coords="5,29,162,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="50,29,44,21,48,11,61,5,84,3,108,5,121,15,116,15,106,10,83,8,63,10,52,15,49,20,55,29"/>
+<area shape="rect" id="Node000002" href="$param_decomp_8c.html#af8d8284f4489d90d4408f7514866dca1" title=" " alt="" coords="210,29,351,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="162,40,197,42,192,42,162,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="247,28,241,21,245,11,258,5,280,3,305,5,318,15,313,14,303,10,280,8,260,10,249,15,246,20,252,30"/>
 </map>

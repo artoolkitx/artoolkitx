@@ -1,9 +1,15 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="171,5,362,46"/>
-<area shape="rect" id="node2" href="$interface_camera_video.html" title=" " alt="" coords="489,14,589,40"/>
-<area shape="rect" id="node3" title=" " alt="" coords="227,70,306,96"/>
-<area shape="rect" id="node4" href="$interface_movie_video.html" title=" " alt="" coords="494,68,583,93"/>
-<area shape="rect" id="node5" href="$interfacevideo_a_v_foundation_camera_video_took_picture_delegate.html" title=" " alt="" coords="433,117,644,158"/>
-<area shape="rect" id="node6" title=" " alt="" coords="5,125,100,151"/>
-<area shape="rect" id="node7" href="$protocol_camera_video_took_picture_delegate-p.html" title=" " alt="" coords="148,125,385,151"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="171,5,362,46"/>
+<area shape="rect" id="Node000001" href="$interface_camera_video.html" title=" " alt="" coords="488,14,589,40"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="377,24,491,26,485,27,378,29"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="227,70,306,96"/>
+<area shape="poly" id="edge2_Node000002_Node000001" title=" " alt="" coords="320,69,491,37,485,38,321,75"/>
+<area shape="rect" id="Node000003" href="$interface_movie_video.html" title=" " alt="" coords="494,68,583,93"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="320,80,496,80,491,81,321,85"/>
+<area shape="rect" id="Node000004" href="$interfacevideo_a_v_foundation_camera_video_took_picture_delegate.html" title=" " alt="" coords="433,117,644,158"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="321,91,436,116,431,117,320,96"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="5,125,100,150"/>
+<area shape="rect" id="Node000005" href="$protocol_camera_video_took_picture_delegate-p.html" title=" " alt="" coords="148,125,385,150"/>
+<area shape="poly" id="edge5_Node000006_Node000005" title=" " alt="" coords="115,135,150,137,145,138,116,140"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="401,135,435,138,430,138,401,140"/>
 </map>

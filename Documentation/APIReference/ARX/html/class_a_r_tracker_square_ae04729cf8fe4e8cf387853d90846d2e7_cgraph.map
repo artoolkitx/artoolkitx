@@ -1,7 +1,14 @@
 <map id="ARTrackerSquare::setPatternCountMax" name="ARTrackerSquare::setPatternCountMax">
-<area shape="rect" id="node1" title=" " alt="" coords="5,47,199,88"/>
-<area shape="rect" id="node2" href="$ar_patt_create_handle_8c.html#a49c652399d917276b7a560df39f03138" title="Allocate a pattern handle and set pattern template size and maximum number of patterns loadable." alt="" coords="262,5,405,31"/>
-<area shape="rect" id="node3" href="$ar_patt_create_handle_8c.html#a4cc694c73a326767ba1614e97fcd00cb" title="Free all loaded patterns and pattern handle." alt="" coords="266,55,401,80"/>
-<area shape="rect" id="node5" href="$class_a_r_tracker_square.html#ae108203df8d09de4f08cbe7601250a26" title=" " alt="" coords="247,105,420,145"/>
-<area shape="rect" id="node4" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="468,55,550,80"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,95,199,136"/>
+<area shape="rect" id="Node000002" href="$ar_patt_create_handle_8c.html#a49c652399d917276b7a560df39f03138" title="Allocate a pattern handle and set pattern template size and maximum number of patterns loadable." alt="" coords="262,29,405,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,92,246,64,270,59,265,61,247,69,163,97"/>
+<area shape="rect" id="Node000003" href="$ar_patt_create_handle_8c.html#a4cc694c73a326767ba1614e97fcd00cb" title="Free all loaded patterns and pattern handle." alt="" coords="266,103,401,128"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="199,113,253,115,248,116,199,118"/>
+<area shape="rect" id="Node000005" href="$class_a_r_tracker_square.html#ae108203df8d09de4f08cbe7601250a26" title=" " alt="" coords="247,152,420,193"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="187,134,236,148,231,148,186,139"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="303,28,298,21,301,11,313,5,333,3,355,5,367,14,362,14,353,10,333,8,315,10,305,15,303,20,308,30"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="303,101,298,94,301,84,313,78,333,76,355,79,367,88,362,87,353,84,333,81,315,83,305,88,303,93,308,103"/>
+<area shape="rect" id="Node000004" href="$ar_patt_load_8c.html#a7e05342aa3eec9d14b56886aa9bd3731" title="Frees (unloads) a pattern file from memory." alt="" coords="468,103,550,128"/>
+<area shape="poly" id="edge5_Node000003_Node000004" title=" " alt="" coords="401,113,455,115,450,116,402,118"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="479,101,474,94,477,84,489,78,509,76,531,79,543,88,538,87,529,84,509,81,491,83,481,88,479,93,484,103"/>
 </map>

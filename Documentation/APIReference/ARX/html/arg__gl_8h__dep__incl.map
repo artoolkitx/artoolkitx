@@ -1,5 +1,7 @@
 <map id="Source/ARX/ARG/arg_gl.h" name="Source/ARX/ARG/arg_gl.h">
-<area shape="rect" id="node1" title=" " alt="" coords="93,5,270,31"/>
-<area shape="rect" id="node2" href="$arg_8c.html" title=" " alt="" coords="5,79,166,105"/>
-<area shape="rect" id="node3" href="$arg__gl_8c.html" title=" " alt="" coords="190,79,368,105"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="93,5,270,31"/>
+<area shape="rect" id="Node000002" href="$arg_8c.html" title=" " alt="" coords="5,79,166,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,40,103,81,100,76,151,41"/>
+<area shape="rect" id="Node000003" href="$arg__gl_8c.html" title=" " alt="" coords="190,79,368,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="211,38,265,79,260,79,209,43"/>
 </map>

@@ -1,7 +1,11 @@
 <map id="Source/ARX/AR2/include/ARX/AR2/util.h" name="Source/ARX/AR2/include/ARX/AR2/util.h">
-<area shape="rect" id="node1" title=" " alt="" coords="312,5,481,46"/>
-<area shape="rect" id="node2" href="$handle_8c.html" title=" " alt="" coords="5,94,183,120"/>
-<area shape="rect" id="node3" href="$marker_8c.html" title=" " alt="" coords="206,94,385,120"/>
-<area shape="rect" id="node4" href="$surface_8c.html" title=" " alt="" coords="408,94,591,120"/>
-<area shape="rect" id="node5" href="$util_8c.html" title=" " alt="" coords="615,94,771,120"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="312,5,481,46"/>
+<area shape="rect" id="Node000002" href="$handle_8c.html" title=" " alt="" coords="5,94,183,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="307,53,142,96,140,91,305,48"/>
+<area shape="rect" id="Node000003" href="$marker_8c.html" title=" " alt="" coords="206,94,384,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="362,55,312,96,310,91,357,56"/>
+<area shape="rect" id="Node000004" href="$surface_8c.html" title=" " alt="" coords="408,94,590,120"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="435,53,486,94,481,93,433,58"/>
+<area shape="rect" id="Node000005" href="$util_8c.html" title=" " alt="" coords="614,94,771,120"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="486,48,650,93,644,93,485,53"/>
 </map>

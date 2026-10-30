@@ -1,4 +1,7 @@
 <map id="arUtilGetFileExtensionFromPath" name="arUtilGetFileExtensionFromPath">
-<area shape="rect" id="node1" title="Get file extension from a path." alt="" coords="5,5,215,31"/>
-<area shape="rect" id="node2" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="263,5,449,31"/>
+<area shape="rect" id="Node000001" title="Get file extension from a path." alt="" coords="5,29,215,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="69,29,61,21,66,11,83,5,110,3,141,5,157,15,152,15,139,11,110,8,84,10,70,15,67,20,74,29"/>
+<area shape="rect" id="Node000002" href="$ar_util_8c.html#aa7a1c158a0f94ad212ef011fd7909815" title=" " alt="" coords="263,29,449,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="215,40,250,42,244,42,215,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="315,28,307,21,312,11,329,5,356,3,386,5,403,15,398,15,385,11,356,8,330,10,316,15,313,20,320,30"/>
 </map>
