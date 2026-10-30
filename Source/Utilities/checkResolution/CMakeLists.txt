@@ -54,7 +54,7 @@ if (ARX_TARGET_PLATFORM_MACOS OR ARX_TARGET_PLATFORM_IOS)
     endif()
 else()
     set_target_properties(${TARGET} PROPERTIES
-        INSTALL_RPATH "\$ORIGIN/../lib"
+        INSTALL_RPATH "\$ORIGIN/../${ARX_INSTALL_LIBRARY_DIR}"
     )
 endif()
 

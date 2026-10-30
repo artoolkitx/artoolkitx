@@ -135,7 +135,18 @@ set(HAVE_NFT 1)
 set(HAVE_2D 0)
 set(HAVE_OPENCV 0)
 set(USE_CPARAM_SEARCH 0)
-set(ARX_INSTALL_LIBRARY_DIR "lib")
+# Library install directory, relative to CMAKE_INSTALL_PREFIX. Distribution packagers can
+# override the default of "lib" with -DCMAKE_INSTALL_LIBDIR=lib64 or -DLIB_SUFFIX=64.
+if (DEFINED CMAKE_INSTALL_LIBDIR)
+    set(ARX_INSTALL_LIBRARY_DIR "${CMAKE_INSTALL_LIBDIR}")
+elseif (DEFINED LIB_SUFFIX)
+    set(ARX_INSTALL_LIBRARY_DIR "lib${LIB_SUFFIX}")
+else()
+    set(ARX_INSTALL_LIBRARY_DIR "lib")
+endif()
+# Directory for the exported CMake targets file. On Android this stays under "lib" even
+# though the libraries themselves are installed per-ABI.
+set(ARX_INSTALL_CMAKE_DIR "${ARX_INSTALL_LIBRARY_DIR}/ARX")
 
 # Major dependencies that affect the whole SDK.
 # OpenCV.

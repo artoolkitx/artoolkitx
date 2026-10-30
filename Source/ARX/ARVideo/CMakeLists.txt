@@ -45,15 +45,22 @@ if (USE_CPARAM_SEARCH)
             z
         )
     else()
+        # cparamSearch.c uses libcurl, sqlite3 and MD5() from OpenSSL's libcrypto. Locate the
+        # libraries rather than naming bare library files, so that distributions which keep
+        # them outside the default linker search path still link (GitHub issue #128).
+        find_package(OpenSSL REQUIRED)
         set(LIBS ${LIBS}
             ${CURL_LIBRARIES}
-            z
-            crypto
-            ssl
+            OpenSSL::Crypto
         )
     endif()
     # On all platforms except Android, we link to sqlite's library. On Android, we compile include sqlite as source.
-    if (NOT ARX_TARGET_PLATFORM_ANDROID)
+    if (ARX_TARGET_PLATFORM_LINUX)
+        find_package(PkgConfig REQUIRED)
+        pkg_check_modules(SQLITE3 REQUIRED sqlite3)
+        set(INCLUDE_DIRS ${INCLUDE_DIRS} ${SQLITE3_INCLUDE_DIRS})
+        set(LIBS ${LIBS} ${SQLITE3_LDFLAGS})
+    elseif (NOT ARX_TARGET_PLATFORM_ANDROID)
         set(LIBS ${LIBS}
             sqlite3
         )
