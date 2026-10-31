@@ -1,7 +1,7 @@
 # Build system for a utility tool to be included in artoolkitX.
 
 set(TARGET "artoolkitx_mk_patt")
-set(TARGET_PACKAGE "org.artoolkitx.utility.mk_patt")
+set(TARGET_PACKAGE "org.artoolkitx.utility.mk-patt")
 
 if (ARX_TARGET_PLATFORM_MACOS OR ARX_TARGET_PLATFORM_LINUX OR ARX_TARGET_PLATFORM_WINDOWS)
   find_package(OpenGL REQUIRED)
@@ -85,7 +85,7 @@ if (ARX_TARGET_PLATFORM_MACOS OR ARX_TARGET_PLATFORM_IOS)
     endif()
 else()
     set_target_properties(${TARGET} PROPERTIES
-        INSTALL_RPATH "\$ORIGIN/../lib"
+        INSTALL_RPATH "\$ORIGIN/../${ARX_INSTALL_LIBRARY_DIR}"
     )
 endif()
 

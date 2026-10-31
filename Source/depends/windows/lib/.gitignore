@@ -1,2 +1,15 @@
 x64/opencv*.lib
 x64/opencv*.dll
+x64/ade*.lib
+x64/ilmimf*.lib
+x64/ippiw*.lib
+x64/ittnotify*.lib
+x64/libjpeg-turbo*.lib
+x64/libopenjp2*.lib
+x64/libpng*.lib
+x64/libprotobuf*.lib
+x64/libtiff*.lib
+x64/libwebp*.lib
+x64/quirc*.lib
+x64/OpenCV*.cmake
+x64/ippicvmt.lib

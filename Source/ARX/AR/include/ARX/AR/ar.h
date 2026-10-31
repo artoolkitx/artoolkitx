@@ -214,7 +214,7 @@ typedef struct {
     int             area;                   ///< Area in pixels of the largest connected region, comprising the marker border and regions connected to it. Note that this is not the same as the actual onscreen area inside the marker border.
     int             id;                     ///< If pattern detection mode is either pattern mode OR matrix but not both, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
     int             idPatt;                 ///< If pattern detection mode includes a pattern mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
-    int             idMatrix;               ///< If pattern detection mode includes a matrix mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid.
+    int             idMatrix;               ///< If pattern detection mode includes a matrix mode, will be marker ID (>= 0) if marker is valid, or -1 if invalid. If matrixCodeType is AR_MATRIX_CODE_GLOBAL_ID, will be 0 if globalID >= 2^1, or the globalID otherwise.
     int             dir;                    ///< If pattern detection mode is either pattern mode OR matrix but not both, and id != -1, will be marker direction (range 0 to 3, inclusive).
     int             dirPatt;                ///< If pattern detection mode includes a pattern mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
     int             dirMatrix;              ///< If pattern detection mode includes a matrix mode, and id != -1, will be marker direction (range 0 to 3, inclusive).
@@ -228,6 +228,7 @@ typedef struct {
     AR_MARKER_INFO_CUTOFF_PHASE cutoffPhase;///< If a trapezoidal region is detected, but is eliminated from the candidates for tracking, this field is filled out with the tracking phase at which the marker was cut off. An English-language description of the phase can be obtained by indexing into the C-string array arMarkerInfoCutoffPhaseDescriptions[].
     int             errorCorrected;         ///< For marker types including error detection and correction, the numbers of errors detected and corrected.
     uint64_t        globalID;               ///< If arPattDetectionMode is a matrix mode, matrixCodeType is AR_MATRIX_CODE_GLOBAL_ID, and idMatrix >= 0, will contain the globalID.
+    int             matched;                ///< Initialised to 0 during marker detection, a non-zero value indicates that this marker has already been matched against a search set of markers, and should be ignored as a candidate for further matches.
 } ARMarkerInfo;
 
 /*!
@@ -1656,27 +1657,44 @@ typedef enum {
         Change to the root of the implementation-dependent user-writable root.
         On iOS and sandboxed macOS, this is equivalent to the root of the application sandbox.
         On Linux and non-sandboxed macOS, this is equivalent to the "~" user home.
-        On Android, this is the root of the "external" storage (e.g. an SD card).
+        On Android, this is the root of the "external" storage (e.g. an SD card), and read access
+        requires READ_EXTERNAL_STORAGE or WRITE_EXTERNAL_STORAGE permission. Note that as of
+        Android 10 (API level 29) this is no longer writable by applications.
         On Windows, this is the user home directory, typically "C:\Documents and Settings\USERNAME" or "C:\Users\USERNAME".
         On Windows UWP
      */
     AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_USER_ROOT,
     /*!
         Change to a writable cache directory, i.e. a directory which is not normally shown to the user, in which files which may be subject to deletion by the system or the user.
-        On Android, this is the applications's (internal) cache directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter.
+        On Android, this is the applications's (internal) cache directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter,
+        or if none is passed, an attempt will be made using the ApplicationContext.
      */
     AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_CACHE_DIR,
     /*!
         Change to a writable data directory, i.e. a directory which is not normally shown to the user, but in which files are retained permanently.
-        On Android, this is the applications's (internal) files directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter.
+        On Android, this is the applications's (internal) files directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter,
+        or if none is passed, an attempt will be made using the ApplicationContext.
      */
 	AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_DATA_DIR,
     /*!
      Change to a writable temporary directory, i.e. a directory which is not normally shown to the user, and from which files may be deleted at the end of program execution.
-     On Android, this is the applications's (internal) cache directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter.
+     On Android, this is the applications's (internal) cache directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter,
+        or if none is passed, an attempt will be made using the ApplicationContext.
      */
-    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_TMP_DIR
+    AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_TMP_DIR,
+    /*!
+        Change to a writable data directory, i.e. a directory which is not normally shown to the user, but in which files are retained permanently.
+        On Android, this is the applications's (external) files directory, and a valid instance of Android/Context must be passed in the instanceofAndroidContext parameter,
+        or if none is passed, an attempt will be made using the ApplicationContext.
+        On other platforms, this currently has the same behaviour as AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_DATA_DIR.
+     */
+	AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR_USE_APP_EXTERNAL_DATA_DIR
+
 } AR_UTIL_RESOURCES_DIRECTORY_BEHAVIOR;
+
+#ifdef ANDROID
+jobject arUtilGetGlobalContext(void);
+#endif
 
 /*!
     @brief   Get the path to the resources directory using the specified behavior.

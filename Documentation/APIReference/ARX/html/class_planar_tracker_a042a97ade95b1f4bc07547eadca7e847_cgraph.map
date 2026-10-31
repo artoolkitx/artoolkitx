@@ -1,0 +1,17 @@
+<map id="PlanarTracker::AddMarker" name="PlanarTracker::AddMarker">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,169,179,195"/>
+<area shape="rect" id="Node000002" href="$class_planar_tracker.html#aabe3b8b4bc330ef07a9dcfc61087e43b" title=" " alt="" coords="235,5,437,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,167,148,105,184,70,225,40,239,35,235,39,228,44,187,74,152,109,104,170"/>
+<area shape="rect" id="Node000003" href="$class_planar_tracker.html#ad14c56bbb3122b72535be9cea95839d4" title=" " alt="" coords="243,55,428,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,167,158,129,191,108,226,90,249,84,245,87,228,95,193,113,161,133,111,171"/>
+<area shape="rect" id="Node000004" href="$class_planar_tracker.html#a060dd9ff0a9799d0ca1f3ccac83c7964" title=" " alt="" coords="242,104,430,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="149,166,233,148,229,151,151,171"/>
+<area shape="rect" id="Node000005" href="$class_planar_tracker.html#af63949cd43f3990a131370799f05777f" title="If trackable is not visible, returns false, otherwise retrieves pose of trackable into transMat and r..." alt="" coords="227,169,445,195"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="178,180,213,181,209,183,180,185"/>
+<area shape="rect" id="Node000006" href="$class_planar_tracker.html#afb6527f55fe3a5d42a75cf1330f060ef" title=" " alt="" coords="247,219,425,260"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="150,193,234,214,229,216,150,198"/>
+<area shape="rect" id="Node000007" href="$class_planar_tracker.html#a31e6c2aa56f6b8eba13fe83d6dbb9f34" title=" " alt="" coords="238,284,434,325"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="110,193,162,230,228,269,246,279,241,279,225,274,159,235,110,198"/>
+<area shape="rect" id="Node000008" href="$class_planar_tracker.html#a24de9140c2ba7d6ab1d832aa8245ddaf" title=" " alt="" coords="237,350,434,390"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="102,193,151,261,186,301,228,335,239,343,234,342,225,339,183,305,146,265,100,198"/>
+</map>

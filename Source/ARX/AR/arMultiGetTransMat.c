@@ -84,6 +84,7 @@ static ARdouble  arGetTransMatMultiSquare2(AR3DHandle *handle, ARMarkerInfo *mar
         k = -1;
         if( config->marker[i].patt_type == AR_MULTI_PATTERN_TYPE_TEMPLATE ) {
             for( j = 0; j < marker_num; j++ ) {
+                if (marker_info[j].matched) continue;
                 if( marker_info[j].idPatt != config->marker[i].patt_id ) continue;
                 if( marker_info[j].cfPatt < config->cfPattCutoff ) continue;
                 if( k == -1 ) k = j;
@@ -94,6 +95,7 @@ static ARdouble  arGetTransMatMultiSquare2(AR3DHandle *handle, ARMarkerInfo *mar
         }
         else { // config->marker[i].patt_type == AR_MULTI_PATTERN_TYPE_MATRIX
             for( j = 0; j < marker_num; j++ ) {
+                if (marker_info[j].matched) continue;
                 // Check if we need to examine the globalID rather than patt_id.
                 if (marker_info[j].idMatrix == 0 && marker_info[j].globalID != 0ULL) {
                     if( marker_info[j].globalID != config->marker[i].globalID ) continue;
@@ -126,6 +128,8 @@ static ARdouble  arGetTransMatMultiSquare2(AR3DHandle *handle, ARMarkerInfo *mar
             continue;
         }
         //ARLOGd(" *%d\n",i);
+
+        marker_info[j].matched = 1;
         
         // Use the largest (in terms of 2D coordinates) marker's pose estimate as the
         // input for the initial estimate for the pose estimator. 
@@ -175,6 +179,7 @@ static ARdouble  arGetTransMatMultiSquare2(AR3DHandle *handle, ARMarkerInfo *mar
         j++;
     }
 
+    // Did the previous frame have a valid pose?
     if (config->prevF == 0) {
         if (robustFlag) {
             ARdouble inlierProb = 1.0;

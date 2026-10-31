@@ -1,0 +1,6 @@
+<map id="GetHomographyInliers" name="GetHomographyInliers">
+<area shape="rect" id="Node000001" title="Method for calculating and validating a homography matrix from a set of corresponding points." alt="" coords="5,29,157,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="42,29,35,21,39,11,55,5,81,3,110,5,126,14,120,15,108,11,81,8,56,10,43,15,40,20,47,29"/>
+<area shape="rect" id="Node000002" href="$class_homography_info.html#a07d465b05b1248a05553440c6e984964" title=" " alt="" coords="205,29,426,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="157,40,192,42,186,42,157,45"/>
+</map>

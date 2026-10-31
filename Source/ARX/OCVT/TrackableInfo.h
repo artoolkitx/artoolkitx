@@ -44,30 +44,42 @@ class TrackableInfo
 public:
     int _id;
     float _scale;
-    cv::Mat _image;
+    std::shared_ptr<unsigned char> _imageBuff;
+    //cv::Mat _image;
+    cv::Mat _image[k_OCVTTemplateMatchingMaxPyrLevel + 1];
     std::vector<cv::Point2f> _points;
     int _width;
     int _height;
     std::string _fileName;
     
+    /// @brief 3x3 cv::Mat (of type CV_64FC1, i.e. double) containing the homography.
+    cv::Mat _homography;
     cv::Mat _pose;
     std::vector<cv::KeyPoint> _featurePoints;
     cv::Mat _descriptors;
-    std::vector<cv::Point2f> _cornerPoints;
-    
+
+    /// The four points defining the bounding-box of the trackable's source image, where 1 unit = 1 pixel of the source image.
     std::vector<cv::Point2f> _bBox;
+    /// The four points defining the bound-box of a detected trackable in the video frame.
     std::vector<cv::Point2f> _bBoxTransformed;
     bool _isTracking, _isDetected, _resetTracks;
-    
-    TrackingPointSelector _trackSelection;
+     
+    std::vector<cv::Point2f> _cornerPoints[k_OCVTTemplateMatchingMaxPyrLevel + 1]; // These are only read during the construction of the TrackingPointSelector.
+    int _templatePyrLevel;
+    TrackingPointSelector _trackSelection[k_OCVTTemplateMatchingMaxPyrLevel + 1];
     
     void CleanUp()
     {
-        _image.release();
         _descriptors.release();
         _pose.release();
+        _homography.release();
         _featurePoints.clear();
-        _trackSelection.CleanUp();
+        for (int i = 0; i <= k_OCVTTemplateMatchingMaxPyrLevel; i++) {
+            _trackSelection[i].CleanUp();
+            _cornerPoints[i].clear();
+            _image[i].release();
+        }
+        _imageBuff.reset();
     }
 };
 

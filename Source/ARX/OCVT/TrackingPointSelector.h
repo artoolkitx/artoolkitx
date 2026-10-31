@@ -43,39 +43,60 @@
 #include "OCVConfig.h"
 #include "TrackedPoint.h"
 
+/**
+    @brief Class used to manage selection of tracking points based on image templates (i.e. unique pixel patches).</brief>
+ */
 class TrackingPointSelector
 {
 public:
-    TrackingPointSelector();
+    OCV_EXTERN TrackingPointSelector();
     
-    TrackingPointSelector(std::vector<cv::Point2f> pts, int width, int height, int markerTemplateWidth);
+    /// @param pts Location of Harris corners in the image.
+    /// @param width Width of the image in which pts are measured.
+    /// @param height Height of the image in which pts are measured.
+    /// @param width0 Width of the image at level 0 of the image pyramid. If larger than width (i.e. width does not represent level 0), the output of all Get*Features*() functions will be scaled to level 0 image dimensions.
+    /// @param height0 Height of the image at level 0 of the image pyramid. If larger than height (i.e. height does not represent level 0, the output of all Get*Features*() functions will be scaled to level 0 image dimensions.
+    OCV_EXTERN TrackingPointSelector(std::vector<cv::Point2f> pts, int width, int height, int markerTemplateWidth, int width0, int height0);
     
-    std::vector<TrackedPoint> _selectedPts;
-    std::vector<cv::Point2f> _pts;
-    std::map<int, std::vector<TrackedPoint> > trackingPointBin;
-    cv::Mat homography;
-    
-    void DistributeBins(int width, int height, int markerTemplateWidth);
-    
-    void SetHomography(cv::Mat newHomography);
-    
-    cv::Mat GetHomography();
+    void DistributeBins(int markerTemplateWidth);
     
     void UpdatePointStatus(std::vector<uchar> status);
+
+    /**
+     @brief Signal that the next call to GetInitialFeatures should return a new selection.
+     */
+    void ResetSelection();
     
-    void SelectPoints();
-    
-    std::vector<cv::Point2f> GetSelectedFeatures();
+    /**
+     @brief If reset, then selects an initial random template from each bin for tracking,
+        and returns this set. If not reset then returns the same set as GetTrackedFeatures.
+     */
+    std::vector<cv::Point2f> GetInitialFeatures();
     
     std::vector<cv::Point2f> GetTrackedFeatures();
     
-    std::vector<cv::Point3f> GetSelectedFeatures3d();
+    std::vector<cv::Point3f> GetTrackedFeatures3d();
     
-    std::vector<cv::Point2f> GetSelectedFeaturesWarped();
-    
-    std::vector<cv::Point2f> GetAllFeatures();
-    
-    void CleanUp();
+    /// @brief Gets the projected location in the video frame of the currently tracked features,
+    /// when projected via the supplied homography.
+    /// @param 3x3 cv::Mat (of type CV_64FC1, i.e. double) containing the homography.
+    std::vector<cv::Point2f> GetTrackedFeaturesWarped(const cv::Mat& homography);
 
+    /// Get all points from all bins that are candidates for selection.
+    OCV_EXTERN std::vector<cv::Point2f> GetAllFeatures();
+    
+    OCV_EXTERN void CleanUp();
+
+private:
+    bool _reset;
+    int _width;
+    int _height;
+    std::vector<cv::Point2f> _pts;
+    std::map<int, std::vector<TrackedPoint> > trackingPointBin;
+    std::vector<TrackedPoint> _selectedPts;
+    cv::Vec2f _scalef;
+    
+    void ScaleFeatures(std::vector<cv::Point2f>& features);
+    void ScaleFeatures3d(std::vector<cv::Point3f>& features3d);
 };
 #endif //TRACKINGPOINTSELECTOR

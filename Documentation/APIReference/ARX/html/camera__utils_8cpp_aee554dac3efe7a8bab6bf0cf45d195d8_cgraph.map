@@ -1,0 +1,7 @@
+<map id="GetCameraDeviceErrorStr" name="GetCameraDeviceErrorStr">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,180,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="62,29,57,21,60,11,73,5,93,3,114,5,126,14,121,14,112,10,92,8,74,10,64,15,62,20,68,29"/>
+<area shape="rect" id="Node000002" href="$camera__utils_8cpp.html#a415065650f41baf260f94db35cb13270" title=" " alt="" coords="228,29,310,55"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="180,40,215,42,210,42,180,45"/>
+<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="239,28,233,21,237,11,249,5,269,3,290,5,303,15,298,14,289,10,269,8,250,10,241,15,239,20,244,30"/>
+</map>

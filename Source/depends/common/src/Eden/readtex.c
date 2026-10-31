@@ -48,17 +48,6 @@
 
 #include <Eden/readtex.h>
 
-#if EDEN_USE_GL
-#  ifdef EDEN_MACOSX
-#    include <OpenGL/glu.h>
-#  else
-#    ifdef _WIN32
-#      include <windows.h>
-#    endif
-#    include <GL/glu.h>
-#  endif
-#endif
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -68,11 +57,6 @@
 
 #ifdef EDEN_HAVE_LIBJPEG
 #  include <jpeglib.h>
-#endif
-
-// Core in OpenGL 1.4.
-#ifndef GL_SGIS_generate_mipmap
-#define GENERATE_MIPMAP_SGIS            0x8191
 #endif
 
 /******************************************************************************/
@@ -316,7 +300,14 @@ unsigned char *jpgread (FILE *fp, int *w, int *h, int *nc, float *dpi)
         jpeg_destroy_decompress(&cinfo);
         return NULL;
     }
-    
+    if (cinfo.num_components < 1 || cinfo.num_components > 4 ||
+        cinfo.image_width < 0 || cinfo.image_width > 32767 ||
+        cinfo.image_height < 0 || cinfo.image_height > 32767) {
+        EDEN_LOGe("Error: Improbable values in JPEG header.");
+        jpeg_destroy_decompress(&cinfo);
+        return NULL;
+    }
+
     /* Start decompressor */
     (void) jpeg_start_decompress(&cinfo);
     

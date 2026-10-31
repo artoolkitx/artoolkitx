@@ -14,7 +14,7 @@
 OURDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function usage {
-    echo "Usage: $(basename $0) [--debug] (macos | windows | ios | linux | android | linux-raspbian | emscripten | docs)... [tests] [examples] [cmake \"<generator>\"]"
+    echo "Usage: $(basename $0) [--debug] [-v|--verbose] [--no-config] [--android-ndk-version version-string] [--install-depends] (macos | windows | ios | linux | android | linux-raspbian | emscripten | docs)... [tests] [examples] [cmake \"<generator>\"]"
     exit 1
 }
 
@@ -26,7 +26,7 @@ fi
 set -e
 
 # -x = debug
-set -x
+#set -x
 
 # Parse parameters
 while test $# -gt 0
@@ -50,11 +50,22 @@ do
 		    ;;
         docs) BUILD_DOCS=1
             ;;
+        --verbose) VERBOSE=
+            ;;
+        -v) VERBOSE=
+            ;;
         --debug) DEBUG=
+            ;;
+        --no-config) NO_CONFIG=1
             ;;
         cmake) CMAKE_GENERATOR="$2"
             shift
             ;;
+        --android-ndk-version) ANDROID_NDK_VERSION_NUMBER="$2"
+            shift
+            ;;
+        --install-depends) INSTALL_DEPENDS=1
+        	;;
         --*) echo "bad option $1"
             usage
             ;;
@@ -82,6 +93,11 @@ then
 elif [ "$OS" = "Darwin" ]
 then
     CPUS=`/usr/sbin/sysctl -n hw.ncpu`
+    if [ -z "$VERBOSE" -a -x "$(command -v xcbeautify)" ]; then
+        XCBEAUTIFY=xcbeautify
+    else
+        XCBEAUTIFY=cat
+    fi
 elif [[ "$OS" == "CYGWIN_NT-"* ]]
 then
     # bash on Cygwin.
@@ -99,7 +115,7 @@ fi
 # Set default CMake generator for Windows.
 echo "$CMAKE_GENERATOR"
 if [ $OS = "Windows" ]  && test -z "$CMAKE_GENERATOR"; then
-    CMAKE_GENERATOR="Visual Studio 16 2019"
+    CMAKE_GENERATOR="Visual Studio 17 2022"
     CMAKE_ARCH="x64"
 fi
 
@@ -108,12 +124,22 @@ function check_package {
 	# Variant for distros that use debian packaging.
 	if (type dpkg-query >/dev/null 2>&1) ; then
 		if ! $(dpkg-query -W -f='${Status}' $1 | grep -q '^install ok installed$') ; then
-			echo "Warning: required package '$1' does not appear to be installed. To install it use 'sudo apt-get install $1'."
+			if [ $INSTALL_DEPENDS ] ; then
+			    echo "Required package '$1' does not appear to be installed, attempting install now."
+			    sudo apt-get install $1
+			else
+			    echo "Warning: required package '$1' does not appear to be installed. To install it use 'sudo apt-get install $1', or pass --install-depends flag."
+			fi
 		fi
 	# Variant for distros that use rpm packaging.
 	elif (type rpm >/dev/null 2>&1) ; then
 		if ! $(rpm -qa | grep -q $1) ; then
-			echo "Warning: required package '$1' does not appear to be installed. To install it use 'sudo dnf install $1'."
+			if [ $INSTALL_DEPENDS ] ; then
+			    echo "Required package '$1' does not appear to be installed, attempting install now."
+			    sudo dnf install $1
+			else
+			    echo "Warning: required package '$1' does not appear to be installed. To install it use 'sudo dnf install $1', or pass --install-depends flag."
+			fi
 		fi
 	fi
 }
@@ -135,18 +161,21 @@ if [ $BUILD_MACOS ] ; then
         mkdir build-macos
     fi
     cd build-macos
-    rm -f CMakeCache.txt
-    cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../cmake/macos.toolchain.cmake ${BUILD_TESTS+-DBUILD_TESTS:BOOL=ON}
-    xcodebuild -target ALL_BUILD -configuration ${DEBUG+Debug}${DEBUG-Release}
-    xcodebuild -target install -configuration ${DEBUG+Debug}${DEBUG-Release}
+    if [ ! $NO_CONFIG ] ; then
+        rm -f CMakeCache.txt
+        cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../cmake/macos.toolchain.cmake ${BUILD_TESTS+-DBUILD_TESTS:BOOL=ON}
+    fi
+    set -o pipefail && xcodebuild -target ALL_BUILD -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
+    set -o pipefail && xcodebuild -target install -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
+    ln -s ../../Source/depends/macos/Frameworks/SDL2.framework ../../SDK/Frameworks/SDL2.framework
     cd $OURDIR
 
 	if [ $BUILD_EXAMPLES ] ; then
     	(cd "../Examples/Square tracking example/macOS"
-    	xcodebuild -target "artoolkitX Square Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release}
+    	set -o pipefail && xcodebuild -target "artoolkitX Square Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
     	)
     	(cd "../Examples/2d tracking example/macOS"
-    	xcodebuild -target "artoolkitX 2d Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release}
+    	set -o pipefail && xcodebuild -target "artoolkitX 2d Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
     	)
     fi
 fi
@@ -155,10 +184,10 @@ fi
 # iOS
 if [ $BUILD_IOS ] ; then
 
-    
+
     if [ ! -d "depends/ios/Frameworks/opencv2.framework" ] ; then
-        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.5.2-pre-artoolkitx/opencv-4.5.2-pre-artoolkitx-ios.zip" -o opencv2.zip
-        unzip opencv2.zip -d depends/ios/Frameworks
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.6.0/opencv-4.6.0-ios-framework.zip" -o opencv2.zip
+        unzip -q opencv2.zip -d depends/ios/Frameworks
         rm opencv2.zip
     fi
 
@@ -166,19 +195,21 @@ if [ $BUILD_IOS ] ; then
         mkdir build-ios
     fi
     cd build-ios
-    rm -f CMakeCache.txt
-    cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../cmake/ios.toolchain.cmake
-    xcodebuild -target ALL_BUILD -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS
-    xcodebuild -target install -configuration ${DEBUG+Debug}${DEBUG-Release}
+    if [ ! $NO_CONFIG ] ; then
+        rm -f CMakeCache.txt
+        cmake .. -G Xcode -DCMAKE_TOOLCHAIN_FILE:FILEPATH=../cmake/ios.toolchain.cmake
+    fi
+    set -o pipefail && xcodebuild -target ALL_BUILD -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS | ${XCBEAUTIFY}
+    set -o pipefail && xcodebuild -target install -configuration ${DEBUG+Debug}${DEBUG-Release} | ${XCBEAUTIFY}
     cd $OURDIR
 
 
     if [ $BUILD_EXAMPLES ] ; then
         (cd "../Examples/Square tracking example/iOS"
-        xcodebuild -target "artoolkitX Square Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS
+        set -o pipefail && xcodebuild -target "artoolkitX Square Tracking Example" -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS | ${XCBEAUTIFY}
         )
         # (cd "../Examples/Square tracking example with OSG/iOS"
-        # xcodebuild -target "artoolkitX Square Tracking Example with OSG" -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS
+        # set -o pipefail && xcodebuild -target "artoolkitX Square Tracking Example with OSG" -configuration ${DEBUG+Debug}${DEBUG-Release} -destination generic/platform=iOS | ${XCBEAUTIFY}
         # )
         cp -rf "../Examples/Square tracking example/iOS/build/Release-iphoneos/artoolkitX Square Tracking Example.app" ../Examples/
         # cp -v "../Examples/Square tracking example with OSG/iOS/build/Release-iphoneos/"artoolkitX Square Tracking Example with OSG.app ../Examples/
@@ -197,15 +228,12 @@ if [ "$OS" = "Darwin" ] || [ "$OS" = "Linux" ] || [ "$OS" = "Windows" ] ; then
 # Android
 if [ $BUILD_ANDROID ] ; then
 
-# Use the standard path to the Android NDK.
-#export ANDROID_NDK=${ANDROID_NDK_ROOT}
-
 if [ "$OS" = "Linux" ] ; then
 	check_package cmake
 fi
 
 if [ ! -d "depends/android/include/opencv2" ] ; then
-    curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-android.tgz" -o opencv2.tgz
+    curl --location "https://github.com/artoolkitx/opencv/releases/download/4.7.0-dev-artoolkitx/opencv-4.7.0-dev-artoolkitx-android.tgz" -o opencv2.tgz
     tar xzf opencv2.tgz --strip-components=1 -C depends/android
     rm opencv2.tgz
 fi
@@ -222,22 +250,27 @@ if [ -z "$ANDROID_HOME" ] ; then
     Skipping ARXJ build.
     *****"
 else
+    # Updating this also requires a corresponding update to the default version in the ARXJ build.gradle file.
+	ANDROID_NDK_VERSION_NUMBER_DEFAULT=26.1.10909125
     ABIS="armeabi-v7a arm64-v8a x86 x86_64"
     for abi in $ABIS; do
         if [ ! -d "$abi" ] ; then
 	        mkdir "$abi"
         fi
         (cd "$abi"
-	    rm -f CMakeCache.txt
-	    # Android 5.0 is API level 21. Android 7.0 (needed for native camera access) is API level 24.
-	    cmake ../.. \
-            -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROID_HOME/ndk-bundle/build/cmake/android.toolchain.cmake \
-            -DANDROID_PLATFORM=android-24 \
-            -DANDROID_ABI=$abi \
-            -DANDROID_ARM_MODE=arm \
-            -DANDROID_ARM_NEON=TRUE \
-            -DANDROID_STL=c++_shared \
-            -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+        if [ ! $NO_CONFIG ] ; then
+	        rm -f CMakeCache.txt
+	        # Android 5.0 is API level 21. Android 7.0 (needed for native camera access) is API level 24.
+	        cmake ../.. \
+                -DCMAKE_TOOLCHAIN_FILE:FILEPATH=$ANDROID_HOME/ndk/${ANDROID_NDK_VERSION_NUMBER-${ANDROID_NDK_VERSION_NUMBER_DEFAULT}}/build/cmake/android.toolchain.cmake \
+                -DANDROID_PLATFORM=android-24 \
+                -DANDROID_ABI=$abi \
+                -DANDROID_ARM_MODE=arm \
+                -DANDROID_ARM_NEON=TRUE \
+                -DANDROID_STL=c++_shared \
+                -DANDROID_CPP_FEATURES="rtti exceptions" \
+                -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+        fi
 	    cmake --build . --target install${DEBUG-/strip}
         )
     done
@@ -267,7 +300,7 @@ else
         )
     fi
 fi
-    
+
 fi
 # /BUILD_ANDROID
 
@@ -279,7 +312,7 @@ if [ $BUILD_EMSCRIPTEN ] ; then
     fi
 
     if [ ! -d "depends/emscripten/include/opencv2" ] ; then
-        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.4.0-dev-artoolkitx/opencv-4.4.0-dev-artoolkitx-wasm.tgz" -o opencv2.tgz
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.10.0-dev-artoolkitx/opencv-4.10.0-dev-artoolkitx-wasm+unity2023.tgz" -o opencv2.tgz
         tar xzf opencv2.tgz --strip-components=1 -C depends/emscripten
         rm opencv2.tgz
     fi
@@ -289,8 +322,10 @@ if [ $BUILD_EMSCRIPTEN ] ; then
     fi
     cd build-emscripten
     rm -f CMakeCache.txt
-    
-    SETTINGS="-s USE_ZLIB=1 -s USE_LIBJPEG=1 -s USE_PTHREADS=1"
+    # To also clear ports cache:
+    #emcc --clear-cache
+
+    SETTINGS="-s USE_ZLIB=1 -s USE_LIBJPEG=1 -s USE_PTHREADS=1 -msimd128 -fwasm-exceptions -mbulk-memory -mnontrapping-fptoint -msse4.2 -sWASM_BIGINT -sSUPPORT_LONGJMP=wasm"
     export CFLAGS="${SETTINGS}"
     export CXXFLAGS="${SETTINGS}"
     export LDFLAGS="${SETTINGS}"
@@ -300,14 +335,15 @@ if [ $BUILD_EMSCRIPTEN ] ; then
     -DCMAKE_TOOLCHAIN_FILE=${EMSDK}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake \
     -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release} \
     -DARX_GL_PREFER_EMBEDDED:BOOL=ON \
-    -DZLIB_INCLUDE_DIR:PATH="~/.emscripten_cache/wasm-obj/include" \
-    -DZLIB_LIBRARY:PATH="~/.emscripten_cache/wasm-obj/libz.a" \
-    -DJPEG_INCLUDE_DIR:PATH="~/.emscripten_cache/wasm-obj/include" \
-    -DJPEG_LIBRARY:PATH="~/.emscripten_cache/wasm-obj/libjpeg.a" \
+    -DARX_NO_BUILTIN_MINIZIP:BOOL=ON \
+    -DZLIB_INCLUDE_DIR:PATH="${EMSDK}/upstream/emscripten/cache/sysroot/include" \
+    -DZLIB_LIBRARY:PATH="${EMSDK}/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libz.a" \
+    -DJPEG_INCLUDE_DIR:PATH="${EMSDK}/upstream/emscripten/cache/sysroot/include" \
+    -DJPEG_LIBRARY:PATH="${EMSDK}/upstream/emscripten/cache/sysroot/lib/wasm32-emscripten/libjpeg.a" \
 
     # Build.
-    emmake make -j ${CPUS}
-    emmake make install
+    emmake make ${VERBOSE+VERBOSE=1} -j ${CPUS}
+    emmake make ${VERBOSE+VERBOSE=1} install
 fi
 # /BUILD_EMSCRIPTEN
 
@@ -345,6 +381,7 @@ if [ $BUILD_LINUX ] ; then
 		check_package libv4l-dev
 		check_package libdc1394-dev
 		check_package libgstreamer1.0-dev
+		check_package libgstreamer-plugins-base1.0-dev
 		check_package libsqlite3-dev
 		check_package libcurl4-openssl-dev
 		check_package libssl-dev
@@ -355,23 +392,24 @@ if [ $BUILD_LINUX ] ; then
 		check_package cmake
 		check_package libjpeg-turbo-devel
 		check_package mesa-libGL-devel
-		check_package libSDL2-devel
+		check_package SDL2-devel
 		check_package systemd-devel
 		check_package libv4l-devel
 		check_package libdc1394-devel
 		check_package gstreamer1-devel
+		check_package gstreamer1-plugins-base-devel
 		check_package libsqlite3x-devel
 		check_package libcurl-devel
-		check_package libopenssl-devel
+		check_package openssl-devel
 	fi
 
     # Check if a suitable version of OpenCV is installed. If not, but its available, install it.
     # If neither, try our precompiled version.
     if (type dpkg-query >/dev/null 2>&1) ; then
-        if (apt-cache --quiet=1 policy libopencv-dev | grep -E 'Installed: (3|4)\.') ; then
+        if (env LC_ALL="C" apt-cache --quiet=1 policy libopencv-dev | grep -E 'Installed: (3|4)\.') ; then
             echo "Using installed OpenCV"
         else
-            if (apt-cache --quiet=1 policy libopencv-dev | grep -E 'Candidate: (3|4)\.') ; then
+            if (env LC_ALL="C" apt-cache --quiet=1 policy libopencv-dev | grep -E 'Candidate: (3|4)\.') ; then
                 echo "Installing OpenCV"
                 sudo apt-get install libopencv-dev
             else
@@ -385,15 +423,23 @@ if [ $BUILD_LINUX ] ; then
                 #fi
             fi
         fi
-    fi    
-    
+	elif (type rpm >/dev/null 2>&1) ; then
+	    if ! $(rpm -qa | grep -q "opencv-devel-(3|4)\.") ; then
+			 echo "Using installed OpenCV"
+	    else
+	        "Warning: recommended package 'opencv-devel' does not appear to be installed. To install it use 'sudo dnf install opencv-devel'."
+		fi
+    fi
 
-	if [ ! -d "build-linux-x86_64" ] ; then
-		mkdir build-linux-x86_64
+
+	if [ ! -d "build-linux-${ARCH}" ] ; then
+		mkdir build-linux-${ARCH}
 	fi
-	cd build-linux-x86_64
-	rm -f CMakeCache.txt
-	cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+	cd build-linux-${ARCH}
+    if [ ! $NO_CONFIG ] ; then
+	    rm -f CMakeCache.txt
+	    cmake .. -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+	fi
 	cmake --build . --target install${DEBUG-/strip}
 	cd ..
 
@@ -425,7 +471,7 @@ if [ $BUILD_LINUX_RASPBIAN ] ; then
             check_package libraspberrypi-dev
             check_package libudev-dev
             check_package libv4l-dev
-            check_package libdc1394-22-dev
+            check_package libdc1394-dev
             check_package libsqlite3-dev
             check_package libcurl4-openssl-dev
         elif (type rpm >/dev/null 2>&1) ; then
@@ -452,8 +498,10 @@ if [ $BUILD_LINUX_RASPBIAN ] ; then
             mkdir build-linux-raspbian
         fi
         cd build-linux-raspbian
-        rm -f CMakeCache.txt
-        cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+        if [ ! $NO_CONFIG ] ; then
+            rm -f CMakeCache.txt
+            cmake .. -DARX_TARGET_PLATFORM_VARIANT=raspbian -DCMAKE_BUILD_TYPE=${DEBUG+Debug}${DEBUG-Release}
+        fi
         cmake --build . --target install${DEBUG-/strip}
         cd ..
 
@@ -506,16 +554,18 @@ if [ $BUILD_WINDOWS ] ; then
     fi
 
     if [ ! -d "depends/windows/include/opencv2" ] ; then
-        curl --location "https://github.com/artoolkitx/opencv/releases/download/3.4.1-dev-artoolkitx/opencv-3.4.1-dev-artoolkitx-windows.tgz" -o opencv2.tgz
+        curl --location "https://github.com/artoolkitx/opencv/releases/download/4.7.0-dev-artoolkitx/opencv-4.7.0-dev-artoolkitx-win-vc16.tgz" -o opencv2.tgz
         tar xzf opencv2.tgz --strip-components=1 -C depends/windows
         rm opencv2.tgz
     fi
 
     cd build-windows
-    rm -f CMakeCache.txt
-    cmake.exe .. -G "$CMAKE_GENERATOR" ${CMAKE_ARCH+-A ${CMAKE_ARCH}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
+    if [ ! $NO_CONFIG ] ; then
+        rm -f CMakeCache.txt
+        cmake.exe .. -G "$CMAKE_GENERATOR" ${CMAKE_ARCH+-A ${CMAKE_ARCH}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE
+    fi
     cmake.exe --build . --config ${DEBUG+Debug}${DEBUG-Release} --target install
-    cp $OURDIR/depends/windows/lib/x64/opencv* $OURDIR/../SDK/bin
+    #cp $OURDIR/depends/windows/lib/x64/opencv* $OURDIR/../SDK/bin
     cp $OURDIR/depends/windows/lib/x64/SDL2.dll $OURDIR/../SDK/bin
 
     if [ $BUILD_EXAMPLES ] ; then
@@ -528,7 +578,7 @@ if [ $BUILD_WINDOWS ] ; then
         cmake.exe --build . --config ${DEBUG+Debug}${DEBUG-Release}  --target install
         #Copy needed dlls into the corresponding Visual Studio directory to allow running examples from inside the Visual Studio GUI
         mkdir -p ${DEBUG+Debug}${DEBUG-Release}
-        cp $OURDIR/depends/windows/lib/x64/opencv*.dll ./${DEBUG+Debug}${DEBUG-Release}
+        #cp $OURDIR/depends/windows/lib/x64/opencv*.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/depends/windows/lib/x64/SDL2.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/ARX*.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/*.patt ./${DEBUG+Debug}${DEBUG-Release}
@@ -540,10 +590,12 @@ if [ $BUILD_WINDOWS ] ; then
         cmake.exe --build . --config ${DEBUG+Debug}${DEBUG-Release}  --target install
         #Copy needed dlls into the corresponding Visual Studio directory to allow running examples from inside the Visual Studio GUI
         mkdir -p ${DEBUG+Debug}${DEBUG-Release}
-        cp $OURDIR/depends/windows/lib/x64/opencv*.dll ./${DEBUG+Debug}${DEBUG-Release}
+        #cp $OURDIR/depends/windows/lib/x64/opencv*.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/depends/windows/lib/x64/SDL2.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/ARX*.dll ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/pinball.jpg ./${DEBUG+Debug}${DEBUG-Release}
+        cp $OURDIR/../SDK/bin/gibraltar.jpg ./${DEBUG+Debug}${DEBUG-Release}
+        cp $OURDIR/../SDK/bin/Harlech_Castle_plan_colour.jpg ./${DEBUG+Debug}${DEBUG-Release}
         cp $OURDIR/../SDK/bin/database.xml.gz ./${DEBUG+Debug}${DEBUG-Release}
     )
     fi

@@ -100,5 +100,8 @@
 
 typedef void (CALL_CONV *PFN_LOGCALLBACK)(const char* msg);
 
+typedef void (CALL_CONV *PFN_TRACKABLEEVENTCALLBACK)(int trackableEventType, int trackableUID);
+
+typedef void (CALL_CONV *PFN_VIDEOPUSHRELEASECALLBACK)(void *releaseCallbackUserdata);
 
 #endif // !PLATFORM_H

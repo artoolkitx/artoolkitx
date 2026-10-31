@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pattern_5ftype_0',['PATTERN_TYPE',['../class_a_r_pattern.html#a490d2397b82a58c44eaa88a9c33172ba',1,'ARPattern']]]
+  ['kpm_5fproc_5fmode_0',['KPM_PROC_MODE',['../kpm_8h.html#a2c272c9e734c9351ce6dcb71722f3670',1,'kpm.h']]]
 ];

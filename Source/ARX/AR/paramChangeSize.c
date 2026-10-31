@@ -52,22 +52,33 @@
 #include <math.h>
 #include <ARX/AR/ar.h>
 
-
-int arParamChangeSize( ARParam *source, int xsize, int ysize, ARParam *newparam )
+int arParamChangeSize(ARParam *source, int xsize, int ysize, ARParam *newparam)
 {
-    ARdouble  x_scale, y_scale;
-    int     i;
+    return (arParamChangeSizeWithZoom(source, xsize, ysize, 1.0f, 1.0f, newparam));
+}
 
-    x_scale = (ARdouble)xsize / (ARdouble)(source->xsize);
-    y_scale = (ARdouble)ysize / (ARdouble)(source->ysize);
+int arParamChangeSizeWithZoom(ARParam *source, int xsize, int ysize, ARdouble x_zoom, ARdouble y_zoom, ARParam *newparam)
+{
+    // It is valid for source and newparam to point to the same structure, so
+    // use intermediate values for anything that depends on the original value.
 
+    ARdouble x_scale = (ARdouble)xsize / (ARdouble)(source->xsize);
+    ARdouble y_scale = (ARdouble)ysize / (ARdouble)(source->ysize);
     newparam->xsize = xsize;
     newparam->ysize = ysize;
-    for( i = 0; i < 4; i++ ) {
-        newparam->mat[0][i] = source->mat[0][i] * x_scale;
-        newparam->mat[1][i] = source->mat[1][i] * y_scale;
-        newparam->mat[2][i] = source->mat[2][i];
-    }
+
+    newparam->mat[0][0] = source->mat[0][0] * x_scale / x_zoom;
+    newparam->mat[0][1] = source->mat[0][1] * x_scale / x_zoom;
+    newparam->mat[0][2] = source->mat[0][2] * x_scale;
+    newparam->mat[0][3] = source->mat[0][3] * x_scale;
+    newparam->mat[1][0] = source->mat[1][0] * y_scale / y_zoom;
+    newparam->mat[1][1] = source->mat[1][1] * y_scale / y_zoom;
+    newparam->mat[1][2] = source->mat[1][2] * y_scale;
+    newparam->mat[1][3] = source->mat[1][3] * y_scale;
+    newparam->mat[2][0] = source->mat[2][0];
+    newparam->mat[2][1] = source->mat[2][1];
+    newparam->mat[2][2] = source->mat[2][2];
+    newparam->mat[2][3] = source->mat[2][3];
 
     if (source->dist_function_version == 5) {
         newparam->dist_factor[0] = source->dist_factor[0];             /*  k1  */
@@ -82,8 +93,8 @@ int arParamChangeSize( ARParam *source, int xsize, int ysize, ARParam *newparam 
         newparam->dist_factor[9] = source->dist_factor[9];             /*  s2  */
         newparam->dist_factor[10] = source->dist_factor[10];           /*  s3  */
         newparam->dist_factor[11] = source->dist_factor[11];           /*  s4  */
-        newparam->dist_factor[12] = source->dist_factor[12] * x_scale; /*  fx  */
-        newparam->dist_factor[13] = source->dist_factor[13] * y_scale; /*  fy  */
+        newparam->dist_factor[12] = source->dist_factor[12] * x_scale / x_zoom; /*  fx  */
+        newparam->dist_factor[13] = source->dist_factor[13] * y_scale / y_zoom; /*  fy  */
         newparam->dist_factor[14] = source->dist_factor[14] * x_scale; /*  cx  */
         newparam->dist_factor[15] = source->dist_factor[15] * y_scale; /*  cy  */
         newparam->dist_factor[16] = source->dist_factor[16];           /*  Size adjust */
@@ -92,8 +103,8 @@ int arParamChangeSize( ARParam *source, int xsize, int ysize, ARParam *newparam 
 		newparam->dist_factor[1] = source->dist_factor[1];             /*  k2  */
 		newparam->dist_factor[2] = source->dist_factor[2];             /*  p1  */
 		newparam->dist_factor[3] = source->dist_factor[3];             /*  p2  */
-		newparam->dist_factor[4] = source->dist_factor[4] * x_scale;   /*  fx  */
-		newparam->dist_factor[5] = source->dist_factor[5] * y_scale;   /*  fy  */
+		newparam->dist_factor[4] = source->dist_factor[4] * x_scale / x_zoom;   /*  fx  */
+		newparam->dist_factor[5] = source->dist_factor[5] * y_scale / y_zoom;   /*  fy  */
 		newparam->dist_factor[6] = source->dist_factor[6] * x_scale;   /*  cx  */
 		newparam->dist_factor[7] = source->dist_factor[7] * y_scale;   /*  cy  */
 		newparam->dist_factor[8] = source->dist_factor[8];             /*  Size adjust */

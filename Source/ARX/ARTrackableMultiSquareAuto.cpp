@@ -35,6 +35,7 @@
  */
 
 #include <ARX/ARTrackableMultiSquareAuto.h>
+#include "AR/matrixCode.h"
 
 #if USE_GTSAM
 #  include "mapper.hpp"
@@ -237,3 +238,74 @@ ARMultiMarkerInfoT *ARTrackableMultiSquareAuto::copyMultiConfig()
     return arMultiCopyConfig(m_MultiConfig);
 }
 
+int ARTrackableMultiSquareAuto::getPatternCount()
+{
+    if (!m_MultiConfig) return 0;
+    return m_MultiConfig->marker_num;
+}
+
+std::pair<float, float> ARTrackableMultiSquareAuto::getPatternSize(int patternIndex)
+{
+    return std::pair<float, float>(m_markerWidth, m_markerWidth);
+}
+
+std::pair<int, int> ARTrackableMultiSquareAuto::getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType)
+{
+    return std::pair<int, int>(matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK, matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK);
+}
+
+bool ARTrackableMultiSquareAuto::getPatternTransform(int patternIndex, ARdouble T[16])
+{
+    if (!m_MultiConfig || patternIndex < 0 || patternIndex >= m_MultiConfig->marker_num) return false;
+
+    T[ 0] = m_MultiConfig->marker[patternIndex].trans[0][0];
+    T[ 1] = m_MultiConfig->marker[patternIndex].trans[1][0];
+    T[ 2] = m_MultiConfig->marker[patternIndex].trans[2][0];
+    T[ 3] = _0_0;
+    T[ 4] = m_MultiConfig->marker[patternIndex].trans[0][1];
+    T[ 5] = m_MultiConfig->marker[patternIndex].trans[1][1];
+    T[ 6] = m_MultiConfig->marker[patternIndex].trans[2][1];
+    T[ 7] = _0_0;
+    T[ 8] = m_MultiConfig->marker[patternIndex].trans[0][2];
+    T[ 9] = m_MultiConfig->marker[patternIndex].trans[1][2];
+    T[10] = m_MultiConfig->marker[patternIndex].trans[2][2];
+    T[11] = _0_0;
+    T[12] = m_MultiConfig->marker[patternIndex].trans[0][3];
+    T[13] = m_MultiConfig->marker[patternIndex].trans[1][3];
+    T[14] = m_MultiConfig->marker[patternIndex].trans[2][3];
+    T[15] = _1_0;
+    return true;
+}
+
+bool ARTrackableMultiSquareAuto::getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType)
+{
+    if (!m_MultiConfig || patternIndex < 0 || patternIndex >= m_MultiConfig->marker_num) return false;
+
+    uint8_t *code;
+    encodeMatrixCode(matrixCodeType, m_MultiConfig->marker[patternIndex].patt_id, &code);
+    int barcode_dimensions = matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK;
+    int bit = 0;
+#ifdef AR_LITTLE_ENDIAN
+    const uint32_t colour_black = 0xff000000;
+#else
+    const uint32_t colour_black = 0x000000ff;
+#endif
+    const uint32_t colour_white = 0xffffffff;
+    for (int row = barcode_dimensions - 1; row >= 0; row--) {
+        for (int col = barcode_dimensions - 1; col >= 0; col--) {
+            uint32_t pixel_colour;
+            if ((row == 0 || row == (barcode_dimensions - 1)) && col == 0) {
+                pixel_colour = colour_black;
+            } else if (row == (barcode_dimensions - 1) && col == (barcode_dimensions - 1)) {
+                pixel_colour = colour_white;
+            } else {
+                if (code[bit]) pixel_colour = colour_black;
+                else pixel_colour = colour_white;
+                bit++;
+            }
+            pattImageBuffer[barcode_dimensions * (barcode_dimensions - 1 - row) + col] = pixel_colour; // Flip pattern in Y, because output texture has origin at lower-left.
+        }
+    }
+    free(code);
+    return true;
+}

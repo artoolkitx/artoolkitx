@@ -1,6 +1,207 @@
 # artoolkitX Release Notes
 --------------------------
 
+
+## Version 1.2.0
+### 2026-10-28
+
+Bug fixes:
+ * Fix a memory leak in the GStreamer video module (GitHub issue #124). The module has been rewritten: it uses the proper GStreamer buffer-mapping types on all GStreamer 1.x versions, drops the GStreamer 1.22+ version checks and the workaround of stripping memory from in-flight buffers, frees everything on close, and reports pipeline errors instead of aborting the process.
+ * Fix loading of camera parameter files holding more than one record, where the record version was inferred from the file size alone and could be misidentified. The requested record count is now used to disambiguate, thanks to `dajiaohuang`.
+ * Linux: The example projects and Linux packaging projects now declare `cmake_minimum_required` 3.5, so they configure with CMake 4. Also applies to the Windows example projects.
+ * Linux: The example projects now build on aarch64.
+ * Linux: The library install directory can be set with `CMAKE_INSTALL_LIBDIR` or `LIB_SUFFIX`, for distributions that install to `lib64` (GitHub issue #127). The exported CMake targets file and the utilities' rpath follow it.
+ * Linux: pthreads, OpenSSL's libcrypto and sqlite3 are now located with `find_package` and pkg-config rather than named as bare libraries, so builds link on distributions that keep them outside the default linker search path (GitHub issue #128).
+
+Improvements:
+ * GStreamer video module now accepts BGR, RGBA, BGRA, ARGB, ABGR, GRAY8, UYVY, YUY2, NV12 and NV21 in addition to RGB, copies padded-stride frames correctly, timestamps frames, and only returns a frame from `arVideoGetImage` when a new one has arrived. `arVideoDispOption` documents the pipeline requirements.
+ * GStreamer video module now requires gstreamer-video-1.0 (Debian package `libgstreamer-plugins-base1.0-dev`, RPM package `gstreamer1-plugins-base-devel`) in addition to gstreamer-1.0.
+ * Linux: GLU is no longer required to build. The only reference was an unused include in Eden's `readtex.c`.
+ * macOS: Minimum supported macOS release is now macOS 12.0, as this is the lowest deployment target supported by Xcode 27.
+ * iOS: Minimum supported iOS release is now iOS 15.0, as this is the lowest deployment target supported by Xcode 27.
+ * Regenerated the API reference documentation with Doxygen 1.18.0.
+
+## Version 1.1.23
+### 2026-05-26
+
+Bug fixes:
+ * Fixes GStreamer compatibility, GStreamer video module memory leak, and C++ compatibility, thanks to `gottardi`.
+ * Preliminary support for Linux on ARM.
+
+Improvements:
+ * Android: Update build toolchain.
+    - Bumped Android Gradle Plugin to 8.7.3, Gradle to 8.9, compileSdk/targetSdk to 35; JDK 17.
+    - Migrated the ARXJ library from `com.android.support` to AndroidX (`appcompat` 1.7.0, `annotation` 1.9.1, `core` 1.13.1).
+    - Moved `package=` from each Android manifest to `namespace` in `build.gradle` per AGP 8 requirements.
+    - Replaced the `mergeDebugAssets`/`mergeReleaseAssets` copy hook in each example with `sourceSets.main.assets.srcDirs`.
+    - Constrained `kotlin-stdlib-jdk7`/`-jdk8` to 1.8.22 to resolve duplicate-class clash with `kotlin-stdlib` 1.8.
+    - Replaced `jcenter()` with `mavenCentral()` everywhere.
+ * Android: Renamed the square-tracking-with-OSG example to `org.artoolkitx.arx.arsquaretrackingosg` so it can coexist with the non-OSG square-tracking example on a device.
+ * Windows: Default CMake generator is now Visual Studio 17 2022.
+ * Added `Source/packaging/android/sign-apks.sh` for signing APKs via an env-configured keystore (defaults to `~/.android/debug.keystore`).
+
+## Version 1.1.22
+### 2024-12-13
+
+Bug fixes:
+ * Correct scaling issue with 2D tracker.
+ * Fix Mac OS packaging issue (missed SDL framework).
+
+## Version 1.1.21
+### 2024-12-09
+
+Improvements:
+ * Updated Emscripten build and new experimental packaging.
+
+## Version 1.1.20
+### 2024-06-25
+
+New features:
+ * Added support for multi-resolution template tracking in the 2D tracker. This greatly improves tracking of small and/or distant textures.
+
+Known issues:
+ * Some of the utilities are not displaying correctly on recent versions of Windows. This will be fixed in a subsequent release.
+
+## Version 1.1.19
+### 2024-05-03
+
+ * 2D tracker updates:
+    - Added new utility check_live_2d_tracking to display 2D tracker features during live tracking session.
+    - Added support for SIFT feature type.
+    - Allow control of minimum required features and RANSAC threshold in feature detector.
+    - Other minor code and documentation improvements.
+    - Fix for case where no 2D tracker supported (thanks to Frederic Alinhac).
+ * Android: Update to artoolkitx-built opencv-4.7.0. Ensure consistency between manual build and gradle-initiated build by specifying ndk version.
+ * Fix: added jepg read buffer overflow protection.
+
+## Version 1.1.18
+### 2024-01-17
+
+ * mac OS: use ld_classic for backwards compatibility.
+ * In the 2D image tracker, incoming images will only be downsampled for the feature tracking stage if they meet a minimum image size. This will help tracking when the source image stream is low resolution.
+
+## Version 1.1.17
+### 2023-12-06
+ 
+ * When video is being supplied external to artoolkitX, a new option allows for optimised no-copy handling. See https://github.com/artoolkitx/artoolkitx/wiki/artoolkitX-video-module-configuration-reference#ar_video_module_external.
+ * Android: Adds support for fetching camera parameters remotely by default when using videoExternal module.
+ * iOS: Updated minimum supported iOS release to iOS 12, as this is the lowest version supported by the iOS 17 SDK.
+ * Android: Update Android build for JDK 17 and NDK release 26 by default.
+
+## Version 1.1.16
+### 2023-10-11
+ 
+ * iOS: Adds support for fetching camera parameters remotely by default when using videoExternal module.
+
+## Version 1.1.15
+### 2023-10-04
+ 
+ * Minor fixes to support Xcode 15 (for macOS and iOS platforms).
+
+## Version 1.1.14
+### 2023-09-18
+ 
+ * Fix iOS libARX.a linkage to avoid conflicts when building into an app that uses libjpeg or minizip.
+ * Fix handling of new marker with high-numbered globalID barcodes. Also, reject requests for globalID marker images; these can be generated online only.
+
+## Version 1.1.13
+### 2023-09-12
+ 
+ * Added ability to query Android video module (while open) for available video frame sizes.
+ * Minor Fedora Linux packaging fix.
+ * Added support to wrapper for fetching barcode marker IDs.
+
+## Version 1.1.12
+### 2023-08-25
+
+Small updates for the Android platform:
+ * Android: Improved handling for Android file storage paths on Android 11 and later (API level 30). As part of this, arUtil APIs that used to require an Android Context instance will now fetch the global Application Context if none is supplied externally.
+ * Android: add video source info list API to the Java ARXJ library.
+ * Android: video sources now have human-readable names.
+
+## Version 1.1.11
+### 2023-06-28
+
+ * iOS: prelinked OpenCV and CURL so users of libARX.a don't have to.
+ * Documentation update.
+
+## Version 1.1.10
+### 2023-06-14
+
+ * Added a new "External" video module with support for a new all-platform ar2VideoPush* API, including in wrapper and ARController.
+ * Removed entirely support for Android non-native video. Defaults to native now. Users who need pushed video on Android should update to use the new module and API. JNI versions of new wrapper functions optimised for direct byte buffers, same as old arwVideoPushAndroid* functions.
+ * Standardised ARVideo handling of camera focal length hints.
+ * Added some functions to support adjusting camera intrinsics to provide alternate means of scaling viewing frustum to work with a viewport of arbitrary size.
+
+Bug fixes:
+ * Fix iOS builds picking up stray jpeg lib by ensuring libjpeg is included in the static single-object prelink.
+
+## Version 1.1.9
+### 2023-05-18
+
+ * Support for asynchronous tracking (on a secondary thread) has been added to the 2D tracker. When enabled, the tracking rate can run slower than the video capture frame rate. This results in increased smoothness of the display of video frames, at the expense of some memory usage and a possible lag on lower-powered devices between the displayed frame and the tracking results. It has been enabled by default. Use wrapper function arwSetTrackerOptionBool(ARW_TRACKER_OPTION_2D_THREADED, false) to revert to previous behaviour.
+
+Internal changes:
+ * Updated OpenCV on Android to v4.6.0.
+
+## Version 1.1.8
+### 2023-05-15
+
+Internal changes:
+ * Updated OpenCV on iOS to v4.6.0.
+ * Added sha1 calculation in ARUtil.
+
+Bug fixes:
+ * Fix trackable sizes in 2D tracking example on mobile platforms.
+
+## Version 1.1.7
+### 2023-05-08
+
+Internal and API changes:
+ * arwGetTrackableStatuses has replaced arwGetTrackables in the wrapper API.
+ * Provided options in the square tracker barcode (matrix) mode for auto-creation of trackables for newly recognized barcodes, plus a callback mechanism for auto-created trackables, plus wrapper API.
+ * Moved ownership of trackables out of ARController into each ARTracker. Change most methods returning trackable to return shared_ptr.
+ * Added getters/setters for square and 2D trackable width/height at runtime.
+
+Bug fixes:
+ * Correct handling of GlobalID codes in several places.
+
+## Version 1.1.6
+### 2023-04-21
+
+Bug fixes:
+ * Correct pattern retrieval buffer origin for barcode, 2D, NFT trackables.
+ * Fix pattern colour and barcode handling in pattern retrieval.
+ * Minor fix for GL library warning, and locale for apt-cache on Linux.
+
+## Version 1.1.5
+### 2023-04-12
+
+ * Corrected 2D planar tracker orientation and scaling issues.
+ * Clarified that "2D tracker scale factor" specifies image width, not height. Now in same units (usually millimetres) as other trackers.
+ * Overhauled ARTrackable pattern handling, including new support for 2D and NFT surfaces, plus barcodes. Remove ARPattern class.
+
+## Version 1.1.4
+### 2023-03-30
+
+ * Corrected a long-standing Windows bug that affected 2D planar tracking with 32-bit video formats.
+ * Updated the OpenCV build used by the 2D planar tracker on Windows and switched to static OpenCV libraries. This saves users from having to deploy the OpenCV DLLs alongside built apps.
+
+## Version 1.1.3
+### 2023-03-23
+
+ * Added support for setting the number of 2D planar tracker markers that can be simultaneously tracked.
+
+## Version 1.1.2
+### 2023-03-16
+
+ * Addition of a new utility check_image_2d_tracking which displays features and tracking templates used by the 2D planar tracker.
+
+## Version 1.1.1
+### 2023-03-10
+
+ * Minor additions to the ARX wrapper API to enable fetching of video source input lists.
+
 ## Version 1.1.0
 ### 2023-02-23
 

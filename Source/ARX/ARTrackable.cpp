@@ -54,6 +54,8 @@
 #  include <sys/param.h>
 #endif
 
+std::atomic<int> ARTrackable::nextUID {0};
+
 ARTrackable::ARTrackable(TrackableType type) :
     m_ftmi(NULL),
     m_filterCutoffFrequency(AR_FILTER_TRANS_MAT_CUTOFF_FREQ_DEFAULT),
@@ -63,61 +65,16 @@ ARTrackable::ARTrackable(TrackableType type) :
 #else
     m_positionScaleFactor(1.0),
 #endif
+    UID(ARTrackable::nextUID.fetch_add(1, std::memory_order_relaxed)),
     type(type),
     visiblePrev(false),
-	visible(false),
-    patternCount(0),
-    patterns(NULL)
+	visible(false)
 {
-	static int nextUID = 0;
-	UID = nextUID++;
 }
 
 ARTrackable::~ARTrackable()
 {
-    freePatterns();
-
     if (m_ftmi) arFilterTransMatFinal(m_ftmi);
-}
-
-void ARTrackable::allocatePatterns(int count)
-{
-	freePatterns();
-
-    if (count) {
-        patternCount = count;
-        ARLOGd("Allocating %d patterns on trackable %d.\n", patternCount, UID);
-        patterns = new ARPattern*[patternCount];
-        for (int i = 0; i < patternCount; i++) {
-            patterns[i] = new ARPattern();
-        }        
-    }
-}
-
-void ARTrackable::freePatterns()
-{
-	if (patternCount) ARLOGd("Freeing %d patterns on trackable %d.\n", patternCount, UID);
-
-	for (int i = 0; i < patternCount; i++) {
-        if (patterns[i]) {
-            delete patterns[i];
-            patterns[i] = NULL;
-        }
-	}
-	if (patterns) {
-        delete[] patterns;
-        patterns = NULL;
-    }
-
-	patternCount = 0;
-}
-
-ARPattern* ARTrackable::getPattern(int n)
-{
-	// Check n is in acceptable range
-	if (!patterns || n < 0 || n >= patternCount) return NULL;
-
-	return patterns[n];
 }
 
 void ARTrackable::setPositionScalefactor(ARdouble scale)

@@ -11,6 +11,7 @@ set(SOURCE
     TrackableInfo.h
     TrackedPoint.h
     TrackingPointSelector.h
+    TrackerVisualization.h
     OCVConfig.cpp
     HarrisDetector.cpp
     OCVFeatureDetector.cpp
@@ -45,8 +46,12 @@ if(NOT ARX_TARGET_PLATFORM_WINDOWS)
 else()
 	set (LINK_LIST "")
 	foreach(x ${OpenCV_LIBS})
-		string(REPLACE ".lib" "341d.lib" x_debug ${x})
-		list (APPEND LINK_LIST debug ${x_debug} optimized ${x})
+        if(${x} MATCHES ".*ippicvmt.lib")
+            list (APPEND LINK_LIST ${x})
+        else()
+		    string(REPLACE ".lib" "d.lib" x_debug ${x})
+		    list (APPEND LINK_LIST debug ${x_debug} optimized ${x})
+        endif()
 	endforeach()
 	target_link_libraries(OCVT
 	    PUBLIC ${LINK_LIST}

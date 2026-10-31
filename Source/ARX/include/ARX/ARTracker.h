@@ -46,6 +46,7 @@
 #include <ARX/ARTrackable.h>
 #include <vector>
 #include <string>
+#include <memory>
 
 enum class ARTrackerType {
     SQUARE_FIDUCIAL,
@@ -64,6 +65,7 @@ public:
     virtual bool initialize() = 0;
     virtual bool start() = 0;
     virtual bool isRunning() = 0;
+    virtual bool wantsUpdate() = 0;
     virtual bool update() = 0;
     virtual bool stop() = 0;
     virtual void terminate() = 0;
@@ -78,10 +80,19 @@ public:
         single_barcode;0;80
         multi;data/multi/marker.dat
         nft;data/nft/pinball
+        2d;pinball.jpg;188.0
+     * @return The UID of the new trackable.
      */
-    virtual ARTrackable *newTrackable(std::vector<std::string> config) = 0;
-    virtual void deleteTrackable(ARTrackable **trackable_p) = 0;
-
+    virtual int newTrackable(std::vector<std::string> config) = 0;
+    virtual unsigned int countTrackables() = 0;
+    virtual std::shared_ptr<ARTrackable> getTrackable(int UID) = 0;
+    virtual std::vector<std::shared_ptr<ARTrackable>> getAllTrackables() = 0;
+    /**
+     * Removes the trackable with UID uid, if held by this tracker.
+     * @return true if the trackable was held by this tracker and removed, false otherwise.
+     */
+    virtual bool deleteTrackable(int UID) = 0;
+    virtual void deleteAllTrackables() = 0;
 };
 
 

@@ -38,6 +38,8 @@
 
 #include <ARX/ARTrackableSquare.h>
 #include <ARX/ARController.h>
+#include "AR/matrixCode.h"
+#include <inttypes.h>
 #ifndef MAX
 #  define MAX(x,y) (x > y ? x : y)
 #endif
@@ -49,6 +51,7 @@ ARTrackableSquare::ARTrackableSquare() : ARTrackable(SINGLE),
     m_cfMin(AR_CONFIDENCE_CUTOFF_DEFAULT),
     patt_id(-1),
     patt_type(-1),
+    globalID(0),
     useContPoseEstimation(true)
 {
 }
@@ -62,7 +65,6 @@ ARTrackableSquare::~ARTrackableSquare()
 bool ARTrackableSquare::unload()
 {
     if (m_loaded) {
-        freePatterns();
         if (patt_type == AR_PATTERN_TYPE_TEMPLATE && patt_id != -1) {
             if (m_arPattHandle) {
                 arPattFree(m_arPattHandle, patt_id);
@@ -70,6 +72,7 @@ bool ARTrackableSquare::unload()
             }
         }
         patt_id = patt_type = -1;
+        globalID = 0;
         m_cf = 0.0f;
         m_width = 0.0f;
         m_loaded = false;
@@ -99,10 +102,6 @@ bool ARTrackableSquare::initWithPatternFile(const char* path, ARdouble width, AR
     m_width = width;
     
 	visible = visiblePrev = false;
-    
-    // An ARPattern to hold an image of the pattern for display to the user.
-	allocatePatterns(1);
-	patterns[0]->loadTemplate(patt_id, m_arPattHandle, (float)m_width);
 
     m_loaded = true;
 	return true;
@@ -128,33 +127,31 @@ bool ARTrackableSquare::initWithPatternFromBuffer(const char* buffer, ARdouble w
 	m_width = width;
 
 	visible = visiblePrev = false;
-	
-    // An ARPattern to hold an image of the pattern for display to the user.
-	allocatePatterns(1);
-	patterns[0]->loadTemplate(patt_id, arPattHandle, (float)m_width);
-	
+
     m_loaded = true;
 	return true;
 }
 
-bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width)
+bool ARTrackableSquare::initWithBarcode(int barcodeID, ARdouble width, uint64_t globalID_)
 {
 	if (barcodeID < 0) return false;
     
     if (m_loaded) unload();
 
-	ARLOGi("Adding single AR marker with barcode %d, width %f.\n", barcodeID, width);
-	
-	patt_id = barcodeID;
-	
+	ARLOGi("Adding single AR marker with barcode %d, width %f, globalID %" PRIu64 ".\n", barcodeID, width, globalID_);
+
+    if (barcodeID == 0 && globalID_ != 0) {
+        globalID = globalID_;
+        if ((globalID & 0xffffffff80000000ULL) == 0ULL) patt_id = (int)(globalID & 0x7fffffffULL); // If upper 33 bits are zero, use lower 31 bits as regular matrix code.
+        else patt_id = 0;
+    } else {
+        patt_id = barcodeID;
+    }
+
     patt_type = AR_PATTERN_TYPE_MATRIX;
 	m_width = width;
     
 	visible = visiblePrev = false;
-		
-    // An ARPattern to hold an image of the pattern for display to the user.
-	allocatePatterns(1);
-	patterns[0]->loadMatrix(patt_id, AR_MATRIX_CODE_3x3, (float)m_width); // FIXME: need to determine actual matrix code type.
 
     m_loaded = true;
 	return true;
@@ -181,7 +178,7 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
 
     ARLOGd("ARTrackableSquare::updateWithDetectedMarkers(...)\n");
     
-	if (patt_id < 0) return false;	// Can't update if no pattern loaded
+	if (patt_id < 0) return false;	// Can't update if not inited.
 
     visiblePrev = visible;
     visible = false;
@@ -193,12 +190,12 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
         if (patt_type == AR_PATTERN_TYPE_TEMPLATE) { 
             // Iterate over all detected markers.
             for (int j = 0; j < markerNum; j++ ) {
-                if (patt_id == markerInfo[j].idPatt) {
-                    // The pattern of detected trapezoid matches marker[k].
-                    if (k == -1) {
-                        if (markerInfo[j].cfPatt > m_cfMin) k = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfo[j].cfPatt > markerInfo[k].cfPatt) k = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
-                }
+                if (markerInfo[j].matched) continue;
+                if (patt_id != markerInfo[j].idPatt) continue;
+                // The pattern of detected trapezoid matches marker[k].
+                if (k == -1) {
+                    if (markerInfo[j].cfPatt > m_cfMin) k = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfo[j].cfPatt > markerInfo[k].cfPatt) k = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (k != -1) {
                 markerInfo[k].id = markerInfo[k].idPatt;
@@ -207,11 +204,16 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
             }
         } else {
             for (int j = 0; j < markerNum; j++) {
-                if (patt_id == markerInfo[j].idMatrix) {
-                    if (k == -1) {
-                        if (markerInfo[j].cfMatrix >= m_cfMin) k = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfo[j].cfMatrix > markerInfo[k].cfMatrix) k = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
+                if (markerInfo[j].matched) continue;
+                // Check if we need to examine the globalID rather than patt_id.
+                if (markerInfo[j].idMatrix == 0 && markerInfo[j].globalID != 0ULL) {
+                    if (markerInfo[j].globalID != globalID ) continue;
+                } else {
+                    if (markerInfo[j].idMatrix != patt_id ) continue;
                 }
+                if (k == -1) {
+                    if (markerInfo[j].cfMatrix >= m_cfMin) k = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfo[j].cfMatrix > markerInfo[k].cfMatrix) k = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (k != -1) {
                 markerInfo[k].id = markerInfo[k].idMatrix;
@@ -222,6 +224,7 @@ bool ARTrackableSquare::updateWithDetectedMarkers(ARMarkerInfo* markerInfo, int 
         
 		// Consider marker visible if a match was found.
         if (k != -1) {
+            markerInfo[k].matched = 1;
             ARdouble err;
             // If the model is visible, update its transformation matrix
 			if (visiblePrev && useContPoseEstimation) {
@@ -245,7 +248,7 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
     
     ARLOGd("ARTrackableSquare::updateWithDetectedMarkersStereo(...)\n");
     
-	if (patt_id < 0) return false;	// Can't update if no pattern loaded
+	if (patt_id < 0) return false;	// Can't update if not inited.
     
     visiblePrev = visible;
     visible = false;
@@ -257,12 +260,12 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
         if (patt_type == AR_PATTERN_TYPE_TEMPLATE) {
             // Iterate over all detected markers.
             for (int j = 0; j < markerNumL; j++ ) {
-                if (patt_id == markerInfoL[j].idPatt) {
-                    // The pattern of detected trapezoid matches marker[kL].
-                    if (kL == -1) {
-                        if (markerInfoL[j].cfPatt > m_cfMin) kL = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfoL[j].cfPatt > markerInfoL[kL].cfPatt) kL = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
-                }
+                if (markerInfoL[j].matched) continue;
+                if (patt_id != markerInfoL[j].idPatt) continue;
+                // The pattern of detected trapezoid matches marker[kL].
+                if (kL == -1) {
+                    if (markerInfoL[j].cfPatt > m_cfMin) kL = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfoL[j].cfPatt > markerInfoL[kL].cfPatt) kL = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (kL != -1) {
                 markerInfoL[kL].id = markerInfoL[kL].idPatt;
@@ -270,12 +273,12 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
                 markerInfoL[kL].dir = markerInfoL[kL].dirPatt;
             }
             for (int j = 0; j < markerNumR; j++ ) {
-                if (patt_id == markerInfoR[j].idPatt) {
-                    // The pattern of detected trapezoid matches marker[kR].
-                    if (kR == -1) {
-                        if (markerInfoR[j].cfPatt > m_cfMin) kR = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfoR[j].cfPatt > markerInfoR[kR].cfPatt) kR = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
-                }
+                if (markerInfoR[j].matched) continue;
+                if (patt_id != markerInfoR[j].idPatt) continue;
+                // The pattern of detected trapezoid matches marker[kR].
+                if (kR == -1) {
+                    if (markerInfoR[j].cfPatt > m_cfMin) kR = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfoR[j].cfPatt > markerInfoR[kR].cfPatt) kR = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (kR != -1) {
                 markerInfoR[kR].id = markerInfoR[kR].idPatt;
@@ -284,11 +287,16 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
             }
         } else {
             for (int j = 0; j < markerNumL; j++) {
-                if (patt_id == markerInfoL[j].idMatrix) {
-                    if (kL == -1) {
-                        if (markerInfoL[j].cfMatrix >= m_cfMin) kL = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfoL[j].cfMatrix > markerInfoL[kL].cfMatrix) kL = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
+                if (markerInfoL[j].matched) continue;
+                // Check if we need to examine the globalID rather than patt_id.
+                if (markerInfoL[j].idMatrix == 0 && markerInfoL[j].globalID != 0ULL) {
+                    if (markerInfoL[j].globalID != globalID ) continue;
+                } else {
+                    if (markerInfoL[j].idMatrix != patt_id ) continue;
                 }
+                if (kL == -1) {
+                    if (markerInfoL[j].cfMatrix >= m_cfMin) kL = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfoL[j].cfMatrix > markerInfoL[kL].cfMatrix) kL = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (kL != -1) {
                 markerInfoL[kL].id = markerInfoL[kL].idMatrix;
@@ -296,11 +304,16 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
                 markerInfoL[kL].dir = markerInfoL[kL].dirMatrix;
             }
             for (int j = 0; j < markerNumR; j++) {
-                if (patt_id == markerInfoR[j].idMatrix) {
-                    if (kR == -1) {
-                        if (markerInfoR[j].cfMatrix >= m_cfMin) kR = j; // Count as a match if match confidence exceeds cfMin.
-                    } else if (markerInfoR[j].cfMatrix > markerInfoR[kR].cfMatrix) kR = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
+                if (markerInfoR[j].matched) continue;
+                // Check if we need to examine the globalID rather than patt_id.
+                if (markerInfoR[j].idMatrix == 0 && markerInfoR[j].globalID != 0ULL) {
+                    if (markerInfoR[j].globalID != globalID ) continue;
+                } else {
+                    if (markerInfoR[j].idMatrix != patt_id ) continue;
                 }
+                if (kR == -1) {
+                    if (markerInfoR[j].cfMatrix >= m_cfMin) kR = j; // Count as a match if match confidence exceeds cfMin.
+                } else if (markerInfoR[j].cfMatrix > markerInfoR[kR].cfMatrix) kR = j; // Or if it exceeds match confidence of a different already matched trapezoid (i.e. assume only one instance of each marker).
             }
             if (kR != -1) {
                 markerInfoR[kR].id = markerInfoR[kR].idMatrix;
@@ -310,7 +323,9 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
         }
         
         if (kL != -1 || kR != -1) {
-            
+            if (kL != -1) markerInfoL[kL].matched = 1;
+            if (kR != -1) markerInfoR[kR].matched = 1;
+
             ARdouble err;
             
             if (kL != -1 && kR != -1) {
@@ -341,3 +356,88 @@ bool ARTrackableSquare::updateWithDetectedMarkersStereo(ARMarkerInfo* markerInfo
 	return (ARTrackable::update(transL2R)); // Parent class will finish update.
 }
 
+int ARTrackableSquare::getPatternCount()
+{
+    return 1;
+}
+
+std::pair<float, float> ARTrackableSquare::getPatternSize(int patternIndex)
+{
+    if (patternIndex != 0) return std::pair<float, float>();
+    return std::pair<float, float>((float)m_width, (float)m_width);
+}
+
+std::pair<int, int> ARTrackableSquare::getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType)
+{
+    if (patternIndex != 0) return std::pair<int, int>();
+    if (patt_type == AR_PATTERN_TYPE_TEMPLATE) {
+        if (!m_arPattHandle) return std::pair<int, int>();
+        return std::pair<int, int>(m_arPattHandle->pattSize, m_arPattHandle->pattSize);
+    } else  /* patt_type == AR_PATTERN_TYPE_MATRIX */ {
+        return std::pair<int, int>(matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK, matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK);
+    }
+}
+
+bool ARTrackableSquare::getPatternTransform(int patternIndex, ARdouble T[16])
+{
+    if (patternIndex != 0) return false;
+    T[ 0] = _1_0; T[ 1] = _0_0; T[ 2] = _0_0; T[ 3] = _0_0;
+    T[ 4] = _0_0; T[ 5] = _1_0; T[ 6] = _0_0; T[ 7] = _0_0;
+    T[ 8] = _0_0; T[ 9] = _0_0; T[10] = _1_0; T[11] = _0_0;
+    T[12] = _0_0; T[13] = _0_0; T[14] = _0_0; T[15] = _1_0;
+    return true;
+}
+
+bool ARTrackableSquare::getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType)
+{
+    if (patternIndex != 0) return false;
+
+    if (patt_type == AR_PATTERN_TYPE_TEMPLATE) {
+        if (!m_arPattHandle || !m_arPattHandle->pattf[patt_id]) return false;
+        const int *arr = m_arPattHandle->patt[patt_id * 4];
+        for (int y = 0; y < m_arPattHandle->pattSize; y++) {
+            for (int x = 0; x < m_arPattHandle->pattSize; x++) {
+
+                int pattIdx = (m_arPattHandle->pattSize - 1 - y)*m_arPattHandle->pattSize + x; // Flip pattern in Y, because output texture has origin at lower-left.
+                int buffIdx = y*m_arPattHandle->pattSize + x;
+
+#ifdef AR_LITTLE_ENDIAN
+                pattImageBuffer[buffIdx] = 0xff000000 | (arr[pattIdx*3] & 0xff) << 16 | (arr[pattIdx*3 + 1] & 0xff) << 8 | (arr[pattIdx*3 + 2] & 0xff); // In-memory ordering will be R->G->B->A.
+#else
+                pattImageBuffer[buffIdx] = (arr[pattIdx*3 + 2] & 0xff) << 24 | (arr[pattIdx*3 + 1] & 0xff) << 16 | (arr[pattIdx*3] & 0xff) << 8 | 0xff;
+#endif
+            }
+        }
+        return true;
+    } else  /* patt_type == AR_PATTERN_TYPE_MATRIX */ {
+        if (matrixCodeType == AR_MATRIX_CODE_GLOBAL_ID) return false;
+        uint8_t *code;
+        int length = encodeMatrixCode(matrixCodeType, patt_id, &code);
+        if (length < 1) return false;
+        int barcode_dimensions = matrixCodeType & AR_MATRIX_CODE_TYPE_SIZE_MASK;
+        int bit = 0;
+#ifdef AR_LITTLE_ENDIAN
+        const uint32_t colour_black = 0xff000000;
+#else
+        const uint32_t colour_black = 0x000000ff;
+#endif
+        const uint32_t colour_white = 0xffffffff;
+        for (int row = barcode_dimensions - 1; row >= 0; row--) {
+            for (int col = barcode_dimensions - 1; col >= 0; col--) {
+                uint32_t pixel_colour;
+                if ((row == 0 || row == (barcode_dimensions - 1)) && col == 0) {
+                    pixel_colour = colour_black;
+                } else if (row == (barcode_dimensions - 1) && col == (barcode_dimensions - 1)) {
+                    pixel_colour = colour_white;
+                } else {
+                    if (code[bit]) pixel_colour = colour_black;
+                    else pixel_colour = colour_white;
+                    bit++;
+                }
+                pattImageBuffer[barcode_dimensions * (barcode_dimensions - 1 - row) + col] = pixel_colour; // Flip pattern in Y, because output texture has origin at lower-left.
+            }
+        }
+        free(code);
+        return true;
+    }
+}

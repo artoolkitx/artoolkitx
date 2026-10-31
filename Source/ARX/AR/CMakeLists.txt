@@ -93,6 +93,8 @@ set(SOURCE
     vHouse.c
     vInnerP.c
     vTridiag.c
+    matrixCode.h
+    matrixCode.c
 )
 
 if (ARX_TARGET_PLATFORM_ANDROID)
@@ -140,8 +142,12 @@ if(HAVE_OPENCV)
     else()
         set (LINK_LIST "")
         foreach(x ${OpenCV_LIBS})
-            string(REPLACE ".lib" "341d.lib" x_debug ${x})
-            list (APPEND LINK_LIST debug ${x_debug} optimized ${x})
+            if(${x} MATCHES ".*ippicvmt.lib")
+                list (APPEND LINK_LIST ${x})
+            else()
+                string(REPLACE ".lib" "d.lib" x_debug ${x})
+                list (APPEND LINK_LIST debug ${x_debug} optimized ${x})
+            endif()
         endforeach()
         target_link_libraries(AR
             ${LINK_LIST}

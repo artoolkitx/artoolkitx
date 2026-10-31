@@ -1,0 +1,9 @@
+<map id="PlanarTracker::PlanarTrackerImpl" name="PlanarTracker::PlanarTrackerImpl">
+<area shape="rect" id="Node000001" title=" " alt="" coords="81,275,297,300"/>
+<area shape="rect" id="Node000002" href="$class_tracker_visualization.html" title=" " alt="" coords="120,178,259,204"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,217,192,275,187,273,187,221"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,13,176,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="83,51,80,103,83,129,94,152,107,166,125,177,120,178,104,170,90,156,78,131,74,103,82,56"/>
+<area shape="rect" id="Node000004" href="$struct_tracker_visualization_1_1template_matching.html" title=" " alt="" coords="220,5,359,46"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="291,59,284,109,275,133,262,156,247,170,229,180,227,175,244,165,258,152,270,131,279,108,287,64"/>
+</map>

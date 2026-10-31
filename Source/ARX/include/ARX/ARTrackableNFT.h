@@ -54,11 +54,12 @@ private:
     bool m_loaded;
     float m_nftScale;
     bool robustFlag;                                    ///< Flag specifying which pose estimation approach to use
-    int pageNo;
+    int pageNo;                                         ///< "Page number" (first page is page 0), or -1 if NFT data not yet loaded into tracker.
     char *datasetPathname;
     AR2SurfaceSetT *surfaceSet;
     bool unload();
 
+    AR2ImageT *getBestImage(int patternIndex);
 public:
     
 	ARTrackableNFT();
@@ -70,6 +71,12 @@ public:
 
     void setNFTScale(const float scale);
     float NFTScale();
+
+    int getPatternCount() override;
+    std::pair<float, float> getPatternSize(int patternIndex) override;
+    std::pair<int, int> getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType) override;
+    bool getPatternTransform(int patternIndex, ARdouble T[16]) override;
+    bool getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType) override;
 };
 
 #endif // HAVE_NFT

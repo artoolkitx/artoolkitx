@@ -69,14 +69,6 @@ ARController::ARController() :
     m_updateFrameStamp0({0,0}),
     m_updateFrameStamp1({0,0}),
     m_arVideoViews{NULL},
-    m_trackables(),
-    doSquareMarkerDetection(false),
-#if HAVE_NFT
-    doNFTMarkerDetection(false),
-#endif
-#if HAVE_2D
-    doTwoDMarkerDetection(false),
-#endif
     m_error(ARX_ERROR_NONE)
 {
 }
@@ -122,7 +114,7 @@ bool ARController::initialiseBase()
             return false;
         }
 	}
-    
+
     char *versionString = NULL;
     arGetVersion(&versionString);
 	ARLOGi("artoolkitX v%s initalised.\n", versionString);
@@ -146,11 +138,11 @@ bool ARController::initialiseBase()
 #if HAVE_2D
     m_twoDTracker = std::shared_ptr<ARTracker2d>(new ARTracker2d);
     if (!m_twoDTracker->initialize()) {
-        ARLOGe("Error initialising NFT tracker.\n");
+        ARLOGe("Error initialising 2D tracker.\n");
         goto bail2;
     }
 #endif
-    
+
 	state = BASE_INITIALISED;
 
     ARLOGd("ARX::ARController::initialiseBase() done.\n");
@@ -312,7 +304,7 @@ bool ARController::updateTextureRGBA32(const int videoSourceIndex, uint32_t *buf
 bool ARController::update()
 {
     ARLOGd("ARX::ARController::update().\n");
-    
+
 	if (state != DETECTION_RUNNING) {
         if (state != WAITING_FOR_VIDEO) {
             // State is NOTHING_INITIALISED or BASE_INITIALISED.
@@ -348,7 +340,6 @@ bool ARController::update()
     if (!image0) {
         return true;
     }
-    m_updateFrameStamp0 = image0->time;
     if (m_videoSourceIsStereo) {
         image1 = m_videoSource1->checkoutFrameIfNewerThan(m_updateFrameStamp1);
         if (!image1) {
@@ -357,6 +348,7 @@ bool ARController::update()
         }
         m_updateFrameStamp1 = image1->time;
     }
+    m_updateFrameStamp0 = image0->time;
 
     //
     // Tracker updates.
@@ -364,32 +356,32 @@ bool ARController::update()
 
     bool ret = true;
 
-    if (doSquareMarkerDetection) {
+    if (m_squareTracker->wantsUpdate()) {
         if (!m_squareTracker->isRunning()) {
             if (!m_videoSourceIsStereo) ret = m_squareTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat());
             else ret = m_squareTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat(), m_videoSource1->getCameraParameters(), m_videoSource1->getPixelFormat(), m_transL2R);
             if (!ret) goto done;
         }
-        m_squareTracker->update(image0, image1, m_trackables);
+        m_squareTracker->update(image0, image1);
     }
 #if HAVE_NFT
-    if (doNFTMarkerDetection) {
+    if (m_nftTracker->wantsUpdate()) {
         if (!m_nftTracker->isRunning()) {
             if (!m_videoSourceIsStereo) ret = m_nftTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat());
             else ret = m_nftTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat(), m_videoSource1->getCameraParameters(), m_videoSource1->getPixelFormat(), m_transL2R);
             if (!ret) goto done;
-       }
-        m_nftTracker->update(image0, image1, m_trackables);
+        }
+        m_nftTracker->update(image0, image1);
     }
 #endif
 #if HAVE_2D
-    if (doTwoDMarkerDetection) {
+    if (m_twoDTracker->wantsUpdate()) {
         if (!m_twoDTracker->isRunning()) {
             if (!m_videoSourceIsStereo) ret = m_twoDTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat());
             else ret = m_twoDTracker->start(m_videoSource0->getCameraParameters(), m_videoSource0->getPixelFormat(), m_videoSource1->getCameraParameters(), m_videoSource1->getPixelFormat(), m_transL2R);
             if (!ret) goto done;
         }
-        m_twoDTracker->update(image0, image1, m_trackables);
+        m_twoDTracker->update(image0, image1);
     }
 #endif
 done:
@@ -398,7 +390,7 @@ done:
     if (m_videoSourceIsStereo) m_videoSource1->checkinFrame();
 
     ARLOGd("ARX::ARController::update(): done.\n");
-    
+
     return ret;
 }
 
@@ -409,7 +401,7 @@ bool ARController::stopRunning()
         ARLOGe("Stop running called but not running.\n");
 		return false;
 	}
-    
+
     m_squareTracker->stop();
 #if HAVE_NFT
     m_nftTracker->stop();
@@ -485,34 +477,34 @@ bool ARController::shutdown()
 bool ARController::drawVideoInit(const int videoSourceIndex)
 {
     ARLOGd("ARController::drawVideoInit(%d).\n", videoSourceIndex);
-    
+
     if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return false;
-    
+
     if (m_arVideoViews[videoSourceIndex]) {
         delete m_arVideoViews[videoSourceIndex];
         m_arVideoViews[videoSourceIndex] = NULL;
     }
-    
+
     m_arVideoViews[videoSourceIndex] = new ARVideoView;
     if (!m_arVideoViews[videoSourceIndex]) {
         ARLOGe("Error allocated ARVideoView.\n");
         return false;
     }
-    
+
     return true;
 }
 
 bool ARController::drawVideoSettings(const int videoSourceIndex, const int width, const int height, const bool rotate90, const bool flipH, const bool flipV, const ARVideoView::HorizontalAlignment hAlign, const ARVideoView::VerticalAlignment vAlign, const ARVideoView::ScalingMode scalingMode, int32_t viewport[4])
 {
     ARLOGd("ARController::drawVideoSettings(%d, %d, %d, ...).\n", videoSourceIndex, width, height);
-    
+
     if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return false;
 
     if (!m_arVideoViews[videoSourceIndex]) {
         ARLOGe("ARVideoView %d not inited.\n", videoSourceIndex);
         return false;
     }
-    
+
     ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
     if (!m_arVideoViews[videoSourceIndex]->initWithVideoSource(*vs, width, height)) {
         ARLOGe("Unable to init ARVideoView.\n");
@@ -527,7 +519,7 @@ bool ARController::drawVideoSettings(const int videoSourceIndex, const int width
     if (viewport) {
         m_arVideoViews[videoSourceIndex]->getViewport(viewport);
     }
-    
+
     return true;
 }
 
@@ -539,27 +531,27 @@ bool ARController::drawVideo(const int videoSourceIndex)
         ARLOGe("ARVideoView %d not inited.\n", videoSourceIndex);
         return false;
     }
-    
+
     ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
     m_arVideoViews[videoSourceIndex]->draw(vs);
-    
+
     return true;
 }
 
 bool ARController::drawVideoFinal(const int videoSourceIndex)
 {
     ARLOGd("ARController::drawVideoFinal(%d).\n", videoSourceIndex);
-    
+
     if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return false;
 
     if (!m_arVideoViews[videoSourceIndex]) {
         ARLOGe("ARVideoView %d not inited.\n", videoSourceIndex);
         return false;
     }
-    
+
     delete m_arVideoViews[videoSourceIndex];
     m_arVideoViews[videoSourceIndex] = NULL;
-    
+
     return true;
 }
 
@@ -580,15 +572,42 @@ bool ARController::projectionMatrix(const int videoSourceIndex, const ARdouble p
         ARLOGe("Error: projection matrix requested but no video source %d not yet running.\n", videoSourceIndex);
         return false;
     }
-    
+
     ARParamLT* paramLT = vs->getCameraParameters();
     if (!paramLT) {
         ARLOGe("Error: video source %d unable to supply camera parameters.\n", videoSourceIndex);
         return false;
     }
-    
+
     arglCameraFrustumRH(&(paramLT->param), projectionNearPlane, projectionFarPlane, proj);
+
     ARLOGd("Computed projection matrix using near=%f far=%f.\n", projectionNearPlane, projectionFarPlane);
+    return true;
+}
+
+bool ARController::projectionForViewportSizeAndFittingMode(const int videoSourceIndex, const ARVideoSource::Size viewportSize, const ARVideoSource::ScalingMode scalingMode, const ARdouble projectionNearPlane, const ARdouble projectionFarPlane, ARdouble proj[16])
+{
+    if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return false;
+
+    ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
+    if (!vs || !vs->isOpen()) {
+        ARLOGe("Error: projection matrix requested but no video source %d or video source is closed.\n", videoSourceIndex);
+        return false;
+    }
+    if (!vs->isRunning()) {
+        ARLOGe("Error: projection matrix requested but no video source %d not yet running.\n", videoSourceIndex);
+        return false;
+    }
+
+    ARParam* param = vs->getCameraParametersForViewportSizeAndFittingMode(viewportSize, scalingMode);
+    if (!param) {
+        ARLOGe("Error: video source %d unable to supply camera parameters.\n", videoSourceIndex);
+        return false;
+    }
+
+    arglCameraFrustumRH(param, projectionNearPlane, projectionFarPlane, proj);
+
+    ARLOGd("Computed projection matrix using near=%f far=%f, scaling to viewport {%d, %d} with mode %s.\n", projectionNearPlane, projectionFarPlane, viewportSize.width, viewportSize.height, ARVideoSource::ScalingModeName(scalingMode).c_str());
     return true;
 }
 
@@ -624,228 +643,154 @@ bool ARController::videoParameters(const int videoSourceIndex, int *width, int *
 int ARController::addTrackable(const std::string& cfgs)
 {
 	if (!isInited()) {
-		ARLOGe("Error: Cannot add trackable. artoolkitX not initialised\n");
+		ARLOGe("Error: Cannot add trackable. artoolkitX not initialised.\n");
 		return -1;
 	}
-    
+
     std::istringstream iss(cfgs);
     std::string token;
     std::vector<std::string> config;
     while (std::getline(iss, token, ';')) {
         config.push_back(token);
     }
-    
+
     // First token is trackable type. Required.
     if (config.size() < 1) {
         ARLOGe("Error: invalid configuration string. Could not find trackable type.\n");
         return -1;
     }
-    
+
     // Until we have a registry, have to manually request from all trackers.
-    ARTrackable *trackable;
-    if ((trackable = m_squareTracker->newTrackable(config)) != nullptr) {
-#if HAVE_NFT
-    } else if ((trackable = m_nftTracker->newTrackable(config)) != nullptr) {
-#endif
-#if HAVE_2D
-    } else if ((trackable = m_twoDTracker->newTrackable(config)) != nullptr) {
-#endif
-    }
-    if (!trackable) {
-        ARLOGe("Error: Failed to load trackable.\n");
-        return -1;
-    }
-    if (!addTrackable(trackable)) {
-        return -1;
-    }
-    return trackable->UID;
-}
-
-// private
-bool ARController::addTrackable(ARTrackable* trackable)
-{
-    ARLOGd("ARController::addTrackable(): called\n");
-	if (!isInited()) {
-        ARLOGe("Error: Cannot add trackable. artoolkitX not initialised.\n");
-		return false;
-	}
-
-	if (!trackable) {
-        ARLOGe("ARController::addTrackable(): NULL trackable.\n");
-		return false;
-	}
-
-    m_trackables.push_back(trackable);
-
-#if HAVE_NFT
-    if (trackable->type == ARTrackable::NFT) {
-        if (!doNFTMarkerDetection)
-            ARLOGi("First NFT marker trackable added; enabling NFT marker tracker.\n");
-        doNFTMarkerDetection = true;
-    } else
-#endif
-#if HAVE_2D
-    if (trackable->type == ARTrackable::TwoD) {
-        if (!doTwoDMarkerDetection)
-            ARLOGi("First 2D marker trackable added; enabling 2D marker tracker.\n");
-        doTwoDMarkerDetection = true;
-    } else
-#endif
-    if (trackable->type == ARTrackable::SINGLE || trackable->type == ARTrackable::MULTI || trackable->type == ARTrackable::MULTI_AUTO) {
-        if (!doSquareMarkerDetection)
+    int UID;
+    if ((UID = m_squareTracker->newTrackable(config)) != ARTrackable::NO_ID) {
+        if (m_squareTracker->countTrackables() == 1) {
             ARLOGi("First square marker trackable added; enabling square marker tracker.\n");
-        doSquareMarkerDetection = true;
+        }
+#if HAVE_NFT
+    } else if ((UID = m_nftTracker->newTrackable(config)) != ARTrackable::NO_ID) {
+        if (m_nftTracker->countTrackables() == 1) {
+            ARLOGi("First NFT marker trackable added; enabling NFT marker tracker.\n");
+        }
+#endif
+#if HAVE_2D
+    } else if ((UID = m_twoDTracker->newTrackable(config)) != ARTrackable::NO_ID) {
+        if (m_twoDTracker->countTrackables() == 1) {
+            ARLOGi("First 2D marker trackable added; enabling 2D marker tracker.\n");
+        }
+#endif
+    } else {
+        ARLOGe("Error: Failed to load trackable.\n");
+        return ARTrackable::NO_ID;
     }
-
-	ARLOGi("Added trackable (UID=%d), total trackables loaded: %d.\n", trackable->UID, countTrackables());
-	return true;
+    ARLOGi("Added trackable (UID=%d), total trackables loaded: %d.\n", UID, countTrackables());
+    return UID;
 }
 
 bool ARController::removeTrackable(int UID)
 {
-    ARTrackable *trackable = findTrackable(UID);
-    if (!trackable) {
-        ARLOGe("ARController::removeTrackable(): could not find trackable (UID=%d).\n");
-        return (false);
-    }
-	return removeTrackable(trackable);
-}
-
-// private
-bool ARController::removeTrackable(ARTrackable* trackable)
-{
     ARLOGd("ARController::removeTrackable(): called\n");
-	if (!trackable) {
-        ARLOGe("ARController::removeTrackable(): NULL trackable.\n");
-		return false;
-	}
 
-	int UID = trackable->UID;
-    std::vector<ARTrackable *>::iterator position = std::find(m_trackables.begin(), m_trackables.end(), trackable);
-    bool found = (position != m_trackables.end());
-    if (!found) {
+    // Until we have a registry, have to manually request from all trackers.
+    if (m_squareTracker->deleteTrackable(UID)) {
+        if (m_squareTracker->countTrackables() == 0) {
+            ARLOGi("Last square marker removed; disabling square marker tracking.\n");
+        }
+#if HAVE_NFT
+    } else if (m_nftTracker->deleteTrackable(UID)) {
+        if (m_nftTracker->countTrackables() == 0) {
+            ARLOGi("Last NFT marker removed; disabling NFT marker tracking.\n");
+        }
+#endif
+#if HAVE_2D
+    } else if (m_twoDTracker->deleteTrackable(UID)) {
+        if (m_twoDTracker->countTrackables() == 0) {
+            ARLOGi("Last 2D marker removed; disabling 2D marker tracking.\n");
+        }
+#endif
+    } else {
         ARLOGe("ARController::removeTrackable(): Could not find trackable (UID=%d).\n", UID);
         return false;
     }
-
-    // Until we have a registry, have to manually request from all trackers.
-    m_squareTracker->deleteTrackable(&trackable);
-#if HAVE_NFT
-    m_nftTracker->deleteTrackable(&trackable);
-#endif
-#if HAVE_2D
-    m_twoDTracker->deleteTrackable(&trackable);
-#endif
-
-    // Remove from our trackable list.
-    m_trackables.erase(position);
-
-    // Count each type of trackable so we know whether we can disable a given type of tracker.
-    if (countTrackables(ARTrackable::SINGLE) + countTrackables(ARTrackable::MULTI) + countTrackables(ARTrackable::MULTI_AUTO) == 0) {
-        if (doSquareMarkerDetection)
-            ARLOGi("Last square marker removed; disabling square marker tracking.\n");
-        doSquareMarkerDetection = false;
-    }
-#if HAVE_NFT
-    if (countTrackables(ARTrackable::NFT) == 0) {
-        if (doNFTMarkerDetection)
-            ARLOGi("Last NFT marker removed; disabling NFT marker tracking.\n");
-        doNFTMarkerDetection = false;
-    }
-#endif
-#if HAVE_2D
-    if (countTrackables(ARTrackable::TwoD) == 0) {
-        if (doTwoDMarkerDetection)
-            ARLOGi("Last 2D marker removed; disabling 2D marker tracking.\n");
-        doTwoDMarkerDetection = false;
-    }
-#endif
     ARLOGi("Removed trackable (UID=%d), now %d trackables loaded\n", UID, countTrackables());
 
-    return (found);
+    return (true);
 }
 
 int ARController::removeAllTrackables()
 {
-	unsigned int count = countTrackables();
-    
-    for (std::vector<ARTrackable *>::iterator it = m_trackables.begin(); it != m_trackables.end(); ++it) {
-        m_squareTracker->deleteTrackable(&(*it));
-#if HAVE_NFT
-        m_nftTracker->deleteTrackable(&(*it));
-#endif
-#if HAVE_2D
-        m_twoDTracker->deleteTrackable(&(*it));
-#endif
-    }
-    m_trackables.clear();
-    doSquareMarkerDetection = false;
-#if HAVE_NFT
-    doNFTMarkerDetection = false;
-#endif
-#if HAVE_2D
-    doTwoDMarkerDetection = false;
-#endif
-	ARLOGi("Removed all %d trackables.\n", count);
+    unsigned int count = countTrackables();
 
+    m_squareTracker->deleteAllTrackables();
+#if HAVE_NFT
+    m_nftTracker->deleteAllTrackables();
+#endif
+#if HAVE_2D
+    m_twoDTracker->deleteAllTrackables();
+#endif
+
+    ARLOGi("Removed all %d trackables and disabled all tracking.\n", count);
 	return count;
 }
 
 unsigned int ARController::countTrackables() const
 {
-	return ((unsigned int)m_trackables.size());
-}
-
-unsigned int ARController::countTrackables(ARTrackable::TrackableType trackableType) const
-{
-    int trackableCount = 0;
-    for (int i = 0; i < m_trackables.size(); i++) {
-        if (m_trackables[i]->type == trackableType) {
-            trackableCount++;
-        }
-    }
-    return trackableCount;
+    unsigned int count = m_squareTracker->countTrackables();
+#if HAVE_NFT
+    count += m_nftTracker->countTrackables();
+#endif
+#if HAVE_2D
+    count += m_twoDTracker->countTrackables();
+#endif
+	return (count);
 }
 
 #if HAVE_2D
 bool ARController::load2DTrackerImageDatabase(const char* databaseFileName)
 {
-    removeAllTrackables();
-    std::vector<ARTrackable *> newTrackables = m_twoDTracker->loadImageDatabase(std::string(databaseFileName));
-    if (newTrackables.size() == 0) {
+    if (!isInited()) {
+        ARLOGe("Error: Cannot load image database. artoolkitX not initialised.\n");
         return false;
     }
-    for (int i = 0; i < newTrackables.size(); i++) {
-        addTrackable(newTrackables[i]);
-    }
-    return true;
+
+    return m_twoDTracker->loadImageDatabase(std::string(databaseFileName));
 }
 
 bool ARController::save2DTrackerImageDatabase(const char* databaseFileName)
 {
-    if (m_twoDTracker->saveImageDatabase(std::string(databaseFileName))) {
-        return true;
-    }
-    
-    return false;
+    return m_twoDTracker->saveImageDatabase(std::string(databaseFileName));
 }
 #endif // HAVE_2D
 
-ARTrackable* ARController::getTrackableAtIndex(unsigned int index)
+std::shared_ptr<ARTrackable> ARController::findTrackable(int UID)
 {
-    if (index >= m_trackables.size()) return NULL;
-    return m_trackables[index];
+    std::shared_ptr<ARTrackable> trackable;
+    if ((trackable = m_squareTracker->getTrackable(UID))) {
+        return trackable;
+#if HAVE_NFT
+    } else if ((trackable = m_nftTracker->getTrackable(UID))) {
+        return trackable;
+#endif
+#if HAVE_2D
+    } else if ((trackable = m_twoDTracker->getTrackable(UID))) {
+        return trackable;
+#endif
+    }
+
+	return std::shared_ptr<ARTrackable>();
 }
 
-ARTrackable* ARController::findTrackable(int UID)
+std::vector<std::shared_ptr<ARTrackable>> ARController::getAllTrackables()
 {
-
-    std::vector<ARTrackable *>::const_iterator it = m_trackables.begin();
-	while (it != m_trackables.end()) {
-		if ((*it)->UID == UID) return (*it);
-        ++it;
-	}
-	return NULL;
+    std::vector<std::shared_ptr<ARTrackable>> trackables = m_squareTracker->getAllTrackables();
+#if HAVE_NFT
+    std::vector<std::shared_ptr<ARTrackable>> trackablesNFT = m_nftTracker->getAllTrackables();
+    trackables.insert(trackables.end(), std::make_move_iterator(trackablesNFT.begin()), std::make_move_iterator(trackablesNFT.end()));
+#endif
+#if HAVE_2D
+    std::vector<std::shared_ptr<ARTrackable>> trackables2D = m_twoDTracker->getAllTrackables();
+    trackables.insert(trackables.end(), std::make_move_iterator(trackables2D.begin()), std::make_move_iterator(trackables2D.end()));
+#endif
+    return trackables;
 }
 
 // ----------------------------------------------------------------------------------------------------
@@ -893,24 +838,23 @@ bool ARController::loadOpticalParams(const char *optical_param_name, const char 
 }
 
 // ----------------------------------------------------------------------------------------------------
-#pragma mark  Android-only API
+#pragma mark  Video push API
 // ----------------------------------------------------------------------------------------------------
 
-#if ARX_TARGET_PLATFORM_ANDROID
-jint ARController::androidVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face)
+int ARController::videoPushInit(int videoSourceIndex, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition)
 {
     if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
- 
+
     int ret = -1;
-    
+
     ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);;
     if (!vs) {
-        ARLOGe("ARController::androidVideoPushInit: no ARVideoSource.\n");
+        ARLOGe("ARController::videoPushInit: no ARVideoSource.\n");
     } else {
         if (!vs->isOpen() || !vs->isRunning()) {
-            ret = vs->androidVideoPushInit(env, obj, width, height, pixelFormat, camera_index, camera_face);
+            ret = vs->videoPushInit(width, height, pixelFormat, cameraIndex, cameraPosition);
         } else {
-            ARLOGe("ARController::androidVideoPushInit: ARVideoSource is either closed or already running.\n");
+            ARLOGe("ARController::videoPushInit: ARVideoSource is either closed or already running.\n");
         }
     }
 done:
@@ -918,7 +862,12 @@ done:
     return ret;
 }
 
-jint ARController::androidVideoPush1(JNIEnv *env, jobject obj, jint videoSourceIndex, jbyteArray buf, jint bufSize)
+int ARController::videoPush(int videoSourceIndex,
+                            ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
+                            ARUint8 *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
+                            ARUint8 *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
+                            ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
+                            PFN_VIDEOPUSHRELEASECALLBACK releaseCallback, void *releaseCallbackUserdata)
 {
     if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
 
@@ -926,65 +875,39 @@ jint ARController::androidVideoPush1(JNIEnv *env, jobject obj, jint videoSourceI
 
     ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
     if (!vs) {
-        ARLOGe("ARController::androidVideoPush1: no ARVideoSource.\n");
-    } else {
-        if (vs->isRunning()) {
-            ret = vs->androidVideoPush1(env, obj, buf, bufSize);
-        } else {
-            ARLOGe("ARController::androidVideoPush1: ARVideoSource is not running.\n");
-        }
-    }
-done:
-
-    return ret;
-}
-
-jint ARController::androidVideoPush2(JNIEnv *env, jobject obj, jint videoSourceIndex,
-                                     jobject buf0, jint buf0PixelStride, jint buf0RowStride,
-                                     jobject buf1, jint buf1PixelStride, jint buf1RowStride,
-                                     jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                                     jobject buf3, jint buf3PixelStride, jint buf3RowStride)
-{
-    if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
-
-    int ret = -1;
-
-    ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
-    if (!vs) {
-        ARLOGe("ARController::androidVideoPush2: no ARVideoSource.\n");
-    } else {
-        if (vs->isRunning()) {
-            ret = vs->androidVideoPush2(env, obj, buf0, buf0PixelStride, buf0RowStride, buf1, buf1PixelStride, buf1RowStride, buf2, buf2PixelStride, buf2RowStride, buf3, buf3PixelStride, buf3RowStride);
-        } else {
-            ARLOGe("ARController::androidVideoPush2: ARVideoSource is not running.\n");
-        }
-    }
-done:
-
-    return ret;
-}
-
-jint ARController::androidVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex)
-{
-    if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
-
-    int ret = -1;
-
-    ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
-    if (!vs) {
-        ARLOGe("ARController::androidVideoPushFinal: no ARVideoSource.\n");
+        ARLOGe("ARController::videoPush: no ARVideoSource.\n");
     } else {
         if (vs->isOpen()) {
-            ret = vs->androidVideoPushFinal(env, obj);
+            ret = vs->videoPush(buf0p, buf0Size, buf0PixelStride, buf0RowStride, buf1p, buf1Size, buf1PixelStride, buf1RowStride, buf2p, buf2Size, buf2PixelStride, buf2RowStride, buf3p, buf3Size, buf3PixelStride, buf3RowStride, releaseCallback, releaseCallbackUserdata);
         } else {
-            ARLOGe("ARController::androidVideoPushFinal: ARVideoSource is not open.\n");
+            ARLOGe("ARController::videoPush: ARVideoSource is not running.\n");
         }
     }
 done:
 
     return ret;
 }
-#endif // ARX_TARGET_PLATFORM_ANDROID
+
+int ARController::videoPushFinal(int videoSourceIndex)
+{
+    if (videoSourceIndex < 0 || videoSourceIndex > (m_videoSourceIsStereo ? 1 : 0)) return -1;
+
+    int ret = -1;
+
+    ARVideoSource *vs = (videoSourceIndex == 0 ? m_videoSource0 : m_videoSource1);
+    if (!vs) {
+        ARLOGe("ARController::videoPushFinal: no ARVideoSource.\n");
+    } else {
+        if (vs->isOpen()) {
+            ret = vs->videoPushFinal();
+        } else {
+            ARLOGe("ARController::videoPushFinal: ARVideoSource is not open.\n");
+        }
+    }
+done:
+
+    return ret;
+}
 
 // A simple cross-platform way to force the inclusion of symbols from static libraries
 // that otherwise would not be defined as they are not used in any dynamic object.

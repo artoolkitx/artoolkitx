@@ -206,6 +206,11 @@ CPARAM_SEARCH_STATE cparamSearch(const char *device_id, int camera_index, int ca
 {
     struct _CPARAM_SEARCH_DATA *searchData;
     struct _CPARAM_SEARCH_DATA *tail;
+    
+    if (!device_id || !device_id[0]) {
+        ARLOGe("cparamSearch called without device_id.\n");
+        return (CPARAM_SEARCH_STATE_FAILED_ERROR);
+    }
 
     // Create a new search request.
     searchData = (struct _CPARAM_SEARCH_DATA *)calloc(1, sizeof(struct _CPARAM_SEARCH_DATA));
@@ -531,7 +536,7 @@ static void *cparamSearchWorker(THREAD_HANDLE_T *threadHandle)
                     reportSQLite3Err(cacheDB);
                     result = CPARAM_SEARCH_STATE_FAILED_ERROR;
                 } else {
-                    sqliteErr = sqlite3_bind_text(stmt, 1, searchData->device_id, -1, SQLITE_STATIC);
+                    sqliteErr = sqlite3_bind_text(stmt, 1, searchData->device_id, -1, SQLITE_STATIC); // Use bind because device_id can contain reserved SQL characters.
                     if (sqliteErr != SQLITE_OK) {
                         reportSQLite3Err(cacheDB);
                         result = CPARAM_SEARCH_STATE_FAILED_ERROR;

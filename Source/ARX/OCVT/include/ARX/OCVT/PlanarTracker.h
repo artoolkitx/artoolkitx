@@ -43,7 +43,7 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
-#include <ARX/AR/ar.h> // ARdouble
+#include <ARX/AR/ar.h> // ARdouble, ARLOG
 class TrackedImageInfo
 {
 public:
@@ -63,15 +63,26 @@ public:
     PlanarTracker(PlanarTracker&&);
     PlanarTracker& operator = (PlanarTracker&&);
     
-    void Initialise(int xFrameSize, int yFrameSize, ARdouble cParam[][4]);
-    
+    /// Initialise the tracker with the supplied camera parameters.
+    /// The supplied camera parameters will be used as the source for the size of video frames submitted
+    /// to ProcessFrameData, and also the source for the camera lens intrinsics and distortion parameters.
+    /// These values are copied from the supplied ARParam.
+    void Initialise(ARParam cParam);
+
+    /// Perform tracking on a single frame of video.
+    /// The frame is passed as a single buffer of 8-bit greyscale pixels, starting with the top-left-most pixel
+    /// of the frame and proceeding first by row, then by column. The size of the buffer must exactly match
+    /// that passed in xFrameSize and yFrameSize parameters to Initialise() (i.e. xFrameSize * yFrameSize bytes).
+    /// The frame data must remain valid for the entire duration of the call.
     void ProcessFrameData(unsigned char * frame);
     
     void RemoveAllMarkers();
-    void AddMarker(unsigned char* buff, std::string fileName, int width, int height, int uid, float scale);
+    void AddMarker(std::shared_ptr<unsigned char> buff, std::string fileName, int width, int height, int uid, float scale);
     void AddMarker(std::string imageName, int uid, float scale);
-    
-    float* GetTrackablePose(int trackableId);
+
+    ///  If trackable is not visible, returns false, otherwise retrieves pose of trackable into transMat
+    ///  and returns true.
+    bool GetTrackablePose(int trackableId, float transMat[3][4]);
     
     bool IsTrackableVisible(int trackableId);
     bool LoadTrackableDatabase(std::string fileName);
@@ -81,7 +92,26 @@ public:
     std::vector<int> GetImageIds();
     TrackedImageInfo GetTrackableImageInfo(int trackableId);
     
-    void SetFeatureDetector(int detectorType);
+    /// Defaults to `defaultDetectorType`.
+    enum class FeatureDetectorType {
+        Akaze,
+        ORB,
+        Brisk,
+        Kaze,
+        SIFT
+    };
+    void SetFeatureDetector(FeatureDetectorType detectorType);
+    FeatureDetectorType GetFeatureDetector(void);
+    void SetMinRequiredDetectedFeatures(int num);
+    int GetMinRequiredDetectedFeatures(void);
+    void SetHomographyEstimationRANSACThreshold(double thresh);
+    double GetHomographyEstimationRANSACThreshold(void);
+
+    void SetMaximumNumberOfMarkersToTrack(int maximumNumberOfMarkersToTrack);
+    int GetMaximumNumberOfMarkersToTrack(void);
+
+    void SetTrackerVisualizationActive(bool active);
+    void *GetTrackerVisualization(void);
 
 private:
     class PlanarTrackerImpl;

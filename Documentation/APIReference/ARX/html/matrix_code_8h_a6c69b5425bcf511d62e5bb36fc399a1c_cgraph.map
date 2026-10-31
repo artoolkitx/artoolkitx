@@ -1,0 +1,4 @@
+<map id="encode_bch" name="encode_bch">
+<area shape="rect" id="Node000001" title="Caller must free out_bits_p; Returns length of *out_bits_p." alt="" coords="5,29,97,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="34,29,31,21,33,12,40,5,51,3,63,6,70,14,65,14,60,10,51,8,42,10,38,14,37,20,39,29"/>
+</map>

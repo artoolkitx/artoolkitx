@@ -1,0 +1,5 @@
+<map id="TrackingPointSelector::GetTrackedFeaturesWarped" name="TrackingPointSelector::GetTrackedFeaturesWarped">
+<area shape="rect" id="Node000001" title="Gets the projected location in the video frame of the currently tracked features, when projected via ..." alt="" coords="5,5,198,46"/>
+<area shape="rect" id="Node000002" href="$class_tracking_point_selector.html#ad9b2fa12bac037c9b506cc5237d3088c" title=" " alt="" coords="246,5,395,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,23,233,25,228,26,198,28"/>
+</map>

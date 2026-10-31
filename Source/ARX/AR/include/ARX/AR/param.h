@@ -193,6 +193,22 @@ AR_EXTERN int    arParamDistFactorClear( ARdouble dist_factor[AR_DIST_FACTOR_NUM
  */
 AR_EXTERN int    arParamClearWithFOVy(ARParam *param, int xsize, int ysize, ARdouble FOVy);
 
+AR_EXTERN int    arParamChangeSizeWithZoom(ARParam *source, int xsize, int ysize, ARdouble x_zoom, ARdouble y_zoom, ARParam *newparam);
+
+/*!
+    @brief Adjust the size of a camera parameter's viewing plane, e.g. to match a renderer frustum size.
+    @details
+        Given a camera parameter structure, this function scales the camera paameter
+        fundamental matrix, focal length and center, to match the passed-in view-plane
+        size. This is often a size in pixels of the renderer frustum.
+    @param source Pointer to an ARParam structure which will be used as the source
+        parameter.
+    @param xsize The horizontal dimension of the desired camera image plane.
+    @param ysize The vertical dimension of the desired camera image plane.
+    @param newparam Pointer to an ARParam structure which will be filled with the resized parameter.
+        This may be the same value as source, in which case the source parameter will be modified.
+    @result 0 if the function completed successfully, or -1 in case of error.
+ */
 AR_EXTERN int    arParamChangeSize( ARParam *source, int xsize, int ysize, ARParam *newparam );
 
 AR_EXTERN int    arParamDecomp( const ARParam *source, ARParam *icpara, ARdouble trans[3][4] );
@@ -283,7 +299,7 @@ AR_EXTERN int    arParamIdeal2Observ( const ARdouble dist_factor[AR_DIST_FACTOR_
 AR_EXTERN int    arParamObserv2Ideal( const ARdouble dist_factor[AR_DIST_FACTOR_NUM_MAX], const ARdouble ox, const ARdouble oy,
                             ARdouble *ix, ARdouble *iy, const int dist_function_version );
 /*!
-    @brief Save lens parameters to a file.
+    @brief Save camera intrinsics (pinhole lens model and distortion parameters)  to a file.
     @details
         See the discussion under ARParam for more info.
     @param filename Path to file to which to save the parameters.
@@ -298,7 +314,7 @@ AR_EXTERN int    arParamObserv2Ideal( const ARdouble dist_factor[AR_DIST_FACTOR_
 AR_EXTERN int    arParamSave( const char *filename, const int num, const ARParam *param, ...);
 
 /*!
-    @brief Load lens parameters from a file.
+    @brief Load camera intrinsics (pinhole lens model and distortion parameters) from a file.
     @details
         See the discussion under ARParam for more info.
     @param filename Path to file from which to load the parameters.
@@ -313,7 +329,7 @@ AR_EXTERN int    arParamSave( const char *filename, const int num, const ARParam
 AR_EXTERN int    arParamLoad( const char *filename, int num, ARParam *param, ...);
 
     /*!
-      @brief Load lens parameters from a buffer.
+      @brief Load camera intrinsics (pinhole lens model and distortion parameters) from a buffer.
      @details
         See the discussion under ARParam for more info.
      @param buffer Buffer from which the parameter(s) will be loaded.
@@ -329,9 +345,60 @@ AR_EXTERN int    arParamLoadFromBuffer( const void *buffer, size_t bufsize, ARPa
     
 AR_EXTERN int    arParamGetPerspectiveMat( ARdouble global[][3], ARdouble idealScreen[][2], int data_num, ARdouble mat[3][4] );
 
+/*!
+    @brief Save camera extrinsic parameters from a matrix to a binary file.
+    @details
+        A typical use of this function is to save the transform expressing the pose of the right camera in a
+        stereo-camera pair, relative to the left camera.
+    @param para A 3x4 matrix in row-major order, specifying the camera extrinsic transform.
+        (This corresponds to the first 3 rows of a 4x4 homogenous coordinate transform matrix, where the
+        fourth row is assumed to be {0.0, 0.0, 0.0, 1.0}.)
+    @param filename The path to the filename in which to store the parameters in binary format.
+    @result 0 if successful, or -1 if an error occured.
+    @see arParamLoadExt
+    @see arParamLoadExtFromBuffer
+ */
 AR_EXTERN int    arParamSaveExt( const char *filename, ARdouble para[3][4] );
+
+/*!
+    @brief Load camera extrinsic parameters into a matrix from a binary file.
+    @details
+        A typical use of this function is to load the transform expressing the pose of the right camera in a
+        stereo-camera pair, relative to the left camera.
+    @param para A 3x4 matrix in row-major order, specifying the camera extrinsic transform.
+        (This corresponds to the first 3 rows of a 4x4 homogenous coordinate transform matrix, where the
+        fourth row is assumed to be {0.0, 0.0, 0.0, 1.0}.)
+    @param filename The path to the filename from which to load the parameters in binary format.
+    @result 0 if successful, or -1 if an error occured.
+    @see arParamSaveExt
+    @see arParamLoadExtFromBuffer
+ */
 AR_EXTERN int    arParamLoadExt( const char *filename, ARdouble para[3][4] );
+
+/*!
+    @brief Load camera extrinsic parameters into a matrix from a binary buffer.
+    @details
+        A typical use of this function is to load the transform expressing the pose of the right camera in a
+        stereo-camera pair, relative to the left camera.
+    @param buffer Buffer from which the parameter(s) will be loaded.
+        The buffer could be (for example) the contents of a parameter file read with fread().
+    @param bufsize Size of the contents of buffer.
+    @param para A 3x4 matrix in row-major order, specifying the camera extrinsic transform.
+        (This corresponds to the first 3 rows of a 4x4 homogenous coordinate transform matrix, where the
+        fourth row is assumed to be {0.0, 0.0, 0.0, 1.0}.)
+    @result 0 if successful, or -1 if an error occured.
+    @see arParamSaveExt
+    @see arParamLoadExt
+ */
 AR_EXTERN int    arParamLoadExtFromBuffer(const void *buffer, size_t bufsize, ARdouble para[3][4] );
+
+/*!
+    @brief Print camera extrinsic matrix to stdout.
+    @param para A 3x4 matrix in row-major order, specifying the camera extrinsic transform.
+        (This corresponds to the first 3 rows of a 4x4 homogenous coordinate transform matrix, where the
+        fourth row is assumed to be {0.0, 0.0, 0.0, 1.0}.)
+    @result 0 if successful, or -1 if an error occured.
+ */
 AR_EXTERN int    arParamDispExt( ARdouble para[3][4]);
 
 AR_EXTERN int arParamSaveOptical(const char *filename, const ARdouble fovy, const ARdouble aspect, const ARdouble m[16]);

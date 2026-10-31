@@ -104,6 +104,12 @@ static unsigned char *kpmReadJPEGMono(FILE *fp, int *width, int *height)
         jpeg_destroy_decompress(&cinfo);
         return (NULL);
     }
+    if (cinfo.image_width < 0 || cinfo.image_width > 32767 ||
+        cinfo.image_height < 0 || cinfo.image_height > 32767) {
+        ARLOGe("JPEG image size too large.");
+        jpeg_destroy_decompress(&cinfo);
+        return NULL;
+    }
     cinfo.out_color_space = JCS_GRAYSCALE;// Converting to mono, let libjpeg handle it.
 
     // Start decompression. This gives us access to the JPEG size.

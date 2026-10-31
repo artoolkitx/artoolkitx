@@ -42,9 +42,17 @@
 #include <ARX/AR/ar.h>
 #include <ARX/AR/arFilterTransMat.h>
 
-#include <ARX/ARPattern.h>
-
 #include <vector>
+#include <utility>
+#include <atomic>
+
+#ifdef ARDOUBLE_IS_FLOAT
+#  define _0_0 0.0f
+#  define _1_0 1.0f
+#else
+#  define _0_0 0.0
+#  define _1_0 1.0
+#endif
 
 class ARController; // Forward declaration of owner.
 
@@ -60,21 +68,13 @@ private:
 
 protected:
     ARdouble trans[3][4];                   ///< Transformation from camera to this trackable. If stereo, transform from left camera to this trackable.
-	/**
-	 * Allocates space for patterns within this trackable.
-	 * @param count	The number of patterns to allocate
-	 */
-	void allocatePatterns(int count);
-
-	/**
-	 * Frees allocated patterns and resets the pattern count to zero.
-	 */
-	void freePatterns();
 
     ARdouble m_positionScaleFactor;
 
+    static std::atomic<int> nextUID;
+
 public:
-    
+
 	enum TrackableType {
 		SINGLE,								///< A standard single square marker.
 		MULTI,								///< A composite marker made up of multiple square markers.
@@ -84,6 +84,7 @@ public:
 	};
 
 	int UID;								///< Internal unique ID (note: not the same as artoolkitX pattern ID)
+    static const int NO_ID = -1;            ///< Value of UID that indicates no ID.
 	TrackableType type;						///< Type of trackable: single, multi, ...
 	
     // Inputs from subclasses.
@@ -94,9 +95,6 @@ public:
 	ARdouble transformationMatrix[16];		///< Transformation suitable for use in OpenGL
 	ARdouble transformationMatrixR[16];		///< Transformation suitable for use in OpenGL
 	
-	int patternCount;						///< If this trackable has a surface appearance, the number of patterns that it has (1 for single).
-	ARPattern** patterns;					///< Array of pointers to patterns
-
 	/**
 	 * Constructor takes the type of this trackable.
 	 */
@@ -119,12 +117,15 @@ public:
 	 */
     virtual bool update(const ARdouble transL2R[3][4] = NULL);
 
-	/**
-	 * Returns the specified pattern within this trackable.
-	 * @param n		The pattern to retrieve
-	 */
-	ARPattern* getPattern(int n);
-    
+
+    virtual int getPatternCount() = 0;
+    virtual std::pair<float, float> getPatternSize(int patternIndex) = 0;
+    virtual std::pair<int, int> getPatternImageSize(int patternIndex, AR_MATRIX_CODE_TYPE matrixCodeType) = 0;
+    /// Get the transform, relative to this trackable's origin, of this pattern.
+    /// Fills T with the transform in column-major (OpenGL) order.
+    virtual bool getPatternTransform(int patternIndex, ARdouble T[16]) = 0;
+    virtual bool getPatternImage(int patternIndex, uint32_t *pattImageBuffer, AR_MATRIX_CODE_TYPE matrixCodeType) = 0;
+
     // Filter control.
     void setFiltered(bool flag);
     bool isFiltered();

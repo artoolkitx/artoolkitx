@@ -2,8 +2,6 @@
  *  OCVFeatureDetector.cpp
  *  artoolkitX
  *
- *  A C++ class implementing the artoolkitX square fiducial marker tracker.
- *
  *  This file is part of artoolkitX.
  *
  *  artoolkitX is free software: you can redistribute it and/or modify
@@ -44,20 +42,23 @@ OCVFeatureDetector::OCVFeatureDetector()
 {
 }
 
-void OCVFeatureDetector::SetFeatureDetector(int detectorType)
+void OCVFeatureDetector::SetFeatureDetector(PlanarTracker::FeatureDetectorType detectorType)
 {
     switch (detectorType) {
-        case 1:
+        case PlanarTracker::FeatureDetectorType::Akaze:
+            CreateAkazeFeatureDetector();
+            break;
+        case PlanarTracker::FeatureDetectorType::ORB:
             CreateORBFeatureDetector();
             break;
-        case 2:
+        case PlanarTracker::FeatureDetectorType::Brisk:
             CreateBriskFeatureDetector();
             break;
-        case 3:
+        case PlanarTracker::FeatureDetectorType::Kaze:
             CreateKazeFeatureDetector();
             break;
-        default:
-            CreateAkazeFeatureDetector();
+        case PlanarTracker::FeatureDetectorType::SIFT:
+            CreateSIFTFeatureDetector();
             break;
     }
 }
@@ -86,9 +87,20 @@ void OCVFeatureDetector::CreateORBFeatureDetector()
     _matcher = cv::BFMatcher::create();
 }
 
+void OCVFeatureDetector::CreateSIFTFeatureDetector()
+{
+#if CV_VERSION_MAJOR > 4 || (CV_VERSION_MAJOR == 4 && CV_VERSION_MINOR >= 4)
+    _featureDetector = cv::SIFT::create();
+#else
+    // For versions without SIFT, BRISK is best alternative.
+    _featureDetector = cv::BRISK::create();
+#endif
+    _matcher = cv::BFMatcher::create();
+}
+
 bool OCVFeatureDetector::AddDescriptorsToDictionary(int id, cv::Mat descriptors)
 {
-    if ( _visualDictionary.find(id) == _visualDictionary.end() ) {
+    if (_visualDictionary.find(id) == _visualDictionary.end()) {
         _visualDictionary.insert(std::pair<int,cv::Mat>(id, descriptors));
         return true;
     }

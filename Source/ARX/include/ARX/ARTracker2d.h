@@ -67,28 +67,56 @@ public:
     
     bool initialize() override;
     
-    void setTwoDMultiMode(bool on);
-    bool TwoDMultiMode() const;
+    void setMaxMarkersToTrack(int maximumNumberOfMarkersToTrack);
+    int getMaxMarkersToTrack() const;
     
     bool start(ARParamLT *paramLT, AR_PIXEL_FORMAT pixelFormat) override;
     bool start(ARParamLT *paramLT0, AR_PIXEL_FORMAT pixelFormat0, ARParamLT *paramLT1, AR_PIXEL_FORMAT pixelFormat1, const ARdouble transL2R[3][4]) override;
     bool isRunning() override;
-    bool update(AR2VideoBufferT *buff, std::vector<ARTrackable *>& trackables) override;
-    bool update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1, std::vector<ARTrackable *>& trackables) override;
+    bool wantsUpdate() override;
+    bool update(AR2VideoBufferT *buff) override;
+    bool update(AR2VideoBufferT *buff0, AR2VideoBufferT *buff1) override;
     bool stop() override;
     void terminate() override;
     
-    ARTrackable *newTrackable(std::vector<std::string> config) override;
-    void deleteTrackable(ARTrackable **trackable_p) override;
-    
-    std::vector<ARTrackable*> loadImageDatabase(std::string filename);
+    int newTrackable(std::vector<std::string> config) override;
+    unsigned int countTrackables() override;
+    std::shared_ptr<ARTrackable> getTrackable(int UID) override;
+    std::vector<std::shared_ptr<ARTrackable>> getAllTrackables() override;
+    bool deleteTrackable(int UID) override;
+    void deleteAllTrackables() override;
+
+    bool loadImageDatabase(std::string filename);
     bool saveImageDatabase(std::string filename);
     
-    void setDetectorType(int detectorType);
-private:
-    int m_cameraXSize;
-    int m_cameraYSize;
+    void setDetectorType(PlanarTracker::FeatureDetectorType detectorType);
+    PlanarTracker::FeatureDetectorType getDetectorType(void);
+    void setMinRequiredDetectedFeatures(int num);
+    int getMinRequiredDetectedFeatures(void);
+    void setHomographyEstimationRANSACThreshold(double thresh);
+    double getHomographyEstimationRANSACThreshold(void);
+
+    bool threaded(void) const;
+    /// \brief Enable or disable running the 2D tracking task in a separate thread. See caveats in detailed description.
+    ///
+    /// Tracking may be offloaded to a secondary thread by setting this to true.
+    /// When running threaded, tracking updates are not processed synchronously, but the frame data is copied and processed
+    /// independently on a dedicated secondary thread. This can help avoid doing too much work on the calling thread. The
+    /// drawback of threaded tracking is that the results (if any) of the tracking will not be available until the next call to `update()` AFTER
+    /// the processing has finished. This adds at minimum at least one frame of latency to the tracking, and the memory and CPU load of an
+    /// additional copy of each frame submitted.
+    void setThreaded(bool threaded);
     
+    void setTrackerVisualizationActive(bool active);
+    void *getTrackerVisualization(void);
+
+private:
+
+    AR_PIXEL_FORMAT m_pixelFormat;
+    int m_sizeX;
+    int m_sizeY;
+
+    std::vector<std::shared_ptr<ARTrackable>> m_trackables;
     bool m_videoSourceIsStereo;
     bool m_2DTrackerDataLoaded;
     int m_2DTrackerDetectedImageCount;
@@ -96,10 +124,16 @@ private:
     // 2d data.
     ARdouble m_transL2R[3][4];          ///< For stereo tracking, transformation matrix from left camera to right camera.
     
-    bool m_twoDMultiMode;
     bool m_running;
     bool unloadTwoDData();
-    bool loadTwoDData(std::vector<ARTrackable *>& trackables);
+    bool loadTwoDData();
+    void updateTrackablesFromTracker();
+    int m_pageCount;                    ///< Number of loaded pages.
+
+    bool m_threaded;
+    THREAD_HANDLE_T     *m_trackingThread;
+    static void *trackingWorker(THREAD_HANDLE_T *threadHandle);
+    ARUint8 *m_trackingBuffcopy;
 };
 
 #endif // HAVE_2D

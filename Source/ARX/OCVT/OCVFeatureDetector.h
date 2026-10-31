@@ -41,32 +41,33 @@
 #include <opencv2/features2d.hpp>
 #include <vector>
 #include <map>
+#include "OCVConfig.h"
 
 class OCVFeatureDetector
 {
 public:
-    OCVFeatureDetector();
+    OCV_EXTERN OCVFeatureDetector();
     
     bool AddDescriptorsToDictionary(int id, cv::Mat descriptors);
     
-    std::vector<cv::KeyPoint> DetectFeatures(cv::Mat frame, cv::Mat mask);
+    OCV_EXTERN std::vector<cv::KeyPoint> DetectFeatures(cv::Mat frame, cv::Mat mask);
     
     cv::Mat CalcDescriptors(cv::Mat frame, std::vector<cv::KeyPoint> kp);
     
     std::vector< std::vector<cv::DMatch> >  MatchFeatures(cv::Mat first_desc, cv::Mat desc);
     
-    void SetFeatureDetector(int detectorType);
+    OCV_EXTERN void SetFeatureDetector(PlanarTracker::FeatureDetectorType detectorType);
     
 private:
     void CreateAkazeFeatureDetector();
     void CreateORBFeatureDetector();
     void CreateKazeFeatureDetector();
     void CreateBriskFeatureDetector();
-    
+    void CreateSIFTFeatureDetector();
+
     std::map<int, cv::Mat> _visualDictionary;
     cv::Ptr<cv::DescriptorMatcher> _matcher;
     cv::Ptr<cv::Feature2D> _featureDetector;
-    float _akaze_thresh;
 };
 
 #endif //OCVFEATUREDETECTOR

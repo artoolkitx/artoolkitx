@@ -1,0 +1,5 @@
+<map id="TrackingPointSelector::GetInitialFeatures" name="TrackingPointSelector::GetInitialFeatures">
+<area shape="rect" id="Node000001" title="If reset, then selects an initial random template from each bin for tracking, and returns this set." alt="" coords="5,5,155,46"/>
+<area shape="rect" id="Node000002" href="$class_tracking_point_selector.html#ad9b2fa12bac037c9b506cc5237d3088c" title=" " alt="" coords="203,5,352,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,23,190,25,185,26,155,28"/>
+</map>

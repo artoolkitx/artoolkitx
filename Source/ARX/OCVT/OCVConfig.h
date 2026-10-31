@@ -38,25 +38,49 @@
 
 #ifndef OCV_CONFIG_H
 #define OCV_CONFIG_H
+
+#ifdef _WIN32
+#  ifdef OCV_STATIC
+#    define OCV_EXTERN
+#  else
+#    ifdef ARX_EXPORTS
+#      define OCV_EXTERN __declspec(dllexport)
+#    else
+#      define OCV_EXTERN __declspec(dllimport)
+#    endif
+#  endif
+#  define OCV_CALLBACK __stdcall
+#else
+#  define OCV_EXTERN
+#  define OCV_CALLBACK
+#endif
+
 #include <opencv2/core.hpp>
 //#include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/calib3d.hpp>
+#include <ARX/OCVT/PlanarTracker.h>
 
-extern int minRequiredDetectedFeatures;
-extern int markerTemplateWidth;
-extern int maxLevel;
-extern const cv::Size subPixWinSize, winSize;
-extern cv::TermCriteria termcrit;
-extern const int MAX_COUNT;
-extern int maxNumberOfToTrack;
-extern int searchRadius;
-extern int match_method;
-extern int featureDetectPyramidLevel;
-extern int defaultDetectorType;
-extern const double nn_match_ratio; // Nearest-neighbour matching ratio
-extern const double ransac_thresh; // RANSAC inlier threshold
-extern cv::RNG rng;
-extern int harrisBorder;
+/** @file */
 
-#endif
+/// @def k_OCVTOpticalFlowMaxPyrLevel Maximum number of levels in optical flow image pyramid (0 = base level only).
+#define k_OCVTOpticalFlowMaxPyrLevel 3
+/// @def k_OCVTTemplateMatchingMaxPyrLevel Maximum number of levels in template matching image pyramid (0 = base level only).
+#define k_OCVTTemplateMatchingMaxPyrLevel 2
+
+OCV_EXTERN extern int minRequiredDetectedFeatures; ///< Minimum number of detected features required to consider a target matched.
+OCV_EXTERN extern const int markerTemplateWidth; ///< Width in pixels of image patches used in template matching.
+OCV_EXTERN extern const cv::Size subPixWinSize;
+OCV_EXTERN extern const cv::Size winSize; ///< Window size to use in optical flow search.
+OCV_EXTERN extern cv::TermCriteria termcrit;
+OCV_EXTERN extern const int markerTemplateCountMax; ///< Maximum number of Harris corners to use as template locations.  If <= 0, no limit on the maximum is set and all detected corners will be used.
+OCV_EXTERN extern const int searchRadius;
+OCV_EXTERN extern const int match_method;
+OCV_EXTERN extern const cv::Size featureImageMinSize; ///< Minimum size when downscaling incoming images used for feature tracking.
+OCV_EXTERN extern PlanarTracker::FeatureDetectorType defaultDetectorType;
+OCV_EXTERN extern const double nn_match_ratio; ///< Nearest-neighbour matching ratio
+OCV_EXTERN extern double ransac_thresh; ///< RANSAC inlier threshold
+OCV_EXTERN extern cv::RNG rng;
+OCV_EXTERN extern const int harrisBorder; ///< Harris corners within this many pixels of the border of the image will be ignored.
+
+#endif // OCV_CONFIG_H

@@ -43,7 +43,6 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <ARX/ARUtil/android.h> // PROP_VALUE_MAX
 #include <camera/NdkCameraDevice.h>
 #include <camera/NdkCameraError.h>
 #include <camera/NdkCameraManager.h>
@@ -55,45 +54,34 @@ extern "C" {
 #endif
 
 typedef enum {
-    ARVideoAndroidIncomingPixelFormat_UNKNOWN,
-    ARVideoAndroidIncomingPixelFormat_NV21,
-    ARVideoAndroidIncomingPixelFormat_NV12,
-    ARVideoAndroidIncomingPixelFormat_RGBA,
-    ARVideoAndroidIncomingPixelFormat_RGB_565,
-    ARVideoAndroidIncomingPixelFormat_YUV_420_888,
-    ARVideoAndroidIncomingPixelFormat_MONO // Not official Android.
-} ARVideoAndroidIncomingPixelFormat;
-
-typedef enum {
     ARVideoAndroidCameraCaptureSessionState_READY = 0,  // session is ready
     ARVideoAndroidCameraCaptureSessionState_ACTIVE,     // session is busy
     ARVideoAndroidCameraCaptureSessionState_CLOSED,     // session is closed(by itself or a new session evicts)
     ARVideoAndroidCameraCaptureSessionState_MAX_STATE
 } ARVideoAndroidCameraCaptureSessionState;
 
+struct _size {
+    int32_t w;
+    int32_t h;
+};
+
 struct _AR2VideoParamAndroidT {
-    char               device_id[PROP_VALUE_MAX*3+2]; // From <sys/system_properties.h>. 3 properties plus separators.
+    char              *device_id;
+    char              *name;
     int                camera_index; // 0 = first camera, 1 = second etc.
     int                width;
     int                height;
     AR_PIXEL_FORMAT    pixelFormat;
     int                convertToRGBA;
-    float              focal_length; // metres.
+    float              focalLength; // metres.
     void             (*cparamSearchCallback)(const ARParam *, void *);
     void              *cparamSearchUserdata;
     AR2VideoBufferT    buffer;
     bool               native;
     bool               capturing; // Between capStart and capStop.
-    pthread_mutex_t    frameLock;  // Protects: capturing, pushInited, pushNewFrameReady.
+    pthread_mutex_t    frameLock;  // Protects: buffer, capturing.
     void             (*callback)(void *);
     void              *userdata;
-    // Pushed-video-only fields.
-    int                camera_face; // 0 = camera is rear facing, 1 = camera is front facing.
-    bool               pushInited; // videoPushInit called.
-    pthread_cond_t     pushInitedCond; // At least one frame received.
-    bool               pushNewFrameReady; // New frame ready since last arVideoGetImage.
-    ARVideoAndroidIncomingPixelFormat androidIncomingPixelFormat;
-    // Native-only fields:
     int                position;
     volatile bool      cameraReady_;
     bool               cameraAvailable_;
@@ -118,6 +106,8 @@ struct _AR2VideoParamAndroidT {
     ACameraCaptureSession* captureSession_;
     ARVideoAndroidCameraCaptureSessionState cameraCaptureSessionState;
     int                captureRequestSessionSequenceId_;
+    int                sizesCount;
+    struct _size      *sizes;
 };
 
 #ifdef  __cplusplus

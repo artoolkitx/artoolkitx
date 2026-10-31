@@ -1,15 +1,15 @@
 var searchData=
 [
   ['z_5fbufsize_0',['Z_BUFSIZE',['../zip_8c.html#a1491823e6cf52e751120f367bdc68a00',1,'zip.c']]],
-  ['z_5fbzip2ed_1',['Z_BZIP2ED',['../unzip_8h.html#ada7b1ad37b9026b52c9f7b10daf448d1',1,'Z_BZIP2ED():&#160;unzip.h'],['../zip_8h.html#ada7b1ad37b9026b52c9f7b10daf448d1',1,'Z_BZIP2ED():&#160;zip.h']]],
+  ['z_5fbzip2ed_1',['Z_BZIP2ED',['../unzip_8h.html#ada7b1ad37b9026b52c9f7b10daf448d1',1,'Z_BZIP2ED:&#160;unzip.h'],['../zip_8h.html#ada7b1ad37b9026b52c9f7b10daf448d1',1,'Z_BZIP2ED:&#160;zip.h']]],
   ['zcallback_2',['ZCALLBACK',['../ioapi_8h.html#aace96475a6dd2915bc55bc542d7aa8a5',1,'ioapi.h']]],
   ['zclose64_3',['ZCLOSE64',['../ioapi_8h.html#ac4ed0148a82154111eb1671549b50c38',1,'ioapi.h']]],
   ['zdecode_4',['zdecode',['../crypt_8h.html#a2ac0d8ec3c867c44d730a188d8b0418e',1,'crypt.h']]],
   ['zencode_5',['zencode',['../crypt_8h.html#ab9d6a91abe3a1127f8b5476ba9ee9316',1,'crypt.h']]],
   ['zero_6',['ZERO',['../m_self_inv_8c.html#ac328e551bde3d39b6d7b8cc9e048d941',1,'mSelfInv.c']]],
   ['zerror64_7',['ZERROR64',['../ioapi_8h.html#a4c4816968d9e57a9e916bafe96dd7157',1,'ioapi.h']]],
-  ['zip64endheadermagic_8',['ZIP64ENDHEADERMAGIC',['../unzip_8c.html#a2eaf0b0d00af51ea85626bc8ebb1d0a6',1,'ZIP64ENDHEADERMAGIC():&#160;unzip.c'],['../zip_8c.html#a2eaf0b0d00af51ea85626bc8ebb1d0a6',1,'ZIP64ENDHEADERMAGIC():&#160;zip.c']]],
-  ['zip64endlocheadermagic_9',['ZIP64ENDLOCHEADERMAGIC',['../unzip_8c.html#af98a91c14cd4ab92931438c0c4f72341',1,'ZIP64ENDLOCHEADERMAGIC():&#160;unzip.c'],['../zip_8c.html#af98a91c14cd4ab92931438c0c4f72341',1,'ZIP64ENDLOCHEADERMAGIC():&#160;zip.c']]],
+  ['zip64endheadermagic_8',['ZIP64ENDHEADERMAGIC',['../unzip_8c.html#a2eaf0b0d00af51ea85626bc8ebb1d0a6',1,'ZIP64ENDHEADERMAGIC:&#160;unzip.c'],['../zip_8c.html#a2eaf0b0d00af51ea85626bc8ebb1d0a6',1,'ZIP64ENDHEADERMAGIC:&#160;zip.c']]],
+  ['zip64endlocheadermagic_9',['ZIP64ENDLOCHEADERMAGIC',['../unzip_8c.html#af98a91c14cd4ab92931438c0c4f72341',1,'ZIP64ENDLOCHEADERMAGIC:&#160;unzip.c'],['../zip_8c.html#af98a91c14cd4ab92931438c0c4f72341',1,'ZIP64ENDLOCHEADERMAGIC:&#160;zip.c']]],
   ['zip_5fbadzipfile_10',['ZIP_BADZIPFILE',['../zip_8h.html#ac2eb83690692851093eb62ebb3744a64',1,'zip.h']]],
   ['zip_5feof_11',['ZIP_EOF',['../zip_8h.html#a37f7be5934cbc943c836174e44fd4df1',1,'zip.h']]],
   ['zip_5ferrno_12',['ZIP_ERRNO',['../zip_8h.html#a94d5d490eddae7316ed282729fdc4bf2',1,'zip.h']]],

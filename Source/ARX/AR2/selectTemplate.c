@@ -99,7 +99,7 @@ int ar2GetResolution2( const ARParam *cparam, const float  trans[3][4], const fl
         h  = trans[2][0] * mx + trans[2][1] * my + trans[2][3];
         x0 = hx / h;
         y0 = hy / h;
-        
+
         mx = pos[0] + 10.0F;
         my = pos[1];
         hx = trans[0][0] * mx + trans[0][1] * my + trans[0][3];
@@ -107,7 +107,7 @@ int ar2GetResolution2( const ARParam *cparam, const float  trans[3][4], const fl
         h  = trans[2][0] * mx + trans[2][1] * my + trans[2][3];
         x1 = hx / h;
         y1 = hy / h;
-        
+
         mx = pos[0];
         my = pos[1] + 10.0F;
         hx = trans[0][0] * mx + trans[0][1] * my + trans[0][3];
@@ -143,7 +143,7 @@ int ar2SelectTemplate( AR2TemplateCandidateT *candidate, AR2TemplateCandidateT *
         dmax = 0.0f; j = -1;
         for( i = 0; candidate[i].flag != -1; i++ ) {
             if( candidate[i].flag != 0 ) continue;
-            if( candidate[i].sx < xsize/8 || candidate[i].sx > xsize*7/8 
+            if( candidate[i].sx < xsize/8 || candidate[i].sx > xsize*7/8
              || candidate[i].sy < ysize/8 || candidate[i].sy > ysize*7/8 ) continue;
 
             d = (candidate[i].sx - xsize/2)*(candidate[i].sx - xsize/2)
@@ -162,7 +162,7 @@ int ar2SelectTemplate( AR2TemplateCandidateT *candidate, AR2TemplateCandidateT *
         dmax = 0.0f; j = -1;
         for( i = 0; candidate[i].flag != -1; i++ ) {
             if( candidate[i].flag != 0 ) continue;
-            if( candidate[i].sx < xsize/8 || candidate[i].sx > xsize*7/8 
+            if( candidate[i].sx < xsize/8 || candidate[i].sx > xsize*7/8
              || candidate[i].sy < ysize/8 || candidate[i].sy > ysize*7/8 ) continue;
 
             d = (candidate[i].sx - pos[0][0])*(candidate[i].sx - pos[0][0])
@@ -181,7 +181,7 @@ int ar2SelectTemplate( AR2TemplateCandidateT *candidate, AR2TemplateCandidateT *
         dmax = 0.0f; j = -1;
         for( i = 0; candidate[i].flag != -1; i++ ) {
             if( candidate[i].flag != 0 ) continue;
-            if( candidate[i].sx < xsize/8 || candidate[i].sx > xsize*7/8 
+            if( candidate[i].sx < xsize/8 || candidate[i].sx > xsize*7/8
              || candidate[i].sy < ysize/8 || candidate[i].sy > ysize*7/8 ) continue;
 
             d = ((candidate[i].sx - pos[0][0])*(pos[1][1] - pos[0][1])
@@ -207,7 +207,7 @@ int ar2SelectTemplate( AR2TemplateCandidateT *candidate, AR2TemplateCandidateT *
         smax = 0.0f;
         for( i = 0; candidate[i].flag != -1; i++ ) {
             if( candidate[i].flag != 0 ) continue;
-            if( candidate[i].sx < xsize/8 || candidate[i].sx > xsize*7/8 
+            if( candidate[i].sx < xsize/8 || candidate[i].sx > xsize*7/8
              || candidate[i].sy < ysize/8 || candidate[i].sy > ysize*7/8 ) continue;
 
             pos[3][0] = candidate[i].sx;
@@ -277,7 +277,7 @@ int ar2SelectTemplate( AR2TemplateCandidateT *candidate, AR2TemplateCandidateT *
         }
         if( j == 0 ) return -1;
 
-        k = (int)((float )j * rand() / (RAND_MAX + 1.0F));
+        k = (int)((float )j * (float)rand() / ((float)RAND_MAX + 1.0f));
         for( i = j = 0; candidate[i].flag != -1; i++ ) {
             if( candidate[i].flag != 0 ) continue;
             if( j == k ) {

@@ -1,0 +1,4 @@
+<map id="arUtilGetOSVersion" name="arUtilGetOSVersion">
+<area shape="rect" id="Node000001" title="Get a string holding a descriptive name of current operating system version." alt="" coords="5,29,142,55"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="50,29,45,21,48,11,58,5,74,3,90,5,100,14,95,14,88,10,73,8,60,10,52,14,51,20,55,29"/>
+</map>

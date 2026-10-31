@@ -91,7 +91,7 @@ private:
 		WAITING_FOR_VIDEO,				///< Waiting for video source to become ready.
 		DETECTION_RUNNING				///< Video running, additional initialisation occurred, tracking running.
 	} ARToolKitState;
-    
+
 	ARToolKitState state;				///< Current state of operation, progress through initialisation
     bool stateWaitingMessageLogged;
 
@@ -104,71 +104,43 @@ private:
     AR2VideoTimestampT m_updateFrameStamp0;
     AR2VideoTimestampT m_updateFrameStamp1;
     ARVideoView *m_arVideoViews[2];
-    
-    std::vector<ARTrackable *> m_trackables;    ///< List of trackables.
 
-    bool doSquareMarkerDetection;
     std::shared_ptr<ARTrackerSquare> m_squareTracker;
 #if HAVE_NFT
-    bool doNFTMarkerDetection;
     std::shared_ptr<ARTrackerNFT> m_nftTracker;
 #endif
 #if HAVE_2D
-    bool doTwoDMarkerDetection;
     std::shared_ptr<ARTracker2d> m_twoDTracker;
 #endif
+
     int m_error;
     void setError(int error);
-    
-#pragma mark Private methods.
-    // ------------------------------------------------------------------------------
-    // Private methods.
-    // ------------------------------------------------------------------------------
-
-    //
-    // Internal trackable management.
-    //
-    
-	/**
-	 * Adds a trackable to the collection.
-	 * @param trackable	The trackable to add
-	 * @return			true if the trackable was added successfully, otherwise false
-	 */
-	bool addTrackable(ARTrackable* trackable);
-
-	/**
-	 * Removes the specified trackable.
-	 * @param trackable		The trackable to remove
-	 * @return				true if the trackable was removed, false if an error occurred.
-	 */
-	bool removeTrackable(ARTrackable* trackable);
-	
 
 public:
 #pragma mark Public API
     // ------------------------------------------------------------------------------
     // Public API
     // ------------------------------------------------------------------------------
-    
+
     /**
 	 * Constructor.
 	 */
 	ARController();
-    
+
 	/**
 	 * Destructor.
 	 */
 	~ARController();
-	
+
 	/**
 	 * Returns a string containing the artoolkitX version, such as "10.0.0".
 	 * @return		The artoolkitX version
 	 */
 	const char* getARToolKitVersion();
-    
+
     int getError();
-    
-	/** 
+
+	/**
 	 * Start trackable management so trackables can be added and removed.
      * @return       true if initialisation was OK, false if an error occured.
 	 */
@@ -188,7 +160,7 @@ public:
 	 * @return  true if adding a trackable is currently possible
 	 */
 	bool isInited();
-    
+
 	/**
 	 * Start video capture and tracking. (AR/NFT initialisation will begin on a subsequent call to update().)
 	 * @param vconf			Video configuration string.
@@ -198,7 +170,7 @@ public:
 	 * @return				true if video capture and tracking was started, otherwise false.
 	 */
 	bool startRunning(const char* vconf, const char* cparaName, const char* cparaBuff, const long cparaBuffLen);
-	
+
 	/**
 	 * Start stereo video capture and tracking. (AR/NFT initialisation will begin on a subsequent call to update().)
 	 * @param vconfL		Video configuration string for the "left" video source.
@@ -218,35 +190,33 @@ public:
                             const char* vconfR, const char* cparaNameR, const char* cparaBuffR, const long cparaBuffLenR,
                             const char* transL2RName, const char* transL2RBuff, const long transL2RBuffLen);
 
-#if ARX_TARGET_PLATFORM_ANDROID
-    jint androidVideoPushInit(JNIEnv *env, jobject obj, jint videoSourceIndex, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face);
-    jint androidVideoPush1(JNIEnv *env, jobject obj, jint videoSourceIndex, jbyteArray buf, jint bufSize);
-    jint androidVideoPush2(JNIEnv *env, jobject obj, jint videoSourceIndex,
-                           jobject buf0, jint buf0PixelStride, jint buf0RowStride,
-                           jobject buf1, jint buf1PixelStride, jint buf1RowStride,
-                           jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                           jobject buf3, jint buf3PixelStride, jint buf3RowStride);
-    jint androidVideoPushFinal(JNIEnv *env, jobject obj, jint videoSourceIndex);
-#endif
-    
+    int videoPushInit(int videoSourceIndex, int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition);
+    int videoPush(int videoSourceIndex,
+                  ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
+                  ARUint8 *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
+                  ARUint8 *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
+                  ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
+                  PFN_VIDEOPUSHRELEASECALLBACK releaseCallback, void *releaseCallbackUserdata);
+    int videoPushFinal(int videoSourceIndex);
+
 	/**
 	 * Reports width, height and pixel format of a video source.
      * To retrieve the size (in bytes) of each pixel, use arUtilGetPixelSize(*pixelFormat);
      * To get a C-string with the name of the pixel format, use arUtilGetPixelFormatName(*pixelFormat);
-	 * @param videoSourceIndex Index into an array of video sources, specifying which source should be queried.
+	 * @param videoSourceIndex 0-based index into an array of video sources, specifying which source should be queried.
      * @param width Pointer to an int which will be filled with the width (in pixels) of the video frame, or NULL if this information is not required.
      * @param height Pointer to an int which will be filled with the height (in pixels) of the video frame, or NULL if this information is not required.
      * @param pixelFormat Pointer to an AR_PIXEL_FORMAT which will be filled with the pixel format of the video frame, or NULL if this information is not required.
 	 * @return		true if the video source(s) is/are open and returning frames, otherwise false.
 	 */
     bool videoParameters(const int videoSourceIndex, int *width, int *height, AR_PIXEL_FORMAT *pixelFormat);
-    
+
 	/**
 	 * Returns true if video capture and tracking is running.
 	 * @return		true if the video source(s) is/are open and returning frames, otherwise false.
 	 */
 	bool isRunning();
-    
+
     /**
 	 * Video capture and tracking stops, but trackables are still valid and can be configured.
 	 * @return				true if video capture and tracking was stopped, otherwise false.
@@ -271,15 +241,58 @@ public:
      * @return            true if the projection matrix has been computed, otherwise false
      */
     bool projectionMatrix(const int videoSourceIndex, const ARdouble projectionNearPlane, const ARdouble projectionFarPlane, ARdouble proj[16]);
-    
+
+    /**
+     * Populates the provided array with the ARToolKit projection matrix, so that the projection maps
+     * to the provided viewport dimensions using the provided scaling mode. The projection matrix is computed
+     * once the video source has been opened, and camera parameters become available. If this method is called
+     * before this happens, then the passed array is untouched and the method will return false.
+     * @param videoSourceIndex Index into an array of video sources, specifying which source should be queried.
+     * @param viewportSize width and height of the viewport to which the projection is to be fitted.
+     * @param scalingMode Whether the camera projection should completely fill, completely fit within, stratch, or map 1:1 to the viewport.
+     * @param projectionNearPlane Near plane distance for projection matrix calculation.
+     * @param projectionFarPlane Far plane distance for projection matrix calculation.
+     * @param proj        Array to populate with OpenGL compatible projection matrix
+     * @return            true if the projection matrix has been computed, otherwise false
+     */
+    bool projectionForViewportSizeAndFittingMode(const int videoSourceIndex, const ARVideoSource::Size viewportSize, const ARVideoSource::ScalingMode scalingMode, const ARdouble projectionNearPlane, const ARdouble projectionFarPlane, ARdouble proj[16]);
+
+    /**
+     * Initialise an ARVideoView for drawing a video source's frame. Requires a current graphics context.
+     * @param videoSourceIndex The 0-based index of the video source.
+     * @return true if successful, false in case of error.
+    */
     bool drawVideoInit(const int videoSourceIndex);
-    
+
+    /**
+     * Sets drawing parameters for an ARVideoView for drawing a video source's frame into a graphics buffer of specified size using specified position and mode, and returns the viewport required in graphics context units. Requires a current graphics context.
+     * @param videoSourceIndex The 0-based index of the video source.
+     * @param width width of the graphics context into which the frame will be drawn, in pixels.
+     * @param height height of the graphics context into which the frame will be drawn, in pixels.
+     * @param rotate90 If true, rotate the video frame anticlockwise by 90 degrees,
+     * @param flipH If true, flip the video frame horizontally (i.e. mirror about the vertical axis).
+     * @param hAlign Whether to left-align, centre, or right-align the video frame.
+     * @param vAlign Whether to top-align, centre, or bottom-align the video frame.
+     * @param scalingMode Whether to fit, fill or draw unscaled. In fit mode, undrawn regions may appear above and below or left and right of the frame if it has a dfferent aspect ratio to the graphics context. In fill mode, the graphics context will be entirely filled, but some of the video frame may be cropped top and bottom or left and right if it has a dfferent aspect ratio to the graphics context.
+     * @param viewport (Output). If the resulting viewport is required, set this to a pointer to an array of 4 int32, which will be filled with the origin lower-left x and y coordinates, and the width and height of the viewport, all in pixels. Note that the viewport origin x or y values may be negative depending on alignment and positioning of the video frame.
+     * @return true if the settings were successfully set, false in case of error.
+     */
     bool drawVideoSettings(const int videoSourceIndex, const int width, const int height, const bool rotate90, const bool flipH, const bool flipV, const ARVideoView::HorizontalAlignment hAlign, const ARVideoView::VerticalAlignment vAlign, const ARVideoView::ScalingMode scalingMode, int32_t viewport[4]);
-    
+
+    /**
+     * Use an ARVideoView to draw a video source's frame into the graphics buffer. Requires a current graphics context.
+     * @param videoSourceIndex The 0-based index of the video source.
+     * @return true if successful, false in case of error.
+    */
     bool drawVideo(const int videoSourceIndex);
-    
+
+    /**
+     * Finalise an ARVideoView. Requires a current graphics context.
+     * @param videoSourceIndex The 0-based index of the video source.
+     * @return true if successful, false in case of error.
+    */
     bool drawVideoFinal(const int videoSourceIndex);
-    
+
 	/**
 	 * Adds a trackable as specified in the given configuration string. The format of the string can be
 	 * one of:
@@ -302,7 +315,7 @@ public:
 	 * @return				true if the trackable was removed, false if an error occurred.
 	 */
 	bool removeTrackable(int UID);
-	
+
 	/**
 	 * Clears the collection of trackables.
 	 * @return				The number of trackables removed
@@ -320,28 +333,30 @@ public:
      * @return                The number of currently loaded trackables.
      */
     unsigned int countTrackables(ARTrackable::TrackableType trackableType) const;
-    
+
     /**
-     * Returns the trackable at the specified index.
-     * @param index           0-based index into the array of trackables.
-     * @return                The trackable, or NULL if no trackable exists at that index.
+     * Returns all trackables.
+     * @return                A vector of shared pointers to the trackables.
      */
-    ARTrackable* getTrackableAtIndex(unsigned int index);
-    
+    std::vector<std::shared_ptr<ARTrackable>> getAllTrackables();
+
     /**
-     * Searches the collection of trackables for the given ID.
-     * @param UID             The UID of the trackables to find
-     * @return                The found trackable, or NULL if no matching UID was found.
+     * Searches the collection of trackables for the given ID. Once the trackable has been found,
+     * its parameters such as whether it is currently tracked and its pose can be queried, or configuration
+     * of the trackable can be changed.
+     * @param UID             The UID of the trackable to find
+     * @return                The found trackable, or null pointer if no matching UID was found.
+     * @see ARTrackable.
      */
-    ARTrackable* findTrackable(int UID);
-	
+    std::shared_ptr<ARTrackable> findTrackable(int UID);
+
     /**
      * Requests the capture of a new frame from the video source(s).
      * In the case of stereo video sources, capture from both sources will be attempted.
      * @return                The capture succeeded, or false if no frame was captured.
      */
     bool capture();
-    
+
     /**
      * Asks the video source to push the most recent frame into the passed-in buffer.
      * @param videoSourceIndex Index into an array of video sources, specifying which source should
@@ -351,13 +366,13 @@ public:
      *      RGBA in little-endian systems, or ABGR in big-endian systems.
      */
     bool updateTextureRGBA32(const int videoSourceIndex, uint32_t *buffer);
-    
+
 	/**
-	 * Performs tracking and updates all trackables. The latest frame from the current 
+	 * Performs tracking and updates all trackables. The latest frame from the current
 	 * video source is retrieved and analysed. Each trackable in the collection is updated with
 	 * new tracking information. The trackable info array is
 	 * iterated over, and detected trackables are matched up with those in the trackable collection. Each matched
-	 * trackable is updated with visibility and transformation information. Any trackables not detected are considered 
+	 * trackable is updated with visibility and transformation information. Any trackables not detected are considered
 	 * not currently visible.
      *
 	 * @return				true if update completed successfully, false if an error occurred
@@ -381,7 +396,7 @@ public:
 	 * @return				true if successful, false if an error occurred
 	 */
 	bool getPatternImage(int patternID, uint32_t* buffer);
-    
+
 	/**
 	 * Loads an optical parameters structure from file or from buffer.
      *
@@ -406,8 +421,8 @@ public:
      *      projectionFarPlane.
      */
     bool loadOpticalParams(const char *optical_param_name, const char *optical_param_buff, const long optical_param_buffLen, const ARdouble projectionNearPlane, const ARdouble projectionFarPlane, ARdouble *fovy_p, ARdouble *aspect_p, ARdouble m[16], ARdouble p[16]);
-    
-    
+
+
 #if HAVE_2D
     /**
      * Loads a 2d image database.

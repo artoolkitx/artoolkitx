@@ -7,13 +7,13 @@
 6. [Next Steps](#next-steps)
 
 ## macOS
-* For development, Xcode 14 on Mac OS 12.5 or later is required (destination Macs running mac OS 10.13 are supported).
+* For development, Xcode 14 on Mac OS 12.5 or later is required (destination Macs running macOS 12.0 or later are supported).
 * Open `Examples` for double-clickable example apps.
 * Xcode project for each example is in `Examples/*example name*/macOS`.
 * To rebuild the SDK and examples for macOS, in Terminal navigate to `Source` and execute the command `./build.sh macos examples`
 
 ## iOS 
-* For development, Xcode 14 on Mac OS 12.5 or later, and an iOS device running iOS 11.0 or later is required.
+* For development, Xcode 14 on Mac OS 12.5 or later, and an iOS device running iOS 15.0 or later is required.
 * Open `Examples`. Because apps must be signed for your iOS device, no prebuilt app is provided.
 * Xcode project for each example is in `Examples/*example name*/iOS`.
     1. Open the Xcode project.
@@ -38,7 +38,7 @@
 * To rebuild the SDK and examples for Linux, in a terminal navigate to `Source` and execute the command `./build.sh linux examples`
 
 ## Android
-* Android Studio 2021 or later with NDK release 21 or later, and an Android device running Android 7.0 or later is required.
+* Android Studio 2021 or later with NDK release 21 or later, and an Android device running Android 7.0 (API level 24) or later is required. Defaults to looking for NDK release 26.1.10909125.
 * Open `Examples` for prebuilt .apks. These may be installed on your device via `adb install *example name*.apk` where EXAMPLE is the example name.
 * An Android Studio project for each example is in `Examples/*example name*/Android`.
 * To rebuild the SDK and examples for Android, in a terminal navigate to `Source` and execute the command `./build.sh android examples`
@@ -48,6 +48,9 @@
 * Open `Examples` for double-clickable example apps.
 * Visual Studio project for each example is in `Examples/*example name*/Windows`. 
 * To rebuild the SDK and examples for Windows, using a bash shell provided by either git-bash, Windows Subsystem for Linux, or Cygwin, navigate to `Source` and execute the command `./build.sh windows examples`
+
+## Emscripten
+* Emscripten v3.1.38 (same version as Unity 2023 Web Player and later.)
 
 ## Next steps
 

@@ -13,6 +13,5 @@ var searchData=
   ['arg_5fapi_10',['ARG_API',['../arg_8h.html#a2549451f9c65b1d09329b05117974ff6',1,'arg.h']]],
   ['artrackertype_11',['ARTrackerType',['../_a_r_tracker_8h.html#a8bf0a7083fdde8719dc5151b228b6965',1,'ARTracker.h']]],
   ['arvideoandroidcameracapturesessionstate_12',['ARVideoAndroidCameraCaptureSessionState',['../video_android_private_8h.html#ac83596b32e9a01677d7ed1346d6f66e0',1,'videoAndroidPrivate.h']]],
-  ['arvideoandroidincomingpixelformat_13',['ARVideoAndroidIncomingPixelFormat',['../video_android_private_8h.html#a2ddd0af282a5b5df7eb5be27b3d71e49',1,'videoAndroidPrivate.h']]],
-  ['arvideosizepreference_14',['ARVideoSizePreference',['../video_8h.html#aaa5664fa50d07cfa7ee6a36b76c22337',1,'video.h']]]
+  ['arvideosizepreference_13',['ARVideoSizePreference',['../video_8h.html#aaa5664fa50d07cfa7ee6a36b76c22337',1,'video.h']]]
 ];

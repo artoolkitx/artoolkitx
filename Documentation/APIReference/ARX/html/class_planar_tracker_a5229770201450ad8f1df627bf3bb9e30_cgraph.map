@@ -1,0 +1,14 @@
+<map id="PlanarTracker::operator=" name="PlanarTracker::operator=">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,128,171,154"/>
+<area shape="rect" id="Node000002" href="$class_planar_tracker.html#a397e7f570d02c23bf58677708632c698" title=" " alt="" coords="244,5,417,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,126,149,83,182,60,218,40,235,35,231,38,220,45,185,64,153,87,104,130"/>
+<area shape="rect" id="Node000003" href="$class_planar_tracker.html#a937baa4fd9d74fa8d9ad8b8d39605e5e" title="Initialise the tracker with the supplied camera parameters." alt="" coords="251,79,410,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="154,125,251,106,247,110,156,130"/>
+<area shape="rect" id="Node000004" href="$class_planar_tracker.html#a93127fa03804a7edbe2d971ee7720ba5" title=" " alt="" coords="235,128,426,154"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="171,138,221,140,217,142,172,143"/>
+<area shape="rect" id="Node000005" href="$class_planar_tracker.html#a58bfd995710218bb03750b35abafb22b" title="Perform tracking on a single frame of video." alt="" coords="219,177,442,203"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="155,152,251,172,247,175,155,157"/>
+<area shape="rect" id="Node000006" href="$class_planar_tracker.html#a087c4cd7dfedea291b5a666049d208ac" title=" " alt="" coords="243,227,418,268"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="110,152,159,182,220,213,237,222,232,222,218,218,157,187,109,157"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="290,78,282,70,287,60,303,54,330,52,360,55,377,64,372,65,359,60,330,57,305,59,291,64,288,69,295,79"/>
+</map>

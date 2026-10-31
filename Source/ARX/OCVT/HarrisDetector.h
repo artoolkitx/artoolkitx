@@ -46,9 +46,9 @@ private:
     cv::TermCriteria _termcrit;
     
 public:
-    HarrisDetector();
+    OCV_EXTERN HarrisDetector();
     
-    std::vector<cv::Point2f> FindCorners(cv::Mat gray);
+    OCV_EXTERN std::vector<cv::Point2f> FindCorners(cv::Mat gray);
 };
 
 #endif

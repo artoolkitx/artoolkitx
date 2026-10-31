@@ -43,6 +43,7 @@
 #include <ARX/ARVideo/video.h>
 
 #include <mutex>
+#include <string>
 #include <pthread.h>
 
 /**
@@ -69,6 +70,7 @@ private:
     char* cameraParamBuffer;
     size_t cameraParamBufferLen;
     ARParamLT *cparamLT;                ///< Camera paramaters
+    ARParam cparamAdjusted;             ///< Adjusted camera parameters (no lookup table).
 
     char* videoConfiguration;           ///< Video configuration string
 
@@ -128,6 +130,34 @@ public:
         @return  The camera parameters, if some are available, or NULL if no parameters are available.
      */
     ARParamLT* getCameraParameters() const;
+
+    struct Size {
+        int width;
+        int height;
+    };
+    
+    enum class ScalingMode {
+        SCALE_MODE_STRETCH,
+        SCALE_MODE_FIT,
+        SCALE_MODE_FILL,
+        SCALE_MODE_1_TO_1
+    };
+
+    static const std::string ScalingModeName(const ScalingMode scalingMode)
+    {
+       switch (scalingMode) {
+            case ScalingMode::SCALE_MODE_STRETCH: return "stretch";
+            case ScalingMode::SCALE_MODE_FIT: return "fit";
+            case ScalingMode::SCALE_MODE_FILL: return "fill";
+            case ScalingMode::SCALE_MODE_1_TO_1: return "1 to 1";
+            default: return "";
+        }
+    }
+
+    /**
+        @brief Adjust camera parameters to fit an output viewport of given size, using fitting and alignment.
+     */
+    ARParam* getCameraParametersForViewportSizeAndFittingMode(const Size viewportSize, const ScalingMode scalingMode);
 
     /**
         @brief Returns the width of the video in pixels.
@@ -211,16 +241,13 @@ public:
      */
     bool getFrameTextureRGBA32(uint32_t *buffer);
     
-#if ARX_TARGET_PLATFORM_ANDROID
-    jint androidVideoPushInit(JNIEnv *env, jobject obj, jint width, jint height, const char *pixelFormat, jint camera_index, jint camera_face);
-    jint androidVideoPush1(JNIEnv *env, jobject obj, jbyteArray buf, jint bufSize);
-    jint androidVideoPush2(JNIEnv *env, jobject obj,
-                           jobject buf0, jint buf0PixelStride, jint buf0RowStride,
-                           jobject buf1, jint buf1PixelStride, jint buf1RowStride,
-                           jobject buf2, jint buf2PixelStride, jint buf2RowStride,
-                           jobject buf3, jint buf3PixelStride, jint buf3RowStride);
-    jint androidVideoPushFinal(JNIEnv *env, jobject obj);
-#endif
+    int videoPushInit(int width, int height, const char *pixelFormat, int cameraIndex, int cameraPosition);
+    int videoPush(ARUint8 *buf0p, int buf0Size, int buf0PixelStride, int buf0RowStride,
+                  ARUint8 *buf1p, int buf1Size, int buf1PixelStride, int buf1RowStride,
+                  ARUint8 *buf2p, int buf2Size, int buf2PixelStride, int buf2RowStride,
+                  ARUint8 *buf3p, int buf3Size, int buf3PixelStride, int buf3RowStride,
+                  PFN_VIDEOPUSHRELEASECALLBACK releaseCallback, void *releaseCallbackUserdata);
+    int videoPushFinal(void);
 
 };
 

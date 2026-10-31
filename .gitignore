@@ -6,7 +6,10 @@ Examples/*.exe
 
 ### Packaging
 Source/packaging/linux/cpack/
+Source/packaging/linux/package/
+Source/packaging/emscripten/package/
 *.deb
+*.dmg
 
 #### OS-generated caches and resources
 .DS_Store
@@ -38,11 +41,10 @@ ipch/
 
 #### IDE user-config.
 # Android Studio
-*.iml
 **/.gradle/
 **/.idea/caches
+**/.idea/deploymentTargetDropDown.xml
 **/.idea/libraries
-**/.idea/modules.xml
 **/.idea/workspace.xml
 **/.idea/navEditor.xml
 **/.idea/assetWizardSettings.xml
@@ -59,6 +61,7 @@ local.properties
 *.user
 *.userosscache
 *.sln.docstates
+.vscode/settings.json
 
 # Xcode
 xcuserdata/
@@ -69,4 +72,8 @@ xcuserdata/
 
 #### Other VCS
 .svn/
-*.dmg
+
+# Coding agents.
+.claude/settings.local.json
+
+### Other files to ignore

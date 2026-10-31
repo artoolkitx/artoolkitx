@@ -43,6 +43,7 @@
 #define _GNU_SOURCE   // asprintf()/vasprintf() on Linux.
 #include <stdio.h>
 #include <string.h> // strdup/_strdup
+#include <stdlib.h>
 #if defined(_WIN32)
 #  include <Windows.h>
 #elif defined(__APPLE__)
@@ -59,7 +60,7 @@
 #    import <CoreServices/CoreServices.h> // Gestalt()
 #  endif
 #elif defined(ANDROID)
-#  include <ARX/ARUtil/android.h>
+#  include <ARX/ARUtil/android.h> // PROP_VALUE_MAX
 #elif defined(__linux)
 #  include <sys/utsname.h> // uname()
 #endif
@@ -225,4 +226,41 @@ char *arUtilGetModulePath(void)
     }
     return (strdup(info.dli_fname));
 #endif
+}
+
+char *arUtilGetDeviceID()
+{
+    char *ret = NULL;
+#if defined(__APPLE___)
+#  if TARGET_OS_IOS
+    NSString *deviceType = [UIDevice currentDevice].model;
+    char *machine = NULL;
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    arMalloc(machine, char, size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    asprintf(&vid->device_id, "apple/%s/%s", [deviceType UTF8String], machine);
+    free(machine);
+#  elif TARGET_OS_OSX
+    char *model = NULL;
+    size_t size;
+    sysctlbyname("hw.model", NULL, &size, NULL, 0);
+    arMalloc(model, char, size);
+    sysctlbyname("hw.model", model, &size, NULL, 0);
+    asprintf(&vid->device_id, "apple/Mac/%s", [deviceType UTF8String], model);
+    free(model);
+#  endif
+#elif defined(ANDROID)
+    // Handset ID, via <sys/system_properties.h>.
+    ret = (char *)calloc(1, PROP_VALUE_MAX*3+2); // From <sys/system_properties.h>. 3 properties plus separators.
+    int len;
+    len = android_system_property_get(ANDROID_OS_BUILD_MANUFACTURER, ret); // len = (int)strlen(device_id).
+    ret[len] = '/';
+    len++;
+    len += android_system_property_get(ANDROID_OS_BUILD_MODEL, ret + len);
+    ret[len] = '/';
+    len++;
+    len += android_system_property_get(ANDROID_OS_BUILD_BOARD, ret + len);
+#endif
+    return ret;
 }

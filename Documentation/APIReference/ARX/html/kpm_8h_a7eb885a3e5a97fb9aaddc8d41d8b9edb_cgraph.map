@@ -1,0 +1,39 @@
+<map id="kpmSetMatchingSkipPage" name="kpmSetMatchingSkipPage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,289,181,315"/>
+<area shape="poly" id="edge23_Node000001_Node000001" title=" " alt="" coords="55,290,48,281,52,271,68,265,93,263,121,265,136,273,132,276,120,270,93,268,69,270,56,275,53,280,60,288"/>
+<area shape="rect" id="Node000002" href="$kpm_ref_data_set_8cpp.html#a1b3cf93133a489bf0fd806bf006606df" title=" " alt="" coords="253,91,391,116"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,288,147,215,183,171,227,133,254,120,250,124,230,138,187,175,151,218,104,290"/>
+<area shape="rect" id="Node000003" href="$kpm_ref_data_set_8cpp.html#a407d3bb03723942b6069f37e5cbb61a6" title=" " alt="" coords="469,29,608,55"/>
+<area shape="poly" id="edge11_Node000001_Node000003" title=" " alt="" coords="94,288,106,241,130,175,148,140,170,107,196,76,227,52,256,37,286,27,349,17,411,17,468,25,463,27,410,22,349,22,287,32,258,42,230,56,200,80,174,110,152,143,135,177,111,242,99,289"/>
+<area shape="rect" id="Node000005" href="$kpm_ref_data_set_8cpp.html#a0f8fd6b50798c10cae484646a6dc7477" title="Merge a second KPM dataset into the first, and dispose of second." alt="" coords="463,116,614,142"/>
+<area shape="poly" id="edge22_Node000001_Node000005" title=" " alt="" coords="102,287,152,233,187,202,227,177,282,156,339,141,396,132,450,129,445,131,396,138,340,146,284,161,230,182,190,206,155,236,107,290"/>
+<area shape="rect" id="Node000007" href="$kpm_result_8cpp.html#a9a80cd4cedad3427391fe8cbfd99ea28" title=" " alt="" coords="259,216,385,242"/>
+<area shape="poly" id="edge12_Node000001_Node000007" title=" " alt="" coords="127,286,228,250,253,245,249,248,229,255,130,291"/>
+<area shape="rect" id="Node000008" href="$kpm_result_8cpp.html#a33560cd480a0a045690f2fad5cfa2638" title=" " alt="" coords="243,289,401,315"/>
+<area shape="poly" id="edge14_Node000001_Node000008" title=" " alt="" coords="180,300,229,301,225,304,182,305"/>
+<area shape="rect" id="Node000009" href="$kpm_result_8cpp.html#a01862e7ced0f52260c4556014ece5dc8" title=" " alt="" coords="273,363,370,388"/>
+<area shape="poly" id="edge16_Node000001_Node000009" title=" " alt="" coords="136,313,266,356,262,359,136,318"/>
+<area shape="rect" id="Node000010" href="$kpm_result_8cpp.html#ab1363e86aa9cb8c3a17f34e8c2cdfb8a" title=" " alt="" coords="254,436,390,462"/>
+<area shape="poly" id="edge18_Node000001_Node000010" title=" " alt="" coords="111,313,164,353,230,399,281,428,276,429,227,403,161,357,111,318"/>
+<area shape="rect" id="Node000011" href="$kpm_result_8cpp.html#ab8f570593399c2e651903919bc14501a" title=" " alt="" coords="269,509,374,535"/>
+<area shape="poly" id="edge20_Node000001_Node000011" title=" " alt="" coords="102,313,152,386,189,431,230,472,276,502,271,503,227,476,185,435,148,390,101,318"/>
+<area shape="rect" id="Node000012" href="$kpm_matching_8cpp.html#a242c611991600c09310f838c78ea5811" title=" " alt="" coords="229,583,415,608"/>
+<area shape="poly" id="edge24_Node000001_Node000012" title=" " alt="" coords="99,313,117,358,143,418,182,485,205,517,230,546,250,561,272,576,267,575,247,565,227,549,201,520,177,488,139,421,112,360,98,318"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="285,91,279,82,283,72,298,66,322,64,348,67,363,75,358,77,347,72,322,69,299,71,287,76,284,81,291,90"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="369,88,478,58,474,61,372,92"/>
+<area shape="poly" id="edge7_Node000002_Node000005" title=" " alt="" coords="391,109,450,117,445,119,392,114"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="505,29,499,21,503,11,516,5,539,3,563,5,577,14,572,15,562,10,539,8,518,10,506,15,504,20,510,29"/>
+<area shape="rect" id="Node000004" href="$kpm_util_8cpp.html#a0a8b7d2275bb90bc5c935956be08f35b" title=" " alt="" coords="667,29,811,55"/>
+<area shape="poly" id="edge5_Node000003_Node000004" title=" " alt="" coords="608,40,654,41,649,43,609,45"/>
+<area shape="poly" id="edge6_Node000004_Node000004" title=" " alt="" coords="705,29,699,21,703,11,717,5,739,3,764,5,778,14,772,15,762,10,739,8,718,10,707,15,704,20,710,29"/>
+<area shape="poly" id="edge10_Node000005_Node000005" title=" " alt="" coords="505,115,499,107,503,98,516,91,539,89,563,92,577,101,572,102,562,97,539,95,518,97,506,101,504,107,510,116"/>
+<area shape="rect" id="Node000006" href="$kpm_ref_data_set_8cpp.html#ae2afc1e3f2fce6618bf611b5043a9f30" title="Dispose of a reference data set and its allocated memory." alt="" coords="662,116,816,142"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="614,126,650,128,645,130,616,131"/>
+<area shape="poly" id="edge9_Node000006_Node000006" title=" " alt="" coords="705,115,699,107,703,98,717,91,739,89,764,92,778,101,772,101,762,97,739,95,718,97,707,101,704,107,710,116"/>
+<area shape="poly" id="edge13_Node000007_Node000007" title=" " alt="" coords="285,216,279,207,283,198,298,191,322,189,348,192,363,201,358,202,347,197,322,195,299,197,287,201,284,207,291,216"/>
+<area shape="poly" id="edge15_Node000008_Node000008" title=" " alt="" coords="285,289,279,281,283,271,298,265,322,263,348,265,363,274,358,275,347,270,322,268,299,270,287,275,284,280,291,289"/>
+<area shape="poly" id="edge17_Node000009_Node000009" title=" " alt="" coords="285,362,279,354,283,344,298,338,322,336,348,339,363,348,358,348,347,344,322,341,299,343,287,348,284,353,291,362"/>
+<area shape="poly" id="edge19_Node000010_Node000010" title=" " alt="" coords="285,435,279,427,283,418,298,411,322,409,348,412,363,421,358,421,347,417,322,415,299,417,287,421,284,427,291,436"/>
+<area shape="poly" id="edge21_Node000011_Node000011" title=" " alt="" coords="285,508,279,501,283,491,298,485,322,483,348,485,363,495,358,494,347,490,322,488,299,490,287,495,284,500,290,510"/>
+<area shape="poly" id="edge25_Node000012_Node000012" title=" " alt="" coords="285,581,279,574,283,564,298,558,322,556,348,559,363,568,358,568,347,564,322,561,299,563,287,568,284,573,290,583"/>
+</map>

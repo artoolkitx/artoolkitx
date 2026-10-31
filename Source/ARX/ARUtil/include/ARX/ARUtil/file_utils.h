@@ -99,6 +99,10 @@ ARUTIL_EXTERN char read_sn1(void);
 // Returns 0 in case of success, -1 in case of error and the error code in 'errno'.
 ARUTIL_EXTERN int export_(const char *name, const char *val);
 
+// Take sha1 of a file and return as lowercase hex string plus nul-terminator in sha1String, like 'shasum -a 1 -b'.
+// Returns 0 in case of success, -1 in case of error and the error code in 'errno'.
+ARUTIL_EXTERN int sha1(const char *filePath, char sha1String[41]);
+
 #ifdef __cplusplus
 }
 #endif

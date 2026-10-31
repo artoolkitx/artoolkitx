@@ -1,5 +1,6 @@
 <map id="ARTrackable::~ARTrackable" name="ARTrackable::~ARTrackable">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,196,56"/>
-<area shape="rect" id="node2" href="$ar_filter_trans_mat_8c.html#a52813489717ce82b433e44adfd3bc3dd" title="Finalise a filter." alt="" coords="260,5,405,31"/>
-<area shape="rect" id="node3" href="$class_a_r_trackable.html#aa425f1e3e1ba8d8b39ec6a34f8e2f403" title="Frees allocated patterns and resets the pattern count to zero." alt="" coords="244,55,421,80"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,195,55"/>
+<area shape="rect" id="Node000002" href="$ar_filter_trans_mat_8c.html#a52813489717ce82b433e44adfd3bc3dd" title="Finalise a filter." alt="" coords="243,29,387,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,40,230,42,225,42,195,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="279,28,272,21,276,11,291,5,315,3,341,5,356,15,351,14,340,10,315,8,292,10,280,15,277,20,284,30"/>
 </map>
