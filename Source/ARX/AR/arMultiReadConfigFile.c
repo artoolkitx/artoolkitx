@@ -81,6 +81,15 @@ ARMultiMarkerInfoT *arMultiReadConfigFile( const char *filename, ARPattHandle *p
         fclose(fp);
         return NULL;
     }
+    // The count comes from the file, not from the system: bound it before it
+    // reaches arMalloc. A negative value would be converted to a huge size_t,
+    // and an absurdly large one makes arMalloc abort on allocation failure.
+    if( num < 1 || num > 1024 ) {
+        ARLOGe("Error processing multimarker config file '%s': marker count %d out of range (1..1024).\n", filename, num);
+        fclose(fp);
+        return NULL;
+    }
+
     ARLOGd("Reading %d markers from multimarker file '%s'\n", num, filename);
 
     arMalloc(marker, ARMultiEachMarkerInfoT, num);
